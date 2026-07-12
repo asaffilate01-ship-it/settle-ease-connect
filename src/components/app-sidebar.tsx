@@ -10,7 +10,7 @@ type NavItem = {
   icon: Icon3DName;
   exact?: boolean;
   groupKey?: string;
-  requiresRole?: "admin";
+  requiresRole?: "admin" | "internal";
 };
 
 const nav: NavItem[] = [
@@ -22,8 +22,10 @@ const nav: NavItem[] = [
   { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers" },
   { to: "/app/assistant", labelKey: "sidebar.assistant", icon: "assistant" },
   { to: "/app/community", labelKey: "sidebar.community", icon: "community" },
-  { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal" },
-  { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal" },
+  { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal" },
+  { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal" },
+  { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal", requiresRole: "internal" },
+  { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal" },
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin" },
   { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings" },
@@ -34,7 +36,13 @@ export function AppSidebar() {
   const { t } = useTranslation();
   const { roles } = useCurrentUser();
   const isAdmin = roles.includes("admin");
-  const visibleNav = nav.filter((n) => !n.requiresRole || (n.requiresRole === "admin" && isAdmin));
+  const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
+  const visibleNav = nav.filter((n) => {
+    if (!n.requiresRole) return true;
+    if (n.requiresRole === "admin") return isAdmin;
+    if (n.requiresRole === "internal") return isInternal;
+    return false;
+  });
   return (
     <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
       <div className="flex h-16 items-center gap-2.5 border-b border-sidebar-border px-5">
