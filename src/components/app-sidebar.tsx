@@ -97,6 +97,7 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useTranslation();
   const { user, profile, roles, loading } = useCurrentUser();
+  const sub = useSubscription();
   const isAdmin = roles.includes("admin");
   const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
   const audience: Audience = isInternal ? "internal" : "client";
@@ -135,6 +136,8 @@ export function AppSidebar() {
         {visibleNav.map((n, i) => {
           const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
           const showGroupHeader = n.groupKey && visibleNav[i - 1]?.groupKey !== n.groupKey;
+          const locked = !isInternal && !!n.requiresTier && !sub.loading && !tierMeets(sub.planGroup, n.requiresTier);
+          const target = locked ? "/app/upgrade" : n.to;
           return (
             <div key={n.to}>
               {showGroupHeader && n.groupKey && (
@@ -143,22 +146,26 @@ export function AppSidebar() {
                 </div>
               )}
               <Link
-                to={n.to}
+                to={target}
                 className={`flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
                   active
                     ? "bg-sidebar-accent text-sidebar-primary"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+                    : locked
+                      ? "text-sidebar-foreground/50 hover:bg-sidebar-accent/40"
+                      : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
                 }`}
               >
                 <span className="grid h-7 w-7 shrink-0 place-items-center">
                   <Icon3D name={n.icon} alt="" />
                 </span>
-                {t(n.labelKey)}
+                <span className="flex-1">{t(n.labelKey, { defaultValue: n.labelKey.split(".").pop() })}</span>
+                {locked && <Lock className="h-3 w-3 opacity-70" />}
               </Link>
             </div>
           );
         })}
       </nav>
+
       <div className="space-y-3 border-t border-sidebar-border p-4">
         <LanguageSwitcher variant="sidebar" />
         <div className="rounded-xl bg-sidebar-accent/60 p-4 text-sm">
