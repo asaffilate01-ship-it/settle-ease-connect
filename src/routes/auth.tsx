@@ -167,11 +167,99 @@ function AuthPage() {
               </>
             )}
           </p>
+
+          <DevLoginPanel
+            disabled={loading}
+            onLogin={async (devEmail, devPassword) => {
+              setLoading(true);
+              const { error } = await supabase.auth.signInWithPassword({
+                email: devEmail,
+                password: devPassword,
+              });
+              if (error) {
+                toast.error(error.message);
+                setLoading(false);
+                return;
+              }
+              navigate({ to: target as "/app" });
+            }}
+          />
         </div>
       </main>
     </div>
   );
 }
+
+const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: string }[] = [
+  { email: "admin@beistand.de", role: "admin", label: "Admin", landing: "/portal" },
+  { email: "staff@beistand.de", role: "staff", label: "Staff", landing: "/portal" },
+  { email: "manager@beistand.de", role: "case_manager", label: "Case manager", landing: "/portal" },
+  { email: "expert@beistand.de", role: "expert", label: "Expert", landing: "/app" },
+  { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app" },
+];
+const DEV_PASSWORD = "B3ist4nd_2026_Pass";
+
+function DevLoginPanel({
+  disabled,
+  onLogin,
+}: {
+  disabled: boolean;
+  onLogin: (email: string, password: string) => void | Promise<void>;
+}) {
+  const [open, setOpen] = useState(false);
+  const isDev = import.meta.env.DEV;
+  if (!isDev) return null;
+
+  return (
+    <div className="mt-8 rounded-2xl border border-dashed border-amber-400/60 bg-amber-50/60 p-4 dark:bg-amber-950/20">
+      <button
+        type="button"
+        onClick={() => setOpen((s) => !s)}
+        className="flex w-full items-center justify-between text-left"
+      >
+        <span className="flex items-center gap-2 text-sm font-semibold text-amber-900 dark:text-amber-200">
+          🐞 Dev logins
+          <span className="rounded bg-amber-200/70 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-900 dark:bg-amber-900/60 dark:text-amber-100">
+            local only
+          </span>
+        </span>
+        <span className="text-xs text-amber-800/70 dark:text-amber-200/70">
+          {open ? "Hide" : "Show"}
+        </span>
+      </button>
+      {open && (
+        <div className="mt-3 space-y-2">
+          <p className="text-xs text-amber-900/80 dark:text-amber-200/80">
+            One-click sign-in as any seeded RLS role. Password:{" "}
+            <code className="rounded bg-amber-100 px-1 py-0.5 dark:bg-amber-900/50">
+              {DEV_PASSWORD}
+            </code>
+          </p>
+          <div className="grid gap-2">
+            {DEV_ACCOUNTS.map((a) => (
+              <button
+                key={a.email}
+                type="button"
+                disabled={disabled}
+                onClick={() => onLogin(a.email, DEV_PASSWORD)}
+                className="flex items-center justify-between rounded-lg border border-amber-300/60 bg-background/70 px-3 py-2 text-left text-sm hover:bg-background disabled:opacity-50"
+              >
+                <span>
+                  <span className="font-medium">{a.label}</span>
+                  <span className="ml-2 text-xs text-muted-foreground">{a.email}</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                  → {a.landing}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 
 function GoogleIcon() {
   return (
