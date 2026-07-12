@@ -25,15 +25,16 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-function sanitizeRedirect(value: string | undefined): string {
-  if (!value) return "/app";
+function sanitizeRedirect(value: string | undefined): string | null {
+  if (!value) return null;
   try {
     const url = new URL(value, "http://x");
     const path = url.pathname + url.search + url.hash;
     if (path.startsWith("/") && !path.startsWith("//")) return path;
   } catch {}
-  return "/app";
+  return null;
 }
+
 
 function AuthPage() {
   const navigate = useNavigate();
