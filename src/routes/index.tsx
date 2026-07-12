@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { Icon3D } from "@/components/icon3d";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
