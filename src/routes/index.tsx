@@ -131,12 +131,6 @@ function Hero() {
   );
 }
 
-function HeroSection() {
-  // legacy placeholder
-      </div>
-    </section>
-  );
-}
 
 function HeroCard() {
   return (
