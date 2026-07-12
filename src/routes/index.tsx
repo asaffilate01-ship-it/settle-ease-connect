@@ -36,6 +36,8 @@ function Landing() {
       <SiteHeader />
       <Hero />
       <TrustBar />
+      <Journeys />
+      <LifeInGermany />
       <Pillars />
       <BereavementBand />
       <RolesGrid />
