@@ -331,11 +331,11 @@ function Pricing() {
               For providers
             </div>
             <h2 className="mt-3 font-display text-3xl font-semibold">
-              Vetted experts free. Public directory €10/year.
+              Vetted experts free. Public directory free too.
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">
               Regulated experts (lawyers, notaries, tax, doctors) join by invitation and earn on referral fees.
-              Other qualified service providers can list in our public directory for €10/year.
+              Any qualified service provider can list in our public directory for free — contact details are only shown to paying Beistand members.
             </p>
             <Link
               to="/directory"
@@ -347,7 +347,7 @@ function Pricing() {
           <div className="space-y-3 text-sm">
             <Row label="Vetted regulated experts" note="Free · Referral fee 10–15%" />
             <Row label="Vetted service providers" note="Free · Wholesale + platform markup" />
-            <Row label="Public directory listing" note="€10 / year" />
+            <Row label="Public directory listing" note="Free · Members-only visibility" />
             <Row label="Community partners (mosques, churches, temples)" note="Free" />
           </div>
         </div>
