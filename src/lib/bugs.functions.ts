@@ -16,14 +16,27 @@ export const listBugReports = createServerFn({ method: "GET" })
     const isInternal = await assertInternal(context);
     const query = context.supabase
       .from("bug_reports")
-      .select("*, profiles!bug_reports_reporter_id_fkey(full_name)")
+      .select("*")
       .order("created_at", { ascending: false });
     if (!isInternal) {
       query.eq("reporter_id", context.userId);
     }
     const { data, error } = await query;
     if (error) throw new Error(error.message);
-    return data ?? [];
+    if (!isInternal) return data ?? [];
+
+    // For internal staff, enrich with reporter full_name from profiles.
+    const reporterIds = [...new Set((data ?? []).map((r) => r.reporter_id))];
+    const { data: profiles } = await context.supabase
+      .from("profiles")
+      .select("id, full_name")
+      .in("id", reporterIds.length ? reporterIds : [context.userId]);
+    const nameMap = new Map<string, string>();
+    (profiles ?? []).forEach((p) => nameMap.set(p.id, p.full_name ?? ""));
+    return (data ?? []).map((r) => ({
+      ...r,
+      full_name: nameMap.get(r.reporter_id) ?? "",
+    }));
   });
 
 export const createBugReport = createServerFn({ method: "POST" })
