@@ -23,6 +23,7 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-8 md:flex">
           <Link to="/how-it-works" className="text-sm text-foreground/80 hover:text-foreground">How it works</Link>
           <Link to="/services" className="text-sm text-foreground/80 hover:text-foreground">Services</Link>
+          <Link to="/directory" className="text-sm text-foreground/80 hover:text-foreground">Directory</Link>
           <Link to="/bereavement" className="text-sm text-foreground/80 hover:text-foreground">Bereavement</Link>
           <Link to="/for-providers" className="text-sm text-foreground/80 hover:text-foreground">For providers</Link>
           <Link to="/pricing" className="text-sm text-foreground/80 hover:text-foreground">Pricing</Link>
@@ -50,6 +51,7 @@ export function SiteHeader() {
           <div className="flex flex-col gap-1 p-4">
             <Link to="/how-it-works" className="rounded-md px-3 py-2 text-sm hover:bg-muted">How it works</Link>
             <Link to="/services" className="rounded-md px-3 py-2 text-sm hover:bg-muted">Services</Link>
+            <Link to="/directory" className="rounded-md px-3 py-2 text-sm hover:bg-muted">Directory</Link>
             <Link to="/bereavement" className="rounded-md px-3 py-2 text-sm hover:bg-muted">Bereavement</Link>
             <Link to="/for-providers" className="rounded-md px-3 py-2 text-sm hover:bg-muted">For providers</Link>
             <Link to="/pricing" className="rounded-md px-3 py-2 text-sm hover:bg-muted">Pricing</Link>
