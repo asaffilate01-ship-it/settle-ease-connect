@@ -151,14 +151,26 @@ function Pricing() {
               For providers
             </div>
             <h2 className="mt-3 font-display text-3xl font-semibold">
-              Portals for funeral directors, mosques, churches & more.
+              Free access for funeral directors, mosques, churches, airlines & more.
             </h2>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Providers don't pay a subscription. Instead, partners commit
+              wholesale rates on their services — we pass them through to
+              families at fair, transparent prices and take a small margin to
+              run the platform.
+            </p>
+            <Link
+              to="/for-providers"
+              className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline"
+            >
+              See partner portals →
+            </Link>
           </div>
           <div className="space-y-3 text-sm">
-            <Row label="Funeral director portal" price="€79 / month" />
-            <Row label="Mosque / Church / Temple portal" price="€29 / month" />
-            <Row label="Hospital & consulate integration" price="On request" />
-            <Row label="Municipality partnership" price="Custom" />
+            <Row label="Funeral director portal" note="Free · Wholesale rate card" />
+            <Row label="Mosque / Church / Temple portal" note="Free · Community partner" />
+            <Row label="Airline & repatriation partner" note="Free · Negotiated fares" />
+            <Row label="Hospital & consulate integration" note="Free · Integration MoU" />
           </div>
         </div>
       </section>
@@ -167,11 +179,11 @@ function Pricing() {
   );
 }
 
-function Row({ label, price }: { label: string; price: string }) {
+function Row({ label, note }: { label: string; note: string }) {
   return (
     <div className="flex items-center justify-between rounded-lg border border-border/60 bg-card p-4">
       <div className="font-medium">{label}</div>
-      <div className="font-display text-lg font-semibold">{price}</div>
+      <div className="font-display text-sm font-semibold text-success">{note}</div>
     </div>
   );
 }
