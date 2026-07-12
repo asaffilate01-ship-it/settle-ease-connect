@@ -182,14 +182,15 @@ function NoPlanBanner() {
           View plans <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-    </div>
+    </PolishedCard>
   );
 }
 
 function FeatureTile({
-  title, body, icon: Icon, href, requires, current,
+  title, body, icon: Icon, tone, href, requires, current,
 }: {
-  title: string; body: string; icon: React.ComponentType<{ className?: string }>;
+  title: string; body: string; icon: LucideIcon;
+  tone: "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink";
   href: string; requires: PlanGroup; current: PlanGroup;
 }) {
   const unlocked = tierMeets(current, requires);
@@ -202,25 +203,20 @@ function FeatureTile({
   };
   const target = unlocked ? href : "/app/upgrade";
   return (
-    <Link
-      to={target}
-      className={`group relative flex flex-col rounded-2xl border p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-elevated ${
-        unlocked ? "bg-card" : "bg-muted/30"
-      }`}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <div className={`grid h-10 w-10 place-items-center rounded-lg ${unlocked ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
-          {unlocked ? <Icon className="h-5 w-5" /> : <Lock className="h-5 w-5" />}
+    <Link to={target} className="group block">
+      <PolishedCard glow={unlocked} className={`h-full p-5 ${unlocked ? "" : "opacity-90"}`}>
+        <div className="flex items-start justify-between gap-2">
+          <ClayIcon icon={unlocked ? Icon : Lock} tone={unlocked ? tone : "ink"} size="md" />
+          <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${TIER_TONE[requires]}`}>
+            {TIER_LABEL[requires]}
+          </span>
         </div>
-        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${TIER_TONE[requires]}`}>
-          {TIER_LABEL[requires]}
-        </span>
-      </div>
-      <div className="mt-3 font-display text-base font-semibold">{title}</div>
-      <p className="mt-1 flex-1 text-sm text-muted-foreground">{body}</p>
-      <div className="mt-3 text-xs font-medium text-primary">
-        {unlocked ? "Open" : "Upgrade to unlock"} <ArrowRight className="inline h-3 w-3" />
-      </div>
+        <div className="mt-3 font-display text-base font-semibold">{title}</div>
+        <p className="mt-1 text-sm text-muted-foreground">{body}</p>
+        <div className="mt-3 text-xs font-medium text-primary">
+          {unlocked ? "Open" : "Upgrade to unlock"} <ArrowRight className="inline h-3 w-3" />
+        </div>
+      </PolishedCard>
     </Link>
   );
 }
