@@ -9,6 +9,7 @@
     "bereavement": "Vefat",
     "forProviders": "Sağlayıcılar için",
     "pricing": "Fiyatlandırma",
+    "blog": "Blog",
     "signIn": "Giriş yap",
     "openDashboard": "Kontrol panelini aç",
     "menu": "Menü"
@@ -18,19 +19,25 @@
     "colPlatform": "Platform",
     "colForProviders": "Sağlayıcılar için",
     "colCompany": "Şirket",
+    "colLegal": "Yasal",
     "howItWorks": "Nasıl çalışır",
     "services": "Hizmetler",
     "bereavement": "Vefat",
     "pricing": "Fiyatlandırma",
+    "blog": "Blog",
     "funeralDirectors": "Cenaze levazımatçıları",
     "mosques": "Camiler ve imamlar",
     "churches": "Kiliseler",
     "temples": "Tapınaklar ve Gurdwaralar",
     "contact": "İletişim",
     "impressum": "Künye",
+    "terms": "Hizmet şartları",
     "privacy": "Veri koruma",
+    "cookies": "Çerezler",
+    "complaints": "Şikayetler",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "Özenle hazırlandı"
+    "madeWithCare": "Özenle hazırlandı",
+    "followUs": "Bizi takip edin"
   },
   "sidebar": {
     "dashboard": "Kontrol Paneli",
@@ -46,6 +53,12 @@
     "experts": "Uzmanlar listesi",
     "settings": "Ayarlar",
     "internal": "Dahili",
+    "staffPortal": "Personel genel görünümü",
+    "leads": "Sigorta potansiyel müşterileri",
+    "admin": "Yönetici",
+    "adminUsers": "Kullanıcılar ve roller",
+    "adminInvite": "Davetiyeler",
+    "bugs": "Hata raporları",
     "caseManagerRole": "Vaka Yöneticisi · Berlin"
   },
   "language": {
@@ -54,5 +67,64 @@
     "chooseDescription": "Beistand 13 dil konuşur. Lütfen kendi dilinizi seçin — istediğiniz zaman herhangi bir sayfanın sağ üst köşesinden değiştirebilirsiniz.",
     "continue": "Devam et",
     "current": "Mevcut dil"
+  },
+  "cookies": {
+    "title": "Çerez kullanıyoruz",
+    "body": "Beistand, siteyi çalıştırmak ve oturumunuzu açık tutmak için temel çerezler kullanır. İzninizle, platformun nasıl kullanıldığını anlamak ve geliştirmek için analitik çerezler de kullanırız. İzninizi istediğiniz zaman değiştirebilir veya geri çekebilirsiniz.",
+    "acceptAll": "Tümünü kabul et",
+    "essentialOnly": "Sadece gerekli olanlar",
+    "preferences": "Tercihler",
+    "learnMore": "Çerez politikamızı okuyun"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Almanya'ya yerleşen ailelerden rehberler, güncellemeler ve hikayeler.",
+    "readMore": "Makaleyi oku",
+    "minRead": "{{count}} dk oku",
+    "back": "Bloga geri dön",
+    "share": "Paylaş",
+    "shareOn": "{{network}} üzerinde paylaş",
+    "copyLink": "Bağlantıyı kopyala",
+    "copied": "Bağlantı kopyalandı",
+    "publishedOn": "{{date}} tarihinde yayınlandı",
+    "author": "Yazan {{name}}"
+  },
+  "legal": {
+    "sectionLabel": "Yasal",
+    "lastUpdated": "Son güncellenme: {{date}}",
+    "onlyDeEn": "Bu belge yalnızca İngilizce ve Almanca dillerinde mevcuttur; yasal metinlerin çevirileri yayınlanmadan önce yetkili bir avukat tarafından incelenmelidir."
+  },
+  "bugs": {
+    "title": "Hata raporları",
+    "subtitle": "Bozuk bir şey mi buldunuz?",
+    "newReport": "Hata bildir",
+    "closeForm": "Formu kapat",
+    "titleLabel": "Başlık",
+    "titlePlaceholder": "Sorunun kısa özeti",
+    "descriptionLabel": "Açıklama",
+    "descriptionPlaceholder": "Üretme adımları, beklenen sonuç, gerçek sonuç...",
+    "severityLabel": "Önem derecesi",
+    "submit": "Hatayı gönder",
+    "cancel": "İptal",
+    "loading": "Raporlar yükleniyor...",
+    "empty": "Henüz hata raporu yok. Bir şey mi buldunuz? Bildirmek için yukarıdaki düğmeye tıklayın.",
+    "noDescription": "Açıklama sağlanmadı.",
+    "delete": "Raporu sil",
+    "confirmDelete": "Bu raporu silmek istiyor musunuz? Bu işlem geri alınamaz.",
+    "filter": {
+      "all": "Tüm durumlar"
+    },
+    "severity": {
+      "low": "Düşük",
+      "medium": "Orta",
+      "high": "Yüksek",
+      "critical": "Kritik"
+    },
+    "status": {
+      "open": "Açık",
+      "in_progress": "Devam ediyor",
+      "resolved": "Çözüldü",
+      "closed": "Kapalı"
+    }
   }
 }

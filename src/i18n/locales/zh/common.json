@@ -9,6 +9,7 @@
     "bereavement": "丧葬抚恤",
     "forProviders": "致服务商",
     "pricing": "定价",
+    "blog": "博客",
     "signIn": "登录",
     "openDashboard": "打开控制面板",
     "menu": "菜单"
@@ -18,19 +19,25 @@
     "colPlatform": "平台",
     "colForProviders": "致服务商",
     "colCompany": "公司",
+    "colLegal": "法律",
     "howItWorks": "工作原理",
     "services": "服务",
     "bereavement": "丧葬抚恤",
     "pricing": "定价",
+    "blog": "博客",
     "funeralDirectors": "殡葬承办人",
     "mosques": "清真寺与伊玛目",
     "churches": "教堂",
     "temples": "寺庙与谒师所",
     "contact": "联系我们",
     "impressum": "版本说明",
+    "terms": "服务条款",
     "privacy": "数据保护",
+    "cookies": "Cookie政策",
+    "complaints": "投诉",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "精心打造"
+    "madeWithCare": "精心打造",
+    "followUs": "关注我们"
   },
   "sidebar": {
     "dashboard": "控制面板",
@@ -46,6 +53,12 @@
     "experts": "专家名册",
     "settings": "设置",
     "internal": "内部",
+    "staffPortal": "员工概览",
+    "leads": "保险线索",
+    "admin": "管理",
+    "adminUsers": "用户与角色",
+    "adminInvite": "邀请",
+    "bugs": "错误报告",
     "caseManagerRole": "案例经理 · Berlin"
   },
   "language": {
@@ -54,5 +67,64 @@
     "chooseDescription": "Beistand 支持 13 种语言。请选择您的语言——您可以随时在任何页面的右上角更改。",
     "continue": "继续",
     "current": "当前语言"
+  },
+  "cookies": {
+    "title": "我们使用Cookie",
+    "body": "Beistand使用必要的Cookie来运行网站并保持您的登录状态。在您同意的情况下，我们还会使用分析Cookie来了解平台的使用情况，以便我们改进服务。您可以随时更改或撤回您的同意。",
+    "acceptAll": "全部接受",
+    "essentialOnly": "仅限必要的",
+    "preferences": "偏好设置",
+    "learnMore": "阅读我们的Cookie政策"
+  },
+  "blog": {
+    "title": "博客",
+    "subtitle": "为在德国定居的家庭提供的指南、更新和故事。",
+    "readMore": "阅读文章",
+    "minRead": "{{count}}分钟阅读",
+    "back": "返回博客",
+    "share": "分享",
+    "shareOn": "在{{network}}上分享",
+    "copyLink": "复制链接",
+    "copied": "链接已复制",
+    "publishedOn": "发布于 {{date}}",
+    "author": "作者：{{name}}"
+  },
+  "legal": {
+    "sectionLabel": "法律",
+    "lastUpdated": "最后更新于 {{date}}",
+    "onlyDeEn": "本文件仅提供英文和德文版本 — 法律文本在发布翻译版本前必须由合格律师审查。"
+  },
+  "bugs": {
+    "title": "错误报告",
+    "subtitle": "发现故障？",
+    "newReport": "报告错误",
+    "closeForm": "关闭表单",
+    "titleLabel": "标题",
+    "titlePlaceholder": "问题的简短摘要",
+    "descriptionLabel": "描述",
+    "descriptionPlaceholder": "重现步骤、预期结果、实际结果...",
+    "severityLabel": "严重程度",
+    "submit": "提交错误",
+    "cancel": "取消",
+    "loading": "正在加载报告...",
+    "empty": "暂无错误报告。发现问题？点击上方按钮报告。",
+    "noDescription": "未提供描述。",
+    "delete": "删除报告",
+    "confirmDelete": "删除此报告？此操作无法撤消。",
+    "filter": {
+      "all": "所有状态"
+    },
+    "severity": {
+      "low": "低",
+      "medium": "中",
+      "high": "高",
+      "critical": "危急"
+    },
+    "status": {
+      "open": "开放",
+      "in_progress": "处理中",
+      "resolved": "已解决",
+      "closed": "已关闭"
+    }
   }
 }
