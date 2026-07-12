@@ -61,7 +61,7 @@ function Overview() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <FeatureTile
             title="Ask Beistand AI"
-            body="Chat in 13 languages — forms, benefits, appointments."
+            body="Chat in 11 languages — forms, benefits, appointments."
             icon={Sparkles}
             href="/app/assistant"
             requires="basic"
