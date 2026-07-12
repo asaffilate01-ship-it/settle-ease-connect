@@ -1,7 +1,8 @@
-import { Globe, Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/hooks/use-language";
 import { useTranslation } from "react-i18next";
+import { LangFlag } from "@/components/lang-flag";
 
 export function LanguageSwitcher({ variant = "header" }: { variant?: "header" | "sidebar" }) {
   const { lang, setLanguage, languages } = useLanguage();
@@ -24,8 +25,9 @@ export function LanguageSwitcher({ variant = "header" }: { variant?: "header" | 
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <Globe className="h-4 w-4" />
+        <LangFlag code={current.code} />
         <span className="font-medium">{current.nativeName}</span>
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
       </button>
       {open && (
         <>
@@ -54,7 +56,7 @@ export function LanguageSwitcher({ variant = "header" }: { variant?: "header" | 
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <span aria-hidden>{l.flag}</span>
+                      <LangFlag code={l.code} />
                       <span>{l.nativeName}</span>
                       <span className="text-xs text-muted-foreground">{l.englishName}</span>
                     </span>

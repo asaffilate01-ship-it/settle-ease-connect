@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLanguage, hasChosenLanguage, markLanguageChosen } from "@/hooks/use-language";
 import { Button } from "@/components/ui/button";
 import { Globe, Check } from "lucide-react";
+import { LangFlag } from "@/components/lang-flag";
 
 /**
  * Full-screen language picker shown on the visitor's first visit.
@@ -49,7 +50,7 @@ export function LanguageOnboarding() {
                   }`}
                 >
                   <span className="flex items-center gap-3">
-                    <span className="text-lg" aria-hidden>{l.flag}</span>
+                    <LangFlag code={l.code} className="h-5 w-7" />
                     <span>
                       <span className="block font-medium">{l.nativeName}</span>
                       <span className="block text-xs text-muted-foreground">{l.englishName}</span>
