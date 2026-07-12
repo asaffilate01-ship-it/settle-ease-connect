@@ -25,7 +25,7 @@ export type InsuranceProduct = {
   category: InsuranceCategory;
   name: string;
   monthlyFromEur?: number;
-  highlights: string[];
+  highlights?: string[];
 };
 
 export type InsuranceCompany = {

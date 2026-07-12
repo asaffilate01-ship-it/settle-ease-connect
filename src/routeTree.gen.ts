@@ -37,10 +37,12 @@ import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
+import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_authenticated/portal.insurance'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
+import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app.community'
 import { Route as AuthenticatedAppChecklistsRouteImport } from './routes/_authenticated/app.checklists'
@@ -197,6 +199,12 @@ const AuthenticatedPortalKnowledgeRoute =
     path: '/knowledge',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalInsuranceRoute =
+  AuthenticatedPortalInsuranceRouteImport.update({
+    id: '/insurance',
+    path: '/insurance',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalFuneralRoute =
   AuthenticatedPortalFuneralRouteImport.update({
     id: '/funeral',
@@ -219,6 +227,12 @@ const AuthenticatedAppProvidersRoute =
   AuthenticatedAppProvidersRouteImport.update({
     id: '/providers',
     path: '/providers',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppInsuranceRoute =
+  AuthenticatedAppInsuranceRouteImport.update({
+    id: '/insurance',
+    path: '/insurance',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
 const AuthenticatedAppDocumentsRoute =
@@ -323,10 +337,12 @@ export interface FileRoutesByFullPath {
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
@@ -366,10 +382,12 @@ export interface FileRoutesByTo {
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/app': typeof AuthenticatedAppIndexRoute
@@ -413,10 +431,12 @@ export interface FileRoutesById {
   '/_authenticated/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/_authenticated/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
@@ -460,10 +480,12 @@ export interface FileRouteTypes {
     | '/app/checklists'
     | '/app/community'
     | '/app/documents'
+    | '/app/insurance'
     | '/app/providers'
     | '/app/settings'
     | '/portal/experts'
     | '/portal/funeral'
+    | '/portal/insurance'
     | '/portal/knowledge'
     | '/portal/leads'
     | '/app/'
@@ -503,10 +525,12 @@ export interface FileRouteTypes {
     | '/app/checklists'
     | '/app/community'
     | '/app/documents'
+    | '/app/insurance'
     | '/app/providers'
     | '/app/settings'
     | '/portal/experts'
     | '/portal/funeral'
+    | '/portal/insurance'
     | '/portal/knowledge'
     | '/portal/leads'
     | '/app'
@@ -549,10 +573,12 @@ export interface FileRouteTypes {
     | '/_authenticated/app/checklists'
     | '/_authenticated/app/community'
     | '/_authenticated/app/documents'
+    | '/_authenticated/app/insurance'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
+    | '/_authenticated/portal/insurance'
     | '/_authenticated/portal/knowledge'
     | '/_authenticated/portal/leads'
     | '/_authenticated/app/'
@@ -780,6 +806,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalKnowledgeRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/insurance': {
+      id: '/_authenticated/portal/insurance'
+      path: '/insurance'
+      fullPath: '/portal/insurance'
+      preLoaderRoute: typeof AuthenticatedPortalInsuranceRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/funeral': {
       id: '/_authenticated/portal/funeral'
       path: '/funeral'
@@ -806,6 +839,13 @@ declare module '@tanstack/react-router' {
       path: '/providers'
       fullPath: '/app/providers'
       preLoaderRoute: typeof AuthenticatedAppProvidersRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/insurance': {
+      id: '/_authenticated/app/insurance'
+      path: '/insurance'
+      fullPath: '/app/insurance'
+      preLoaderRoute: typeof AuthenticatedAppInsuranceRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/documents': {
@@ -918,6 +958,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppChecklistsRoute: typeof AuthenticatedAppChecklistsRoute
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
+  AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
@@ -931,6 +972,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppChecklistsRoute: AuthenticatedAppChecklistsRoute,
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
+  AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
@@ -957,6 +999,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
 interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
+  AuthenticatedPortalInsuranceRoute: typeof AuthenticatedPortalInsuranceRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
   AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
@@ -967,6 +1010,7 @@ interface AuthenticatedPortalRouteChildren {
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
+  AuthenticatedPortalInsuranceRoute: AuthenticatedPortalInsuranceRoute,
   AuthenticatedPortalKnowledgeRoute:
     AuthenticatedPortalKnowledgeRouteWithChildren,
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,
