@@ -40,7 +40,7 @@ function Overview() {
             <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Willkommen zurück</span>
             <PlanChip />
           </div>
-          <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">
+          <h1 className="display-lg mt-2 font-semibold">
             {firstName ? `${firstName}, ` : ""}here's your day.
           </h1>
         </div>

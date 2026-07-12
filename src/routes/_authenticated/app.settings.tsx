@@ -51,7 +51,7 @@ function SettingsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-semibold">Settings</h1>
+        <h1 className="display-lg font-semibold">Settings</h1>
         <p className="text-sm text-muted-foreground">Profile, language, and role.</p>
       </div>
 

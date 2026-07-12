@@ -93,6 +93,41 @@ function collectTextNodes(): Text[] {
   return out;
 }
 
+/**
+ * Translatable attributes ({@link https://developer.mozilla.org/en-US/docs/Web/HTML}).
+ * We stash the original on `data-i18n-attr-<name>` so switching languages later
+ * re-translates from source.
+ */
+const ATTR_LIST = ["alt", "title", "aria-label", "placeholder"] as const;
+
+type AttrPending = { el: Element; attr: string; src: string };
+
+function collectAttrTargets(): AttrPending[] {
+  const out: AttrPending[] = [];
+  const sel = ATTR_LIST.map((a) => `[${a}]`).join(",");
+  const els = document.querySelectorAll<HTMLElement>(sel);
+  els.forEach((el) => {
+    if (shouldSkip(el)) return;
+    for (const attr of ATTR_LIST) {
+      const val = el.getAttribute(attr);
+      if (!val) continue;
+      const trimmed = val.trim();
+      if (trimmed.length < 2) continue;
+      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
+      const srcKey = `data-i18n-attr-${attr}`;
+      let src = el.getAttribute(srcKey);
+      if (!src) {
+        src = trimmed;
+        el.setAttribute(srcKey, src);
+      }
+      const langKey = `data-i18n-attrlang-${attr}`;
+      if (el.getAttribute(langKey) === currentLang) continue;
+      out.push({ el, attr, src });
+    }
+  });
+  return out;
+}
+
 async function translatePage() {
   if (typeof window === "undefined") return;
   if (currentLang === "en") {
@@ -101,21 +136,21 @@ async function translatePage() {
     return;
   }
   const nodes = collectTextNodes();
+  const attrTargets = collectAttrTargets();
   const pending: { node: Text; src: string }[] = [];
+  const attrPending: AttrPending[] = [];
 
   for (const node of nodes) {
     const parent = node.parentElement;
     if (!parent) continue;
-    // Determine the "source" — the first English text we ever saw on this node.
     let src = parent.getAttribute(SRC_ATTR);
     const nodeText = node.nodeValue!.trim();
     if (!src) {
-      // First encounter — assume current text is the source (English).
       src = nodeText;
       parent.setAttribute(SRC_ATTR, src);
     }
     const targetLang = parent.getAttribute(LANG_ATTR);
-    if (targetLang === currentLang) continue; // already translated to current lang
+    if (targetLang === currentLang) continue;
 
     const cached = cacheGet(currentLang, src);
     if (cached) {
@@ -128,7 +163,20 @@ async function translatePage() {
     pending.push({ node, src });
   }
 
-  if (pending.length === 0) return;
+  // Attributes: alt / title / aria-label / placeholder
+  for (const t of attrTargets) {
+    const cached = cacheGet(currentLang, t.src);
+    if (cached) {
+      mutating = true;
+      t.el.setAttribute(t.attr, cached);
+      t.el.setAttribute(`data-i18n-attrlang-${t.attr}`, currentLang);
+      mutating = false;
+      continue;
+    }
+    attrPending.push(t);
+  }
+
+  if (pending.length === 0 && attrPending.length === 0) return;
 
   // Batch in chunks of 40 to keep prompts small & fast.
   const CHUNK = 40;
@@ -159,6 +207,34 @@ async function translatePage() {
       console.warn("[auto-translate] batch failed", err);
     }
   }
+
+  // Attribute batch (same batching strategy).
+  for (let i = 0; i < attrPending.length; i += CHUNK) {
+    const slice = attrPending.slice(i, i + CHUNK);
+    const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
+    try {
+      const { translations } = await translateBatch({
+        data: {
+          targetLang: currentLang,
+          targetName: langNames[currentLang] ?? currentLang,
+          texts: uniqueSrcs,
+        },
+      });
+      const map = new Map<string, string>();
+      uniqueSrcs.forEach((s, idx) => map.set(s, translations[idx] ?? s));
+      mutating = true;
+      for (const { el, attr, src } of slice) {
+        const t = map.get(src);
+        if (!t) continue;
+        cacheSet(currentLang, src, t);
+        el.setAttribute(attr, t);
+        el.setAttribute(`data-i18n-attrlang-${attr}`, currentLang);
+      }
+      mutating = false;
+    } catch (err) {
+      console.warn("[auto-translate] attr batch failed", err);
+    }
+  }
 }
 
 function restoreEnglish() {
@@ -167,7 +243,6 @@ function restoreEnglish() {
   marked.forEach((el) => {
     const src = el.getAttribute(SRC_ATTR);
     if (!src) return;
-    // Restore the first text node inside — good enough for our text-node model.
     for (const child of Array.from(el.childNodes)) {
       if (child.nodeType === Node.TEXT_NODE && child.nodeValue?.trim()) {
         child.nodeValue = src;
@@ -176,6 +251,15 @@ function restoreEnglish() {
     }
     el.setAttribute(LANG_ATTR, "en");
   });
+  // Restore attributes
+  for (const attr of ATTR_LIST) {
+    const srcKey = `data-i18n-attr-${attr}`;
+    document.querySelectorAll<HTMLElement>(`[${srcKey}]`).forEach((el) => {
+      const src = el.getAttribute(srcKey);
+      if (src) el.setAttribute(attr, src);
+      el.setAttribute(`data-i18n-attrlang-${attr}`, "en");
+    });
+  }
   mutating = false;
 }
 

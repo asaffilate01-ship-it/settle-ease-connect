@@ -43,7 +43,7 @@ function AuditPage() {
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
           <ShieldCheck className="h-4 w-4" /> Compliance
         </div>
-        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">Audit log</h1>
+        <h1 className="display-lg mt-1 font-semibold">Audit log</h1>
         <p className="text-sm text-muted-foreground">Every sensitive action across the platform, exportable for GDPR/audit.</p>
       </header>
 

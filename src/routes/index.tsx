@@ -108,7 +108,7 @@ function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-success" />
             Now onboarding partners in Berlin & NRW
           </div>
-          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+          <h1 className="display-hero mt-6 font-semibold leading-[1.05] text-foreground sm:display-hero">
             {t("hero.headlinePrefix", "Für jeden Weg in")}{" "}
             <span className="relative inline-block">
               <span className="relative z-10">{t("hero.headlineHighlight", "Deutschland")}</span>
@@ -295,7 +295,7 @@ function UrgencyTriage() {
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Where should we start?
         </div>
-        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="display-lg mt-3 font-semibold">
           Two doors. One <span className="text-destructive">calm</span> team behind both.
         </h2>
         <p className="mt-4 text-base text-muted-foreground">
@@ -334,7 +334,7 @@ function UrgencyTriage() {
                   {p.tag}
                 </div>
               </div>
-              <h3 className="mt-6 font-display text-2xl font-semibold leading-snug">
+              <h3 className="display-md mt-6 font-semibold">
                 {p.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -402,7 +402,7 @@ function Journeys() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           Two journeys, one companion
         </div>
-        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="display-lg mt-3 font-semibold">
           Wherever you are on the road to Germany.
         </h2>
       </div>
@@ -417,7 +417,7 @@ function Journeys() {
                 {j.tag}
               </div>
             </div>
-            <h3 className="mt-5 font-display text-2xl font-semibold">{j.title}</h3>
+            <h3 className="display-md mt-5 font-semibold">{j.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{j.copy}</p>
             <Button asChild variant="outline" className="mt-6">
               <Link to={j.cta.to}>
@@ -451,7 +451,7 @@ function LifeInGermany() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Every chapter of life in Germany
           </div>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg mt-3 font-semibold">
             From arrival to inheritance — we've got you.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -520,7 +520,7 @@ function Pillars() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           Was BeistandPlus macht
         </div>
-        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="display-lg mt-3 font-semibold">
           Four pillars, one platform.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
@@ -562,7 +562,7 @@ function BereavementBand() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
             End-of-Life Care
           </div>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg mt-3 font-semibold">
             When the worst happens, one call is enough.
           </h2>
           <p className="mt-5 max-w-xl text-lg text-primary-foreground/80">
@@ -644,7 +644,7 @@ function RolesGrid() {
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="max-w-2xl">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Roles</div>
-        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="display-lg mt-3 font-semibold">
           Every stakeholder, their own portal.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
@@ -683,7 +683,7 @@ function BenefitsShowcase() {
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Benefits Checker</div>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg mt-3 font-semibold">
             Know exactly what you're entitled to.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
@@ -727,7 +727,7 @@ function NetworkMap() {
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Provider Network</div>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg mt-3 font-semibold">
             A verified partner in every city.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
@@ -779,7 +779,7 @@ function AiAssistant() {
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">AI Assistant</div>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg mt-3 font-semibold">
             Ask anything, in any language.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
@@ -813,7 +813,7 @@ function CTA() {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-primary p-12 text-primary-foreground shadow-elevated lg:p-20">
         <div className="absolute inset-0 opacity-30 bg-gradient-warm" />
         <div className="relative max-w-2xl">
-          <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h2 className="display-lg font-semibold">
             Standing with you, from your first day to your last.
           </h2>
           <p className="mt-5 text-lg text-primary-foreground/80">

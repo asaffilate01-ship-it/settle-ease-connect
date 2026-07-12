@@ -27,7 +27,7 @@ function PortalImmigrationPage() {
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Immigration team ops</div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">Immigration & emergency desk</h1>
+        <h1 className="display-lg font-semibold">Immigration & emergency desk</h1>
       </header>
       <div className="flex flex-wrap gap-2 border-b border-border/60">
         {(["alerts", "embassies"] as Tab[]).map((t) => (

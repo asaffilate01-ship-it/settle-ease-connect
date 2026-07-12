@@ -46,7 +46,7 @@ function NewCase() {
         <ArrowLeft className="h-4 w-4" /> Cases
       </Link>
       <div>
-        <h1 className="font-display text-3xl font-semibold">Open a new case</h1>
+        <h1 className="display-lg font-semibold">Open a new case</h1>
         <p className="text-sm text-muted-foreground">A case manager responds within 15 minutes.</p>
       </div>
       <form

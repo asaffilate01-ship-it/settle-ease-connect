@@ -40,7 +40,7 @@ function GanttPage() {
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
           <GanttChart className="h-4 w-4" /> Case timeline
         </div>
-        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">Gantt · case {caseId.slice(0, 8)}</h1>
+        <h1 className="display-lg mt-1 font-semibold">Gantt · case {caseId.slice(0, 8)}</h1>
         <p className="text-sm text-muted-foreground">
           {span
             ? `${new Date(min).toLocaleDateString()} — ${new Date(max).toLocaleDateString()}`

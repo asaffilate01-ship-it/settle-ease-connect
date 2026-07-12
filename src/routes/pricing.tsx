@@ -138,7 +138,7 @@ function Pricing() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Pricing
           </div>
-          <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
+          <h1 className="display-hero mt-3 font-semibold">
             One subscription. One trusted hand.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -254,7 +254,7 @@ function Pricing() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             What we help with at launch
           </div>
-          <h2 className="mt-3 font-display text-3xl font-semibold">
+          <h2 className="display-lg mt-3 font-semibold">
             Bereavement, benefits, housing, pensions and paperwork — done properly, in your language.
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
@@ -284,7 +284,7 @@ function Pricing() {
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/80">
               <GraduationCap className="h-4 w-4" /> International students
             </div>
-            <h3 className="mt-2 font-display text-3xl font-semibold">
+            <h3 className="display-md mt-2 font-semibold">
               30% off any plan with a valid student ID
             </h3>
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
@@ -306,7 +306,7 @@ function Pricing() {
 
         {/* Third-party fees note */}
         <div className="mt-10 rounded-2xl border border-border/60 bg-parchment/50 p-8">
-          <h3 className="font-display text-2xl font-semibold">Third-party fees are always separate</h3>
+          <h3 className="display-md font-semibold">Third-party fees are always separate</h3>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
             Lawyer, notary, doctor, tax adviser and government fees are quoted transparently in your case
             and paid via the platform (escrow) or directly. Your subscription covers BeistandPlus's help —
@@ -322,7 +322,7 @@ function Pricing() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               For providers
             </div>
-            <h2 className="mt-3 font-display text-3xl font-semibold">
+            <h2 className="display-lg mt-3 font-semibold">
               Vetted experts free. Public directory free too.
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">

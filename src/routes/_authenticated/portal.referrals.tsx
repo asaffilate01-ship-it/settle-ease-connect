@@ -45,7 +45,7 @@ function ReferralsPage() {
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Revenue ops</div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">Referrals</h1>
+        <h1 className="display-lg font-semibold">Referrals</h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           Track outbound leads to insurers, lawyers, tax advisors, movers, airlines and other partners — and the commission we earn from each.
         </p>

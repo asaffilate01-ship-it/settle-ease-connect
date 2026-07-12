@@ -150,7 +150,7 @@ function Services() {
             <span className="h-1 w-1 rounded-full bg-accent" />
             Expert guidance for life in Germany
           </span>
-          <h1 className="mt-8 font-display text-5xl font-normal leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+          <h1 className="display-hero mt-8 font-normal leading-[1.05] text-foreground">
             A companion for every
             <br />
             <span className="italic text-primary">essential milestone.</span>
@@ -204,7 +204,7 @@ function Services() {
                   {String(i + 1).padStart(2, "0")} / {String(groups.length).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="mt-7 font-display text-2xl font-normal leading-snug tracking-tight text-foreground">
+              <h3 className="display-md mt-7 font-normal text-foreground">
                 {g.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -283,7 +283,7 @@ function Services() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
                 Ready when you are
               </div>
-              <h2 className="mt-4 font-display text-3xl leading-tight sm:text-5xl">
+              <h2 className="display-lg mt-4">
                 Let's take the next step,
                 <br className="hidden sm:block" />
                 <span className="italic">together.</span>

@@ -19,7 +19,7 @@ function CommunityPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-semibold">Community</h1>
+        <h1 className="display-lg font-semibold">Community</h1>
         <p className="text-sm text-muted-foreground">Find your people. Prayer times, events, groups, and gatherings near you.</p>
       </div>
 

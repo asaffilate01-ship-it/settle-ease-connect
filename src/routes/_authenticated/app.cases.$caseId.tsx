@@ -79,7 +79,7 @@ function CaseDetail() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="font-display text-3xl font-semibold">{c.title}</h1>
+            <h1 className="display-lg font-semibold">{c.title}</h1>
             {c.urgent && <Badge className="bg-warning/20 text-warning-foreground border border-warning/40"><AlertTriangle className="mr-1 h-3 w-3" /> Urgent</Badge>}
           </div>
           <div className="mt-1 text-sm text-muted-foreground">

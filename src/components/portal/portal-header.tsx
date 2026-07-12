@@ -49,7 +49,7 @@ export function PortalHeader({
               {eyebrow}
             </div>
           )}
-          <h1 className="mt-1 truncate font-display text-2xl font-semibold sm:text-3xl">
+          <h1 className="display-lg mt-1 truncate font-semibold">
             {title}
           </h1>
           {subtitle && (

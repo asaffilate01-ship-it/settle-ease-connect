@@ -78,7 +78,7 @@ function NotificationsPage() {
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
             <Bell className="h-4 w-4" /> Inbox
           </div>
-          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">Notifications</h1>
+          <h1 className="display-lg mt-1 font-semibold">Notifications</h1>
           <p className="text-sm text-muted-foreground">
             {unread ? `${unread} unread` : "You're all caught up"}
           </p>

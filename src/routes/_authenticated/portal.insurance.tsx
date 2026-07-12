@@ -69,7 +69,7 @@ function PortalInsurancePage() {
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Insurance Operations</h1>
+          <h1 className="display-lg font-semibold">Insurance Operations</h1>
           <p className="text-sm text-muted-foreground">Policies · Claims · Beneficiary payout invoicing</p>
         </div>
         <nav className="flex rounded-xl border p-1 text-xs">

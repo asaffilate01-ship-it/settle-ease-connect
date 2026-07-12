@@ -15,7 +15,7 @@ export function LegalArticle({
   const dateFmt = new Intl.DateTimeFormat(i18n.language, { year: "numeric", month: "long", day: "numeric" });
   return (
     <article className="prose-legal max-w-none">
-      <h1 className="font-display text-4xl font-semibold tracking-tight">{title}</h1>
+      <h1 className="display-lg font-semibold">{title}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         {t("legal.lastUpdated", { date: dateFmt.format(new Date(updated)) })}
       </p>

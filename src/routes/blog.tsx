@@ -34,7 +34,7 @@ function BlogIndex() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             {t("blog.title")}
           </div>
-          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="display-hero mt-3 font-semibold">
             {t("blog.subtitle")}
           </h1>
         </div>
@@ -63,7 +63,7 @@ function BlogIndex() {
                 {dateFmt.format(new Date(featured.publishedAt))} · {t("blog.minRead", { count: featured.minutesToRead })}
               </span>
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+            <h2 className="display-lg mt-4 font-semibold">
               {featured.title}
             </h2>
             <p className="mt-3 text-base text-muted-foreground">{featured.excerpt}</p>

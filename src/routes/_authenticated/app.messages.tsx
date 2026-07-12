@@ -20,7 +20,7 @@ function MessagesIndex() {
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
             <MessageSquare className="h-4 w-4" /> Messages
           </div>
-          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">Your conversations</h1>
+          <h1 className="display-lg mt-1 font-semibold">Your conversations</h1>
         </div>
       </header>
 

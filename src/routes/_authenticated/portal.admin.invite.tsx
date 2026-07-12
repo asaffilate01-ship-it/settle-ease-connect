@@ -68,7 +68,7 @@ function AdminInvitePage() {
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">
             <Shield className="h-3.5 w-3.5" /> Admin
           </div>
-          <h1 className="mt-1 font-display text-3xl font-semibold">Invitations</h1>
+          <h1 className="display-lg mt-1 font-semibold">Invitations</h1>
           <p className="text-sm text-muted-foreground">
             Pre-assign a role to an email. The role is granted automatically on first sign-up.
           </p>

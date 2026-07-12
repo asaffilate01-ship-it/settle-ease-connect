@@ -122,7 +122,7 @@ function Bereavement() {
           <Badge variant="outline" className="border-primary/30 bg-background/70 text-primary backdrop-blur">
             Bereavement care · 24/7
           </Badge>
-          <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+          <h1 className="display-hero mt-5 font-semibold leading-[1.05]">
             One call. One case file.<br />
             <span className="italic text-primary">Every person who needs to be involved.</span>
           </h1>
@@ -153,7 +153,7 @@ function Bereavement() {
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Repatriation</div>
-            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h2 className="display-lg mt-3 font-semibold">
               Bringing your loved one home.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
@@ -181,7 +181,7 @@ function Bereavement() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               Burials & last rites in Germany
             </div>
-            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h2 className="display-lg mt-3 font-semibold">
               Every recognised form of burial and cremation, arranged for you.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
@@ -209,7 +209,7 @@ function Bereavement() {
           </div>
 
           <div className="mt-14">
-            <h3 className="font-display text-2xl font-semibold">German legal essentials</h3>
+            <h3 className="display-md font-semibold">German legal essentials</h3>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {germanRules.map((r) => (
                 <div key={r.title} className="rounded-xl border border-border/60 bg-card p-5">
@@ -228,7 +228,7 @@ function Bereavement() {
 
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Every faith</div>
-        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="display-lg mt-3 font-semibold">
           Ceremonies handled with respect.
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -263,7 +263,7 @@ function Bereavement() {
 function StageCard({ title, stages, tone }: { title: string; stages: { t: string }[]; tone: "primary" | "accent" }) {
   return (
     <div className={`rounded-3xl border p-8 shadow-soft ${tone === "primary" ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border/60"}`}>
-      <h3 className="font-display text-2xl font-semibold">{title}</h3>
+      <h3 className="display-md font-semibold">{title}</h3>
       <ol className="mt-6 space-y-3">
         {stages.map((s, i) => (
           <li key={s.t} className="flex items-start gap-3">
