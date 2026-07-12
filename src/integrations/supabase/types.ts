@@ -562,6 +562,66 @@ export type Database = {
         }
         Relationships: []
       }
+      employment_records: {
+        Row: {
+          client_user_id: string
+          contract_type: string | null
+          created_at: string
+          currency: string | null
+          employer: string
+          end_date: string | null
+          gross_salary_cents: number | null
+          hr_contact_email: string | null
+          hr_contact_name: string | null
+          hr_contact_phone: string | null
+          id: string
+          notes: string | null
+          role: string | null
+          start_date: string | null
+          tax_class: string | null
+          updated_at: string
+          works_council: string | null
+        }
+        Insert: {
+          client_user_id: string
+          contract_type?: string | null
+          created_at?: string
+          currency?: string | null
+          employer: string
+          end_date?: string | null
+          gross_salary_cents?: number | null
+          hr_contact_email?: string | null
+          hr_contact_name?: string | null
+          hr_contact_phone?: string | null
+          id?: string
+          notes?: string | null
+          role?: string | null
+          start_date?: string | null
+          tax_class?: string | null
+          updated_at?: string
+          works_council?: string | null
+        }
+        Update: {
+          client_user_id?: string
+          contract_type?: string | null
+          created_at?: string
+          currency?: string | null
+          employer?: string
+          end_date?: string | null
+          gross_salary_cents?: number | null
+          hr_contact_email?: string | null
+          hr_contact_name?: string | null
+          hr_contact_phone?: string | null
+          id?: string
+          notes?: string | null
+          role?: string | null
+          start_date?: string | null
+          tax_class?: string | null
+          updated_at?: string
+          works_council?: string | null
+        }
+        Relationships: []
+      }
       expert_services: {
         Row: {
           expert_id: string
@@ -673,6 +733,54 @@ export type Database = {
           verified?: boolean
           verified_at?: string | null
           wholesale_rate_eur?: number | null
+        }
+        Relationships: []
+      }
+      health_insurance: {
+        Row: {
+          addons: Json | null
+          client_user_id: string
+          created_at: string
+          dependants_covered: number | null
+          id: string
+          kasse: string
+          kind: string
+          membership_number: string | null
+          monthly_premium_cents: number | null
+          notes: string | null
+          start_date: string | null
+          tariff: string | null
+          updated_at: string
+        }
+        Insert: {
+          addons?: Json | null
+          client_user_id: string
+          created_at?: string
+          dependants_covered?: number | null
+          id?: string
+          kasse: string
+          kind: string
+          membership_number?: string | null
+          monthly_premium_cents?: number | null
+          notes?: string | null
+          start_date?: string | null
+          tariff?: string | null
+          updated_at?: string
+        }
+        Update: {
+          addons?: Json | null
+          client_user_id?: string
+          created_at?: string
+          dependants_covered?: number | null
+          id?: string
+          kasse?: string
+          kind?: string
+          membership_number?: string | null
+          monthly_premium_cents?: number | null
+          notes?: string | null
+          start_date?: string | null
+          tariff?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -942,6 +1050,57 @@ export type Database = {
           },
         ]
       }
+      pensions: {
+        Row: {
+          beneficiary_name: string | null
+          beneficiary_relationship: string | null
+          client_user_id: string
+          created_at: string
+          currency: string | null
+          id: string
+          kind: string
+          monthly_contribution_cents: number | null
+          notes: string | null
+          policy_number: string | null
+          projected_monthly_payout_cents: number | null
+          provider: string
+          start_date: string | null
+          updated_at: string
+        }
+        Insert: {
+          beneficiary_name?: string | null
+          beneficiary_relationship?: string | null
+          client_user_id: string
+          created_at?: string
+          currency?: string | null
+          id?: string
+          kind: string
+          monthly_contribution_cents?: number | null
+          notes?: string | null
+          policy_number?: string | null
+          projected_monthly_payout_cents?: number | null
+          provider: string
+          start_date?: string | null
+          updated_at?: string
+        }
+        Update: {
+          beneficiary_name?: string | null
+          beneficiary_relationship?: string | null
+          client_user_id?: string
+          created_at?: string
+          currency?: string | null
+          id?: string
+          kind?: string
+          monthly_contribution_cents?: number | null
+          notes?: string | null
+          policy_number?: string | null
+          projected_monthly_payout_cents?: number | null
+          provider?: string
+          start_date?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -969,6 +1128,137 @@ export type Database = {
           id?: string
           preferred_language?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      referral_leads: {
+        Row: {
+          case_id: string | null
+          client_user_id: string | null
+          commission_expected_cents: number | null
+          commission_received_cents: number | null
+          converted_at: string | null
+          created_at: string
+          currency: string | null
+          id: string
+          invoice_reference: string | null
+          notes: string | null
+          paid_at: string | null
+          partner_id: string
+          source_page: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          case_id?: string | null
+          client_user_id?: string | null
+          commission_expected_cents?: number | null
+          commission_received_cents?: number | null
+          converted_at?: string | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          invoice_reference?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          partner_id: string
+          source_page?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          case_id?: string | null
+          client_user_id?: string | null
+          commission_expected_cents?: number | null
+          commission_received_cents?: number | null
+          converted_at?: string | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          invoice_reference?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          partner_id?: string
+          source_page?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referral_leads_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "referral_partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referral_partners: {
+        Row: {
+          active: boolean | null
+          category: string
+          commission_flat_cents: number | null
+          commission_model: string
+          commission_rate: number | null
+          contact_email: string | null
+          contact_phone: string | null
+          countries: string[] | null
+          created_at: string
+          currency: string | null
+          description: string | null
+          disclose_to_client: boolean | null
+          id: string
+          languages: string[] | null
+          name: string
+          payout_terms: string | null
+          slug: string
+          updated_at: string
+          url_template: string
+          website: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          category: string
+          commission_flat_cents?: number | null
+          commission_model: string
+          commission_rate?: number | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          countries?: string[] | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          disclose_to_client?: boolean | null
+          id?: string
+          languages?: string[] | null
+          name: string
+          payout_terms?: string | null
+          slug: string
+          updated_at?: string
+          url_template: string
+          website?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          category?: string
+          commission_flat_cents?: number | null
+          commission_model?: string
+          commission_rate?: number | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          countries?: string[] | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          disclose_to_client?: boolean | null
+          id?: string
+          languages?: string[] | null
+          name?: string
+          payout_terms?: string | null
+          slug?: string
+          updated_at?: string
+          url_template?: string
+          website?: string | null
         }
         Relationships: []
       }
@@ -1111,6 +1401,51 @@ export type Database = {
             referencedColumns: ["code"]
           },
         ]
+      }
+      trusted_contacts: {
+        Row: {
+          address: string | null
+          client_user_id: string
+          created_at: string
+          email: string | null
+          id: string
+          is_primary: boolean | null
+          language: string | null
+          name: string
+          notes: string | null
+          phone: string | null
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          client_user_id: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_primary?: boolean | null
+          language?: string | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          client_user_id?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_primary?: boolean | null
+          language?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
