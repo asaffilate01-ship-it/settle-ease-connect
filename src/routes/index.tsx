@@ -186,6 +186,127 @@ function TrustBar() {
   );
 }
 
+function UrgencyTriage() {
+  const paths = [
+    {
+      tone: "urgent" as const,
+      tag: "I need help now",
+      icon: HeartPulse,
+      title: "Something happened — a death, a deadline, a letter I can't read.",
+      copy: "Talk to a human case manager within one hour. We triage, translate and act — bereavement, eviction notices, visa expiries, hospital paperwork, Jobcenter appointments.",
+      bullets: [
+        "24/7 bereavement & emergency line",
+        "Sworn translators on standby",
+        "We call authorities on your behalf",
+      ],
+      cta: { label: "Start an urgent case", to: "/app/cases/new" as const },
+      secondary: { label: "Report a bereavement", to: "/bereavement" as const },
+    },
+    {
+      tone: "plan" as const,
+      tag: "I'm planning ahead",
+      icon: ShieldCheck,
+      title: "Set up my life in Germany — properly, calmly, one step at a time.",
+      copy: "Store documents in the family vault, apply for visas, benefits and housing, keep pensions and insurance in one place, and hand over cleanly to loved ones when the time comes.",
+      bullets: [
+        "Family vault with deputy access",
+        "Guided intake for every service",
+        "One transparent monthly bill",
+      ],
+      cta: { label: "Open your dashboard", to: "/app" as const },
+      secondary: { label: "See pricing", to: "/pricing" as const },
+    },
+  ];
+  return (
+    <section className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl text-center">
+        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Where should we start?
+        </div>
+        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          Two doors. One <span className="text-destructive">calm</span> team behind both.
+        </h2>
+        <p className="mt-4 text-base text-muted-foreground">
+          Tell us whether today is an emergency or a plan. We'll match you to the right case manager, in your language, in minutes.
+        </p>
+      </div>
+
+      <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        {paths.map((p) => {
+          const isUrgent = p.tone === "urgent";
+          return (
+            <div
+              key={p.tag}
+              className={`group relative overflow-hidden rounded-3xl border p-8 shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated ${
+                isUrgent
+                  ? "border-destructive/25 bg-destructive/5"
+                  : "border-primary/15 bg-card"
+              }`}
+            >
+              <div
+                className={`absolute inset-x-0 top-0 h-1 ${
+                  isUrgent ? "bg-destructive" : "bg-gradient-warm"
+                }`}
+              />
+              <div className="flex items-center gap-3">
+                <div
+                  className={`grid h-12 w-12 place-items-center rounded-2xl ${
+                    isUrgent
+                      ? "bg-destructive text-destructive-foreground"
+                      : "bg-primary text-primary-foreground"
+                  }`}
+                >
+                  <p.icon className="h-5 w-5" />
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  {p.tag}
+                </div>
+              </div>
+              <h3 className="mt-6 font-display text-2xl font-semibold leading-snug">
+                {p.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {p.copy}
+              </p>
+              <ul className="mt-6 space-y-2 text-sm">
+                {p.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2">
+                    <span
+                      className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
+                        isUrgent ? "bg-destructive" : "bg-accent"
+                      }`}
+                    />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  size="lg"
+                  className={
+                    isUrgent
+                      ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      : "bg-primary text-primary-foreground hover:bg-primary/90"
+                  }
+                >
+                  <Link to={p.cta.to}>
+                    {p.cta.label}
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="ghost">
+                  <Link to={p.secondary.to}>{p.secondary.label}</Link>
+                </Button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function Journeys() {
   const journeys = [
     {
