@@ -9,6 +9,7 @@
     "bereavement": "Şînî",
     "forProviders": "Ji bo dabînkeran",
     "pricing": "Bihayan",
+    "blog": "Blog",
     "signIn": "Têkeve",
     "openDashboard": "Dashboard veke",
     "menu": "Menû"
@@ -18,19 +19,25 @@
     "colPlatform": "Platform",
     "colForProviders": "Ji bo dabînkeran",
     "colCompany": "Şîrket",
+    "colLegal": "Hiqûqî",
     "howItWorks": "Çawa dixebite",
     "services": "Xizmet",
     "bereavement": "Şînî",
     "pricing": "Bihayan",
+    "blog": "Blog",
     "funeralDirectors": "Rêvebirên cenazeyan",
     "mosques": "Mizgeft û îmam",
     "churches": "Dêr",
     "temples": "Perestgeh û Gurdwaras",
     "contact": "Têkilî",
     "impressum": "Impressum",
+    "terms": "Mercên xizmetê",
     "privacy": "Parastina daneyan",
+    "cookies": "Cookies",
+    "complaints": "Giliyên",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "Bi eleqeyê hatiye çêkirin"
+    "madeWithCare": "Bi eleqeyê hatiye çêkirin",
+    "followUs": "Me bişopînin"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -46,6 +53,12 @@
     "experts": "Lîsteya pisporan",
     "settings": "Mîheng",
     "internal": "Hundirîn",
+    "staffPortal": "Pêşnêrîna karmendan",
+    "leads": "Rêberên bîmeyê",
+    "admin": "Rêveber",
+    "adminUsers": "Bikarhêner û rol",
+    "adminInvite": "Vexwendname",
+    "bugs": "Raporên xeletiyan",
     "caseManagerRole": "Rêveberê Dozê · Berlin"
   },
   "language": {
@@ -54,5 +67,64 @@
     "chooseDescription": "Beistand bi 13 zimanan diaxive. Ya xwe hilbijêre — tu dikarî her dem ji quncikê rastê yê jorîn ê her rûpelekê biguherînî.",
     "continue": "Bidomîne",
     "current": "Zimanê niha"
+  },
+  "cookies": {
+    "title": "Em cookies bikar tînin",
+    "body": "Beistand ji bo xebitandina malperê û hiştina we di nav têketinê de cookie-ên bingehîn bikar tîne. Bi destûra we, em cookie-ên analîtîk jî bikar tînin da ku fam bikin ka platform çawa tê bikar anîn da ku em wê baştir bikin. Hûn dikarin destûra xwe her dem biguherînin an vekişînin.",
+    "acceptAll": "Hemî qebûl bike",
+    "essentialOnly": "Tenê bingehîn",
+    "preferences": "Tercîh",
+    "learnMore": "Polîtîkaya me ya cookie bixwînin"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Rêber, nûvekirin û çîrokên malbatên ku li Almanya bi cih dibin.",
+    "readMore": "Gotarê bixwînin",
+    "minRead": "{{count}} deqe xwendin",
+    "back": "Vegere blogê",
+    "share": "Parve bike",
+    "shareOn": "Li ser {{network}} parve bike",
+    "copyLink": "Zencîreyê kopî bike",
+    "copied": "Zencîre hat kopîkirin",
+    "publishedOn": "Hat weşandin {{date}}",
+    "author": "Ji hêla {{name}}"
+  },
+  "legal": {
+    "sectionLabel": "Hiqûqî",
+    "lastUpdated": "Cara dawî hate nûvekirin {{date}}",
+    "onlyDeEn": "Ev belge tenê bi îngilîzî û almanî heye - divê metnên hiqûqî berî ku em wergeran biweşînin ji hêla parêzerek pispor ve werin vekolîn."
+  },
+  "bugs": {
+    "title": "Raporên xeletiyan",
+    "subtitle": "Tiştek şikestî dît?",
+    "newReport": "Xeletiyek rapor bike",
+    "closeForm": "Formê bigire",
+    "titleLabel": "Sernav",
+    "titlePlaceholder": "Kurteyek kurt a pirsgirêkê",
+    "descriptionLabel": "Danasîn",
+    "descriptionPlaceholder": "Gavên dubarekirinê, encama hêvîkirî, encama rastîn...",
+    "severityLabel": "Girêdan",
+    "submit": "Xeletiyê bişîne",
+    "cancel": "Betal bike",
+    "loading": "Raporan bar dike...",
+    "empty": "Hîn raporên xeletiyan tune. Tiştek dît? Bişkojka jorîn bikirtînin da ku wê rapor bikin.",
+    "noDescription": "Danasînek nehatiye dayîn.",
+    "delete": "Raporê jê bibe",
+    "confirmDelete": "Vê raporê jê bibe? Ev nayê vegerandin.",
+    "filter": {
+      "all": "Hemî statû"
+    },
+    "severity": {
+      "low": "Kêm",
+      "medium": "Navîn",
+      "high": "Bilind",
+      "critical": "Krîtîk"
+    },
+    "status": {
+      "open": "Vekirî",
+      "in_progress": "Di pêşveçûnê de",
+      "resolved": "Çareser kirin",
+      "closed": "Girtî"
+    }
   }
 }

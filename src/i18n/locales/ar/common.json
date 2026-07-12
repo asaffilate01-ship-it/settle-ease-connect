@@ -9,6 +9,7 @@
     "bereavement": "التعزية",
     "forProviders": "للمزودين",
     "pricing": "التسعير",
+    "blog": "المدونة",
     "signIn": "تسجيل الدخول",
     "openDashboard": "فتح لوحة التحكم",
     "menu": "القائمة"
@@ -18,19 +19,25 @@
     "colPlatform": "المنصة",
     "colForProviders": "للمزودين",
     "colCompany": "الشركة",
+    "colLegal": "الشؤون القانونية",
     "howItWorks": "كيف يعمل",
     "services": "الخدمات",
     "bereavement": "التعزية",
     "pricing": "التسعير",
+    "blog": "المدونة",
     "funeralDirectors": "مديرو الجنازات",
     "mosques": "المساجد والأئمة",
     "churches": "الكنائس",
     "temples": "المعابد و Gurdwaras",
     "contact": "اتصل بنا",
     "impressum": "بصمة",
+    "terms": "شروط الخدمة",
     "privacy": "حماية البيانات",
+    "cookies": "ملفات تعريف الارتباط",
+    "complaints": "الشكاوى",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "صُمم بعناية"
+    "madeWithCare": "صُمم بعناية",
+    "followUs": "تابعنا"
   },
   "sidebar": {
     "dashboard": "لوحة التحكم",
@@ -46,6 +53,12 @@
     "experts": "قائمة الخبراء",
     "settings": "الإعدادات",
     "internal": "داخلي",
+    "staffPortal": "نظرة عامة على الموظفين",
+    "leads": "عملاء التأمين المحتملون",
+    "admin": "المسؤول",
+    "adminUsers": "المستخدمون والأدوار",
+    "adminInvite": "الدعوات",
+    "bugs": "تقارير الأخطاء",
     "caseManagerRole": "مدير الحالة · Berlin"
   },
   "language": {
@@ -54,5 +67,64 @@
     "chooseDescription": "يتحدث Beistand 13 لغة. اختر لغتك — يمكنك تغييرها في أي وقت من أعلى يمين أي صفحة.",
     "continue": "متابعة",
     "current": "اللغة الحالية"
+  },
+  "cookies": {
+    "title": "نحن نستخدم ملفات تعريف الارتباط",
+    "body": "يستخدم Beistand ملفات تعريف ارتباط أساسية لتشغيل الموقع وإبقائك مسجلاً للدخول. بموافقتك، نستخدم أيضًا ملفات تعريف ارتباط تحليلية لفهم كيفية استخدام النظام الأساسي حتى نتمكن من تحسينه. يمكنك تغيير موافقتك أو سحبها في أي وقت.",
+    "acceptAll": "قبول الكل",
+    "essentialOnly": "الأساسية فقط",
+    "preferences": "التفضيلات",
+    "learnMore": "اقرأ سياسة ملفات تعريف الارتباط الخاصة بنا"
+  },
+  "blog": {
+    "title": "المدونة",
+    "subtitle": "أدلة وتحديثات وقصص من عائلات تستقر في ألمانيا.",
+    "readMore": "اقرأ المقال",
+    "minRead": "{{count}} دقيقة قراءة",
+    "back": "العودة إلى المدونة",
+    "share": "مشاركة",
+    "shareOn": "مشاركة على {{network}}",
+    "copyLink": "نسخ الرابط",
+    "copied": "تم نسخ الرابط",
+    "publishedOn": "نشر في {{date}}",
+    "author": "بواسطة {{name}}"
+  },
+  "legal": {
+    "sectionLabel": "الشؤون القانونية",
+    "lastUpdated": "آخر تحديث في {{date}}",
+    "onlyDeEn": "هذه الوثيقة متاحة باللغتين الإنجليزية والألمانية فقط - يجب مراجعة النصوص القانونية من قبل محامٍ مؤهل قبل نشر الترجمات."
+  },
+  "bugs": {
+    "title": "تقارير الأخطاء",
+    "subtitle": "هل وجدت شيئًا معطلاً؟",
+    "newReport": "الإبلاغ عن خطأ",
+    "closeForm": "إغلاق النموذج",
+    "titleLabel": "العنوان",
+    "titlePlaceholder": "ملخص قصير للمشكلة",
+    "descriptionLabel": "الوصف",
+    "descriptionPlaceholder": "خطوات الاستنساخ، النتيجة المتوقعة، النتيجة الفعلية...",
+    "severityLabel": "الخطورة",
+    "submit": "إرسال الخطأ",
+    "cancel": "إلغاء",
+    "loading": "جارٍ تحميل التقارير...",
+    "empty": "لا توجد تقارير أخطاء بعد. هل وجدت شيئًا؟ انقر على الزر أعلاه للإبلاغ عنه.",
+    "noDescription": "لم يتم تقديم وصف.",
+    "delete": "حذف التقرير",
+    "confirmDelete": "حذف هذا التقرير؟ لا يمكن التراجع عن هذا الإجراء.",
+    "filter": {
+      "all": "جميع الحالات"
+    },
+    "severity": {
+      "low": "منخفض",
+      "medium": "متوسط",
+      "high": "عالٍ",
+      "critical": "حرج"
+    },
+    "status": {
+      "open": "مفتوح",
+      "in_progress": "قيد التقدم",
+      "resolved": "تم الحل",
+      "closed": "مغلق"
+    }
   }
 }

@@ -9,6 +9,7 @@
     "bereavement": "Trauerfall",
     "forProviders": "Für Anbieter",
     "pricing": "Preise",
+    "blog": "Blog",
     "signIn": "Anmelden",
     "openDashboard": "Dashboard öffnen",
     "menu": "Menü"
@@ -18,19 +19,25 @@
     "colPlatform": "Plattform",
     "colForProviders": "Für Anbieter",
     "colCompany": "Unternehmen",
+    "colLegal": "Rechtliches",
     "howItWorks": "So funktioniert's",
     "services": "Leistungen",
     "bereavement": "Trauerfall",
     "pricing": "Preise",
+    "blog": "Blog",
     "funeralDirectors": "Bestattungsunternehmen",
     "mosques": "Moscheen & Imame",
     "churches": "Kirchen",
     "temples": "Tempel & Gurdwaras",
     "contact": "Kontakt",
     "impressum": "Impressum",
+    "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutz",
+    "cookies": "Cookies",
+    "complaints": "Beschwerden",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "Mit Sorgfalt erstellt"
+    "madeWithCare": "Mit Sorgfalt erstellt",
+    "followUs": "Folgen Sie uns"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -60,6 +67,32 @@
     "chooseDescription": "Beistand spricht 13 Sprachen. Wählen Sie Ihre aus – Sie können sie jederzeit oben rechts auf jeder Seite ändern.",
     "continue": "Weiter",
     "current": "Aktuelle Sprache"
+  },
+  "cookies": {
+    "title": "Wir verwenden Cookies",
+    "body": "Beistand verwendet essenzielle Cookies, um die Website zu betreiben und Sie angemeldet zu halten. Mit Ihrer Zustimmung verwenden wir auch Analyse-Cookies, um zu verstehen, wie die Plattform genutzt wird, damit wir sie verbessern können. Sie können Ihre Zustimmung jederzeit ändern oder widerrufen.",
+    "acceptAll": "Alle akzeptieren",
+    "essentialOnly": "Nur essenzielle",
+    "preferences": "Einstellungen",
+    "learnMore": "Unsere Cookie-Richtlinie lesen"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Ratgeber, Neuigkeiten und Geschichten von Familien, die sich in Deutschland niederlassen.",
+    "readMore": "Artikel lesen",
+    "minRead": "{{count}} Min. Lesezeit",
+    "back": "Zurück zum Blog",
+    "share": "Teilen",
+    "shareOn": "Auf {{network}} teilen",
+    "copyLink": "Link kopieren",
+    "copied": "Link kopiert",
+    "publishedOn": "Veröffentlicht am {{date}}",
+    "author": "Von {{name}}"
+  },
+  "legal": {
+    "sectionLabel": "Rechtliches",
+    "lastUpdated": "Zuletzt aktualisiert am {{date}}",
+    "onlyDeEn": "Dieses Dokument ist nur in englischer und deutscher Sprache verfügbar – Rechtstexte müssen von einem qualifizierten Anwalt geprüft werden, bevor wir Übersetzungen veröffentlichen."
   },
   "bugs": {
     "title": "Fehlerberichte",
