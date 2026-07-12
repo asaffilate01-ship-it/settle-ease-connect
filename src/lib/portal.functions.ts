@@ -169,11 +169,11 @@ export const getOpsConsole = createServerFn({ method: "POST" })
         .in("severity", ["high", "critical"])
         .order("created_at", { ascending: true })
         .limit(20),
-      // Queue: pending quotes > 7d
+      // Queue: pending quotes > 7d (sent but not yet accepted/declined)
       supabaseAdmin
         .from("case_quotes")
         .select("id, case_id, amount_cents, status, created_at, last_nudged_at")
-        .in("status", ["sent", "pending"])
+        .eq("status", "sent")
         .lt("created_at", new Date(now - 7 * day).toISOString())
         .order("created_at", { ascending: true })
         .limit(20),
