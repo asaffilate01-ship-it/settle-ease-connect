@@ -118,19 +118,8 @@ function AuthPage() {
               : "One calm place for settlement, welfare and end-of-life care in Germany."}
           </p>
 
-          <Button
-            type="button"
-            variant="outline"
-            className="mt-6 w-full h-11"
-            onClick={handleGoogle}
-            disabled={loading}
-          >
-            <GoogleIcon /> <span className="ml-2">Continue with Google</span>
-          </Button>
 
-          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-            <div className="h-px flex-1 bg-border" /> or email <div className="h-px flex-1 bg-border" />
-          </div>
+
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === "signup" && (
