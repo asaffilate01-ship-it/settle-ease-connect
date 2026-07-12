@@ -133,7 +133,18 @@ function Services() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-gradient-hero" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] bg-gradient-hero" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] opacity-[0.18] mix-blend-multiply">
+          <img
+            src={heroServices}
+            alt=""
+            aria-hidden
+            width={1600}
+            height={1000}
+            className="h-full w-full object-cover"
+            fetchPriority="high"
+          />
+        </div>
         <div className="mx-auto max-w-4xl px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-32 sm:pb-20 lg:px-8">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/60 px-3.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent-foreground/80 backdrop-blur">
             <span className="h-1 w-1 rounded-full bg-accent" />
