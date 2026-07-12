@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, ArrowRight, Sparkles, Clock, FileCheck2, HeartHandshake } from "lucide-react";
 import { mockCases, stageLabels } from "@/lib/mock-data";
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/app/")({
   component: Overview,
@@ -11,13 +13,25 @@ export const Route = createFileRoute("/_authenticated/app/")({
 function Overview() {
   const activeCases = mockCases.filter((c) => c.stage !== "closed");
   const urgent = mockCases.find((c) => c.urgent);
+  const [firstName, setFirstName] = useState<string>("");
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.auth.getUser();
+      const u = data.user;
+      if (!u) return;
+      const meta = (u.user_metadata ?? {}) as Record<string, string>;
+      const full = meta.full_name || meta.name || u.email?.split("@")[0] || "";
+      setFirstName(full.split(" ")[0] ?? "");
+    })();
+  }, []);
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Willkommen zurück</div>
-          <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">Ahmed, here's your day.</h1>
+          <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">{firstName ? `${firstName}, ` : ""}here's your day.</h1>
         </div>
+
         <Button asChild className="bg-gradient-primary">
           <Link to="/app/cases/new">
             <HeartHandshake className="mr-1 h-4 w-4" /> Report a case
