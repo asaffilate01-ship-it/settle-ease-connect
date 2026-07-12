@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { checklists } from "@/lib/mock-data";
 import { useState } from "react";
 
-export const Route = createFileRoute("/app/checklists")({
+export const Route = createFileRoute("/_authenticated/app/checklists")({
   component: ChecklistsPage,
 });
 

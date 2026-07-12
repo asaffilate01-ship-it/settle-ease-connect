@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/app/cases/new")({
+export const Route = createFileRoute("/_authenticated/app/cases/new")({
   component: NewCase,
 });
 

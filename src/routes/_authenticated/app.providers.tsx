@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ShieldCheck, Star, MapPin, Search } from "lucide-react";
 
-export const Route = createFileRoute("/app/providers")({
+export const Route = createFileRoute("/_authenticated/app/providers")({
   component: ProvidersPage,
 });
 
