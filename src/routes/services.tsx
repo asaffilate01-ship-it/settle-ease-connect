@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
-import { Home, FileText, Users, Briefcase, Building, HeartPulse, GraduationCap, Scale, Flower2, ArrowRight } from "lucide-react";
-import type { ComponentType } from "react";
+import { ArrowRight } from "lucide-react";
+import { Icon3D, type Icon3DName } from "@/components/icon3d";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
