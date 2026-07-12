@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy & GDPR — Beistand" },
-      { name: "description", content: "How Beistand collects, uses and protects your personal data under the GDPR." },
-      { property: "og:title", content: "Privacy & GDPR — Beistand" },
+      { title: "Datenschutz (DSGVO / BDSG) — Beistand" },
+      { name: "description", content: "Datenschutzerklärung nach DSGVO und BDSG." },
+      { property: "og:title", content: "Datenschutz (DSGVO / BDSG) — Beistand" },
       { property: "og:url", content: "/legal/privacy" },
     ],
     links: [{ rel: "canonical", href: "/legal/privacy" }],
@@ -16,74 +16,89 @@ export const Route = createFileRoute("/legal/privacy")({
 
 function Page() {
   return (
-    <LegalArticle title="Privacy notice (GDPR)" updated="2026-04-01">
+    <LegalArticle title="Datenschutzerklärung (DSGVO / BDSG)" updated="2026-04-01">
       <BilingualNote />
 
-      <LegalSection title="Data controller">
+      <LegalSection title="1. Verantwortlicher (Art. 4 Nr. 7 DSGVO)">
         <p>
-          Beistand GmbH, Berlin, Germany, is the controller of personal data processed through the
-          platform. Contact us at <a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
+          Beistand GmbH, Musterstraße 1, 10115 Berlin, Deutschland.
+          E-Mail: <a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
         </p>
       </LegalSection>
 
-      <LegalSection title="What we collect">
-        <p>Depending on how you use Beistand we may process:</p>
+      <LegalSection title="2. Datenschutzbeauftragter">
+        <p>
+          Sie erreichen unseren Datenschutzbeauftragten unter
+          {" "}<a href="mailto:dpo@beistand.de">dpo@beistand.de</a> oder postalisch unter obiger
+          Anschrift mit dem Zusatz „Datenschutzbeauftragter".
+        </p>
+      </LegalSection>
+
+      <LegalSection title="3. Verarbeitete Daten">
         <ul>
-          <li>Account data — name, email, phone, preferred language.</li>
-          <li>Case data — documents, correspondence, appointment notes you upload or ask us to file on your behalf.</li>
-          <li>Family vault data — sensitive documents you choose to store, encrypted at rest.</li>
-          <li>Payment data — handled by our payment processor; we don't store full card numbers.</li>
-          <li>Usage data — pages viewed, features used (only with your consent for analytics cookies).</li>
+          <li>Bestandsdaten: Name, E-Mail, Telefon, Sprache.</li>
+          <li>Falldaten: Dokumente, Korrespondenz, Terminnotizen.</li>
+          <li>Depot-Daten: sensible Dokumente, verschlüsselt gespeichert.</li>
+          <li>Zahlungsdaten: über PCI-DSS-konformen Zahlungsdienstleister.</li>
+          <li>Nutzungsdaten: nur bei entsprechender Einwilligung (§ 25 TDDDG).</li>
+          <li>Besondere Kategorien (Art. 9 DSGVO, z. B. Gesundheit, Religion): nur auf Basis Ihrer ausdrücklichen Einwilligung nach Art. 9 Abs. 2 lit. a DSGVO.</li>
         </ul>
       </LegalSection>
 
-      <LegalSection title="Why we process it (legal bases)">
+      <LegalSection title="4. Zwecke und Rechtsgrundlagen">
         <ul>
-          <li><strong>To perform our contract with you</strong> (Art. 6(1)(b) GDPR) — running your account, cases and payments.</li>
-          <li><strong>Legal obligations</strong> (Art. 6(1)(c) GDPR) — tax, accounting, KYC.</li>
-          <li><strong>Legitimate interests</strong> (Art. 6(1)(f) GDPR) — securing the platform and preventing fraud.</li>
-          <li><strong>Your consent</strong> (Art. 6(1)(a) GDPR) — analytics, marketing emails, sensitive data in the vault.</li>
+          <li><strong>Vertragsdurchführung</strong> — Art. 6 Abs. 1 lit. b DSGVO (Konto, Fälle, Zahlungen).</li>
+          <li><strong>Rechtliche Verpflichtungen</strong> — Art. 6 Abs. 1 lit. c DSGVO iVm §§ 147 AO, 257 HGB, GwG.</li>
+          <li><strong>Berechtigte Interessen</strong> — Art. 6 Abs. 1 lit. f DSGVO (Sicherheit, Betrugsprävention).</li>
+          <li><strong>Einwilligung</strong> — Art. 6 Abs. 1 lit. a bzw. Art. 9 Abs. 2 lit. a DSGVO; § 25 TDDDG bei Cookies.</li>
+          <li><strong>Beschäftigtendaten</strong> — § 26 BDSG.</li>
         </ul>
       </LegalSection>
 
-      <LegalSection title="Who we share it with">
+      <LegalSection title="5. Empfänger / Auftragsverarbeiter">
         <p>
-          Only where necessary and always under a data-processing agreement: our cloud host (in the
-          EU), our payment provider, our email provider, and — with your explicit instruction —
-          the vetted experts working on your case.
+          Wir geben Daten nur an vertraglich gebundene Auftragsverarbeiter (Art. 28 DSGVO)
+          weiter: EU-Cloud-Hoster, Zahlungsdienstleister, E-Mail-Provider und — nur auf Ihre
+          Weisung — an die geprüften Experten in Ihrem Fall. Eine Übermittlung in Drittländer
+          findet grundsätzlich nicht statt; ausnahmsweise nur unter EU-Standardvertragsklauseln
+          (Art. 46 Abs. 2 lit. c DSGVO) und mit ergänzenden Schutzmaßnahmen nach EDSA-Leitlinien.
         </p>
       </LegalSection>
 
-      <LegalSection title="How long we keep it">
+      <LegalSection title="6. Speicherdauer">
         <p>
-          Account and case data: for as long as your account is active and up to 3 years after you
-          close it (or longer where required by law, e.g. 10 years for invoices). Vault data:
-          deleted on request or on account closure. Analytics data: 14 months.
+          Konto- und Falldaten: für die Dauer des Vertrags plus bis zu 3 Jahre (Verjährung
+          nach § 195 BGB) bzw. bis zu 10 Jahre bei Rechnungen (§ 147 AO). Depot-Daten:
+          Löschung auf Anforderung oder bei Kontoschließung. Statistikdaten: 14 Monate.
         </p>
       </LegalSection>
 
-      <LegalSection title="Your GDPR rights">
-        <p>You have the right to:</p>
+      <LegalSection title="7. Ihre Rechte">
         <ul>
-          <li>Access the data we hold about you (Art. 15).</li>
-          <li>Correct inaccurate data (Art. 16).</li>
-          <li>Ask us to delete it (Art. 17).</li>
-          <li>Restrict or object to processing (Art. 18, 21).</li>
-          <li>Receive a portable copy (Art. 20).</li>
-          <li>Withdraw consent at any time, without affecting past processing.</li>
+          <li>Auskunft (Art. 15 DSGVO)</li>
+          <li>Berichtigung (Art. 16 DSGVO)</li>
+          <li>Löschung (Art. 17 DSGVO)</li>
+          <li>Einschränkung (Art. 18 DSGVO)</li>
+          <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+          <li>Widerspruch (Art. 21 DSGVO)</li>
+          <li>Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
+          <li>Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO) — für uns zuständig: Berliner Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59–61, 10555 Berlin.</li>
         </ul>
+      </LegalSection>
+
+      <LegalSection title="8. Automatisierte Entscheidungen">
         <p>
-          To exercise any of these rights, email <a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
-          You also have the right to lodge a complaint with your local data-protection authority — in
-          Germany, the Berliner Beauftragte für Datenschutz und Informationsfreiheit.
+          Es findet keine ausschließlich automatisierte Entscheidungsfindung mit rechtlicher
+          Wirkung im Sinne des Art. 22 DSGVO statt. KI-gestützte Vorschläge werden stets von
+          einem Menschen geprüft, bevor sie umgesetzt werden.
         </p>
       </LegalSection>
 
-      <LegalSection title="Security">
+      <LegalSection title="9. Technische und organisatorische Maßnahmen (Art. 32 DSGVO)">
         <p>
-          We encrypt data in transit (TLS) and at rest, store passwords using industry-standard
-          hashing, and enforce access controls internally. Sensitive vault documents are encrypted
-          with additional keys and access is logged.
+          Transportverschlüsselung (TLS 1.3), Verschlüsselung im Ruhezustand, gehashte Passwörter
+          nach aktuellem Stand der Technik, rollenbasierte Zugriffskontrolle, Protokollierung,
+          regelmäßige Backups und Wiederherstellungstests, EU-Rechenzentrum.
         </p>
       </LegalSection>
     </LegalArticle>

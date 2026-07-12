@@ -5,7 +5,7 @@ export const Route = createFileRoute("/legal/impressum")({
   head: () => ({
     meta: [
       { title: "Impressum — Beistand" },
-      { name: "description", content: "Legal imprint / provider identification for Beistand under § 5 TMG." },
+      { name: "description", content: "Anbieterkennzeichnung nach § 5 DDG und § 18 Abs. 2 MStV." },
       { property: "og:title", content: "Impressum — Beistand" },
       { property: "og:url", content: "/legal/impressum" },
     ],
@@ -19,7 +19,7 @@ function Page() {
     <LegalArticle title="Impressum" updated="2026-04-01">
       <BilingualNote />
 
-      <LegalSection title="Angaben gemäß § 5 TMG">
+      <LegalSection title="Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)">
         <p>
           Beistand GmbH<br />
           Musterstraße 1<br />
@@ -29,12 +29,12 @@ function Page() {
       </LegalSection>
 
       <LegalSection title="Vertreten durch">
-        <p>Geschäftsführung: (to be confirmed)</p>
+        <p>Geschäftsführung: (wird ergänzt)</p>
       </LegalSection>
 
       <LegalSection title="Kontakt">
         <p>
-          Telefon: (to be confirmed)<br />
+          Telefon: (wird ergänzt)<br />
           E-Mail: <a href="mailto:hello@beistand.de">hello@beistand.de</a>
         </p>
       </LegalSection>
@@ -43,24 +43,33 @@ function Page() {
         <p>
           Eintragung im Handelsregister.<br />
           Registergericht: Amtsgericht Berlin-Charlottenburg<br />
-          Registernummer: (to be confirmed)
+          Registernummer: HRB (wird ergänzt)
         </p>
       </LegalSection>
 
       <LegalSection title="Umsatzsteuer-ID">
+        <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE (wird ergänzt)</p>
+      </LegalSection>
+
+      <LegalSection title="Redaktionell verantwortlich nach § 18 Abs. 2 MStV">
+        <p>(wird ergänzt), Musterstraße 1, 10115 Berlin</p>
+      </LegalSection>
+
+      <LegalSection title="Verbraucherstreitbeilegung / EU-Streitschlichtung">
         <p>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a UStG: (to be confirmed)
+          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS)
+          bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noreferrer noopener">https://ec.europa.eu/consumers/odr</a>.
+          Wir sind gemäß § 36 VSBG nicht verpflichtet und nicht bereit, an einem
+          Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
         </p>
       </LegalSection>
 
-      <LegalSection title="Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV">
-        <p>(to be confirmed), Musterstraße 1, 10115 Berlin</p>
-      </LegalSection>
-
-      <LegalSection title="EU-Streitschlichtung">
+      <LegalSection title="Haftung für Inhalte und Links">
         <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-          {" "}<a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noreferrer noopener">https://ec.europa.eu/consumers/odr</a>. Unsere E-Mail-Adresse finden Sie oben.
+          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten
+          nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir jedoch
+          nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
+          Bei Bekanntwerden von Rechtsverletzungen entfernen wir diese Inhalte umgehend.
         </p>
       </LegalSection>
     </LegalArticle>
