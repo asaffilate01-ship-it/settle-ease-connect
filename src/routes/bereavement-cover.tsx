@@ -57,6 +57,10 @@ function BereavementCover() {
         <BereavementQuoteWidget />
       </section>
 
+      <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+        <FuneralCoverPlans />
+      </section>
+
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="font-display text-3xl font-semibold">What's included</h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
