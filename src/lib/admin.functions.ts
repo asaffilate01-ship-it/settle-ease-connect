@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const ROLES = [
   "admin","staff","case_manager","expert","family",
@@ -18,9 +19,7 @@ async function assertAdmin(context: { supabase: any; userId: string }) {
 // -------- Users --------
 
 export const listAppUsers = createServerFn({ method: "GET" })
-  .middleware([
-    (await import("@/integrations/supabase/auth-middleware")).requireSupabaseAuth,
-  ])
+  .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -55,9 +54,7 @@ export const listAppUsers = createServerFn({ method: "GET" })
   });
 
 export const grantUserRole = createServerFn({ method: "POST" })
-  .middleware([
-    (await import("@/integrations/supabase/auth-middleware")).requireSupabaseAuth,
-  ])
+  .middleware([requireSupabaseAuth])
   .inputValidator((raw: unknown) =>
     z.object({ user_id: z.string().uuid(), role: RoleSchema }).parse(raw),
   )
@@ -67,14 +64,14 @@ export const grantUserRole = createServerFn({ method: "POST" })
     const { error } = await supabaseAdmin
       .from("user_roles")
       .insert({ user_id: data.user_id, role: data.role });
-    if (error && !error.message.includes("duplicate")) throw new Error(error.message);
+    if (error && !error.message.toLowerCase().includes("duplicate")) {
+      throw new Error(error.message);
+    }
     return { ok: true };
   });
 
 export const revokeUserRole = createServerFn({ method: "POST" })
-  .middleware([
-    (await import("@/integrations/supabase/auth-middleware")).requireSupabaseAuth,
-  ])
+  .middleware([requireSupabaseAuth])
   .inputValidator((raw: unknown) =>
     z.object({ user_id: z.string().uuid(), role: RoleSchema }).parse(raw),
   )
@@ -93,9 +90,7 @@ export const revokeUserRole = createServerFn({ method: "POST" })
 // -------- Invitations --------
 
 export const listInvitations = createServerFn({ method: "GET" })
-  .middleware([
-    (await import("@/integrations/supabase/auth-middleware")).requireSupabaseAuth,
-  ])
+  .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
     const { data, error } = await context.supabase
@@ -107,9 +102,7 @@ export const listInvitations = createServerFn({ method: "GET" })
   });
 
 export const createInvitation = createServerFn({ method: "POST" })
-  .middleware([
-    (await import("@/integrations/supabase/auth-middleware")).requireSupabaseAuth,
-  ])
+  .middleware([requireSupabaseAuth])
   .inputValidator((raw: unknown) =>
     z.object({
       email: z.string().email().max(200),
@@ -133,9 +126,7 @@ export const createInvitation = createServerFn({ method: "POST" })
   });
 
 export const revokeInvitation = createServerFn({ method: "POST" })
-  .middleware([
-    (await import("@/integrations/supabase/auth-middleware")).requireSupabaseAuth,
-  ])
+  .middleware([requireSupabaseAuth])
   .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
