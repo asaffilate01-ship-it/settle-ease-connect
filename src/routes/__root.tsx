@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import "@/i18n";
 import { LanguageOnboarding } from "@/components/language-onboarding";
 import { CookieConsent } from "@/components/cookie-consent";
+import { Toaster } from "@/components/ui/sonner";
 import { useLanguage } from "@/hooks/use-language";
 
 function NotFoundComponent() {
@@ -160,6 +161,7 @@ function RootComponent() {
       <Outlet />
       <LanguageOnboarding />
       <CookieConsent />
+      <Toaster />
     </QueryClientProvider>
   );
 }
