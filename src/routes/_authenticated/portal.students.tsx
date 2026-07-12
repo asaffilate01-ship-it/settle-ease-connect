@@ -12,7 +12,7 @@ import {
   listStudentVerifications,
   reviewStudentVerification,
 } from "@/lib/students.functions";
-import { Loader2, GraduationCap, ExternalLink } from "lucide-react";
+import { Loader2, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/portal/students")({
@@ -55,9 +55,9 @@ function StudentsQueue() {
   return (
     <div className="mx-auto max-w-6xl space-y-6 py-4">
       <PortalHeader
+        eyebrow="Membership"
         title="Student verifications"
         subtitle="Approve or reject student discount claims. Approved members receive their configured percent off automatically."
-        icon={GraduationCap}
       />
 
       <div className="flex gap-2">
