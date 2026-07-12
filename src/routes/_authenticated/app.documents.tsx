@@ -135,8 +135,8 @@ function SecurityCard() {
   useMemo(() => {
     supabase.auth.mfa.listFactors().then(({ data }) => {
       if (!data) return;
-      const v = data.totp?.filter((f) => f.status === "verified").length ?? 0;
-      const u = data.totp?.filter((f) => f.status === "unverified").length ?? 0;
+      const v = data.totp?.filter((f) => (f.status as string) === "verified").length ?? 0;
+      const u = data.totp?.filter((f) => (f.status as string) === "unverified").length ?? 0;
       setFactors({ verified: v, unverified: u });
     });
   }, []);
@@ -169,8 +169,8 @@ function SecurityCard() {
       if (verify.error) throw verify.error;
       toast.success("MFA enabled — sensitive documents are now protected.");
       const { data: refreshed } = await supabase.auth.mfa.listFactors();
-      const v = refreshed?.totp?.filter((f) => f.status === "verified").length ?? 0;
-      const u = refreshed?.totp?.filter((f) => f.status === "unverified").length ?? 0;
+      const v = refreshed?.totp?.filter((f) => (f.status as string) === "verified").length ?? 0;
+      const u = refreshed?.totp?.filter((f) => (f.status as string) === "unverified").length ?? 0;
       setFactors({ verified: v, unverified: u });
     } catch (e: any) {
       toast.error(e.message ?? "Could not enable MFA");
@@ -355,7 +355,7 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
       const { data } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
       if (data?.currentLevel !== "aal2") {
         const { data: factors } = await supabase.auth.mfa.listFactors();
-        const factor = factors?.totp?.find((f) => f.status === "verified");
+        const factor = factors?.totp?.find((f) => (f.status as string) === "verified");
         if (!factor) {
           toast.error("Enable MFA above to open sensitive documents.");
           return;
