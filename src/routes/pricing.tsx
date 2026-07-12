@@ -209,15 +209,44 @@ function Pricing() {
           </div>
         </div>
 
-        {/* Insurance & 3rd-party */}
+        {/* Bereavement cover & 3rd-party */}
         <div className="mt-10 rounded-2xl border border-border/60 bg-card p-8">
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <h3 className="font-display text-2xl font-semibold">Family funeral insurance</h3>
+              <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-parchment/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-foreground/80">
+                Optional add-on · Underwritten by regulated insurers
+              </div>
+              <h3 className="mt-3 font-display text-2xl font-semibold">Bereavement cover</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Optional add-on to any Complete plan. One monthly premium covers the whole
-                household — repatriation, funeral costs, and estate coordination. Underwritten by
-                regulated partners; premiums paid directly to the insurer.
+                A dedicated insurance policy that pays out up to <strong className="text-foreground">€10,000</strong> on
+                death to cover funeral costs and everything around them — so the family never has to
+                find the money upfront at the hardest moment.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  <span><strong className="text-foreground">€10,000 benefit</strong> paid directly to the funeral director and other approved service providers on production of invoices.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  <span>Covers funeral, cremation or burial, mosque / church / temple fees, repatriation of the body to the home country, death certificates, sworn translations and estate admin.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  <span><strong className="text-foreground">Full transparent invoicing</strong> — every payment is itemised in your family's case file; nothing goes anywhere without a receipt.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  <span>Any balance remaining after all costs are settled is paid to the <strong className="text-foreground">nominated beneficiary</strong> — in Germany or abroad, in their local currency.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  <span>Monthly premium set by the insurer based on age, health, family composition and the members added to the policy.</span>
+                </li>
+              </ul>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Premiums are paid directly to the insurer. Beistand handles the paperwork, the claim
+                and the coordination with providers — never the underwriting.
               </p>
             </div>
             <div>
@@ -230,6 +259,7 @@ function Pricing() {
             </div>
           </div>
         </div>
+
 
         {/* Providers strip */}
         <div className="mt-10 grid gap-6 rounded-2xl border border-border/60 bg-parchment/50 p-8 lg:grid-cols-2">
