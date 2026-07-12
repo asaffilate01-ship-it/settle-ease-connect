@@ -16,6 +16,7 @@ import { LanguageOnboarding } from "@/components/language-onboarding";
 import { CookieConsent } from "@/components/cookie-consent";
 import { Toaster } from "@/components/ui/sonner";
 import { useLanguage } from "@/hooks/use-language";
+import { initNative } from "@/lib/native";
 
 function NotFoundComponent() {
   return (
@@ -149,6 +150,11 @@ function RootComponent() {
         if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
       });
       unsubscribe = () => sub.subscription.unsubscribe();
+    });
+    // Native shell bootstrap (no-op on the web build).
+    initNative(() => {
+      // Let TanStack Router handle history; return false so the plugin falls back.
+      return false;
     });
     return () => {
       mounted = false;
