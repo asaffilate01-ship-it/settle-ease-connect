@@ -45,6 +45,8 @@ import { Route as AuthenticatedAppCasesRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
+import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
+import { Route as AuthenticatedPortalAdminInviteRouteImport } from './routes/_authenticated/portal.admin.invite'
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
@@ -239,6 +241,18 @@ const AuthenticatedPortalKnowledgeSlugRoute =
     path: '/$slug',
     getParentRoute: () => AuthenticatedPortalKnowledgeRoute,
   } as any)
+const AuthenticatedPortalAdminUsersRoute =
+  AuthenticatedPortalAdminUsersRouteImport.update({
+    id: '/portal/admin/users',
+    path: '/portal/admin/users',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPortalAdminInviteRoute =
+  AuthenticatedPortalAdminInviteRouteImport.update({
+    id: '/portal/admin/invite',
+    path: '/portal/admin/invite',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppCasesNewRoute =
   AuthenticatedAppCasesNewRouteImport.update({
     id: '/new',
@@ -289,6 +303,8 @@ export interface FileRoutesByFullPath {
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
+  '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesByTo {
@@ -327,6 +343,8 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
+  '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesById {
@@ -368,6 +386,8 @@ export interface FileRoutesById {
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/_authenticated/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
+  '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRouteTypes {
@@ -409,6 +429,8 @@ export interface FileRouteTypes {
     | '/app/'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/portal/admin/invite'
+    | '/portal/admin/users'
     | '/portal/knowledge/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -447,6 +469,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/portal/admin/invite'
+    | '/portal/admin/users'
     | '/portal/knowledge/$slug'
   id:
     | '__root__'
@@ -487,6 +511,8 @@ export interface FileRouteTypes {
     | '/_authenticated/app/'
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
+    | '/_authenticated/portal/admin/invite'
+    | '/_authenticated/portal/admin/users'
     | '/_authenticated/portal/knowledge/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -762,6 +788,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalKnowledgeSlugRouteImport
       parentRoute: typeof AuthenticatedPortalKnowledgeRoute
     }
+    '/_authenticated/portal/admin/users': {
+      id: '/_authenticated/portal/admin/users'
+      path: '/portal/admin/users'
+      fullPath: '/portal/admin/users'
+      preLoaderRoute: typeof AuthenticatedPortalAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/portal/admin/invite': {
+      id: '/_authenticated/portal/admin/invite'
+      path: '/portal/admin/invite'
+      fullPath: '/portal/admin/invite'
+      preLoaderRoute: typeof AuthenticatedPortalAdminInviteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/app/cases/new': {
       id: '/_authenticated/app/cases/new'
       path: '/new'
@@ -841,6 +881,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
+  AuthenticatedPortalAdminInviteRoute: typeof AuthenticatedPortalAdminInviteRoute
+  AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -849,6 +891,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
   AuthenticatedPortalKnowledgeRoute:
     AuthenticatedPortalKnowledgeRouteWithChildren,
+  AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
+  AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

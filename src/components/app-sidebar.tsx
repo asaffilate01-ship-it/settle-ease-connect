@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 type NavItem = {
   to: string;
@@ -9,6 +10,7 @@ type NavItem = {
   icon: Icon3DName;
   exact?: boolean;
   groupKey?: string;
+  requiresRole?: "admin";
 };
 
 const nav: NavItem[] = [
@@ -22,13 +24,17 @@ const nav: NavItem[] = [
   { to: "/app/community", labelKey: "sidebar.community", icon: "community" },
   { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal" },
   { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal" },
+  { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin" },
+  { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings" },
 ];
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useTranslation();
-  return (
+  const { roles } = useCurrentUser();
+  const isAdmin = roles.includes("admin");
+  const visibleNav = nav.filter((n) => !n.requiresRole || (n.requiresRole === "admin" && isAdmin));
     <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
       <div className="flex h-16 items-center gap-2.5 border-b border-sidebar-border px-5">
         <div className="grid h-9 w-9 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
