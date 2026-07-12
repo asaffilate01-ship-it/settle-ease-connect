@@ -14,9 +14,7 @@ import arCommon from "./locales/ar/common.json";
 import kuCommon from "./locales/ku/common.json";
 import ruCommon from "./locales/ru/common.json";
 import ukCommon from "./locales/uk/common.json";
-import faCommon from "./locales/fa/common.json";
-import plCommon from "./locales/pl/common.json";
-import zhCommon from "./locales/zh/common.json";
+import psCommon from "./locales/ps/common.json";
 
 const resources = {
   en: { common: enCommon },
@@ -25,13 +23,11 @@ const resources = {
   ur: { common: urCommon },
   hi: { common: hiCommon },
   pa: { common: paCommon },
+  ps: { common: psCommon },
   ar: { common: arCommon },
   ku: { common: kuCommon },
   ru: { common: ruCommon },
   uk: { common: ukCommon },
-  fa: { common: faCommon },
-  pl: { common: plCommon },
-  zh: { common: zhCommon },
 } as const;
 
 if (!i18n.isInitialized) {

@@ -1,0 +1,130 @@
+{
+  "brand": {
+    "location": "جرمني"
+  },
+  "nav": {
+    "howItWorks": "دا څنګه کار کوي",
+    "services": "خدمتونه",
+    "directory": "لارښود",
+    "bereavement": "د خپلوانو مړینه",
+    "forProviders": "د خدمت وړاندې کوونکو لپاره",
+    "pricing": "بیې",
+    "blog": "بلاګ",
+    "signIn": "ننوتل",
+    "openDashboard": "ډشبورډ خلاص کړئ",
+    "menu": "مینو"
+  },
+  "footer": {
+    "tagline": "په جرمني کې د هرې لارې لپاره. مېشتېدنه، هوساینه، مرستې او د ژوند د پای پاملرنه — د کورنیو او هغو مؤسسو لپاره چې ورسره ولاړ دي.",
+    "colPlatform": "پلیټ فارم",
+    "colForProviders": "د خدمت وړاندې کوونکو لپاره",
+    "colCompany": "شرکت",
+    "colLegal": "قانوني",
+    "howItWorks": "دا څنګه کار کوي",
+    "services": "خدمتونه",
+    "bereavement": "د خپلوانو مړینه",
+    "pricing": "بیې",
+    "blog": "بلاګ",
+    "funeralDirectors": "د جنازې مشران",
+    "mosques": "جوماتونه او امامان",
+    "churches": "کلیساوې",
+    "temples": "مندرونه او ګرودوارې",
+    "contact": "اړیکه",
+    "impressum": "خپرندویه معلومات (Impressum)",
+    "terms": "د کارونې شرایط",
+    "privacy": "محرمیت او GDPR",
+    "cookies": "کوکیز",
+    "complaints": "شکایتونه",
+    "copyright": "© {{year}} Beistand GmbH · برلین",
+    "madeWithCare": "په مینه جوړ شوی",
+    "followUs": "موږ تعقیب کړئ"
+  },
+  "sidebar": {
+    "dashboard": "ډشبورډ",
+    "overview": "کتنه",
+    "cases": "قضیې",
+    "checklists": "د کتنې لیستونه",
+    "benefits": "ګټې",
+    "documents": "اسناد",
+    "providers": "وړاندې کوونکي",
+    "assistant": "AI مرستیال",
+    "community": "ټولنه",
+    "knowledge": "د پوهې مرکز",
+    "experts": "د متخصصینو لیست",
+    "settings": "ترتیبات",
+    "internal": "داخلي",
+    "staffPortal": "د کارکوونکو کتنه",
+    "leads": "د بیمې مراجعین",
+    "admin": "اډمین",
+    "adminUsers": "کاروونکي او رولونه",
+    "adminInvite": "بلنې",
+    "bugs": "د تېروتنو راپورونه",
+    "caseManagerRole": "د قضیې مدیر · برلین"
+  },
+  "language": {
+    "label": "ژبه",
+    "choose": "خپله ژبه وټاکئ",
+    "chooseDescription": "Beistand په ۱۱ ژبو خبرې کوي. خپله ژبه وټاکئ — تاسو کولی شئ هر وخت یې د پاڼې له پاسه ښیې کونج څخه بدله کړئ.",
+    "continue": "دوام ورکړئ",
+    "current": "اوسنۍ ژبه"
+  },
+  "cookies": {
+    "title": "موږ کوکیز کاروو",
+    "body": "Beistand د سایټ چلولو او ستاسو د ننوتلو ساتلو لپاره اړین کوکیز کاروي. ستاسو په اجازه، موږ تحلیلي کوکیز هم کاروو ترڅو پوه شو چې پلیټ فارم څنګه کارول کیږي. تاسو کولی شئ خپله اجازه هر وخت بدله یا لغوه کړئ.",
+    "acceptAll": "ټول ومنئ",
+    "essentialOnly": "یوازې اړین",
+    "preferences": "غوره توبونه",
+    "learnMore": "زموږ د کوکیز پالیسي ولولئ"
+  },
+  "blog": {
+    "title": "بلاګ",
+    "subtitle": "د هغو کورنیو څخه لارښودونه، تازه معلومات او کیسې چې په جرمني کې مېشتیږي.",
+    "readMore": "مقاله ولولئ",
+    "minRead": "{{count}} دقیقې لوستل",
+    "back": "بلاګ ته بېرته",
+    "share": "شریک کړئ",
+    "shareOn": "په {{network}} شریک کړئ",
+    "copyLink": "لینک کاپي کړئ",
+    "copied": "لینک کاپي شو",
+    "publishedOn": "خپور شو {{date}}",
+    "author": "لخوا {{name}}"
+  },
+  "legal": {
+    "sectionLabel": "قانوني",
+    "lastUpdated": "وروستی تازه {{date}}",
+    "onlyDeEn": "دا سند یوازې په انګلیسي او آلماني شتون لري — د ژباړو له خپرولو مخکې قانوني متنونه باید د یو وړ حقوق پوه لخوا وڅېړل شي."
+  },
+  "bugs": {
+    "title": "د تېروتنو راپورونه",
+    "subtitle": "څه مو خراب وموندل؟",
+    "newReport": "تېروتنه راپور کړئ",
+    "closeForm": "فورمه وتړئ",
+    "titleLabel": "سرلیک",
+    "titlePlaceholder": "د ستونزې لنډ لنډیز",
+    "descriptionLabel": "تشریح",
+    "descriptionPlaceholder": "د بیا رامنځته کولو ګامونه، متوقع پایله، اصلي پایله...",
+    "severityLabel": "درنښت",
+    "submit": "تېروتنه واستوئ",
+    "cancel": "لغوه کړئ",
+    "loading": "د راپورونو بارول...",
+    "empty": "لا تر اوسه هیڅ راپور نشته. څه مو وموندل؟ د راپور کولو لپاره پورته تڼۍ کېکاږئ.",
+    "noDescription": "هیڅ تشریح نه ده وړاندې شوې.",
+    "delete": "راپور ړنګ کړئ",
+    "confirmDelete": "دا راپور ړنګ کړئ؟ دا نشي شاته کیدلی.",
+    "filter": {
+      "all": "ټولې حالتونه"
+    },
+    "severity": {
+      "low": "ټیټ",
+      "medium": "منځنی",
+      "high": "لوړ",
+      "critical": "بحراني"
+    },
+    "status": {
+      "open": "خلاص",
+      "in_progress": "په جریان کې",
+      "resolved": "حل شوی",
+      "closed": "تړل شوی"
+    }
+  }
+}
