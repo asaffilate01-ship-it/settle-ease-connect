@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +8,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { resolveLandingForCurrentUser } from "@/lib/role-landing";
 import logoFull from "@/assets/brand/logo-full.png";
+
 
 
 type Search = { redirect?: string };
