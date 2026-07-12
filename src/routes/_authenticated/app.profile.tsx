@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Plus, Trash2, ExternalLink, ClipboardList, Briefcase, HeartPulse, Users2, PiggyBank, AlertTriangle } from "lucide-react";
+import { Plus, Trash2, ExternalLink, ClipboardList, Briefcase, HeartPulse, Users2, PiggyBank, AlertTriangle, HeartHandshake, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,30 +10,39 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { listLifeAdmin, upsertLifeAdmin, deleteLifeAdmin } from "@/lib/life-admin.functions";
 import { listReferralPartners, createReferralLead, buildReferralUrl } from "@/lib/referrals.functions";
+import { listFamily, upsertFamily, deleteFamily } from "@/lib/immigration.functions";
 import { LIFE_EVENT_PLAYBOOKS, type Playbook } from "@/data/life-event-playbooks";
 
 export const Route = createFileRoute("/_authenticated/app/profile")({
   head: () => ({
     meta: [
-      { title: "My records — employment, pensions, contacts, events" },
-      { name: "description", content: "Store employment, pensions, health insurance, trusted contacts, and follow the right playbook for major life events." },
+      { title: "My records — employment, pensions, contacts, family, events" },
+      { name: "description", content: "Store employment, pensions, health insurance, trusted contacts, family members and follow the right playbook for major life events." },
     ],
   }),
   component: ProfilePage,
 });
 
-type Tab = "employment" | "pensions" | "health" | "contacts" | "events";
+type Tab = "employment" | "pensions" | "health" | "contacts" | "family" | "events";
 
 const TABS: { id: Tab; label: string; icon: any }[] = [
   { id: "employment", label: "Employment", icon: Briefcase },
   { id: "pensions", label: "Pensions", icon: PiggyBank },
   { id: "health", label: "Health insurance", icon: HeartPulse },
   { id: "contacts", label: "Trusted contacts", icon: Users2 },
+  { id: "family", label: "Family & dependants", icon: HeartHandshake },
   { id: "events", label: "Life-event playbooks", icon: AlertTriangle },
 ];
 
 function ProfilePage() {
   const [tab, setTab] = useState<Tab>("employment");
+  const fetchRows = useServerFn(listLifeAdmin);
+  const { data: contacts = [] } = useQuery({
+    queryKey: ["life", "trusted_contacts"],
+    queryFn: () => fetchRows({ data: { table: "trusted_contacts" } }),
+  });
+  const nominatedCount = (contacts as any[]).filter((c) => c.emergency_order != null).length;
+
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
@@ -43,6 +52,21 @@ function ProfilePage() {
           Everything we need to help you claim benefits, insurance, or navigate a major life event — kept in one place. Your case manager sees only what your plan allows.
         </p>
       </header>
+
+      {nominatedCount < 3 && (
+        <div className="rounded-2xl border border-red-500/40 bg-red-500/5 p-5">
+          <div className="flex items-start gap-3">
+            <ShieldAlert className="mt-0.5 h-5 w-5 text-red-600" />
+            <div className="flex-1">
+              <div className="font-semibold text-red-700">Please nominate 3 emergency contacts</div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                You've nominated <strong>{nominatedCount} of 3</strong>. These are the people we'll alert — and who can alert us — if you die, are hospitalised, go missing, or become unreachable. Set order 1, 2, 3 on the Trusted Contacts tab.
+              </p>
+              <Button size="sm" className="mt-3" onClick={() => setTab("contacts")}>Nominate now</Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-2 border-b border-border/60">
         {TABS.map(({ id, label, icon: Icon }) => (
@@ -62,10 +86,12 @@ function ProfilePage() {
       {tab === "pensions" && <PensionsSection />}
       {tab === "health" && <HealthSection />}
       {tab === "contacts" && <ContactsSection />}
+      {tab === "family" && <FamilySection />}
       {tab === "events" && <EventsSection />}
     </div>
   );
 }
+
 
 /* ---------------- generic list + form helper ---------------- */
 
