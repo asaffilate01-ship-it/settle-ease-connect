@@ -185,8 +185,8 @@ function Services() {
               className="group relative flex flex-col rounded-sm border border-primary/10 bg-card p-8 transition-all duration-500 hover:-translate-y-1 hover:border-primary/20 hover:shadow-elevated sm:p-10"
             >
               <div className="flex items-center justify-between">
-                <div className="grid h-12 w-12 place-items-center rounded-full bg-accent/15 text-accent-foreground transition-colors group-hover:bg-accent/25">
-                  <g.icon className="h-5 w-5" />
+                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-accent/10 p-2 transition-transform group-hover:-translate-y-0.5 group-hover:scale-105">
+                  <Icon3D name={g.icon} alt={g.title} />
                 </div>
                 <span className="font-display text-xs italic tracking-wide text-muted-foreground/70">
                   {String(i + 1).padStart(2, "0")} / {String(groups.length).padStart(2, "0")}
