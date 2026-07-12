@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrustRouteImport } from './routes/trust'
+import { Route as TaxRouteImport } from './routes/tax'
 import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -77,6 +78,11 @@ import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authe
 const TrustRoute = TrustRouteImport.update({
   id: '/trust',
   path: '/trust',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TaxRoute = TaxRouteImport.update({
+  id: '/tax',
+  path: '/tax',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudentsRoute = StudentsRouteImport.update({
@@ -442,6 +448,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
+  '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
@@ -507,6 +514,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
+  '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
@@ -572,6 +580,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
+  '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
@@ -639,6 +648,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/students'
+    | '/tax'
     | '/trust'
     | '/app'
     | '/portal'
@@ -704,6 +714,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/students'
+    | '/tax'
     | '/trust'
     | '/blog/$slug'
     | '/directory/list-your-business'
@@ -768,6 +779,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/students'
+    | '/tax'
     | '/trust'
     | '/_authenticated/app'
     | '/_authenticated/portal'
@@ -835,6 +847,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudentsRoute: typeof StudentsRoute
+  TaxRoute: typeof TaxRoute
   TrustRoute: typeof TrustRoute
   PartnersInsurersRoute: typeof PartnersInsurersRoute
 }
@@ -846,6 +859,13 @@ declare module '@tanstack/react-router' {
       path: '/trust'
       fullPath: '/trust'
       preLoaderRoute: typeof TrustRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tax': {
+      id: '/tax'
+      path: '/tax'
+      fullPath: '/tax'
+      preLoaderRoute: typeof TaxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/students': {
@@ -1491,6 +1511,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudentsRoute: StudentsRoute,
+  TaxRoute: TaxRoute,
   TrustRoute: TrustRoute,
   PartnersInsurersRoute: PartnersInsurersRoute,
 }

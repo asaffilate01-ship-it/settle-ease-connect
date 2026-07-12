@@ -46,6 +46,11 @@ export function SiteHeader() {
           href: "/insurance",
           hint: "Broker-placed cover in 13 languages",
         },
+        {
+          label: "Tax refund",
+          href: "/tax",
+          hint: "Steuererklärung, guided in your language",
+        },
       ],
     },
     { label: t("nav.howItWorks", "How it works"), href: "/how-it-works" },
