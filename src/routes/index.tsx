@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { Icon3D } from "@/components/icon3d";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -191,7 +192,7 @@ function UrgencyTriage() {
     {
       tone: "urgent" as const,
       tag: "I need help now",
-      icon: HeartPulse,
+      icon: "urgent" as const,
       title: "Something happened — a death, a deadline, a letter I can't read.",
       copy: "Talk to a human case manager within one hour. We triage, translate and act — bereavement, eviction notices, visa expiries, hospital paperwork, Jobcenter appointments.",
       bullets: [
@@ -205,7 +206,7 @@ function UrgencyTriage() {
     {
       tone: "plan" as const,
       tag: "I'm planning ahead",
-      icon: ShieldCheck,
+      icon: "plan" as const,
       title: "Set up my life in Germany — properly, calmly, one step at a time.",
       copy: "Store documents in the family vault, apply for visas, benefits and housing, keep pensions and insurance in one place, and hand over cleanly to loved ones when the time comes.",
       bullets: [
@@ -248,15 +249,15 @@ function UrgencyTriage() {
                   isUrgent ? "bg-destructive" : "bg-gradient-warm"
                 }`}
               />
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 <div
-                  className={`grid h-12 w-12 place-items-center rounded-2xl ${
+                  className={`grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-1.5 ${
                     isUrgent
-                      ? "bg-destructive text-destructive-foreground"
-                      : "bg-primary text-primary-foreground"
+                      ? "bg-destructive/10"
+                      : "bg-accent/10"
                   }`}
                 >
-                  <p.icon className="h-5 w-5" />
+                  <Icon3D name={p.icon} alt="" />
                 </div>
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   {p.tag}

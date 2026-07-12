@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
-import { Home, FileText, Users, Briefcase, Building, HeartPulse, GraduationCap, Scale, Flower2, ArrowRight } from "lucide-react";
-import type { ComponentType } from "react";
+import { ArrowRight } from "lucide-react";
+import { Icon3D, type Icon3DName } from "@/components/icon3d";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/services")({
 });
 
 type Group = {
-  icon: ComponentType<{ className?: string }>;
+  icon: Icon3DName;
   title: string;
   summary: string;
   items: string[];
@@ -24,19 +24,19 @@ type Group = {
 
 const groups: Group[] = [
   {
-    icon: Home,
+    icon: "settlement",
     title: "Settlement & registration",
     summary: "The first ninety days — Anmeldung, Tax ID, bank account and health insurance, calmly handled.",
     items: ["Anmeldung", "Tax ID", "Bank account", "Health insurance", "SIM & internet", "Utilities", "Deutschlandticket"],
   },
   {
-    icon: FileText,
+    icon: "government",
     title: "Government & benefits",
     summary: "Every entitlement you're owed — filed accurately, tracked to the day, in your language.",
     items: ["Bürgergeld", "Kindergeld", "Wohngeld", "Elterngeld", "Pension guidance", "Residence permits", "Visa reminders"],
   },
   {
-    icon: Scale,
+    icon: "visas",
     title: "Visas, immigration & nationality",
     summary: "From Chancenkarte to Niederlassungserlaubnis and dual citizenship — the full statutory path, one caseworker.",
     items: [
@@ -57,31 +57,31 @@ const groups: Group[] = [
     ],
   },
   {
-    icon: Briefcase,
+    icon: "employment",
     title: "Employment",
     summary: "German-format CV, employer intros, Anerkennung of foreign qualifications — a route into meaningful work.",
     items: ["German CV builder", "Job matching", "Direct work-visa employers", "Apprenticeships", "Interview prep", "Skilled trades", "Anerkennung (qualification recognition)", "Delivery & driver jobs"],
   },
   {
-    icon: Building,
+    icon: "housing",
     title: "Housing",
     summary: "A home you can register at — from WG search to Sozialwohnung advice and deposit loans.",
     items: ["Apartments & WG", "Social housing advice", "Deposit loans", "Landlord references", "Utility setup"],
   },
   {
-    icon: HeartPulse,
+    icon: "healthcare",
     title: "Healthcare",
     summary: "Doctors who speak your language, insurance you understand, mental-health care that meets you where you are.",
     items: ["English- & Urdu-speaking doctors", "Insurance comparison", "Mental health support", "Pregnancy services"],
   },
   {
-    icon: Users,
+    icon: "community",
     title: "Community",
     summary: "The people, places and rhythms of home — nearby, trusted, and open to your family.",
     items: ["Mosque finder", "Prayer times", "Halal restaurants", "Islamic schools", "Women's groups", "Youth clubs"],
   },
   {
-    icon: GraduationCap,
+    icon: "experts",
     title: "Students & universities",
     summary: "uni-assist, TestAS, Sperrkonto, Studienkolleg and the post-study 18-month permit — the academic runway.",
     items: [
@@ -100,7 +100,13 @@ const groups: Group[] = [
     ],
   },
   {
-    icon: Flower2,
+    icon: "legal",
+    title: "Legal & translations",
+    summary: "Sworn translators, notaries and immigration lawyers on call — regulated, fixed-fee, no surprises.",
+    items: ["Sworn translations", "Notary appointments", "Immigration lawyers", "Family & divorce law", "Tax advisors (Steuerberater)"],
+  },
+  {
+    icon: "burials",
     title: "Burials, cremations & last rites",
     summary: "Dignified end-of-life care that honours faith and law — Islamic, Jewish, Hindu, Sikh and secular rites.",
     items: [
@@ -179,8 +185,8 @@ function Services() {
               className="group relative flex flex-col rounded-sm border border-primary/10 bg-card p-8 transition-all duration-500 hover:-translate-y-1 hover:border-primary/20 hover:shadow-elevated sm:p-10"
             >
               <div className="flex items-center justify-between">
-                <div className="grid h-12 w-12 place-items-center rounded-full bg-accent/15 text-accent-foreground transition-colors group-hover:bg-accent/25">
-                  <g.icon className="h-5 w-5" />
+                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-accent/10 p-2 transition-transform group-hover:-translate-y-0.5 group-hover:scale-105">
+                  <Icon3D name={g.icon} alt={g.title} />
                 </div>
                 <span className="font-display text-xs italic tracking-wide text-muted-foreground/70">
                   {String(i + 1).padStart(2, "0")} / {String(groups.length).padStart(2, "0")}
