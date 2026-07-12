@@ -5,10 +5,32 @@ import { listDirectoryListings } from "@/lib/directory.functions";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, Globe, Phone, Mail, MapPin, Star, Lock, Sparkles } from "lucide-react";
+import { Search, Globe, Phone, Mail, MapPin, Star, Lock, Sparkles, Scale, Stamp, Calculator, HeartHandshake, Stethoscope, GraduationCap, HandHelping, Languages, Flower2, Building2, LayoutGrid, type LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSubscription, tierMeets } from "@/lib/subscription";
+import { ClayIcon } from "@/components/clay-icon";
+import { PolishedCard } from "@/components/polished-card";
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  lawyer: Scale,
+  immigration: Stamp,
+  tax: Calculator,
+  welfare: HandHelping,
+  doctor: Stethoscope,
+  medical: HeartHandshake,
+  education: GraduationCap,
+  religious: Building2,
+  translator: Languages,
+  funeral: Flower2,
+  other: LayoutGrid,
+};
+
+const CATEGORY_TONES: Record<string, "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink"> = {
+  lawyer: "ocean", immigration: "aurora", tax: "mint", welfare: "sun",
+  doctor: "teal", medical: "coral", education: "aurora", religious: "ink",
+  translator: "teal", funeral: "coral", other: "ocean",
+};
 
 const CATEGORIES = [
   { key: "", label: "All" },
@@ -197,17 +219,23 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
 }
 
 function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) {
+  const key = String(l.category ?? "other").toLowerCase();
+  const Icon = CATEGORY_ICONS[key] ?? LayoutGrid;
+  const tone = CATEGORY_TONES[key] ?? "ocean";
   return (
-    <div className="relative flex flex-col rounded-2xl border border-border/60 bg-card p-5 shadow-card transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-elevated">
+    <PolishedCard glow className="flex flex-col p-5">
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="truncate font-display text-lg font-semibold">{l.business_name}</div>
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">
-            {l.category}{l.subcategory ? ` · ${l.subcategory}` : ""}
+        <div className="flex min-w-0 items-start gap-3">
+          <ClayIcon icon={Icon} tone={tone} size="md" />
+          <div className="min-w-0">
+            <div className="truncate font-display text-lg font-semibold">{l.business_name}</div>
+            <div className="text-xs uppercase tracking-wider text-muted-foreground">
+              {l.category}{l.subcategory ? ` · ${l.subcategory}` : ""}
+            </div>
           </div>
         </div>
         {l.featured && (
-          <Badge className="gap-1 bg-accent text-accent-foreground">
+          <Badge className="shrink-0 gap-1 bg-accent text-accent-foreground">
             <Star className="h-3 w-3" /> Featured
           </Badge>
         )}
