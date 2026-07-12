@@ -38,6 +38,7 @@ const nav: NavItem[] = [
   { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/referrals", labelKey: "sidebar.referrals", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/immigration", labelKey: "sidebar.immigrationOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
