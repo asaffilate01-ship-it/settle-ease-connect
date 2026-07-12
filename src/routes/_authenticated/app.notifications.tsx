@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useNotifications } from "@/hooks/use-notifications";
 import { Button } from "@/components/ui/button";
-import { Bell, Check } from "lucide-react";
+import { Bell, BellRing, Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { pushSupported, subscribeToPush } from "@/lib/push-client";
+import { savePushSubscription, sendPushToUser } from "@/lib/notifications.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/app/notifications")({
   head: () => ({ meta: [{ title: "Notifications — BeistandPlus" }] }),
@@ -10,6 +16,60 @@ export const Route = createFileRoute("/_authenticated/app/notifications")({
 
 function NotificationsPage() {
   const { items, unread, markRead, loading } = useNotifications();
+  const savePush = useServerFn(savePushSubscription);
+  const sendPush = useServerFn(sendPushToUser);
+  const [pushState, setPushState] = useState<"idle" | "enabling" | "on" | "unavailable">("idle");
+
+  useEffect(() => {
+    if (!pushSupported()) return setPushState("unavailable");
+    if (Notification.permission === "granted") setPushState("on");
+  }, []);
+
+  async function enablePush() {
+    setPushState("enabling");
+    try {
+      const sub = await subscribeToPush();
+      if (!sub) {
+        setPushState("idle");
+        toast.error("Push permission denied");
+        return;
+      }
+      await savePush({
+        data: {
+          platform: "web",
+          endpoint: sub.endpoint,
+          p256dh: sub.p256dh,
+          auth: sub.auth,
+          user_agent: navigator.userAgent,
+        },
+      });
+      setPushState("on");
+      toast.success("Push notifications enabled");
+    } catch (err: any) {
+      setPushState("idle");
+      toast.error(err?.message ?? "Could not enable push");
+    }
+  }
+
+  async function testPush() {
+    const { data: user } = await supabase.auth.getUser();
+    if (!user.user) return;
+    try {
+      const res = await sendPush({
+        data: {
+          user_id: user.user.id,
+          title: "BeistandPlus test",
+          body: "If you see this, web push is wired end-to-end.",
+          link: "/app/notifications",
+          kind: "test",
+        },
+      });
+      toast.success(`Sent to ${res.sent} device${res.sent === 1 ? "" : "s"}`);
+    } catch (err: any) {
+      toast.error(err?.message ?? "Send failed");
+    }
+  }
+
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -29,6 +89,34 @@ function NotificationsPage() {
           </Button>
         )}
       </header>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border bg-card p-4">
+        <div className="flex items-center gap-3">
+          <BellRing className="h-5 w-5 text-primary" />
+          <div>
+            <div className="font-medium">Browser push notifications</div>
+            <div className="text-xs text-muted-foreground">
+              {pushState === "unavailable"
+                ? "Not supported in this browser"
+                : pushState === "on"
+                  ? "Enabled on this device"
+                  : "Get pinged even when the tab is closed"}
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          {pushState !== "on" && pushState !== "unavailable" && (
+            <Button size="sm" onClick={enablePush} disabled={pushState === "enabling"}>
+              {pushState === "enabling" ? "Enabling…" : "Enable"}
+            </Button>
+          )}
+          {pushState === "on" && (
+            <Button size="sm" variant="outline" onClick={testPush}>
+              Send test
+            </Button>
+          )}
+        </div>
+      </div>
 
       {loading ? (
         <div className="rounded-2xl border p-8 text-center text-sm text-muted-foreground">Loading…</div>
