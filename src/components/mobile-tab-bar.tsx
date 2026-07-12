@@ -16,12 +16,12 @@ export function MobileTabBar() {
   const { setOpenMobile } = useSidebar();
   const pathname = useRouterState({ select: (r) => r.location.pathname });
 
-  const tabs = [
+  const tabs: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
     { to: "/app", label: t("sidebar.overview", "Home"), icon: Home, exact: true },
     { to: "/app/cases", label: t("sidebar.cases", "Cases"), icon: FolderOpen },
     { to: "/app/messages", label: t("sidebar.messages", "Messages"), icon: MessagesSquare },
     { to: "/app/notifications", label: t("sidebar.notifications", "Alerts"), icon: Bell },
-  ] as const;
+  ];
 
   const isActive = (to: string, exact?: boolean) =>
     exact ? pathname === to : pathname === to || pathname.startsWith(to + "/");
