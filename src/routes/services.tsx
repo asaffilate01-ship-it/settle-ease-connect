@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
-import { Home, FileText, Users, Briefcase, Building, HeartPulse, GraduationCap, Scale } from "lucide-react";
+import { Home, FileText, Users, Briefcase, Building, HeartPulse, GraduationCap, Scale, Flower2 } from "lucide-react";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -54,6 +54,21 @@ const groups = [
     icon: GraduationCap,
     title: "Students",
     items: ["Admission support", "Blocked account", "BAföG", "Student jobs", "Semester ticket", "Exam letter help"],
+  },
+  {
+    icon: Flower2,
+    title: "Burials, cremations & last rites",
+    items: [
+      "Erdbestattung (earth burial)",
+      "Feuerbestattung (cremation) + 2. Leichenschau",
+      "Urnenbeisetzung & columbarium",
+      "Islamic burial (Qibla-aligned, sargloses Bestatten)",
+      "Jewish burial (Chevra Kadisha)",
+      "Hindu / Sikh cremation + ashes export",
+      "Baumbestattung / Ruheforst / Seebestattung",
+      "Sozialbestattung (§74 SGB XII)",
+      "International repatriation",
+    ],
   },
 ];
 
