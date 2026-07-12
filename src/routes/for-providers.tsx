@@ -15,20 +15,169 @@ export const Route = createFileRoute("/for-providers")({
   component: ForProviders,
 });
 
-const portals = [
-  { icon: Building2, title: "Funeral Director portal", desc: "Referrals · quotes · invoices · death certificates · family chat · reviews · analytics." },
-  { icon: Church, title: "Mosque portal", desc: "Janazah booking · imam scheduling · burial requests · volunteer allocation · announcements." },
-  { icon: Church, title: "Church portal", desc: "Funeral service booking · priest scheduling · cemetery coordination." },
-  { icon: Landmark, title: "Temple / Gurdwara portal", desc: "Ceremony booking · representative scheduling · community notifications." },
-  { icon: Hospital, title: "Hospital integration", desc: "Secure certification handoff and mortuary handover." },
-  { icon: Plane, title: "Airline / cargo partner", desc: "Repatriation booking automation and documentation." },
-  { icon: Scale, title: "Lawyer / translator directory", desc: "Verified referrals for migration cases and translations." },
-  { icon: Shield, title: "Insurance providers", desc: "Funeral expense cover on death, life, health and liability policies matched to families at the right life stage." },
-  { icon: Car, title: "Driving instructors", desc: "Führerschein lessons, theory prep and licence conversion for new arrivals — bookings, progress tracking and invoices." },
-  { icon: Baby, title: "Kita & childcare", desc: "Kita placement, tagesmutter referrals and parental leave paperwork support." },
-  { icon: Heart, title: "Marriage & family services", desc: "Standesamt appointments, wedding celebrants, mediators and couples counsellors." },
-  { icon: GraduationCap, title: "Education & language schools", desc: "Integration courses, German language schools, Anerkennung of foreign qualifications and tutoring." },
-  { icon: Home, title: "Relocation & housing", desc: "Anmeldung, tenancy contracts, movers and short-term accommodation for new arrivals." },
+const portals: Array<{
+  icon: typeof Building2;
+  title: string;
+  desc: string;
+  features: string[];
+  serves: string;
+}> = [
+  {
+    icon: Building2,
+    title: "Funeral Director portal",
+    desc: "Run bereavement cases end-to-end with vetted families ready to instruct.",
+    features: [
+      "Case inbox with family brief, faith rites and budget upfront",
+      "Quotes, invoices and death-certificate handling in one thread",
+      "Secure family chat with in-app translation (13 languages)",
+      "Reviews, response-time analytics and repeat-family pipeline",
+    ],
+    serves: "Bereaved families across Germany",
+  },
+  {
+    icon: Church,
+    title: "Mosque portal",
+    desc: "Coordinate Janazah, ghusl and burial logistics without WhatsApp chaos.",
+    features: [
+      "Janazah slot booking with imam and washer scheduling",
+      "Burial-plot and cemetery liaison workflow",
+      "Volunteer roster and community announcements",
+      "Direct handover to partner funeral directors",
+    ],
+    serves: "Muslim families and community members",
+  },
+  {
+    icon: Church,
+    title: "Church portal",
+    desc: "Booking and coordination for funeral services and memorials.",
+    features: [
+      "Service booking with priest / pastor availability",
+      "Cemetery and crematorium coordination",
+      "Order-of-service and hymn-sheet templates",
+      "Family aftercare and grief-support referrals",
+    ],
+    serves: "Christian congregations of all denominations",
+  },
+  {
+    icon: Landmark,
+    title: "Temple / Gurdwara portal",
+    desc: "Ceremony booking and representative scheduling for Hindu, Sikh and Buddhist rites.",
+    features: [
+      "Antim Sanskar, Antam Sanskar and puja scheduling",
+      "Granthi / pandit / monk availability calendar",
+      "Cremation and ash-scattering coordination",
+      "Community notification broadcasts",
+    ],
+    serves: "Hindu, Sikh and Buddhist families",
+  },
+  {
+    icon: Hospital,
+    title: "Hospital integration",
+    desc: "Secure handoff from ward to mortuary to funeral director.",
+    features: [
+      "Digital Todesbescheinigung handoff",
+      "Mortuary release and next-of-kin verification",
+      "Faith-sensitive body handling flags",
+      "Bereavement liaison contact card for staff",
+    ],
+    serves: "Hospitals, hospices and palliative wards",
+  },
+  {
+    icon: Plane,
+    title: "Airline / cargo partner",
+    desc: "Repatriation bookings with documentation done right the first time.",
+    features: [
+      "Route and price quoting for human remains cargo",
+      "Consular, embassy and zinc-liner document checklist",
+      "Live status updates shared with the family",
+      "Standing corridor agreements for common destinations",
+    ],
+    serves: "Repatriation to 40+ countries",
+  },
+  {
+    icon: Scale,
+    title: "Lawyer / translator directory",
+    desc: "Verified referrals for migration, probate and sworn translations.",
+    features: [
+      "Case briefs pre-qualified by our case managers",
+      "Aufenthalt, Einbürgerung, Erbschaft and family-law tracks",
+      "Sworn (beeidigt) translator matching by language pair",
+      "Fixed-fee or hourly billing through the platform",
+    ],
+    serves: "Migrants, expats and bereaved next of kin",
+  },
+  {
+    icon: Shield,
+    title: "Insurance providers",
+    desc: "Sterbegeld, life, health and liability cover matched at the right life stage.",
+    features: [
+      "Life-event triggers (birth, marriage, arrival, bereavement)",
+      "Multi-language quote and application flow",
+      "Broker-grade needs assessment by our advisors",
+      "Policy documents stored in the family vault",
+    ],
+    serves: "Households on Plus and Complete plans",
+  },
+  {
+    icon: Car,
+    title: "Driving instructors",
+    desc: "Führerschein lessons, theory prep and EU licence conversion for new arrivals.",
+    features: [
+      "Lesson booking, progress tracking and invoices",
+      "Theory-test prep in the student's first language",
+      "Umschreibung paperwork guidance",
+      "Fleet and school-wide dashboards",
+    ],
+    serves: "New arrivals and young adults",
+  },
+  {
+    icon: Baby,
+    title: "Kita & childcare",
+    desc: "Placement, tagesmutter referrals and parental-leave paperwork support.",
+    features: [
+      "Waitlist and Kita-Gutschein handling",
+      "Tagesmutter and au-pair matching",
+      "Elterngeld / Kindergeld application help",
+      "Parent onboarding in 13 languages",
+    ],
+    serves: "Families with children under 6",
+  },
+  {
+    icon: Heart,
+    title: "Marriage & family services",
+    desc: "Standesamt appointments, celebrants, mediators and couples counsellors.",
+    features: [
+      "Standesamt document checklist and booking",
+      "Multilingual wedding celebrants",
+      "Mediation and couples counselling referrals",
+      "Prenuptial and family-law legal handoff",
+    ],
+    serves: "Couples and families at every stage",
+  },
+  {
+    icon: GraduationCap,
+    title: "Education & language schools",
+    desc: "Integration courses, German language schools and qualification recognition.",
+    features: [
+      "BAMF Integrationskurs enrolment support",
+      "A1–C2 German courses with placement testing",
+      "Anerkennung of foreign qualifications",
+      "Private tutoring and Nachhilfe matching",
+    ],
+    serves: "Learners aged 6 to 60+",
+  },
+  {
+    icon: Home,
+    title: "Relocation & housing",
+    desc: "Anmeldung, tenancy, movers and short-term accommodation for new arrivals.",
+    features: [
+      "Anmeldung appointment booking and forms",
+      "Tenancy contract and Schufa guidance",
+      "Vetted movers with fixed-price quotes",
+      "Furnished short-stay while flat-hunting",
+    ],
+    serves: "New arrivals and internal movers",
+  },
 ];
 
 function ForProviders() {
