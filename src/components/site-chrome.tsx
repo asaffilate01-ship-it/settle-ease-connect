@@ -86,7 +86,7 @@ export function SiteFooter() {
   const { t } = useTranslation();
   return (
     <footer className="border-t border-border/60 bg-parchment/40">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-5 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-6 lg:px-8">
         <div className="lg:col-span-2">
           <div className="flex items-center gap-2.5">
             <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-primary text-primary-foreground">
@@ -95,6 +95,14 @@ export function SiteFooter() {
             <div className="font-display text-xl font-semibold">Beistand</div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">{t("footer.tagline")}</p>
+          <div className="mt-6">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/70">
+              {t("footer.followUs")}
+            </div>
+            <div className="mt-3">
+              <SocialIcons />
+            </div>
+          </div>
         </div>
         <FooterCol
           title={t("footer.colPlatform")}
@@ -103,6 +111,7 @@ export function SiteFooter() {
             [t("footer.services"), "/services"],
             [t("footer.bereavement"), "/bereavement"],
             [t("footer.pricing"), "/pricing"],
+            [t("footer.blog"), "/blog"],
           ]}
         />
         <FooterCol
@@ -118,8 +127,16 @@ export function SiteFooter() {
           title={t("footer.colCompany")}
           links={[
             [t("footer.contact"), "/contact"],
-            [t("footer.impressum"), "/contact"],
-            [t("footer.privacy"), "/contact"],
+          ]}
+        />
+        <FooterCol
+          title={t("footer.colLegal")}
+          links={[
+            [t("footer.terms"), "/legal/terms"],
+            [t("footer.privacy"), "/legal/privacy"],
+            [t("footer.cookies"), "/legal/cookies"],
+            [t("footer.complaints"), "/legal/complaints"],
+            [t("footer.impressum"), "/legal/impressum"],
           ]}
         />
       </div>
