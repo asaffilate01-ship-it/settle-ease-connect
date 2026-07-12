@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { BereavementQuoteWidget } from "@/components/bereavement-quote-widget";
+import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
@@ -54,6 +55,10 @@ function BereavementCover() {
 
       <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
         <BereavementQuoteWidget />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+        <FuneralCoverPlans />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
