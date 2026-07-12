@@ -39,7 +39,7 @@ function sanitizeRedirect(value: string | undefined): string | null {
 function AuthPage() {
   const navigate = useNavigate();
   const { redirect } = Route.useSearch();
-  const target = sanitizeRedirect(redirect);
+  const explicitTarget = sanitizeRedirect(redirect);
 
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -47,12 +47,18 @@ function AuthPage() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
+  async function goToLanding() {
+    const dest = explicitTarget ?? (await resolveLandingForCurrentUser());
+    navigate({ to: dest as "/app" });
+  }
+
   useEffect(() => {
-    // If already signed in, bounce to target.
+    // If already signed in, bounce to role-based landing (or explicit redirect).
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: target as "/app" });
+      if (data.session) void goToLanding();
     });
-  }, [navigate, target]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function handleGoogle() {
     setLoading(true);
@@ -66,7 +72,7 @@ function AuthPage() {
         return;
       }
       if (result.redirected) return;
-      navigate({ to: target as "/app" });
+      await goToLanding();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Google sign-in failed");
       setLoading(false);
@@ -92,7 +98,7 @@ function AuthPage() {
           return;
         }
         toast.success("Welcome to Beistand");
-        navigate({ to: target as "/app" });
+        await goToLanding();
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) {
@@ -100,13 +106,14 @@ function AuthPage() {
           setLoading(false);
           return;
         }
-        navigate({ to: target as "/app" });
+        await goToLanding();
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);
     }
   }
+
 
   return (
     <div className="min-h-screen bg-parchment flex flex-col">
