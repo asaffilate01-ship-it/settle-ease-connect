@@ -16,6 +16,60 @@ export const Route = createFileRoute("/_authenticated/app/notifications")({
 
 function NotificationsPage() {
   const { items, unread, markRead, loading } = useNotifications();
+  const savePush = useServerFn(savePushSubscription);
+  const sendPush = useServerFn(sendPushToUser);
+  const [pushState, setPushState] = useState<"idle" | "enabling" | "on" | "unavailable">("idle");
+
+  useEffect(() => {
+    if (!pushSupported()) return setPushState("unavailable");
+    if (Notification.permission === "granted") setPushState("on");
+  }, []);
+
+  async function enablePush() {
+    setPushState("enabling");
+    try {
+      const sub = await subscribeToPush();
+      if (!sub) {
+        setPushState("idle");
+        toast.error("Push permission denied");
+        return;
+      }
+      await savePush({
+        data: {
+          platform: "web",
+          endpoint: sub.endpoint,
+          p256dh: sub.p256dh,
+          auth: sub.auth,
+          user_agent: navigator.userAgent,
+        },
+      });
+      setPushState("on");
+      toast.success("Push notifications enabled");
+    } catch (err: any) {
+      setPushState("idle");
+      toast.error(err?.message ?? "Could not enable push");
+    }
+  }
+
+  async function testPush() {
+    const { data: user } = await supabase.auth.getUser();
+    if (!user.user) return;
+    try {
+      const res = await sendPush({
+        data: {
+          user_id: user.user.id,
+          title: "BeistandPlus test",
+          body: "If you see this, web push is wired end-to-end.",
+          link: "/app/notifications",
+          kind: "test",
+        },
+      });
+      toast.success(`Sent to ${res.sent} device${res.sent === 1 ? "" : "s"}`);
+    } catch (err: any) {
+      toast.error(err?.message ?? "Send failed");
+    }
+  }
+
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
