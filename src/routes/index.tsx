@@ -108,7 +108,7 @@ function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-success" />
             Now onboarding partners in Berlin & NRW
           </div>
-          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:display-hero">
             {t("hero.headlinePrefix", "Für jeden Weg in")}{" "}
             <span className="relative inline-block">
               <span className="relative z-10">{t("hero.headlineHighlight", "Deutschland")}</span>
