@@ -161,6 +161,57 @@ function Bereavement() {
         </div>
       </section>
 
+      <section className="border-t border-border/60 bg-card">
+        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+              Burials & last rites in Germany
+            </div>
+            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+              Every recognised form of burial and cremation, arranged for you.
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Germany has strict but well-defined rules — Friedhofszwang,
+              Sargpflicht, second post-mortem, fixed burial windows. Beistand
+              maps them to your family's tradition and handles the paperwork
+              with the Standesamt, cemetery, Krematorium and your religious
+              organisation.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {burialOptions.map((b) => (
+              <div key={b.title} className="flex flex-col rounded-2xl border border-border/60 bg-parchment/40 p-6 shadow-soft">
+                <div className="font-display text-lg font-semibold">{b.title}</div>
+                <p className="mt-2 flex-1 text-sm text-muted-foreground">{b.desc}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {b.tags.map((t) => (
+                    <Badge key={t} variant="secondary" className="text-[10px] font-medium">
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14">
+            <h3 className="font-display text-2xl font-semibold">German legal essentials</h3>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {germanRules.map((r) => (
+                <div key={r.title} className="rounded-xl border border-border/60 bg-card p-5">
+                  <div className="font-semibold">{r.title}</div>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{r.body}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-xs text-muted-foreground">
+              Rules vary by Bundesland. Beistand's assistant applies the
+              correct Bestattungsgesetz for the city of death automatically.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Every faith</div>
         <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
