@@ -628,6 +628,66 @@ export type Database = {
         }
         Relationships: []
       }
+      insurance_leads: {
+        Row: {
+          age: number
+          assigned_to: string | null
+          benefit_amount: number
+          created_at: string
+          email: string
+          estimated_premium_max: number | null
+          estimated_premium_min: number | null
+          full_name: string
+          id: string
+          notes: string | null
+          phone: string | null
+          preferred_language: string | null
+          source: string | null
+          status: string
+          tobacco: boolean
+          updated_at: string
+          waiting_period_months: number
+        }
+        Insert: {
+          age: number
+          assigned_to?: string | null
+          benefit_amount?: number
+          created_at?: string
+          email: string
+          estimated_premium_max?: number | null
+          estimated_premium_min?: number | null
+          full_name: string
+          id?: string
+          notes?: string | null
+          phone?: string | null
+          preferred_language?: string | null
+          source?: string | null
+          status?: string
+          tobacco?: boolean
+          updated_at?: string
+          waiting_period_months?: number
+        }
+        Update: {
+          age?: number
+          assigned_to?: string | null
+          benefit_amount?: number
+          created_at?: string
+          email?: string
+          estimated_premium_max?: number | null
+          estimated_premium_min?: number | null
+          full_name?: string
+          id?: string
+          notes?: string | null
+          phone?: string | null
+          preferred_language?: string | null
+          source?: string | null
+          status?: string
+          tobacco?: boolean
+          updated_at?: string
+          waiting_period_months?: number
+        }
+        Relationships: []
+      }
       knowledge_categories: {
         Row: {
           created_at: string
