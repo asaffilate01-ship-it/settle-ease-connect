@@ -233,7 +233,7 @@ function TasksPanel({ caseId, tasks, nameOf }: { caseId: string; tasks: Task[]; 
   );
 }
 
-type Ev = { id: string; event_type: string; payload: Record<string, unknown> | null; actor_user_id: string | null; created_at: string };
+type Ev = { id: string; event_type: string; actor_user_id: string | null; created_at: string };
 
 function EventsPanel({ events, nameOf }: { events: Ev[]; nameOf: (id: string | null) => string }) {
   return (
