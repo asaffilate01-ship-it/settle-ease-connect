@@ -399,3 +399,58 @@ html.keyboard-open body {
 }
 @utility safe-top { padding-top: env(safe-area-inset-top); }
 @utility safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* -------------------------------------------------------------------------- */
+/* Fluid display typography — clamps so long translations (DE/RU/UK/PA/UR)     */
+/* never overflow hero and section headings.                                   */
+/* -------------------------------------------------------------------------- */
+@utility display-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4.4vw + 1rem, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2.6vw + 0.9rem, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 1.4vw + 0.9rem, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+@utility body-pretty {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+@utility card-title {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 0;
+}
+
+/* RTL helpers for Arabic, Urdu, Pashto, Kurdish. */
+[dir="rtl"] .rtl-flip { transform: scaleX(-1); }
+[dir="rtl"] .text-start-safe { text-align: right; }
+[dir="ltr"] .text-start-safe { text-align: left; }
+
+/* Global long-word safety net — prevents translated words overflowing cards. */
+h1, h2, h3, h4 { overflow-wrap: break-word; hyphens: auto; }
+p, li, dd, dt  { overflow-wrap: break-word; }
