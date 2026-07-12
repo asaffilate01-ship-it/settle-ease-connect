@@ -334,7 +334,7 @@ function ContactsSection() {
         { name: "email", label: "Email (used so this person can alert us)", type: "email" },
         { name: "address", label: "Address" },
         { name: "language", label: "Preferred language" },
-        { name: "emergency_order", label: "Emergency order (1 = first to alert)", type: "select", options: ["1", "2", "3"] },
+        { name: "emergency_order", label: "Emergency order (1, 2 or 3 — leave blank if not an emergency contact)", type: "number", placeholder: "1" },
         { name: "is_primary", label: "Primary contact for this role", type: "checkbox", placeholder: "Mark as the go-to person" },
         { name: "notes", label: "Notes", type: "textarea" },
       ]}
