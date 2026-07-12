@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocialIcons } from "@/components/social-icons";
 import logoMark from "@/assets/brand/logo-mark.png";
+import { MobileCtaBar } from "@/components/mobile-cta-bar";
 
 type NavChild = { label: string; href: string; hint?: string };
 type NavGroup = { label: string; href?: string; children?: NavChild[] };
@@ -195,6 +196,7 @@ export function SiteHeader() {
           </Sheet>
         </header>
       </div>
+      <MobileCtaBar />
     </div>
   );
 }
