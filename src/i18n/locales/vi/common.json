@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "Đức" },
+  "nav": {
+    "howItWorks": "Cách hoạt động",
+    "services": "Dịch vụ",
+    "directory": "Danh bạ",
+    "bereavement": "Tang lễ",
+    "forProviders": "Cho nhà cung cấp",
+    "pricing": "Giá",
+    "blog": "Blog",
+    "signIn": "Đăng nhập",
+    "openDashboard": "Mở bảng điều khiển",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Cho mọi con đường ở Đức. Định cư, phúc lợi, trợ cấp và chăm sóc cuối đời — một nền tảng bình yên cho các gia đình.",
+    "colPlatform": "Nền tảng",
+    "colForProviders": "Cho nhà cung cấp",
+    "colCompany": "Công ty",
+    "colLegal": "Pháp lý",
+    "howItWorks": "Cách hoạt động",
+    "services": "Dịch vụ",
+    "bereavement": "Tang lễ",
+    "pricing": "Giá",
+    "blog": "Blog",
+    "funeralDirectors": "Giám đốc tang lễ",
+    "mosques": "Nhà thờ Hồi giáo và imam",
+    "churches": "Nhà thờ",
+    "temples": "Đền và Gurdwara",
+    "contact": "Liên hệ",
+    "impressum": "Impressum",
+    "terms": "Điều khoản dịch vụ",
+    "privacy": "Quyền riêng tư và GDPR",
+    "cookies": "Cookies",
+    "complaints": "Khiếu nại",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
+    "madeWithCare": "Được xây dựng với sự quan tâm",
+    "followUs": "Theo dõi chúng tôi"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "choose": "Chọn ngôn ngữ của bạn",
+    "chooseDescription": "BeistandPlus hỗ trợ 19 ngôn ngữ. Chọn ngôn ngữ của bạn — bạn có thể thay đổi bất cứ lúc nào.",
+    "continue": "Tiếp tục",
+    "current": "Ngôn ngữ hiện tại"
+  },
+  "hero": { "headlinePrefix": "Cho mọi con đường ở", "headlineHighlight": "Đức" }
+}

@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "Jarmalka" },
+  "nav": {
+    "howItWorks": "Sida ay u shaqeyso",
+    "services": "Adeegyada",
+    "directory": "Tusaha",
+    "bereavement": "Geerida",
+    "forProviders": "Bixiyeyaasha",
+    "pricing": "Qiimaha",
+    "blog": "Blog",
+    "signIn": "Gal",
+    "openDashboard": "Fur guud-marinta",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Wado kasta oo Jarmalka. Degganaansho, gargaar bulsho, dheefaha iyo daryeelka dhamaadka nolosha — hal madal xasilloon oo loogu talagalay qoysaska iyo hay'adaha.",
+    "colPlatform": "Madasha",
+    "colForProviders": "Bixiyeyaasha",
+    "colCompany": "Shirkadda",
+    "colLegal": "Sharciga",
+    "howItWorks": "Sida ay u shaqeyso",
+    "services": "Adeegyada",
+    "bereavement": "Geerida",
+    "pricing": "Qiimaha",
+    "blog": "Blog",
+    "funeralDirectors": "Agaasimeyaasha aaska",
+    "mosques": "Masaajidyada & imaamiinta",
+    "churches": "Kaniisadaha",
+    "temples": "Macbadyada & Gurdwara",
+    "contact": "Xiriir",
+    "impressum": "Impressum",
+    "terms": "Shuruudaha adeegga",
+    "privacy": "Sirta & GDPR",
+    "cookies": "Cookies",
+    "complaints": "Cabashooyinka",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
+    "madeWithCare": "Lagu sameeyay daryeel",
+    "followUs": "Na raac"
+  },
+  "language": {
+    "label": "Luqadda",
+    "choose": "Dooro luqaddaada",
+    "chooseDescription": "BeistandPlus wuxuu ku hadlaa 19 luuqadood. Dooro taada — waad bedeli kartaa waqti kasta.",
+    "continue": "Sii wad",
+    "current": "Luqadda hadda"
+  },
+  "hero": { "headlinePrefix": "Wado kasta oo", "headlineHighlight": "Jarmalka" }
+}

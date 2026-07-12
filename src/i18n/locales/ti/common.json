@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "ጀርመን" },
+  "nav": {
+    "howItWorks": "ከመይ ከም ዝሰርሕ",
+    "services": "ኣገልግሎታት",
+    "directory": "መዘርዝር",
+    "bereavement": "ሓዘን",
+    "forProviders": "ንኣቕረብቲ",
+    "pricing": "ዋጋ",
+    "blog": "ብሎግ",
+    "signIn": "እቶ",
+    "openDashboard": "ዳሽቦርድ ክፈት",
+    "menu": "ዝርዝር"
+  },
+  "footer": {
+    "tagline": "ኣብ ጀርመን ንዝኾነ መገዲ። ምስፋር፣ ድሕነት፣ ጥቕምታትን ናይ መወዳእታ ናብራ ክንክንን — ሓደ ጸጥ ዝበለ መድረኽ።",
+    "colPlatform": "መድረኽ",
+    "colForProviders": "ንኣቕረብቲ",
+    "colCompany": "ኩባንያ",
+    "colLegal": "ሕጋዊ",
+    "howItWorks": "ከመይ ከም ዝሰርሕ",
+    "services": "ኣገልግሎታት",
+    "bereavement": "ሓዘን",
+    "pricing": "ዋጋ",
+    "blog": "ብሎግ",
+    "funeralDirectors": "ሓለፍቲ ቀብሪ",
+    "mosques": "መስጊድን ኢማማትን",
+    "churches": "ኣብያተ ክርስትያናት",
+    "temples": "ቤተ መቕደሳት",
+    "contact": "ርክብ",
+    "impressum": "Impressum",
+    "terms": "ውዕላት ኣገልግሎት",
+    "privacy": "ሓባእነትን GDPR",
+    "cookies": "ኩኪስ",
+    "complaints": "ጥርዓናት",
+    "copyright": "© {{year}} BeistandPlus GmbH · በርሊን",
+    "madeWithCare": "ብጥንቃቐ ተሰሪሑ",
+    "followUs": "ተኸተሉና"
+  },
+  "language": {
+    "label": "ቋንቋ",
+    "choose": "ቋንቋኹም ምረጹ",
+    "chooseDescription": "BeistandPlus 19 ቋንቋታት ይዛረብ። ናትካ ምረጽ።",
+    "continue": "ቀጽል",
+    "current": "ህሉው ቋንቋ"
+  },
+  "hero": { "headlinePrefix": "ኣብ ጀርመን ንዝኾነ", "headlineHighlight": "መገዲ" }
+}

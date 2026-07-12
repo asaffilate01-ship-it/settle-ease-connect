@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "Немачка" },
+  "nav": {
+    "howItWorks": "Како функционише",
+    "services": "Услуге",
+    "directory": "Именик",
+    "bereavement": "Жалост",
+    "forProviders": "За пружаоце",
+    "pricing": "Цене",
+    "blog": "Блог",
+    "signIn": "Пријава",
+    "openDashboard": "Отвори таблу",
+    "menu": "Мени"
+  },
+  "footer": {
+    "tagline": "За сваки пут у Немачкој. Насељавање, социјална помоћ, бенефиције и брига на крају живота — једна мирна платформа за породице.",
+    "colPlatform": "Платформа",
+    "colForProviders": "За пружаоце",
+    "colCompany": "Компанија",
+    "colLegal": "Правно",
+    "howItWorks": "Како функционише",
+    "services": "Услуге",
+    "bereavement": "Жалост",
+    "pricing": "Цене",
+    "blog": "Блог",
+    "funeralDirectors": "Погребна предузећа",
+    "mosques": "Џамије и имами",
+    "churches": "Цркве",
+    "temples": "Храмови и Гурдваре",
+    "contact": "Контакт",
+    "impressum": "Импресум",
+    "terms": "Услови коришћења",
+    "privacy": "Приватност и GDPR",
+    "cookies": "Колачићи",
+    "complaints": "Жалбе",
+    "copyright": "© {{year}} BeistandPlus GmbH · Берлин",
+    "madeWithCare": "Направљено са пажњом",
+    "followUs": "Пратите нас"
+  },
+  "language": {
+    "label": "Језик",
+    "choose": "Изаберите свој језик",
+    "chooseDescription": "BeistandPlus говори 19 језика. Изаберите свој.",
+    "continue": "Настави",
+    "current": "Тренутни језик"
+  },
+  "hero": { "headlinePrefix": "За сваки пут у", "headlineHighlight": "Немачкој" }
+}

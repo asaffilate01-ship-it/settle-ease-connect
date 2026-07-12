@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "Alemanha" },
+  "nav": {
+    "howItWorks": "Como funciona",
+    "services": "Serviços",
+    "directory": "Diretório",
+    "bereavement": "Luto",
+    "forProviders": "Para prestadores",
+    "pricing": "Preços",
+    "blog": "Blog",
+    "signIn": "Entrar",
+    "openDashboard": "Abrir painel",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Para cada caminho na Alemanha. Assentamento, bem-estar, benefícios e cuidados no fim da vida — uma plataforma tranquila para famílias e as organizações que estão ao seu lado.",
+    "colPlatform": "Plataforma",
+    "colForProviders": "Para prestadores",
+    "colCompany": "Empresa",
+    "colLegal": "Legal",
+    "howItWorks": "Como funciona",
+    "services": "Serviços",
+    "bereavement": "Luto",
+    "pricing": "Preços",
+    "blog": "Blog",
+    "funeralDirectors": "Diretores funerários",
+    "mosques": "Mesquitas e imãs",
+    "churches": "Igrejas",
+    "temples": "Templos e Gurdwaras",
+    "contact": "Contato",
+    "impressum": "Impressum",
+    "terms": "Termos de serviço",
+    "privacy": "Privacidade e GDPR",
+    "cookies": "Cookies",
+    "complaints": "Reclamações",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlim",
+    "madeWithCare": "Feito com carinho",
+    "followUs": "Siga-nos"
+  },
+  "language": {
+    "label": "Idioma",
+    "choose": "Escolha seu idioma",
+    "chooseDescription": "BeistandPlus fala 19 idiomas. Escolha o seu — você pode mudar a qualquer momento.",
+    "continue": "Continuar",
+    "current": "Idioma atual"
+  },
+  "hero": { "headlinePrefix": "Para cada caminho na", "headlineHighlight": "Alemanha" }
+}
