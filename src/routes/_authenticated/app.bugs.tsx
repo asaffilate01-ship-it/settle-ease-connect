@@ -216,9 +216,9 @@ function BugReportsPage() {
                         {report.source_route}
                       </span>
                     )}
-                    {isInternal && report.profiles && (
+                    {isInternal && (report as any).full_name && (
                       <span className="rounded bg-muted px-1.5 py-0.5">
-                        {(report.profiles as any).full_name || report.reporter_id}
+                        {(report as any).full_name}
                       </span>
                     )}
                   </div>
