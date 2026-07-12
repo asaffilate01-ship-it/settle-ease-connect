@@ -109,7 +109,7 @@ export const getOpsConsole = createServerFn({ method: "POST" })
       supabaseAdmin
         .from("case_invoices")
         .select("amount_cents, status")
-        .in("status", ["sent", "overdue"]),
+        .in("status", ["pending", "held_escrow"]),
       // First-contact latency: contacted leads in the window
       supabaseAdmin
         .from("insurance_leads")
