@@ -83,7 +83,7 @@ export const updateCaseStatus = createServerFn({ method: "POST" })
     z.object({ id: z.string().uuid(), status: z.enum(CASE_STATUSES) }).parse(d),
   )
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: { status: typeof data.status; closed_at?: string } = { status: data.status };
     if (data.status === "closed" || data.status === "completed") patch.closed_at = new Date().toISOString();
     const { error } = await context.supabase.from("cases").update(patch).eq("id", data.id);
     if (error) throw new Error(error.message);
