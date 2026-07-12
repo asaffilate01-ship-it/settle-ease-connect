@@ -60,5 +60,38 @@
     "chooseDescription": "Beistand spricht 13 Sprachen. Wählen Sie Ihre aus – Sie können sie jederzeit oben rechts auf jeder Seite ändern.",
     "continue": "Weiter",
     "current": "Aktuelle Sprache"
+  },
+  "bugs": {
+    "title": "Fehlerberichte",
+    "subtitle": "Etwas funktioniert nicht?",
+    "newReport": "Fehler melden",
+    "closeForm": "Formular schließen",
+    "titleLabel": "Titel",
+    "titlePlaceholder": "Kurze Zusammenfassung des Problems",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Schritte zur Reproduktion, erwartetes Ergebnis, tatsächliches Ergebnis...",
+    "severityLabel": "Schweregrad",
+    "submit": "Fehler senden",
+    "cancel": "Abbrechen",
+    "loading": "Berichte werden geladen...",
+    "empty": "Noch keine Fehlerberichte. Etwas gefunden? Klicken Sie oben, um es zu melden.",
+    "noDescription": "Keine Beschreibung angegeben.",
+    "delete": "Bericht löschen",
+    "confirmDelete": "Diesen Bericht löschen? Dies kann nicht rückgängig gemacht werden.",
+    "filter": {
+      "all": "Alle Status"
+    },
+    "severity": {
+      "low": "Niedrig",
+      "medium": "Mittel",
+      "high": "Hoch",
+      "critical": "Kritisch"
+    },
+    "status": {
+      "open": "Offen",
+      "in_progress": "In Bearbeitung",
+      "resolved": "Gelöst",
+      "closed": "Geschlossen"
+    }
   }
 }
