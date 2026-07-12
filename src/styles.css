@@ -349,3 +349,24 @@
 @utility bg-gradient-flag {
   background-image: var(--gradient-ocean);
 }
+
+/* -------------------------------------------------------------------------- */
+/* Native / Capacitor: honour iOS notches and Android status bar.             */
+/* -------------------------------------------------------------------------- */
+html.native body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+html.native {
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+}
+html.keyboard-open body {
+  padding-bottom: var(--keyboard-height, 0px);
+}
+@utility safe-top { padding-top: env(safe-area-inset-top); }
+@utility safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
