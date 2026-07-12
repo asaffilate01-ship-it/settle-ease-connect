@@ -11,16 +11,28 @@ export type Profile = {
 };
 
 export type AppRole =
-  | "family"
-  | "case_manager"
+  | "admin"
   | "staff"
+  | "case_manager"
+  | "insurance_admin"
+  | "tax_admin"
+  | "benefits_admin"
+  | "medical_admin"
+  | "new_arrival_admin"
+  | "lawyer"
+  | "accountant"
+  | "doctor"
+  | "notary"
+  | "translator"
+  | "social_worker"
   | "expert"
   | "funeral_director"
   | "mosque"
   | "church"
   | "temple"
   | "hospital"
-  | "admin";
+  | "beneficiary"
+  | "family";
 
 export function useCurrentUser() {
   const [user, setUser] = useState<User | null>(null);
