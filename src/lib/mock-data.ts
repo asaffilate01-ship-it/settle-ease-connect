@@ -159,71 +159,9 @@ export const mockProviders: Provider[] = [
   { id: "p11", name: "Übersetzungsbüro Rehman", kind: "Translator", city: "Berlin", rating: 4.9, verified: true, langs: ["DE", "UR", "EN", "AR"] },
 ];
 
-export type Benefit = {
-  key: string;
-  name: string;
-  german: string;
-  summary: string;
-  monthly?: string;
-  eligibleIf: string[];
-  category: "family" | "housing" | "income" | "student" | "pension";
-};
+export type { Benefit, BenefitCategory } from "@/data/german-benefits";
+export { benefits, CATEGORY_LABEL } from "@/data/german-benefits";
 
-export const benefits: Benefit[] = [
-  {
-    key: "kindergeld",
-    name: "Child Benefit",
-    german: "Kindergeld",
-    summary: "Monthly payment for every child under 18 (up to 25 if in education).",
-    monthly: "€250 / child",
-    eligibleIf: ["Registered address (Anmeldung)", "Valid residence permit", "Child lives in EU household"],
-    category: "family",
-  },
-  {
-    key: "elterngeld",
-    name: "Parental Allowance",
-    german: "Elterngeld",
-    summary: "Income replacement (65–67%) for parents in first year after birth.",
-    monthly: "€300–€1,800",
-    eligibleIf: ["Baby under 14 months", "Reduced working hours", "Legal residence"],
-    category: "family",
-  },
-  {
-    key: "wohngeld",
-    name: "Housing Benefit",
-    german: "Wohngeld",
-    summary: "Rent subsidy for low-income working households.",
-    monthly: "€100–€800",
-    eligibleIf: ["Not on Bürgergeld", "Below regional income cap", "Registered rental contract"],
-    category: "housing",
-  },
-  {
-    key: "buergergeld",
-    name: "Basic Income Support",
-    german: "Bürgergeld",
-    summary: "Minimum living support including rent, heating, healthcare.",
-    monthly: "€563 / adult + rent",
-    eligibleIf: ["Legal residence", "Job-seeking or unable to work", "Assets below threshold"],
-    category: "income",
-  },
-  {
-    key: "bafog",
-    name: "Student Grant/Loan",
-    german: "BAföG",
-    summary: "Study financing (50% grant, 50% interest-free loan).",
-    monthly: "up to €992",
-    eligibleIf: ["Enrolled at recognised university", "Under 45 at start of studies", "Parental income below cap"],
-    category: "student",
-  },
-  {
-    key: "rente",
-    name: "State Pension",
-    german: "Gesetzliche Rente",
-    summary: "Retirement pension based on contribution years.",
-    eligibleIf: ["5+ years of contributions", "Retirement age reached", "Foreign years may count via bilateral agreements"],
-    category: "pension",
-  },
-];
 
 export type ChecklistItem = { id: string; title: string; note?: string; done: boolean };
 export type Checklist = { key: string; title: string; description: string; items: ChecklistItem[] };
