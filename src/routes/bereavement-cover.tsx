@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { BereavementQuoteWidget } from "@/components/bereavement-quote-widget";
+import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
