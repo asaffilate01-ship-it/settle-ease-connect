@@ -95,11 +95,18 @@ export function SiteFooter() {
     <footer className="border-t border-border/60 bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-6 lg:px-8">
         <div className="lg:col-span-2">
-          <div className="flex items-center gap-2.5">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-primary text-primary-foreground">
-              <span className="font-display text-lg font-semibold">B</span>
+          <div className="flex items-center gap-3">
+            <img
+              src={logoMark}
+              alt="BeistandPlus"
+              width={44}
+              height={44}
+              className="h-11 w-11 object-contain"
+              loading="lazy"
+            />
+            <div className="font-display text-xl font-semibold">
+              Beistand<span className="text-success">Plus</span>
             </div>
-            <div className="font-display text-xl font-semibold">Beistand</div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <div className="mt-6">
