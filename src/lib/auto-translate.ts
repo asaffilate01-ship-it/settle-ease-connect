@@ -207,6 +207,34 @@ async function translatePage() {
       console.warn("[auto-translate] batch failed", err);
     }
   }
+
+  // Attribute batch (same batching strategy).
+  for (let i = 0; i < attrPending.length; i += CHUNK) {
+    const slice = attrPending.slice(i, i + CHUNK);
+    const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
+    try {
+      const { translations } = await translateBatch({
+        data: {
+          targetLang: currentLang,
+          targetName: langNames[currentLang] ?? currentLang,
+          texts: uniqueSrcs,
+        },
+      });
+      const map = new Map<string, string>();
+      uniqueSrcs.forEach((s, idx) => map.set(s, translations[idx] ?? s));
+      mutating = true;
+      for (const { el, attr, src } of slice) {
+        const t = map.get(src);
+        if (!t) continue;
+        cacheSet(currentLang, src, t);
+        el.setAttribute(attr, t);
+        el.setAttribute(`data-i18n-attrlang-${attr}`, currentLang);
+      }
+      mutating = false;
+    } catch (err) {
+      console.warn("[auto-translate] attr batch failed", err);
+    }
+  }
 }
 
 function restoreEnglish() {
@@ -215,7 +243,6 @@ function restoreEnglish() {
   marked.forEach((el) => {
     const src = el.getAttribute(SRC_ATTR);
     if (!src) return;
-    // Restore the first text node inside — good enough for our text-node model.
     for (const child of Array.from(el.childNodes)) {
       if (child.nodeType === Node.TEXT_NODE && child.nodeValue?.trim()) {
         child.nodeValue = src;
@@ -224,6 +251,15 @@ function restoreEnglish() {
     }
     el.setAttribute(LANG_ATTR, "en");
   });
+  // Restore attributes
+  for (const attr of ATTR_LIST) {
+    const srcKey = `data-i18n-attr-${attr}`;
+    document.querySelectorAll<HTMLElement>(`[${srcKey}]`).forEach((el) => {
+      const src = el.getAttribute(srcKey);
+      if (src) el.setAttribute(attr, src);
+      el.setAttribute(`data-i18n-attrlang-${attr}`, "en");
+    });
+  }
   mutating = false;
 }
 
