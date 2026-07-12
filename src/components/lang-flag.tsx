@@ -8,12 +8,22 @@ import SA from "country-flag-icons/react/3x2/SA";
 import IQ from "country-flag-icons/react/3x2/IQ";
 import RU from "country-flag-icons/react/3x2/RU";
 import UA from "country-flag-icons/react/3x2/UA";
+import AL from "country-flag-icons/react/3x2/AL";
+import SO from "country-flag-icons/react/3x2/SO";
+import ER from "country-flag-icons/react/3x2/ER";
+import BR from "country-flag-icons/react/3x2/BR";
+import BA from "country-flag-icons/react/3x2/BA";
+import HR from "country-flag-icons/react/3x2/HR";
+import RS from "country-flag-icons/react/3x2/RS";
+import VN from "country-flag-icons/react/3x2/VN";
+import FR from "country-flag-icons/react/3x2/FR";
 import type { LangCode } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 
 const MAP: Record<LangCode, React.ComponentType<{ title?: string; className?: string }>> = {
   en: GB, de: DE, tr: TR, ur: PK, hi: IN, pa: IN,
   ps: AF, ar: SA, ku: IQ, ru: RU, uk: UA,
+  sq: AL, so: SO, ti: ER, "pt-BR": BR, bs: BA, hr: HR, sr: RS, vi: VN, fr: FR,
 };
 
 /**
