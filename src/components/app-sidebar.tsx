@@ -9,10 +9,12 @@ import {
   Users,
   Settings,
   HeartHandshake,
+  BookOpenText,
+  GraduationCap,
 } from "lucide-react";
 import type { ComponentType } from "react";
 
-const nav: { to: string; label: string; icon: ComponentType<{ className?: string }>; exact?: boolean }[] = [
+const nav: { to: string; label: string; icon: ComponentType<{ className?: string }>; exact?: boolean; group?: string }[] = [
   { to: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
   { to: "/app/cases", label: "Cases", icon: HeartHandshake },
   { to: "/app/checklists", label: "Checklists", icon: ClipboardList },
@@ -21,6 +23,8 @@ const nav: { to: string; label: string; icon: ComponentType<{ className?: string
   { to: "/app/providers", label: "Providers", icon: Building2 },
   { to: "/app/assistant", label: "AI Assistant", icon: Sparkles },
   { to: "/app/community", label: "Community", icon: Users },
+  { to: "/portal/knowledge", label: "Knowledge base", icon: BookOpenText, group: "Internal" },
+  { to: "/portal/experts", label: "Experts roster", icon: GraduationCap, group: "Internal" },
   { to: "/app/settings", label: "Settings", icon: Settings },
 ];
 
@@ -40,21 +44,28 @@ export function AppSidebar() {
         </div>
       </div>
       <nav className="flex-1 space-y-1 p-3">
-        {nav.map((n) => {
+        {nav.map((n, i) => {
           const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
+          const showGroupHeader = n.group && nav[i - 1]?.group !== n.group;
           return (
-            <Link
-              key={n.to}
-              to={n.to}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                active
-                  ? "bg-sidebar-accent text-sidebar-primary"
-                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
-              }`}
-            >
-              <n.icon className="h-4 w-4" />
-              {n.label}
-            </Link>
+            <div key={n.to}>
+              {showGroupHeader && (
+                <div className="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/50">
+                  {n.group}
+                </div>
+              )}
+              <Link
+                to={n.to}
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
+                  active
+                    ? "bg-sidebar-accent text-sidebar-primary"
+                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+                }`}
+              >
+                <n.icon className="h-4 w-4" />
+                {n.label}
+              </Link>
+            </div>
           );
         })}
       </nav>

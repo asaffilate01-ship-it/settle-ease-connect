@@ -14,6 +14,299 @@ export type Database = {
   }
   public: {
     Tables: {
+      expert_services: {
+        Row: {
+          expert_id: string
+          is_lead: boolean
+          note: string | null
+          service_id: string
+        }
+        Insert: {
+          expert_id: string
+          is_lead?: boolean
+          note?: string | null
+          service_id: string
+        }
+        Update: {
+          expert_id?: string
+          is_lead?: boolean
+          note?: string | null
+          service_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expert_services_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_services_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      experts: {
+        Row: {
+          availability_notes: string | null
+          bio: string | null
+          bundesland: string | null
+          city: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          hourly_rate_eur: number | null
+          id: string
+          kammer_authority: string | null
+          languages: string[]
+          phone: string | null
+          profession: string
+          registration_number: string | null
+          specialisations: string[]
+          status: string
+          updated_at: string
+          user_id: string | null
+          verified: boolean
+          verified_at: string | null
+          wholesale_rate_eur: number | null
+        }
+        Insert: {
+          availability_notes?: string | null
+          bio?: string | null
+          bundesland?: string | null
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          full_name: string
+          hourly_rate_eur?: number | null
+          id?: string
+          kammer_authority?: string | null
+          languages?: string[]
+          phone?: string | null
+          profession: string
+          registration_number?: string | null
+          specialisations?: string[]
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+          verified?: boolean
+          verified_at?: string | null
+          wholesale_rate_eur?: number | null
+        }
+        Update: {
+          availability_notes?: string | null
+          bio?: string | null
+          bundesland?: string | null
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          hourly_rate_eur?: number | null
+          id?: string
+          kammer_authority?: string | null
+          languages?: string[]
+          phone?: string | null
+          profession?: string
+          registration_number?: string | null
+          specialisations?: string[]
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+          verified?: boolean
+          verified_at?: string | null
+          wholesale_rate_eur?: number | null
+        }
+        Relationships: []
+      }
+      knowledge_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      knowledge_regulations: {
+        Row: {
+          authority: string | null
+          code: string
+          created_at: string
+          id: string
+          jurisdiction: string
+          last_reviewed_at: string | null
+          official_url: string | null
+          summary: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          authority?: string | null
+          code: string
+          created_at?: string
+          id?: string
+          jurisdiction?: string
+          last_reviewed_at?: string | null
+          official_url?: string | null
+          summary?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          authority?: string | null
+          code?: string
+          created_at?: string
+          id?: string
+          jurisdiction?: string
+          last_reviewed_at?: string | null
+          official_url?: string | null
+          summary?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      knowledge_service_regulations: {
+        Row: {
+          note: string | null
+          regulation_id: string
+          service_id: string
+        }
+        Insert: {
+          note?: string | null
+          regulation_id: string
+          service_id: string
+        }
+        Update: {
+          note?: string | null
+          regulation_id?: string
+          service_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_service_regulations_regulation_id_fkey"
+            columns: ["regulation_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_regulations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_service_regulations_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_services: {
+        Row: {
+          category_id: string
+          common_pitfalls: Json
+          created_at: string
+          delivery_playbook: Json
+          eligibility: string | null
+          escalation_contacts: Json
+          id: string
+          jurisdiction_notes: string | null
+          languages: string[]
+          last_reviewed_at: string | null
+          last_reviewed_by: string | null
+          legal_basis: string | null
+          name: string
+          official_fees: string | null
+          our_wholesale_notes: string | null
+          required_documents: Json
+          requires_expert_role: string | null
+          short_description: string | null
+          slug: string
+          status: string
+          typical_timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          category_id: string
+          common_pitfalls?: Json
+          created_at?: string
+          delivery_playbook?: Json
+          eligibility?: string | null
+          escalation_contacts?: Json
+          id?: string
+          jurisdiction_notes?: string | null
+          languages?: string[]
+          last_reviewed_at?: string | null
+          last_reviewed_by?: string | null
+          legal_basis?: string | null
+          name: string
+          official_fees?: string | null
+          our_wholesale_notes?: string | null
+          required_documents?: Json
+          requires_expert_role?: string | null
+          short_description?: string | null
+          slug: string
+          status?: string
+          typical_timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string
+          common_pitfalls?: Json
+          created_at?: string
+          delivery_playbook?: Json
+          eligibility?: string | null
+          escalation_contacts?: Json
+          id?: string
+          jurisdiction_notes?: string | null
+          languages?: string[]
+          last_reviewed_at?: string | null
+          last_reviewed_by?: string | null
+          legal_basis?: string | null
+          name?: string
+          official_fees?: string | null
+          our_wholesale_notes?: string | null
+          required_documents?: Json
+          requires_expert_role?: string | null
+          short_description?: string | null
+          slug?: string
+          status?: string
+          typical_timeline?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_services_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -77,6 +370,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_internal: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       app_role:
@@ -88,6 +382,8 @@ export type Database = {
         | "temple"
         | "hospital"
         | "admin"
+        | "staff"
+        | "expert"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -224,6 +520,8 @@ export const Constants = {
         "temple",
         "hospital",
         "admin",
+        "staff",
+        "expert",
       ],
     },
   },
