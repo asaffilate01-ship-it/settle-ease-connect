@@ -953,6 +953,266 @@ export type Database = {
         }
         Relationships: []
       }
+      vault_access_log: {
+        Row: {
+          accessed_by_user_id: string | null
+          action: string
+          created_at: string
+          document_id: string | null
+          id: string
+          ip: string | null
+          reason: string | null
+          user_agent: string | null
+          vault_owner_user_id: string
+        }
+        Insert: {
+          accessed_by_user_id?: string | null
+          action: string
+          created_at?: string
+          document_id?: string | null
+          id?: string
+          ip?: string | null
+          reason?: string | null
+          user_agent?: string | null
+          vault_owner_user_id: string
+        }
+        Update: {
+          accessed_by_user_id?: string | null
+          action?: string
+          created_at?: string
+          document_id?: string | null
+          id?: string
+          ip?: string | null
+          reason?: string | null
+          user_agent?: string | null
+          vault_owner_user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vault_access_log_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "vault_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vault_deputies: {
+        Row: {
+          accepted_at: string | null
+          access_granted: boolean
+          access_granted_at: string | null
+          access_rule: string
+          allowed_categories: string[]
+          created_at: string
+          deputy_user_id: string | null
+          full_name: string
+          id: string
+          invite_email: string
+          invited_at: string
+          min_confirmations: number
+          owner_user_id: string
+          phone: string | null
+          relationship: string | null
+          status: string
+          updated_at: string
+          verification_method: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          access_granted?: boolean
+          access_granted_at?: string | null
+          access_rule: string
+          allowed_categories?: string[]
+          created_at?: string
+          deputy_user_id?: string | null
+          full_name: string
+          id?: string
+          invite_email: string
+          invited_at?: string
+          min_confirmations?: number
+          owner_user_id: string
+          phone?: string | null
+          relationship?: string | null
+          status?: string
+          updated_at?: string
+          verification_method?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          access_granted?: boolean
+          access_granted_at?: string | null
+          access_rule?: string
+          allowed_categories?: string[]
+          created_at?: string
+          deputy_user_id?: string | null
+          full_name?: string
+          id?: string
+          invite_email?: string
+          invited_at?: string
+          min_confirmations?: number
+          owner_user_id?: string
+          phone?: string | null
+          relationship?: string | null
+          status?: string
+          updated_at?: string
+          verification_method?: string
+        }
+        Relationships: []
+      }
+      vault_documents: {
+        Row: {
+          category: string
+          checksum: string | null
+          country: string | null
+          created_at: string
+          document_number: string | null
+          expiry_date: string | null
+          file_name: string | null
+          file_size: number | null
+          id: string
+          is_sensitive: boolean
+          issue_date: string | null
+          issuer: string | null
+          label: string
+          mime_type: string | null
+          notes: string | null
+          owner_user_id: string
+          storage_path: string | null
+          tags: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          checksum?: string | null
+          country?: string | null
+          created_at?: string
+          document_number?: string | null
+          expiry_date?: string | null
+          file_name?: string | null
+          file_size?: number | null
+          id?: string
+          is_sensitive?: boolean
+          issue_date?: string | null
+          issuer?: string | null
+          label: string
+          mime_type?: string | null
+          notes?: string | null
+          owner_user_id: string
+          storage_path?: string | null
+          tags?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          checksum?: string | null
+          country?: string | null
+          created_at?: string
+          document_number?: string | null
+          expiry_date?: string | null
+          file_name?: string | null
+          file_size?: number | null
+          id?: string
+          is_sensitive?: boolean
+          issue_date?: string | null
+          issuer?: string | null
+          label?: string
+          mime_type?: string | null
+          notes?: string | null
+          owner_user_id?: string
+          storage_path?: string | null
+          tags?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      vault_unlock_confirmations: {
+        Row: {
+          confirmed_at: string
+          confirmed_by_user_id: string
+          deputy_id: string
+          id: string
+          unlock_request_id: string
+        }
+        Insert: {
+          confirmed_at?: string
+          confirmed_by_user_id: string
+          deputy_id: string
+          id?: string
+          unlock_request_id: string
+        }
+        Update: {
+          confirmed_at?: string
+          confirmed_by_user_id?: string
+          deputy_id?: string
+          id?: string
+          unlock_request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vault_unlock_confirmations_deputy_id_fkey"
+            columns: ["deputy_id"]
+            isOneToOne: false
+            referencedRelation: "vault_deputies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vault_unlock_confirmations_unlock_request_id_fkey"
+            columns: ["unlock_request_id"]
+            isOneToOne: false
+            referencedRelation: "vault_unlock_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vault_unlock_requests: {
+        Row: {
+          created_at: string
+          event_type: string
+          evidence_note: string | null
+          evidence_storage_path: string | null
+          id: string
+          owner_user_id: string
+          rejection_reason: string | null
+          requested_by_user_id: string
+          status: string
+          updated_at: string
+          verification_method: string
+          verified_at: string | null
+          verified_by_user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          evidence_note?: string | null
+          evidence_storage_path?: string | null
+          id?: string
+          owner_user_id: string
+          rejection_reason?: string | null
+          requested_by_user_id: string
+          status?: string
+          updated_at?: string
+          verification_method: string
+          verified_at?: string | null
+          verified_by_user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          evidence_note?: string | null
+          evidence_storage_path?: string | null
+          id?: string
+          owner_user_id?: string
+          rejection_reason?: string | null
+          requested_by_user_id?: string
+          status?: string
+          updated_at?: string
+          verification_method?: string
+          verified_at?: string | null
+          verified_by_user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -970,6 +1230,10 @@ export type Database = {
         Returns: boolean
       }
       is_internal: { Args: { _user_id: string }; Returns: boolean }
+      vault_deputy_can_read: {
+        Args: { _category: string; _deputy_user: string; _owner_user: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role:
