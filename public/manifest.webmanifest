@@ -1,0 +1,22 @@
+{
+  "name": "BeistandPlus",
+  "short_name": "Beistand",
+  "description": "Germany's digital welfare and integration platform — settlement, benefits, documents and community in one calm place.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#001B2E",
+  "theme_color": "#001B2E",
+  "lang": "de",
+  "dir": "ltr",
+  "categories": ["lifestyle", "productivity", "social"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
