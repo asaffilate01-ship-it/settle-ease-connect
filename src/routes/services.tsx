@@ -16,7 +16,7 @@ export const Route = createFileRoute("/services")({
 });
 
 type Group = {
-  icon: ComponentType<{ className?: string }>;
+  icon: Icon3DName;
   title: string;
   summary: string;
   items: string[];
