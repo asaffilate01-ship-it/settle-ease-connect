@@ -32,7 +32,7 @@ export function SiteHeader() {
             height={40}
             className="h-10 w-10 object-contain"
           />
-          <div className="font-display text-xl font-semibold tracking-tight">
+          <div data-no-translate className="font-display text-xl font-semibold tracking-tight">
             Beistand<span className="text-success">Plus</span>
           </div>
         </Link>
