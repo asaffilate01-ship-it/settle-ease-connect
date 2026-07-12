@@ -61,24 +61,8 @@ function AuthPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function handleGoogle() {
-    setLoading(true);
-    try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
-      });
-      if (result.error) {
-        toast.error(result.error.message || "Google sign-in failed");
-        setLoading(false);
-        return;
-      }
-      if (result.redirected) return;
-      await goToLanding();
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Google sign-in failed");
-      setLoading(false);
-    }
-  }
+
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
