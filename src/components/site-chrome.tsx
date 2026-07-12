@@ -33,7 +33,7 @@ export function SiteHeader() {
             className="h-10 w-10 object-contain"
           />
           <div data-no-translate className="font-display text-xl font-semibold tracking-tight">
-            BeistandPlus<span className="text-success">Plus</span>
+            Beistand<span className="text-success">Plus</span>
           </div>
         </Link>
 
@@ -100,7 +100,7 @@ export function SiteFooter() {
               loading="lazy"
             />
             <div data-no-translate className="font-display text-xl font-semibold">
-              BeistandPlus<span className="text-success">Plus</span>
+              Beistand<span className="text-success">Plus</span>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">{t("footer.tagline")}</p>
