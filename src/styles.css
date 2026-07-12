@@ -341,3 +341,11 @@
     box-shadow: var(--shadow-elevated);
   }
 }
+
+/* Back-compat aliases so pre-Ocean-Deep gradient utilities still resolve. */
+@utility bg-gradient-warm {
+  background-image: var(--gradient-teal);
+}
+@utility bg-gradient-flag {
+  background-image: var(--gradient-ocean);
+}

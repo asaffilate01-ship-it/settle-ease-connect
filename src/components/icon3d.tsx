@@ -51,21 +51,31 @@ type Props = {
   name: Icon3DName;
   className?: string;
   alt?: string;
+  /** Wrap the PNG in a claymorphic 3D badge (soft highlight + shadow). */
+  clay?: boolean;
 };
 
 /**
  * 3D matte claymorphic icon. Renders a transparent PNG scaled to its
  * container. Wrap in a sized box (e.g. h-12 w-12) to control display size.
+ * Pass `clay` to add the layered claymorphic badge surface around it.
  */
-export function Icon3D({ name, className, alt = "" }: Props) {
-  return (
+export function Icon3D({ name, className, alt = "", clay = false }: Props) {
+  const img = (
     <img
       src={registry[name]}
       alt={alt}
       loading="lazy"
       width={1024}
       height={1024}
-      className={`h-full w-full object-contain drop-shadow-[0_6px_14px_rgba(20,15,10,0.18)] ${className ?? ""}`}
+      className={`h-full w-full object-contain drop-shadow-[0_8px_18px_oklch(0.16_0.05_240/0.28)] ${className ?? ""}`}
     />
+  );
+  if (!clay) return img;
+  return (
+    <span className="relative inline-grid h-full w-full place-items-center overflow-hidden rounded-2xl bg-[linear-gradient(140deg,oklch(0.98_0.008_220),oklch(0.9_0.02_220))] p-1.5 shadow-clay">
+      <span aria-hidden className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(ellipse_at_28%_18%,oklch(1_0_0/0.7),transparent_55%)]" />
+      <span className="relative h-full w-full">{img}</span>
+    </span>
   );
 }
