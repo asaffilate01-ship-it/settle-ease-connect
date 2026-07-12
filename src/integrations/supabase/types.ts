@@ -843,12 +843,15 @@ export type Database = {
       }
       knowledge_services: {
         Row: {
+          appeals_process: string | null
           category_id: string
           common_pitfalls: Json
           created_at: string
           delivery_playbook: Json
           eligibility: string | null
           escalation_contacts: Json
+          fees_detail: string | null
+          forms: Json
           id: string
           jurisdiction_notes: string | null
           languages: string[]
@@ -857,22 +860,28 @@ export type Database = {
           legal_basis: string | null
           name: string
           official_fees: string | null
+          online_portals: Json
           our_wholesale_notes: string | null
           required_documents: Json
           requires_expert_role: string | null
           short_description: string | null
           slug: string
           status: string
+          tips: string | null
           typical_timeline: string | null
           updated_at: string
+          where_to_apply: string | null
         }
         Insert: {
+          appeals_process?: string | null
           category_id: string
           common_pitfalls?: Json
           created_at?: string
           delivery_playbook?: Json
           eligibility?: string | null
           escalation_contacts?: Json
+          fees_detail?: string | null
+          forms?: Json
           id?: string
           jurisdiction_notes?: string | null
           languages?: string[]
@@ -881,22 +890,28 @@ export type Database = {
           legal_basis?: string | null
           name: string
           official_fees?: string | null
+          online_portals?: Json
           our_wholesale_notes?: string | null
           required_documents?: Json
           requires_expert_role?: string | null
           short_description?: string | null
           slug: string
           status?: string
+          tips?: string | null
           typical_timeline?: string | null
           updated_at?: string
+          where_to_apply?: string | null
         }
         Update: {
+          appeals_process?: string | null
           category_id?: string
           common_pitfalls?: Json
           created_at?: string
           delivery_playbook?: Json
           eligibility?: string | null
           escalation_contacts?: Json
+          fees_detail?: string | null
+          forms?: Json
           id?: string
           jurisdiction_notes?: string | null
           languages?: string[]
@@ -905,14 +920,17 @@ export type Database = {
           legal_basis?: string | null
           name?: string
           official_fees?: string | null
+          online_portals?: Json
           our_wholesale_notes?: string | null
           required_documents?: Json
           requires_expert_role?: string | null
           short_description?: string | null
           slug?: string
           status?: string
+          tips?: string | null
           typical_timeline?: string | null
           updated_at?: string
+          where_to_apply?: string | null
         }
         Relationships: [
           {
