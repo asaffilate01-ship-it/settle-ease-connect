@@ -1,102 +1,50 @@
-## What you get
+## Polish audit — what's actually inconsistent today
 
-Two parallel additions — one for the **client's own record** (life-admin data they enter), one for the **business** (referral revenue engine). Both mirror the existing client-view / staff-view split you already have for insurance and benefits.
+After walking the site, three concrete gaps drive the "unpolished cards / missing 3D icons" feeling:
 
----
+1. **Flag emojis render as empty boxes** on Chrome/Windows and in the language onboarding + switcher. Only Kurdish (a peace-flag emoji) shows.
+2. **ClayIcon / Icon3D barely used.** Grep shows only `src/routes/index.tsx`, `src/routes/services.tsx`, and `src/components/app-sidebar.tsx` use them. Every other card falls back to flat Lucide icons on plain circles — that's the "3D icons not all there".
+3. **Card surfaces are inconsistent.** `PolishedCard` (layered gradient, hairline highlight, hover lift, optional teal glow) exists but is not used in dashboard tiles, directory cards, or portal cards — they use ad-hoc `border rounded-xl` boxes.
 
-## 1. Client life-admin sections
+## Fix (one pass, scoped to the 4 areas you picked)
 
-New sub-area under `/app/profile/*` (client-facing) with a mirrored `/portal/clients/$id/life-admin/*` view for case managers.
+### 1. Real SVG country flags (kills the tofu boxes everywhere)
 
-Sections, each its own tab + table:
+- Add `country-flag-icons` (SVG, ~30KB tree-shaken).
+- New `src/components/lang-flag.tsx` — maps our 11 `LangCode`s to `GB, DE, TR, PK, IN, IN, AF, SA, IQ (Kurdish region), RU, UA` SVGs, rounded 3:2 corners, subtle inner ring.
+- Replace `l.flag` emoji usage in:
+  - `src/components/language-onboarding.tsx`
+  - `src/components/language-switcher.tsx`
 
-- **Employment** — current + past employers, role, start/end, gross salary, contract type (unbefristet / befristet / minijob / freelance / civil servant), tax class, Sozialversicherungsnummer reference, works council contact, HR email. Used to pre-fill unemployment, sickness, parental-leave claims.
-- **Pensions** — separate rows for: Deutsche Rentenversicherung (statutory), Betriebsrente (employer/occupational), Riester, Rürup, private pension policies. Fields: provider, policy no., contribution, start date, projected payout, beneficiary. Links to the existing insurance module for private policies.
-- **Health insurance** — GKV vs PKV flag, Krankenkasse name, membership no., tariff, monthly premium, dependants covered, Zusatzversicherung (dental/hospital/travel) as child rows.
-- **Emergency & trusted contacts** — next of kin, medical proxy, executor, employer HR, GP, lawyer, accountant, embassy. Role + name + phone + email + preferred language + notes.
-- **"Whom to inform" playbooks** — pre-built checklists for events: **death, serious illness / hospitalisation, work injury, redundancy / end of service, long-term disability, birth of child, marriage, divorce, relocation abroad**. Each event lists: authorities to notify (Standesamt, Finanzamt, Rentenversicherung, Krankenkasse, Ausländerbehörde…), insurers/pensions to claim against (auto-populated from the client's own pensions + insurance rows), documents required, statutory deadlines, and a "generate case" button that spawns a case with pre-filled tasks assigned to the right admin role (medical_admin, benefits_admin, tax_admin, lawyer, notary…).
-- **Other benefits & claims quick-check** — a wizard that reads the client's employment + pensions + health rows and lists everything they may be eligible to claim right now (Krankengeld, Übergangsgeld, Berufsunfähigkeit, Hinterbliebenenrente, Unfallrente, Elterngeld, ALG I/II, Wohngeld…) — reuses the existing benefits-eligibility engine.
+### 2. ClayIcon/Icon3D coverage on every card
 
-Staff view adds a read/write panel with an audit trail and the ability to attach vault documents (payslips, contracts, pension statements, insurance certificates) to any row.
+Sweep the four surfaces and swap flat Lucide-in-circle for `ClayIcon` (tone chosen per section) or `Icon3D` (where a matching 3D asset already exists in `src/assets/icons3d/`):
 
----
+- **Landing sections** (`src/routes/index.tsx`, `services.tsx`, `how-it-works.tsx`, `for-providers.tsx`, `pricing.tsx`, `bereavement.tsx`) — feature grids, "how it works" step cards, pricing tier headers.
+- **Dashboard tiles** (`src/routes/_authenticated/app.index.tsx`, `portal/kpi-tile.tsx`, `portal/queue-row.tsx`, `portal/activity-item.tsx`) — KPI icons and quick-action tiles.
+- **Directory** (`src/routes/directory.tsx`) — category chips + business card leading icon.
+- **Portal** (`portal.index.tsx`, `portal.experts.tsx`, `portal.knowledge.tsx`, `portal.leads.tsx`, `portal.referrals.tsx`, `portal.funeral.tsx`, `portal.immigration.tsx`, `portal.insurance.tsx`) — section headers + row leading icons.
 
-## 2. Referral revenue engine
+Tone map (kept consistent so the site reads as one system): overview→`ocean`, cases→`teal`, documents→`aurora`, benefits→`sun`, healthcare→`mint`, urgent/legal→`coral`, admin→`ink`.
 
-New module `/portal/referrals` (internal only) + a lightweight client-facing "Recommended partners" panel on the relevant pages.
+### 3. Unified `PolishedCard` surface
 
-**Partner catalog** — a `referral_partners` table covering:
-- Insurers (health, life, disability, liability, household, car, travel)
-- Lawyers & notaries
-- Tax advisors & accountants
-- Movers & relocation companies
-- Airlines & travel booking
-- Currency transfer (Wise, Revolut Business)
-- Language schools, driving schools
-- Real-estate agents & Anmeldung services
-- Utilities & telecoms
+Replace ad-hoc card wrappers in the four surfaces with `PolishedCard` (already exists — layered gradient, hairline top highlight, hover lift; `glow` prop for feature emphasis). No new component work — just adoption. Keep spacing/typography as-is.
 
-Each partner: name, category, countries, languages, contact, tracking link (with our `?ref=welfare-de&sub={case_id}` params), commission model (flat / % of first premium / % recurring / CPL / CPA), currency, kickback %, payout terms.
+### Out of scope (call out explicitly)
 
-**Lead lifecycle** — `referral_leads` table tracks: partner, client (optional — some leads are anonymous), case (optional), source page, created_at, status (`sent → clicked → registered → converted → paid → clawback`), commission expected, commission received, invoice reference.
+- Not touching copy, layout structure, colors, or the design system tokens.
+- Not redesigning the hero, nav, or footer.
+- Not changing any business logic, data, or routing.
 
-**Where leads originate**
-- Insurance module: existing "Register with provider" button now creates a lead + rewrites the outbound URL with tracking params.
-- Life-admin "whom to inform" playbooks: relevant partner cards inline (e.g. probate lawyer for a death event, movers for relocation).
-- Knowledge base articles: contextual "Need help with this? Book a partner" CTA.
-- Directory listings: paid directory entries already exist — referral track is separate and internal-only.
+## Verification
 
-**Revenue reporting** — dashboard for admin + tax_admin with monthly commission expected vs received, per-partner P&L, per-case attribution (so the case manager sees which of their cases generated referral revenue), and CSV export for accounting.
+After the sweep, Playwright screenshots of `/`, `/services`, `/pricing`, `/directory`, `/app`, `/portal` at 1280×1800; visual diff against current shots for the four surfaces; confirm no flag tofu, every card icon is claymorphic, every card uses `PolishedCard`.
 
-**Invoicing** — extends the existing `case_invoices` table with a `referral_income` line type so the client-facing invoice can transparently show "€0 charged to you, €X earned from partner" when we want to disclose it, or hide it when we don't (per-partner disclosure flag).
+## Estimated blast radius
+
+~15 files edited, 1 new component, 1 dep added. No schema, no server functions, no route changes.
 
 ---
 
-## Database (new tables, all RLS-gated)
-
-```text
-employment_records         (client_user_id, employer, role, start/end, salary, tax_class, hr_contact, …)
-pensions                    (client_user_id, kind, provider, policy_no, contribution, beneficiary, …)
-health_insurance            (client_user_id, kind gkv/pkv, kasse, tariff, premium, dependants, …)
-trusted_contacts            (client_user_id, role, name, phone, email, language, notes)
-life_event_playbooks        (seed data: death, illness, injury, redundancy, disability, birth, marriage, divorce, relocation)
-life_event_playbook_steps   (playbook_id, order, actor_role, title, description, deadline_days, doc_refs)
-referral_partners           (name, category, url_template, commission_model, commission_rate, disclose_to_client)
-referral_leads              (partner_id, client_user_id?, case_id?, status, commission_expected, commission_received, …)
-```
-
-Client rows: only owner + assigned case_manager + `is_internal()` can read/write.
-Referral tables: `is_internal()` read, admin write; partners table read-open to clients for the "recommended" cards (only `disclose_to_client = true` rows).
-
----
-
-## Files to add / edit
-
-- migrations: 1 for life-admin tables, 1 for referral tables + seed partners + seed playbooks
-- `src/data/life-event-playbooks.ts` — seed data mirror for the UI
-- `src/data/referral-partners.ts` — seed catalog (~40 partners across categories)
-- `src/routes/_authenticated/app.profile.employment.tsx`
-- `src/routes/_authenticated/app.profile.pensions.tsx`
-- `src/routes/_authenticated/app.profile.health.tsx`
-- `src/routes/_authenticated/app.profile.contacts.tsx`
-- `src/routes/_authenticated/app.profile.events.tsx` — playbooks + "generate case" action
-- `src/routes/_authenticated/portal.clients.$id.life-admin.tsx` — staff mirror
-- `src/routes/_authenticated/portal.referrals.tsx` — pipeline + revenue dashboard
-- `src/routes/_authenticated/portal.referrals.partners.tsx` — partner CRUD
-- `src/lib/referrals.functions.ts` — `createReferralLead`, `markConverted`, `recordCommission`
-- `src/lib/life-admin.functions.ts` — CRUD + `generateCaseFromEvent`
-- `src/components/app-sidebar.tsx` — add Profile group for clients, Referrals for admin/tax_admin
-- extend `src/routes/_authenticated/app.insurance.tsx` to route the "Register" button through `createReferralLead`
-
----
-
-## Order of build
-
-1. Migrations (life-admin + referrals + seeds)
-2. Server functions
-3. Client life-admin routes
-4. Referral portal + partner catalog
-5. Wire insurance / knowledge / event playbooks to emit leads
-6. Sidebar + role-landing updates
-
-Approve and I'll ship it in that order. Say if you want any partner categories added or removed, or if referral commissions should always be disclosed on client invoices (default: per-partner flag, hidden unless flagged).
+**Confirm and I'll ship it.** If you'd rather I only do (1) flags + (2) icons and skip the `PolishedCard` adoption, say "skip 3".
