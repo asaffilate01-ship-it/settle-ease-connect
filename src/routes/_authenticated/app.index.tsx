@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, Sparkles, FileCheck2, HeartHandshake, Lock, MessageSquare, Shield, Receipt, Briefcase } from "lucide-react";
+import { ArrowRight, Sparkles, FileCheck2, HeartHandshake, Lock, MessageSquare, Shield, Receipt, Briefcase, type LucideIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PlanChip } from "@/components/paywall";
 import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
+import { ClayIcon } from "@/components/clay-icon";
+import { PolishedCard } from "@/components/polished-card";
 
 export const Route = createFileRoute("/_authenticated/app/")({
   component: Overview,
@@ -63,6 +65,7 @@ function Overview() {
             title="Ask Beistand AI"
             body="Chat in 11 languages — forms, benefits, appointments."
             icon={Sparkles}
+            tone="aurora"
             href="/app/assistant"
             requires="basic"
             current={sub.planGroup}
@@ -71,6 +74,7 @@ function Overview() {
             title="Checklists"
             body="First 30 days, Anmeldung, tax number, GP registration."
             icon={FileCheck2}
+            tone="teal"
             href="/app/checklists"
             requires="basic"
             current={sub.planGroup}
@@ -79,6 +83,7 @@ function Overview() {
             title="Benefits finder"
             body="Kindergeld, Wohngeld, Bürgergeld, disability & care."
             icon={HeartHandshake}
+            tone="sun"
             href="/app/benefits"
             requires="basic"
             current={sub.planGroup}
@@ -87,6 +92,7 @@ function Overview() {
             title="Insurance & claims"
             body="Register with insurers, file claims, track payouts."
             icon={Shield}
+            tone="ocean"
             href="/app/insurance"
             requires="plus"
             current={sub.planGroup}
@@ -95,6 +101,7 @@ function Overview() {
             title="Tax & Steuererklärung"
             body="Prepare and file with revenue authority (ELSTER)."
             icon={Receipt}
+            tone="mint"
             href="/app/checklists"
             requires="plus"
             current={sub.planGroup}
@@ -103,6 +110,7 @@ function Overview() {
             title="Case management"
             body="Dedicated manager for bereavement, visa, benefits."
             icon={Briefcase}
+            tone="coral"
             href="/app/cases"
             requires="complete"
             current={sub.planGroup}
@@ -111,14 +119,12 @@ function Overview() {
       </section>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft lg:col-span-2">
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-primary text-primary-foreground">
-              <MessageSquare className="h-4 w-4" />
-            </div>
+        <PolishedCard glow className="p-6 lg:col-span-2">
+          <div className="flex items-center gap-3">
+            <ClayIcon icon={MessageSquare} tone="aurora" size="md" />
             <div>
               <div className="font-display text-lg font-semibold">Beistand AI</div>
-              <div className="text-xs text-muted-foreground">DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL · ZH</div>
+              <div className="text-xs text-muted-foreground">DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS</div>
             </div>
           </div>
           <div className="mt-4 grid gap-2 sm:grid-cols-2">
@@ -137,9 +143,9 @@ function Overview() {
               </Link>
             ))}
           </div>
-        </div>
+        </PolishedCard>
 
-        <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+        <PolishedCard className="p-6">
           <div className="font-display text-lg font-semibold">Your account</div>
           <dl className="mt-3 space-y-2 text-sm">
             <Row label="Plan">{sub.planName ?? "No plan"}</Row>
@@ -155,7 +161,7 @@ function Overview() {
           >
             {noPlan ? "Choose a plan" : "Change plan"}
           </Link>
-        </div>
+        </PolishedCard>
       </div>
     </div>
   );
@@ -163,11 +169,9 @@ function Overview() {
 
 function NoPlanBanner() {
   return (
-    <div className="rounded-2xl border-2 border-dashed border-primary/40 bg-primary/5 p-6">
+    <PolishedCard glow className="border-primary/40 p-6">
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
-          <Sparkles className="h-5 w-5" />
-        </div>
+        <ClayIcon icon={Sparkles} tone="aurora" size="md" />
         <div className="flex-1">
           <div className="font-display text-lg font-semibold">Activate your plan to unlock the dashboard</div>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -178,14 +182,15 @@ function NoPlanBanner() {
           View plans <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-    </div>
+    </PolishedCard>
   );
 }
 
 function FeatureTile({
-  title, body, icon: Icon, href, requires, current,
+  title, body, icon: Icon, tone, href, requires, current,
 }: {
-  title: string; body: string; icon: React.ComponentType<{ className?: string }>;
+  title: string; body: string; icon: LucideIcon;
+  tone: "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink";
   href: string; requires: PlanGroup; current: PlanGroup;
 }) {
   const unlocked = tierMeets(current, requires);
@@ -198,25 +203,20 @@ function FeatureTile({
   };
   const target = unlocked ? href : "/app/upgrade";
   return (
-    <Link
-      to={target}
-      className={`group relative flex flex-col rounded-2xl border p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-elevated ${
-        unlocked ? "bg-card" : "bg-muted/30"
-      }`}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <div className={`grid h-10 w-10 place-items-center rounded-lg ${unlocked ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
-          {unlocked ? <Icon className="h-5 w-5" /> : <Lock className="h-5 w-5" />}
+    <Link to={target} className="group block">
+      <PolishedCard glow={unlocked} className={`h-full p-5 ${unlocked ? "" : "opacity-90"}`}>
+        <div className="flex items-start justify-between gap-2">
+          <ClayIcon icon={unlocked ? Icon : Lock} tone={unlocked ? tone : "ink"} size="md" />
+          <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${TIER_TONE[requires]}`}>
+            {TIER_LABEL[requires]}
+          </span>
         </div>
-        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${TIER_TONE[requires]}`}>
-          {TIER_LABEL[requires]}
-        </span>
-      </div>
-      <div className="mt-3 font-display text-base font-semibold">{title}</div>
-      <p className="mt-1 flex-1 text-sm text-muted-foreground">{body}</p>
-      <div className="mt-3 text-xs font-medium text-primary">
-        {unlocked ? "Open" : "Upgrade to unlock"} <ArrowRight className="inline h-3 w-3" />
-      </div>
+        <div className="mt-3 font-display text-base font-semibold">{title}</div>
+        <p className="mt-1 text-sm text-muted-foreground">{body}</p>
+        <div className="mt-3 text-xs font-medium text-primary">
+          {unlocked ? "Open" : "Upgrade to unlock"} <ArrowRight className="inline h-3 w-3" />
+        </div>
+      </PolishedCard>
     </Link>
   );
 }

@@ -42,10 +42,11 @@ export function KpiTile({
     <Wrapper
       {...wrapperProps}
       className={cn(
-        "group flex flex-col justify-between rounded-2xl border border-border/60 bg-card p-4 shadow-soft transition",
-        to && "hover:border-primary/40 hover:shadow-md",
+        "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/70 bg-[linear-gradient(180deg,var(--color-card),oklch(0.98_0.008_220))] p-4 shadow-card transition-[transform,box-shadow] duration-500 ease-out",
+        to && "hover:-translate-y-0.5 hover:shadow-elevated",
       )}
     >
+      <span aria-hidden className="pointer-events-none absolute inset-x-4 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(1_0_0/0.9),transparent)]" />
       <div className="flex items-start justify-between gap-3">
         <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
           {label}
