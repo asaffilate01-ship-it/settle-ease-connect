@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import heroBereavement from "@/assets/brand/hero-bereavement.jpg";
 
 export const Route = createFileRoute("/bereavement")({
   head: () => ({
