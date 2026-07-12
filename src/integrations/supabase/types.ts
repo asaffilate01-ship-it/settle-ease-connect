@@ -14,6 +14,440 @@ export type Database = {
   }
   public: {
     Tables: {
+      case_documents: {
+        Row: {
+          case_id: string
+          created_at: string
+          file_name: string
+          file_path: string
+          id: string
+          mime_type: string | null
+          notes: string | null
+          size_bytes: number | null
+          uploaded_by: string | null
+          visible_to_expert: boolean
+        }
+        Insert: {
+          case_id: string
+          created_at?: string
+          file_name: string
+          file_path: string
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          size_bytes?: number | null
+          uploaded_by?: string | null
+          visible_to_expert?: boolean
+        }
+        Update: {
+          case_id?: string
+          created_at?: string
+          file_name?: string
+          file_path?: string
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          size_bytes?: number | null
+          uploaded_by?: string | null
+          visible_to_expert?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_documents_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_events: {
+        Row: {
+          actor_user_id: string | null
+          case_id: string
+          created_at: string
+          event_type: string
+          id: string
+          payload: Json
+        }
+        Insert: {
+          actor_user_id?: string | null
+          case_id: string
+          created_at?: string
+          event_type: string
+          id?: string
+          payload?: Json
+        }
+        Update: {
+          actor_user_id?: string | null
+          case_id?: string
+          created_at?: string
+          event_type?: string
+          id?: string
+          payload?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_events_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_invoices: {
+        Row: {
+          amount_eur: number
+          case_id: string
+          created_at: string
+          expert_id: string | null
+          id: string
+          paid_at: string | null
+          payout_to_expert_eur: number | null
+          platform_fee_eur: number
+          quote_id: string | null
+          released_at: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          stripe_payment_intent_id: string | null
+          stripe_transfer_id: string | null
+          updated_at: string
+          vat_eur: number
+        }
+        Insert: {
+          amount_eur: number
+          case_id: string
+          created_at?: string
+          expert_id?: string | null
+          id?: string
+          paid_at?: string | null
+          payout_to_expert_eur?: number | null
+          platform_fee_eur?: number
+          quote_id?: string | null
+          released_at?: string | null
+          status?: Database["public"]["Enums"]["invoice_status"]
+          stripe_payment_intent_id?: string | null
+          stripe_transfer_id?: string | null
+          updated_at?: string
+          vat_eur?: number
+        }
+        Update: {
+          amount_eur?: number
+          case_id?: string
+          created_at?: string
+          expert_id?: string | null
+          id?: string
+          paid_at?: string | null
+          payout_to_expert_eur?: number | null
+          platform_fee_eur?: number
+          quote_id?: string | null
+          released_at?: string | null
+          status?: Database["public"]["Enums"]["invoice_status"]
+          stripe_payment_intent_id?: string | null
+          stripe_transfer_id?: string | null
+          updated_at?: string
+          vat_eur?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_invoices_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_invoices_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_invoices_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "case_quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_messages: {
+        Row: {
+          body: string
+          case_id: string
+          created_at: string
+          id: string
+          internal_note: boolean
+          sender_user_id: string
+        }
+        Insert: {
+          body: string
+          case_id: string
+          created_at?: string
+          id?: string
+          internal_note?: boolean
+          sender_user_id: string
+        }
+        Update: {
+          body?: string
+          case_id?: string
+          created_at?: string
+          id?: string
+          internal_note?: boolean
+          sender_user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_messages_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_participants: {
+        Row: {
+          added_at: string
+          case_id: string
+          expert_id: string | null
+          id: string
+          role: Database["public"]["Enums"]["case_participant_role"]
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          case_id: string
+          expert_id?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["case_participant_role"]
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          case_id?: string
+          expert_id?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["case_participant_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_participants_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_participants_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_quotes: {
+        Row: {
+          amount_eur: number
+          case_id: string
+          compensation_model: Database["public"]["Enums"]["compensation_model"]
+          created_at: string
+          created_by: string | null
+          description: string | null
+          expert_id: string | null
+          id: string
+          platform_fee_eur: number | null
+          platform_fee_pct: number
+          responded_at: string | null
+          sent_at: string | null
+          status: Database["public"]["Enums"]["quote_status"]
+          title: string
+          updated_at: string
+          vat_pct: number
+        }
+        Insert: {
+          amount_eur: number
+          case_id: string
+          compensation_model?: Database["public"]["Enums"]["compensation_model"]
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          expert_id?: string | null
+          id?: string
+          platform_fee_eur?: number | null
+          platform_fee_pct?: number
+          responded_at?: string | null
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["quote_status"]
+          title: string
+          updated_at?: string
+          vat_pct?: number
+        }
+        Update: {
+          amount_eur?: number
+          case_id?: string
+          compensation_model?: Database["public"]["Enums"]["compensation_model"]
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          expert_id?: string | null
+          id?: string
+          platform_fee_eur?: number | null
+          platform_fee_pct?: number
+          responded_at?: string | null
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["quote_status"]
+          title?: string
+          updated_at?: string
+          vat_pct?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_quotes_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_quotes_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_tasks: {
+        Row: {
+          assignee_role:
+            | Database["public"]["Enums"]["case_participant_role"]
+            | null
+          assignee_user_id: string | null
+          case_id: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          done: boolean
+          done_at: string | null
+          due_at: string | null
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assignee_role?:
+            | Database["public"]["Enums"]["case_participant_role"]
+            | null
+          assignee_user_id?: string | null
+          case_id: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          done?: boolean
+          done_at?: string | null
+          due_at?: string | null
+          id?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assignee_role?:
+            | Database["public"]["Enums"]["case_participant_role"]
+            | null
+          assignee_user_id?: string | null
+          case_id?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          done?: boolean
+          done_at?: string | null
+          due_at?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_tasks_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          bundesland: string | null
+          case_manager_user_id: string | null
+          case_type: Database["public"]["Enums"]["case_type"]
+          city: string | null
+          client_user_id: string
+          closed_at: string | null
+          created_at: string
+          id: string
+          language: string
+          opened_at: string
+          primary_expert_id: string | null
+          reference: string
+          status: Database["public"]["Enums"]["case_status"]
+          summary: string | null
+          title: string
+          updated_at: string
+          urgent: boolean
+        }
+        Insert: {
+          bundesland?: string | null
+          case_manager_user_id?: string | null
+          case_type: Database["public"]["Enums"]["case_type"]
+          city?: string | null
+          client_user_id: string
+          closed_at?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          opened_at?: string
+          primary_expert_id?: string | null
+          reference?: string
+          status?: Database["public"]["Enums"]["case_status"]
+          summary?: string | null
+          title: string
+          updated_at?: string
+          urgent?: boolean
+        }
+        Update: {
+          bundesland?: string | null
+          case_manager_user_id?: string | null
+          case_type?: Database["public"]["Enums"]["case_type"]
+          city?: string | null
+          client_user_id?: string
+          closed_at?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          opened_at?: string
+          primary_expert_id?: string | null
+          reference?: string
+          status?: Database["public"]["Enums"]["case_status"]
+          summary?: string | null
+          title?: string
+          updated_at?: string
+          urgent?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_primary_expert_id_fkey"
+            columns: ["primary_expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       directory_listings: {
         Row: {
           address: string | null
@@ -122,6 +556,7 @@ export type Database = {
           bio: string | null
           bundesland: string | null
           city: string | null
+          compensation_model: Database["public"]["Enums"]["compensation_model"]
           created_at: string
           email: string | null
           full_name: string
@@ -131,6 +566,7 @@ export type Database = {
           languages: string[]
           phone: string | null
           profession: string
+          referral_fee_pct: number | null
           registration_number: string | null
           specialisations: string[]
           status: string
@@ -145,6 +581,7 @@ export type Database = {
           bio?: string | null
           bundesland?: string | null
           city?: string | null
+          compensation_model?: Database["public"]["Enums"]["compensation_model"]
           created_at?: string
           email?: string | null
           full_name: string
@@ -154,6 +591,7 @@ export type Database = {
           languages?: string[]
           phone?: string | null
           profession: string
+          referral_fee_pct?: number | null
           registration_number?: string | null
           specialisations?: string[]
           status?: string
@@ -168,6 +606,7 @@ export type Database = {
           bio?: string | null
           bundesland?: string | null
           city?: string | null
+          compensation_model?: Database["public"]["Enums"]["compensation_model"]
           created_at?: string
           email?: string | null
           full_name?: string
@@ -177,6 +616,7 @@ export type Database = {
           languages?: string[]
           phone?: string | null
           profession?: string
+          referral_fee_pct?: number | null
           registration_number?: string | null
           specialisations?: string[]
           status?: string
@@ -403,6 +843,95 @@ export type Database = {
         }
         Relationships: []
       }
+      subscription_plans: {
+        Row: {
+          active: boolean
+          code: string
+          created_at: string
+          features: Json
+          id: string
+          monthly_price_eur: number
+          name: string
+          sort_order: number
+          stripe_price_id: string | null
+          tagline: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          created_at?: string
+          features?: Json
+          id?: string
+          monthly_price_eur: number
+          name: string
+          sort_order?: number
+          stripe_price_id?: string | null
+          tagline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          created_at?: string
+          features?: Json
+          id?: string
+          monthly_price_eur?: number
+          name?: string
+          sort_order?: number
+          stripe_price_id?: string | null
+          tagline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          id: string
+          plan_code: string
+          status: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan_code: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan_code?: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_plan_code_fkey"
+            columns: ["plan_code"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["code"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -429,6 +958,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_case: {
+        Args: { _case_id: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -450,6 +983,53 @@ export type Database = {
         | "admin"
         | "staff"
         | "expert"
+      case_participant_role:
+        | "client"
+        | "case_manager"
+        | "expert"
+        | "observer"
+        | "admin"
+      case_status:
+        | "new"
+        | "triage"
+        | "in_progress"
+        | "awaiting_client"
+        | "awaiting_expert"
+        | "on_hold"
+        | "completed"
+        | "closed"
+        | "cancelled"
+      case_type:
+        | "bereavement"
+        | "visa_application"
+        | "visa_extension"
+        | "nationality"
+        | "family_reunification"
+        | "benefits_claim"
+        | "housing"
+        | "tax"
+        | "education"
+        | "healthcare"
+        | "translation"
+        | "driving"
+        | "business"
+        | "other"
+      compensation_model: "referral_fee" | "wholesale" | "direct_bill"
+      invoice_status:
+        | "pending"
+        | "paid"
+        | "held_escrow"
+        | "released"
+        | "refunded"
+        | "failed"
+        | "cancelled"
+      quote_status:
+        | "draft"
+        | "sent"
+        | "accepted"
+        | "declined"
+        | "expired"
+        | "superseded"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -588,6 +1168,58 @@ export const Constants = {
         "admin",
         "staff",
         "expert",
+      ],
+      case_participant_role: [
+        "client",
+        "case_manager",
+        "expert",
+        "observer",
+        "admin",
+      ],
+      case_status: [
+        "new",
+        "triage",
+        "in_progress",
+        "awaiting_client",
+        "awaiting_expert",
+        "on_hold",
+        "completed",
+        "closed",
+        "cancelled",
+      ],
+      case_type: [
+        "bereavement",
+        "visa_application",
+        "visa_extension",
+        "nationality",
+        "family_reunification",
+        "benefits_claim",
+        "housing",
+        "tax",
+        "education",
+        "healthcare",
+        "translation",
+        "driving",
+        "business",
+        "other",
+      ],
+      compensation_model: ["referral_fee", "wholesale", "direct_bill"],
+      invoice_status: [
+        "pending",
+        "paid",
+        "held_escrow",
+        "released",
+        "refunded",
+        "failed",
+        "cancelled",
+      ],
+      quote_status: [
+        "draft",
+        "sent",
+        "accepted",
+        "declined",
+        "expired",
+        "superseded",
       ],
     },
   },
