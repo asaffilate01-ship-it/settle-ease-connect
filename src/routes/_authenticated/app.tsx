@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
+import { MobileTabBar } from "@/components/mobile-tab-bar";
 import { Button } from "@/components/ui/button";
 import { Search, LogOut } from "lucide-react";
 import { NotificationBell } from "@/components/notification-bell";
