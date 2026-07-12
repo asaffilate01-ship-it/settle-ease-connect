@@ -101,8 +101,38 @@ function Hero() {
         </div>
 
         <div className="relative lg:col-span-5">
-          <HeroCard />
+          <div className="relative overflow-hidden rounded-3xl shadow-elevated ring-1 ring-primary/10">
+            <img
+              src={heroFamily}
+              alt="A multicultural family in Berlin, supported by BeistandPlus"
+              width={1600}
+              height={1100}
+              fetchPriority="high"
+              className="aspect-[4/5] w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
+                An Ihrer Seite — von Anfang an
+              </div>
+              <p className="mt-2 max-w-sm font-display text-lg leading-snug">
+                "From the airport to the Bürgeramt to the hospital — one team,
+                one plan, in our language."
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 lg:absolute lg:-bottom-16 lg:-left-10 lg:mt-0 lg:w-[92%]">
+            <HeroCard />
+          </div>
         </div>
+      </div>
+      <div className="h-0 lg:h-24" />
+    </section>
+  );
+}
+
+function HeroSection() {
+  // legacy placeholder
       </div>
     </section>
   );
