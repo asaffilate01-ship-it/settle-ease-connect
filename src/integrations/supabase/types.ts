@@ -2132,6 +2132,87 @@ export type Database = {
           },
         ]
       }
+      tax_leads: {
+        Row: {
+          additional_deductions: number | null
+          children_count: number
+          church_tax: boolean
+          commute_km: number | null
+          created_at: string
+          email: string
+          employment_status: string
+          estimated_refund_eur: number | null
+          full_name: string
+          gross_income_eur: number | null
+          has_children: boolean
+          home_office_days: number | null
+          id: string
+          notes: string | null
+          partner_referral: string | null
+          phone: string | null
+          preferred_contact: string
+          preferred_language: string
+          source: string
+          status: string
+          tax_class: number | null
+          tax_year: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          additional_deductions?: number | null
+          children_count?: number
+          church_tax?: boolean
+          commute_km?: number | null
+          created_at?: string
+          email: string
+          employment_status: string
+          estimated_refund_eur?: number | null
+          full_name: string
+          gross_income_eur?: number | null
+          has_children?: boolean
+          home_office_days?: number | null
+          id?: string
+          notes?: string | null
+          partner_referral?: string | null
+          phone?: string | null
+          preferred_contact?: string
+          preferred_language?: string
+          source?: string
+          status?: string
+          tax_class?: number | null
+          tax_year: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          additional_deductions?: number | null
+          children_count?: number
+          church_tax?: boolean
+          commute_km?: number | null
+          created_at?: string
+          email?: string
+          employment_status?: string
+          estimated_refund_eur?: number | null
+          full_name?: string
+          gross_income_eur?: number | null
+          has_children?: boolean
+          home_office_days?: number | null
+          id?: string
+          notes?: string | null
+          partner_referral?: string | null
+          phone?: string | null
+          preferred_contact?: string
+          preferred_language?: string
+          source?: string
+          status?: string
+          tax_class?: number | null
+          tax_year?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       trusted_contacts: {
         Row: {
           address: string | null
