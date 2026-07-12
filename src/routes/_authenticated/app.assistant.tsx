@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated/app/assistant")({
 type Msg = { role: "user" | "assistant"; text: string };
 
 const seed: Msg[] = [
-  { role: "assistant", text: "Hallo Ahmed 👋 I'm Beistand AI. I can help with settlement, benefits, immigration, healthcare and end-of-life care in Germany. Ask me anything — in EN, DE, UR, TR or AR." },
+  { role: "assistant", text: "Hallo Ahmed 👋 I'm Beistand AI. I can help with settlement, benefits, immigration, healthcare and end-of-life care in Germany. Ask me anything — in DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA or PL." },
 ];
 
 const suggestions = [
