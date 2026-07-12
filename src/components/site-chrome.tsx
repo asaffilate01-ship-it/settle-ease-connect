@@ -24,12 +24,18 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-primary text-primary-foreground">
-            <span className="font-display text-lg font-semibold">B</span>
-          </div>
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={logoMark}
+            alt="BeistandPlus"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+          />
           <div className="leading-tight">
-            <div className="font-display text-xl font-semibold tracking-tight">Beistand</div>
+            <div className="font-display text-xl font-semibold tracking-tight">
+              Beistand<span className="text-success">Plus</span>
+            </div>
             <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
               {t("brand.location")}
             </div>
