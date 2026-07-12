@@ -86,13 +86,15 @@ export const reviewStudentVerification = createServerFn({ method: "POST" })
       _user_id: context.userId,
     });
     if (!internal) throw new Error("Forbidden");
-    const patch: Record<string, unknown> = {
+    const patch = {
       status: data.status,
       reviewer_notes: data.reviewer_notes ?? null,
       reviewed_by: context.userId,
       reviewed_at: new Date().toISOString(),
+      ...(typeof data.discount_percent === "number"
+        ? { discount_percent: data.discount_percent }
+        : {}),
     };
-    if (typeof data.discount_percent === "number") patch.discount_percent = data.discount_percent;
     const { error } = await context.supabase
       .from("student_verifications")
       .update(patch)
