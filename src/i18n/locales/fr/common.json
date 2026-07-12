@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "Allemagne" },
+  "nav": {
+    "howItWorks": "Comment ça marche",
+    "services": "Services",
+    "directory": "Annuaire",
+    "bereavement": "Deuil",
+    "forProviders": "Pour les prestataires",
+    "pricing": "Tarifs",
+    "blog": "Blog",
+    "signIn": "Se connecter",
+    "openDashboard": "Ouvrir le tableau de bord",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Pour chaque parcours en Allemagne. Installation, aide sociale, prestations et soins de fin de vie — une plateforme sereine pour les familles et les organisations qui les accompagnent.",
+    "colPlatform": "Plateforme",
+    "colForProviders": "Pour les prestataires",
+    "colCompany": "Entreprise",
+    "colLegal": "Mentions légales",
+    "howItWorks": "Comment ça marche",
+    "services": "Services",
+    "bereavement": "Deuil",
+    "pricing": "Tarifs",
+    "blog": "Blog",
+    "funeralDirectors": "Directeurs de pompes funèbres",
+    "mosques": "Mosquées et imams",
+    "churches": "Églises",
+    "temples": "Temples et Gurdwaras",
+    "contact": "Contact",
+    "impressum": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Confidentialité et RGPD",
+    "cookies": "Cookies",
+    "complaints": "Réclamations",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
+    "madeWithCare": "Conçu avec soin",
+    "followUs": "Suivez-nous"
+  },
+  "language": {
+    "label": "Langue",
+    "choose": "Choisissez votre langue",
+    "chooseDescription": "BeistandPlus parle 19 langues. Choisissez la vôtre — vous pouvez la modifier à tout moment.",
+    "continue": "Continuer",
+    "current": "Langue actuelle"
+  },
+  "hero": { "headlinePrefix": "Pour chaque parcours en", "headlineHighlight": "Allemagne" }
+}

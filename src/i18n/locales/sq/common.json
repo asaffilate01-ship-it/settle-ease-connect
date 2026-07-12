@@ -1,0 +1,48 @@
+{
+  "brand": { "location": "Gjermani" },
+  "nav": {
+    "howItWorks": "Si funksionon",
+    "services": "Shërbimet",
+    "directory": "Direktoria",
+    "bereavement": "Në kohë zie",
+    "forProviders": "Për ofruesit",
+    "pricing": "Çmimet",
+    "blog": "Blog",
+    "signIn": "Hyr",
+    "openDashboard": "Hap panelin",
+    "menu": "Menyja"
+  },
+  "footer": {
+    "tagline": "Për çdo rrugë në Gjermani. Vendosje, mirëqenie, përfitime dhe kujdes në fund të jetës — një platformë e qetë për familjet dhe organizatat që qëndrojnë pranë tyre.",
+    "colPlatform": "Platforma",
+    "colForProviders": "Për ofruesit",
+    "colCompany": "Kompania",
+    "colLegal": "Ligjore",
+    "howItWorks": "Si funksionon",
+    "services": "Shërbimet",
+    "bereavement": "Në kohë zie",
+    "pricing": "Çmimet",
+    "blog": "Blog",
+    "funeralDirectors": "Drejtorët e funeraleve",
+    "mosques": "Xhami dhe imamë",
+    "churches": "Kishat",
+    "temples": "Tempuj & Gurdwara",
+    "contact": "Kontakt",
+    "impressum": "Impressum",
+    "terms": "Kushtet e shërbimit",
+    "privacy": "Privatësia & GDPR",
+    "cookies": "Cookies",
+    "complaints": "Ankesat",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
+    "madeWithCare": "Ndërtuar me kujdes",
+    "followUs": "Na ndiqni"
+  },
+  "language": {
+    "label": "Gjuha",
+    "choose": "Zgjidhni gjuhën tuaj",
+    "chooseDescription": "BeistandPlus flet 19 gjuhë. Zgjidhni tuajën — mund ta ndryshoni në çdo kohë nga këndi lart djathtas.",
+    "continue": "Vazhdo",
+    "current": "Gjuha aktuale"
+  },
+  "hero": { "headlinePrefix": "Për çdo rrugë në", "headlineHighlight": "Gjermani" }
+}
