@@ -34,6 +34,7 @@ export const listVaultDocuments = createServerFn({ method: "GET" })
 export const createVaultDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: {
+    id?: string;
     category: VaultCategory;
     label: string;
     issuer?: string | null;
