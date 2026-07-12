@@ -15,6 +15,7 @@ import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as OfflineRouteImport } from './routes/offline'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as InsuranceRouteImport } from './routes/insurance'
@@ -105,6 +106,11 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OfflineRoute = OfflineRouteImport.update({
   id: '/offline',
   path: '/offline',
@@ -170,9 +176,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnersInsurersRoute = PartnersInsurersRouteImport.update({
-  id: '/partners/insurers',
-  path: '/partners/insurers',
-  getParentRoute: () => rootRouteImport,
+  id: '/insurers',
+  path: '/insurers',
+  getParentRoute: () => PartnersRoute,
 } as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
   id: '/terms',
@@ -444,6 +450,7 @@ export interface FileRoutesByFullPath {
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
+  '/partners': typeof PartnersRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -510,6 +517,7 @@ export interface FileRoutesByTo {
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
+  '/partners': typeof PartnersRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -576,6 +584,7 @@ export interface FileRoutesById {
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
+  '/partners': typeof PartnersRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -644,6 +653,7 @@ export interface FileRouteTypes {
     | '/insurance'
     | '/legal'
     | '/offline'
+    | '/partners'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -710,6 +720,7 @@ export interface FileRouteTypes {
     | '/insurance'
     | '/legal'
     | '/offline'
+    | '/partners'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -775,6 +786,7 @@ export interface FileRouteTypes {
     | '/insurance'
     | '/legal'
     | '/offline'
+    | '/partners'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -843,13 +855,13 @@ export interface RootRouteChildren {
   InsuranceRoute: typeof InsuranceRoute
   LegalRoute: typeof LegalRouteWithChildren
   OfflineRoute: typeof OfflineRoute
+  PartnersRoute: typeof PartnersRouteWithChildren
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudentsRoute: typeof StudentsRoute
   TaxRoute: typeof TaxRoute
   TrustRoute: typeof TrustRoute
-  PartnersInsurersRoute: typeof PartnersInsurersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -894,6 +906,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offline': {
@@ -989,10 +1008,10 @@ declare module '@tanstack/react-router' {
     }
     '/partners/insurers': {
       id: '/partners/insurers'
-      path: '/partners/insurers'
+      path: '/insurers'
       fullPath: '/partners/insurers'
       preLoaderRoute: typeof PartnersInsurersRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PartnersRoute
     }
     '/legal/terms': {
       id: '/legal/terms'
@@ -1493,6 +1512,18 @@ const LegalRouteChildren: LegalRouteChildren = {
 
 const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
 
+interface PartnersRouteChildren {
+  PartnersInsurersRoute: typeof PartnersInsurersRoute
+}
+
+const PartnersRouteChildren: PartnersRouteChildren = {
+  PartnersInsurersRoute: PartnersInsurersRoute,
+}
+
+const PartnersRouteWithChildren = PartnersRoute._addFileChildren(
+  PartnersRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -1507,13 +1538,13 @@ const rootRouteChildren: RootRouteChildren = {
   InsuranceRoute: InsuranceRoute,
   LegalRoute: LegalRouteWithChildren,
   OfflineRoute: OfflineRoute,
+  PartnersRoute: PartnersRouteWithChildren,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudentsRoute: StudentsRoute,
   TaxRoute: TaxRoute,
   TrustRoute: TrustRoute,
-  PartnersInsurersRoute: PartnersInsurersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
