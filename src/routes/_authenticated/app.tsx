@@ -1,7 +1,18 @@
-import { createFileRoute, Outlet, Link } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, LogOut } from "lucide-react";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -14,6 +25,26 @@ export const Route = createFileRoute("/_authenticated/app")({
 });
 
 function AppLayout() {
+  const { user, profile, roles } = useCurrentUser();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const name = profile?.full_name || user?.email?.split("@")[0] || "You";
+  const initials = name
+    .split(" ")
+    .map((s) => s[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase() || "?";
+  const primaryRole = roles[0] ?? "family";
+
+  async function handleSignOut() {
+    await qc.cancelQueries();
+    qc.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
   return (
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
@@ -32,13 +63,35 @@ function AppLayout() {
             <Button variant="ghost" size="icon" aria-label="Notifications">
               <Bell className="h-4 w-4" />
             </Button>
-            <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-card px-2 py-1 text-sm">
-              <div className="grid h-7 w-7 place-items-center rounded-full bg-gradient-primary text-primary-foreground text-xs font-semibold">AK</div>
-              <div className="hidden md:block">
-                <div className="text-xs leading-tight font-medium">Ahmed Khan</div>
-                <div className="text-[10px] leading-tight text-muted-foreground">Family · Premium</div>
-              </div>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2 rounded-lg border border-border/60 bg-card px-2 py-1 text-sm hover:bg-accent/10">
+                  <div className="grid h-7 w-7 place-items-center rounded-full bg-gradient-primary text-primary-foreground text-xs font-semibold">
+                    {initials}
+                  </div>
+                  <div className="hidden md:block text-left">
+                    <div className="text-xs leading-tight font-medium">{name}</div>
+                    <div className="text-[10px] leading-tight text-muted-foreground capitalize">
+                      {primaryRole.replace("_", " ")}
+                    </div>
+                  </div>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  <div className="text-sm font-medium">{name}</div>
+                  <div className="text-xs text-muted-foreground">{user?.email}</div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/app/settings">Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
+                  <LogOut className="mr-2 h-4 w-4" /> Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
