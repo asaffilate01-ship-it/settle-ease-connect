@@ -72,7 +72,7 @@ function NewCase() {
           <Select value={form.language} onValueChange={(v) => setForm({ ...form, language: v })}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              {["de","en","tr","ur","hi","pa","ar","ku","ru","uk","fa","pl","zh"].map(l => <SelectItem key={l} value={l}>{l.toUpperCase()}</SelectItem>)}
+              {["de","en","tr","ur","hi","pa","ps","ar","ku","ru","uk"].map(l => <SelectItem key={l} value={l}>{l.toUpperCase()}</SelectItem>)}
             </SelectContent>
           </Select>
         </Field>

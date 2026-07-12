@@ -83,36 +83,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Beistand — Für jeden Weg in Deutschland" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#001B2E" },
+      { title: "Beistand+ — Für jeden Weg in Deutschland" },
       {
         name: "description",
         content:
-          "Beistand is Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in one calm place — for families and the organisations that stand with them.",
+          "Beistand+ is Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in one calm place — in 11 languages, for families and the organisations that stand with them.",
       },
-      { name: "author", content: "Beistand" },
-      { property: "og:title", content: "Beistand — Für jeden Weg in Deutschland" },
+      { name: "author", content: "Beistand GmbH" },
+      { property: "og:site_name", content: "Beistand+" },
+      { property: "og:title", content: "Beistand+ — Für jeden Weg in Deutschland" },
       {
         property: "og:description",
         content:
           "One calm platform for settlement, welfare, benefits and end-of-life care in Germany. Built for families, mosques, churches, funeral directors and case managers.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://beistandplus.de/" },
+      { property: "og:locale", content: "de_DE" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@beistandplus" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Epilogue:wght@300;400;500;600;700;800&display=swap",
       },
-      // Multi-script font stack for the 12 supported languages.
+      // Multi-script font stack for the supported languages (Arabic, Urdu/Pashto Nastaliq, Devanagari, Gurmukhi, Cyrillic covered by Urbanist/Epilogue).
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap",
       },
     ],
   }),

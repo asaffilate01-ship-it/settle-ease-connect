@@ -523,8 +523,8 @@ function BereavementBand() {
             Beistand coordinates every party — family, funeral director,
             hospital, Standesamt, mosque or church, cemetery, airline,
             consulate, insurance — inside a single, timestamped case file. In
-            German, English, Turkish, Urdu, Hindi, Punjabi, Arabic, Kurdish,
-            Russian, Ukrainian, Farsi, Polish or Chinese.
+            German, English, Turkish, Urdu, Hindi, Punjabi, Pashto, Arabic,
+            Kurdish, Russian or Ukrainian.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary">
