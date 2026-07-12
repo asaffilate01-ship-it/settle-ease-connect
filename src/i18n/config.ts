@@ -1,6 +1,6 @@
 export type LangCode =
   | "en" | "de" | "tr" | "ur" | "hi" | "pa"
-  | "ar" | "ku" | "ru" | "uk" | "fa" | "pl" | "zh";
+  | "ps" | "ar" | "ku" | "ru" | "uk";
 
 export const LANGUAGES: { code: LangCode; nativeName: string; englishName: string; flag: string }[] = [
   { code: "en", nativeName: "English",    englishName: "English",    flag: "🇬🇧" },
@@ -9,16 +9,14 @@ export const LANGUAGES: { code: LangCode; nativeName: string; englishName: strin
   { code: "ur", nativeName: "اردو",       englishName: "Urdu",       flag: "🇵🇰" },
   { code: "hi", nativeName: "हिन्दी",       englishName: "Hindi",      flag: "🇮🇳" },
   { code: "pa", nativeName: "ਪੰਜਾਬੀ",       englishName: "Punjabi",    flag: "🇮🇳" },
+  { code: "ps", nativeName: "پښتو",        englishName: "Pashto",     flag: "🇦🇫" },
   { code: "ar", nativeName: "العربية",     englishName: "Arabic",     flag: "🇸🇦" },
   { code: "ku", nativeName: "Kurdî",       englishName: "Kurdish",    flag: "🏳️" },
   { code: "ru", nativeName: "Русский",     englishName: "Russian",    flag: "🇷🇺" },
   { code: "uk", nativeName: "Українська",  englishName: "Ukrainian",  flag: "🇺🇦" },
-  { code: "fa", nativeName: "فارسی",       englishName: "Persian",    flag: "🇮🇷" },
-  { code: "pl", nativeName: "Polski",      englishName: "Polish",     flag: "🇵🇱" },
-  { code: "zh", nativeName: "中文",         englishName: "Chinese",    flag: "🇨🇳" },
 ];
 
-export const RTL_LANGS: ReadonlySet<LangCode> = new Set(["ar", "ur", "fa", "ku"]);
+export const RTL_LANGS: ReadonlySet<LangCode> = new Set(["ar", "ur", "ps", "ku"]);
 
 export const DEFAULT_LANG: LangCode = "en";
 
