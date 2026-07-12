@@ -93,6 +93,41 @@ function collectTextNodes(): Text[] {
   return out;
 }
 
+/**
+ * Translatable attributes ({@link https://developer.mozilla.org/en-US/docs/Web/HTML}).
+ * We stash the original on `data-i18n-attr-<name>` so switching languages later
+ * re-translates from source.
+ */
+const ATTR_LIST = ["alt", "title", "aria-label", "placeholder"] as const;
+
+type AttrPending = { el: Element; attr: string; src: string };
+
+function collectAttrTargets(): AttrPending[] {
+  const out: AttrPending[] = [];
+  const sel = ATTR_LIST.map((a) => `[${a}]`).join(",");
+  const els = document.querySelectorAll<HTMLElement>(sel);
+  els.forEach((el) => {
+    if (shouldSkip(el)) return;
+    for (const attr of ATTR_LIST) {
+      const val = el.getAttribute(attr);
+      if (!val) continue;
+      const trimmed = val.trim();
+      if (trimmed.length < 2) continue;
+      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
+      const srcKey = `data-i18n-attr-${attr}`;
+      let src = el.getAttribute(srcKey);
+      if (!src) {
+        src = trimmed;
+        el.setAttribute(srcKey, src);
+      }
+      const langKey = `data-i18n-attrlang-${attr}`;
+      if (el.getAttribute(langKey) === currentLang) continue;
+      out.push({ el, attr, src });
+    }
+  });
+  return out;
+}
+
 async function translatePage() {
   if (typeof window === "undefined") return;
   if (currentLang === "en") {
