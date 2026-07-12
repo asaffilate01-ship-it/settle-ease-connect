@@ -126,5 +126,9 @@
       "resolved": "ਹੱਲ ਹੋ ਗਿਆ",
       "closed": "ਬੰਦ"
     }
+  },
+  "hero": {
+    "headlinePrefix": "ਹਰ ਰਾਹ ਲਈ",
+    "headlineHighlight": "ਜਰਮਨੀ"
   }
 }

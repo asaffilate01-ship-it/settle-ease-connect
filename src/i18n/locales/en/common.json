@@ -126,5 +126,9 @@
       "resolved": "Resolved",
       "closed": "Closed"
     }
+  },
+  "hero": {
+    "headlinePrefix": "For every path in",
+    "headlineHighlight": "Germany"
   }
 }

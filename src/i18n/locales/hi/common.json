@@ -126,5 +126,9 @@
       "resolved": "हल किया गया",
       "closed": "बंद"
     }
+  },
+  "hero": {
+    "headlinePrefix": "हर राह के लिए",
+    "headlineHighlight": "जर्मनी"
   }
 }

@@ -126,5 +126,9 @@
       "resolved": "Çareser kirin",
       "closed": "Girtî"
     }
+  },
+  "hero": {
+    "headlinePrefix": "Ji bo her rêyekê li",
+    "headlineHighlight": "Almanyayê"
   }
 }
