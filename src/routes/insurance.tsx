@@ -386,21 +386,58 @@ function CallbackForm({ defaultProduct }: { defaultProduct: Product["key"] }) {
     // but avoids a useEffect for this simple hydration.
   }
 
+  // Register replay so items queued offline get sent when the network returns.
+  registerReplayHandler("insurance_callback", async (payload) => {
+    await submit({ data: payload as Parameters<typeof submit>[0]["data"] });
+  });
+
+  const buildPayload = () => ({
+    full_name: form.full_name.trim(),
+    email: form.email.trim(),
+    phone: form.phone.trim() || null,
+    product_line: form.product_line,
+    preferred_contact: form.preferred_contact,
+    preferred_language: form.preferred_language,
+    notes: form.notes.trim() || null,
+  });
+
   const mut = useMutation({
-    mutationFn: () =>
-      submit({
-        data: {
-          full_name: form.full_name.trim(),
-          email: form.email.trim(),
-          phone: form.phone.trim() || null,
-          product_line: form.product_line,
-          preferred_contact: form.preferred_contact,
-          preferred_language: form.preferred_language,
-          notes: form.notes.trim() || null,
-        },
-      }),
-    onSuccess: () => {
-      toast.success("Thanks — we'll be in touch within one working day.");
+    mutationFn: async () => {
+      const payload = buildPayload();
+      // If offline, queue and resolve so the user gets confirmation.
+      if (typeof navigator !== "undefined" && !navigator.onLine) {
+        await enqueue({
+          kind: "insurance_callback",
+          label: `Callback: ${payload.full_name} · ${payload.product_line}`,
+          handler: "insurance_callback",
+          payload,
+        });
+        return { queued: true as const };
+      }
+      try {
+        await submit({ data: payload });
+        return { queued: false as const };
+      } catch (err) {
+        // Network / server unreachable — queue instead of losing the entry.
+        const message = err instanceof Error ? err.message : String(err);
+        if (/network|fetch|failed|timeout/i.test(message)) {
+          await enqueue({
+            kind: "insurance_callback",
+            label: `Callback: ${payload.full_name} · ${payload.product_line}`,
+            handler: "insurance_callback",
+            payload,
+          });
+          return { queued: true as const };
+        }
+        throw err;
+      }
+    },
+    onSuccess: (res) => {
+      if (res?.queued) {
+        toast.success("Saved offline — we'll send it as soon as you reconnect.");
+      } else {
+        toast.success("Thanks — we'll be in touch within one working day.");
+      }
       setForm((f) => ({ ...f, full_name: "", email: "", phone: "", notes: "" }));
     },
     onError: (e: Error) => toast.error(e.message || "Could not submit request"),
