@@ -43,25 +43,35 @@ function KnowledgeDetail() {
             actions={<Badge variant="secondary">{(svc as any).category?.name}</Badge>}
           />
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Fact label="Typical timeline" value={svc.typical_timeline} />
             <Fact label="Official fees" value={svc.official_fees} />
+            <Fact label="Where to apply" value={(svc as any).where_to_apply} />
             <Fact label="Expert required" value={svc.requires_expert_role ?? "—"} />
           </div>
-
 
             <Section title="Eligibility">{svc.eligibility}</Section>
             <Section title="Legal basis">{svc.legal_basis}</Section>
             <Section title="Jurisdiction notes">{svc.jurisdiction_notes}</Section>
-            <Section title="Internal wholesale / margin notes">{svc.our_wholesale_notes}</Section>
+            <Section title="Fees — breakdown">{(svc as any).fees_detail}</Section>
 
             <List title="Delivery playbook" items={svc.delivery_playbook as string[]} ordered />
-            <List title="Required documents" items={svc.required_documents as string[]} />
+            <List title="Required documents & proofs" items={svc.required_documents as string[]} />
+
+            <FormsList forms={(svc as any).forms as any[]} />
+            <PortalsList portals={(svc as any).online_portals as any[]} />
+
             <List title="Common pitfalls" items={svc.common_pitfalls as string[]} />
+            <Section title="Appeals / Widerspruch">{(svc as any).appeals_process}</Section>
+            <Section title="Internal tips for case managers">{(svc as any).tips}</Section>
+            <Section title="Internal wholesale / margin notes">{svc.our_wholesale_notes}</Section>
 
             <div>
               <h3 className="font-display text-lg font-semibold">Governing regulations</h3>
               <div className="mt-3 space-y-2">
+                {((svc as any).regulations ?? []).length === 0 && (
+                  <p className="text-sm text-muted-foreground">No regulations linked yet.</p>
+                )}
                 {((svc as any).regulations ?? []).map((r: any) => (
                   <a
                     key={r.regulation.code}
@@ -112,6 +122,51 @@ function KnowledgeDetail() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function FormsList({ forms }: { forms?: any[] }) {
+  if (!forms || forms.length === 0) return null;
+  return (
+    <div>
+      <h3 className="font-display text-lg font-semibold">Forms to file</h3>
+      <div className="mt-3 grid gap-2 md:grid-cols-2">
+        {forms.map((f, i) => (
+          <div key={i} className="rounded-lg border border-border/60 bg-card p-4">
+            <div className="font-medium">{f.name}</div>
+            {f.who && <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">Filled by: {f.who}</div>}
+            {f.notes && <div className="mt-1 text-sm text-muted-foreground">{f.notes}</div>}
+            {f.url && (
+              <a href={f.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                Open form <ExternalLink className="h-3 w-3" />
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PortalsList({ portals }: { portals?: any[] }) {
+  if (!portals || portals.length === 0) return null;
+  return (
+    <div>
+      <h3 className="font-display text-lg font-semibold">Official portals & references</h3>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {portals.map((p, i) => (
+          <a
+            key={i}
+            href={p.url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1.5 text-xs hover:border-primary/60 hover:text-primary"
+          >
+            {p.label} <ExternalLink className="h-3 w-3" />
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
