@@ -61,9 +61,7 @@ function AppLayout() {
             <kbd className="rounded border border-border bg-background px-1.5 text-[10px] text-muted-foreground">⌘K</kbd>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <Button variant="ghost" size="icon" aria-label="Notifications">
-              <Bell className="h-4 w-4" />
-            </Button>
+            <NotificationBell />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-2 rounded-lg border border-border/60 bg-card px-2 py-1 text-sm hover:bg-accent/10">
