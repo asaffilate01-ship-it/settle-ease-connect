@@ -136,21 +136,21 @@ async function translatePage() {
     return;
   }
   const nodes = collectTextNodes();
+  const attrTargets = collectAttrTargets();
   const pending: { node: Text; src: string }[] = [];
+  const attrPending: AttrPending[] = [];
 
   for (const node of nodes) {
     const parent = node.parentElement;
     if (!parent) continue;
-    // Determine the "source" — the first English text we ever saw on this node.
     let src = parent.getAttribute(SRC_ATTR);
     const nodeText = node.nodeValue!.trim();
     if (!src) {
-      // First encounter — assume current text is the source (English).
       src = nodeText;
       parent.setAttribute(SRC_ATTR, src);
     }
     const targetLang = parent.getAttribute(LANG_ATTR);
-    if (targetLang === currentLang) continue; // already translated to current lang
+    if (targetLang === currentLang) continue;
 
     const cached = cacheGet(currentLang, src);
     if (cached) {
@@ -163,7 +163,20 @@ async function translatePage() {
     pending.push({ node, src });
   }
 
-  if (pending.length === 0) return;
+  // Attributes: alt / title / aria-label / placeholder
+  for (const t of attrTargets) {
+    const cached = cacheGet(currentLang, t.src);
+    if (cached) {
+      mutating = true;
+      t.el.setAttribute(t.attr, cached);
+      t.el.setAttribute(`data-i18n-attrlang-${t.attr}`, currentLang);
+      mutating = false;
+      continue;
+    }
+    attrPending.push(t);
+  }
+
+  if (pending.length === 0 && attrPending.length === 0) return;
 
   // Batch in chunks of 40 to keep prompts small & fast.
   const CHUNK = 40;
