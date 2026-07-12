@@ -35,6 +35,7 @@ export function AppSidebar() {
   const { roles } = useCurrentUser();
   const isAdmin = roles.includes("admin");
   const visibleNav = nav.filter((n) => !n.requiresRole || (n.requiresRole === "admin" && isAdmin));
+  return (
     <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
       <div className="flex h-16 items-center gap-2.5 border-b border-sidebar-border px-5">
         <div className="grid h-9 w-9 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
@@ -48,9 +49,9 @@ export function AppSidebar() {
         </div>
       </div>
       <nav className="flex-1 space-y-1 p-3">
-        {nav.map((n, i) => {
+        {visibleNav.map((n, i) => {
           const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
-          const showGroupHeader = n.groupKey && nav[i - 1]?.groupKey !== n.groupKey;
+          const showGroupHeader = n.groupKey && visibleNav[i - 1]?.groupKey !== n.groupKey;
           return (
             <div key={n.to}>
               {showGroupHeader && n.groupKey && (
