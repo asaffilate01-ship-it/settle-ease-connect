@@ -251,6 +251,9 @@ function OpsConsole() {
           <Button variant="outline" asChild>
             <Link to="/portal/experts">Expert roster</Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link to="/portal/students">Student verifications</Link>
+          </Button>
           {isAdmin && (
             <>
               <Button variant="outline" asChild>

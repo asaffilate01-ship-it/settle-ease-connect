@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
-import { Check, Users, User, HeartHandshake } from "lucide-react";
+import { Check, Users, User, HeartHandshake, GraduationCap, BadgePercent } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 
@@ -276,6 +276,32 @@ function Pricing() {
         {/* Bereavement / funeral cover — full premium matrix */}
         <div className="mt-10">
           <FuneralCoverPlans />
+        </div>
+
+        {/* Student discount */}
+        <div className="mt-10 grid gap-6 rounded-2xl border border-accent/40 bg-accent/10 p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/80">
+              <GraduationCap className="h-4 w-4" /> International students
+            </div>
+            <h3 className="mt-2 font-display text-3xl font-semibold">
+              30% off any plan with a valid student ID
+            </h3>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              Upload your student card or enrolment certificate (Immatrikulationsbescheinigung). We verify within 24 hours,
+              apply the discount automatically, and renew it each semester on request.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild className="bg-gradient-primary">
+              <Link to="/students">
+                <BadgePercent className="mr-2 h-4 w-4" /> Learn more
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/app/student-discount">Verify now</Link>
+            </Button>
+          </div>
         </div>
 
         {/* Third-party fees note */}

@@ -1968,6 +1968,57 @@ export type Database = {
         }
         Relationships: []
       }
+      student_verifications: {
+        Row: {
+          country: string | null
+          created_at: string
+          discount_percent: number
+          id: string
+          id_document_path: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          reviewer_notes: string | null
+          status: string
+          student_id_number: string | null
+          university: string
+          updated_at: string
+          user_id: string
+          valid_until: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          discount_percent?: number
+          id?: string
+          id_document_path?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          status?: string
+          student_id_number?: string | null
+          university: string
+          updated_at?: string
+          user_id: string
+          valid_until?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          discount_percent?: number
+          id?: string
+          id_document_path?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          status?: string
+          student_id_number?: string | null
+          university?: string
+          updated_at?: string
+          user_id?: string
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
       subscription_plans: {
         Row: {
           active: boolean

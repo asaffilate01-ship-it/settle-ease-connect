@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -35,6 +36,7 @@ import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
@@ -44,6 +46,7 @@ import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authen
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
+import { Route as AuthenticatedAppStudentDiscountRouteImport } from './routes/_authenticated/app.student-discount'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
@@ -68,6 +71,11 @@ import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
+const StudentsRoute = StudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -199,6 +207,12 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedPortalStudentsRoute =
+  AuthenticatedPortalStudentsRouteImport.update({
+    id: '/students',
+    path: '/students',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalReferralsRoute =
   AuthenticatedPortalReferralsRouteImport.update({
     id: '/referrals',
@@ -252,6 +266,12 @@ const AuthenticatedAppUpgradeRoute = AuthenticatedAppUpgradeRouteImport.update({
   path: '/upgrade',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppStudentDiscountRoute =
+  AuthenticatedAppStudentDiscountRouteImport.update({
+    id: '/student-discount',
+    path: '/student-discount',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
     id: '/settings',
@@ -401,6 +421,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/students': typeof StudentsRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -427,6 +448,7 @@ export interface FileRoutesByFullPath {
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -436,6 +458,7 @@ export interface FileRoutesByFullPath {
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
+  '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -460,6 +483,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/students': typeof StudentsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -484,6 +508,7 @@ export interface FileRoutesByTo {
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -493,6 +518,7 @@ export interface FileRoutesByTo {
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
+  '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -519,6 +545,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/students': typeof StudentsRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -545,6 +572,7 @@ export interface FileRoutesById {
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -554,6 +582,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
+  '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -580,6 +609,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
+    | '/students'
     | '/app'
     | '/portal'
     | '/blog/$slug'
@@ -606,6 +636,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/providers'
     | '/app/settings'
+    | '/app/student-discount'
     | '/app/upgrade'
     | '/portal/audit'
     | '/portal/experts'
@@ -615,6 +646,7 @@ export interface FileRouteTypes {
     | '/portal/knowledge'
     | '/portal/leads'
     | '/portal/referrals'
+    | '/portal/students'
     | '/app/'
     | '/portal/'
     | '/app/cases/$caseId'
@@ -639,6 +671,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
+    | '/students'
     | '/blog/$slug'
     | '/directory/list-your-business'
     | '/legal/complaints'
@@ -663,6 +696,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/providers'
     | '/app/settings'
+    | '/app/student-discount'
     | '/app/upgrade'
     | '/portal/audit'
     | '/portal/experts'
@@ -672,6 +706,7 @@ export interface FileRouteTypes {
     | '/portal/knowledge'
     | '/portal/leads'
     | '/portal/referrals'
+    | '/portal/students'
     | '/app'
     | '/portal'
     | '/app/cases/$caseId'
@@ -697,6 +732,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
+    | '/students'
     | '/_authenticated/app'
     | '/_authenticated/portal'
     | '/blog/$slug'
@@ -723,6 +759,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
+    | '/_authenticated/app/student-discount'
     | '/_authenticated/app/upgrade'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/experts'
@@ -732,6 +769,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/knowledge'
     | '/_authenticated/portal/leads'
     | '/_authenticated/portal/referrals'
+    | '/_authenticated/portal/students'
     | '/_authenticated/app/'
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
@@ -758,11 +796,19 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StudentsRoute: typeof StudentsRoute
   PartnersInsurersRoute: typeof PartnersInsurersRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/students': {
+      id: '/students'
+      path: '/students'
+      fullPath: '/students'
+      preLoaderRoute: typeof StudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -945,6 +991,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/portal/students': {
+      id: '/_authenticated/portal/students'
+      path: '/students'
+      fullPath: '/portal/students'
+      preLoaderRoute: typeof AuthenticatedPortalStudentsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/referrals': {
       id: '/_authenticated/portal/referrals'
       path: '/referrals'
@@ -1006,6 +1059,13 @@ declare module '@tanstack/react-router' {
       path: '/upgrade'
       fullPath: '/app/upgrade'
       preLoaderRoute: typeof AuthenticatedAppUpgradeRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/student-discount': {
+      id: '/_authenticated/app/student-discount'
+      path: '/student-discount'
+      fullPath: '/app/student-discount'
+      preLoaderRoute: typeof AuthenticatedAppStudentDiscountRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/settings': {
@@ -1219,6 +1279,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
+  AuthenticatedAppStudentDiscountRoute: typeof AuthenticatedAppStudentDiscountRoute
   AuthenticatedAppUpgradeRoute: typeof AuthenticatedAppUpgradeRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
@@ -1240,6 +1301,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
+  AuthenticatedAppStudentDiscountRoute: AuthenticatedAppStudentDiscountRoute,
   AuthenticatedAppUpgradeRoute: AuthenticatedAppUpgradeRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
@@ -1271,6 +1333,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
   AuthenticatedPortalReferralsRoute: typeof AuthenticatedPortalReferralsRoute
+  AuthenticatedPortalStudentsRoute: typeof AuthenticatedPortalStudentsRoute
   AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
   AuthenticatedPortalAdminInviteRoute: typeof AuthenticatedPortalAdminInviteRoute
   AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
@@ -1287,6 +1350,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
     AuthenticatedPortalKnowledgeRouteWithChildren,
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,
   AuthenticatedPortalReferralsRoute: AuthenticatedPortalReferralsRoute,
+  AuthenticatedPortalStudentsRoute: AuthenticatedPortalStudentsRoute,
   AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
   AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
   AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,
@@ -1364,6 +1428,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StudentsRoute: StudentsRoute,
   PartnersInsurersRoute: PartnersInsurersRoute,
 }
 export const routeTree = rootRouteImport

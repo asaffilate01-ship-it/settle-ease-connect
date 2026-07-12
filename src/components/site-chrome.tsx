@@ -16,6 +16,7 @@ export function SiteHeader() {
     [t("nav.services"), "/services"],
     [t("nav.directory"), "/directory"],
     [t("nav.bereavement"), "/bereavement"],
+    [t("nav.students", "Students"), "/students"],
     [t("nav.forProviders"), "/for-providers"],
     [t("nav.pricing"), "/pricing"],
     [t("nav.blog"), "/blog"],
