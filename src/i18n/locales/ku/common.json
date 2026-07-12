@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "Çawa dixebite",
+    "services": "Xizmetkarî",
+    "directory": "Rêbername",
+    "bereavement": "Şînî",
+    "forProviders": "Ji bo dabînkeran",
+    "pricing": "Bihaderxistin",
+    "signIn": "Têkeve",
+    "openDashboard": "Panoyê veke",
+    "menu": "Pêşek"
+  },
+  "footer": {
+    "tagline": "Ji bo her rêyek li Deutschland. Bicîbûn, refah, feydeyên, û lênêrîna dawiya-jiyanê - platformek aram ji bo malbatan û rêxistinên ku ligel wan in.",
+    "colPlatform": "Platform",
+    "colForProviders": "Ji bo dabînkeran",
+    "colCompany": "Şîrket",
+    "howItWorks": "Çawa dixebite",
+    "services": "Xizmetkarî",
+    "bereavement": "Şînî",
+    "pricing": "Bihaderxistin",
+    "funeralDirectors": "Rêvebirên cenazeyan",
+    "mosques": "Mizgeft & îmam",
+    "churches": "Dêr",
+    "temples": "Perestgeh & Gurdwaras",
+    "contact": "Têkilî",
+    "impressum": "Impressum",
+    "privacy": "Parastina daneyan",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "Bi lênêrînê hatî çêkirin"
+  },
+  "sidebar": {
+    "dashboard": "Panoyê",
+    "overview": "Nêrîna giştî",
+    "cases": "Doz",
+    "checklists": "Lîsteyên kontrolê",
+    "benefits": "Feydeyên",
+    "documents": "Belge",
+    "providers": "Dabînker",
+    "assistant": "AI Assistant",
+    "community": "Civak",
+    "knowledge": "Bingeha zanînê",
+    "experts": "Lîsteya pisporan",
+    "settings": "Mîhengan",
+    "internal": "Hundirîn",
+    "caseManagerRole": "Rêveberê Dozê · Berlin"
+  },
+  "language": {
+    "label": "Ziman",
+    "choose": "Zimanê xwe hilbijêre",
+    "chooseDescription": "Beistand bi 13 zimanan diaxive. Ya xwe hilbijêre - tu her dem dikarî wê ji quncikê jorîn ê rastê yê her rûpelê biguherînî.",
+    "continue": "Berdewam bike",
+    "current": "Zimanê niha"
+  }
+}

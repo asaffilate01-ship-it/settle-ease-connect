@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "ألمانيا"
+  },
+  "nav": {
+    "howItWorks": "كيف يعمل",
+    "services": "الخدمات",
+    "directory": "الدليل",
+    "bereavement": "رعاية حالات الوفاة",
+    "forProviders": "لمقدمي الخدمات",
+    "pricing": "التسعير",
+    "signIn": "تسجيل الدخول",
+    "openDashboard": "فتح لوحة التحكم",
+    "menu": "القائمة"
+  },
+  "footer": {
+    "tagline": "لكل خطوة في Deutschland. الاستقرار، والرعاية الاجتماعية، والمزايا، والرعاية في نهاية العمر — منصة واحدة هادئة للعائلات والمنظمات التي تقف معهم.",
+    "colPlatform": "المنصة",
+    "colForProviders": "لمقدمي الخدمات",
+    "colCompany": "الشركة",
+    "howItWorks": "كيف يعمل",
+    "services": "الخدمات",
+    "bereavement": "رعاية حالات الوفاة",
+    "pricing": "التسعير",
+    "funeralDirectors": "مديرو الجنازات",
+    "mosques": "المساجد والأئمة",
+    "churches": "الكنائس",
+    "temples": "المعابد وGurdwaras",
+    "contact": "الاتصال",
+    "impressum": "Imprint",
+    "privacy": "حماية البيانات",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "بُني بعناية"
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "overview": "نظرة عامة",
+    "cases": "الحالات",
+    "checklists": "قوائم المراجعة",
+    "benefits": "المزايا",
+    "documents": "المستندات",
+    "providers": "مقدمو الخدمات",
+    "assistant": "المساعد الذكي",
+    "community": "المجتمع",
+    "knowledge": "قاعدة المعرفة",
+    "experts": "قائمة الخبراء",
+    "settings": "الإعدادات",
+    "internal": "داخلي",
+    "caseManagerRole": "مدير الحالات · Berlin"
+  },
+  "language": {
+    "label": "اللغة",
+    "choose": "اختر لغتك",
+    "chooseDescription": "يتحدث Beistand 13 لغة. اختر لغتك — يمكنك تغييرها في أي وقت من أعلى يمين أي صفحة.",
+    "continue": "متابعة",
+    "current": "اللغة الحالية"
+  }
+}

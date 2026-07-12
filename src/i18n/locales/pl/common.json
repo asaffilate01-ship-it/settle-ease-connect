@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "Jak to działa",
+    "services": "Usługi",
+    "directory": "Katalog",
+    "bereavement": "Wsparcie po stracie",
+    "forProviders": "Dla usługodawców",
+    "pricing": "Cennik",
+    "signIn": "Zaloguj się",
+    "openDashboard": "Otwórz pulpit nawigacyjny",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Na każdej drodze w Deutschland. Osiedlanie się, opieka społeczna, świadczenia i opieka paliatywna — jedna spokojna platforma dla rodzin i wspierających je organizacji.",
+    "colPlatform": "Platforma",
+    "colForProviders": "Dla usługodawców",
+    "colCompany": "Firma",
+    "howItWorks": "Jak to działa",
+    "services": "Usługi",
+    "bereavement": "Wsparcie po stracie",
+    "pricing": "Cennik",
+    "funeralDirectors": "Zakłady pogrzebowe",
+    "mosques": "Meczety i imamowie",
+    "churches": "Kościoły",
+    "temples": "Świątynie i Gurdwaras",
+    "contact": "Kontakt",
+    "impressum": "Impressum",
+    "privacy": "Ochrona danych",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "Stworzone z troską"
+  },
+  "sidebar": {
+    "dashboard": "Pulpit nawigacyjny",
+    "overview": "Przegląd",
+    "cases": "Sprawy",
+    "checklists": "Listy kontrolne",
+    "benefits": "Świadczenia",
+    "documents": "Dokumenty",
+    "providers": "Usługodawcy",
+    "assistant": "Asystent AI",
+    "community": "Społeczność",
+    "knowledge": "Baza wiedzy",
+    "experts": "Lista ekspertów",
+    "settings": "Ustawienia",
+    "internal": "Wewnętrzne",
+    "caseManagerRole": "Case Manager · Berlin"
+  },
+  "language": {
+    "label": "Język",
+    "choose": "Wybierz swój język",
+    "chooseDescription": "Beistand mówi w 13 językach. Wybierz swój — możesz go zmienić w każdej chwili z prawego górnego rogu dowolnej strony.",
+    "continue": "Kontynuuj",
+    "current": "Obecny język"
+  }
+}

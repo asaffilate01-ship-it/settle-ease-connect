@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "यह कैसे काम करता है",
+    "services": "सेवाएँ",
+    "directory": "डायरेक्टरी",
+    "bereavement": "शोक संतप्त",
+    "forProviders": "प्रदाताओं के लिए",
+    "pricing": "मूल्य निर्धारण",
+    "signIn": "साइन इन करें",
+    "openDashboard": "डैशबोर्ड खोलें",
+    "menu": "मेन्यू"
+  },
+  "footer": {
+    "tagline": "Deutschland में हर रास्ते के लिए। निपटान, कल्याण, लाभ और अंत-जीवन देखभाल — परिवारों और उनका साथ देने वाले संगठनों के लिए एक शांत मंच।",
+    "colPlatform": "प्लेटफ़ॉर्म",
+    "colForProviders": "प्रदाताओं के लिए",
+    "colCompany": "कंपनी",
+    "howItWorks": "यह कैसे काम करता है",
+    "services": "सेवाएँ",
+    "bereavement": "शोक संतप्त",
+    "pricing": "मूल्य निर्धारण",
+    "funeralDirectors": "अंतिम संस्कार निदेशक",
+    "mosques": "मस्जिदें और इमाम",
+    "churches": "गिरजाघर",
+    "temples": "मंदिर और गुरुद्वारे",
+    "contact": "संपर्क करें",
+    "impressum": "छाप",
+    "privacy": "डेटा सुरक्षा",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "सावधानी से बनाया गया"
+  },
+  "sidebar": {
+    "dashboard": "डैशबोर्ड",
+    "overview": "अवलोकन",
+    "cases": "मामले",
+    "checklists": "जाँच सूचियाँ",
+    "benefits": "लाभ",
+    "documents": "दस्तावेज़",
+    "providers": "प्रदाता",
+    "assistant": "एआई सहायक",
+    "community": "समुदाय",
+    "knowledge": "ज्ञान का आधार",
+    "experts": "विशेषज्ञों की सूची",
+    "settings": "सेटिंग्स",
+    "internal": "आंतरिक",
+    "caseManagerRole": "केस मैनेजर · Berlin"
+  },
+  "language": {
+    "label": "भाषा",
+    "choose": "अपनी भाषा चुनें",
+    "chooseDescription": "Beistand 13 भाषाएँ बोलता है। अपनी भाषा चुनें — आप इसे किसी भी पृष्ठ के ऊपरी दाईं ओर से कभी भी बदल सकते हैं।",
+    "continue": "जारी रखें",
+    "current": "वर्तमान भाषा"
+  }
+}
