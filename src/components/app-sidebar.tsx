@@ -1,31 +1,24 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import {
-  LayoutDashboard,
-  ClipboardList,
-  Sparkles,
-  FileText,
-  ShieldCheck,
-  Building2,
-  Users,
-  Settings,
-  HeartHandshake,
-  BookOpenText,
-  GraduationCap,
-} from "lucide-react";
-import type { ComponentType } from "react";
+import { Icon3D, type Icon3DName } from "@/components/icon3d";
 
-const nav: { to: string; label: string; icon: ComponentType<{ className?: string }>; exact?: boolean; group?: string }[] = [
-  { to: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
-  { to: "/app/cases", label: "Cases", icon: HeartHandshake },
-  { to: "/app/checklists", label: "Checklists", icon: ClipboardList },
-  { to: "/app/benefits", label: "Benefits", icon: ShieldCheck },
-  { to: "/app/documents", label: "Documents", icon: FileText },
-  { to: "/app/providers", label: "Providers", icon: Building2 },
-  { to: "/app/assistant", label: "AI Assistant", icon: Sparkles },
-  { to: "/app/community", label: "Community", icon: Users },
-  { to: "/portal/knowledge", label: "Knowledge base", icon: BookOpenText, group: "Internal" },
-  { to: "/portal/experts", label: "Experts roster", icon: GraduationCap, group: "Internal" },
-  { to: "/app/settings", label: "Settings", icon: Settings },
+const nav: {
+  to: string;
+  label: string;
+  icon: Icon3DName;
+  exact?: boolean;
+  group?: string;
+}[] = [
+  { to: "/app", label: "Overview", icon: "overview", exact: true },
+  { to: "/app/cases", label: "Cases", icon: "cases" },
+  { to: "/app/checklists", label: "Checklists", icon: "checklists" },
+  { to: "/app/benefits", label: "Benefits", icon: "benefits" },
+  { to: "/app/documents", label: "Documents", icon: "documents" },
+  { to: "/app/providers", label: "Providers", icon: "providers" },
+  { to: "/app/assistant", label: "AI Assistant", icon: "assistant" },
+  { to: "/app/community", label: "Community", icon: "community" },
+  { to: "/portal/knowledge", label: "Knowledge base", icon: "knowledge", group: "Internal" },
+  { to: "/portal/experts", label: "Experts roster", icon: "experts", group: "Internal" },
+  { to: "/app/settings", label: "Settings", icon: "settings" },
 ];
 
 export function AppSidebar() {
@@ -56,13 +49,15 @@ export function AppSidebar() {
               )}
               <Link
                 to={n.to}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
+                className={`flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
                   active
                     ? "bg-sidebar-accent text-sidebar-primary"
                     : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
                 }`}
               >
-                <n.icon className="h-4 w-4" />
+                <span className="grid h-7 w-7 shrink-0 place-items-center">
+                  <Icon3D name={n.icon} alt="" />
+                </span>
                 {n.label}
               </Link>
             </div>
