@@ -180,7 +180,17 @@ export function AppSidebar() {
           {user?.email && (
             <div className="mt-1 truncate text-xs text-sidebar-foreground/70">{user.email}</div>
           )}
+          {!isInternal && !sub.loading && (
+            <Link
+              to="/app/upgrade"
+              className="mt-2 flex items-center justify-between rounded-lg bg-primary/10 px-2 py-1.5 text-[11px] font-semibold text-primary hover:bg-primary/15"
+            >
+              <span>{sub.planName ?? "No plan"}</span>
+              <span>{sub.monthlyPrice ? `€${sub.monthlyPrice}/mo` : "Choose plan →"}</span>
+            </Link>
+          )}
         </div>
+
       </div>
     </aside>
   );
