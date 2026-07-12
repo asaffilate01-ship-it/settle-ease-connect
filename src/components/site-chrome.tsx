@@ -32,13 +32,8 @@ export function SiteHeader() {
             height={40}
             className="h-10 w-10 object-contain"
           />
-          <div className="leading-tight">
-            <div className="font-display text-xl font-semibold tracking-tight">
-              Beistand<span className="text-success">Plus</span>
-            </div>
-            <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              {t("brand.location")}
-            </div>
+          <div className="font-display text-xl font-semibold tracking-tight">
+            Beistand<span className="text-success">Plus</span>
           </div>
         </Link>
 
