@@ -61,6 +61,7 @@ import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
+import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
 import { Route as AuthenticatedPortalAdminInviteRouteImport } from './routes/_authenticated/portal.admin.invite'
 import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/_authenticated/app.messages.$channelId'
@@ -349,6 +350,12 @@ const AuthenticatedPortalKnowledgeSlugRoute =
     path: '/$slug',
     getParentRoute: () => AuthenticatedPortalKnowledgeRoute,
   } as any)
+const AuthenticatedPortalGanttCaseIdRoute =
+  AuthenticatedPortalGanttCaseIdRouteImport.update({
+    id: '/gantt/$caseId',
+    path: '/gantt/$caseId',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalAdminUsersRoute =
   AuthenticatedPortalAdminUsersRouteImport.update({
     id: '/admin/users',
@@ -436,6 +443,7 @@ export interface FileRoutesByFullPath {
   '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesByTo {
@@ -492,6 +500,7 @@ export interface FileRoutesByTo {
   '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesById {
@@ -552,6 +561,7 @@ export interface FileRoutesById {
   '/_authenticated/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/_authenticated/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/_authenticated/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRouteTypes {
@@ -612,6 +622,7 @@ export interface FileRouteTypes {
     | '/app/messages/$channelId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
+    | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -668,6 +679,7 @@ export interface FileRouteTypes {
     | '/app/messages/$channelId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
+    | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
   id:
     | '__root__'
@@ -727,6 +739,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/messages/$channelId'
     | '/_authenticated/portal/admin/invite'
     | '/_authenticated/portal/admin/users'
+    | '/_authenticated/portal/gantt/$caseId'
     | '/_authenticated/portal/knowledge/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -1114,6 +1127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalKnowledgeSlugRouteImport
       parentRoute: typeof AuthenticatedPortalKnowledgeRoute
     }
+    '/_authenticated/portal/gantt/$caseId': {
+      id: '/_authenticated/portal/gantt/$caseId'
+      path: '/gantt/$caseId'
+      fullPath: '/portal/gantt/$caseId'
+      preLoaderRoute: typeof AuthenticatedPortalGanttCaseIdRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/admin/users': {
       id: '/_authenticated/portal/admin/users'
       path: '/admin/users'
@@ -1254,6 +1274,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
   AuthenticatedPortalAdminInviteRoute: typeof AuthenticatedPortalAdminInviteRoute
   AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
+  AuthenticatedPortalGanttCaseIdRoute: typeof AuthenticatedPortalGanttCaseIdRoute
 }
 
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
@@ -1269,6 +1290,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
   AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
   AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,
+  AuthenticatedPortalGanttCaseIdRoute: AuthenticatedPortalGanttCaseIdRoute,
 }
 
 const AuthenticatedPortalRouteWithChildren =
