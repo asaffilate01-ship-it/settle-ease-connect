@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { resolveLandingForCurrentUser } from "@/lib/role-landing";
+import logoFull from "@/assets/brand/logo-full.png";
 
 
 type Search = { redirect?: string };
@@ -118,7 +119,9 @@ function AuthPage() {
   return (
     <div className="min-h-screen bg-parchment flex flex-col">
       <header className="p-6">
-        <Link to="/" className="font-display text-xl font-semibold text-primary">BeistandPlus</Link>
+        <Link to="/" className="inline-flex items-center">
+          <img src={logoFull} alt="BeistandPlus" className="h-10 w-auto" />
+        </Link>
       </header>
       <main className="flex-1 flex items-center justify-center px-4 pb-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-soft">
