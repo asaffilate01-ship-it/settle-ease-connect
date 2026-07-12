@@ -35,7 +35,7 @@
     "privacy": "Privacy & GDPR",
     "cookies": "Cookies",
     "complaints": "Complaints",
-    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Built with care",
     "followUs": "Follow us"
   },
@@ -64,13 +64,13 @@
   "language": {
     "label": "Language",
     "choose": "Choose your language",
-    "chooseDescription": "Beistand speaks 11 languages. Pick yours — you can change it any time from the top right of any page.",
+    "chooseDescription": "BeistandPlus speaks 11 languages. Pick yours — you can change it any time from the top right of any page.",
     "continue": "Continue",
     "current": "Current language"
   },
   "cookies": {
     "title": "We use cookies",
-    "body": "Beistand uses essential cookies to run the site and keep you signed in. With your consent we also use analytics cookies to understand how the platform is used so we can improve it. You can change or withdraw your consent at any time.",
+    "body": "BeistandPlus uses essential cookies to run the site and keep you signed in. With your consent we also use analytics cookies to understand how the platform is used so we can improve it. You can change or withdraw your consent at any time.",
     "acceptAll": "Accept all",
     "essentialOnly": "Essential only",
     "preferences": "Preferences",

@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/privacy")({
   head: () => ({
     meta: [
-      { title: "Datenschutz (DSGVO / BDSG) — Beistand" },
+      { title: "Datenschutz (DSGVO / BDSG) — BeistandPlus" },
       { name: "description", content: "Datenschutzerklärung nach DSGVO und BDSG." },
-      { property: "og:title", content: "Datenschutz (DSGVO / BDSG) — Beistand" },
+      { property: "og:title", content: "Datenschutz (DSGVO / BDSG) — BeistandPlus" },
       { property: "og:url", content: "/legal/privacy" },
     ],
     links: [{ rel: "canonical", href: "/legal/privacy" }],
@@ -21,7 +21,7 @@ function Page() {
 
       <LegalSection title="1. Verantwortlicher (Art. 4 Nr. 7 DSGVO)">
         <p>
-          Beistand GmbH, Musterstraße 1, 10115 Berlin, Deutschland.
+          BeistandPlus GmbH, Musterstraße 1, 10115 Berlin, Deutschland.
           E-Mail: <a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
         </p>
       </LegalSection>

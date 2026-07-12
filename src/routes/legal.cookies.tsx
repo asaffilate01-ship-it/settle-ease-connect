@@ -7,9 +7,9 @@ import { getStoredConsent, setStoredConsent } from "@/hooks/use-cookie-consent";
 export const Route = createFileRoute("/legal/cookies")({
   head: () => ({
     meta: [
-      { title: "Cookies — Beistand" },
+      { title: "Cookies — BeistandPlus" },
       { name: "description", content: "Cookie-Einsatz und Einwilligung nach § 25 TDDDG und Art. 6 DSGVO." },
-      { property: "og:title", content: "Cookies — Beistand" },
+      { property: "og:title", content: "Cookies — BeistandPlus" },
       { property: "og:url", content: "/legal/cookies" },
     ],
     links: [{ rel: "canonical", href: "/legal/cookies" }],

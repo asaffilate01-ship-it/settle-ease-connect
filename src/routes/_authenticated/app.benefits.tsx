@@ -102,7 +102,7 @@ function BenefitsPage() {
       <div>
         <h1 className="font-display text-3xl font-semibold">Benefits & entitlements</h1>
         <p className="text-sm text-muted-foreground">
-          Answer a few questions and Beistand estimates what you're entitled to under 2026 German rates —
+          Answer a few questions and BeistandPlus estimates what you're entitled to under 2026 German rates —
           family, housing, income support, study, pension, disability, illness, care, tax reliefs and
           social insurance. Each card lists the authority, forms, documents and proofs you need. Indicative
           only — a case manager confirms before you apply.

@@ -62,7 +62,7 @@ function Overview() {
         <h2 className="mb-3 font-display text-lg font-semibold">What you can do today</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <FeatureTile
-            title="Ask Beistand AI"
+            title="Ask BeistandPlus AI"
             body="Chat in 11 languages — forms, benefits, appointments."
             icon={Sparkles}
             tone="aurora"
@@ -123,7 +123,7 @@ function Overview() {
           <div className="flex items-center gap-3">
             <ClayIcon icon={MessageSquare} tone="aurora" size="md" />
             <div>
-              <div className="font-display text-lg font-semibold">Beistand AI</div>
+              <div className="font-display text-lg font-semibold">BeistandPlus AI</div>
               <div className="text-xs text-muted-foreground">DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS</div>
             </div>
           </div>

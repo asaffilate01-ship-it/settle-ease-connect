@@ -26,11 +26,11 @@ export const translateBatch = createServerFn({ method: "POST" })
     }
 
     const sys =
-      "You are a professional UI translator for Beistand+, a German welfare & settlement platform. " +
+      "You are a professional UI translator for BeistandPlus, a German welfare & settlement platform. " +
       "Translate each item into " + data.targetName + " (code: " + data.targetLang + "). " +
       "Rules: (1) Keep meaning, tone and length close to the source — this is UI copy. " +
       "(2) Preserve placeholders like {{name}}, {count}, %s, <b>...</b>, URLs and emails EXACTLY. " +
-      "(3) Never translate the brand name 'Beistand', 'Beistand+' or product names. " +
+      "(3) Never translate the brand name 'BeistandPlus', 'BeistandPlus' or product names. " +
       "(4) Return ONLY a JSON object of the form {\"t\":[\"...\", \"...\"]} with the same number of items in the same order. " +
       "(5) No commentary, no markdown fences.";
 

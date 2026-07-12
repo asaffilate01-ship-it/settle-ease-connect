@@ -85,15 +85,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#001B2E" },
-      { title: "Beistand+ — Für jeden Weg in Deutschland" },
+      { title: "BeistandPlus — Für jeden Weg in Deutschland" },
       {
         name: "description",
         content:
-          "Beistand+ is Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in one calm place — in 11 languages, for families and the organisations that stand with them.",
+          "BeistandPlus is Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in one calm place — in 11 languages, for families and the organisations that stand with them.",
       },
-      { name: "author", content: "Beistand GmbH" },
-      { property: "og:site_name", content: "Beistand+" },
-      { property: "og:title", content: "Beistand+ — Für jeden Weg in Deutschland" },
+      { name: "author", content: "BeistandPlus GmbH" },
+      { property: "og:site_name", content: "BeistandPlus" },
+      { property: "og:title", content: "BeistandPlus — Für jeden Weg in Deutschland" },
       {
         property: "og:description",
         content:

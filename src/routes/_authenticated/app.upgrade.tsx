@@ -18,7 +18,7 @@ type Plan = {
 export const Route = createFileRoute("/_authenticated/app/upgrade")({
   head: () => ({
     meta: [
-      { title: "Choose your plan — Beistand" },
+      { title: "Choose your plan — BeistandPlus" },
       { name: "description", content: "Basic, Plus and Complete plans for German settlement, benefits, tax and case management." },
     ],
   }),

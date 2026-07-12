@@ -8,7 +8,7 @@ import { Building2, DollarSign, Star, ClipboardCheck } from "lucide-react";
 export const Route = createFileRoute("/_authenticated/portal/funeral")({
   head: () => ({
     meta: [
-      { title: "Funeral Director portal — Beistand" },
+      { title: "Funeral Director portal — BeistandPlus" },
       {
         name: "description",
         content:
@@ -45,7 +45,7 @@ function FuneralPortal() {
       <div className="rounded-2xl border border-border/60 bg-card shadow-soft">
         <div className="flex items-center justify-between border-b border-border/60 px-6 py-4">
           <h2 className="font-display text-xl font-semibold">Incoming referrals</h2>
-          <Badge variant="outline">Auto-assigned by Beistand</Badge>
+          <Badge variant="outline">Auto-assigned by BeistandPlus</Badge>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

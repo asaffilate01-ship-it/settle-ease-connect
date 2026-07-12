@@ -9,13 +9,13 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Beistand" },
+      { title: "Pricing — BeistandPlus" },
       {
         name: "description",
         content:
           "Simple monthly plans for individuals and families in Germany. Household discounts for 2 adults + 3 kids or up to 4 adults + 3 kids. Third-party fees always separate.",
       },
-      { property: "og:title", content: "Pricing — Beistand" },
+      { property: "og:title", content: "Pricing — BeistandPlus" },
       {
         property: "og:description",
         content: "From €5/month solo. Family plans from €9/month. Case management from €25/month.",
@@ -257,7 +257,7 @@ function Pricing() {
             Bereavement, benefits, housing, pensions and paperwork — done properly, in your language.
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
-            Beistand launches with the moments that matter most: help through a death in the family,
+            BeistandPlus launches with the moments that matter most: help through a death in the family,
             applying for benefits, housing and pensions, disability and unemployment claims, tax
             filings, visa extensions, and translation at doctors, GPs, hospitals and banks. Student
             visas and study add-ons come next.
@@ -308,7 +308,7 @@ function Pricing() {
                 </li>
               </ul>
               <p className="mt-4 text-xs text-muted-foreground">
-                Premiums are paid directly to the insurer. Beistand handles the paperwork, the claim
+                Premiums are paid directly to the insurer. BeistandPlus handles the paperwork, the claim
                 and the coordination with providers — never the underwriting.
               </p>
             </div>
@@ -317,7 +317,7 @@ function Pricing() {
               <p className="mt-2 text-sm text-muted-foreground">
                 Lawyer, notary, doctor, tax adviser and government fees are quoted transparently in
                 your case and paid via the platform (escrow) or directly. Your subscription covers
-                Beistand's help — never the third party's work.
+                BeistandPlus's help — never the third party's work.
               </p>
             </div>
           </div>
@@ -335,7 +335,7 @@ function Pricing() {
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">
               Regulated experts (lawyers, notaries, tax, doctors) join by invitation and earn on referral fees.
-              Any qualified service provider can list in our public directory for free — contact details are only shown to paying Beistand members.
+              Any qualified service provider can list in our public directory for free — contact details are only shown to paying BeistandPlus members.
             </p>
             <Link
               to="/directory"

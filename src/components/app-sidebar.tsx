@@ -131,7 +131,7 @@ export function AppSidebar() {
           <span className="font-display text-lg font-semibold">B</span>
         </div>
         <div className="leading-tight">
-          <div className="font-display text-lg font-semibold tracking-tight">Beistand</div>
+          <div className="font-display text-lg font-semibold tracking-tight">BeistandPlus</div>
           <div className="text-[10px] uppercase tracking-[0.18em] text-sidebar-foreground/60">
             {isInternal ? t("sidebar.internal", { defaultValue: "Staff Portal" }) : t("sidebar.dashboard")}
           </div>

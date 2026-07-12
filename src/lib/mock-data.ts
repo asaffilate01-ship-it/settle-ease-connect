@@ -246,5 +246,5 @@ export const roles: Role[] = [
   { id: "church", label: "Church", description: "Funeral services, priest scheduling", homePath: "/portal/church" },
   { id: "temple", label: "Temple / Gurdwara", description: "Ceremony booking", homePath: "/portal/temple" },
   { id: "hospital", label: "Hospital", description: "Death certification, mortuary handoff", homePath: "/portal/hospital" },
-  { id: "admin", label: "Beistand Admin", description: "Network oversight & analytics", homePath: "/app" },
+  { id: "admin", label: "BeistandPlus Admin", description: "Network oversight & analytics", homePath: "/app" },
 ];

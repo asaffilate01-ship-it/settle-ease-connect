@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/complaints")({
   head: () => ({
     meta: [
-      { title: "Beschwerdeverfahren — Beistand" },
+      { title: "Beschwerdeverfahren — BeistandPlus" },
       { name: "description", content: "Beschwerden nach deutschem Verbraucherrecht (VSBG, BGB, DSGVO)." },
-      { property: "og:title", content: "Beschwerdeverfahren — Beistand" },
+      { property: "og:title", content: "Beschwerdeverfahren — BeistandPlus" },
       { property: "og:url", content: "/legal/complaints" },
     ],
     links: [{ rel: "canonical", href: "/legal/complaints" }],

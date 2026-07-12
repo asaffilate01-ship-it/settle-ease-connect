@@ -6,9 +6,9 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/partners/insurers")({
   head: () => ({
     meta: [
-      { title: "Insurance Partnership — Beistand" },
+      { title: "Insurance Partnership — BeistandPlus" },
       { name: "description", content: "Partnership one-pager for German Sterbegeld insurers: distribution model, target segment, integration, commercials." },
-      { property: "og:title", content: "Insurance Partnership — Beistand" },
+      { property: "og:title", content: "Insurance Partnership — BeistandPlus" },
       { property: "og:description", content: "Distribute bereavement cover to Germany's migrant families through a licensed, multilingual case-managed super-app." },
       { name: "robots", content: "noindex" },
     ],
@@ -35,7 +35,7 @@ function PartnersInsurers() {
           Distribute Sterbegeld to Germany's migrant families.
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Beistand is a multilingual settlement super-app for Germany's 15M migrant residents. We
+          BeistandPlus is a multilingual settlement super-app for Germany's 15M migrant residents. We
           case-manage every claim end-to-end, pay funeral directors directly, and handle family
           communication in 12 languages. We're looking for one launch partner per benefit tier.
         </p>
@@ -89,10 +89,10 @@ function PartnersInsurers() {
         <div className="mt-16">
           <h2 className="font-display text-2xl font-semibold">Why this works</h2>
           <ul className="mt-6 space-y-3 text-muted-foreground">
-            <li>• <strong className="text-foreground">Trusted distribution.</strong> Families come to Beistand for Anmeldung, Kindergeld and residence permits. Bereavement cover is a natural cross-sell at high-trust moments.</li>
+            <li>• <strong className="text-foreground">Trusted distribution.</strong> Families come to BeistandPlus for Anmeldung, Kindergeld and residence permits. Bereavement cover is a natural cross-sell at high-trust moments.</li>
             <li>• <strong className="text-foreground">Lower loss ratio.</strong> Direct-to-funeral-director payment eliminates the retail markup that inflates traditional claims.</li>
             <li>• <strong className="text-foreground">Native-language claim handling.</strong> Cuts your call-centre load and complaint rate for a segment most insurers underserve.</li>
-            <li>• <strong className="text-foreground">Regulated conduit.</strong> Beistand is (or will be) §34d GewO registered with liability cover in place — clean broker relationship, no compliance retrofit.</li>
+            <li>• <strong className="text-foreground">Regulated conduit.</strong> BeistandPlus is (or will be) §34d GewO registered with liability cover in place — clean broker relationship, no compliance retrofit.</li>
           </ul>
         </div>
 

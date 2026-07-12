@@ -7,9 +7,9 @@ import heroServices from "@/assets/brand/hero-services.jpg";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Beistand" },
+      { title: "Services — BeistandPlus" },
       { name: "description", content: "Welfare, benefits, immigration, employment, housing, healthcare, community and end-of-life care in Germany." },
-      { property: "og:title", content: "Services — Beistand" },
+      { property: "og:title", content: "Services — BeistandPlus" },
       { property: "og:description", content: "Every service a new arrival or long-time resident in Germany needs, in one place." },
     ],
   }),
@@ -156,7 +156,7 @@ function Services() {
             <span className="italic text-primary">essential milestone.</span>
           </h1>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            From your first Anmeldung to securing your family's future, Beistand
+            From your first Anmeldung to securing your family's future, BeistandPlus
             offers dignified, expert support to navigate German administration
             with confidence — in thirteen languages, with a human by your side.
           </p>
@@ -172,7 +172,7 @@ function Services() {
               to="/how-it-works"
               className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-6 py-3 text-sm font-medium text-foreground backdrop-blur transition-colors hover:bg-card"
             >
-              How Beistand works
+              How BeistandPlus works
             </Link>
           </div>
         </div>

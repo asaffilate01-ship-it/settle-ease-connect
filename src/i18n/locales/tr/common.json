@@ -35,7 +35,7 @@
     "privacy": "Veri koruma",
     "cookies": "Çerezler",
     "complaints": "Şikayetler",
-    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Özenle hazırlandı",
     "followUs": "Bizi takip edin"
   },
@@ -64,13 +64,13 @@
   "language": {
     "label": "Dil",
     "choose": "Dilinizi seçin",
-    "chooseDescription": "Beistand 13 dil konuşur. Lütfen kendi dilinizi seçin — istediğiniz zaman herhangi bir sayfanın sağ üst köşesinden değiştirebilirsiniz.",
+    "chooseDescription": "BeistandPlus 13 dil konuşur. Lütfen kendi dilinizi seçin — istediğiniz zaman herhangi bir sayfanın sağ üst köşesinden değiştirebilirsiniz.",
     "continue": "Devam et",
     "current": "Mevcut dil"
   },
   "cookies": {
     "title": "Çerez kullanıyoruz",
-    "body": "Beistand, siteyi çalıştırmak ve oturumunuzu açık tutmak için temel çerezler kullanır. İzninizle, platformun nasıl kullanıldığını anlamak ve geliştirmek için analitik çerezler de kullanırız. İzninizi istediğiniz zaman değiştirebilir veya geri çekebilirsiniz.",
+    "body": "BeistandPlus, siteyi çalıştırmak ve oturumunuzu açık tutmak için temel çerezler kullanır. İzninizle, platformun nasıl kullanıldığını anlamak ve geliştirmek için analitik çerezler de kullanırız. İzninizi istediğiniz zaman değiştirebilir veya geri çekebilirsiniz.",
     "acceptAll": "Tümünü kabul et",
     "essentialOnly": "Sadece gerekli olanlar",
     "preferences": "Tercihler",

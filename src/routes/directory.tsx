@@ -50,9 +50,9 @@ const CATEGORIES = [
 export const Route = createFileRoute("/directory")({
   head: () => ({
     meta: [
-      { title: "Members directory — Beistand" },
+      { title: "Members directory — BeistandPlus" },
       { name: "description", content: "Multilingual lawyers, doctors, immigration specialists, tax advisors, welfare experts, imams and more across Germany. Free to list, member access to view." },
-      { property: "og:title", content: "Members directory — Beistand" },
+      { property: "og:title", content: "Members directory — BeistandPlus" },
       { property: "og:description", content: "Verified & community-listed service providers for expats and migrants in Germany. Free listings for providers, member access for families." },
     ],
   }),
@@ -196,10 +196,10 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
               Unlock all {count} verified providers.
             </h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              Beistand members get full contact details, phone, email and
+              BeistandPlus members get full contact details, phone, email and
               website for every listing — plus a human case manager who can
               introduce you. Directory listings are free for providers; access
-              is included with every Beistand plan.
+              is included with every BeistandPlus plan.
             </p>
           </div>
         </div>

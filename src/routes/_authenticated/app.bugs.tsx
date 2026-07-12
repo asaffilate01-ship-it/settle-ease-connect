@@ -27,7 +27,7 @@ import { useServerFn } from "@tanstack/react-start";
 export const Route = createFileRoute("/_authenticated/app/bugs")({
   head: () => ({
     meta: [
-      { title: "Bug reports — Beistand" },
+      { title: "Bug reports — BeistandPlus" },
       { name: "description", content: "Report bugs and track reported issues." },
     ],
   }),

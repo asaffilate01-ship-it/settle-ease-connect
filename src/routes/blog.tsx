@@ -8,9 +8,9 @@ import { ArrowRight } from "lucide-react";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — Beistand" },
+      { title: "Blog — BeistandPlus" },
       { name: "description", content: "Guides, updates and stories from families settling in Germany — Anmeldung, benefits, residence permits, bereavement and everything in between." },
-      { property: "og:title", content: "Blog — Beistand" },
+      { property: "og:title", content: "Blog — BeistandPlus" },
       { property: "og:description", content: "Plain-language guides to life in Germany, from arrival to inheritance." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/blog" },

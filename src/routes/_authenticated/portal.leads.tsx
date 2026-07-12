@@ -14,7 +14,7 @@ import { toast } from "sonner";
 const STATUSES = ["new","contacted","quoted","won","lost","spam"] as const;
 
 export const Route = createFileRoute("/_authenticated/portal/leads")({
-  head: () => ({ meta: [{ title: "Insurance leads — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Insurance leads — BeistandPlus" }] }),
   component: LeadsInbox,
 });
 
