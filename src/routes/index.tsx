@@ -30,6 +30,50 @@ import {
 
 export const Route = createFileRoute("/")({
   component: Landing,
+  head: () => ({
+    meta: [
+      { title: "Beistand+ · Settlement, welfare & bereavement in Germany — 11 languages" },
+      {
+        name: "description",
+        content:
+          "Beistand+ helps families settle, claim benefits, manage documents and coordinate end-of-life care in Germany. One calm platform in 11 languages, with human case managers and vetted experts.",
+      },
+      { property: "og:title", content: "Beistand+ · For every path in Germany" },
+      {
+        property: "og:description",
+        content:
+          "Settlement, benefits, documents, community and end-of-life care — one calm platform for families in Germany and the organisations that stand with them.",
+      },
+      { property: "og:url", content: "https://beistandplus.de/" },
+      { property: "og:image", content: "https://beistandplus.de/favicon.png" },
+    ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Beistand+",
+          alternateName: "Beistand",
+          url: "https://beistandplus.de/",
+          logo: "https://beistandplus.de/favicon.png",
+          description:
+            "Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in 11 languages.",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Berlin",
+            addressCountry: "DE",
+          },
+          areaServed: "DE",
+          availableLanguage: [
+            "German", "English", "Turkish", "Urdu", "Hindi", "Punjabi",
+            "Pashto", "Arabic", "Kurdish", "Russian", "Ukrainian",
+          ],
+        }),
+      },
+    ],
+  }),
 });
 
 function Landing() {

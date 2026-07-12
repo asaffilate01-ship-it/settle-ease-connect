@@ -1,2 +1,10 @@
 User-agent: *
 Allow: /
+
+# Block private / authenticated surfaces
+Disallow: /app/
+Disallow: /portal/
+Disallow: /auth
+Disallow: /~oauth
+
+Sitemap: https://beistandplus.de/sitemap.xml

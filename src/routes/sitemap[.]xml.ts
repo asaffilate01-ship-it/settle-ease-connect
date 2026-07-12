@@ -1,29 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "";
+const BASE_URL = "https://beistandplus.de";
 
 interface SitemapEntry {
   path: string;
-  changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  changefreq?: "weekly" | "monthly" | "yearly";
   priority?: string;
 }
+
+// Public, indexable routes only. Auth/portal routes are excluded via robots.txt.
+const ENTRIES: SitemapEntry[] = [
+  { path: "/",                         changefreq: "weekly",  priority: "1.0" },
+  { path: "/how-it-works",             changefreq: "monthly", priority: "0.9" },
+  { path: "/services",                 changefreq: "monthly", priority: "0.9" },
+  { path: "/bereavement",              changefreq: "monthly", priority: "0.9" },
+  { path: "/directory",                changefreq: "weekly",  priority: "0.8" },
+  { path: "/directory/list-your-business", changefreq: "monthly", priority: "0.6" },
+  { path: "/for-providers",            changefreq: "monthly", priority: "0.8" },
+  { path: "/pricing",                  changefreq: "monthly", priority: "0.9" },
+  { path: "/blog",                     changefreq: "weekly",  priority: "0.7" },
+  { path: "/contact",                  changefreq: "yearly",  priority: "0.5" },
+  { path: "/impressum",                changefreq: "yearly",  priority: "0.3" },
+  { path: "/privacy",                  changefreq: "yearly",  priority: "0.3" },
+  { path: "/terms",                    changefreq: "yearly",  priority: "0.3" },
+  { path: "/cookies",                  changefreq: "yearly",  priority: "0.3" },
+];
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries: SitemapEntry[] = [
-          { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/how-it-works", changefreq: "monthly", priority: "0.8" },
-          { path: "/services", changefreq: "monthly", priority: "0.8" },
-          { path: "/bereavement", changefreq: "monthly", priority: "0.9" },
-          { path: "/for-providers", changefreq: "monthly", priority: "0.7" },
-          { path: "/pricing", changefreq: "monthly", priority: "0.7" },
-          { path: "/contact", changefreq: "yearly", priority: "0.5" },
-        ];
-
-        const urls = entries.map((e) =>
+        const urls = ENTRIES.map((e) =>
           [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
