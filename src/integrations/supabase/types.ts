@@ -562,6 +562,119 @@ export type Database = {
         }
         Relationships: []
       }
+      embassies: {
+        Row: {
+          active: boolean | null
+          address: string | null
+          city: string
+          country: string
+          country_code: string
+          created_at: string
+          email: string | null
+          emergency_phone: string | null
+          id: string
+          languages: string[] | null
+          mission_type: string
+          notes: string | null
+          opening_hours: string | null
+          phone: string | null
+          updated_at: string
+          visa_services: string[] | null
+          website: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          address?: string | null
+          city: string
+          country: string
+          country_code: string
+          created_at?: string
+          email?: string | null
+          emergency_phone?: string | null
+          id?: string
+          languages?: string[] | null
+          mission_type?: string
+          notes?: string | null
+          opening_hours?: string | null
+          phone?: string | null
+          updated_at?: string
+          visa_services?: string[] | null
+          website?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          address?: string | null
+          city?: string
+          country?: string
+          country_code?: string
+          created_at?: string
+          email?: string | null
+          emergency_phone?: string | null
+          id?: string
+          languages?: string[] | null
+          mission_type?: string
+          notes?: string | null
+          opening_hours?: string | null
+          phone?: string | null
+          updated_at?: string
+          visa_services?: string[] | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      emergency_alerts: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          client_user_id: string
+          created_at: string
+          description: string | null
+          id: string
+          raised_by_contact_id: string | null
+          raised_by_user_id: string | null
+          reason: string
+          resolved_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          client_user_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          raised_by_contact_id?: string | null
+          raised_by_user_id?: string | null
+          reason: string
+          resolved_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          client_user_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          raised_by_contact_id?: string | null
+          raised_by_user_id?: string | null
+          reason?: string
+          resolved_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_alerts_raised_by_contact_id_fkey"
+            columns: ["raised_by_contact_id"]
+            isOneToOne: false
+            referencedRelation: "trusted_contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employment_records: {
         Row: {
           client_user_id: string
@@ -735,6 +848,65 @@ export type Database = {
           wholesale_rate_eur?: number | null
         }
         Relationships: []
+      }
+      family_members: {
+        Row: {
+          added_to_health_insurance_id: string | null
+          arrival_date: string | null
+          client_user_id: string
+          covered_by_subscription: boolean | null
+          created_at: string
+          date_of_birth: string | null
+          full_name: string
+          id: string
+          nationality: string | null
+          notes: string | null
+          passport_number: string | null
+          relationship: string
+          residency_status: string | null
+          updated_at: string
+        }
+        Insert: {
+          added_to_health_insurance_id?: string | null
+          arrival_date?: string | null
+          client_user_id: string
+          covered_by_subscription?: boolean | null
+          created_at?: string
+          date_of_birth?: string | null
+          full_name: string
+          id?: string
+          nationality?: string | null
+          notes?: string | null
+          passport_number?: string | null
+          relationship: string
+          residency_status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          added_to_health_insurance_id?: string | null
+          arrival_date?: string | null
+          client_user_id?: string
+          covered_by_subscription?: boolean | null
+          created_at?: string
+          date_of_birth?: string | null
+          full_name?: string
+          id?: string
+          nationality?: string | null
+          notes?: string | null
+          passport_number?: string | null
+          relationship?: string
+          residency_status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_members_added_to_health_insurance_id_fkey"
+            columns: ["added_to_health_insurance_id"]
+            isOneToOne: false
+            referencedRelation: "health_insurance"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       health_insurance: {
         Row: {
@@ -1408,6 +1580,7 @@ export type Database = {
           client_user_id: string
           created_at: string
           email: string | null
+          emergency_order: number | null
           id: string
           is_primary: boolean | null
           language: string | null
@@ -1422,6 +1595,7 @@ export type Database = {
           client_user_id: string
           created_at?: string
           email?: string | null
+          emergency_order?: number | null
           id?: string
           is_primary?: boolean | null
           language?: string | null
@@ -1436,6 +1610,7 @@ export type Database = {
           client_user_id?: string
           created_at?: string
           email?: string | null
+          emergency_order?: number | null
           id?: string
           is_primary?: boolean | null
           language?: string | null
