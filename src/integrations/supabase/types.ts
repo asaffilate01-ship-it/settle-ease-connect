@@ -1427,6 +1427,18 @@ export type Database = {
         | "admin"
         | "staff"
         | "expert"
+        | "insurance_admin"
+        | "tax_admin"
+        | "benefits_admin"
+        | "medical_admin"
+        | "new_arrival_admin"
+        | "lawyer"
+        | "accountant"
+        | "doctor"
+        | "notary"
+        | "translator"
+        | "social_worker"
+        | "beneficiary"
       case_participant_role:
         | "client"
         | "case_manager"
@@ -1612,6 +1624,18 @@ export const Constants = {
         "admin",
         "staff",
         "expert",
+        "insurance_admin",
+        "tax_admin",
+        "benefits_admin",
+        "medical_admin",
+        "new_arrival_admin",
+        "lawyer",
+        "accountant",
+        "doctor",
+        "notary",
+        "translator",
+        "social_worker",
+        "beneficiary",
       ],
       case_participant_role: [
         "client",

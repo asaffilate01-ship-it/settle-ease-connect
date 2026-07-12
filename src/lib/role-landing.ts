@@ -1,8 +1,30 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { AppRole } from "@/hooks/use-current-user";
 
-const INTERNAL_ROLES: AppRole[] = ["admin", "staff", "case_manager"];
-const EXPERT_ROLES: AppRole[] = ["expert", "funeral_director", "mosque", "church", "temple", "hospital"];
+const INTERNAL_ROLES: AppRole[] = [
+  "admin",
+  "staff",
+  "case_manager",
+  "insurance_admin",
+  "tax_admin",
+  "benefits_admin",
+  "medical_admin",
+  "new_arrival_admin",
+];
+const EXPERT_ROLES: AppRole[] = [
+  "expert",
+  "lawyer",
+  "accountant",
+  "doctor",
+  "notary",
+  "translator",
+  "social_worker",
+  "funeral_director",
+  "mosque",
+  "church",
+  "temple",
+  "hospital",
+];
 
 export function landingForRoles(roles: AppRole[]): string {
   if (roles.some((r) => INTERNAL_ROLES.includes(r))) return "/portal";
@@ -11,7 +33,30 @@ export function landingForRoles(roles: AppRole[]): string {
 }
 
 export function primaryRole(roles: AppRole[]): AppRole | null {
-  const priority: AppRole[] = ["admin", "staff", "case_manager", "expert", "funeral_director", "mosque", "church", "temple", "hospital", "family"];
+  const priority: AppRole[] = [
+    "admin",
+    "staff",
+    "case_manager",
+    "insurance_admin",
+    "tax_admin",
+    "benefits_admin",
+    "medical_admin",
+    "new_arrival_admin",
+    "lawyer",
+    "accountant",
+    "doctor",
+    "notary",
+    "translator",
+    "social_worker",
+    "expert",
+    "funeral_director",
+    "mosque",
+    "church",
+    "temple",
+    "hospital",
+    "beneficiary",
+    "family",
+  ];
   for (const r of priority) if (roles.includes(r)) return r;
   return roles[0] ?? null;
 }

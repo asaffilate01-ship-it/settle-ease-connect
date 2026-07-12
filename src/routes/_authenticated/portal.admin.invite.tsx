@@ -12,8 +12,11 @@ import { Loader2, Mail, Trash2, Check, Shield } from "lucide-react";
 import { toast } from "sonner";
 
 const ALL_ROLES = [
-  "admin","staff","case_manager","expert","family",
-  "funeral_director","mosque","church","temple","hospital",
+  "admin","staff","case_manager",
+  "insurance_admin","tax_admin","benefits_admin","medical_admin","new_arrival_admin",
+  "lawyer","accountant","doctor","notary","translator","social_worker",
+  "expert","funeral_director","mosque","church","temple","hospital",
+  "beneficiary","family",
 ] as const;
 
 export const Route = createFileRoute("/_authenticated/portal/admin/invite")({
