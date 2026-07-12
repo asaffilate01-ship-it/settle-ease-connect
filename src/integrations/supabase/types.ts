@@ -304,6 +304,7 @@ export type Database = {
           description: string | null
           expert_id: string | null
           id: string
+          last_nudged_at: string | null
           platform_fee_eur: number | null
           platform_fee_pct: number
           responded_at: string | null
@@ -322,6 +323,7 @@ export type Database = {
           description?: string | null
           expert_id?: string | null
           id?: string
+          last_nudged_at?: string | null
           platform_fee_eur?: number | null
           platform_fee_pct?: number
           responded_at?: string | null
@@ -340,6 +342,7 @@ export type Database = {
           description?: string | null
           expert_id?: string | null
           id?: string
+          last_nudged_at?: string | null
           platform_fee_eur?: number | null
           platform_fee_pct?: number
           responded_at?: string | null
@@ -678,6 +681,7 @@ export type Database = {
           age: number
           assigned_to: string | null
           benefit_amount: number
+          call_log: Json
           created_at: string
           email: string
           estimated_premium_max: number | null
@@ -697,6 +701,7 @@ export type Database = {
           age: number
           assigned_to?: string | null
           benefit_amount?: number
+          call_log?: Json
           created_at?: string
           email: string
           estimated_premium_max?: number | null
@@ -716,6 +721,7 @@ export type Database = {
           age?: number
           assigned_to?: string | null
           benefit_amount?: number
+          call_log?: Json
           created_at?: string
           email?: string
           estimated_premium_max?: number | null

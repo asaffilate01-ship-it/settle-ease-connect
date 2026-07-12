@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getKnowledgeService } from "@/lib/knowledge.functions";
-import { AppSidebar } from "@/components/app-sidebar";
+import { PortalHeader } from "@/components/portal/portal-header";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Loader2, ExternalLink } from "lucide-react";
 
@@ -19,35 +19,36 @@ function KnowledgeDetail() {
   });
 
   return (
-    <div className="flex min-h-screen">
-      <AppSidebar />
-      <main className="flex-1 bg-background">
-        <div className="border-b border-border/60 bg-card px-8 py-6">
-          <Link to="/portal/knowledge" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> Back to knowledge base
-          </Link>
+    <div className="space-y-6">
+      <Link
+        to="/portal/knowledge"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" /> Back to knowledge base
+      </Link>
+
+      {isLoading && (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
         </div>
+      )}
+      {error && <div className="text-sm text-destructive">{(error as Error).message}</div>}
 
-        {isLoading && (
-          <div className="flex items-center gap-2 p-8 text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+      {svc && (
+        <div className="space-y-8">
+          <PortalHeader
+            crumbs={[{ label: "Knowledge base", to: "/portal/knowledge" }, { label: svc.name }]}
+            title={svc.name}
+            subtitle={svc.short_description ?? undefined}
+            actions={<Badge variant="secondary">{(svc as any).category?.name}</Badge>}
+          />
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Fact label="Typical timeline" value={svc.typical_timeline} />
+            <Fact label="Official fees" value={svc.official_fees} />
+            <Fact label="Expert required" value={svc.requires_expert_role ?? "—"} />
           </div>
-        )}
-        {error && <div className="p-8 text-sm text-destructive">{(error as Error).message}</div>}
 
-        {svc && (
-          <div className="mx-auto max-w-5xl space-y-8 p-8">
-            <header>
-              <Badge variant="secondary">{(svc as any).category?.name}</Badge>
-              <h1 className="mt-3 font-display text-3xl font-semibold">{svc.name}</h1>
-              <p className="mt-2 text-muted-foreground">{svc.short_description}</p>
-            </header>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              <Fact label="Typical timeline" value={svc.typical_timeline} />
-              <Fact label="Official fees" value={svc.official_fees} />
-              <Fact label="Expert required" value={svc.requires_expert_role ?? "—"} />
-            </div>
 
             <Section title="Eligibility">{svc.eligibility}</Section>
             <Section title="Legal basis">{svc.legal_basis}</Section>
@@ -108,10 +109,9 @@ function KnowledgeDetail() {
                   ))}
                 </div>
               )}
-            </div>
           </div>
-        )}
-      </main>
+        </div>
+      )}
     </div>
   );
 }

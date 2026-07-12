@@ -31,6 +31,7 @@ import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
 import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
@@ -163,6 +164,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -170,9 +176,9 @@ const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
 } as any)
 const AuthenticatedPortalIndexRoute =
   AuthenticatedPortalIndexRouteImport.update({
-    id: '/portal/',
-    path: '/portal/',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
@@ -181,27 +187,27 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
 } as any)
 const AuthenticatedPortalLeadsRoute =
   AuthenticatedPortalLeadsRouteImport.update({
-    id: '/portal/leads',
-    path: '/portal/leads',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/leads',
+    path: '/leads',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalKnowledgeRoute =
   AuthenticatedPortalKnowledgeRouteImport.update({
-    id: '/portal/knowledge',
-    path: '/portal/knowledge',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/knowledge',
+    path: '/knowledge',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalFuneralRoute =
   AuthenticatedPortalFuneralRouteImport.update({
-    id: '/portal/funeral',
-    path: '/portal/funeral',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/funeral',
+    path: '/funeral',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalExpertsRoute =
   AuthenticatedPortalExpertsRouteImport.update({
-    id: '/portal/experts',
-    path: '/portal/experts',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/experts',
+    path: '/experts',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
@@ -263,15 +269,15 @@ const AuthenticatedPortalKnowledgeSlugRoute =
   } as any)
 const AuthenticatedPortalAdminUsersRoute =
   AuthenticatedPortalAdminUsersRouteImport.update({
-    id: '/portal/admin/users',
-    path: '/portal/admin/users',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/admin/users',
+    path: '/admin/users',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalAdminInviteRoute =
   AuthenticatedPortalAdminInviteRouteImport.update({
-    id: '/portal/admin/invite',
-    path: '/portal/admin/invite',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/admin/invite',
+    path: '/admin/invite',
+    getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedAppCasesNewRoute =
   AuthenticatedAppCasesNewRouteImport.update({
@@ -301,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -390,6 +397,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -436,6 +444,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/app'
+    | '/portal'
     | '/blog/$slug'
     | '/directory/list-your-business'
     | '/legal/complaints'
@@ -524,6 +533,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/app'
+    | '/_authenticated/portal'
     | '/blog/$slug'
     | '/directory/list-your-business'
     | '/legal/complaints'
@@ -728,6 +738,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/_authenticated/portal': {
+      id: '/_authenticated/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof AuthenticatedPortalRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/app': {
       id: '/_authenticated/app'
       path: '/app'
@@ -737,10 +754,10 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/portal/': {
       id: '/_authenticated/portal/'
-      path: '/portal'
+      path: '/'
       fullPath: '/portal/'
       preLoaderRoute: typeof AuthenticatedPortalIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/app/': {
       id: '/_authenticated/app/'
@@ -751,31 +768,31 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/portal/leads': {
       id: '/_authenticated/portal/leads'
-      path: '/portal/leads'
+      path: '/leads'
       fullPath: '/portal/leads'
       preLoaderRoute: typeof AuthenticatedPortalLeadsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/knowledge': {
       id: '/_authenticated/portal/knowledge'
-      path: '/portal/knowledge'
+      path: '/knowledge'
       fullPath: '/portal/knowledge'
       preLoaderRoute: typeof AuthenticatedPortalKnowledgeRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/funeral': {
       id: '/_authenticated/portal/funeral'
-      path: '/portal/funeral'
+      path: '/funeral'
       fullPath: '/portal/funeral'
       preLoaderRoute: typeof AuthenticatedPortalFuneralRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/experts': {
       id: '/_authenticated/portal/experts'
-      path: '/portal/experts'
+      path: '/experts'
       fullPath: '/portal/experts'
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/app/settings': {
       id: '/_authenticated/app/settings'
@@ -849,17 +866,17 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/portal/admin/users': {
       id: '/_authenticated/portal/admin/users'
-      path: '/portal/admin/users'
+      path: '/admin/users'
       fullPath: '/portal/admin/users'
       preLoaderRoute: typeof AuthenticatedPortalAdminUsersRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/admin/invite': {
       id: '/_authenticated/portal/admin/invite'
-      path: '/portal/admin/invite'
+      path: '/admin/invite'
       fullPath: '/portal/admin/invite'
       preLoaderRoute: typeof AuthenticatedPortalAdminInviteRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/app/cases/new': {
       id: '/_authenticated/app/cases/new'
@@ -937,8 +954,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
     AuthenticatedPortalKnowledgeRouteChildren,
   )
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
@@ -948,8 +964,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
 }
 
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
   AuthenticatedPortalKnowledgeRoute:
@@ -958,6 +973,19 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
   AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
   AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,
+}
+
+const AuthenticatedPortalRouteWithChildren =
+  AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+  AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+  AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

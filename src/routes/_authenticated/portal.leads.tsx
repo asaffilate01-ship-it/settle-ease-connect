@@ -1,9 +1,9 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { listInsuranceLeads, updateLeadStatus } from "@/lib/portal.functions";
+import { PortalHeader } from "@/components/portal/portal-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,13 +14,6 @@ import { toast } from "sonner";
 const STATUSES = ["new","contacted","quoted","won","lost","spam"] as const;
 
 export const Route = createFileRoute("/_authenticated/portal/leads")({
-  ssr: false,
-  beforeLoad: async () => {
-    const { data: u } = await supabase.auth.getUser();
-    if (!u.user) throw redirect({ to: "/auth" });
-    const { data: internal } = await supabase.rpc("is_internal", { _user_id: u.user.id });
-    if (!internal) throw redirect({ to: "/app" });
-  },
   head: () => ({ meta: [{ title: "Insurance leads — Beistand" }] }),
   component: LeadsInbox,
 });
@@ -55,14 +48,13 @@ function LeadsInbox() {
   const selected = leads.find((l: any) => l.id === selectedId) ?? leads[0];
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-start justify-between gap-4 flex-wrap">
-        <div>
-          <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Staff portal</div>
-          <h1 className="mt-1 font-display text-3xl font-semibold">Insurance leads</h1>
-          <p className="text-sm text-muted-foreground">All bereavement cover enquiries from the public quote widget.</p>
-        </div>
-      </div>
+    <div className="space-y-6">
+      <PortalHeader
+        crumbs={[{ label: "Insurance leads" }]}
+        title="Insurance leads"
+        subtitle="All bereavement cover enquiries from the public quote widget."
+      />
+
 
       <div className="flex flex-wrap items-center gap-2">
         <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or email…" className="max-w-xs" />
