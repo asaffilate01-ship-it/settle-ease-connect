@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "یہ کیسے کام کرتا ہے",
+    "services": "خدمات",
+    "directory": "ڈائرکٹری",
+    "bereavement": "سوگ",
+    "forProviders": "سروس فراہم کرنے والوں کے لیے",
+    "pricing": "قیمتوں کا تعین",
+    "signIn": "سائن ان کریں",
+    "openDashboard": "ڈیش بورڈ کھولیں",
+    "menu": "مینو"
+  },
+  "footer": {
+    "tagline": "Deutschland میں ہر راستے کے لیے۔ سیٹلمنٹ، بہبود، فوائد، اور زندگی کے اختتام کی دیکھ بھال — خاندانوں اور ان تنظیموں کے لیے ایک پُرسکون پلیٹ فارم جو ان کے ساتھ کھڑی ہیں۔",
+    "colPlatform": "پلیٹ فارم",
+    "colForProviders": "سروس فراہم کرنے والوں کے لیے",
+    "colCompany": "کمپنی",
+    "howItWorks": "یہ کیسے کام کرتا ہے",
+    "services": "خدمات",
+    "bereavement": "سوگ",
+    "pricing": "قیمتوں کا تعین",
+    "funeralDirectors": "تدفین کے ڈائریکٹرز",
+    "mosques": "مساجد اور امام",
+    "churches": "گرجا گھر",
+    "temples": "مندر اور گردوارے",
+    "contact": "رابطہ کریں",
+    "impressum": "امپرنٹ",
+    "privacy": "ڈیٹا کا تحفظ",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "دیکھ بھال کے ساتھ بنایا گیا"
+  },
+  "sidebar": {
+    "dashboard": "ڈیش بورڈ",
+    "overview": "جائزہ",
+    "cases": "کیسز",
+    "checklists": "چیک لسٹس",
+    "benefits": "فوائد",
+    "documents": "دستاویزات",
+    "providers": "سروس فراہم کرنے والے",
+    "assistant": "AI اسسٹنٹ",
+    "community": "کمیونٹی",
+    "knowledge": "علمی بنیاد",
+    "experts": "ماہرین کی فہرست",
+    "settings": "ترتیبات",
+    "internal": "اندرونی",
+    "caseManagerRole": "کیس مینیجر · Berlin"
+  },
+  "language": {
+    "label": "زبان",
+    "choose": "اپنی زبان منتخب کریں",
+    "chooseDescription": "Beistand 13 زبانیں بولتا ہے۔ اپنی زبان منتخب کریں — آپ اسے کسی بھی صفحے کے اوپری دائیں کونے سے کسی بھی وقت تبدیل کر سکتے ہیں۔",
+    "continue": "جاری رکھیں",
+    "current": "موجودہ زبان"
+  }
+}

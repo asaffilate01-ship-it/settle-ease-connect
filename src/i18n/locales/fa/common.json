@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "نحوه کار",
+    "services": "خدمات",
+    "directory": "راهنما",
+    "bereavement": "حمایت از بازماندگان",
+    "forProviders": "برای ارائه دهندگان",
+    "pricing": "قیمت‌گذاری",
+    "signIn": "ورود",
+    "openDashboard": "باز کردن داشبورد",
+    "menu": "منو"
+  },
+  "footer": {
+    "tagline": "برای هر گامی در Deutschland. اسکان، رفاه، مزایا و مراقبت‌های پایان زندگی — یک بستر آرام برای خانواده‌ها و سازمان‌هایی که از آنها حمایت می‌کنند.",
+    "colPlatform": "بستر",
+    "colForProviders": "برای ارائه دهندگان",
+    "colCompany": "شرکت",
+    "howItWorks": "نحوه کار",
+    "services": "خدمات",
+    "bereavement": "حمایت از بازماندگان",
+    "pricing": "قیمت‌گذاری",
+    "funeralDirectors": "مدیران مراسم خاکسپاری",
+    "mosques": "مساجد و امامان",
+    "churches": "کلیساها",
+    "temples": "معابد و گوردواراها",
+    "contact": "تماس",
+    "impressum": "شناسه کسب‌وکار",
+    "privacy": "حفاظت از داده‌ها",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "ساخته شده با دقت"
+  },
+  "sidebar": {
+    "dashboard": "داشبورد",
+    "overview": "نمای کلی",
+    "cases": "پرونده‌ها",
+    "checklists": "چک‌لیست‌ها",
+    "benefits": "مزایا",
+    "documents": "اسناد",
+    "providers": "ارائه دهندگان",
+    "assistant": "دستیار هوش مصنوعی",
+    "community": "انجمن",
+    "knowledge": "پایگاه دانش",
+    "experts": "فهرست کارشناسان",
+    "settings": "تنظیمات",
+    "internal": "داخلی",
+    "caseManagerRole": "مدیر پرونده · Berlin"
+  },
+  "language": {
+    "label": "زبان",
+    "choose": "زبان خود را انتخاب کنید",
+    "chooseDescription": "Beistand به 13 زبان صحبت می‌کند. زبان خود را انتخاب کنید — می‌توانید هر زمان از بالای سمت راست هر صفحه آن را تغییر دهید.",
+    "continue": "ادامه",
+    "current": "زبان فعلی"
+  }
+}

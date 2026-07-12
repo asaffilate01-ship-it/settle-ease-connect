@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "Nasıl çalışır",
+    "services": "Hizmetler",
+    "directory": "Rehber",
+    "bereavement": "Vefat hizmetleri",
+    "forProviders": "Sağlayıcılar için",
+    "pricing": "Fiyatlandırma",
+    "signIn": "Giriş yap",
+    "openDashboard": "Kontrol panelini aç",
+    "menu": "Menü"
+  },
+  "footer": {
+    "tagline": "Deutschland'daki her yolculuk için. Yerleşim, sosyal yardım, ödenekler ve vefat hizmetleri — aileler ve onlara destek olan kuruluşlar için tek, güvenli bir platform.",
+    "colPlatform": "Platform",
+    "colForProviders": "Sağlayıcılar için",
+    "colCompany": "Şirket",
+    "howItWorks": "Nasıl çalışır",
+    "services": "Hizmetler",
+    "bereavement": "Vefat hizmetleri",
+    "pricing": "Fiyatlandırma",
+    "funeralDirectors": "Cenaze levazımatçıları",
+    "mosques": "Camiler ve İmamlar",
+    "churches": "Kiliseler",
+    "temples": "Tapınaklar ve Gurdwaras",
+    "contact": "İletişim",
+    "impressum": "Künye",
+    "privacy": "Veri koruma",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "Özenle oluşturulmuştur"
+  },
+  "sidebar": {
+    "dashboard": "Kontrol Paneli",
+    "overview": "Genel bakış",
+    "cases": "Vakalar",
+    "checklists": "Kontrol listeleri",
+    "benefits": "Yardımlar",
+    "documents": "Belgeler",
+    "providers": "Sağlayıcılar",
+    "assistant": "Yapay Zeka Asistanı",
+    "community": "Topluluk",
+    "knowledge": "Bilgi bankası",
+    "experts": "Uzmanlar listesi",
+    "settings": "Ayarlar",
+    "internal": "Dahili",
+    "caseManagerRole": "Vaka Yöneticisi · Berlin"
+  },
+  "language": {
+    "label": "Dil",
+    "choose": "Dilinizi seçin",
+    "chooseDescription": "Beistand 13 dil konuşur. Sizinkini seçin — istediğiniz zaman herhangi bir sayfanın sağ üst köşesinden değiştirebilirsiniz.",
+    "continue": "Devam et",
+    "current": "Mevcut dil"
+  }
+}

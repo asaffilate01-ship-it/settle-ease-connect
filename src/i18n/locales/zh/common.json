@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "德国"
+  },
+  "nav": {
+    "howItWorks": "如何运作",
+    "services": "服务",
+    "directory": "目录",
+    "bereavement": "丧葬援助",
+    "forProviders": "致服务提供者",
+    "pricing": "价格",
+    "signIn": "登录",
+    "openDashboard": "打开控制面板",
+    "menu": "菜单"
+  },
+  "footer": {
+    "tagline": "为您在 Deutschland 的每一步保驾护航。无论是安家落户、福利援助、津贴申请，还是临终关怀——一个专为家庭及其支持组织设计的安心平台。",
+    "colPlatform": "平台",
+    "colForProviders": "致服务提供者",
+    "colCompany": "公司",
+    "howItWorks": "如何运作",
+    "services": "服务",
+    "bereavement": "丧葬援助",
+    "pricing": "价格",
+    "funeralDirectors": "殡仪服务商",
+    "mosques": "清真寺与伊玛目",
+    "churches": "教堂",
+    "temples": "寺庙与谒师所",
+    "contact": "联系我们",
+    "impressum": "版本说明",
+    "privacy": "数据保护",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "匠心打造"
+  },
+  "sidebar": {
+    "dashboard": "控制面板",
+    "overview": "概览",
+    "cases": "案例",
+    "checklists": "清单",
+    "benefits": "福利",
+    "documents": "文件",
+    "providers": "服务提供者",
+    "assistant": "AI 助手",
+    "community": "社区",
+    "knowledge": "知识库",
+    "experts": "专家名册",
+    "settings": "设置",
+    "internal": "内部",
+    "caseManagerRole": "案例经理 · Berlin"
+  },
+  "language": {
+    "label": "语言",
+    "choose": "选择您的语言",
+    "chooseDescription": "Beistand 提供13种语言服务。请选择您的语言——您可以随时在任何页面的右上角进行更改。",
+    "continue": "继续",
+    "current": "当前语言"
+  }
+}

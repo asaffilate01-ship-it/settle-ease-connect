@@ -214,6 +214,29 @@
     font-feature-settings: "ss01", "ss02";
     letter-spacing: -0.015em;
   }
+
+  /* Script-specific font stacks — activated by <html lang="…"> */
+  html:lang(ar), html:lang(ar) body { font-family: "Noto Sans Arabic", var(--font-sans); }
+  html:lang(ur), html:lang(ur) body { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", var(--font-sans); }
+  html:lang(fa), html:lang(fa) body { font-family: "Noto Sans Arabic", var(--font-sans); }
+  html:lang(hi), html:lang(hi) body { font-family: "Noto Sans Devanagari", var(--font-sans); }
+  html:lang(pa), html:lang(pa) body { font-family: "Noto Sans Gurmukhi", var(--font-sans); }
+  html:lang(zh), html:lang(zh) body { font-family: "Noto Sans SC", var(--font-sans); }
+
+  html:lang(ar) h1, html:lang(ar) h2, html:lang(ar) h3, html:lang(ar) h4, html:lang(ar) h5,
+  html:lang(ur) h1, html:lang(ur) h2, html:lang(ur) h3, html:lang(ur) h4, html:lang(ur) h5,
+  html:lang(fa) h1, html:lang(fa) h2, html:lang(fa) h3, html:lang(fa) h4, html:lang(fa) h5 {
+    font-family: "Noto Sans Arabic", var(--font-display);
+  }
+  html:lang(hi) h1, html:lang(hi) h2, html:lang(hi) h3, html:lang(hi) h4, html:lang(hi) h5 {
+    font-family: "Noto Sans Devanagari", var(--font-display);
+  }
+  html:lang(pa) h1, html:lang(pa) h2, html:lang(pa) h3, html:lang(pa) h4, html:lang(pa) h5 {
+    font-family: "Noto Sans Gurmukhi", var(--font-display);
+  }
+  html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) h4, html:lang(zh) h5 {
+    font-family: "Noto Sans SC", var(--font-display);
+  }
 }
 
 @utility font-display {

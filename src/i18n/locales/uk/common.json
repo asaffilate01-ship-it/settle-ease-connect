@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Німеччина"
+  },
+  "nav": {
+    "howItWorks": "Як це працює",
+    "services": "Послуги",
+    "directory": "Довідник",
+    "bereavement": "У скорботі",
+    "forProviders": "Для провайдерів",
+    "pricing": "Ціни",
+    "signIn": "Увійти",
+    "openDashboard": "Відкрити дашборд",
+    "menu": "Меню"
+  },
+  "footer": {
+    "tagline": "Для кожного шляху в Deutschland. Допомога з облаштуванням, соціальні послуги, пільги та підтримка в кінці життя — єдина зручна платформа для сімей та організацій, які їх супроводжують.",
+    "colPlatform": "Платформа",
+    "colForProviders": "Для провайдерів",
+    "colCompany": "Компанія",
+    "howItWorks": "Як це працює",
+    "services": "Послуги",
+    "bereavement": "У скорботі",
+    "pricing": "Ціни",
+    "funeralDirectors": "Похоронні бюро",
+    "mosques": "Мечеті та імами",
+    "churches": "Церкви",
+    "temples": "Храми та Ґурдва́ри",
+    "contact": "Контакти",
+    "impressum": "Вихідні дані",
+    "privacy": "Захист даних",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "Зроблено з турботою"
+  },
+  "sidebar": {
+    "dashboard": "Дашборд",
+    "overview": "Огляд",
+    "cases": "Кейси",
+    "checklists": "Чеклісти",
+    "benefits": "Пільги",
+    "documents": "Документи",
+    "providers": "Провайдери",
+    "assistant": "ШІ-помічник",
+    "community": "Спільнота",
+    "knowledge": "База знань",
+    "experts": "Список експертів",
+    "settings": "Налаштування",
+    "internal": "Внутрішнє",
+    "caseManagerRole": "Кейс-менеджер · Berlin"
+  },
+  "language": {
+    "label": "Мова",
+    "choose": "Оберіть вашу мову",
+    "chooseDescription": "Beistand спілкується 13 мовами. Оберіть свою — ви можете змінити її в будь-який час у верхньому правому куті будь-якої сторінки.",
+    "continue": "Продовжити",
+    "current": "Поточна мова"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Germany"
+  },
+  "nav": {
+    "howItWorks": "How it works",
+    "services": "Services",
+    "directory": "Directory",
+    "bereavement": "Bereavement",
+    "forProviders": "For providers",
+    "pricing": "Pricing",
+    "signIn": "Sign in",
+    "openDashboard": "Open dashboard",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "For every path in Germany. Settlement, welfare, benefits, and end-of-life care — one calm platform for families and the organisations that stand with them.",
+    "colPlatform": "Platform",
+    "colForProviders": "For providers",
+    "colCompany": "Company",
+    "howItWorks": "How it works",
+    "services": "Services",
+    "bereavement": "Bereavement",
+    "pricing": "Pricing",
+    "funeralDirectors": "Funeral directors",
+    "mosques": "Mosques & imams",
+    "churches": "Churches",
+    "temples": "Temples & Gurdwaras",
+    "contact": "Contact",
+    "impressum": "Imprint",
+    "privacy": "Data protection",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "Built with care"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "overview": "Overview",
+    "cases": "Cases",
+    "checklists": "Checklists",
+    "benefits": "Benefits",
+    "documents": "Documents",
+    "providers": "Providers",
+    "assistant": "AI Assistant",
+    "community": "Community",
+    "knowledge": "Knowledge base",
+    "experts": "Experts roster",
+    "settings": "Settings",
+    "internal": "Internal",
+    "caseManagerRole": "Case Manager · Berlin"
+  },
+  "language": {
+    "label": "Language",
+    "choose": "Choose your language",
+    "chooseDescription": "Beistand speaks 13 languages. Pick yours — you can change it any time from the top right of any page.",
+    "continue": "Continue",
+    "current": "Current language"
+  }
+}

@@ -1,42 +1,52 @@
-# Beistand backend rollout — staged plan
+# Multilingual rollout (12 languages, no mixing)
 
-Lovable Cloud is now enabled. Delivering everything in one turn would rush the schema and destabilize the app. Instead, four ordered stages. Each stage is self-contained: the app stays fully usable after every stage.
+**Languages:** EN · DE · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL · ZH
+**RTL languages:** AR, UR, FA, KU (auto `dir="rtl"` + font stack)
 
-## Stage 1 — Auth foundation (this turn)
+## Approach
 
-- Public `/auth` route: email + password sign-in / sign-up, plus Google (managed OAuth).
-- Move all `/app/*` and `/portal/*` routes under `src/routes/_authenticated/`. Public marketing routes stay top-level.
-- `profiles` table (id → `auth.users`, full_name, preferred_language, city, avatar_url) with auto-insert trigger on signup.
-- `app_role` enum (`family`, `case_manager`, `funeral_director`, `mosque`, `church`, `temple`, `hospital`, `admin`) + `user_roles` table + `has_role()` security-definer function. Default role on signup: `family`.
-- Header avatar reflects real session; sign-out clears cache and returns to `/auth`.
-- Role switcher in Settings writes to `user_roles` (dev convenience; admin-only in Stage 4).
+Use `react-i18next` with JSON resource files per language. Every visible string moves behind a `t("key")` call. No hardcoded copy in components. First visit shows a full-screen language picker; header globe dropdown lets users change any time. Choice persists in `localStorage` and, when signed in, in `profiles.preferred_language`.
 
-## Stage 2 — Persistent case & document data
+## Ship in stages (one turn each)
 
-- Tables: `cases`, `case_tasks`, `case_stakeholders`, `case_timeline_events`, `documents`, `document_shares`, `benefits_assessments`, `checklist_progress`. All scoped by `user_id` / owning family with RLS.
-- Storage bucket `documents` (private) + signed-URL fetching.
-- Replace mock data in `app.cases.*`, `app.documents`, `app.benefits`, `app.checklists` with real queries via `createServerFn` + `requireSupabaseAuth`.
-- Cache with TanStack Query; loaders under `_authenticated/` prefetch.
+**Turn 1 — Infrastructure + chrome + Home (this turn)**
+- Install `react-i18next`, `i18next`, `i18next-browser-languagedetector`
+- `src/i18n/index.ts` + `src/i18n/locales/{code}/common.json` for all 12 langs
+- `<LanguageProvider>` in `__root.tsx`, sets `<html lang dir>`
+- `LanguageSwitcher` (globe dropdown) in `SiteHeader` and `AppSidebar`
+- First-visit `LanguageOnboarding` modal
+- Translate: `SiteHeader`, `SiteFooter`, `AppSidebar`, `/` (home)
 
-## Stage 3 — AI Assistant wired to Lovable AI Gateway
+**Turn 2 — Marketing pages**
+- `/services`, `/pricing`, `/how-it-works`, `/for-providers`, `/bereavement`, `/contact`, `/directory`, `/directory/list-your-business`, `/auth`
 
-- Server route `src/routes/api/chat.ts` streaming through `openai/gpt-5.5` (default) with a Beistand system prompt: bilingual (EN/DE/UR), German bureaucracy expert, cites laws (SGB II, AufenthG, etc.), refuses legal-binding advice.
-- `useChat` client on `/app/assistant` with markdown rendering, thread persistence in `chat_threads` + `chat_messages` tables.
-- Language selector; tool calls for "check benefit eligibility" and "find nearby provider" (calls existing server fns).
+**Turn 3 — Family app (`/app/*`)**
+- Dashboard, cases, documents, vault, messages, checklists, plan, settings
 
-## Stage 4 — Remaining portals
+**Turn 4 — Internal portal (`/portal/*`)**
+- Overview, cases, experts, knowledge base, invoices, subscriptions
 
-- `_authenticated/portal.case-manager` (queue of assigned family cases, escalation, notes).
-- `_authenticated/portal.mosque` / `.church` / `.temple` (ritual availability, funeral referrals inbox, donation ledger).
-- `_authenticated/portal.hospital` (deceased intake form, family contact handoff, morgue capacity).
-- `_authenticated/portal.admin` (user list, role grants via `has_role('admin')` gate, provider verification queue, platform metrics).
-- Route gates: each portal's `beforeLoad` calls `has_role(role)`; unauthorized → `/app`.
+**Turn 5 — Dynamic content**
+- Add `title_i18n jsonb` columns to `knowledge_services`, `directory_listings`, `subscription_plans` etc. so DB-driven copy is localised too
+- Backfill EN/DE, fallback chain
 
-## Technical notes
+## Translation source
 
-- All new tables get explicit `GRANT` + RLS + policies in the same migration; roles never live on `profiles`.
-- Server fns live in `src/lib/*.functions.ts`; admin client only inside `.handler()` bodies via `await import`.
-- No mock-data deletion until the corresponding table is live — feature parity per stage.
-- Design system and existing UI untouched; only wiring changes.
+AI-generated (Lovable AI, `google/gemini-2.5-flash`) at build-key-add time in a small script under `scripts/translate.ts`. I run it, commit JSON, you can hand-edit any key later. Each language file marks AI-generated keys with `_ai: true` so a native speaker can review.
 
-I'll execute Stage 1 immediately after you approve this plan, then continue through Stage 4 in follow-up turns so each stage can be reviewed.
+## Technical details
+
+- Namespace per surface (`common`, `home`, `services`, `app`, `portal`) to keep JSON files small
+- Pluralisation via i18next's built-in `count` support
+- Interpolation for prices/dates via `Intl.NumberFormat` and `Intl.DateTimeFormat` with the active locale
+- SEO: `<html lang>` set per request; each route's `head()` reads `t()` for title/description; add `hreflang` alternates in `__root.tsx`
+- RTL: root layout toggles `dir="rtl"` for AR/UR/FA/KU; Tailwind logical properties (`ps-*`, `pe-*`, `ms-*`, `me-*`) replace `pl-*`/`pr-*` in flipped components
+- Font stack: add Noto Sans Arabic / Urdu / Devanagari / Gurmukhi / SC via `<link>` in `__root.tsx`, apply via `:lang(ar)` etc. in `styles.css`
+- Persisted preference: `localStorage.lang` + `profiles.preferred_language` when authenticated
+
+## Out of scope for this rollout
+
+- Translating user-generated content (case notes, messages) — that stays in the language the author typed it
+- Legal documents (Terms, Privacy) — need a solicitor's review, not AI translation; I'll leave EN + DE only for now
+
+Confirm this plan and I'll execute Turn 1.

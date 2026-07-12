@@ -1,0 +1,58 @@
+{
+  "brand": {
+    "location": "Deutschland"
+  },
+  "nav": {
+    "howItWorks": "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+    "services": "ਸੇਵਾਵਾਂ",
+    "directory": "ਡਾਇਰੈਕਟਰੀ",
+    "bereavement": "ਦੁੱਖ ਦੀ ਘੜੀ",
+    "forProviders": "ਪ੍ਰਦਾਤਾਵਾਂ ਲਈ",
+    "pricing": "ਕੀਮਤਾਂ",
+    "signIn": "ਸਾਈਨ ਇਨ ਕਰੋ",
+    "openDashboard": "ਡੈਸ਼ਬੋਰਡ ਖੋਲ੍ਹੋ",
+    "menu": "ਮੇਨੂ"
+  },
+  "footer": {
+    "tagline": "Deutschland ਵਿੱਚ ਹਰ ਰਸਤੇ ਲਈ। ਵਸੇਬਾ, ਭਲਾਈ, ਲਾਭ, ਅਤੇ ਜੀਵਨ ਦੇ ਅੰਤ ਦੀ ਦੇਖਭਾਲ — ਪਰਿਵਾਰਾਂ ਅਤੇ ਉਹਨਾਂ ਦਾ ਸਾਥ ਦੇਣ ਵਾਲੀਆਂ ਸੰਸਥਾਵਾਂ ਲਈ ਇੱਕ ਸ਼ਾਂਤ ਪਲੇਟਫਾਰਮ।",
+    "colPlatform": "ਪਲੇਟਫਾਰਮ",
+    "colForProviders": "ਪ੍ਰਦਾਤਾਵਾਂ ਲਈ",
+    "colCompany": "ਕੰਪਨੀ",
+    "howItWorks": "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+    "services": "ਸੇਵਾਵਾਂ",
+    "bereavement": "ਦੁੱਖ ਦੀ ਘੜੀ",
+    "pricing": "ਕੀਮਤਾਂ",
+    "funeralDirectors": "ਅੰਤਿਮ ਸੰਸਕਾਰ ਦੇ ਡਾਇਰੈਕਟਰ",
+    "mosques": "ਮਸਜਿਦਾਂ ਅਤੇ ਇਮਾਮ",
+    "churches": "ਚਰਚਾਂ",
+    "temples": "ਮੰਦਰ ਅਤੇ ਗੁਰਦੁਆਰੇ",
+    "contact": "ਸੰਪਰਕ",
+    "impressum": "Impressum",
+    "privacy": "ਡਾਟਾ ਸੁਰੱਖਿਆ",
+    "copyright": "© {{year}} Beistand GmbH · Berlin",
+    "madeWithCare": "ਦੇਖਭਾਲ ਨਾਲ ਬਣਾਇਆ ਗਿਆ"
+  },
+  "sidebar": {
+    "dashboard": "ਡੈਸ਼ਬੋਰਡ",
+    "overview": "ਸੰਖੇਪ ਜਾਣਕਾਰੀ",
+    "cases": "ਕੇਸ",
+    "checklists": "ਚੈਕਲਿਸਟਾਂ",
+    "benefits": "ਲਾਭ",
+    "documents": "ਦਸਤਾਵੇਜ਼",
+    "providers": "ਪ੍ਰਦਾਤਾ",
+    "assistant": "AI ਸਹਾਇਕ",
+    "community": "ਕਮਿਊਨਿਟੀ",
+    "knowledge": "ਗਿਆਨ ਅਧਾਰ",
+    "experts": "ਮਾਹਿਰਾਂ ਦੀ ਸੂਚੀ",
+    "settings": "ਸੈਟਿੰਗਾਂ",
+    "internal": "ਅੰਦਰੂਨੀ",
+    "caseManagerRole": "ਕੇਸ ਮੈਨੇਜਰ · Berlin"
+  },
+  "language": {
+    "label": "ਭਾਸ਼ਾ",
+    "choose": "ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ",
+    "chooseDescription": "Beistand 13 ਭਾਸ਼ਾਵਾਂ ਬੋਲਦਾ ਹੈ. ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ — ਤੁਸੀਂ ਕਿਸੇ ਵੀ ਪੰਨੇ ਦੇ ਉੱਪਰ ਸੱਜੇ ਪਾਸੇ ਤੋਂ ਇਸਨੂੰ ਕਿਸੇ ਵੀ ਸਮੇਂ ਬਦਲ ਸਕਦੇ ਹੋ।",
+    "continue": "ਜਾਰੀ ਰੱਖੋ",
+    "current": "ਮੌਜੂਦਾ ਭਾਸ਼ਾ"
+  }
+}
