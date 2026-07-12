@@ -14,7 +14,7 @@
     "menu": "مینو"
   },
   "footer": {
-    "tagline": "Deutschland میں ہر راستے کے لیے۔ سیٹلمنٹ، بہبود، فوائد، اور زندگی کے اختتام کی دیکھ بھال — خاندانوں اور ان تنظیموں کے لیے ایک پُرسکون پلیٹ فارم جو ان کے ساتھ کھڑی ہیں۔",
+    "tagline": "Deutschland میں ہر راستے کے لیے۔ سیٹلمنٹ، بہبود، فوائد، اور آخری رسومات — خاندانوں اور ان کے ساتھ کھڑی تنظیموں کے لیے ایک پُرسکون پلیٹ فارم۔",
     "colPlatform": "پلیٹ فارم",
     "colForProviders": "سروس فراہم کرنے والوں کے لیے",
     "colCompany": "کمپنی",
@@ -22,11 +22,11 @@
     "services": "خدمات",
     "bereavement": "سوگ",
     "pricing": "قیمتوں کا تعین",
-    "funeralDirectors": "تدفین کے ڈائریکٹرز",
+    "funeralDirectors": "فیونرل ڈائریکٹرز",
     "mosques": "مساجد اور امام",
     "churches": "گرجا گھر",
     "temples": "مندر اور گردوارے",
-    "contact": "رابطہ کریں",
+    "contact": "رابطہ",
     "impressum": "امپرنٹ",
     "privacy": "ڈیٹا کا تحفظ",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
@@ -42,15 +42,15 @@
     "providers": "سروس فراہم کرنے والے",
     "assistant": "AI اسسٹنٹ",
     "community": "کمیونٹی",
-    "knowledge": "علمی بنیاد",
+    "knowledge": "نالج بیس",
     "experts": "ماہرین کی فہرست",
-    "settings": "ترتیبات",
+    "settings": "سیٹنگز",
     "internal": "اندرونی",
     "caseManagerRole": "کیس مینیجر · Berlin"
   },
   "language": {
     "label": "زبان",
-    "choose": "اپنی زبان منتخب کریں",
+    "choose": "اپنی زبان چنیں",
     "chooseDescription": "Beistand 13 زبانیں بولتا ہے۔ اپنی زبان منتخب کریں — آپ اسے کسی بھی صفحے کے اوپری دائیں کونے سے کسی بھی وقت تبدیل کر سکتے ہیں۔",
     "continue": "جاری رکھیں",
     "current": "موجودہ زبان"
