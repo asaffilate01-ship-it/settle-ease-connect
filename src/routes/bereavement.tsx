@@ -47,6 +47,58 @@ const repatSteps = [
   "Passport handling and family pickup abroad",
 ];
 
+const burialOptions = [
+  {
+    title: "Erdbestattung (earth burial)",
+    desc: "Traditional coffin burial in a municipal or confessional cemetery. Grave leases (Nutzungsrecht) typically run 20–30 years and are renewable.",
+    tags: ["Friedhofszwang applies", "Coffin required", "Grave lease 20–30 yrs"],
+  },
+  {
+    title: "Feuerbestattung (cremation)",
+    desc: "Cremation at a licensed Krematorium after a second confirmatory examination (zweite Leichenschau). Urn must be buried or scattered at a permitted site.",
+    tags: ["2nd Leichenschau", "Urn burial required", "€ lower cost"],
+  },
+  {
+    title: "Urnenbeisetzung (urn burial)",
+    desc: "Urn interred in an Urnengrab, Urnenwand (columbarium) or anonymous urn field. Selectable in most municipal cemeteries.",
+    tags: ["Cemetery only", "Individual or anonymous"],
+  },
+  {
+    title: "Islamic burial (Islamische Bestattung)",
+    desc: "Coffinless or minimal-coffin burial in a designated muslimisches Grabfeld, aligned to Qibla, ideally within 24 hours. Available in Berlin, Hamburg, Wuppertal, Frankfurt and a growing list of cities; some Länder (e.g. NRW, Berlin) now permit sargloses Bestatten.",
+    tags: ["Qibla-aligned", "Within 24h where possible", "Ghusl + Kafan"],
+  },
+  {
+    title: "Jewish burial (Jüdische Bestattung)",
+    desc: "Simple wooden coffin, no cremation, burial in a Jewish cemetery arranged with the Chevra Kadisha of the local Gemeinde.",
+    tags: ["No cremation", "Jewish cemetery", "Chevra Kadisha"],
+  },
+  {
+    title: "Hindu / Sikh cremation & ashes",
+    desc: "Cremation at a licensed Krematorium with priest / granthi rites at the ceremony hall. Ashes can be interred, sent abroad (e.g. Ganges) with export permit, or scattered at an approved Ruheforst / sea burial site.",
+    tags: ["Cremation + rites", "Ashes export possible"],
+  },
+  {
+    title: "Baumbestattung / Ruheforst",
+    desc: "Urn burial at the roots of a memorial tree in a licensed forest (Friedwald, Ruheforst). Permitted across Germany.",
+    tags: ["Natural burial", "No headstone"],
+  },
+  {
+    title: "Seebestattung (sea burial)",
+    desc: "Water-soluble urn released in the North Sea, Baltic Sea or approved international waters via a licensed sea-burial operator.",
+    tags: ["Cremation first", "Certificate of position"],
+  },
+];
+
+const germanRules = [
+  { title: "Friedhofszwang", body: "Cemetery obligation: remains and urns must be interred at a licensed site. Home storage or scattering in gardens is not allowed in any Bundesland." },
+  { title: "Bestattungsfrist", body: "Burial or cremation must take place within 4–10 days of death — exact window depends on the Bundesland (e.g. Bayern 96h, Berlin 8 days)." },
+  { title: "Sargpflicht", body: "Coffin obligation is set at Länder level. NRW, Berlin, Bremen, Hamburg and others now allow shroud-only Islamic burial in designated fields." },
+  { title: "Zweite Leichenschau", body: "A second, independent post-mortem is legally required before every cremation." },
+  { title: "Bestattungsvorsorge", body: "Prepaid funeral plans (Sterbegeldversicherung, Treuhand) are recognised and honoured — we surface any existing plan during intake." },
+  { title: "Sozialbestattung", body: "If the estate cannot cover costs, the Sozialamt covers a würdige Bestattung under §74 SGB XII. We file the application on the family's behalf." },
+];
+
 function Bereavement() {
   return (
     <div className="min-h-screen">
