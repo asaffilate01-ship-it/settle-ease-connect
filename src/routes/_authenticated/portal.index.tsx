@@ -1,105 +1,294 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { supabase } from "@/integrations/supabase/client";
-import { getPortalOverview } from "@/lib/portal.functions";
+import { useState } from "react";
+import { getOpsConsole } from "@/lib/portal.functions";
+import { PortalHeader } from "@/components/portal/portal-header";
+import { KpiTile } from "@/components/portal/kpi-tile";
+import { QueueRow, type QueueItem, type QueueItemKind } from "@/components/portal/queue-row";
+import { ActivityItem } from "@/components/portal/activity-item";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Users, Briefcase, FileText, Mail, Sparkles, Building2, Receipt, FileCheck } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Loader2, Radio } from "lucide-react";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const Route = createFileRoute("/_authenticated/portal/")({
-  ssr: false,
-  beforeLoad: async () => {
-    const { data: u } = await supabase.auth.getUser();
-    if (!u.user) throw redirect({ to: "/auth" });
-    const { data: internal } = await supabase.rpc("is_internal", { _user_id: u.user.id });
-    if (!internal) throw redirect({ to: "/app" });
-  },
-  head: () => ({ meta: [{ title: "Staff portal — Beistand" }] }),
-  component: PortalOverview,
+  head: () => ({ meta: [{ title: "Operations console — Beistand" }] }),
+  component: OpsConsole,
 });
 
-const CARDS = [
-  { key: "users", label: "Total users", icon: Users, to: "/portal/admin/users" as const },
-  { key: "cases", label: "Cases", icon: Briefcase, to: "/app/cases" as const },
-  { key: "leads", label: "Insurance leads", icon: FileText, to: "/portal/leads" as const },
-  { key: "pending_invitations", label: "Pending invites", icon: Mail, to: "/portal/admin/invite" as const },
-  { key: "experts", label: "Experts", icon: Sparkles, to: "/portal/experts" as const },
-  { key: "directory_listings", label: "Directory listings", icon: Building2, to: "/directory" as const },
-  { key: "quotes", label: "Case quotes", icon: FileCheck, to: "/app/cases" as const },
-  { key: "invoices", label: "Invoices", icon: Receipt, to: "/app/cases" as const },
-] as const;
+const KIND_LABEL: Record<QueueItemKind, string> = {
+  lead: "Leads",
+  case: "Cases",
+  invite: "Invites",
+  bug: "Bugs",
+  quote: "Quotes",
+  invoice: "Invoices",
+};
 
-function PortalOverview() {
-  const load = useServerFn(getPortalOverview);
-  const q = useQuery({ queryKey: ["portal-overview"], queryFn: () => load() });
+function OpsConsole() {
+  const { roles } = useCurrentUser();
+  const isAdmin = roles.includes("admin");
+  const [win, setWin] = useState<"today" | "7d" | "30d">("today");
+  const [scope, setScope] = useState<"all" | "mine">(isAdmin ? "all" : "mine");
+  const [kindFilter, setKindFilter] = useState<"all" | QueueItemKind>("all");
 
-  if (q.isLoading) return <div className="p-8 text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin" /></div>;
-  if (q.error) return <div className="p-6 text-sm text-destructive">{(q.error as Error).message}</div>;
-  const d = q.data!;
+  const load = useServerFn(getOpsConsole);
+  const q = useQuery({
+    queryKey: ["ops-console", win, scope],
+    queryFn: () => load({ data: { window: win, scope } }),
+    refetchInterval: 60_000,
+  });
+
+  const data = q.data;
+  const queue: QueueItem[] = data?.queue ?? [];
+  const filteredQueue = kindFilter === "all" ? queue : queue.filter((r) => r.kind === kindFilter);
+  const kindCounts = queue.reduce<Record<string, number>>((acc, r) => {
+    acc[r.kind] = (acc[r.kind] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const outstanding = data?.kpis.outstanding_amount_cents.value ?? 0;
+  const avgHrs = data?.kpis.avg_first_contact_hours.value;
 
   return (
-    <div className="space-y-8">
-      <div>
-        <div className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Staff portal</div>
-        <h1 className="mt-1 font-display text-3xl font-semibold">Operations overview</h1>
-        <p className="text-sm text-muted-foreground">Everything the case-manager team needs at a glance.</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {CARDS.map((c) => {
-          const Icon = c.icon;
-          return (
-            <Link key={c.key} to={c.to} className="rounded-2xl border border-border/60 bg-card p-4 shadow-soft hover:border-primary/40 transition">
-              <div className="flex items-center justify-between">
-                <Icon className="h-4 w-4 text-primary" />
-                <span className="text-xs text-muted-foreground">{c.label}</span>
-              </div>
-              <div className="mt-3 font-display text-3xl font-semibold">{d.counts[c.key as keyof typeof d.counts]}</div>
-            </Link>
-          );
-        })}
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden">
-          <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
-            <h2 className="font-display font-semibold">Recent insurance leads</h2>
-            <Link to="/portal/leads" className="text-xs text-primary hover:underline">Open inbox →</Link>
+    <div className="space-y-6">
+      <PortalHeader
+        eyebrow="Operations"
+        title="Operations console"
+        subtitle="Priority queue, live KPIs, and team activity for the case-manager team."
+        actions={
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-success/40 bg-success/10 px-2.5 py-1 text-[11px] font-medium text-success">
+              <Radio className="h-3 w-3 animate-pulse" /> Live · 60s
+            </span>
+            <Select value={win} onValueChange={(v) => setWin(v as any)}>
+              <SelectTrigger className="h-8 w-[120px] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="today">Today</SelectItem>
+                <SelectItem value="7d">Last 7 days</SelectItem>
+                <SelectItem value="30d">Last 30 days</SelectItem>
+              </SelectContent>
+            </Select>
+            {isAdmin && (
+              <Select value={scope} onValueChange={(v) => setScope(v as any)}>
+                <SelectTrigger className="h-8 w-[110px] text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Everyone</SelectItem>
+                  <SelectItem value="mine">Just me</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
           </div>
-          {d.recent_leads.length === 0 ? (
-            <div className="p-6 text-sm text-muted-foreground">No leads yet.</div>
-          ) : d.recent_leads.map((l: any) => (
-            <div key={l.id} className="border-b border-border/40 px-4 py-3 text-sm last:border-0">
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="font-medium truncate">{l.full_name}</div>
-                  <div className="text-xs text-muted-foreground truncate">{l.email}</div>
+        }
+      />
+
+      {q.isLoading && (
+        <div className="grid place-items-center p-12">
+          <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        </div>
+      )}
+      {q.error && (
+        <div className="rounded-2xl border border-destructive/40 bg-destructive/5 p-4 text-sm text-destructive">
+          {(q.error as Error).message}
+        </div>
+      )}
+
+      {data && (
+        <div className="grid gap-4 lg:grid-cols-3">
+          <KpiTile
+            label={win === "today" ? "New leads today" : "New leads"}
+            value={data.kpis.leads.value}
+            deltaPct={data.kpis.leads.deltaPct}
+            deltaLabel="vs previous"
+            sparkline={data.kpis.leads.sparkline}
+            to="/portal/leads"
+          />
+          <KpiTile
+            label="Leads won"
+            value={data.kpis.won.value}
+            deltaPct={data.kpis.won.deltaPct}
+            deltaLabel="vs previous"
+            to="/portal/leads"
+          />
+          <KpiTile
+            label="Active cases"
+            value={data.kpis.active_cases.value}
+            sparkline={data.kpis.active_cases.sparkline}
+            to="/app/cases"
+          />
+          <KpiTile
+            label="Stalled cases"
+            value={data.kpis.stalled_cases.value}
+            hint="No update in 48h+"
+            intent="inverse"
+            to="/app/cases"
+          />
+          <KpiTile
+            label="Outstanding invoices"
+            value={`€${(outstanding / 100).toLocaleString("de-DE", { maximumFractionDigits: 0 })}`}
+            hint="Sent + overdue"
+            intent="inverse"
+          />
+          <KpiTile
+            label="Avg first-contact time"
+            value={avgHrs == null ? "—" : `${avgHrs.toFixed(1)}h`}
+            hint="Lead created → first status change"
+            intent="inverse"
+          />
+        </div>
+      )}
+
+      {data && (
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+          {/* Priority queue */}
+          <section className="rounded-2xl border border-border/60 bg-card shadow-soft">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 px-4 py-3">
+              <div>
+                <h2 className="font-display text-base font-semibold">Needs attention</h2>
+                <p className="text-xs text-muted-foreground">
+                  Ranked by urgency. Click any row to act.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <ChipButton
+                  active={kindFilter === "all"}
+                  onClick={() => setKindFilter("all")}
+                  count={queue.length}
+                >
+                  All
+                </ChipButton>
+                {(Object.keys(KIND_LABEL) as QueueItemKind[]).map((k) => {
+                  const c = kindCounts[k] ?? 0;
+                  if (c === 0) return null;
+                  return (
+                    <ChipButton
+                      key={k}
+                      active={kindFilter === k}
+                      onClick={() => setKindFilter(k)}
+                      count={c}
+                    >
+                      {KIND_LABEL[k]}
+                    </ChipButton>
+                  );
+                })}
+              </div>
+            </div>
+            {filteredQueue.length === 0 ? (
+              <div className="p-10 text-center text-sm text-muted-foreground">
+                🎉 Nothing on fire. Great job.
+              </div>
+            ) : (
+              <div>
+                {filteredQueue.map((item) => (
+                  <QueueRow key={`${item.kind}-${item.id}`} item={item} />
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Right column */}
+          <div className="space-y-6">
+            <section className="rounded-2xl border border-border/60 bg-card shadow-soft">
+              <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
+                <div>
+                  <h2 className="font-display text-base font-semibold">My work</h2>
+                  <p className="text-xs text-muted-foreground">Assigned to you</p>
                 </div>
-                <Badge variant="outline" className="capitalize">{l.status}</Badge>
+                <Badge variant="outline">{data.my_work.length}</Badge>
               </div>
-              <div className="mt-1 text-xs text-muted-foreground">
-                €{l.benefit_amount.toLocaleString("de-DE")} cover · est. €{l.estimated_premium_min}–{l.estimated_premium_max}/mo · {new Date(l.created_at).toLocaleDateString()}
-              </div>
-            </div>
-          ))}
-        </div>
+              {data.my_work.length === 0 ? (
+                <div className="p-6 text-center text-sm text-muted-foreground">
+                  Nothing assigned to you right now.
+                </div>
+              ) : (
+                data.my_work.map((item) => (
+                  <QueueRow key={`mine-${item.kind}-${item.id}`} item={item} />
+                ))
+              )}
+            </section>
 
-        <div className="rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden">
-          <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
-            <h2 className="font-display font-semibold">Recent cases</h2>
-            <Link to="/app/cases" className="text-xs text-primary hover:underline">Open cases →</Link>
+            <section className="rounded-2xl border border-border/60 bg-card shadow-soft">
+              <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
+                <h2 className="font-display text-base font-semibold">Team activity</h2>
+                <Link to="/portal/leads" className="text-xs text-primary hover:underline">
+                  Details →
+                </Link>
+              </div>
+              {data.activity.length === 0 ? (
+                <div className="p-6 text-center text-sm text-muted-foreground">
+                  No recent activity.
+                </div>
+              ) : (
+                data.activity.map((entry) => (
+                  <ActivityItem key={`${entry.kind}-${entry.id}-${entry.at}`} entry={entry} />
+                ))
+              )}
+            </section>
           </div>
-          {d.recent_cases.length === 0 ? (
-            <div className="p-6 text-sm text-muted-foreground">No cases yet.</div>
-          ) : d.recent_cases.map((c: any) => (
-            <div key={c.id} className="border-b border-border/40 px-4 py-3 text-sm last:border-0 flex items-center justify-between">
-              <div className="font-mono text-xs">{c.id.slice(0, 8)}…</div>
-              <Badge variant="outline" className="capitalize">{c.status}</Badge>
-              <div className="text-xs text-muted-foreground">{new Date(c.created_at).toLocaleDateString()}</div>
-            </div>
-          ))}
         </div>
-      </div>
+      )}
+
+      {data && (
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" asChild>
+            <Link to="/portal/leads">Insurance inbox</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/portal/knowledge">Knowledge base</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/portal/experts">Expert roster</Link>
+          </Button>
+          {isAdmin && (
+            <>
+              <Button variant="outline" asChild>
+                <Link to="/portal/admin/users">Users & roles</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/portal/admin/invite">Invitations</Link>
+              </Button>
+            </>
+          )}
+        </div>
+      )}
     </div>
+  );
+}
+
+function ChipButton({
+  active,
+  onClick,
+  children,
+  count,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  count: number;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition ${
+        active
+          ? "border-primary/40 bg-primary/10 text-primary"
+          : "border-border/60 bg-background text-muted-foreground hover:bg-muted"
+      }`}
+    >
+      {children}
+      <span className="tabular-nums text-[10px] opacity-70">{count}</span>
+    </button>
   );
 }
