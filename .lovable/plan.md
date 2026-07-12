@@ -1,134 +1,102 @@
-# Staff portal — end-to-end UX, flow & functionality rebuild
+## What you get
 
-Scope: every page under `/portal/*` — overview, leads, cases (new), quotes (new), invoices (new), users, invites, experts, knowledge, funeral partner view. Also the shared shell that wraps them.
+Two parallel additions — one for the **client's own record** (life-admin data they enter), one for the **business** (referral revenue engine). Both mirror the existing client-view / staff-view split you already have for insurance and benefits.
 
-## What's wrong today (per page)
+---
 
-- **Overview** — 8 vanity count tiles + two empty inbox stubs. No queue, no priority, no owner, no trend. Half the tiles link to the wrong place (Quotes/Invoices → `/app/cases`, Directory → public site).
-- **Leads** — Two-column inbox works but has no unassigned / mine filter, no SLA age, no assignee, no phone-call log, no bulk actions, and status is set with a scattered row of buttons instead of one control.
-- **Cases** — There is no staff-side case list at all; staff use the client `/app/cases`. No assignment, no stage filter, no aging.
-- **Quotes / Invoices** — No staff pages at all, despite the DB tables existing.
-- **Users** — Flat list; role changes work but there's no search-by-role, no last-active, no bulk grant, no invitation status inline.
-- **Invites** — Create form + list, but no resend, no bulk send, no CSV import, no expiring-soon signal, no copy-link.
-- **Experts** — Read-only roster. No create/edit, no assign-to-case, no availability, no compensation model badge, no filter by service.
-- **Knowledge** — Grouped list of services with no search, no create/edit for staff, no linked regulations count, no last-updated.
-- **Funeral partner** — 100% mock data pulled from `mock-data.ts`. Not wired to real cases at all.
-- **Shell** — Each page reinvents the header. Some render their own `<AppSidebar>` inside the layout that already renders it, doubling the sidebar. No consistent breadcrumb, page title, or action bar.
+## 1. Client life-admin sections
 
-## What we're building
+New sub-area under `/app/profile/*` (client-facing) with a mirrored `/portal/clients/$id/life-admin/*` view for case managers.
 
-### 0. Shared staff shell
-One `<PortalPage>` wrapper: breadcrumb · title · subtitle · right-side action slot · tab strip slot. Removes the duplicated `<AppSidebar>` imports inside `portal.experts.tsx`, `portal.funeral.tsx`, `portal.knowledge.tsx`. Consistent spacing, sticky header on scroll, "Live · updates every 60s" pill.
+Sections, each its own tab + table:
 
-### 1. `/portal` — Operations console (replaces "overview")
-Three regions:
+- **Employment** — current + past employers, role, start/end, gross salary, contract type (unbefristet / befristet / minijob / freelance / civil servant), tax class, Sozialversicherungsnummer reference, works council contact, HR email. Used to pre-fill unemployment, sickness, parental-leave claims.
+- **Pensions** — separate rows for: Deutsche Rentenversicherung (statutory), Betriebsrente (employer/occupational), Riester, Rürup, private pension policies. Fields: provider, policy no., contribution, start date, projected payout, beneficiary. Links to the existing insurance module for private policies.
+- **Health insurance** — GKV vs PKV flag, Krankenkasse name, membership no., tariff, monthly premium, dependants covered, Zusatzversicherung (dental/hospital/travel) as child rows.
+- **Emergency & trusted contacts** — next of kin, medical proxy, executor, employer HR, GP, lawyer, accountant, embassy. Role + name + phone + email + preferred language + notes.
+- **"Whom to inform" playbooks** — pre-built checklists for events: **death, serious illness / hospitalisation, work injury, redundancy / end of service, long-term disability, birth of child, marriage, divorce, relocation abroad**. Each event lists: authorities to notify (Standesamt, Finanzamt, Rentenversicherung, Krankenkasse, Ausländerbehörde…), insurers/pensions to claim against (auto-populated from the client's own pensions + insurance rows), documents required, statutory deadlines, and a "generate case" button that spawns a case with pre-filled tasks assigned to the right admin role (medical_admin, benefits_admin, tax_admin, lawyer, notary…).
+- **Other benefits & claims quick-check** — a wizard that reads the client's employment + pensions + health rows and lists everything they may be eligible to claim right now (Krankengeld, Übergangsgeld, Berufsunfähigkeit, Hinterbliebenenrente, Unfallrente, Elterngeld, ALG I/II, Wohngeld…) — reuses the existing benefits-eligibility engine.
+
+Staff view adds a read/write panel with an audit trail and the ability to attach vault documents (payslips, contracts, pension statements, insurance certificates) to any row.
+
+---
+
+## 2. Referral revenue engine
+
+New module `/portal/referrals` (internal only) + a lightweight client-facing "Recommended partners" panel on the relevant pages.
+
+**Partner catalog** — a `referral_partners` table covering:
+- Insurers (health, life, disability, liability, household, car, travel)
+- Lawyers & notaries
+- Tax advisors & accountants
+- Movers & relocation companies
+- Airlines & travel booking
+- Currency transfer (Wise, Revolut Business)
+- Language schools, driving schools
+- Real-estate agents & Anmeldung services
+- Utilities & telecoms
+
+Each partner: name, category, countries, languages, contact, tracking link (with our `?ref=welfare-de&sub={case_id}` params), commission model (flat / % of first premium / % recurring / CPL / CPA), currency, kickback %, payout terms.
+
+**Lead lifecycle** — `referral_leads` table tracks: partner, client (optional — some leads are anonymous), case (optional), source page, created_at, status (`sent → clicked → registered → converted → paid → clawback`), commission expected, commission received, invoice reference.
+
+**Where leads originate**
+- Insurance module: existing "Register with provider" button now creates a lead + rewrites the outbound URL with tracking params.
+- Life-admin "whom to inform" playbooks: relevant partner cards inline (e.g. probate lawyer for a death event, movers for relocation).
+- Knowledge base articles: contextual "Need help with this? Book a partner" CTA.
+- Directory listings: paid directory entries already exist — referral track is separate and internal-only.
+
+**Revenue reporting** — dashboard for admin + tax_admin with monthly commission expected vs received, per-partner P&L, per-case attribution (so the case manager sees which of their cases generated referral revenue), and CSV export for accounting.
+
+**Invoicing** — extends the existing `case_invoices` table with a `referral_income` line type so the client-facing invoice can transparently show "€0 charged to you, €X earned from partner" when we want to disclose it, or hide it when we don't (per-partner disclosure flag).
+
+---
+
+## Database (new tables, all RLS-gated)
 
 ```text
-┌──────────────────────────────────────────────────────────┐
-│ Operations                    ● Live · Today ▾ · Mine ▾  │
-├─────────────────────────────┬────────────────────────────┤
-│ NEEDS ATTENTION  (queue)    │ TODAY  vs 7-day avg        │
-│  chips: All Leads Cases     │  6 KPI tiles w/ sparklines │
-│         Invites Bugs Quotes │  (leads today, won/week,   │
-│                             │   active/stalled cases,    │
-│  rows: icon · headline ·    │   € outstanding invoices,  │
-│  context · age · owner ·    │   avg time-to-contact)     │
-│  [1-click action]           ├────────────────────────────┤
-│                             │ MY WORK (assigned to me)   │
-│                             ├────────────────────────────┤
-│                             │ TEAM ACTIVITY (last 24h)   │
-└─────────────────────────────┴────────────────────────────┘
+employment_records         (client_user_id, employer, role, start/end, salary, tax_class, hr_contact, …)
+pensions                    (client_user_id, kind, provider, policy_no, contribution, beneficiary, …)
+health_insurance            (client_user_id, kind gkv/pkv, kasse, tariff, premium, dependants, …)
+trusted_contacts            (client_user_id, role, name, phone, email, language, notes)
+life_event_playbooks        (seed data: death, illness, injury, redundancy, disability, birth, marriage, divorce, relocation)
+life_event_playbook_steps   (playbook_id, order, actor_role, title, description, deadline_days, doc_refs)
+referral_partners           (name, category, url_template, commission_model, commission_rate, disclose_to_client)
+referral_leads              (partner_id, client_user_id?, case_id?, status, commission_expected, commission_received, …)
 ```
 
-Queue rules: unassigned leads · leads > 24h no contact · cases stalled > 48h · invites expiring < 3d · open P1 bugs · quotes waiting on client > 7d. Each row deep-links to the detail page. Scope switch (Everyone / Mine) — non-admins forced to Mine. Time window switch drives the KPIs. Auto-refetch every 60s.
+Client rows: only owner + assigned case_manager + `is_internal()` can read/write.
+Referral tables: `is_internal()` read, admin write; partners table read-open to clients for the "recommended" cards (only `disclose_to_client = true` rows).
 
-### 2. `/portal/leads` — Inbox rebuild
-- Left column adds: **filter bar** (status pills + Mine toggle + search), **age badge** ("2h", "3d", red if > 24h in `new`), **assignee avatar**, **source tag**.
-- Detail pane adds: **single status Select** (replaces button row), **assignee picker**, **call-log** (append-only timestamped entries), **estimated commission** (from benefit × broker %), **copy contact block** for the broker email.
-- Keyboard: `j/k` next/prev, `1-6` status, `a` assign to me, `n` new note.
+---
 
-### 3. `/portal/cases` — new staff case queue
-Table with columns: ID · client · stage · case manager · last update · SLA age · action. Filters: stage, assignee (Mine / Anyone), stalled-only. Row → existing `/app/cases/$id`. Bulk assign / reassign.
+## Files to add / edit
 
-### 4. `/portal/quotes` — new
-Table of `case_quotes` with case, expert, amount, status, age. Filters: pending / accepted / rejected. Action: **Nudge client** (updates `last_nudged_at`).
+- migrations: 1 for life-admin tables, 1 for referral tables + seed partners + seed playbooks
+- `src/data/life-event-playbooks.ts` — seed data mirror for the UI
+- `src/data/referral-partners.ts` — seed catalog (~40 partners across categories)
+- `src/routes/_authenticated/app.profile.employment.tsx`
+- `src/routes/_authenticated/app.profile.pensions.tsx`
+- `src/routes/_authenticated/app.profile.health.tsx`
+- `src/routes/_authenticated/app.profile.contacts.tsx`
+- `src/routes/_authenticated/app.profile.events.tsx` — playbooks + "generate case" action
+- `src/routes/_authenticated/portal.clients.$id.life-admin.tsx` — staff mirror
+- `src/routes/_authenticated/portal.referrals.tsx` — pipeline + revenue dashboard
+- `src/routes/_authenticated/portal.referrals.partners.tsx` — partner CRUD
+- `src/lib/referrals.functions.ts` — `createReferralLead`, `markConverted`, `recordCommission`
+- `src/lib/life-admin.functions.ts` — CRUD + `generateCaseFromEvent`
+- `src/components/app-sidebar.tsx` — add Profile group for clients, Referrals for admin/tax_admin
+- extend `src/routes/_authenticated/app.insurance.tsx` to route the "Register" button through `createReferralLead`
 
-### 5. `/portal/invoices` — new
-Table of `case_invoices` with case, amount, status (draft / sent / paid / overdue), days-outstanding. Header shows **total € outstanding** and **overdue count**. Actions: Mark sent · Mark paid · Download.
+---
 
-### 6. `/portal/admin/users` — rebuild
-- Search + role filter chips + "signed in last 7/30d" filter.
-- Row: avatar · name · email · role chips · last active · **compact role editor** (multi-select popover) · overflow menu (impersonate-view, revoke session, delete).
-- Bulk grant/revoke via checkbox column.
-- Inline "Pending invitation" badge if the email exists in `role_invitations` unaccepted.
+## Order of build
 
-### 7. `/portal/admin/invite` — rebuild
-- Two panels: **New invite** (email, roles multi-select, expiry days, personal note) and **Pending** table.
-- Pending row actions: **Copy link**, **Resend email**, **Extend 7 days**, **Revoke**.
-- **CSV import** (email,roles) for bulk seeding.
-- "Expiring in < 3 days" badge in red.
+1. Migrations (life-admin + referrals + seeds)
+2. Server functions
+3. Client life-admin routes
+4. Referral portal + partner catalog
+5. Wire insurance / knowledge / event playbooks to emit leads
+6. Sidebar + role-landing updates
 
-### 8. `/portal/experts` — rebuild
-- Filters: service, city, language, compensation model (referral / wholesale).
-- Row: name · services · languages · comp model badge · status (active / paused).
-- Detail drawer: bio, services list with prices, cases currently assigned, "Assign to case…" action.
-- Staff can create / edit / pause experts (new server fns behind `is_internal`).
-
-### 9. `/portal/knowledge` — rebuild
-- Search across service name + regulation body text.
-- Sidebar with categories; main area tabs: **Services** · **Regulations**.
-- Each service row shows linked regulations count and last-updated.
-- Staff editor: create / edit service (title, summary, SOP markdown, category, linked regulations).
-
-### 10. `/portal/funeral` — wire to real data
-Drop `mock-data`. Show real cases where the signed-in user's expert record has `service = 'funeral'` and is `assigned_expert_user_id`. Sections: **New referrals** · **In progress** · **Completed**. Actions: **Accept / Decline referral**, **Upload quote**, **Upload invoice**.
-
-## Sidebar & routing tidy
-- Add sidebar entries: Cases (staff), Quotes, Invoices under a "Portal" section; keep Admin subsection collapsed for non-admins.
-- Fix overview tile targets to the new pages.
-- Remove per-page `<AppSidebar>` imports where the layout already provides one.
-
-## Technical details
-
-### DB (one migration)
-- `insurance_leads.assigned_to uuid references auth.users(id)` + GRANT + policy: internal staff can UPDATE.
-- `insurance_leads.call_log jsonb default '[]'` — append-only notes with timestamp + actor.
-- `case_quotes.last_nudged_at timestamptz` (nullable).
-- `case_invoices.status` extend enum to include `overdue` if not already.
-- `experts.status text default 'active'` + check (`active`, `paused`).
-
-### Server functions (`src/lib/portal.functions.ts` + new files)
-- Replace `getPortalOverview` with `getOpsConsole({ window, scope })` returning `{ kpis, queue, my_work, team_activity }`.
-- Add: `listStaffCases`, `assignCase`, `listStaffQuotes`, `nudgeQuote`, `listStaffInvoices`, `markInvoice`, `assignLead`, `appendLeadCallLog`, `listExpertsAdmin`, `upsertExpert`, `upsertKnowledgeService`, `resendInvitation`, `extendInvitation`, `bulkInvite`.
-- All behind `requireSupabaseAuth` + `assertInternal`. Non-admins forced to `scope='mine'` server-side.
-
-### New routes
-- `src/routes/_authenticated/portal.cases.tsx`
-- `src/routes/_authenticated/portal.quotes.tsx`
-- `src/routes/_authenticated/portal.invoices.tsx`
-
-### Rebuilt routes
-- `portal.index.tsx`, `portal.leads.tsx`, `portal.admin.users.tsx`, `portal.admin.invite.tsx`, `portal.experts.tsx`, `portal.knowledge.tsx`, `portal.funeral.tsx`.
-
-### Shared components
-- `src/components/portal/portal-page.tsx` — shell wrapper.
-- `src/components/portal/kpi-tile.tsx` — value + delta + inline SVG sparkline.
-- `src/components/portal/queue-row.tsx`, `activity-item.tsx`, `assignee-picker.tsx`, `age-badge.tsx`.
-
-### i18n
-Extend `en` and `de` common.json with the new strings; keep keys under `portal.*`.
-
-### Not in scope this pass
-- Real-time WebSocket subscriptions (60s poll is enough).
-- Full audit-log table (activity feed derived from existing `updated_at` columns).
-- Visual redesign (palette, typography, motion). Once flow + functionality are right, I'll run the design-directions flow on the new console — say the word.
-
-## Suggested rollout order
-1. Shared shell + sidebar tidy + `/portal` console rebuild (highest-visibility).
-2. Leads + Cases + Assignment migration (daily-driver flows).
-3. Quotes + Invoices (missing surfaces).
-4. Users + Invites overhaul.
-5. Experts + Knowledge editors.
-6. Funeral partner real data.
-
-Approve and I'll start at step 1 in the next turn. If you'd rather do a smaller first slice (e.g. just the console + leads), say which and I'll trim.
+Approve and I'll ship it in that order. Say if you want any partner categories added or removed, or if referral commissions should always be disclosed on client invoices (default: per-partner flag, hidden unless flagged).
