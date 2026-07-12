@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { resolveLandingForCurrentUser } from "@/lib/role-landing";
+import logoFull from "@/assets/brand/logo-full.png";
 
 
 type Search = { redirect?: string };
