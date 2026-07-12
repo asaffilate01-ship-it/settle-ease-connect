@@ -11,7 +11,7 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact — Beistand" },
       { name: "description", content: "Reach the Beistand team in Berlin. 24/7 bereavement line and general enquiries." },
       { property: "og:title", content: "Contact — Beistand" },
-      { property: "og:description", content: "We're in Berlin. We answer in DE, EN, UR, TR and AR." },
+      { property: "og:description", content: "We're in Berlin. We answer in DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA and PL." },
     ],
   }),
   component: Contact,
