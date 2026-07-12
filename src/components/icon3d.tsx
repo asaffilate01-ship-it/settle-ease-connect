@@ -18,6 +18,7 @@ import employment from "@/assets/icons3d/employment.png";
 import housing from "@/assets/icons3d/housing.png";
 import healthcare from "@/assets/icons3d/healthcare.png";
 import burials from "@/assets/icons3d/burials.png";
+import bug from "@/assets/icons3d/bug.png";
 
 const registry = {
   overview,
@@ -41,6 +42,7 @@ const registry = {
   housing,
   healthcare,
   burials,
+  bug,
 } as const;
 
 export type Icon3DName = keyof typeof registry;

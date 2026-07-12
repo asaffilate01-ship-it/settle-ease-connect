@@ -28,6 +28,7 @@ const nav: NavItem[] = [
   { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal" },
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin" },
   { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin" },
+  { to: "/app/bugs", labelKey: "sidebar.bugs", icon: "bug" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings" },
 ];
 

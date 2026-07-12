@@ -58,6 +58,7 @@
     "admin": "Admin",
     "adminUsers": "Users & roles",
     "adminInvite": "Invitations",
+    "bugs": "Bug reports",
     "caseManagerRole": "Case Manager · Berlin"
   },
   "language": {
@@ -92,5 +93,38 @@
     "sectionLabel": "Legal",
     "lastUpdated": "Last updated {{date}}",
     "onlyDeEn": "This document is only available in English and German — legal texts must be reviewed by a qualified solicitor before we publish translations."
+  },
+  "bugs": {
+    "title": "Bug reports",
+    "subtitle": "Found something broken?",
+    "newReport": "Report a bug",
+    "closeForm": "Close form",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Short summary of the issue",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Steps to reproduce, expected result, actual result...",
+    "severityLabel": "Severity",
+    "submit": "Submit bug",
+    "cancel": "Cancel",
+    "loading": "Loading reports...",
+    "empty": "No bug reports yet. Found something? Click the button above to report it.",
+    "noDescription": "No description provided.",
+    "delete": "Delete report",
+    "confirmDelete": "Delete this report? This cannot be undone.",
+    "filter": {
+      "all": "All statuses"
+    },
+    "severity": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "status": {
+      "open": "Open",
+      "in_progress": "In progress",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    }
   }
 }
