@@ -16,13 +16,19 @@ export const Route = createFileRoute("/for-providers")({
 });
 
 const portals = [
-  { icon: Building2, title: "Funeral Director portal", desc: "Referrals · quotes · invoices · death certificates · family chat · reviews · analytics.", commitment: "Wholesale rate card" },
-  { icon: Church, title: "Mosque portal", desc: "Janazah booking · imam scheduling · burial requests · volunteer allocation · announcements.", commitment: "Community partner" },
-  { icon: Church, title: "Church portal", desc: "Funeral service booking · priest scheduling · cemetery coordination.", commitment: "Community partner" },
-  { icon: Landmark, title: "Temple / Gurdwara portal", desc: "Ceremony booking · representative scheduling · community notifications.", commitment: "Community partner" },
-  { icon: Hospital, title: "Hospital integration", desc: "Secure certification handoff and mortuary handover.", commitment: "Integration MoU" },
-  { icon: Plane, title: "Airline / cargo partner", desc: "Repatriation booking automation and documentation.", commitment: "Negotiated fares" },
-  { icon: Scale, title: "Lawyer / translator directory", desc: "Verified referrals for migration cases and translations.", commitment: "Wholesale rates" },
+  { icon: Building2, title: "Funeral Director portal", desc: "Referrals · quotes · invoices · death certificates · family chat · reviews · analytics." },
+  { icon: Church, title: "Mosque portal", desc: "Janazah booking · imam scheduling · burial requests · volunteer allocation · announcements." },
+  { icon: Church, title: "Church portal", desc: "Funeral service booking · priest scheduling · cemetery coordination." },
+  { icon: Landmark, title: "Temple / Gurdwara portal", desc: "Ceremony booking · representative scheduling · community notifications." },
+  { icon: Hospital, title: "Hospital integration", desc: "Secure certification handoff and mortuary handover." },
+  { icon: Plane, title: "Airline / cargo partner", desc: "Repatriation booking automation and documentation." },
+  { icon: Scale, title: "Lawyer / translator directory", desc: "Verified referrals for migration cases and translations." },
+  { icon: Shield, title: "Insurance providers", desc: "Funeral expense cover on death, life, health and liability policies matched to families at the right life stage." },
+  { icon: Car, title: "Driving instructors", desc: "Führerschein lessons, theory prep and licence conversion for new arrivals — bookings, progress tracking and invoices." },
+  { icon: Baby, title: "Kita & childcare", desc: "Kita placement, tagesmutter referrals and parental leave paperwork support." },
+  { icon: Heart, title: "Marriage & family services", desc: "Standesamt appointments, wedding celebrants, mediators and couples counsellors." },
+  { icon: GraduationCap, title: "Education & language schools", desc: "Integration courses, German language schools, Anerkennung of foreign qualifications and tutoring." },
+  { icon: Home, title: "Relocation & housing", desc: "Anmeldung, tenancy contracts, movers and short-term accommodation for new arrivals." },
 ];
 
 function ForProviders() {
