@@ -1,9 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { Lock } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useCurrentUser, type AppRole } from "@/hooks/use-current-user";
 import { primaryRole } from "@/lib/role-landing";
+import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
 
 type Audience = "client" | "internal" | "any";
 
@@ -14,19 +16,21 @@ type NavItem = {
   exact?: boolean;
   groupKey?: string;
   requiresRole?: "admin" | "internal";
+  requiresTier?: PlanGroup;
   audience?: Audience; // client = only for non-internal; internal = only for internal; any = both
 };
 
 const nav: NavItem[] = [
   { to: "/app", labelKey: "sidebar.overview", icon: "overview", exact: true, audience: "client" },
-  { to: "/app/cases", labelKey: "sidebar.cases", icon: "cases", audience: "client" },
-  { to: "/app/checklists", labelKey: "sidebar.checklists", icon: "checklists", audience: "client" },
-  { to: "/app/benefits", labelKey: "sidebar.benefits", icon: "benefits", audience: "client" },
-  { to: "/app/documents", labelKey: "sidebar.documents", icon: "documents", audience: "client" },
-  { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers", audience: "client" },
-  { to: "/app/insurance", labelKey: "sidebar.insurance", icon: "providers", audience: "client" },
-  { to: "/app/assistant", labelKey: "sidebar.assistant", icon: "assistant", audience: "any" },
-  { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client" },
+  { to: "/app/assistant", labelKey: "sidebar.assistant", icon: "assistant", audience: "any", requiresTier: "basic" },
+  { to: "/app/checklists", labelKey: "sidebar.checklists", icon: "checklists", audience: "client", requiresTier: "basic" },
+  { to: "/app/benefits", labelKey: "sidebar.benefits", icon: "benefits", audience: "client", requiresTier: "basic" },
+  { to: "/app/documents", labelKey: "sidebar.documents", icon: "documents", audience: "client", requiresTier: "basic" },
+  { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers", audience: "client", requiresTier: "basic" },
+  { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client", requiresTier: "basic" },
+  { to: "/app/insurance", labelKey: "sidebar.insurance", icon: "providers", audience: "client", requiresTier: "plus" },
+  { to: "/app/cases", labelKey: "sidebar.cases", icon: "cases", audience: "client", requiresTier: "complete" },
+  { to: "/app/upgrade", labelKey: "sidebar.upgrade", icon: "benefits", audience: "client" },
   { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
@@ -37,6 +41,7 @@ const nav: NavItem[] = [
   { to: "/app/bugs", labelKey: "sidebar.bugs", icon: "bug", audience: "any" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings", audience: "any" },
 ];
+
 
 const ROLE_LABEL: Record<AppRole, string> = {
   admin: "Administrator",
