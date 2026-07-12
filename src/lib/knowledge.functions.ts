@@ -6,8 +6,9 @@ export const listKnowledgeServices = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("knowledge_services")
-      .select("id, slug, name, short_description, status, category:knowledge_categories(id, slug, name, sort_order)")
-      .eq("status", "active");
+      .select("id, slug, name, short_description, status, typical_timeline, official_fees, requires_expert_role, category:knowledge_categories(id, slug, name, sort_order)")
+      .eq("status", "active")
+      .order("name");
     if (error) throw new Error(error.message);
     return data ?? [];
   });
