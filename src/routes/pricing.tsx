@@ -41,10 +41,58 @@ type Plan = {
 };
 
 const GROUP_ORDER = ["basic", "plus", "complete"];
-const GROUP_META: Record<string, { title: string; badge?: string }> = {
+const GROUP_META: Record<string, { title: string; badge?: string; inherits?: string }> = {
   basic: { title: "Basic" },
-  plus: { title: "Plus" },
-  complete: { title: "Complete", badge: "Most popular" },
+  plus: { title: "Plus", inherits: "Basic" },
+  complete: { title: "Complete", badge: "Most popular", inherits: "Plus" },
+};
+
+// Full feature matrix per tier — shown on every household variant.
+const PLAN_FEATURES: Record<string, string[]> = {
+  basic: [
+    "Personal life-admin vault (documents, IDs, permits, contracts) — encrypted, GDPR-hosted in Germany",
+    "Deadline & renewal tracker (visa, Aufenthaltstitel, passport, insurance, MOT/TÜV, tenancy)",
+    "13-language interface — DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL · ZH",
+    "Anmeldung / Ummeldung / Abmeldung checklists with prefilled forms",
+    "Tax ID, EWR & bank-account starter guides",
+    "Knowledge base: benefits, visas, health, housing, schools, driving",
+    "AI assistant for German letters — translate, summarise, draft a reply",
+    "Life-event playbooks: birth, marriage, illness, injury, redundancy, death",
+    "Trusted contacts (nominate 3 emergency people, in priority order)",
+    "Community events, mosque / church / temple / gurdwara directory",
+    "Email support · reply within 2 working days",
+  ],
+  plus: [
+    "Everything in Basic, plus:",
+    "Personal case manager assigned to your household",
+    "Priority chat & phone support · reply within 4 working hours",
+    "Benefits filed for you: Kindergeld, Elterngeld, Wohngeld, Bürgergeld, BAföG",
+    "Pension guidance (statutory Rente, Riester, Rürup, Betriebsrente, private)",
+    "Health-insurance comparison and switching (GKV ↔ PKV, Zusatz, dependants)",
+    "Employment help: German CV, Anerkennung of foreign qualifications, interview prep",
+    "Housing support: WG & apartment search, Sozialwohnung advice, deposit letters",
+    "Sworn-translation coordination (documents, certificates, medical letters)",
+    "Doctor & hospital appointment booking with an interpreter",
+    "Ausländerbehörde bookings and escort (visa extensions, change of purpose)",
+    "Tax pre-check and Steuererklärung handover to a vetted Steuerberater",
+    "Family & dependants: add spouse, children and parents to the household as they arrive",
+    "Full referral & partner discounts (movers, insurers, currency transfer, airlines)",
+  ],
+  complete: [
+    "Everything in Plus, plus:",
+    "24/7 human bereavement & emergency line — case manager on the phone within 1 hour",
+    "End-to-end death admin: Standesamt, funeral director, mosque / church / temple, cemetery, embassy, airline, insurer, employer, banks",
+    "Repatriation coordination (zinc coffin, embalming, consular NOC, airline cargo, receiving director abroad)",
+    "Immigration desk: visas, residence permits, naturalisation, repatriation, embassy & consulate contacts across Germany",
+    "Lawyer, notary, tax adviser and doctor concierge — vetted, quoted, paid through platform escrow",
+    "Bereavement cover advisory (optional insurance add-on up to €10,000 payout — underwritten separately)",
+    "Full transparent invoicing — every third-party euro itemised, with remaining balance paid to your nominated beneficiary",
+    "Life-plan review twice a year with your case manager",
+    "Digital deputy access — a trusted person can act for you in illness or after death",
+    "White-glove new-arrival onboarding: airport pickup coordination, first-week schedule, SIM, bank, GP",
+    "Case audit trail, timestamped, exportable for lawyers, insurers or courts",
+    "Priority access to new services as we launch them",
+  ],
 };
 
 const HOUSEHOLD_TABS: { key: "individual" | "family" | "family_plus"; label: string; icon: React.ReactNode; note: string }[] = [
