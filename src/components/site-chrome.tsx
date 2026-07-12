@@ -283,6 +283,7 @@ export function SiteFooter() {
           title={t("footer.colCompany")}
           links={[
             [t("footer.contact"), "/contact"],
+            ["Trust & compliance", "/trust"],
           ]}
         />
         <FooterCol

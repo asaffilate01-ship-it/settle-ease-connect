@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrustRouteImport } from './routes/trust'
 import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -71,6 +72,11 @@ import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
+const TrustRoute = TrustRouteImport.update({
+  id: '/trust',
+  path: '/trust',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentsRoute = StudentsRouteImport.update({
   id: '/students',
   path: '/students',
@@ -422,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
+  '/trust': typeof TrustRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -484,6 +491,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
+  '/trust': typeof TrustRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -546,6 +554,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
+  '/trust': typeof TrustRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -610,6 +619,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/students'
+    | '/trust'
     | '/app'
     | '/portal'
     | '/blog/$slug'
@@ -672,6 +682,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/students'
+    | '/trust'
     | '/blog/$slug'
     | '/directory/list-your-business'
     | '/legal/complaints'
@@ -733,6 +744,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/students'
+    | '/trust'
     | '/_authenticated/app'
     | '/_authenticated/portal'
     | '/blog/$slug'
@@ -797,11 +809,19 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudentsRoute: typeof StudentsRoute
+  TrustRoute: typeof TrustRoute
   PartnersInsurersRoute: typeof PartnersInsurersRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/trust': {
+      id: '/trust'
+      path: '/trust'
+      fullPath: '/trust'
+      preLoaderRoute: typeof TrustRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students': {
       id: '/students'
       path: '/students'
@@ -1429,6 +1449,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudentsRoute: StudentsRoute,
+  TrustRoute: TrustRoute,
   PartnersInsurersRoute: PartnersInsurersRoute,
 }
 export const routeTree = rootRouteImport
