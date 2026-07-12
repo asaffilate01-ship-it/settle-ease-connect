@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ChevronRight, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -23,17 +24,17 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="safe-top sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
             src={logoMark}
             alt="BeistandPlus"
             width={40}
             height={40}
-            className="h-10 w-10 object-contain"
+            className="h-10 w-10 shrink-0 object-contain"
           />
-          <div data-no-translate className="font-display text-xl font-semibold tracking-tight">
+          <div data-no-translate className="truncate font-display text-xl font-semibold tracking-tight">
             Beistand<span className="text-success">Plus</span>
           </div>
         </Link>
@@ -56,31 +57,83 @@ export function SiteHeader() {
           </Button>
         </div>
 
-        <button
-          className="md:hidden"
-          onClick={() => setOpen(!open)}
-          aria-label={t("nav.menu")}
-        >
-          <Menu className="h-6 w-6" />
-        </button>
-      </div>
-      {open && (
-        <div className="border-t border-border/60 bg-background md:hidden">
-          <div className="flex flex-col gap-1 p-4">
-            {navLinks.map(([label, href]) => (
-              <Link key={href + label} to={href} className="rounded-md px-3 py-2 text-sm hover:bg-muted">
-                {label}
-              </Link>
-            ))}
-            <div className="mt-2">
-              <LanguageSwitcher />
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border/60 bg-background/80 text-foreground shadow-soft transition active:scale-95 md:hidden"
+              aria-label={t("nav.menu")}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </SheetTrigger>
+          <SheetContent
+            side="right"
+            className="safe-top w-full max-w-full border-0 bg-background/95 p-0 backdrop-blur-2xl sm:max-w-sm [&>button.absolute]:hidden"
+          >
+            <div className="flex h-full flex-col">
+              {/* Sheet header */}
+              <div className="flex items-center justify-between px-5 pt-4 pb-3">
+                <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
+                  <img src={logoMark} alt="BeistandPlus" className="h-9 w-9 object-contain" />
+                  <span data-no-translate className="font-display text-lg font-semibold">
+                    Beistand<span className="text-success">Plus</span>
+                  </span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label={t("nav.close", "Close")}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-muted/70 text-foreground/80 transition active:scale-95"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Scrollable link list — big native-style rows */}
+              <nav className="flex-1 overflow-y-auto overscroll-contain px-3 pb-4">
+                <ul className="divide-y divide-border/50 overflow-hidden rounded-2xl border border-border/60 bg-card/70">
+                  {navLinks.map(([label, href]) => (
+                    <li key={href + label}>
+                      <Link
+                        to={href}
+                        onClick={() => setOpen(false)}
+                        className="flex items-center justify-between gap-3 px-4 py-4 text-[15px] font-medium text-foreground transition active:bg-muted/80"
+                      >
+                        <span className="truncate">{label}</span>
+                        <ChevronRight className="rtl-flip h-5 w-5 shrink-0 text-muted-foreground" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 rounded-2xl border border-border/60 bg-card/70 p-3">
+                  <div className="px-2 pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    {t("language.label")}
+                  </div>
+                  <LanguageSwitcher />
+                </div>
+
+                <div className="mt-5 flex items-center justify-center gap-4 py-2">
+                  <SocialIcons />
+                </div>
+              </nav>
+
+              {/* Sticky bottom actions */}
+              <div className="safe-bottom border-t border-border/60 bg-background/95 px-4 pt-3 pb-4">
+                <div className="grid grid-cols-2 gap-2">
+                  <Button asChild variant="outline" size="lg" className="h-12 rounded-xl text-[15px]">
+                    <Link to="/app" onClick={() => setOpen(false)}>{t("nav.signIn")}</Link>
+                  </Button>
+                  <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
+                    <Link to="/app" onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
-            <Button asChild className="mt-2 bg-gradient-primary">
-              <Link to="/app">{t("nav.openDashboard")}</Link>
-            </Button>
-          </div>
-        </div>
-      )}
+          </SheetContent>
+        </Sheet>
+      </div>
     </header>
   );
 }

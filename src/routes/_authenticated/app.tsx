@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
+import { MobileTabBar } from "@/components/mobile-tab-bar";
 import { Button } from "@/components/ui/button";
 import { Search, LogOut } from "lucide-react";
 import { NotificationBell } from "@/components/notification-bell";
@@ -93,9 +94,10 @@ function AppLayout() {
             </DropdownMenu>
           </div>
         </header>
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 p-4 pb-24 sm:p-6 lg:p-8 md:pb-8">
           <Outlet />
         </main>
+        <MobileTabBar />
       </div>
     </div>
   );
