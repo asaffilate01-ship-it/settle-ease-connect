@@ -18,6 +18,14 @@ import {
   Phone,
   Church,
   Landmark,
+  Plane,
+  GraduationCap,
+  Briefcase,
+  HomeIcon,
+  HeartPulse,
+  Car,
+  Baby,
+  Rings,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
