@@ -41,6 +41,11 @@ export function SiteHeader() {
           href: "/students",
           hint: t("nav.hint.students", "For international students"),
         },
+        {
+          label: "Insurance",
+          href: "/insurance",
+          hint: "Broker-placed cover in 13 languages",
+        },
       ],
     },
     { label: t("nav.howItWorks", "How it works"), href: "/how-it-works" },
