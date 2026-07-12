@@ -55,7 +55,7 @@ export const upsertLifeAdmin = createServerFn({ method: "POST" })
     }
     const { data: inserted, error } = await context.supabase
       .from(data.table)
-      .insert(payload)
+      .insert(payload as any)
       .select("id")
       .single();
     if (error) throw new Error(error.message);

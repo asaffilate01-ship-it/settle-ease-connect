@@ -120,7 +120,7 @@ export const updateReferralLead = createServerFn({ method: "POST" })
     const p: Record<string, unknown> = { ...patch };
     if (patch.status === "converted") p.converted_at = new Date().toISOString();
     if (patch.status === "paid") p.paid_at = new Date().toISOString();
-    const { error } = await context.supabase.from("referral_leads").update(p).eq("id", id);
+    const { error } = await context.supabase.from("referral_leads").update(p as any).eq("id", id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
