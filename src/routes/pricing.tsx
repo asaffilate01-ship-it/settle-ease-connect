@@ -5,6 +5,7 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Check, Users, User, HeartHandshake } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
