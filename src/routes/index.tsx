@@ -21,11 +21,9 @@ import {
   Plane,
   GraduationCap,
   Briefcase,
-  HomeIcon,
   HeartPulse,
   Car,
   Baby,
-  Heart as HeartIcon2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
