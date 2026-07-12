@@ -159,6 +159,7 @@ function RootComponent() {
       <LanguageBridge />
       <Outlet />
       <LanguageOnboarding />
+      <CookieConsent />
     </QueryClientProvider>
   );
 }
