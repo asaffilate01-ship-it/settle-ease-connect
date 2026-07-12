@@ -47,6 +47,7 @@ import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
 import { Route as AuthenticatedAppNotificationsRouteImport } from './routes/_authenticated/app.notifications'
+import { Route as AuthenticatedAppLocationRouteImport } from './routes/_authenticated/app.location'
 import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
 import { Route as AuthenticatedAppImmigrationRouteImport } from './routes/_authenticated/app.immigration'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
@@ -264,6 +265,12 @@ const AuthenticatedAppNotificationsRoute =
     path: '/notifications',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppLocationRoute =
+  AuthenticatedAppLocationRouteImport.update({
+    id: '/location',
+    path: '/location',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppInsuranceRoute =
   AuthenticatedAppInsuranceRouteImport.update({
     id: '/insurance',
@@ -386,6 +393,7 @@ export interface FileRoutesByFullPath {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/app/location': typeof AuthenticatedAppLocationRoute
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
@@ -438,6 +446,7 @@ export interface FileRoutesByTo {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/app/location': typeof AuthenticatedAppLocationRoute
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
@@ -494,6 +503,7 @@ export interface FileRoutesById {
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/_authenticated/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/_authenticated/app/location': typeof AuthenticatedAppLocationRoute
   '/_authenticated/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
@@ -550,6 +560,7 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/immigration'
     | '/app/insurance'
+    | '/app/location'
     | '/app/notifications'
     | '/app/profile'
     | '/app/providers'
@@ -602,6 +613,7 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/immigration'
     | '/app/insurance'
+    | '/app/location'
     | '/app/notifications'
     | '/app/profile'
     | '/app/providers'
@@ -657,6 +669,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/documents'
     | '/_authenticated/app/immigration'
     | '/_authenticated/app/insurance'
+    | '/_authenticated/app/location'
     | '/_authenticated/app/notifications'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
@@ -964,6 +977,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppNotificationsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/location': {
+      id: '/_authenticated/app/location'
+      path: '/location'
+      fullPath: '/app/location'
+      preLoaderRoute: typeof AuthenticatedAppLocationRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/insurance': {
       id: '/_authenticated/app/insurance'
       path: '/insurance'
@@ -1098,6 +1118,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
   AuthenticatedAppImmigrationRoute: typeof AuthenticatedAppImmigrationRoute
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
+  AuthenticatedAppLocationRoute: typeof AuthenticatedAppLocationRoute
   AuthenticatedAppNotificationsRoute: typeof AuthenticatedAppNotificationsRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
@@ -1117,6 +1138,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
   AuthenticatedAppImmigrationRoute: AuthenticatedAppImmigrationRoute,
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
+  AuthenticatedAppLocationRoute: AuthenticatedAppLocationRoute,
   AuthenticatedAppNotificationsRoute: AuthenticatedAppNotificationsRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
