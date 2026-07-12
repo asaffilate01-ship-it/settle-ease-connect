@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
 import { ShareButtons } from "@/components/share-buttons";
-import { getPost, BLOG_POSTS } from "@/data/blog-posts";
+import { getPost, BLOG_POSTS, type BlogBlock } from "@/data/blog-posts";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -108,7 +108,7 @@ function BlogPost() {
         </div>
 
         <div className="mt-10 space-y-6">
-          {post.body.map((block, i) => {
+          {post.body.map((block: BlogBlock, i: number) => {
             if (block.type === "p") {
               return (
                 <p key={i} className="text-base leading-relaxed text-foreground/90">
@@ -125,7 +125,7 @@ function BlogPost() {
             }
             return (
               <ul key={i} className="list-inside list-disc space-y-1 text-base text-foreground/90">
-                {block.items.map((item) => (
+                {block.items.map((item: string) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>

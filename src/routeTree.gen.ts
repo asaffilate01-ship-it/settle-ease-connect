@@ -16,11 +16,13 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BereavementRouteImport } from './routes/bereavement'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
@@ -73,6 +75,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BereavementRoute = BereavementRouteImport.update({
   id: '/bereavement',
   path: '/bereavement',
@@ -98,6 +105,11 @@ const DirectoryListYourBusinessRoute =
     path: '/list-your-business',
     getParentRoute: () => DirectoryRoute,
   } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -196,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
@@ -204,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -225,6 +239,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
@@ -232,6 +247,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -255,6 +271,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
@@ -263,6 +280,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -286,6 +304,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/bereavement'
+    | '/blog'
     | '/contact'
     | '/directory'
     | '/for-providers'
@@ -294,6 +313,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/app'
+    | '/blog/$slug'
     | '/directory/list-your-business'
     | '/app/assistant'
     | '/app/benefits'
@@ -315,6 +335,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/bereavement'
+    | '/blog'
     | '/contact'
     | '/directory'
     | '/for-providers'
@@ -322,6 +343,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
+    | '/blog/$slug'
     | '/directory/list-your-business'
     | '/app/assistant'
     | '/app/benefits'
@@ -344,6 +366,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/bereavement'
+    | '/blog'
     | '/contact'
     | '/directory'
     | '/for-providers'
@@ -352,6 +375,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/app'
+    | '/blog/$slug'
     | '/directory/list-your-business'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -375,6 +399,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   BereavementRoute: typeof BereavementRoute
+  BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   DirectoryRoute: typeof DirectoryRouteWithChildren
   ForProvidersRoute: typeof ForProvidersRoute
@@ -435,6 +460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bereavement': {
       id: '/bereavement'
       path: '/bereavement'
@@ -469,6 +501,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/directory/list-your-business'
       preLoaderRoute: typeof DirectoryListYourBusinessRouteImport
       parentRoute: typeof DirectoryRoute
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
     }
     '/_authenticated/app': {
       id: '/_authenticated/app'
@@ -660,6 +699,16 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 interface DirectoryRouteChildren {
   DirectoryListYourBusinessRoute: typeof DirectoryListYourBusinessRoute
 }
@@ -677,6 +726,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   BereavementRoute: BereavementRoute,
+  BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   DirectoryRoute: DirectoryRouteWithChildren,
   ForProvidersRoute: ForProvidersRoute,
