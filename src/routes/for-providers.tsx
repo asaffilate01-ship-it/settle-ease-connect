@@ -16,13 +16,13 @@ export const Route = createFileRoute("/for-providers")({
 });
 
 const portals = [
-  { icon: Building2, title: "Funeral Director portal", desc: "Referrals · quotes · invoices · death certificates · family chat · reviews · analytics.", price: "€79 / month" },
-  { icon: Church, title: "Mosque portal", desc: "Janazah booking · imam scheduling · burial requests · volunteer allocation · announcements.", price: "€29 / month" },
-  { icon: Church, title: "Church portal", desc: "Funeral service booking · priest scheduling · cemetery coordination.", price: "€29 / month" },
-  { icon: Landmark, title: "Temple / Gurdwara portal", desc: "Ceremony booking · representative scheduling · community notifications.", price: "€29 / month" },
-  { icon: Hospital, title: "Hospital integration", desc: "Secure certification handoff and mortuary handover.", price: "On request" },
-  { icon: Plane, title: "Airline / cargo partner", desc: "Repatriation booking automation and documentation.", price: "Custom" },
-  { icon: Scale, title: "Lawyer / translator directory", desc: "Verified referrals for migration cases and translations.", price: "Referral fee" },
+  { icon: Building2, title: "Funeral Director portal", desc: "Referrals · quotes · invoices · death certificates · family chat · reviews · analytics.", commitment: "Wholesale rate card" },
+  { icon: Church, title: "Mosque portal", desc: "Janazah booking · imam scheduling · burial requests · volunteer allocation · announcements.", commitment: "Community partner" },
+  { icon: Church, title: "Church portal", desc: "Funeral service booking · priest scheduling · cemetery coordination.", commitment: "Community partner" },
+  { icon: Landmark, title: "Temple / Gurdwara portal", desc: "Ceremony booking · representative scheduling · community notifications.", commitment: "Community partner" },
+  { icon: Hospital, title: "Hospital integration", desc: "Secure certification handoff and mortuary handover.", commitment: "Integration MoU" },
+  { icon: Plane, title: "Airline / cargo partner", desc: "Repatriation booking automation and documentation.", commitment: "Negotiated fares" },
+  { icon: Scale, title: "Lawyer / translator directory", desc: "Verified referrals for migration cases and translations.", commitment: "Wholesale rates" },
 ];
 
 function ForProviders() {
@@ -38,8 +38,10 @@ function ForProviders() {
         </h1>
         <p className="mt-5 text-lg text-muted-foreground">
           Beistand is quietly building Germany's first cross-faith welfare and
-          bereavement network. Get verified, get referred, get paid — with a
-          workspace built for the way your organisation actually works.
+          bereavement network. Joining is <strong>free for providers</strong> —
+          no subscription, no listing fee. In return, you commit wholesale
+          rates on the services you already offer, and we pass them through to
+          families at fair, transparent prices.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
@@ -61,8 +63,8 @@ function ForProviders() {
               <div className="mt-5 font-display text-xl font-semibold">{p.title}</div>
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.desc}</p>
               <div className="mt-5 flex items-center justify-between">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground">Pricing</span>
-                <span className="font-display text-lg font-semibold">{p.price}</span>
+                <span className="text-xs uppercase tracking-widest text-muted-foreground">Access</span>
+                <span className="font-display text-sm font-semibold text-success">Free · {p.commitment}</span>
               </div>
             </div>
           ))}
