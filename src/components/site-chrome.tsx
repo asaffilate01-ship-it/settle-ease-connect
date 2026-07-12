@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocialIcons } from "@/components/social-icons";
+import logoMark from "@/assets/brand/logo-mark.png";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
