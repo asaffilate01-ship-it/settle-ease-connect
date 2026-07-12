@@ -295,8 +295,10 @@ export function SiteFooter() {
           links={[
             [t("footer.contact"), "/contact"],
             ["Trust & compliance", "/trust"],
+            ["Partners", "/partners"],
             ["Offline mode", "/offline"],
           ]}
+
         />
         <FooterCol
           title={t("footer.colLegal")}
