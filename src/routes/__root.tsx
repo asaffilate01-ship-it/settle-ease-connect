@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import "@/i18n";
 import { LanguageOnboarding } from "@/components/language-onboarding";
+import { CookieConsent } from "@/components/cookie-consent";
 import { useLanguage } from "@/hooks/use-language";
 
 function NotFoundComponent() {
