@@ -290,6 +290,7 @@ export function SiteFooter() {
           links={[
             [t("footer.contact"), "/contact"],
             ["Trust & compliance", "/trust"],
+            ["Offline mode", "/offline"],
           ]}
         />
         <FooterCol

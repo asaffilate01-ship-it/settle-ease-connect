@@ -17,6 +17,8 @@ import { CookieConsent } from "@/components/cookie-consent";
 import { Toaster } from "@/components/ui/sonner";
 import { useLanguage } from "@/hooks/use-language";
 import { initNative } from "@/lib/native";
+import { OfflineIndicator } from "@/components/offline-indicator";
+import { installOfflineQueue } from "@/lib/offline-queue";
 
 function NotFoundComponent() {
   return (
@@ -163,6 +165,7 @@ function RootComponent() {
       // Let TanStack Router handle history; return false so the plugin falls back.
       return false;
     });
+    installOfflineQueue();
     return () => {
       mounted = false;
       unsubscribe?.();
@@ -174,6 +177,7 @@ function RootComponent() {
       <Outlet />
       <LanguageOnboarding />
       <CookieConsent />
+      <OfflineIndicator />
       <Toaster />
     </QueryClientProvider>
   );

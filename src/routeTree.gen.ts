@@ -14,6 +14,7 @@ import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as OfflineRouteImport } from './routes/offline'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
@@ -96,6 +97,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfflineRoute = OfflineRouteImport.update({
+  id: '/offline',
+  path: '/offline',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalRoute = LegalRouteImport.update({
@@ -431,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
+  '/offline': typeof OfflineRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -495,6 +502,7 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
+  '/offline': typeof OfflineRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -559,6 +567,7 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
+  '/offline': typeof OfflineRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -625,6 +634,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/insurance'
     | '/legal'
+    | '/offline'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -689,6 +699,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/insurance'
     | '/legal'
+    | '/offline'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -752,6 +763,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/insurance'
     | '/legal'
+    | '/offline'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -818,6 +830,7 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
   LegalRoute: typeof LegalRouteWithChildren
+  OfflineRoute: typeof OfflineRoute
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -861,6 +874,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offline': {
+      id: '/offline'
+      path: '/offline'
+      fullPath: '/offline'
+      preLoaderRoute: typeof OfflineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal': {
@@ -1466,6 +1486,7 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
   LegalRoute: LegalRouteWithChildren,
+  OfflineRoute: OfflineRoute,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
