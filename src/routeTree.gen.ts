@@ -44,6 +44,7 @@ import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authent
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app.community'
 import { Route as AuthenticatedAppChecklistsRouteImport } from './routes/_authenticated/app.checklists'
 import { Route as AuthenticatedAppCasesRouteImport } from './routes/_authenticated/app.cases'
+import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticated/app.bugs'
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
@@ -237,6 +238,11 @@ const AuthenticatedAppCasesRoute = AuthenticatedAppCasesRouteImport.update({
   path: '/cases',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppBugsRoute = AuthenticatedAppBugsRouteImport.update({
+  id: '/bugs',
+  path: '/bugs',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppBenefitsRoute =
   AuthenticatedAppBenefitsRouteImport.update({
     id: '/benefits',
@@ -305,6 +311,7 @@ export interface FileRoutesByFullPath {
   '/partners/insurers': typeof PartnersInsurersRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/app/bugs': typeof AuthenticatedAppBugsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
@@ -347,6 +354,7 @@ export interface FileRoutesByTo {
   '/partners/insurers': typeof PartnersInsurersRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/app/bugs': typeof AuthenticatedAppBugsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
@@ -392,6 +400,7 @@ export interface FileRoutesById {
   '/partners/insurers': typeof PartnersInsurersRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/_authenticated/app/bugs': typeof AuthenticatedAppBugsRoute
   '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/_authenticated/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
@@ -437,6 +446,7 @@ export interface FileRouteTypes {
     | '/partners/insurers'
     | '/app/assistant'
     | '/app/benefits'
+    | '/app/bugs'
     | '/app/cases'
     | '/app/checklists'
     | '/app/community'
@@ -479,6 +489,7 @@ export interface FileRouteTypes {
     | '/partners/insurers'
     | '/app/assistant'
     | '/app/benefits'
+    | '/app/bugs'
     | '/app/cases'
     | '/app/checklists'
     | '/app/community'
@@ -523,6 +534,7 @@ export interface FileRouteTypes {
     | '/partners/insurers'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
+    | '/_authenticated/app/bugs'
     | '/_authenticated/app/cases'
     | '/_authenticated/app/checklists'
     | '/_authenticated/app/community'
@@ -807,6 +819,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppCasesRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/bugs': {
+      id: '/_authenticated/app/bugs'
+      path: '/bugs'
+      fullPath: '/app/bugs'
+      preLoaderRoute: typeof AuthenticatedAppBugsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/benefits': {
       id: '/_authenticated/app/benefits'
       path: '/benefits'
@@ -877,6 +896,7 @@ const AuthenticatedAppCasesRouteWithChildren =
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
   AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
+  AuthenticatedAppBugsRoute: typeof AuthenticatedAppBugsRoute
   AuthenticatedAppCasesRoute: typeof AuthenticatedAppCasesRouteWithChildren
   AuthenticatedAppChecklistsRoute: typeof AuthenticatedAppChecklistsRoute
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
@@ -889,6 +909,7 @@ interface AuthenticatedAppRouteChildren {
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
   AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
+  AuthenticatedAppBugsRoute: AuthenticatedAppBugsRoute,
   AuthenticatedAppCasesRoute: AuthenticatedAppCasesRouteWithChildren,
   AuthenticatedAppChecklistsRoute: AuthenticatedAppChecklistsRoute,
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,

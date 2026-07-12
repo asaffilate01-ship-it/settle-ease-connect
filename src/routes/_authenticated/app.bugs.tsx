@@ -66,11 +66,13 @@ function BugReportsPage() {
     e.preventDefault();
     if (!title.trim()) return;
     await submitReport({
-      title: title.trim(),
-      description: description.trim() || null,
-      severity,
-      source_route: pathname,
-      user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
+      data: {
+        title: title.trim(),
+        description: description.trim() || null,
+        severity,
+        source_route: pathname,
+        user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
+      },
     });
     setTitle("");
     setDescription("");
@@ -80,13 +82,15 @@ function BugReportsPage() {
   }
 
   async function handleStatusChange(id: string, newStatus: string) {
-    await updateStatus({ id, status: newStatus as any, assigned_to: null });
+    await updateStatus({
+      data: { id, status: newStatus as any, assigned_to: null },
+    });
     qc.invalidateQueries({ queryKey: ["bug_reports"] });
   }
 
   async function handleDelete(id: string) {
     if (!confirm(t("bugs.confirmDelete"))) return;
-    await removeReport({ id });
+    await removeReport({ data: { id } });
     qc.invalidateQueries({ queryKey: ["bug_reports"] });
   }
 
