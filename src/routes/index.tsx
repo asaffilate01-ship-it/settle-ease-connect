@@ -35,6 +35,7 @@ function Landing() {
     <div className="min-h-screen">
       <SiteHeader />
       <Hero />
+      <UrgencyTriage />
       <TrustBar />
       <Journeys />
       <LifeInGermany />
