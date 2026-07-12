@@ -49,7 +49,7 @@ function AssistantPage() {
         </div>
         <div>
           <div className="font-display text-xl font-semibold">Beistand AI</div>
-          <div className="text-xs text-muted-foreground">Always on · answers in DE · EN · UR · TR · AR · HI</div>
+          <div className="text-xs text-muted-foreground">Always on · DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL</div>
         </div>
       </div>
 
