@@ -5,14 +5,15 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Beistand — design system
- * Warm, trustworthy, dignified. Evergreen primary + warm parchment + amber.
- * Serif display (Fraunces) + humanist sans (Inter).
+ * Beistand — design system v2 "Ocean Deep / Architectural"
+ * Palette: deep navy, ocean, teal glow on a cool ivory.
+ * Type:    Urbanist (display, wide) + Epilogue (body, refined).
+ * Depth:   claymorphic 3D shadows for icons, layered soft shadows for cards.
  */
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Epilogue", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Urbanist", ui-sans-serif, system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -46,6 +47,8 @@
   --color-ring: var(--ring);
   --color-parchment: var(--parchment);
   --color-ink: var(--ink);
+  --color-ocean: var(--ocean);
+  --color-teal: var(--teal);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -62,130 +65,158 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 1rem;
 
-  /* Warm cream background, deep ink foreground — German flag palette:
-     black (ink), red (accent/action), gold (highlight), on warm off-white. */
-  --background: oklch(0.985 0.008 85);
-  --foreground: oklch(0.16 0.01 60);
-  --parchment: oklch(0.965 0.014 82);
-  --ink: oklch(0.14 0.008 60);
+  /* Ocean Deep — cool ivory base, deep navy ink */
+  --background: oklch(0.985 0.005 220);
+  --foreground: oklch(0.18 0.04 250);
+  --parchment: oklch(0.965 0.012 220);
+  --ink: oklch(0.16 0.04 250);
+  --ocean: oklch(0.38 0.09 240);
+  --teal: oklch(0.72 0.11 195);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.01 60);
+  --card-foreground: oklch(0.18 0.04 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.01 60);
+  --popover-foreground: oklch(0.18 0.04 250);
 
-  /* Primary — deep ink black (German flag black), authoritative */
-  --primary: oklch(0.18 0.008 60);
-  --primary-foreground: oklch(0.985 0.008 85);
+  /* Primary — deep navy #0c2340 */
+  --primary: oklch(0.24 0.07 250);
+  --primary-foreground: oklch(0.98 0.005 220);
 
-  --secondary: oklch(0.94 0.014 82);
-  --secondary-foreground: oklch(0.2 0.012 60);
+  --secondary: oklch(0.94 0.014 220);
+  --secondary-foreground: oklch(0.24 0.07 250);
 
-  --muted: oklch(0.945 0.012 82);
-  --muted-foreground: oklch(0.46 0.012 60);
+  --muted: oklch(0.945 0.012 220);
+  --muted-foreground: oklch(0.48 0.03 240);
 
-  /* Accent — German flag gold, warm and dignified */
-  --accent: oklch(0.79 0.14 82);
-  --accent-foreground: oklch(0.18 0.03 60);
+  /* Accent — teal glow #5cbdb9 */
+  --accent: oklch(0.72 0.11 195);
+  --accent-foreground: oklch(0.16 0.05 240);
 
-  /* Destructive / call-to-action red — German flag red */
-  --destructive: oklch(0.54 0.21 27);
-  --destructive-foreground: oklch(0.985 0.008 85);
+  /* Destructive — muted coral (not competing with teal) */
+  --destructive: oklch(0.58 0.19 25);
+  --destructive-foreground: oklch(0.98 0.005 220);
 
-  --success: oklch(0.6 0.13 155);
-  --success-foreground: oklch(0.985 0.008 85);
+  --success: oklch(0.66 0.13 165);
+  --success-foreground: oklch(0.98 0.005 220);
 
-  --warning: oklch(0.79 0.14 82);
-  --warning-foreground: oklch(0.2 0.03 60);
+  --warning: oklch(0.8 0.13 75);
+  --warning-foreground: oklch(0.22 0.05 60);
 
-  --border: oklch(0.9 0.012 82);
-  --input: oklch(0.9 0.012 82);
-  --ring: oklch(0.54 0.21 27);
+  --border: oklch(0.9 0.015 220);
+  --input: oklch(0.9 0.015 220);
+  --ring: oklch(0.55 0.13 210);
 
-  --chart-1: oklch(0.18 0.008 60);
-  --chart-2: oklch(0.54 0.21 27);
-  --chart-3: oklch(0.79 0.14 82);
-  --chart-4: oklch(0.6 0.13 155);
-  --chart-5: oklch(0.55 0.09 210);
+  --chart-1: oklch(0.24 0.07 250);
+  --chart-2: oklch(0.42 0.11 235);
+  --chart-3: oklch(0.62 0.12 205);
+  --chart-4: oklch(0.72 0.11 195);
+  --chart-5: oklch(0.5 0.14 260);
 
-  --sidebar: oklch(0.14 0.008 60);
-  --sidebar-foreground: oklch(0.94 0.012 82);
-  --sidebar-primary: oklch(0.79 0.14 82);
-  --sidebar-primary-foreground: oklch(0.14 0.008 60);
-  --sidebar-accent: oklch(0.22 0.012 60);
-  --sidebar-accent-foreground: oklch(0.985 0.008 85);
-  --sidebar-border: oklch(0.24 0.012 60);
-  --sidebar-ring: oklch(0.54 0.21 27);
+  --sidebar: oklch(0.16 0.05 250);
+  --sidebar-foreground: oklch(0.94 0.012 220);
+  --sidebar-primary: oklch(0.72 0.11 195);
+  --sidebar-primary-foreground: oklch(0.16 0.05 250);
+  --sidebar-accent: oklch(0.22 0.06 250);
+  --sidebar-accent-foreground: oklch(0.98 0.005 220);
+  --sidebar-border: oklch(0.26 0.05 250);
+  --sidebar-ring: oklch(0.72 0.11 195);
 
-  /* Gradients & shadows — black → red → gold flag ribbon */
+  /* Signature gradients — deep ocean radiance */
   --gradient-hero: radial-gradient(
-      ellipse at top left,
-      oklch(0.18 0.01 60 / 0.1),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse at bottom right,
-      oklch(0.79 0.14 82 / 0.28),
+      ellipse 900px 500px at 20% 0%,
+      oklch(0.72 0.11 195 / 0.28),
       transparent 60%
     ),
     radial-gradient(
-      ellipse at center,
-      oklch(0.54 0.21 27 / 0.08),
+      ellipse 800px 600px at 100% 40%,
+      oklch(0.42 0.14 260 / 0.22),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 600px 400px at 40% 100%,
+      oklch(0.24 0.07 250 / 0.12),
       transparent 70%
     );
   --gradient-primary: linear-gradient(
     135deg,
-    oklch(0.14 0.008 60),
-    oklch(0.24 0.012 60)
+    oklch(0.24 0.07 250),
+    oklch(0.34 0.1 240)
   );
-  --gradient-warm: linear-gradient(
+  --gradient-ocean: linear-gradient(
     135deg,
-    oklch(0.54 0.21 27),
-    oklch(0.79 0.14 82)
+    oklch(0.24 0.07 250) 0%,
+    oklch(0.38 0.1 235) 45%,
+    oklch(0.62 0.12 205) 100%
   );
-  --gradient-flag: linear-gradient(
-    180deg,
-    oklch(0.14 0.008 60) 0%,
-    oklch(0.14 0.008 60) 33%,
-    oklch(0.54 0.21 27) 33%,
-    oklch(0.54 0.21 27) 66%,
-    oklch(0.79 0.14 82) 66%,
-    oklch(0.79 0.14 82) 100%
+  --gradient-teal: linear-gradient(
+    135deg,
+    oklch(0.55 0.13 210),
+    oklch(0.78 0.1 190)
   );
-  --shadow-soft: 0 1px 2px oklch(0.16 0.01 60 / 0.06),
-    0 8px 24px -8px oklch(0.16 0.01 60 / 0.12);
-  --shadow-elevated: 0 2px 4px oklch(0.16 0.01 60 / 0.08),
-    0 20px 40px -12px oklch(0.16 0.01 60 / 0.2);
+  --gradient-aurora: linear-gradient(
+    135deg,
+    oklch(0.24 0.07 250) 0%,
+    oklch(0.5 0.14 260) 40%,
+    oklch(0.72 0.11 195) 100%
+  );
+
+  /* Card & clay shadows — layered for depth */
+  --shadow-soft: 0 1px 2px oklch(0.16 0.05 240 / 0.06),
+    0 8px 24px -10px oklch(0.24 0.07 250 / 0.18);
+  --shadow-elevated: 0 2px 6px oklch(0.16 0.05 240 / 0.08),
+    0 24px 48px -16px oklch(0.24 0.07 250 / 0.28);
+  --shadow-card: 0 1px 2px oklch(0.16 0.05 240 / 0.05),
+    0 4px 12px -4px oklch(0.24 0.07 250 / 0.1),
+    0 24px 60px -24px oklch(0.24 0.07 250 / 0.18);
+  /* Claymorphic — inner highlight + soft outer shadow for 3D depth */
+  --shadow-clay:
+    inset 0 2px 3px oklch(1 0 0 / 0.55),
+    inset 0 -3px 6px oklch(0.24 0.07 250 / 0.28),
+    0 8px 20px -6px oklch(0.24 0.07 250 / 0.35),
+    0 2px 4px oklch(0.16 0.05 240 / 0.15);
+  --shadow-clay-sm:
+    inset 0 1px 2px oklch(1 0 0 / 0.5),
+    inset 0 -2px 4px oklch(0.24 0.07 250 / 0.25),
+    0 4px 12px -3px oklch(0.24 0.07 250 / 0.3);
+  --shadow-glow-teal:
+    0 0 0 1px oklch(0.72 0.11 195 / 0.2),
+    0 10px 40px -10px oklch(0.72 0.11 195 / 0.5);
 }
 
 .dark {
-  --background: oklch(0.14 0.008 60);
-  --foreground: oklch(0.96 0.012 82);
-  --parchment: oklch(0.18 0.008 60);
-  --ink: oklch(0.96 0.012 82);
-  --card: oklch(0.2 0.01 60);
-  --card-foreground: oklch(0.96 0.012 82);
-  --popover: oklch(0.2 0.01 60);
-  --popover-foreground: oklch(0.96 0.012 82);
-  --primary: oklch(0.79 0.14 82);
-  --primary-foreground: oklch(0.14 0.008 60);
-  --secondary: oklch(0.24 0.012 60);
-  --secondary-foreground: oklch(0.96 0.012 82);
-  --muted: oklch(0.24 0.012 60);
-  --muted-foreground: oklch(0.7 0.012 60);
-  --accent: oklch(0.79 0.14 82);
-  --accent-foreground: oklch(0.14 0.008 60);
-  --destructive: oklch(0.62 0.21 27);
-  --destructive-foreground: oklch(0.985 0.008 85);
-  --success: oklch(0.72 0.13 155);
-  --success-foreground: oklch(0.14 0.008 60);
-  --warning: oklch(0.82 0.14 82);
-  --warning-foreground: oklch(0.2 0.03 60);
+  --background: oklch(0.14 0.03 250);
+  --foreground: oklch(0.96 0.012 220);
+  --parchment: oklch(0.18 0.04 250);
+  --ink: oklch(0.96 0.012 220);
+  --ocean: oklch(0.55 0.13 210);
+  --card: oklch(0.2 0.05 250);
+  --card-foreground: oklch(0.96 0.012 220);
+  --popover: oklch(0.2 0.05 250);
+  --popover-foreground: oklch(0.96 0.012 220);
+  --primary: oklch(0.72 0.11 195);
+  --primary-foreground: oklch(0.14 0.03 250);
+  --secondary: oklch(0.24 0.06 250);
+  --secondary-foreground: oklch(0.96 0.012 220);
+  --muted: oklch(0.24 0.06 250);
+  --muted-foreground: oklch(0.72 0.02 220);
+  --accent: oklch(0.72 0.11 195);
+  --accent-foreground: oklch(0.14 0.03 250);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0.005 220);
+  --success: oklch(0.72 0.13 165);
+  --success-foreground: oklch(0.14 0.03 250);
+  --warning: oklch(0.82 0.13 75);
+  --warning-foreground: oklch(0.22 0.05 60);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.79 0.14 82);
+  --ring: oklch(0.72 0.11 195);
+  --shadow-clay:
+    inset 0 2px 3px oklch(1 0 0 / 0.15),
+    inset 0 -3px 6px oklch(0 0 0 / 0.4),
+    0 8px 20px -6px oklch(0 0 0 / 0.6),
+    0 2px 4px oklch(0 0 0 / 0.4);
 }
 
 @layer base {
@@ -195,6 +226,10 @@
 
   html {
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Respect iOS safe areas */
+    scroll-padding-top: env(safe-area-inset-top);
   }
 
   body {
@@ -202,18 +237,34 @@
     color: var(--color-foreground);
     background-image:
       radial-gradient(
-        ellipse 1200px 600px at 50% -10%,
-        oklch(0.78 0.13 70 / 0.08),
+        ellipse 1200px 700px at 50% -10%,
+        oklch(0.72 0.11 195 / 0.12),
         transparent 60%
+      ),
+      radial-gradient(
+        ellipse 800px 500px at 100% 100%,
+        oklch(0.42 0.14 260 / 0.06),
+        transparent 65%
       );
     background-attachment: fixed;
+    min-height: 100dvh;
   }
 
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
-    font-feature-settings: "ss01", "ss02";
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
+  h1 { letter-spacing: -0.035em; }
+
+  /* Better mobile tap targets */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Safe-area padding for the whole app on mobile */
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
   /* Script-specific font stacks — activated by <html lang="…"> */
   html:lang(ar), html:lang(ar) body { font-family: "Noto Sans Arabic", var(--font-sans); }
@@ -249,15 +300,52 @@
 @utility bg-gradient-primary {
   background-image: var(--gradient-primary);
 }
-@utility bg-gradient-warm {
-  background-image: var(--gradient-warm);
+@utility bg-gradient-ocean {
+  background-image: var(--gradient-ocean);
 }
-@utility bg-gradient-flag {
-  background-image: var(--gradient-flag);
+@utility bg-gradient-teal {
+  background-image: var(--gradient-teal);
+}
+@utility bg-gradient-aurora {
+  background-image: var(--gradient-aurora);
 }
 @utility shadow-soft {
   box-shadow: var(--shadow-soft);
 }
 @utility shadow-elevated {
   box-shadow: var(--shadow-elevated);
+}
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+@utility shadow-clay {
+  box-shadow: var(--shadow-clay);
+}
+@utility shadow-clay-sm {
+  box-shadow: var(--shadow-clay-sm);
+}
+@utility shadow-glow-teal {
+  box-shadow: var(--shadow-glow-teal);
+}
+
+/* Premium card — layered depth, soft border, hover lift */
+@utility card-premium {
+  background: linear-gradient(180deg, var(--color-card), oklch(0.98 0.008 220));
+  border: 1px solid oklch(0.9 0.015 220 / 0.7);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
+  }
+}
+
+/* Back-compat aliases so pre-Ocean-Deep gradient utilities still resolve. */
+@utility bg-gradient-warm {
+  background-image: var(--gradient-teal);
+}
+@utility bg-gradient-flag {
+  background-image: var(--gradient-ocean);
 }
