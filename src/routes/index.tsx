@@ -18,6 +18,12 @@ import {
   Phone,
   Church,
   Landmark,
+  Plane,
+  GraduationCap,
+  Briefcase,
+  HeartPulse,
+  Car,
+  Baby,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -30,6 +36,8 @@ function Landing() {
       <SiteHeader />
       <Hero />
       <TrustBar />
+      <Journeys />
+      <LifeInGermany />
       <Pillars />
       <BereavementBand />
       <RolesGrid />
@@ -60,10 +68,10 @@ function Hero() {
             .
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Beistand is the one calm platform for settling in Germany, claiming
-            what you're entitled to, and standing with your family through the
-            hardest moments — from Anmeldung to Janazah, from Bürgergeld to
-            repatriation.
+            Whether you're planning your move to Germany — for work, study or
+            family — or already here and building a life, Beistand is the calm
+            platform for visas, Anmeldung, housing, benefits, health, driving,
+            births, marriages, deaths and everything in between.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
@@ -176,6 +184,114 @@ function TrustBar() {
     </div>
   );
 }
+
+function Journeys() {
+  const journeys = [
+    {
+      icon: Plane,
+      tag: "Before you arrive",
+      title: "Planning your move to Germany",
+      copy: "Student visas, job-seeker visas, EU Blue Card, Chancenkarte, family reunification, Ausbildung, freelance — we prepare the paperwork, book your embassy slot and line up housing, insurance and a bank account for day one.",
+      cta: { label: "Start pre-arrival plan", to: "/services" as const },
+    },
+    {
+      icon: MapPin,
+      tag: "Already in Germany",
+      title: "Staying, working, thriving",
+      copy: "Extend or change your visa, apply for Niederlassungserlaubnis or naturalisation, claim benefits, rent or buy a home, register a business, sort your Steuererklärung — one case manager for every stage.",
+      cta: { label: "Open your dashboard", to: "/app" as const },
+    },
+  ];
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <div className="max-w-2xl">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          Two journeys, one companion
+        </div>
+        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          Wherever you are on the road to Germany.
+        </h2>
+      </div>
+      <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        {journeys.map((j) => (
+          <div key={j.title} className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 shadow-soft">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-primary text-primary-foreground">
+                <j.icon className="h-5 w-5" />
+              </div>
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                {j.tag}
+              </div>
+            </div>
+            <h3 className="mt-5 font-display text-2xl font-semibold">{j.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{j.copy}</p>
+            <Button asChild variant="outline" className="mt-6">
+              <Link to={j.cta.to}>
+                {j.cta.label}
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function LifeInGermany() {
+  const areas = [
+    { icon: Briefcase, title: "Work & careers", copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union." },
+    { icon: GraduationCap, title: "Study & universities", copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules." },
+    { icon: Home, title: "Renting & buying", copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar." },
+    { icon: FileText, title: "Benefits & welfare", copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support." },
+    { icon: HeartPulse, title: "Health & insurance", copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions." },
+    { icon: Car, title: "Driving & mobility", copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system." },
+    { icon: Baby, title: "Births & family", copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care." },
+    { icon: Heart, title: "Marriage & partnership", copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies." },
+    { icon: Church, title: "Deaths & end-of-life", copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance." },
+  ];
+  return (
+    <section className="bg-parchment/40">
+      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="max-w-2xl">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            Every chapter of life in Germany
+          </div>
+          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+            From arrival to inheritance — we've got you.
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            One account, one case manager, one AI assistant that speaks your
+            language across every German authority, form and Fristen.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {areas.map((a) => (
+            <div key={a.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-elevated">
+              <div className="flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent/15 text-accent-foreground">
+                  <a.icon className="h-5 w-5" />
+                </div>
+                <div className="font-display text-lg font-semibold">{a.title}</div>
+              </div>
+              <p className="mt-3 text-sm text-muted-foreground">{a.copy}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10">
+          <Button asChild size="lg" className="bg-gradient-primary shadow-soft">
+            <Link to="/services">
+              See all services
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 
 function Pillars() {
   const pillars = [
