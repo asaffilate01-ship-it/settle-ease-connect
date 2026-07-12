@@ -64,13 +64,13 @@
   "language": {
     "label": "Ziman",
     "choose": "Zimanê xwe hilbijêre",
-    "chooseDescription": "Beistand bi 13 zimanan diaxive. Ya xwe hilbijêre — tu dikarî her dem ji quncikê rastê yê jorîn ê her rûpelekê biguherînî.",
+    "chooseDescription": "BeistandPlus bi 13 zimanan diaxive. Ya xwe hilbijêre — tu dikarî her dem ji quncikê rastê yê jorîn ê her rûpelekê biguherînî.",
     "continue": "Bidomîne",
     "current": "Zimanê niha"
   },
   "cookies": {
     "title": "Em cookies bikar tînin",
-    "body": "Beistand ji bo xebitandina malperê û hiştina we di nav têketinê de cookie-ên bingehîn bikar tîne. Bi destûra we, em cookie-ên analîtîk jî bikar tînin da ku fam bikin ka platform çawa tê bikar anîn da ku em wê baştir bikin. Hûn dikarin destûra xwe her dem biguherînin an vekişînin.",
+    "body": "BeistandPlus ji bo xebitandina malperê û hiştina we di nav têketinê de cookie-ên bingehîn bikar tîne. Bi destûra we, em cookie-ên analîtîk jî bikar tînin da ku fam bikin ka platform çawa tê bikar anîn da ku em wê baştir bikin. Hûn dikarin destûra xwe her dem biguherînin an vekişînin.",
     "acceptAll": "Hemî qebûl bike",
     "essentialOnly": "Tenê bingehîn",
     "preferences": "Tercîh",

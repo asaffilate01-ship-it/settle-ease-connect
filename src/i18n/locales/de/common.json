@@ -64,13 +64,13 @@
   "language": {
     "label": "Sprache",
     "choose": "Wählen Sie Ihre Sprache",
-    "chooseDescription": "Beistand spricht 11 Sprachen. Wählen Sie Ihre aus – Sie können sie jederzeit oben rechts auf jeder Seite ändern.",
+    "chooseDescription": "BeistandPlus spricht 11 Sprachen. Wählen Sie Ihre aus – Sie können sie jederzeit oben rechts auf jeder Seite ändern.",
     "continue": "Weiter",
     "current": "Aktuelle Sprache"
   },
   "cookies": {
     "title": "Wir verwenden Cookies",
-    "body": "Beistand verwendet essenzielle Cookies, um die Website zu betreiben und Sie angemeldet zu halten. Mit Ihrer Zustimmung verwenden wir auch Analyse-Cookies, um zu verstehen, wie die Plattform genutzt wird, damit wir sie verbessern können. Sie können Ihre Zustimmung jederzeit ändern oder widerrufen.",
+    "body": "BeistandPlus verwendet essenzielle Cookies, um die Website zu betreiben und Sie angemeldet zu halten. Mit Ihrer Zustimmung verwenden wir auch Analyse-Cookies, um zu verstehen, wie die Plattform genutzt wird, damit wir sie verbessern können. Sie können Ihre Zustimmung jederzeit ändern oder widerrufen.",
     "acceptAll": "Alle akzeptieren",
     "essentialOnly": "Nur essenzielle",
     "preferences": "Einstellungen",
