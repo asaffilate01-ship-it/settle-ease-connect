@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_log: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_user_id: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: number
+          ip: string | null
+          metadata: Json
+          subject_user_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_user_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: number
+          ip?: string | null
+          metadata?: Json
+          subject_user_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_user_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: number
+          ip?: string | null
+          metadata?: Json
+          subject_user_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       bug_reports: {
         Row: {
           assigned_to: string | null
@@ -58,6 +100,66 @@ export type Database = {
           user_agent?: string | null
         }
         Relationships: []
+      }
+      case_assignments: {
+        Row: {
+          assigned_at: string
+          assigned_by: string | null
+          assignee_expert_id: string | null
+          assignee_user_id: string | null
+          case_id: string
+          completed_at: string | null
+          id: string
+          notes: string | null
+          responded_at: string | null
+          role: string
+          scope: string | null
+          status: string
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by?: string | null
+          assignee_expert_id?: string | null
+          assignee_user_id?: string | null
+          case_id: string
+          completed_at?: string | null
+          id?: string
+          notes?: string | null
+          responded_at?: string | null
+          role: string
+          scope?: string | null
+          status?: string
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string | null
+          assignee_expert_id?: string | null
+          assignee_user_id?: string | null
+          case_id?: string
+          completed_at?: string | null
+          id?: string
+          notes?: string | null
+          responded_at?: string | null
+          role?: string
+          scope?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_assignments_assignee_expert_id_fkey"
+            columns: ["assignee_expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_assignments_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       case_documents: {
         Row: {
@@ -378,11 +480,16 @@ export type Database = {
           case_id: string
           created_at: string
           created_by: string | null
+          depends_on: string | null
           description: string | null
           done: boolean
           done_at: string | null
           due_at: string | null
+          estimated_hours: number | null
           id: string
+          progress_pct: number
+          start_at: string | null
+          status: string
           title: string
           updated_at: string
         }
@@ -394,11 +501,16 @@ export type Database = {
           case_id: string
           created_at?: string
           created_by?: string | null
+          depends_on?: string | null
           description?: string | null
           done?: boolean
           done_at?: string | null
           due_at?: string | null
+          estimated_hours?: number | null
           id?: string
+          progress_pct?: number
+          start_at?: string | null
+          status?: string
           title: string
           updated_at?: string
         }
@@ -410,11 +522,16 @@ export type Database = {
           case_id?: string
           created_at?: string
           created_by?: string | null
+          depends_on?: string | null
           description?: string | null
           done?: boolean
           done_at?: string | null
           due_at?: string | null
+          estimated_hours?: number | null
           id?: string
+          progress_pct?: number
+          start_at?: string | null
+          status?: string
           title?: string
           updated_at?: string
         }
@@ -424,6 +541,13 @@ export type Database = {
             columns: ["case_id"]
             isOneToOne: false
             referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_tasks_depends_on_fkey"
+            columns: ["depends_on"]
+            isOneToOne: false
+            referencedRelation: "case_tasks"
             referencedColumns: ["id"]
           },
         ]
@@ -492,6 +616,89 @@ export type Database = {
             columns: ["primary_expert_id"]
             isOneToOne: false
             referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      channel_members: {
+        Row: {
+          channel_id: string
+          joined_at: string
+          last_read_at: string | null
+          muted: boolean
+          role: string
+          user_id: string
+        }
+        Insert: {
+          channel_id: string
+          joined_at?: string
+          last_read_at?: string | null
+          muted?: boolean
+          role?: string
+          user_id: string
+        }
+        Update: {
+          channel_id?: string
+          joined_at?: string
+          last_read_at?: string | null
+          muted?: boolean
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "channel_members_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "message_channels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      channel_messages: {
+        Row: {
+          body: string | null
+          channel_id: string
+          created_at: string
+          deleted_at: string | null
+          edited_at: string | null
+          id: string
+          reply_to_id: string | null
+          sender_user_id: string
+        }
+        Insert: {
+          body?: string | null
+          channel_id: string
+          created_at?: string
+          deleted_at?: string | null
+          edited_at?: string | null
+          id?: string
+          reply_to_id?: string | null
+          sender_user_id: string
+        }
+        Update: {
+          body?: string | null
+          channel_id?: string
+          created_at?: string
+          deleted_at?: string | null
+          edited_at?: string | null
+          id?: string
+          reply_to_id?: string | null
+          sender_user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "channel_messages_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "message_channels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "channel_messages_reply_to_id_fkey"
+            columns: ["reply_to_id"]
+            isOneToOne: false
+            referencedRelation: "channel_messages"
             referencedColumns: ["id"]
           },
         ]
@@ -1222,6 +1429,255 @@ export type Database = {
           },
         ]
       }
+      location_points: {
+        Row: {
+          accuracy_m: number | null
+          captured_at: string
+          heading: number | null
+          id: number
+          lat: number
+          lng: number
+          share_id: string
+          speed_mps: number | null
+        }
+        Insert: {
+          accuracy_m?: number | null
+          captured_at?: string
+          heading?: number | null
+          id?: number
+          lat: number
+          lng: number
+          share_id: string
+          speed_mps?: number | null
+        }
+        Update: {
+          accuracy_m?: number | null
+          captured_at?: string
+          heading?: number | null
+          id?: number
+          lat?: number
+          lng?: number
+          share_id?: string
+          speed_mps?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "location_points_share_id_fkey"
+            columns: ["share_id"]
+            isOneToOne: false
+            referencedRelation: "location_shares"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      location_shares: {
+        Row: {
+          alert_id: string | null
+          case_id: string | null
+          expires_at: string
+          id: string
+          last_accuracy_m: number | null
+          last_lat: number | null
+          last_lng: number | null
+          last_point_at: string | null
+          message: string | null
+          mode: string
+          started_at: string
+          status: string
+          stopped_at: string | null
+          user_id: string
+        }
+        Insert: {
+          alert_id?: string | null
+          case_id?: string | null
+          expires_at: string
+          id?: string
+          last_accuracy_m?: number | null
+          last_lat?: number | null
+          last_lng?: number | null
+          last_point_at?: string | null
+          message?: string | null
+          mode: string
+          started_at?: string
+          status?: string
+          stopped_at?: string | null
+          user_id: string
+        }
+        Update: {
+          alert_id?: string | null
+          case_id?: string | null
+          expires_at?: string
+          id?: string
+          last_accuracy_m?: number | null
+          last_lat?: number | null
+          last_lng?: number | null
+          last_point_at?: string | null
+          message?: string | null
+          mode?: string
+          started_at?: string
+          status?: string
+          stopped_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      message_attachments: {
+        Row: {
+          created_at: string
+          file_name: string
+          file_path: string
+          id: string
+          message_id: string
+          mime_type: string | null
+          size_bytes: number | null
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          file_path: string
+          id?: string
+          message_id: string
+          mime_type?: string | null
+          size_bytes?: number | null
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          file_path?: string
+          id?: string
+          message_id?: string
+          mime_type?: string | null
+          size_bytes?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_attachments_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "channel_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      message_channels: {
+        Row: {
+          case_id: string | null
+          created_at: string
+          created_by: string
+          id: string
+          kind: string
+          last_message_at: string | null
+          name: string | null
+          updated_at: string
+        }
+        Insert: {
+          case_id?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          kind: string
+          last_message_at?: string | null
+          name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          case_id?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          kind?: string
+          last_message_at?: string | null
+          name?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_channels_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_preferences: {
+        Row: {
+          categories: Json
+          email_enabled: boolean
+          inapp_enabled: boolean
+          push_enabled: boolean
+          quiet_hours_end: number | null
+          quiet_hours_start: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          categories?: Json
+          email_enabled?: boolean
+          inapp_enabled?: boolean
+          push_enabled?: boolean
+          quiet_hours_end?: number | null
+          quiet_hours_start?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          categories?: Json
+          email_enabled?: boolean
+          inapp_enabled?: boolean
+          push_enabled?: boolean
+          quiet_hours_end?: number | null
+          quiet_hours_start?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          kind: string
+          link: string | null
+          metadata: Json
+          push_sent_at: string | null
+          read_at: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          kind: string
+          link?: string | null
+          metadata?: Json
+          push_sent_at?: string | null
+          read_at?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          kind?: string
+          link?: string | null
+          metadata?: Json
+          push_sent_at?: string | null
+          read_at?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       pensions: {
         Row: {
           beneficiary_name: string | null
@@ -1300,6 +1756,45 @@ export type Database = {
           id?: string
           preferred_language?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string | null
+          created_at: string
+          device_token: string | null
+          endpoint: string | null
+          id: string
+          last_seen_at: string
+          p256dh: string | null
+          platform: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          auth?: string | null
+          created_at?: string
+          device_token?: string | null
+          endpoint?: string | null
+          id?: string
+          last_seen_at?: string
+          p256dh?: string | null
+          platform: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          auth?: string | null
+          created_at?: string
+          device_token?: string | null
+          endpoint?: string | null
+          id?: string
+          last_seen_at?: string
+          p256dh?: string | null
+          platform?: string
+          user_agent?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -1917,6 +2412,10 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_channel_member: {
+        Args: { _channel_id: string; _user_id: string }
         Returns: boolean
       }
       is_internal: { Args: { _user_id: string }; Returns: boolean }

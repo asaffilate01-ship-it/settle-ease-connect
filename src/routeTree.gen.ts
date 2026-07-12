@@ -42,10 +42,14 @@ import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalImmigrationRouteImport } from './routes/_authenticated/portal.immigration'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
+import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
+import { Route as AuthenticatedAppNotificationsRouteImport } from './routes/_authenticated/app.notifications'
+import { Route as AuthenticatedAppMessagesRouteImport } from './routes/_authenticated/app.messages'
+import { Route as AuthenticatedAppLocationRouteImport } from './routes/_authenticated/app.location'
 import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
 import { Route as AuthenticatedAppImmigrationRouteImport } from './routes/_authenticated/app.immigration'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
@@ -57,8 +61,10 @@ import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
+import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
 import { Route as AuthenticatedPortalAdminInviteRouteImport } from './routes/_authenticated/portal.admin.invite'
+import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/_authenticated/app.messages.$channelId'
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
@@ -235,6 +241,12 @@ const AuthenticatedPortalExpertsRoute =
     path: '/experts',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalAuditRoute =
+  AuthenticatedPortalAuditRouteImport.update({
+    id: '/audit',
+    path: '/audit',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedAppUpgradeRoute = AuthenticatedAppUpgradeRouteImport.update({
   id: '/upgrade',
   path: '/upgrade',
@@ -257,6 +269,24 @@ const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppNotificationsRoute =
+  AuthenticatedAppNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppMessagesRoute =
+  AuthenticatedAppMessagesRouteImport.update({
+    id: '/messages',
+    path: '/messages',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppLocationRoute =
+  AuthenticatedAppLocationRouteImport.update({
+    id: '/location',
+    path: '/location',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppInsuranceRoute =
   AuthenticatedAppInsuranceRouteImport.update({
     id: '/insurance',
@@ -320,6 +350,12 @@ const AuthenticatedPortalKnowledgeSlugRoute =
     path: '/$slug',
     getParentRoute: () => AuthenticatedPortalKnowledgeRoute,
   } as any)
+const AuthenticatedPortalGanttCaseIdRoute =
+  AuthenticatedPortalGanttCaseIdRouteImport.update({
+    id: '/gantt/$caseId',
+    path: '/gantt/$caseId',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalAdminUsersRoute =
   AuthenticatedPortalAdminUsersRouteImport.update({
     id: '/admin/users',
@@ -331,6 +367,12 @@ const AuthenticatedPortalAdminInviteRoute =
     id: '/admin/invite',
     path: '/admin/invite',
     getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedAppMessagesChannelIdRoute =
+  AuthenticatedAppMessagesChannelIdRouteImport.update({
+    id: '/$channelId',
+    path: '/$channelId',
+    getParentRoute: () => AuthenticatedAppMessagesRoute,
   } as any)
 const AuthenticatedAppCasesNewRoute =
   AuthenticatedAppCasesNewRouteImport.update({
@@ -379,10 +421,14 @@ export interface FileRoutesByFullPath {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/app/location': typeof AuthenticatedAppLocationRoute
+  '/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
+  '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -394,8 +440,10 @@ export interface FileRoutesByFullPath {
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesByTo {
@@ -430,10 +478,14 @@ export interface FileRoutesByTo {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/app/location': typeof AuthenticatedAppLocationRoute
+  '/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
+  '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -445,8 +497,10 @@ export interface FileRoutesByTo {
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesById {
@@ -485,10 +539,14 @@ export interface FileRoutesById {
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/_authenticated/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/_authenticated/app/location': typeof AuthenticatedAppLocationRoute
+  '/_authenticated/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
+  '/_authenticated/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/_authenticated/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -500,8 +558,10 @@ export interface FileRoutesById {
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/_authenticated/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/_authenticated/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/_authenticated/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRouteTypes {
@@ -540,10 +600,14 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/immigration'
     | '/app/insurance'
+    | '/app/location'
+    | '/app/messages'
+    | '/app/notifications'
     | '/app/profile'
     | '/app/providers'
     | '/app/settings'
     | '/app/upgrade'
+    | '/portal/audit'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/immigration'
@@ -555,8 +619,10 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/app/messages/$channelId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
+    | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -591,10 +657,14 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/immigration'
     | '/app/insurance'
+    | '/app/location'
+    | '/app/messages'
+    | '/app/notifications'
     | '/app/profile'
     | '/app/providers'
     | '/app/settings'
     | '/app/upgrade'
+    | '/portal/audit'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/immigration'
@@ -606,8 +676,10 @@ export interface FileRouteTypes {
     | '/portal'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/app/messages/$channelId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
+    | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
   id:
     | '__root__'
@@ -645,10 +717,14 @@ export interface FileRouteTypes {
     | '/_authenticated/app/documents'
     | '/_authenticated/app/immigration'
     | '/_authenticated/app/insurance'
+    | '/_authenticated/app/location'
+    | '/_authenticated/app/messages'
+    | '/_authenticated/app/notifications'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
     | '/_authenticated/app/upgrade'
+    | '/_authenticated/portal/audit'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
     | '/_authenticated/portal/immigration'
@@ -660,8 +736,10 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
+    | '/_authenticated/app/messages/$channelId'
     | '/_authenticated/portal/admin/invite'
     | '/_authenticated/portal/admin/users'
+    | '/_authenticated/portal/gantt/$caseId'
     | '/_authenticated/portal/knowledge/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -916,6 +994,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/audit': {
+      id: '/_authenticated/portal/audit'
+      path: '/audit'
+      fullPath: '/portal/audit'
+      preLoaderRoute: typeof AuthenticatedPortalAuditRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/app/upgrade': {
       id: '/_authenticated/app/upgrade'
       path: '/upgrade'
@@ -942,6 +1027,27 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/app/profile'
       preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/notifications': {
+      id: '/_authenticated/app/notifications'
+      path: '/notifications'
+      fullPath: '/app/notifications'
+      preLoaderRoute: typeof AuthenticatedAppNotificationsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/messages': {
+      id: '/_authenticated/app/messages'
+      path: '/messages'
+      fullPath: '/app/messages'
+      preLoaderRoute: typeof AuthenticatedAppMessagesRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/location': {
+      id: '/_authenticated/app/location'
+      path: '/location'
+      fullPath: '/app/location'
+      preLoaderRoute: typeof AuthenticatedAppLocationRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/insurance': {
@@ -1021,6 +1127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalKnowledgeSlugRouteImport
       parentRoute: typeof AuthenticatedPortalKnowledgeRoute
     }
+    '/_authenticated/portal/gantt/$caseId': {
+      id: '/_authenticated/portal/gantt/$caseId'
+      path: '/gantt/$caseId'
+      fullPath: '/portal/gantt/$caseId'
+      preLoaderRoute: typeof AuthenticatedPortalGanttCaseIdRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/admin/users': {
       id: '/_authenticated/portal/admin/users'
       path: '/admin/users'
@@ -1034,6 +1147,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/admin/invite'
       preLoaderRoute: typeof AuthenticatedPortalAdminInviteRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/app/messages/$channelId': {
+      id: '/_authenticated/app/messages/$channelId'
+      path: '/$channelId'
+      fullPath: '/app/messages/$channelId'
+      preLoaderRoute: typeof AuthenticatedAppMessagesChannelIdRouteImport
+      parentRoute: typeof AuthenticatedAppMessagesRoute
     }
     '/_authenticated/app/cases/new': {
       id: '/_authenticated/app/cases/new'
@@ -1067,6 +1187,21 @@ const AuthenticatedAppCasesRouteWithChildren =
     AuthenticatedAppCasesRouteChildren,
   )
 
+interface AuthenticatedAppMessagesRouteChildren {
+  AuthenticatedAppMessagesChannelIdRoute: typeof AuthenticatedAppMessagesChannelIdRoute
+}
+
+const AuthenticatedAppMessagesRouteChildren: AuthenticatedAppMessagesRouteChildren =
+  {
+    AuthenticatedAppMessagesChannelIdRoute:
+      AuthenticatedAppMessagesChannelIdRoute,
+  }
+
+const AuthenticatedAppMessagesRouteWithChildren =
+  AuthenticatedAppMessagesRoute._addFileChildren(
+    AuthenticatedAppMessagesRouteChildren,
+  )
+
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
@@ -1078,6 +1213,9 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
   AuthenticatedAppImmigrationRoute: typeof AuthenticatedAppImmigrationRoute
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
+  AuthenticatedAppLocationRoute: typeof AuthenticatedAppLocationRoute
+  AuthenticatedAppMessagesRoute: typeof AuthenticatedAppMessagesRouteWithChildren
+  AuthenticatedAppNotificationsRoute: typeof AuthenticatedAppNotificationsRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
@@ -1096,6 +1234,9 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
   AuthenticatedAppImmigrationRoute: AuthenticatedAppImmigrationRoute,
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
+  AuthenticatedAppLocationRoute: AuthenticatedAppLocationRoute,
+  AuthenticatedAppMessagesRoute: AuthenticatedAppMessagesRouteWithChildren,
+  AuthenticatedAppNotificationsRoute: AuthenticatedAppNotificationsRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
@@ -1122,6 +1263,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
   )
 
 interface AuthenticatedPortalRouteChildren {
+  AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
   AuthenticatedPortalImmigrationRoute: typeof AuthenticatedPortalImmigrationRoute
@@ -1132,9 +1274,11 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
   AuthenticatedPortalAdminInviteRoute: typeof AuthenticatedPortalAdminInviteRoute
   AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
+  AuthenticatedPortalGanttCaseIdRoute: typeof AuthenticatedPortalGanttCaseIdRoute
 }
 
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
+  AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
   AuthenticatedPortalImmigrationRoute: AuthenticatedPortalImmigrationRoute,
@@ -1146,6 +1290,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
   AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
   AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,
+  AuthenticatedPortalGanttCaseIdRoute: AuthenticatedPortalGanttCaseIdRoute,
 }
 
 const AuthenticatedPortalRouteWithChildren =
