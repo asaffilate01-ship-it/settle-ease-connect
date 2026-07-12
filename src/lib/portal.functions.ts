@@ -76,7 +76,7 @@ export const updateLeadStatus = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertInternal(context);
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: { status: string; notes?: string | null } = { status: data.status };
     if (data.notes !== undefined) patch.notes = data.notes;
     const { error } = await context.supabase
       .from("insurance_leads").update(patch).eq("id", data.id);
