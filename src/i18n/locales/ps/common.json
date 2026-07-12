@@ -126,5 +126,9 @@
       "resolved": "حل شوی",
       "closed": "تړل شوی"
     }
+  },
+  "hero": {
+    "headlinePrefix": "د هرې لارې لپاره",
+    "headlineHighlight": "جرمني"
   }
 }

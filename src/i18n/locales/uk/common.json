@@ -126,5 +126,9 @@
       "resolved": "Вирішено",
       "closed": "Закрито"
     }
+  },
+  "hero": {
+    "headlinePrefix": "На кожному шляху в",
+    "headlineHighlight": "Німеччині"
   }
 }

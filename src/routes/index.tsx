@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Icon3D } from "@/components/icon3d";
 import heroFamily from "@/assets/brand/hero-family.jpg";
@@ -98,6 +99,7 @@ function Landing() {
 }
 
 function Hero() {
+  const { t } = useTranslation();
   return (
     <section className="relative overflow-hidden bg-gradient-hero">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8 lg:py-28">
@@ -107,9 +109,9 @@ function Hero() {
             Now onboarding partners in Berlin & NRW
           </div>
           <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Für jeden Weg in{" "}
+            {t("hero.headlinePrefix", "Für jeden Weg in")}{" "}
             <span className="relative inline-block">
-              <span className="relative z-10">Deutschland</span>
+              <span className="relative z-10">{t("hero.headlineHighlight", "Deutschland")}</span>
               <span className="absolute inset-x-0 bottom-2 -z-0 h-3 rounded-sm bg-accent/50" />
             </span>
             .
