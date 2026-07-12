@@ -849,9 +849,13 @@ export type Database = {
           code: string
           created_at: string
           features: Json
+          household_kind: string
           id: string
+          max_adults: number
+          max_children: number
           monthly_price_eur: number
           name: string
+          plan_group: string | null
           sort_order: number
           stripe_price_id: string | null
           tagline: string | null
@@ -862,9 +866,13 @@ export type Database = {
           code: string
           created_at?: string
           features?: Json
+          household_kind?: string
           id?: string
+          max_adults?: number
+          max_children?: number
           monthly_price_eur: number
           name: string
+          plan_group?: string | null
           sort_order?: number
           stripe_price_id?: string | null
           tagline?: string | null
@@ -875,9 +883,13 @@ export type Database = {
           code?: string
           created_at?: string
           features?: Json
+          household_kind?: string
           id?: string
+          max_adults?: number
+          max_children?: number
           monthly_price_eur?: number
           name?: string
+          plan_group?: string | null
           sort_order?: number
           stripe_price_id?: string | null
           tagline?: string | null
