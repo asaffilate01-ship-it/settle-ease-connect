@@ -6,21 +6,21 @@
     "howItWorks": "Jak to działa",
     "services": "Usługi",
     "directory": "Katalog",
-    "bereavement": "Wsparcie po stracie",
+    "bereavement": "Śmierć i żałoba",
     "forProviders": "Dla usługodawców",
     "pricing": "Cennik",
     "signIn": "Zaloguj się",
-    "openDashboard": "Otwórz pulpit nawigacyjny",
+    "openDashboard": "Otwórz pulpit",
     "menu": "Menu"
   },
   "footer": {
-    "tagline": "Na każdej drodze w Deutschland. Osiedlanie się, opieka społeczna, świadczenia i opieka paliatywna — jedna spokojna platforma dla rodzin i wspierających je organizacji.",
+    "tagline": "Na każdej drodze w Deutschland. Wsparcie w osiedleniu, pomoc społeczna, świadczenia i opieka paliatywna — jedna spokojna platforma dla rodzin i organizacji, które je wspierają.",
     "colPlatform": "Platforma",
     "colForProviders": "Dla usługodawców",
     "colCompany": "Firma",
     "howItWorks": "Jak to działa",
     "services": "Usługi",
-    "bereavement": "Wsparcie po stracie",
+    "bereavement": "Śmierć i żałoba",
     "pricing": "Cennik",
     "funeralDirectors": "Zakłady pogrzebowe",
     "mosques": "Meczety i imamowie",
@@ -30,10 +30,10 @@
     "impressum": "Impressum",
     "privacy": "Ochrona danych",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "Stworzone z troską"
+    "madeWithCare": "Stworzono z troską"
   },
   "sidebar": {
-    "dashboard": "Pulpit nawigacyjny",
+    "dashboard": "Pulpit",
     "overview": "Przegląd",
     "cases": "Sprawy",
     "checklists": "Listy kontrolne",
@@ -51,7 +51,7 @@
   "language": {
     "label": "Język",
     "choose": "Wybierz swój język",
-    "chooseDescription": "Beistand mówi w 13 językach. Wybierz swój — możesz go zmienić w każdej chwili z prawego górnego rogu dowolnej strony.",
+    "chooseDescription": "Beistand mówi w 13 językach. Wybierz swój — możesz go zmienić w dowolnym momencie w prawym górnym rogu każdej strony.",
     "continue": "Kontynuuj",
     "current": "Obecny język"
   }

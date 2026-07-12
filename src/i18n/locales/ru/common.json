@@ -1,12 +1,12 @@
 {
   "brand": {
-    "location": "Deutschland"
+    "location": "Германия"
   },
   "nav": {
     "howItWorks": "Как это работает",
     "services": "Услуги",
     "directory": "Каталог",
-    "bereavement": "Потеря близких",
+    "bereavement": "Утрата",
     "forProviders": "Для поставщиков услуг",
     "pricing": "Цены",
     "signIn": "Войти",
@@ -14,44 +14,44 @@
     "menu": "Меню"
   },
   "footer": {
-    "tagline": "Для любого жизненного пути в Deutschland. Адаптация, социальная помощь, пособия и поддержка в конце жизни — одна спокойная платформа для семей и организаций, поддерживающих их.",
+    "tagline": "Для каждого пути в Deutschland. Обустройство, социальная поддержка, пособия и забота о близких в конце жизни — единая спокойная платформа для семей и организаций, которые их поддерживают (Beistand).",
     "colPlatform": "Платформа",
     "colForProviders": "Для поставщиков услуг",
     "colCompany": "Компания",
     "howItWorks": "Как это работает",
     "services": "Услуги",
-    "bereavement": "Потеря близких",
+    "bereavement": "Утрата",
     "pricing": "Цены",
     "funeralDirectors": "Похоронные бюро",
     "mosques": "Мечети и имамы",
     "churches": "Церкви",
-    "temples": "Храмы и Гурдвары",
-    "contact": "Контакты",
+    "temples": "Храмы и гурдвары",
+    "contact": "Контакт",
     "impressum": "Выходные данные",
     "privacy": "Защита данных",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "Сделано с заботой"
+    "madeWithCare": "Создано с заботой"
   },
   "sidebar": {
     "dashboard": "Панель управления",
     "overview": "Обзор",
-    "cases": "Дела",
+    "cases": "Случаи",
     "checklists": "Контрольные списки",
     "benefits": "Пособия",
     "documents": "Документы",
     "providers": "Поставщики услуг",
-    "assistant": "Искусственный интеллект-помощник",
+    "assistant": "ИИ-помощник",
     "community": "Сообщество",
     "knowledge": "База знаний",
     "experts": "Список экспертов",
     "settings": "Настройки",
-    "internal": "Внутреннее",
-    "caseManagerRole": "Менеджер по делам · Berlin"
+    "internal": "Внутренний",
+    "caseManagerRole": "Менеджер по работе со случаями · Berlin"
   },
   "language": {
     "label": "Язык",
     "choose": "Выберите свой язык",
-    "chooseDescription": "Beistand говорит на 13 языках. Выберите свой язык — вы можете изменить его в любое время в правом верхнем углу любой страницы.",
+    "chooseDescription": "Beistand доступен на 13 языках. Выберите свой — вы можете изменить его в любое время в верхнем правом углу любой страницы.",
     "continue": "Продолжить",
     "current": "Текущий язык"
   }

@@ -9,6 +9,7 @@
     "bereavement": "Bereavement",
     "forProviders": "For providers",
     "pricing": "Pricing",
+    "blog": "Blog",
     "signIn": "Sign in",
     "openDashboard": "Open dashboard",
     "menu": "Menu"
@@ -18,19 +19,25 @@
     "colPlatform": "Platform",
     "colForProviders": "For providers",
     "colCompany": "Company",
+    "colLegal": "Legal",
     "howItWorks": "How it works",
     "services": "Services",
     "bereavement": "Bereavement",
     "pricing": "Pricing",
+    "blog": "Blog",
     "funeralDirectors": "Funeral directors",
     "mosques": "Mosques & imams",
     "churches": "Churches",
     "temples": "Temples & Gurdwaras",
     "contact": "Contact",
-    "impressum": "Imprint",
-    "privacy": "Data protection",
+    "impressum": "Imprint (Impressum)",
+    "terms": "Terms of service",
+    "privacy": "Privacy & GDPR",
+    "cookies": "Cookies",
+    "complaints": "Complaints",
     "copyright": "© {{year}} Beistand GmbH · Berlin",
-    "madeWithCare": "Built with care"
+    "madeWithCare": "Built with care",
+    "followUs": "Follow us"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -54,5 +61,31 @@
     "chooseDescription": "Beistand speaks 13 languages. Pick yours — you can change it any time from the top right of any page.",
     "continue": "Continue",
     "current": "Current language"
+  },
+  "cookies": {
+    "title": "We use cookies",
+    "body": "Beistand uses essential cookies to run the site and keep you signed in. With your consent we also use analytics cookies to understand how the platform is used so we can improve it. You can change or withdraw your consent at any time.",
+    "acceptAll": "Accept all",
+    "essentialOnly": "Essential only",
+    "preferences": "Preferences",
+    "learnMore": "Read our cookie policy"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guides, updates and stories from families settling in Germany.",
+    "readMore": "Read article",
+    "minRead": "{{count}} min read",
+    "back": "Back to blog",
+    "share": "Share",
+    "shareOn": "Share on {{network}}",
+    "copyLink": "Copy link",
+    "copied": "Link copied",
+    "publishedOn": "Published {{date}}",
+    "author": "By {{name}}"
+  },
+  "legal": {
+    "sectionLabel": "Legal",
+    "lastUpdated": "Last updated {{date}}",
+    "onlyDeEn": "This document is only available in English and German — legal texts must be reviewed by a qualified solicitor before we publish translations."
   }
 }

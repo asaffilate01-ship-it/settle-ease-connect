@@ -6,7 +6,7 @@
     "howItWorks": "So funktioniert's",
     "services": "Leistungen",
     "directory": "Verzeichnis",
-    "bereavement": "Todesfall",
+    "bereavement": "Trauerfall",
     "forProviders": "Für Anbieter",
     "pricing": "Preise",
     "signIn": "Anmelden",
@@ -20,7 +20,7 @@
     "colCompany": "Unternehmen",
     "howItWorks": "So funktioniert's",
     "services": "Leistungen",
-    "bereavement": "Todesfall",
+    "bereavement": "Trauerfall",
     "pricing": "Preise",
     "funeralDirectors": "Bestattungsunternehmen",
     "mosques": "Moscheen & Imame",
@@ -41,9 +41,9 @@
     "documents": "Dokumente",
     "providers": "Anbieter",
     "assistant": "KI-Assistent",
-    "community": "Community",
+    "community": "Gemeinschaft",
     "knowledge": "Wissensdatenbank",
-    "experts": "Expertenverzeichnis",
+    "experts": "Expertenliste",
     "settings": "Einstellungen",
     "internal": "Intern",
     "caseManagerRole": "Fallmanager · Berlin"
@@ -51,7 +51,7 @@
   "language": {
     "label": "Sprache",
     "choose": "Wählen Sie Ihre Sprache",
-    "chooseDescription": "Beistand spricht 13 Sprachen. Wählen Sie Ihre – Sie können sie jederzeit oben rechts auf jeder Seite ändern.",
+    "chooseDescription": "Beistand spricht 13 Sprachen. Wählen Sie Ihre aus – Sie können sie jederzeit oben rechts auf jeder Seite ändern.",
     "continue": "Weiter",
     "current": "Aktuelle Sprache"
   }
