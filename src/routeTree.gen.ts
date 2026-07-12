@@ -16,6 +16,8 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BereavementRouteImport } from './routes/bereavement'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
@@ -66,15 +68,24 @@ const BereavementRoute = BereavementRouteImport.update({
   path: '/bereavement',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
-  id: '/_authenticated/app',
+  id: '/app',
   path: '/app',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
@@ -83,9 +94,9 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
 } as any)
 const AuthenticatedPortalFuneralRoute =
   AuthenticatedPortalFuneralRouteImport.update({
-    id: '/_authenticated/portal/funeral',
+    id: '/portal/funeral',
     path: '/portal/funeral',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
@@ -149,6 +160,7 @@ const AuthenticatedAppCasesCaseIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
   '/for-providers': typeof ForProvidersRoute
@@ -172,6 +184,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
   '/for-providers': typeof ForProvidersRoute
@@ -195,6 +208,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
   '/for-providers': typeof ForProvidersRoute
@@ -220,6 +235,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/bereavement'
     | '/contact'
     | '/for-providers'
@@ -243,6 +259,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/bereavement'
     | '/contact'
     | '/for-providers'
@@ -265,6 +282,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/bereavement'
     | '/contact'
     | '/for-providers'
@@ -289,6 +308,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   BereavementRoute: typeof BereavementRoute
   ContactRoute: typeof ContactRoute
   ForProvidersRoute: typeof ForProvidersRoute
@@ -296,8 +317,6 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
-  AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -351,6 +370,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BereavementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -363,7 +396,7 @@ declare module '@tanstack/react-router' {
       path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AuthenticatedAppRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app/': {
       id: '/_authenticated/app/'
@@ -377,7 +410,7 @@ declare module '@tanstack/react-router' {
       path: '/portal/funeral'
       fullPath: '/portal/funeral'
       preLoaderRoute: typeof AuthenticatedPortalFuneralRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app/settings': {
       id: '/_authenticated/app/settings'
@@ -494,8 +527,23 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
 const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+  AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+  AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   BereavementRoute: BereavementRoute,
   ContactRoute: ContactRoute,
   ForProvidersRoute: ForProvidersRoute,
@@ -503,8 +551,6 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
-  AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
