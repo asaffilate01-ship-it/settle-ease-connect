@@ -193,10 +193,9 @@ function ForProviders() {
         </h1>
         <p className="mt-5 text-lg text-muted-foreground">
           BeistandPlus is quietly building Germany's first cross-faith welfare and
-          bereavement network. Joining is <strong>free for providers</strong> —
-          no subscription, no listing fee. In return, you commit wholesale
-          rates on the services you already offer, and we pass them through to
-          families at fair, transparent prices.
+          bereavement network. We bring you pre-qualified families, handle the
+          paperwork and translations, and let you focus on the work you do best —
+          at wholesale rates we pass through transparently.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
@@ -216,15 +215,26 @@ function ForProviders() {
                 <p.icon className="h-5 w-5" />
               </div>
               <div className="mt-5 font-display text-xl font-semibold">{p.title}</div>
-              <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.desc}</p>
-              <div className="mt-5 flex items-center justify-between">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground">Access</span>
-                <span className="font-display text-sm font-semibold text-success">Free to join</span>
+              <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
+              <ul className="mt-4 flex-1 space-y-2 text-sm">
+                {p.features.map((f) => (
+                  <li key={f} className="flex gap-2">
+                    <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    <span className="text-foreground/85">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 border-t border-border/60 pt-4">
+                <div className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Serves
+                </div>
+                <div className="mt-1 text-sm text-foreground/90">{p.serves}</div>
               </div>
             </div>
           ))}
         </div>
       </section>
+
 
       <SiteFooter />
     </div>
