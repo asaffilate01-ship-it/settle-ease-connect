@@ -35,7 +35,7 @@ export function PortalHeader({
                 <span key={i} className="flex items-center gap-1">
                   <ChevronRight className="h-3 w-3 opacity-50" />
                   {c.to ? (
-                    <Link to={c.to} className="hover:text-foreground">
+                    <Link to={c.to as any} className="hover:text-foreground">
                       {c.label}
                     </Link>
                   ) : (

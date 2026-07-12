@@ -22,7 +22,7 @@ function relTime(iso: string) {
 export function ActivityItem({ entry }: { entry: ActivityEntry }) {
   return (
     <Link
-      to={entry.href}
+      to={entry.href as any}
       className="flex items-center gap-3 border-b border-border/40 px-4 py-2.5 text-sm last:border-0 hover:bg-muted/40"
     >
       <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-muted text-[10px] font-semibold uppercase text-muted-foreground">

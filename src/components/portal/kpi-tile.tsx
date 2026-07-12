@@ -36,7 +36,7 @@ export function KpiTile({
       : "text-muted-foreground";
 
   const Wrapper: any = to ? Link : "div";
-  const wrapperProps = to ? { to } : {};
+  const wrapperProps: any = to ? { to } : {};
 
   return (
     <Wrapper

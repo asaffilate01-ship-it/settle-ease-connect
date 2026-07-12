@@ -53,7 +53,7 @@ export function QueueRow({ item }: { item: QueueItem }) {
 
   return (
     <Link
-      to={item.actionHref}
+      to={item.actionHref as any}
       className="group flex items-center gap-3 border-b border-border/40 px-4 py-3 text-sm transition last:border-0 hover:bg-muted/40"
     >
       <div className="relative shrink-0">
