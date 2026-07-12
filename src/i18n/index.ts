@@ -15,6 +15,15 @@ import kuCommon from "./locales/ku/common.json";
 import ruCommon from "./locales/ru/common.json";
 import ukCommon from "./locales/uk/common.json";
 import psCommon from "./locales/ps/common.json";
+import sqCommon from "./locales/sq/common.json";
+import soCommon from "./locales/so/common.json";
+import tiCommon from "./locales/ti/common.json";
+import ptBRCommon from "./locales/pt-BR/common.json";
+import bsCommon from "./locales/bs/common.json";
+import hrCommon from "./locales/hr/common.json";
+import srCommon from "./locales/sr/common.json";
+import viCommon from "./locales/vi/common.json";
+import frCommon from "./locales/fr/common.json";
 
 const resources = {
   en: { common: enCommon },
@@ -28,6 +37,15 @@ const resources = {
   ku: { common: kuCommon },
   ru: { common: ruCommon },
   uk: { common: ukCommon },
+  sq: { common: sqCommon },
+  so: { common: soCommon },
+  ti: { common: tiCommon },
+  "pt-BR": { common: ptBRCommon },
+  bs: { common: bsCommon },
+  hr: { common: hrCommon },
+  sr: { common: srCommon },
+  vi: { common: viCommon },
+  fr: { common: frCommon },
 } as const;
 
 if (!i18n.isInitialized) {
