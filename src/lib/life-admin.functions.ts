@@ -47,9 +47,9 @@ export const upsertLifeAdmin = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const isInternal = await assertInternal(context);
     const owner = data.clientUserId && isInternal ? data.clientUserId : context.userId;
-    const payload = { ...data.values, client_user_id: owner };
+    const payload: any = { ...data.values, client_user_id: owner };
     if (data.id) {
-      const { error } = await context.supabase.from(data.table).update(payload).eq("id", data.id);
+      const { error } = await context.supabase.from(data.table).update(payload as any).eq("id", data.id);
       if (error) throw new Error(error.message);
       return { ok: true, id: data.id };
     }
