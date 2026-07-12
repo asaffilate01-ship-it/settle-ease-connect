@@ -45,6 +45,7 @@ import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authen
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
+import { Route as AuthenticatedAppStudentDiscountRouteImport } from './routes/_authenticated/app.student-discount'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
@@ -258,6 +259,12 @@ const AuthenticatedAppUpgradeRoute = AuthenticatedAppUpgradeRouteImport.update({
   path: '/upgrade',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppStudentDiscountRoute =
+  AuthenticatedAppStudentDiscountRouteImport.update({
+    id: '/student-discount',
+    path: '/student-discount',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
     id: '/settings',
@@ -434,6 +441,7 @@ export interface FileRoutesByFullPath {
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -492,6 +500,7 @@ export interface FileRoutesByTo {
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -554,6 +563,7 @@ export interface FileRoutesById {
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -616,6 +626,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/providers'
     | '/app/settings'
+    | '/app/student-discount'
     | '/app/upgrade'
     | '/portal/audit'
     | '/portal/experts'
@@ -674,6 +685,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/providers'
     | '/app/settings'
+    | '/app/student-discount'
     | '/app/upgrade'
     | '/portal/audit'
     | '/portal/experts'
@@ -735,6 +747,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
+    | '/_authenticated/app/student-discount'
     | '/_authenticated/app/upgrade'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/experts'
@@ -1028,6 +1041,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppUpgradeRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/student-discount': {
+      id: '/_authenticated/app/student-discount'
+      path: '/student-discount'
+      fullPath: '/app/student-discount'
+      preLoaderRoute: typeof AuthenticatedAppStudentDiscountRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/settings': {
       id: '/_authenticated/app/settings'
       path: '/settings'
@@ -1239,6 +1259,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
+  AuthenticatedAppStudentDiscountRoute: typeof AuthenticatedAppStudentDiscountRoute
   AuthenticatedAppUpgradeRoute: typeof AuthenticatedAppUpgradeRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
@@ -1260,6 +1281,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
+  AuthenticatedAppStudentDiscountRoute: AuthenticatedAppStudentDiscountRoute,
   AuthenticatedAppUpgradeRoute: AuthenticatedAppUpgradeRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
