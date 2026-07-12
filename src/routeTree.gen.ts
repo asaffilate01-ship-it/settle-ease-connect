@@ -16,20 +16,20 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BereavementRouteImport } from './routes/bereavement'
-import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app.index'
-import { Route as PortalFuneralRouteImport } from './routes/portal.funeral'
-import { Route as AppSettingsRouteImport } from './routes/app.settings'
-import { Route as AppProvidersRouteImport } from './routes/app.providers'
-import { Route as AppDocumentsRouteImport } from './routes/app.documents'
-import { Route as AppCommunityRouteImport } from './routes/app.community'
-import { Route as AppChecklistsRouteImport } from './routes/app.checklists'
-import { Route as AppCasesRouteImport } from './routes/app.cases'
-import { Route as AppBenefitsRouteImport } from './routes/app.benefits'
-import { Route as AppAssistantRouteImport } from './routes/app.assistant'
-import { Route as AppCasesNewRouteImport } from './routes/app.cases.new'
-import { Route as AppCasesCaseIdRouteImport } from './routes/app.cases.$caseId'
+import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
+import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
+import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
+import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
+import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app.community'
+import { Route as AuthenticatedAppChecklistsRouteImport } from './routes/_authenticated/app.checklists'
+import { Route as AuthenticatedAppCasesRouteImport } from './routes/_authenticated/app.cases'
+import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
+import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
+import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
+import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -66,80 +66,89 @@ const BereavementRoute = BereavementRouteImport.update({
   path: '/bereavement',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
-} as any)
-const PortalFuneralRoute = PortalFuneralRouteImport.update({
-  id: '/portal/funeral',
-  path: '/portal/funeral',
+const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
+  id: '/_authenticated/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AppRoute,
+const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAppRoute,
 } as any)
-const AppProvidersRoute = AppProvidersRouteImport.update({
-  id: '/providers',
-  path: '/providers',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDocumentsRoute = AppDocumentsRouteImport.update({
-  id: '/documents',
-  path: '/documents',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCommunityRoute = AppCommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppChecklistsRoute = AppChecklistsRouteImport.update({
-  id: '/checklists',
-  path: '/checklists',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCasesRoute = AppCasesRouteImport.update({
+const AuthenticatedPortalFuneralRoute =
+  AuthenticatedPortalFuneralRouteImport.update({
+    id: '/_authenticated/portal/funeral',
+    path: '/portal/funeral',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAppSettingsRoute =
+  AuthenticatedAppSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppProvidersRoute =
+  AuthenticatedAppProvidersRouteImport.update({
+    id: '/providers',
+    path: '/providers',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppDocumentsRoute =
+  AuthenticatedAppDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppCommunityRoute =
+  AuthenticatedAppCommunityRouteImport.update({
+    id: '/community',
+    path: '/community',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppChecklistsRoute =
+  AuthenticatedAppChecklistsRouteImport.update({
+    id: '/checklists',
+    path: '/checklists',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppCasesRoute = AuthenticatedAppCasesRouteImport.update({
   id: '/cases',
   path: '/cases',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AuthenticatedAppRoute,
 } as any)
-const AppBenefitsRoute = AppBenefitsRouteImport.update({
-  id: '/benefits',
-  path: '/benefits',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAssistantRoute = AppAssistantRouteImport.update({
-  id: '/assistant',
-  path: '/assistant',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCasesNewRoute = AppCasesNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => AppCasesRoute,
-} as any)
-const AppCasesCaseIdRoute = AppCasesCaseIdRouteImport.update({
-  id: '/$caseId',
-  path: '/$caseId',
-  getParentRoute: () => AppCasesRoute,
-} as any)
+const AuthenticatedAppBenefitsRoute =
+  AuthenticatedAppBenefitsRouteImport.update({
+    id: '/benefits',
+    path: '/benefits',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppAssistantRoute =
+  AuthenticatedAppAssistantRouteImport.update({
+    id: '/assistant',
+    path: '/assistant',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppCasesNewRoute =
+  AuthenticatedAppCasesNewRouteImport.update({
+    id: '/new',
+    path: '/new',
+    getParentRoute: () => AuthenticatedAppCasesRoute,
+  } as any)
+const AuthenticatedAppCasesCaseIdRoute =
+  AuthenticatedAppCasesCaseIdRouteImport.update({
+    id: '/$caseId',
+    path: '/$caseId',
+    getParentRoute: () => AuthenticatedAppCasesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
   '/for-providers': typeof ForProvidersRoute
@@ -147,18 +156,19 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app/assistant': typeof AppAssistantRoute
-  '/app/benefits': typeof AppBenefitsRoute
-  '/app/cases': typeof AppCasesRouteWithChildren
-  '/app/checklists': typeof AppChecklistsRoute
-  '/app/community': typeof AppCommunityRoute
-  '/app/documents': typeof AppDocumentsRoute
-  '/app/providers': typeof AppProvidersRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/portal/funeral': typeof PortalFuneralRoute
-  '/app/': typeof AppIndexRoute
-  '/app/cases/$caseId': typeof AppCasesCaseIdRoute
-  '/app/cases/new': typeof AppCasesNewRoute
+  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/assistant': typeof AuthenticatedAppAssistantRoute
+  '/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
+  '/app/checklists': typeof AuthenticatedAppChecklistsRoute
+  '/app/community': typeof AuthenticatedAppCommunityRoute
+  '/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/app/providers': typeof AuthenticatedAppProvidersRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
+  '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -169,23 +179,22 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app/assistant': typeof AppAssistantRoute
-  '/app/benefits': typeof AppBenefitsRoute
-  '/app/cases': typeof AppCasesRouteWithChildren
-  '/app/checklists': typeof AppChecklistsRoute
-  '/app/community': typeof AppCommunityRoute
-  '/app/documents': typeof AppDocumentsRoute
-  '/app/providers': typeof AppProvidersRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/portal/funeral': typeof PortalFuneralRoute
-  '/app': typeof AppIndexRoute
-  '/app/cases/$caseId': typeof AppCasesCaseIdRoute
-  '/app/cases/new': typeof AppCasesNewRoute
+  '/app/assistant': typeof AuthenticatedAppAssistantRoute
+  '/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
+  '/app/checklists': typeof AuthenticatedAppChecklistsRoute
+  '/app/community': typeof AuthenticatedAppCommunityRoute
+  '/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/app/providers': typeof AuthenticatedAppProvidersRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/app': typeof AuthenticatedAppIndexRoute
+  '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
+  '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
   '/for-providers': typeof ForProvidersRoute
@@ -193,24 +202,24 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app/assistant': typeof AppAssistantRoute
-  '/app/benefits': typeof AppBenefitsRoute
-  '/app/cases': typeof AppCasesRouteWithChildren
-  '/app/checklists': typeof AppChecklistsRoute
-  '/app/community': typeof AppCommunityRoute
-  '/app/documents': typeof AppDocumentsRoute
-  '/app/providers': typeof AppProvidersRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/portal/funeral': typeof PortalFuneralRoute
-  '/app/': typeof AppIndexRoute
-  '/app/cases/$caseId': typeof AppCasesCaseIdRoute
-  '/app/cases/new': typeof AppCasesNewRoute
+  '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
+  '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
+  '/_authenticated/app/checklists': typeof AuthenticatedAppChecklistsRoute
+  '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
+  '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
+  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
+  '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/app'
     | '/bereavement'
     | '/contact'
     | '/for-providers'
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
+    | '/app'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -255,7 +265,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/app'
     | '/bereavement'
     | '/contact'
     | '/for-providers'
@@ -263,23 +272,23 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
-    | '/app/assistant'
-    | '/app/benefits'
-    | '/app/cases'
-    | '/app/checklists'
-    | '/app/community'
-    | '/app/documents'
-    | '/app/providers'
-    | '/app/settings'
-    | '/portal/funeral'
-    | '/app/'
-    | '/app/cases/$caseId'
-    | '/app/cases/new'
+    | '/_authenticated/app'
+    | '/_authenticated/app/assistant'
+    | '/_authenticated/app/benefits'
+    | '/_authenticated/app/cases'
+    | '/_authenticated/app/checklists'
+    | '/_authenticated/app/community'
+    | '/_authenticated/app/documents'
+    | '/_authenticated/app/providers'
+    | '/_authenticated/app/settings'
+    | '/_authenticated/portal/funeral'
+    | '/_authenticated/app/'
+    | '/_authenticated/app/cases/$caseId'
+    | '/_authenticated/app/cases/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRouteWithChildren
   BereavementRoute: typeof BereavementRoute
   ContactRoute: typeof ContactRoute
   ForProvidersRoute: typeof ForProvidersRoute
@@ -287,7 +296,8 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  PortalFuneralRoute: typeof PortalFuneralRoute
+  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+  AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -341,13 +351,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BereavementRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -355,136 +358,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
-      path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/portal/funeral': {
-      id: '/portal/funeral'
-      path: '/portal/funeral'
-      fullPath: '/portal/funeral'
-      preLoaderRoute: typeof PortalFuneralRouteImport
+    '/_authenticated/app': {
+      id: '/_authenticated/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/settings': {
-      id: '/app/settings'
+    '/_authenticated/app/': {
+      id: '/_authenticated/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/portal/funeral': {
+      id: '/_authenticated/portal/funeral'
+      path: '/portal/funeral'
+      fullPath: '/portal/funeral'
+      preLoaderRoute: typeof AuthenticatedPortalFuneralRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/app/settings': {
+      id: '/_authenticated/app/settings'
       path: '/settings'
       fullPath: '/app/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/providers': {
-      id: '/app/providers'
+    '/_authenticated/app/providers': {
+      id: '/_authenticated/app/providers'
       path: '/providers'
       fullPath: '/app/providers'
-      preLoaderRoute: typeof AppProvidersRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppProvidersRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/documents': {
-      id: '/app/documents'
+    '/_authenticated/app/documents': {
+      id: '/_authenticated/app/documents'
       path: '/documents'
       fullPath: '/app/documents'
-      preLoaderRoute: typeof AppDocumentsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppDocumentsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/community': {
-      id: '/app/community'
+    '/_authenticated/app/community': {
+      id: '/_authenticated/app/community'
       path: '/community'
       fullPath: '/app/community'
-      preLoaderRoute: typeof AppCommunityRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppCommunityRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/checklists': {
-      id: '/app/checklists'
+    '/_authenticated/app/checklists': {
+      id: '/_authenticated/app/checklists'
       path: '/checklists'
       fullPath: '/app/checklists'
-      preLoaderRoute: typeof AppChecklistsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppChecklistsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/cases': {
-      id: '/app/cases'
+    '/_authenticated/app/cases': {
+      id: '/_authenticated/app/cases'
       path: '/cases'
       fullPath: '/app/cases'
-      preLoaderRoute: typeof AppCasesRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppCasesRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/benefits': {
-      id: '/app/benefits'
+    '/_authenticated/app/benefits': {
+      id: '/_authenticated/app/benefits'
       path: '/benefits'
       fullPath: '/app/benefits'
-      preLoaderRoute: typeof AppBenefitsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppBenefitsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/assistant': {
-      id: '/app/assistant'
+    '/_authenticated/app/assistant': {
+      id: '/_authenticated/app/assistant'
       path: '/assistant'
       fullPath: '/app/assistant'
-      preLoaderRoute: typeof AppAssistantRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedAppAssistantRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
-    '/app/cases/new': {
-      id: '/app/cases/new'
+    '/_authenticated/app/cases/new': {
+      id: '/_authenticated/app/cases/new'
       path: '/new'
       fullPath: '/app/cases/new'
-      preLoaderRoute: typeof AppCasesNewRouteImport
-      parentRoute: typeof AppCasesRoute
+      preLoaderRoute: typeof AuthenticatedAppCasesNewRouteImport
+      parentRoute: typeof AuthenticatedAppCasesRoute
     }
-    '/app/cases/$caseId': {
-      id: '/app/cases/$caseId'
+    '/_authenticated/app/cases/$caseId': {
+      id: '/_authenticated/app/cases/$caseId'
       path: '/$caseId'
       fullPath: '/app/cases/$caseId'
-      preLoaderRoute: typeof AppCasesCaseIdRouteImport
-      parentRoute: typeof AppCasesRoute
+      preLoaderRoute: typeof AuthenticatedAppCasesCaseIdRouteImport
+      parentRoute: typeof AuthenticatedAppCasesRoute
     }
   }
 }
 
-interface AppCasesRouteChildren {
-  AppCasesCaseIdRoute: typeof AppCasesCaseIdRoute
-  AppCasesNewRoute: typeof AppCasesNewRoute
+interface AuthenticatedAppCasesRouteChildren {
+  AuthenticatedAppCasesCaseIdRoute: typeof AuthenticatedAppCasesCaseIdRoute
+  AuthenticatedAppCasesNewRoute: typeof AuthenticatedAppCasesNewRoute
 }
 
-const AppCasesRouteChildren: AppCasesRouteChildren = {
-  AppCasesCaseIdRoute: AppCasesCaseIdRoute,
-  AppCasesNewRoute: AppCasesNewRoute,
+const AuthenticatedAppCasesRouteChildren: AuthenticatedAppCasesRouteChildren = {
+  AuthenticatedAppCasesCaseIdRoute: AuthenticatedAppCasesCaseIdRoute,
+  AuthenticatedAppCasesNewRoute: AuthenticatedAppCasesNewRoute,
 }
 
-const AppCasesRouteWithChildren = AppCasesRoute._addFileChildren(
-  AppCasesRouteChildren,
-)
+const AuthenticatedAppCasesRouteWithChildren =
+  AuthenticatedAppCasesRoute._addFileChildren(
+    AuthenticatedAppCasesRouteChildren,
+  )
 
-interface AppRouteChildren {
-  AppAssistantRoute: typeof AppAssistantRoute
-  AppBenefitsRoute: typeof AppBenefitsRoute
-  AppCasesRoute: typeof AppCasesRouteWithChildren
-  AppChecklistsRoute: typeof AppChecklistsRoute
-  AppCommunityRoute: typeof AppCommunityRoute
-  AppDocumentsRoute: typeof AppDocumentsRoute
-  AppProvidersRoute: typeof AppProvidersRoute
-  AppSettingsRoute: typeof AppSettingsRoute
-  AppIndexRoute: typeof AppIndexRoute
+interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
+  AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
+  AuthenticatedAppCasesRoute: typeof AuthenticatedAppCasesRouteWithChildren
+  AuthenticatedAppChecklistsRoute: typeof AuthenticatedAppChecklistsRoute
+  AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
+  AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
+  AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
+  AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
+  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
-const AppRouteChildren: AppRouteChildren = {
-  AppAssistantRoute: AppAssistantRoute,
-  AppBenefitsRoute: AppBenefitsRoute,
-  AppCasesRoute: AppCasesRouteWithChildren,
-  AppChecklistsRoute: AppChecklistsRoute,
-  AppCommunityRoute: AppCommunityRoute,
-  AppDocumentsRoute: AppDocumentsRoute,
-  AppProvidersRoute: AppProvidersRoute,
-  AppSettingsRoute: AppSettingsRoute,
-  AppIndexRoute: AppIndexRoute,
+const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
+  AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
+  AuthenticatedAppCasesRoute: AuthenticatedAppCasesRouteWithChildren,
+  AuthenticatedAppChecklistsRoute: AuthenticatedAppChecklistsRoute,
+  AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
+  AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
+  AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
+  AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
+  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+const AuthenticatedAppRouteWithChildren =
+  AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRouteWithChildren,
   BereavementRoute: BereavementRoute,
   ContactRoute: ContactRoute,
   ForProvidersRoute: ForProvidersRoute,
@@ -492,7 +503,8 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  PortalFuneralRoute: PortalFuneralRoute,
+  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+  AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

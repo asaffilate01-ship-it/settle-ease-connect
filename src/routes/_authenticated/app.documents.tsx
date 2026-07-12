@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { mockDocs } from "@/lib/mock-data";
 import { FileText, Upload, Download, AlertTriangle } from "lucide-react";
 
-export const Route = createFileRoute("/app/documents")({
+export const Route = createFileRoute("/_authenticated/app/documents")({
   component: DocumentsPage,
 });
 

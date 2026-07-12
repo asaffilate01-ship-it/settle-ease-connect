@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Sparkles, Send } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/app/assistant")({
+export const Route = createFileRoute("/_authenticated/app/assistant")({
   component: AssistantPage,
 });
 

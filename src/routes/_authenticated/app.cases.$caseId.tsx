@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, MessageSquare, Paperclip, Phone, Sparkles, MapPin, User } from "lucide-react";
 import { caseTasksByStage, mockCases, stageLabels, stageOrder } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/app/cases/$caseId")({
+export const Route = createFileRoute("/_authenticated/app/cases/$caseId")({
   loader: ({ params }) => {
     const caseRecord = mockCases.find((c) => c.id === params.caseId);
     if (!caseRecord) throw notFound();

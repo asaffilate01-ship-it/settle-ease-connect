@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import { Users, MapPin, Calendar } from "lucide-react";
 
-export const Route = createFileRoute("/app/community")({
+export const Route = createFileRoute("/_authenticated/app/community")({
   component: CommunityPage,
 });
 

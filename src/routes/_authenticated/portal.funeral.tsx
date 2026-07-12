@@ -5,7 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { mockCases, stageLabels } from "@/lib/mock-data";
 import { Building2, DollarSign, Star, ClipboardCheck } from "lucide-react";
 
-export const Route = createFileRoute("/portal/funeral")({
+export const Route = createFileRoute("/_authenticated/portal/funeral")({
   head: () => ({
     meta: [
       { title: "Funeral Director portal — Beistand" },

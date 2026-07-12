@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { roles } from "@/lib/mock-data";
 import { Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/app/settings")({
+export const Route = createFileRoute("/_authenticated/app/settings")({
   component: SettingsPage,
 });
 

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
 import { mockCases, stageLabels } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/app/cases")({
+export const Route = createFileRoute("/_authenticated/app/cases")({
   component: CasesLayout,
 });
 

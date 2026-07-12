@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, ArrowRight, Sparkles, Clock, FileCheck2, HeartHandshake } from "lucide-react";
 import { mockCases, stageLabels } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/_authenticated/app/")({
   component: Overview,
 });
 

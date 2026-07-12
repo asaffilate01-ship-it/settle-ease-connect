@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { benefits } from "@/lib/mock-data";
 import { Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/app/benefits")({
+export const Route = createFileRoute("/_authenticated/app/benefits")({
   component: BenefitsPage,
 });
 
