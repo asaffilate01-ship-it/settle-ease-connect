@@ -40,6 +40,7 @@ import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_authenticated/portal.insurance'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
+import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
@@ -217,6 +218,11 @@ const AuthenticatedPortalExpertsRoute =
     path: '/experts',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedAppUpgradeRoute = AuthenticatedAppUpgradeRouteImport.update({
+  id: '/upgrade',
+  path: '/upgrade',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
     id: '/settings',
@@ -340,6 +346,7 @@ export interface FileRoutesByFullPath {
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
@@ -385,6 +392,7 @@ export interface FileRoutesByTo {
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
@@ -434,6 +442,7 @@ export interface FileRoutesById {
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/_authenticated/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
@@ -483,6 +492,7 @@ export interface FileRouteTypes {
     | '/app/insurance'
     | '/app/providers'
     | '/app/settings'
+    | '/app/upgrade'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/insurance'
@@ -528,6 +538,7 @@ export interface FileRouteTypes {
     | '/app/insurance'
     | '/app/providers'
     | '/app/settings'
+    | '/app/upgrade'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/insurance'
@@ -576,6 +587,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/insurance'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
+    | '/_authenticated/app/upgrade'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
     | '/_authenticated/portal/insurance'
@@ -827,6 +839,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/app/upgrade': {
+      id: '/_authenticated/app/upgrade'
+      path: '/upgrade'
+      fullPath: '/app/upgrade'
+      preLoaderRoute: typeof AuthenticatedAppUpgradeRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/settings': {
       id: '/_authenticated/app/settings'
       path: '/settings'
@@ -961,6 +980,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
+  AuthenticatedAppUpgradeRoute: typeof AuthenticatedAppUpgradeRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
@@ -975,6 +995,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
+  AuthenticatedAppUpgradeRoute: AuthenticatedAppUpgradeRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 

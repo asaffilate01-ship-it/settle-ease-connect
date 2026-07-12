@@ -1,9 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { Lock } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useCurrentUser, type AppRole } from "@/hooks/use-current-user";
 import { primaryRole } from "@/lib/role-landing";
+import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
 
 type Audience = "client" | "internal" | "any";
 
@@ -14,19 +16,21 @@ type NavItem = {
   exact?: boolean;
   groupKey?: string;
   requiresRole?: "admin" | "internal";
+  requiresTier?: PlanGroup;
   audience?: Audience; // client = only for non-internal; internal = only for internal; any = both
 };
 
 const nav: NavItem[] = [
   { to: "/app", labelKey: "sidebar.overview", icon: "overview", exact: true, audience: "client" },
-  { to: "/app/cases", labelKey: "sidebar.cases", icon: "cases", audience: "client" },
-  { to: "/app/checklists", labelKey: "sidebar.checklists", icon: "checklists", audience: "client" },
-  { to: "/app/benefits", labelKey: "sidebar.benefits", icon: "benefits", audience: "client" },
-  { to: "/app/documents", labelKey: "sidebar.documents", icon: "documents", audience: "client" },
-  { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers", audience: "client" },
-  { to: "/app/insurance", labelKey: "sidebar.insurance", icon: "providers", audience: "client" },
-  { to: "/app/assistant", labelKey: "sidebar.assistant", icon: "assistant", audience: "any" },
-  { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client" },
+  { to: "/app/assistant", labelKey: "sidebar.assistant", icon: "assistant", audience: "any", requiresTier: "basic" },
+  { to: "/app/checklists", labelKey: "sidebar.checklists", icon: "checklists", audience: "client", requiresTier: "basic" },
+  { to: "/app/benefits", labelKey: "sidebar.benefits", icon: "benefits", audience: "client", requiresTier: "basic" },
+  { to: "/app/documents", labelKey: "sidebar.documents", icon: "documents", audience: "client", requiresTier: "basic" },
+  { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers", audience: "client", requiresTier: "basic" },
+  { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client", requiresTier: "basic" },
+  { to: "/app/insurance", labelKey: "sidebar.insurance", icon: "providers", audience: "client", requiresTier: "plus" },
+  { to: "/app/cases", labelKey: "sidebar.cases", icon: "cases", audience: "client", requiresTier: "complete" },
+  { to: "/app/upgrade", labelKey: "sidebar.upgrade", icon: "benefits", audience: "client" },
   { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
@@ -37,6 +41,7 @@ const nav: NavItem[] = [
   { to: "/app/bugs", labelKey: "sidebar.bugs", icon: "bug", audience: "any" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings", audience: "any" },
 ];
+
 
 const ROLE_LABEL: Record<AppRole, string> = {
   admin: "Administrator",
@@ -92,6 +97,7 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useTranslation();
   const { user, profile, roles, loading } = useCurrentUser();
+  const sub = useSubscription();
   const isAdmin = roles.includes("admin");
   const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
   const audience: Audience = isInternal ? "internal" : "client";
@@ -130,6 +136,8 @@ export function AppSidebar() {
         {visibleNav.map((n, i) => {
           const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
           const showGroupHeader = n.groupKey && visibleNav[i - 1]?.groupKey !== n.groupKey;
+          const locked = !isInternal && !!n.requiresTier && !sub.loading && !tierMeets(sub.planGroup, n.requiresTier);
+          const target = locked ? "/app/upgrade" : n.to;
           return (
             <div key={n.to}>
               {showGroupHeader && n.groupKey && (
@@ -138,22 +146,26 @@ export function AppSidebar() {
                 </div>
               )}
               <Link
-                to={n.to}
+                to={target}
                 className={`flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
                   active
                     ? "bg-sidebar-accent text-sidebar-primary"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+                    : locked
+                      ? "text-sidebar-foreground/50 hover:bg-sidebar-accent/40"
+                      : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
                 }`}
               >
                 <span className="grid h-7 w-7 shrink-0 place-items-center">
                   <Icon3D name={n.icon} alt="" />
                 </span>
-                {t(n.labelKey)}
+                <span className="flex-1">{t(n.labelKey, { defaultValue: n.labelKey.split(".").pop() })}</span>
+                {locked && <Lock className="h-3 w-3 opacity-70" />}
               </Link>
             </div>
           );
         })}
       </nav>
+
       <div className="space-y-3 border-t border-sidebar-border p-4">
         <LanguageSwitcher variant="sidebar" />
         <div className="rounded-xl bg-sidebar-accent/60 p-4 text-sm">
@@ -168,7 +180,17 @@ export function AppSidebar() {
           {user?.email && (
             <div className="mt-1 truncate text-xs text-sidebar-foreground/70">{user.email}</div>
           )}
+          {!isInternal && !sub.loading && (
+            <Link
+              to="/app/upgrade"
+              className="mt-2 flex items-center justify-between rounded-lg bg-primary/10 px-2 py-1.5 text-[11px] font-semibold text-primary hover:bg-primary/15"
+            >
+              <span>{sub.planName ?? "No plan"}</span>
+              <span>{sub.monthlyPrice ? `€${sub.monthlyPrice}/mo` : "Choose plan →"}</span>
+            </Link>
+          )}
         </div>
+
       </div>
     </aside>
   );
