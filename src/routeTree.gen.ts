@@ -15,6 +15,7 @@ import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PartnershipsRouteImport } from './routes/partnerships'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as OfflineRouteImport } from './routes/offline'
 import { Route as LegalRouteImport } from './routes/legal'
@@ -104,6 +105,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnershipsRoute = PartnershipsRouteImport.update({
+  id: '/partnerships',
+  path: '/partnerships',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnersRoute = PartnersRouteImport.update({
@@ -451,6 +457,7 @@ export interface FileRoutesByFullPath {
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
+  '/partnerships': typeof PartnershipsRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -518,6 +525,7 @@ export interface FileRoutesByTo {
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
+  '/partnerships': typeof PartnershipsRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -585,6 +593,7 @@ export interface FileRoutesById {
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
+  '/partnerships': typeof PartnershipsRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -654,6 +663,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/offline'
     | '/partners'
+    | '/partnerships'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -721,6 +731,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/offline'
     | '/partners'
+    | '/partnerships'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -787,6 +798,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/offline'
     | '/partners'
+    | '/partnerships'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
@@ -856,6 +868,7 @@ export interface RootRouteChildren {
   LegalRoute: typeof LegalRouteWithChildren
   OfflineRoute: typeof OfflineRoute
   PartnersRoute: typeof PartnersRouteWithChildren
+  PartnershipsRoute: typeof PartnershipsRoute
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -906,6 +919,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partnerships': {
+      id: '/partnerships'
+      path: '/partnerships'
+      fullPath: '/partnerships'
+      preLoaderRoute: typeof PartnershipsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partners': {
@@ -1539,6 +1559,7 @@ const rootRouteChildren: RootRouteChildren = {
   LegalRoute: LegalRouteWithChildren,
   OfflineRoute: OfflineRoute,
   PartnersRoute: PartnersRouteWithChildren,
+  PartnershipsRoute: PartnershipsRoute,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
