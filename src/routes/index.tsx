@@ -66,10 +66,10 @@ function Hero() {
             .
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Beistand is the one calm platform for settling in Germany, claiming
-            what you're entitled to, and standing with your family through the
-            hardest moments — from Anmeldung to Janazah, from Bürgergeld to
-            repatriation.
+            Whether you're planning your move to Germany — for work, study or
+            family — or already here and building a life, Beistand is the calm
+            platform for visas, Anmeldung, housing, benefits, health, driving,
+            births, marriages, deaths and everything in between.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
