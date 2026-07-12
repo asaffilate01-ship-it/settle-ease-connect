@@ -83,7 +83,6 @@ const groups = [
       "Post-study 18-month residence permit",
     ],
   },
-];
   {
     icon: Flower2,
     title: "Burials, cremations & last rites",
