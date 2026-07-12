@@ -14,11 +14,13 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
+import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BereavementRouteImport } from './routes/bereavement'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
@@ -61,6 +63,11 @@ const ForProvidersRoute = ForProvidersRouteImport.update({
   path: '/for-providers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DirectoryRoute = DirectoryRouteImport.update({
+  id: '/directory',
+  path: '/directory',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -85,6 +92,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DirectoryListYourBusinessRoute =
+  DirectoryListYourBusinessRouteImport.update({
+    id: '/list-your-business',
+    path: '/list-your-business',
+    getParentRoute: () => DirectoryRoute,
+  } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -184,12 +197,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
+  '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -211,11 +226,13 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
+  '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -239,12 +256,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
   '/contact': typeof ContactRoute
+  '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -268,12 +287,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bereavement'
     | '/contact'
+    | '/directory'
     | '/for-providers'
     | '/how-it-works'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/app'
+    | '/directory/list-your-business'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -295,11 +316,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bereavement'
     | '/contact'
+    | '/directory'
     | '/for-providers'
     | '/how-it-works'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
+    | '/directory/list-your-business'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -322,12 +345,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bereavement'
     | '/contact'
+    | '/directory'
     | '/for-providers'
     | '/how-it-works'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/app'
+    | '/directory/list-your-business'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
     | '/_authenticated/app/cases'
@@ -351,6 +376,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BereavementRoute: typeof BereavementRoute
   ContactRoute: typeof ContactRoute
+  DirectoryRoute: typeof DirectoryRouteWithChildren
   ForProvidersRoute: typeof ForProvidersRoute
   HowItWorksRoute: typeof HowItWorksRoute
   PricingRoute: typeof PricingRoute
@@ -395,6 +421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForProvidersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/directory': {
+      id: '/directory'
+      path: '/directory'
+      fullPath: '/directory'
+      preLoaderRoute: typeof DirectoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -429,6 +462,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/directory/list-your-business': {
+      id: '/directory/list-your-business'
+      path: '/list-your-business'
+      fullPath: '/directory/list-your-business'
+      preLoaderRoute: typeof DirectoryListYourBusinessRouteImport
+      parentRoute: typeof DirectoryRoute
     }
     '/_authenticated/app': {
       id: '/_authenticated/app'
@@ -620,12 +660,25 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface DirectoryRouteChildren {
+  DirectoryListYourBusinessRoute: typeof DirectoryListYourBusinessRoute
+}
+
+const DirectoryRouteChildren: DirectoryRouteChildren = {
+  DirectoryListYourBusinessRoute: DirectoryListYourBusinessRoute,
+}
+
+const DirectoryRouteWithChildren = DirectoryRoute._addFileChildren(
+  DirectoryRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   BereavementRoute: BereavementRoute,
   ContactRoute: ContactRoute,
+  DirectoryRoute: DirectoryRouteWithChildren,
   ForProvidersRoute: ForProvidersRoute,
   HowItWorksRoute: HowItWorksRoute,
   PricingRoute: PricingRoute,
