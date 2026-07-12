@@ -1,33 +1,77 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { queryOptions, useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import type { FuneralCase } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MessageSquare, Paperclip, Phone, Sparkles, MapPin, User } from "lucide-react";
-import { caseTasksByStage, mockCases, stageLabels, stageOrder } from "@/lib/mock-data";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowLeft, Send, Plus, AlertTriangle, CheckCircle2, Lock } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  getCase, updateCaseStatus, sendCaseMessage, createCaseTask, toggleCaseTask,
+} from "@/lib/cases.functions";
+import { formatDistanceToNow, format } from "date-fns";
+import { toast } from "sonner";
+
+const caseQuery = (id: string) => queryOptions({
+  queryKey: ["case", id],
+  queryFn: () => getCase({ data: { id } }),
+});
 
 export const Route = createFileRoute("/_authenticated/app/cases/$caseId")({
-  loader: ({ params }) => {
-    const caseRecord = mockCases.find((c) => c.id === params.caseId);
-    if (!caseRecord) throw notFound();
-    return { caseRecord };
-  },
+  loader: ({ params, context }) => context.queryClient.ensureQueryData(caseQuery(params.caseId)),
+  component: CaseDetail,
+  errorComponent: ({ error }) => (
+    <div className="p-8 text-center">
+      <div className="font-display text-2xl">Case unavailable</div>
+      <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+      <Link to="/app/cases" className="mt-4 inline-block text-primary">Back to cases</Link>
+    </div>
+  ),
   notFoundComponent: () => (
     <div className="p-8 text-center">
       <div className="font-display text-2xl">Case not found</div>
       <Link to="/app/cases" className="mt-4 inline-block text-primary">Back to cases</Link>
     </div>
   ),
-  component: CaseDetail,
 });
 
+const STATUSES = ["new","triage","in_progress","awaiting_client","awaiting_expert","on_hold","completed","closed","cancelled"] as const;
+
 function CaseDetail() {
-  const data = Route.useLoaderData() as { caseRecord: FuneralCase };
-  const c = data.caseRecord;
-  const tasks = caseTasksByStage[c.id] ?? [];
-  const currentIdx = stageOrder.indexOf(c.stage);
+  const { caseId } = Route.useParams();
+  const { data } = useSuspenseQuery(caseQuery(caseId));
+  const qc = useQueryClient();
+
+  useEffect(() => {
+    const ch = supabase
+      .channel(`case-${caseId}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "case_messages", filter: `case_id=eq.${caseId}` }, () => {
+        qc.invalidateQueries({ queryKey: ["case", caseId] });
+      })
+      .on("postgres_changes", { event: "*", schema: "public", table: "case_tasks", filter: `case_id=eq.${caseId}` }, () => {
+        qc.invalidateQueries({ queryKey: ["case", caseId] });
+      })
+      .on("postgres_changes", { event: "*", schema: "public", table: "case_events", filter: `case_id=eq.${caseId}` }, () => {
+        qc.invalidateQueries({ queryKey: ["case", caseId] });
+      })
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "cases", filter: `id=eq.${caseId}` }, () => {
+        qc.invalidateQueries({ queryKey: ["case", caseId] });
+        qc.invalidateQueries({ queryKey: ["cases", "list"] });
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(ch); };
+  }, [caseId, qc]);
+
+  const c = data.case;
+  const nameOf = (id: string | null | undefined) =>
+    id ? data.profiles.find((p) => p.id === id)?.full_name ?? "User" : "System";
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <Link to="/app/cases" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> All cases
       </Link>
@@ -35,142 +79,177 @@ function CaseDetail() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="font-display text-3xl font-semibold">{c.deceasedName}</h1>
-            <Badge variant="secondary">{stageLabels[c.stage]}</Badge>
-            {c.urgent && (
-              <Badge className="bg-warning/20 text-warning-foreground border border-warning/40">Urgent</Badge>
-            )}
+            <h1 className="font-display text-3xl font-semibold">{c.title}</h1>
+            {c.urgent && <Badge className="bg-warning/20 text-warning-foreground border border-warning/40"><AlertTriangle className="mr-1 h-3 w-3" /> Urgent</Badge>}
           </div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            {c.id} · Age {c.age} · {c.location === "home" ? "Died at home" : "Died in hospital"} · {c.city}, Germany
+          <div className="mt-1 text-sm text-muted-foreground">
+            {c.reference} · <span className="capitalize">{c.case_type.replace(/_/g," ")}</span> · {c.city ?? "—"}, {c.bundesland ?? "—"} · opened {format(new Date(c.opened_at), "PP")}
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline"><Phone className="mr-1 h-4 w-4" /> Call family</Button>
-          <Button className="bg-gradient-primary"><MessageSquare className="mr-1 h-4 w-4" /> Message</Button>
-        </div>
+        <StatusPicker caseId={c.id} status={c.status} />
       </div>
 
-      {/* Stage tracker */}
-      <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-        <div className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Workflow</div>
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {stageOrder.map((s, i) => {
-            const state = i < currentIdx ? "done" : i === currentIdx ? "active" : "pending";
-            return (
-              <li
-                key={s}
-                className={`rounded-lg border p-3 ${
-                  state === "done"
-                    ? "border-success/40 bg-success/10"
-                    : state === "active"
-                    ? "border-primary bg-primary/5"
-                    : "border-border/60 bg-parchment/40"
-                }`}
-              >
-                <div className={`text-xs font-semibold uppercase tracking-widest ${
-                  state === "done" ? "text-success" : state === "active" ? "text-primary" : "text-muted-foreground"
-                }`}>
-                  Stage {i + 1}
-                </div>
-                <div className="mt-1 font-medium">{stageLabels[s]}</div>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
+      {c.summary && (
+        <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
+          <div className="text-xs uppercase tracking-widest text-muted-foreground">Summary</div>
+          <p className="mt-2 text-sm">{c.summary}</p>
+        </div>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Tasks */}
-        <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft lg:col-span-2">
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-xl font-semibold">Tasks</h2>
-            <span className="text-xs text-muted-foreground">{tasks.filter(t => t.done).length}/{tasks.length} complete</span>
-          </div>
-          {tasks.length === 0 ? (
-            <div className="mt-4 text-sm text-muted-foreground">No tasks yet — case is in initial intake.</div>
-          ) : (
-            <div className="mt-4 space-y-2">
-              {tasks.map((t) => (
-                <div key={t.id} className="flex items-start gap-3 rounded-lg border border-border/60 bg-background/50 p-3">
-                  <span
-                    className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border ${
-                      t.done ? "border-success bg-success text-success-foreground" : "border-border"
-                    }`}
-                  >
-                    {t.done && <span className="text-[10px]">✓</span>}
-                  </span>
-                  <div className="flex-1">
-                    <div className={`text-sm ${t.done ? "text-muted-foreground line-through" : "font-medium"}`}>{t.title}</div>
-                    <div className="text-xs text-muted-foreground">Owner: {t.owner}{t.due ? ` · Due ${t.due}` : ""}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* AI recommendations */}
-          <div className="mt-6 rounded-xl border border-border/60 bg-parchment/50 p-4">
-            <div className="flex items-start gap-3">
-              <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-primary text-primary-foreground">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <div className="text-sm">
-                <div className="font-medium">Beistand AI · suggestion</div>
-                <p className="mt-1 text-muted-foreground">
-                  Based on repatriation to Pakistan, Qatar Airways cargo has the earliest slot (Thu 22:15 BER→DOH→LHE). Zinc coffin required — Furkan Bestattungen has one in stock. I can pre-fill the consulate NOC form now.
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <Button size="sm" variant="outline">Book cargo</Button>
-                  <Button size="sm" variant="outline">Draft NOC</Button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="lg:col-span-2 space-y-6">
+          <MessagesPanel caseId={c.id} messages={data.messages} nameOf={nameOf} />
         </div>
-
-        {/* Stakeholders */}
         <div className="space-y-6">
-          <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-            <h2 className="font-display text-lg font-semibold">Stakeholders</h2>
-            <div className="mt-4 space-y-3 text-sm">
-              <Stake role="Family contact" name={c.familyContact} extra={c.phone} icon={User} />
-              <Stake role="Case manager" name={c.caseManager} extra="Beistand · Berlin" icon={User} />
-              <Stake role="Funeral director" name="Furkan Bestattungen" extra="Berlin · verified" icon={MapPin} />
-              <Stake role="Mosque" name="Şehitlik-Moschee" extra="Neukölln" icon={MapPin} />
-              <Stake role="Consulate" name="Pakistan Consulate" extra="Frankfurt" icon={MapPin} />
-              <Stake role="Airline" name="Qatar Airways Cargo" extra="BER → LHE" icon={MapPin} />
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-            <h2 className="font-display text-lg font-semibold">Documents</h2>
-            <div className="mt-3 space-y-2 text-sm">
-              {["Todesbescheinigung.pdf", "GDPR consent.pdf", "Reisepass.pdf", "Insurance card.pdf"].map((d) => (
-                <div key={d} className="flex items-center gap-2 rounded-md border border-border/60 bg-background/50 px-3 py-2">
-                  <Paperclip className="h-4 w-4 text-muted-foreground" />
-                  <span className="flex-1 truncate">{d}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <TasksPanel caseId={c.id} tasks={data.tasks} nameOf={nameOf} />
+          <EventsPanel events={data.events} nameOf={nameOf} />
         </div>
       </div>
     </div>
   );
 }
 
-function Stake({ role, name, extra, icon: Icon }: { role: string; name: string; extra: string; icon: React.ComponentType<{ className?: string }> }) {
+function StatusPicker({ caseId, status }: { caseId: string; status: string }) {
+  const fn = useServerFn(updateCaseStatus);
+  const qc = useQueryClient();
+  const mut = useMutation({
+    mutationFn: (s: string) => fn({ data: { id: caseId, status: s as typeof STATUSES[number] } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["case", caseId] }),
+    onError: (e: Error) => toast.error(e.message),
+  });
   return (
-    <div className="flex items-start gap-3">
-      <div className="grid h-8 w-8 place-items-center rounded-md bg-primary/10 text-primary">
-        <Icon className="h-4 w-4" />
+    <Select value={status} onValueChange={(v) => mut.mutate(v)}>
+      <SelectTrigger className="w-52"><SelectValue /></SelectTrigger>
+      <SelectContent>
+        {STATUSES.map((s) => <SelectItem key={s} value={s} className="capitalize">{s.replace(/_/g," ")}</SelectItem>)}
+      </SelectContent>
+    </Select>
+  );
+}
+
+type Msg = { id: string; body: string; internal_note: boolean; sender_user_id: string; created_at: string };
+
+function MessagesPanel({ caseId, messages, nameOf }: { caseId: string; messages: Msg[]; nameOf: (id: string | null) => string }) {
+  const fn = useServerFn(sendCaseMessage);
+  const qc = useQueryClient();
+  const [body, setBody] = useState("");
+  const [internal, setInternal] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages.length]);
+
+  const mut = useMutation({
+    mutationFn: () => fn({ data: { case_id: caseId, body, internal_note: internal } }),
+    onSuccess: () => { setBody(""); qc.invalidateQueries({ queryKey: ["case", caseId] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden flex flex-col h-[540px]">
+      <div className="border-b border-border/60 px-5 py-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        Conversation · live
       </div>
-      <div className="flex-1">
-        <div className="text-xs uppercase tracking-widest text-muted-foreground">{role}</div>
-        <div className="font-medium">{name}</div>
-        <div className="text-xs text-muted-foreground">{extra}</div>
+      <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-5">
+        {messages.length === 0 && <div className="text-sm text-muted-foreground">No messages yet.</div>}
+        {messages.map((m) => (
+          <div key={m.id} className={`rounded-xl p-3 text-sm ${m.internal_note ? "border border-amber-500/40 bg-amber-500/5" : "border border-border/60 bg-parchment/40"}`}>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="font-medium text-foreground">{nameOf(m.sender_user_id)}</span>
+              {m.internal_note && <Badge variant="outline" className="border-amber-500/40 text-amber-700"><Lock className="mr-1 h-3 w-3" /> internal</Badge>}
+              <span>· {formatDistanceToNow(new Date(m.created_at), { addSuffix: true })}</span>
+            </div>
+            <div className="mt-1 whitespace-pre-wrap">{m.body}</div>
+          </div>
+        ))}
       </div>
+      <form
+        className="border-t border-border/60 p-3 space-y-2"
+        onSubmit={(e) => { e.preventDefault(); if (body.trim()) mut.mutate(); }}
+      >
+        <Textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Type a message…" className="min-h-20" />
+        <div className="flex items-center justify-between">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Checkbox checked={internal} onCheckedChange={(v) => setInternal(!!v)} />
+            Internal note (staff only)
+          </label>
+          <Button type="submit" size="sm" className="bg-gradient-primary" disabled={mut.isPending || !body.trim()}>
+            <Send className="mr-1 h-3.5 w-3.5" /> Send
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+type Task = { id: string; title: string; description: string | null; done: boolean; due_at: string | null; assignee_user_id: string | null };
+
+function TasksPanel({ caseId, tasks, nameOf }: { caseId: string; tasks: Task[]; nameOf: (id: string | null) => string }) {
+  const createFn = useServerFn(createCaseTask);
+  const toggleFn = useServerFn(toggleCaseTask);
+  const qc = useQueryClient();
+  const [newTitle, setNewTitle] = useState("");
+
+  const toggle = useMutation({
+    mutationFn: (v: { id: string; done: boolean }) => toggleFn({ data: v }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["case", caseId] }),
+  });
+  const create = useMutation({
+    mutationFn: () => createFn({ data: { case_id: caseId, title: newTitle } }),
+    onSuccess: () => { setNewTitle(""); qc.invalidateQueries({ queryKey: ["case", caseId] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card shadow-soft">
+      <div className="border-b border-border/60 px-5 py-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Tasks</div>
+      <ul className="divide-y divide-border/60">
+        {tasks.map((t) => (
+          <li key={t.id} className="flex items-start gap-3 px-5 py-3">
+            <Checkbox checked={t.done} onCheckedChange={(v) => toggle.mutate({ id: t.id, done: !!v })} className="mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <div className={`text-sm ${t.done ? "line-through text-muted-foreground" : ""}`}>{t.title}</div>
+              <div className="text-xs text-muted-foreground">
+                {t.assignee_user_id ? nameOf(t.assignee_user_id) : "Unassigned"}
+                {t.due_at && ` · due ${format(new Date(t.due_at), "MMM d")}`}
+              </div>
+            </div>
+            {t.done && <CheckCircle2 className="h-4 w-4 text-success" />}
+          </li>
+        ))}
+        {tasks.length === 0 && <li className="px-5 py-4 text-sm text-muted-foreground">No tasks yet.</li>}
+      </ul>
+      <form
+        className="flex gap-2 border-t border-border/60 p-3"
+        onSubmit={(e) => { e.preventDefault(); if (newTitle.trim()) create.mutate(); }}
+      >
+        <Input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Add a task…" />
+        <Button type="submit" size="sm" variant="outline" disabled={create.isPending || !newTitle.trim()}>
+          <Plus className="h-4 w-4" />
+        </Button>
+      </form>
+    </div>
+  );
+}
+
+type Ev = { id: string; event_type: string; actor_user_id: string | null; created_at: string };
+
+function EventsPanel({ events, nameOf }: { events: Ev[]; nameOf: (id: string | null) => string }) {
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card shadow-soft">
+      <div className="border-b border-border/60 px-5 py-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Activity</div>
+      <ol className="divide-y divide-border/60">
+        {events.slice(0, 15).map((e) => (
+          <li key={e.id} className="px-5 py-2.5 text-xs">
+            <div className="font-medium">{e.event_type}</div>
+            <div className="text-muted-foreground">
+              {nameOf(e.actor_user_id)} · {formatDistanceToNow(new Date(e.created_at), { addSuffix: true })}
+            </div>
+          </li>
+        ))}
+        {events.length === 0 && <li className="px-5 py-4 text-sm text-muted-foreground">No activity yet.</li>}
+      </ol>
     </div>
   );
 }

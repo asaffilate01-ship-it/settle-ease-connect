@@ -1,170 +1,95 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useMutation } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import { createCase } from "@/lib/cases.functions";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/app/cases/new")({
   component: NewCase,
 });
 
-const steps = [
-  { key: "who", label: "Who" },
-  { key: "where", label: "Where & when" },
-  { key: "faith", label: "Faith & wishes" },
-  { key: "family", label: "Family contact" },
-  { key: "review", label: "Review" },
-];
+const CASE_TYPES = [
+  ["bereavement","Bereavement"], ["visa_application","Visa application"], ["visa_extension","Visa extension"],
+  ["nationality","Nationality"], ["family_reunification","Family reunification"], ["benefits_claim","Benefits claim"],
+  ["housing","Housing / Anmeldung"], ["tax","Tax"], ["education","Education"], ["healthcare","Healthcare / insurance"],
+  ["translation","Translation"], ["driving","Driving licence"], ["business","Business / Gewerbe"], ["other","Other"],
+] as const;
 
 function NewCase() {
-  const [step, setStep] = useState(0);
   const navigate = useNavigate();
+  const fn = useServerFn(createCase);
+  const [form, setForm] = useState({
+    title: "", case_type: "bereavement" as (typeof CASE_TYPES)[number][0],
+    summary: "", urgent: false, language: "en", city: "", bundesland: "",
+  });
+
+  const mut = useMutation({
+    mutationFn: (values: typeof form) => fn({ data: values }),
+    onSuccess: (row) => {
+      toast.success("Case opened. A manager will respond shortly.");
+      navigate({ to: "/app/cases/$caseId", params: { caseId: row.id } });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
+    <div className="mx-auto max-w-2xl space-y-8">
       <Link to="/app/cases" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> Cases
       </Link>
-
       <div>
-        <h1 className="font-display text-3xl font-semibold">Report a case</h1>
-        <p className="text-sm text-muted-foreground">This form takes about 60 seconds. A case manager will call within 15 minutes.</p>
+        <h1 className="font-display text-3xl font-semibold">Open a new case</h1>
+        <p className="text-sm text-muted-foreground">A case manager responds within 15 minutes.</p>
       </div>
-
-      {/* Stepper */}
-      <div className="flex items-center gap-2 rounded-2xl border border-border/60 bg-card p-3">
-        {steps.map((s, i) => (
-          <div key={s.key} className="flex flex-1 items-center gap-2">
-            <div
-              className={`grid h-7 w-7 place-items-center rounded-full text-xs font-semibold ${
-                i < step
-                  ? "bg-success text-success-foreground"
-                  : i === step
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-border text-muted-foreground"
-              }`}
-            >
-              {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
-            </div>
-            <span className={`hidden text-sm sm:inline ${i === step ? "font-medium" : "text-muted-foreground"}`}>{s.label}</span>
-            {i < steps.length - 1 && <div className="mx-2 h-px flex-1 bg-border" />}
-          </div>
-        ))}
-      </div>
-
-      <div className="rounded-2xl border border-border/60 bg-card p-8 shadow-soft">
-        {step === 0 && (
-          <div className="space-y-5">
-            <h2 className="font-display text-xl font-semibold">Who has passed away?</h2>
-            <Field label="Full name"><Input placeholder="e.g. Muhammad Aslam Khan" /></Field>
-            <Field label="Age"><Input type="number" placeholder="68" /></Field>
-            <Field label="Relationship to you">
-              <Input placeholder="Father, mother, spouse…" />
-            </Field>
-          </div>
-        )}
-        {step === 1 && (
-          <div className="space-y-5">
-            <h2 className="font-display text-xl font-semibold">Where and when?</h2>
-            <Field label="Location">
-              <RadioGroup defaultValue="hospital" className="grid gap-3 sm:grid-cols-2">
-                <RadioOption value="hospital" label="Hospital" hint="A hospital doctor certifies death" />
-                <RadioOption value="home" label="At home" hint="Call 112 (unexpected) or Hausarzt (expected)" />
-              </RadioGroup>
-            </Field>
-            <Field label="City / hospital name"><Input placeholder="Charité Mitte, Berlin" /></Field>
-            <Field label="Date & time"><Input type="datetime-local" /></Field>
-          </div>
-        )}
-        {step === 2 && (
-          <div className="space-y-5">
-            <h2 className="font-display text-xl font-semibold">Faith and wishes</h2>
-            <Field label="Faith">
-              <RadioGroup defaultValue="islam" className="grid gap-2 sm:grid-cols-3">
-                {["Islam", "Christian", "Hindu", "Sikh", "Buddhist", "Other"].map((f) => (
-                  <RadioOption key={f} value={f.toLowerCase()} label={f} />
-                ))}
-              </RadioGroup>
-            </Field>
-            <Field label="What should happen with the body?">
-              <RadioGroup defaultValue="burial" className="grid gap-2 sm:grid-cols-3">
-                <RadioOption value="burial" label="Burial in Germany" />
-                <RadioOption value="cremation" label="Cremation" />
-                <RadioOption value="repatriation" label="Repatriate abroad" />
-              </RadioGroup>
-            </Field>
-            <Field label="If repatriating, destination country/city">
-              <Input placeholder="Lahore, Pakistan" />
-            </Field>
-            <Field label="Special wishes or notes">
-              <Textarea placeholder="Anything the case manager should know" className="min-h-24" />
-            </Field>
-          </div>
-        )}
-        {step === 3 && (
-          <div className="space-y-5">
-            <h2 className="font-display text-xl font-semibold">Family contact</h2>
-            <Field label="Primary contact name"><Input placeholder="Ahmed Khan" /></Field>
-            <Field label="Relationship"><Input placeholder="Son" /></Field>
-            <Field label="Phone"><Input placeholder="+49 …" /></Field>
-            <Field label="Email"><Input type="email" placeholder="you@example.com" /></Field>
-            <Field label="Preferred language">
-              <RadioGroup defaultValue="en" className="grid gap-2 sm:grid-cols-3">
-                {["EN", "DE", "UR", "TR", "AR", "HI"].map((l) => (
-                  <RadioOption key={l} value={l.toLowerCase()} label={l} />
-                ))}
-              </RadioGroup>
-            </Field>
-          </div>
-        )}
-        {step === 4 && (
-          <div className="space-y-5">
-            <h2 className="font-display text-xl font-semibold">Ready to submit</h2>
-            <p className="text-sm text-muted-foreground">
-              By submitting, you consent to Beistand contacting you and
-              coordinating verified providers on your behalf. A digital mandate
-              and GDPR consent form will be sent within minutes.
-            </p>
-            <div className="rounded-xl border border-border/60 bg-parchment/50 p-4 text-sm">
-              <div className="font-medium">What happens next</div>
-              <ol className="mt-2 space-y-1 text-muted-foreground">
-                <li>1. Case manager calls you within 15 minutes.</li>
-                <li>2. Digital authority & GDPR consent signed.</li>
-                <li>3. Verified funeral director dispatched.</li>
-                <li>4. You track every stage in your dashboard.</li>
-              </ol>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="flex justify-between">
-        <Button
-          variant="outline"
-          disabled={step === 0}
-          onClick={() => setStep((s) => Math.max(0, s - 1))}
-        >
-          <ArrowLeft className="mr-1 h-4 w-4" /> Back
-        </Button>
-        {step < steps.length - 1 ? (
-          <Button className="bg-gradient-primary" onClick={() => setStep((s) => s + 1)}>
-            Continue <ArrowRight className="ml-1 h-4 w-4" />
+      <form
+        className="space-y-5 rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+        onSubmit={(e) => { e.preventDefault(); mut.mutate(form); }}
+      >
+        <Field label="Short title">
+          <Input required minLength={3} value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="e.g. Repatriation to Istanbul" />
+        </Field>
+        <Field label="Type">
+          <Select value={form.case_type} onValueChange={(v) => setForm({ ...form, case_type: v as typeof form.case_type })}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {CASE_TYPES.map(([v, l]) => <SelectItem key={v} value={v}>{l}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </Field>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="City"><Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Berlin" /></Field>
+          <Field label="Bundesland"><Input value={form.bundesland} onChange={(e) => setForm({ ...form, bundesland: e.target.value })} placeholder="Berlin" /></Field>
+        </div>
+        <Field label="Preferred language">
+          <Select value={form.language} onValueChange={(v) => setForm({ ...form, language: v })}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {["de","en","tr","ur","hi","pa","ar","ku","ru","uk","fa","pl","zh"].map(l => <SelectItem key={l} value={l}>{l.toUpperCase()}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </Field>
+        <Field label="Summary">
+          <Textarea value={form.summary} onChange={(e) => setForm({ ...form, summary: e.target.value })} className="min-h-28" placeholder="Tell us what happened and what you need help with." />
+        </Field>
+        <label className="flex items-center gap-2 text-sm">
+          <Checkbox checked={form.urgent} onCheckedChange={(v) => setForm({ ...form, urgent: !!v })} />
+          <span>This is urgent (call within the hour)</span>
+        </label>
+        <div className="flex justify-end gap-2 pt-2">
+          <Button type="button" variant="outline" onClick={() => navigate({ to: "/app/cases" })}>Cancel</Button>
+          <Button type="submit" className="bg-gradient-primary" disabled={mut.isPending}>
+            {mut.isPending ? "Opening…" : "Open case"}
           </Button>
-        ) : (
-          <Button
-            className="bg-gradient-primary"
-            onClick={() => {
-              alert("Case submitted. Your case manager will call within 15 minutes.");
-              navigate({ to: "/app/cases" });
-            }}
-          >
-            Submit case
-          </Button>
-        )}
-      </div>
+        </div>
+      </form>
     </div>
   );
 }
@@ -175,17 +100,5 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       <Label className="text-sm font-medium">{label}</Label>
       {children}
     </div>
-  );
-}
-
-function RadioOption({ value, label, hint }: { value: string; label: string; hint?: string }) {
-  return (
-    <label className="flex cursor-pointer items-start gap-2 rounded-lg border border-border/60 bg-background/60 p-3 hover:border-primary/50">
-      <RadioGroupItem value={value} className="mt-0.5" />
-      <div>
-        <div className="text-sm font-medium">{label}</div>
-        {hint && <div className="text-xs text-muted-foreground">{hint}</div>}
-      </div>
-    </label>
   );
 }
