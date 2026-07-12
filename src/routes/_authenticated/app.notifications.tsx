@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useNotifications } from "@/hooks/use-notifications";
 import { Button } from "@/components/ui/button";
-import { Bell, Check } from "lucide-react";
+import { Bell, BellRing, Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { pushSupported, subscribeToPush } from "@/lib/push-client";
+import { savePushSubscription, sendPushToUser } from "@/lib/notifications.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/app/notifications")({
   head: () => ({ meta: [{ title: "Notifications — BeistandPlus" }] }),

@@ -150,3 +150,73 @@ export const upsertPreferences = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+export const sendPushToUser = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((raw: unknown) =>
+    z
+      .object({
+        user_id: z.string().uuid(),
+        title: z.string().min(1),
+        body: z.string().optional(),
+        link: z.string().optional(),
+        tag: z.string().optional(),
+        kind: z.string().optional(),
+      })
+      .parse(raw),
+  )
+  .handler(async ({ data, context }) => {
+    // Only internal staff may fan-out to arbitrary users; everyone else may push themselves (test).
+    if (data.user_id !== context.userId) {
+      const { data: internal } = await context.supabase.rpc("is_internal", {
+        _user_id: context.userId,
+      });
+      if (!internal) throw new Error("Forbidden");
+    }
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: subs, error } = await supabaseAdmin
+      .from("push_subscriptions")
+      .select("id, endpoint, p256dh, auth")
+      .eq("user_id", data.user_id)
+      .eq("platform", "web")
+      .not("endpoint", "is", null);
+    if (error) throw new Error(error.message);
+    if (!subs?.length) return { ok: true, sent: 0 };
+
+    const webpush = (await import("web-push")).default;
+    const publicKey = process.env.VAPID_PUBLIC_KEY!;
+    const privateKey = process.env.VAPID_PRIVATE_KEY!;
+    const subject = process.env.VAPID_SUBJECT || "mailto:hello@beistandplus.de";
+    if (!publicKey || !privateKey) throw new Error("VAPID keys not configured");
+    webpush.setVapidDetails(subject, publicKey, privateKey);
+
+    const payload = JSON.stringify({
+      title: data.title,
+      body: data.body,
+      link: data.link,
+      tag: data.tag,
+      kind: data.kind,
+    });
+
+    let sent = 0;
+    await Promise.all(
+      subs.map(async (s) => {
+        try {
+          await webpush.sendNotification(
+            { endpoint: s.endpoint!, keys: { p256dh: s.p256dh!, auth: s.auth! } },
+            payload,
+          );
+          sent++;
+        } catch (err: any) {
+          // 404/410 => subscription gone; drop it.
+          if (err?.statusCode === 404 || err?.statusCode === 410) {
+            await supabaseAdmin.from("push_subscriptions").delete().eq("id", s.id);
+          } else {
+            console.warn("[push] send failed", err?.statusCode, err?.body);
+          }
+        }
+      }),
+    );
+    return { ok: true, sent };
+  });
