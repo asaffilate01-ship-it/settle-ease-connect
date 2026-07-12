@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of service — Beistand" },
-      { name: "description", content: "The agreement between you and Beistand when you use the platform." },
-      { property: "og:title", content: "Terms of service — Beistand" },
+      { title: "AGB — Beistand" },
+      { name: "description", content: "Allgemeine Geschäftsbedingungen und Widerrufsbelehrung nach deutschem Recht (BGB, DDG)." },
+      { property: "og:title", content: "AGB — Beistand" },
       { property: "og:url", content: "/legal/terms" },
     ],
     links: [{ rel: "canonical", href: "/legal/terms" }],
@@ -16,78 +16,126 @@ export const Route = createFileRoute("/legal/terms")({
 
 function Page() {
   return (
-    <LegalArticle title="Terms of service" updated="2026-04-01">
+    <LegalArticle title="Allgemeine Geschäftsbedingungen" updated="2026-04-01">
       <BilingualNote />
 
-      <LegalSection title="1. Who we are">
+      <LegalSection title="1. Anbieter">
         <p>
-          Beistand GmbH ("Beistand", "we", "us") is a company registered in Berlin, Germany.
-          Our full company details are on the <a href="/legal/impressum">Imprint</a> page.
+          Anbieter im Sinne des § 5 DDG ist die Beistand GmbH, Musterstraße 1, 10115 Berlin
+          (im Folgenden „Beistand", „wir"). Vollständige Angaben siehe {" "}
+          <a href="/legal/impressum">Impressum</a>.
         </p>
       </LegalSection>
 
-      <LegalSection title="2. The service">
+      <LegalSection title="2. Geltungsbereich, Vertragssprache">
         <p>
-          Beistand is a settlement and welfare platform for people living in — or moving to — Germany.
-          We provide case management, checklists, a family document vault, an AI assistant, and
-          coordination with vetted third-party experts (lawyers, notaries, tax advisers, doctors,
-          funeral directors, translators). Third-party fees are always separate from your
-          subscription and are quoted transparently in your case.
+          Diese AGB gelten für alle Verträge zwischen Beistand und Ihnen über die Nutzung der
+          Beistand-Plattform. Vertragssprachen sind Deutsch und Englisch; maßgeblich ist im
+          Zweifel die deutsche Fassung. Abweichende Bedingungen erkennen wir nicht an,
+          soweit ihnen nicht ausdrücklich zugestimmt wurde.
         </p>
       </LegalSection>
 
-      <LegalSection title="3. Your account">
+      <LegalSection title="3. Leistungen">
         <p>
-          You must be at least 18 years old to create a Beistand account. You are responsible for
-          keeping your login details safe and for everything done under your account. Tell us
-          immediately if you suspect unauthorised access.
+          Beistand ist eine Ansiedlungs- und Fürsorgeplattform für in Deutschland lebende oder
+          zuziehende Menschen. Wir bieten Fallmanagement, Checklisten, ein Familien-Dokumenten-
+          Depot, einen KI-Assistenten sowie die Vermittlung geprüfter Experten (Anwälte, Notare,
+          Steuerberater, Ärzte, Bestatter, Übersetzer). Beistand ist selbst <strong>keine</strong>
+          Kanzlei, Steuerkanzlei, Versicherungsvermittlung, Arztpraxis oder Bestattungsunternehmen.
+          Beratungsverträge kommen ausschließlich zwischen Ihnen und dem jeweiligen Experten
+          zustande.
         </p>
       </LegalSection>
 
-      <LegalSection title="4. Subscriptions and payment">
+      <LegalSection title="4. Vertragsschluss">
         <p>
-          Beistand plans are billed monthly (Basic €5, Plus €10, Complete €25 per household).
-          You can cancel at any time from your account; cancellation takes effect at the end of your
-          current billing period. Third-party fees, government fees and insurance premiums are not
-          part of your subscription and are billed separately with full itemised invoicing.
+          Mit dem Absenden der Registrierung geben Sie ein Angebot zum Abschluss eines
+          Nutzungsvertrags ab. Der Vertrag kommt mit unserer Bestätigung per E-Mail zustande.
+          Sie sind mindestens 18 Jahre alt und handeln entweder als Verbraucher (§ 13 BGB)
+          oder als Unternehmer (§ 14 BGB).
         </p>
       </LegalSection>
 
-      <LegalSection title="5. What Beistand is not">
+      <LegalSection title="5. Preise, Zahlung, Verbraucher-Abo-Rechte (§ 312k BGB)">
         <p>
-          Beistand is not a law firm, tax firm, insurance broker, medical practice or funeral home.
-          We coordinate with regulated professionals on your behalf. Advice you receive from a
-          third-party expert is between you and that expert.
+          Die Abos betragen 5 €, 10 € oder 25 € pro Monat pro Haushalt (inkl. gesetzlicher USt).
+          Kosten für Behörden, Experten, Versicherungen etc. werden gesondert transparent
+          ausgewiesen. Die Abrechnung erfolgt monatlich im Voraus über unseren
+          Zahlungsdienstleister. Bei Verträgen mit Verbrauchern über Dauerschuldverhältnisse
+          gilt § 312k BGB: Kündigung jederzeit über die im Konto bereitgestellte
+          Kündigungs-Schaltfläche zum Ende des laufenden Abrechnungszeitraums.
         </p>
       </LegalSection>
 
-      <LegalSection title="6. Acceptable use">
+      <LegalSection title="6. Widerrufsbelehrung für Verbraucher (§§ 355, 312g BGB)">
         <p>
-          Don't use Beistand to break the law, defraud authorities, harass others, or upload
-          content you don't have the right to share. We may suspend accounts that do.
+          <strong>Widerrufsrecht.</strong> Sie haben das Recht, binnen vierzehn Tagen ohne
+          Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn
+          Tage ab dem Tag des Vertragsschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie
+          uns (Beistand GmbH, Musterstraße 1, 10115 Berlin, E-Mail
+          {" "}<a href="mailto:widerruf@beistand.de">widerruf@beistand.de</a>) mittels einer
+          eindeutigen Erklärung (z. B. per Brief oder E-Mail) über Ihren Entschluss, diesen
+          Vertrag zu widerrufen, informieren. Zur Wahrung der Widerrufsfrist reicht es aus,
+          dass Sie die Mitteilung vor Ablauf der Widerrufsfrist absenden.
+        </p>
+        <p>
+          <strong>Folgen des Widerrufs.</strong> Wenn Sie diesen Vertrag widerrufen, erstatten
+          wir Ihnen alle Zahlungen unverzüglich und spätestens binnen vierzehn Tagen zurück.
+          Haben Sie verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll,
+          so haben Sie uns einen angemessenen Betrag für die bis zum Widerruf bereits erbrachte
+          Leistung zu zahlen.
+        </p>
+        <p>
+          <strong>Vorzeitiges Erlöschen.</strong> Das Widerrufsrecht erlischt bei einem Vertrag
+          zur Erbringung von Dienstleistungen, wenn wir die Dienstleistung vollständig erbracht
+          haben und mit der Ausführung erst begonnen haben, nachdem Sie dazu Ihre ausdrückliche
+          Zustimmung gegeben und gleichzeitig Ihre Kenntnis davon bestätigt haben, dass Sie
+          Ihr Widerrufsrecht bei vollständiger Vertragserfüllung verlieren (§ 356 Abs. 4 BGB).
         </p>
       </LegalSection>
 
-      <LegalSection title="7. Liability">
+      <LegalSection title="7. Pflichten der Nutzenden">
         <p>
-          Nothing in these terms limits our liability where it can't legally be limited (in
-          particular for personal injury caused by our negligence, and for intentional or grossly
-          negligent breaches). Otherwise our liability is limited to typical foreseeable damages
-          arising from the use of the service.
+          Zugangsdaten sind vertraulich zu halten. Sie versichern, keine rechtswidrigen Inhalte
+          hochzuladen, Behörden nicht zu täuschen und Rechte Dritter zu wahren. Verstöße
+          berechtigen uns zur Sperrung.
         </p>
       </LegalSection>
 
-      <LegalSection title="8. Governing law">
+      <LegalSection title="8. Haftung">
         <p>
-          These terms are governed by the laws of the Federal Republic of Germany. Consumers keep
-          the protection of mandatory law in the country where they usually live.
+          Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie nach dem
+          Produkthaftungsgesetz und für Schäden aus der Verletzung des Lebens, des Körpers
+          oder der Gesundheit. Bei leicht fahrlässiger Verletzung wesentlicher Vertragspflichten
+          (Kardinalpflichten) ist unsere Haftung auf den vertragstypischen, vorhersehbaren
+          Schaden begrenzt. Im Übrigen ist die Haftung ausgeschlossen.
         </p>
       </LegalSection>
 
-      <LegalSection title="9. Changes">
+      <LegalSection title="9. Gewährleistung">
         <p>
-          We may update these terms. Material changes will be communicated at least 30 days in
-          advance by email and in-app notice.
+          Es gelten die gesetzlichen Vorschriften der §§ 327 ff. BGB (Verträge über digitale
+          Produkte) einschließlich der Regelungen zur Aktualisierungspflicht.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="10. Streitbeilegung, Rechtswahl, Gerichtsstand">
+        <p>
+          Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.
+          Gegenüber Verbrauchern gilt diese Rechtswahl nur, soweit dadurch nicht der Schutz
+          zwingender Verbrauchervorschriften des Aufenthaltsstaats entzogen wird (Art. 6 Rom-I-VO).
+          Gerichtsstand für Kaufleute ist Berlin. Zur außergerichtlichen Streitbeilegung siehe
+          {" "}<a href="/legal/complaints">Beschwerdeverfahren</a>. Wir sind gemäß § 36 VSBG
+          nicht verpflichtet und nicht bereit, an Verbraucherschlichtungsverfahren teilzunehmen.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="11. Änderungen dieser AGB">
+        <p>
+          Wesentliche Änderungen kündigen wir mindestens 30 Tage vorab per E-Mail und
+          In-App-Hinweis an. Widersprechen Sie nicht binnen dieser Frist, gelten die
+          Änderungen als angenommen; wir weisen Sie hierauf gesondert hin.
         </p>
       </LegalSection>
     </LegalArticle>

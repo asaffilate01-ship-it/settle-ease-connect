@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/complaints")({
   head: () => ({
     meta: [
-      { title: "Complaints — Beistand" },
-      { name: "description", content: "How to raise a complaint with Beistand and what to expect at each stage." },
-      { property: "og:title", content: "Complaints — Beistand" },
+      { title: "Beschwerdeverfahren — Beistand" },
+      { name: "description", content: "Beschwerden nach deutschem Verbraucherrecht (VSBG, BGB, DSGVO)." },
+      { property: "og:title", content: "Beschwerdeverfahren — Beistand" },
       { property: "og:url", content: "/legal/complaints" },
     ],
     links: [{ rel: "canonical", href: "/legal/complaints" }],
@@ -16,45 +16,60 @@ export const Route = createFileRoute("/legal/complaints")({
 
 function Page() {
   return (
-    <LegalArticle title="Complaints procedure" updated="2026-04-01">
+    <LegalArticle title="Beschwerdeverfahren" updated="2026-04-01">
       <BilingualNote />
 
-      <LegalSection title="Talk to your case manager first">
+      <LegalSection title="1. Zuerst der Fallmanager">
         <p>
-          Most issues are resolved fastest by messaging your case manager directly from your case
-          workspace. Give us the case number and a short description of what went wrong.
+          Am schnellsten lassen sich Anliegen direkt mit Ihrer Fallmanagerin oder Ihrem
+          Fallmanager im Fall-Arbeitsbereich klären. Bitte nennen Sie Ihre Fallnummer und
+          eine kurze Beschreibung.
         </p>
       </LegalSection>
 
-      <LegalSection title="Formal complaint">
+      <LegalSection title="2. Förmliche Beschwerde">
         <p>
-          If you would prefer to raise a formal complaint, email <a href="mailto:complaints@beistand.de">complaints@beistand.de</a>.
-          A written complaint should include:
+          Für eine förmliche Beschwerde schreiben Sie an
+          {" "}<a href="mailto:complaints@beistand.de">complaints@beistand.de</a>. Bitte geben Sie an:
         </p>
         <ul>
-          <li>Your full name and account email.</li>
-          <li>The case number (if any).</li>
-          <li>A short description of what happened and when.</li>
-          <li>What outcome you'd like.</li>
+          <li>Vollständiger Name und Konto-E-Mail-Adresse</li>
+          <li>Fallnummer (sofern vorhanden)</li>
+          <li>Kurze Sachverhaltsschilderung mit Datumsangaben</li>
+          <li>Gewünschtes Ergebnis</li>
         </ul>
-        <p>We acknowledge every complaint within <strong>2 working days</strong> and give a full response within <strong>15 working days</strong>. Where investigation takes longer, we tell you why and give a new date.</p>
-      </LegalSection>
-
-      <LegalSection title="If you're still not satisfied">
         <p>
-          You may refer a consumer dispute to the Universalschlichtungsstelle des Bundes
-          (Kehl, Germany) or, for online-purchased services, the European Commission's
-          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noreferrer noopener"> Online Dispute Resolution platform</a>.
-          We are not obliged, and are generally not willing, to take part in dispute-resolution
-          proceedings before a consumer-arbitration board — but we will always try to resolve any
-          complaint with you directly first.
+          Wir bestätigen jede Beschwerde innerhalb von <strong>2 Werktagen</strong> und
+          antworten inhaltlich innerhalb von <strong>15 Werktagen</strong>. Dauert die Prüfung
+          länger, informieren wir Sie unter Nennung eines neuen Termins.
         </p>
       </LegalSection>
 
-      <LegalSection title="Data-protection complaints">
+      <LegalSection title="3. Verbraucherstreitbeilegung (§ 36 VSBG)">
         <p>
-          Complaints about how we handle personal data should go to <a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
-          You may also complain directly to the Berliner Beauftragte für Datenschutz und Informationsfreiheit.
+          Wir sind gemäß § 36 Abs. 1 Nr. 2 VSBG <strong>nicht verpflichtet und nicht bereit</strong>,
+          an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+          Verbraucherinnen und Verbraucher können sich gleichwohl an die Universalschlichtungsstelle
+          des Bundes, Kehl, wenden oder die Online-Streitbeilegungs-Plattform der EU nutzen:
+          {" "}<a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noreferrer noopener">https://ec.europa.eu/consumers/odr</a>.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="4. Datenschutz-Beschwerden">
+        <p>
+          Beschwerden über die Verarbeitung personenbezogener Daten richten Sie an
+          {" "}<a href="mailto:privacy@beistand.de">privacy@beistand.de</a>. Ihnen steht zudem
+          gemäß Art. 77 DSGVO ein Beschwerderecht bei einer Aufsichtsbehörde zu — für uns
+          zuständig ist die <strong>Berliner Beauftragte für Datenschutz und Informationsfreiheit</strong>,
+          Alt-Moabit 59–61, 10555 Berlin.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="5. Rechtsweg">
+        <p>
+          Unabhängig vom Beschwerdeverfahren bleibt Ihnen der ordentliche Rechtsweg vor den
+          deutschen Zivilgerichten unbenommen. Zwingende Verbraucherschutzrechte am Wohnsitz
+          bleiben unberührt (Art. 6 Rom-I-VO).
         </p>
       </LegalSection>
     </LegalArticle>
