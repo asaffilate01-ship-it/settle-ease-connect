@@ -191,7 +191,7 @@ function AuthPage() {
                 setLoading(false);
                 return;
               }
-              navigate({ to: target as "/app" });
+              await goToLanding();
             }}
           />
         </div>
