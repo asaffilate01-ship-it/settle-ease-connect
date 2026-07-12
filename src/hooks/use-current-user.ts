@@ -13,6 +13,8 @@ export type Profile = {
 export type AppRole =
   | "family"
   | "case_manager"
+  | "staff"
+  | "expert"
   | "funeral_director"
   | "mosque"
   | "church"

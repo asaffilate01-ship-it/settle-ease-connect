@@ -53,6 +53,9 @@
     "experts": "Experts roster",
     "settings": "Settings",
     "internal": "Internal",
+    "admin": "Admin",
+    "adminUsers": "Users & roles",
+    "adminInvite": "Invitations",
     "caseManagerRole": "Case Manager · Berlin"
   },
   "language": {
