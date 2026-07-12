@@ -229,6 +229,9 @@
 @utility bg-gradient-warm {
   background-image: var(--gradient-warm);
 }
+@utility bg-gradient-flag {
+  background-image: var(--gradient-flag);
+}
 @utility shadow-soft {
   box-shadow: var(--shadow-soft);
 }
