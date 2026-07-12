@@ -295,6 +295,6 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
           </Link>
         </div>
       )}
-    </div>
+    </PolishedCard>
   );
 }
