@@ -35,6 +35,7 @@ import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
 import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_authenticated/portal.insurance'
@@ -43,6 +44,7 @@ import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authen
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
+import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
 import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app.community'
@@ -188,6 +190,12 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedPortalReferralsRoute =
+  AuthenticatedPortalReferralsRouteImport.update({
+    id: '/referrals',
+    path: '/referrals',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalLeadsRoute =
   AuthenticatedPortalLeadsRouteImport.update({
     id: '/leads',
@@ -235,6 +243,11 @@ const AuthenticatedAppProvidersRoute =
     path: '/providers',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppInsuranceRoute =
   AuthenticatedAppInsuranceRouteImport.update({
     id: '/insurance',
@@ -344,6 +357,7 @@ export interface FileRoutesByFullPath {
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
@@ -352,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
+  '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -390,6 +405,7 @@ export interface FileRoutesByTo {
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
@@ -398,6 +414,7 @@ export interface FileRoutesByTo {
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
+  '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -440,6 +457,7 @@ export interface FileRoutesById {
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
+  '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
@@ -448,6 +466,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
+  '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -490,6 +509,7 @@ export interface FileRouteTypes {
     | '/app/community'
     | '/app/documents'
     | '/app/insurance'
+    | '/app/profile'
     | '/app/providers'
     | '/app/settings'
     | '/app/upgrade'
@@ -498,6 +518,7 @@ export interface FileRouteTypes {
     | '/portal/insurance'
     | '/portal/knowledge'
     | '/portal/leads'
+    | '/portal/referrals'
     | '/app/'
     | '/portal/'
     | '/app/cases/$caseId'
@@ -536,6 +557,7 @@ export interface FileRouteTypes {
     | '/app/community'
     | '/app/documents'
     | '/app/insurance'
+    | '/app/profile'
     | '/app/providers'
     | '/app/settings'
     | '/app/upgrade'
@@ -544,6 +566,7 @@ export interface FileRouteTypes {
     | '/portal/insurance'
     | '/portal/knowledge'
     | '/portal/leads'
+    | '/portal/referrals'
     | '/app'
     | '/portal'
     | '/app/cases/$caseId'
@@ -585,6 +608,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/community'
     | '/_authenticated/app/documents'
     | '/_authenticated/app/insurance'
+    | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
     | '/_authenticated/app/upgrade'
@@ -593,6 +617,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/insurance'
     | '/_authenticated/portal/knowledge'
     | '/_authenticated/portal/leads'
+    | '/_authenticated/portal/referrals'
     | '/_authenticated/app/'
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
@@ -804,6 +829,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/portal/referrals': {
+      id: '/_authenticated/portal/referrals'
+      path: '/referrals'
+      fullPath: '/portal/referrals'
+      preLoaderRoute: typeof AuthenticatedPortalReferralsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/leads': {
       id: '/_authenticated/portal/leads'
       path: '/leads'
@@ -858,6 +890,13 @@ declare module '@tanstack/react-router' {
       path: '/providers'
       fullPath: '/app/providers'
       preLoaderRoute: typeof AuthenticatedAppProvidersRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/profile': {
+      id: '/_authenticated/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/insurance': {
@@ -978,6 +1017,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
+  AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
   AuthenticatedAppUpgradeRoute: typeof AuthenticatedAppUpgradeRoute
@@ -993,6 +1033,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
+  AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
   AuthenticatedAppUpgradeRoute: AuthenticatedAppUpgradeRoute,
@@ -1023,6 +1064,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalInsuranceRoute: typeof AuthenticatedPortalInsuranceRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
+  AuthenticatedPortalReferralsRoute: typeof AuthenticatedPortalReferralsRoute
   AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
   AuthenticatedPortalAdminInviteRoute: typeof AuthenticatedPortalAdminInviteRoute
   AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
@@ -1035,6 +1077,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalKnowledgeRoute:
     AuthenticatedPortalKnowledgeRouteWithChildren,
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,
+  AuthenticatedPortalReferralsRoute: AuthenticatedPortalReferralsRoute,
   AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
   AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
   AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,
