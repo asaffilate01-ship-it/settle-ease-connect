@@ -248,15 +248,15 @@ function UrgencyTriage() {
                   isUrgent ? "bg-destructive" : "bg-gradient-warm"
                 }`}
               />
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 <div
-                  className={`grid h-12 w-12 place-items-center rounded-2xl ${
+                  className={`grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-1.5 ${
                     isUrgent
-                      ? "bg-destructive text-destructive-foreground"
-                      : "bg-primary text-primary-foreground"
+                      ? "bg-destructive/10"
+                      : "bg-accent/10"
                   }`}
                 >
-                  <p.icon className="h-5 w-5" />
+                  <Icon3D name={p.icon} alt="" />
                 </div>
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   {p.tag}
