@@ -9,38 +9,345 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as ForProvidersRouteImport } from './routes/for-providers'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BereavementRouteImport } from './routes/bereavement'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as PortalFuneralRouteImport } from './routes/portal.funeral'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppProvidersRouteImport } from './routes/app.providers'
+import { Route as AppDocumentsRouteImport } from './routes/app.documents'
+import { Route as AppCommunityRouteImport } from './routes/app.community'
+import { Route as AppChecklistsRouteImport } from './routes/app.checklists'
+import { Route as AppCasesRouteImport } from './routes/app.cases'
+import { Route as AppBenefitsRouteImport } from './routes/app.benefits'
+import { Route as AppAssistantRouteImport } from './routes/app.assistant'
+import { Route as AppCasesNewRouteImport } from './routes/app.cases.new'
+import { Route as AppCasesCaseIdRouteImport } from './routes/app.cases.$caseId'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForProvidersRoute = ForProvidersRouteImport.update({
+  id: '/for-providers',
+  path: '/for-providers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BereavementRoute = BereavementRouteImport.update({
+  id: '/bereavement',
+  path: '/bereavement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const PortalFuneralRoute = PortalFuneralRouteImport.update({
+  id: '/portal/funeral',
+  path: '/portal/funeral',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProvidersRoute = AppProvidersRouteImport.update({
+  id: '/providers',
+  path: '/providers',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDocumentsRoute = AppDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCommunityRoute = AppCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppChecklistsRoute = AppChecklistsRouteImport.update({
+  id: '/checklists',
+  path: '/checklists',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCasesRoute = AppCasesRouteImport.update({
+  id: '/cases',
+  path: '/cases',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBenefitsRoute = AppBenefitsRouteImport.update({
+  id: '/benefits',
+  path: '/benefits',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAssistantRoute = AppAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCasesNewRoute = AppCasesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AppCasesRoute,
+} as any)
+const AppCasesCaseIdRoute = AppCasesCaseIdRouteImport.update({
+  id: '/$caseId',
+  path: '/$caseId',
+  getParentRoute: () => AppCasesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/bereavement': typeof BereavementRoute
+  '/contact': typeof ContactRoute
+  '/for-providers': typeof ForProvidersRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/benefits': typeof AppBenefitsRoute
+  '/app/cases': typeof AppCasesRouteWithChildren
+  '/app/checklists': typeof AppChecklistsRoute
+  '/app/community': typeof AppCommunityRoute
+  '/app/documents': typeof AppDocumentsRoute
+  '/app/providers': typeof AppProvidersRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/portal/funeral': typeof PortalFuneralRoute
+  '/app/': typeof AppIndexRoute
+  '/app/cases/$caseId': typeof AppCasesCaseIdRoute
+  '/app/cases/new': typeof AppCasesNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bereavement': typeof BereavementRoute
+  '/contact': typeof ContactRoute
+  '/for-providers': typeof ForProvidersRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/benefits': typeof AppBenefitsRoute
+  '/app/cases': typeof AppCasesRouteWithChildren
+  '/app/checklists': typeof AppChecklistsRoute
+  '/app/community': typeof AppCommunityRoute
+  '/app/documents': typeof AppDocumentsRoute
+  '/app/providers': typeof AppProvidersRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/portal/funeral': typeof PortalFuneralRoute
+  '/app': typeof AppIndexRoute
+  '/app/cases/$caseId': typeof AppCasesCaseIdRoute
+  '/app/cases/new': typeof AppCasesNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/bereavement': typeof BereavementRoute
+  '/contact': typeof ContactRoute
+  '/for-providers': typeof ForProvidersRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/app/assistant': typeof AppAssistantRoute
+  '/app/benefits': typeof AppBenefitsRoute
+  '/app/cases': typeof AppCasesRouteWithChildren
+  '/app/checklists': typeof AppChecklistsRoute
+  '/app/community': typeof AppCommunityRoute
+  '/app/documents': typeof AppDocumentsRoute
+  '/app/providers': typeof AppProvidersRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/portal/funeral': typeof PortalFuneralRoute
+  '/app/': typeof AppIndexRoute
+  '/app/cases/$caseId': typeof AppCasesCaseIdRoute
+  '/app/cases/new': typeof AppCasesNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/bereavement'
+    | '/contact'
+    | '/for-providers'
+    | '/how-it-works'
+    | '/pricing'
+    | '/services'
+    | '/sitemap.xml'
+    | '/app/assistant'
+    | '/app/benefits'
+    | '/app/cases'
+    | '/app/checklists'
+    | '/app/community'
+    | '/app/documents'
+    | '/app/providers'
+    | '/app/settings'
+    | '/portal/funeral'
+    | '/app/'
+    | '/app/cases/$caseId'
+    | '/app/cases/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bereavement'
+    | '/contact'
+    | '/for-providers'
+    | '/how-it-works'
+    | '/pricing'
+    | '/services'
+    | '/sitemap.xml'
+    | '/app/assistant'
+    | '/app/benefits'
+    | '/app/cases'
+    | '/app/checklists'
+    | '/app/community'
+    | '/app/documents'
+    | '/app/providers'
+    | '/app/settings'
+    | '/portal/funeral'
+    | '/app'
+    | '/app/cases/$caseId'
+    | '/app/cases/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/bereavement'
+    | '/contact'
+    | '/for-providers'
+    | '/how-it-works'
+    | '/pricing'
+    | '/services'
+    | '/sitemap.xml'
+    | '/app/assistant'
+    | '/app/benefits'
+    | '/app/cases'
+    | '/app/checklists'
+    | '/app/community'
+    | '/app/documents'
+    | '/app/providers'
+    | '/app/settings'
+    | '/portal/funeral'
+    | '/app/'
+    | '/app/cases/$caseId'
+    | '/app/cases/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  BereavementRoute: typeof BereavementRoute
+  ContactRoute: typeof ContactRoute
+  ForProvidersRoute: typeof ForProvidersRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  PricingRoute: typeof PricingRoute
+  ServicesRoute: typeof ServicesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  PortalFuneralRoute: typeof PortalFuneralRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-providers': {
+      id: '/for-providers'
+      path: '/for-providers'
+      fullPath: '/for-providers'
+      preLoaderRoute: typeof ForProvidersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bereavement': {
+      id: '/bereavement'
+      path: '/bereavement'
+      fullPath: '/bereavement'
+      preLoaderRoute: typeof BereavementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +355,145 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/portal/funeral': {
+      id: '/portal/funeral'
+      path: '/portal/funeral'
+      fullPath: '/portal/funeral'
+      preLoaderRoute: typeof PortalFuneralRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/providers': {
+      id: '/app/providers'
+      path: '/providers'
+      fullPath: '/app/providers'
+      preLoaderRoute: typeof AppProvidersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/documents': {
+      id: '/app/documents'
+      path: '/documents'
+      fullPath: '/app/documents'
+      preLoaderRoute: typeof AppDocumentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/community': {
+      id: '/app/community'
+      path: '/community'
+      fullPath: '/app/community'
+      preLoaderRoute: typeof AppCommunityRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/checklists': {
+      id: '/app/checklists'
+      path: '/checklists'
+      fullPath: '/app/checklists'
+      preLoaderRoute: typeof AppChecklistsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cases': {
+      id: '/app/cases'
+      path: '/cases'
+      fullPath: '/app/cases'
+      preLoaderRoute: typeof AppCasesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/benefits': {
+      id: '/app/benefits'
+      path: '/benefits'
+      fullPath: '/app/benefits'
+      preLoaderRoute: typeof AppBenefitsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/assistant': {
+      id: '/app/assistant'
+      path: '/assistant'
+      fullPath: '/app/assistant'
+      preLoaderRoute: typeof AppAssistantRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cases/new': {
+      id: '/app/cases/new'
+      path: '/new'
+      fullPath: '/app/cases/new'
+      preLoaderRoute: typeof AppCasesNewRouteImport
+      parentRoute: typeof AppCasesRoute
+    }
+    '/app/cases/$caseId': {
+      id: '/app/cases/$caseId'
+      path: '/$caseId'
+      fullPath: '/app/cases/$caseId'
+      preLoaderRoute: typeof AppCasesCaseIdRouteImport
+      parentRoute: typeof AppCasesRoute
+    }
   }
 }
 
+interface AppCasesRouteChildren {
+  AppCasesCaseIdRoute: typeof AppCasesCaseIdRoute
+  AppCasesNewRoute: typeof AppCasesNewRoute
+}
+
+const AppCasesRouteChildren: AppCasesRouteChildren = {
+  AppCasesCaseIdRoute: AppCasesCaseIdRoute,
+  AppCasesNewRoute: AppCasesNewRoute,
+}
+
+const AppCasesRouteWithChildren = AppCasesRoute._addFileChildren(
+  AppCasesRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppAssistantRoute: typeof AppAssistantRoute
+  AppBenefitsRoute: typeof AppBenefitsRoute
+  AppCasesRoute: typeof AppCasesRouteWithChildren
+  AppChecklistsRoute: typeof AppChecklistsRoute
+  AppCommunityRoute: typeof AppCommunityRoute
+  AppDocumentsRoute: typeof AppDocumentsRoute
+  AppProvidersRoute: typeof AppProvidersRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAssistantRoute: AppAssistantRoute,
+  AppBenefitsRoute: AppBenefitsRoute,
+  AppCasesRoute: AppCasesRouteWithChildren,
+  AppChecklistsRoute: AppChecklistsRoute,
+  AppCommunityRoute: AppCommunityRoute,
+  AppDocumentsRoute: AppDocumentsRoute,
+  AppProvidersRoute: AppProvidersRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  BereavementRoute: BereavementRoute,
+  ContactRoute: ContactRoute,
+  ForProvidersRoute: ForProvidersRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  PricingRoute: PricingRoute,
+  ServicesRoute: ServicesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  PortalFuneralRoute: PortalFuneralRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
