@@ -296,6 +296,8 @@ export function SiteFooter() {
             [t("footer.contact"), "/contact"],
             ["Trust & compliance", "/trust"],
             ["Partners", "/partners"],
+            ["Institutional partnerships", "/partnerships"],
+
             ["Offline mode", "/offline"],
           ]}
 
