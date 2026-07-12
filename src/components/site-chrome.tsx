@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocialIcons } from "@/components/social-icons";
+import logoMark from "@/assets/brand/logo-mark.png";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -23,12 +24,18 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-primary text-primary-foreground">
-            <span className="font-display text-lg font-semibold">B</span>
-          </div>
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={logoMark}
+            alt="BeistandPlus"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+          />
           <div className="leading-tight">
-            <div className="font-display text-xl font-semibold tracking-tight">Beistand</div>
+            <div className="font-display text-xl font-semibold tracking-tight">
+              Beistand<span className="text-success">Plus</span>
+            </div>
             <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
               {t("brand.location")}
             </div>
@@ -88,11 +95,18 @@ export function SiteFooter() {
     <footer className="border-t border-border/60 bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-6 lg:px-8">
         <div className="lg:col-span-2">
-          <div className="flex items-center gap-2.5">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-primary text-primary-foreground">
-              <span className="font-display text-lg font-semibold">B</span>
+          <div className="flex items-center gap-3">
+            <img
+              src={logoMark}
+              alt="BeistandPlus"
+              width={44}
+              height={44}
+              className="h-11 w-11 object-contain"
+              loading="lazy"
+            />
+            <div className="font-display text-xl font-semibold">
+              Beistand<span className="text-success">Plus</span>
             </div>
-            <div className="font-display text-xl font-semibold">Beistand</div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <div className="mt-6">

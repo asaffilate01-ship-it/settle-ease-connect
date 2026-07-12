@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import heroBereavement from "@/assets/brand/hero-bereavement.jpg";
 
 export const Route = createFileRoute("/bereavement")({
   head: () => ({
@@ -104,24 +105,37 @@ function Bereavement() {
     <div className="min-h-screen">
       <SiteHeader />
 
-      <section className="relative overflow-hidden bg-gradient-hero">
-        <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <img
+            src={heroBereavement}
+            alt=""
+            aria-hidden
+            width={1600}
+            height={1000}
+            fetchPriority="high"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
+        </div>
+        <div className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
+          <Badge variant="outline" className="border-primary/30 bg-background/70 text-primary backdrop-blur">
             Bereavement care · 24/7
           </Badge>
-          <h1 className="mt-4 font-display text-5xl font-semibold leading-tight tracking-tight sm:text-6xl">
-            One call. One case file. Every person who needs to be involved.
+          <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+            One call. One case file.<br />
+            <span className="italic text-primary">Every person who needs to be involved.</span>
           </h1>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Beistand coordinates family, funeral director, hospital, Standesamt,
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            BeistandPlus coordinates family, funeral director, hospital, Standesamt,
             religious organisation, cemetery, airline, consulate and insurance
             — inside a single, timestamped workflow.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
               <Link to="/app/cases/new">Report a death</Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="bg-background/70 backdrop-blur">
               <a href="tel:+493012345678">Call our 24/7 line</a>
             </Button>
           </div>
