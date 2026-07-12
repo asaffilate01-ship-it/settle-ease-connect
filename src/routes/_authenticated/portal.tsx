@@ -24,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/portal")({
     });
     if (!internal) throw redirect({ to: "/app" });
   },
-  head: () => ({ meta: [{ title: "Staff portal — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Staff portal — BeistandPlus" }] }),
   component: PortalLayout,
 });
 

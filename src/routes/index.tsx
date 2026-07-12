@@ -32,13 +32,13 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "Beistand+ · Settlement, welfare & bereavement in Germany — 11 languages" },
+      { title: "BeistandPlus · Settlement, welfare & bereavement in Germany — 11 languages" },
       {
         name: "description",
         content:
-          "Beistand+ helps families settle, claim benefits, manage documents and coordinate end-of-life care in Germany. One calm platform in 11 languages, with human case managers and vetted experts.",
+          "BeistandPlus helps families settle, claim benefits, manage documents and coordinate end-of-life care in Germany. One calm platform in 11 languages, with human case managers and vetted experts.",
       },
-      { property: "og:title", content: "Beistand+ · For every path in Germany" },
+      { property: "og:title", content: "BeistandPlus · For every path in Germany" },
       {
         property: "og:description",
         content:
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Beistand+",
+          name: "BeistandPlus",
           alternateName: "Beistand",
           url: "https://beistandplus.de/",
           logo: "https://beistandplus.de/favicon.png",
@@ -116,7 +116,7 @@ function Hero() {
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
             Whether you're planning your move to Germany — for work, study or
-            family — or already here and building a life, Beistand is the calm
+            family — or already here and building a life, BeistandPlus is the calm
             platform for visas, Anmeldung, housing, benefits, health, driving,
             births, marriages, deaths and everything in between.
           </p>
@@ -186,7 +186,7 @@ function HeroCard() {
             <div className="grid h-8 w-8 place-items-center rounded-md bg-primary/10 text-primary">
               <ClipboardCheck className="h-4 w-4" />
             </div>
-            <div className="text-sm font-medium">Your Beistand plan</div>
+            <div className="text-sm font-medium">Your BeistandPlus plan</div>
           </div>
           <Badge variant="secondary" className="bg-success/15 text-success">Active</Badge>
         </div>
@@ -516,13 +516,13 @@ function Pillars() {
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="max-w-2xl">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
-          Was Beistand macht
+          Was BeistandPlus macht
         </div>
         <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
           Four pillars, one platform.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Most tools solve one step. Beistand carries you across all of them,
+          Most tools solve one step. BeistandPlus carries you across all of them,
           with a human case manager and an AI assistant that never sleeps.
         </p>
       </div>
@@ -564,7 +564,7 @@ function BereavementBand() {
             When the worst happens, one call is enough.
           </h2>
           <p className="mt-5 max-w-xl text-lg text-primary-foreground/80">
-            Beistand coordinates every party — family, funeral director,
+            BeistandPlus coordinates every party — family, funeral director,
             hospital, Standesamt, mosque or church, cemetery, airline,
             consulate, insurance — inside a single, timestamped case file. In
             German, English, Turkish, Urdu, Hindi, Punjabi, Pashto, Arabic,
@@ -686,7 +686,7 @@ function BenefitsShowcase() {
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
             Bürgergeld, Kindergeld, Wohngeld, Elterngeld, BAföG, Rente. Answer
-            a few questions — Beistand tells you what to apply for, how much
+            a few questions — BeistandPlus tells you what to apply for, how much
             you could receive, and prepares the paperwork.
           </p>
           <Button asChild className="mt-8 bg-gradient-primary shadow-soft" size="lg">
@@ -815,7 +815,7 @@ function CTA() {
             Standing with you, from your first day to your last.
           </h2>
           <p className="mt-5 text-lg text-primary-foreground/80">
-            Join the Beistand community. Members get 24/7 case management, an
+            Join the BeistandPlus community. Members get 24/7 case management, an
             AI assistant, digital document vault, benefits checker and full
             end-of-life coordination — from €5/month.
           </p>

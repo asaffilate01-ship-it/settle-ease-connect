@@ -20,7 +20,7 @@ import { Loader2, Radio } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const Route = createFileRoute("/_authenticated/portal/")({
-  head: () => ({ meta: [{ title: "Operations console — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Operations console — BeistandPlus" }] }),
   component: OpsConsole,
 });
 

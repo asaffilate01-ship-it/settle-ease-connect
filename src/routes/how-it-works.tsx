@@ -5,10 +5,10 @@ import { ArrowRight } from "lucide-react";
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How it works — Beistand" },
+      { title: "How it works — BeistandPlus" },
       { name: "description", content: "The Beistand workflow: settle, claim, belong, stand with — coordinated by a human case manager and an AI assistant." },
-      { property: "og:title", content: "How it works — Beistand" },
-      { property: "og:description", content: "From your first Anmeldung to the hardest moments, here's how Beistand carries you." },
+      { property: "og:title", content: "How it works — BeistandPlus" },
+      { property: "og:description", content: "From your first Anmeldung to the hardest moments, here's how BeistandPlus carries you." },
     ],
   }),
   component: HowItWorks,
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/how-it-works")({
 const steps = [
   {
     n: "01",
-    title: "Tell Beistand what you need",
+    title: "Tell BeistandPlus what you need",
     desc: "Newly arrived, applying for benefits, planning a family reunion, or facing a bereavement — start with a single form.",
   },
   {

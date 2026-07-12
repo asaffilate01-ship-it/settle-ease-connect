@@ -31,7 +31,7 @@ export const Route = createFileRoute("/_authenticated/portal/admin/users")({
     });
     if (!isAdmin) throw redirect({ to: "/app" });
   },
-  head: () => ({ meta: [{ title: "Admin · Users — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Admin · Users — BeistandPlus" }] }),
   component: AdminUsersPage,
 });
 

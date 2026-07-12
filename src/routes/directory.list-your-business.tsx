@@ -19,10 +19,10 @@ import type { Session } from "@supabase/supabase-js";
 export const Route = createFileRoute("/directory/list-your-business")({
   head: () => ({
     meta: [
-      { title: "List your business — free — Beistand directory" },
-      { name: "description", content: "Get discovered by Beistand member families across Germany. Free listing in the community directory — no per-lead fees, no commissions." },
-      { property: "og:title", content: "List your business — free — Beistand directory" },
-      { property: "og:description", content: "Free listing in the Beistand directory. Contact details are shown to Beistand members only, so every enquiry is a serious one." },
+      { title: "List your business — free — BeistandPlus directory" },
+      { name: "description", content: "Get discovered by BeistandPlus member families across Germany. Free listing in the community directory — no per-lead fees, no commissions." },
+      { property: "og:title", content: "List your business — free — BeistandPlus directory" },
+      { property: "og:description", content: "Free listing in the BeistandPlus directory. Contact details are shown to BeistandPlus members only, so every enquiry is a serious one." },
     ],
   }),
   component: ListYourBusiness,
@@ -54,10 +54,10 @@ function ListYourBusiness() {
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Community directory</div>
         <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          Free to list. Seen by every Beistand member.
+          Free to list. Seen by every BeistandPlus member.
         </h1>
         <p className="mt-5 text-base text-muted-foreground">
-          Listing is free. Contact details are only shown to Beistand members, so every enquiry is from a serious, subscribed household.
+          Listing is free. Contact details are only shown to BeistandPlus members, so every enquiry is from a serious, subscribed household.
         </p>
 
         <div className="mt-8 rounded-3xl border border-border/60 bg-card p-6 shadow-card">

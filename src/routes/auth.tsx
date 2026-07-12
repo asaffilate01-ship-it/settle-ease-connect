@@ -18,8 +18,8 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Sign in — Beistand" },
-      { name: "description", content: "Sign in to Beistand to manage your case, benefits, documents and community." },
+      { title: "Sign in — BeistandPlus" },
+      { name: "description", content: "Sign in to BeistandPlus to manage your case, benefits, documents and community." },
     ],
   }),
   component: AuthPage,
@@ -97,7 +97,7 @@ function AuthPage() {
           setLoading(false);
           return;
         }
-        toast.success("Welcome to Beistand");
+        toast.success("Welcome to BeistandPlus");
         await goToLanding();
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -118,7 +118,7 @@ function AuthPage() {
   return (
     <div className="min-h-screen bg-parchment flex flex-col">
       <header className="p-6">
-        <Link to="/" className="font-display text-xl font-semibold text-primary">Beistand</Link>
+        <Link to="/" className="font-display text-xl font-semibold text-primary">BeistandPlus</Link>
       </header>
       <main className="flex-1 flex items-center justify-center px-4 pb-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-soft">
@@ -168,7 +168,7 @@ function AuthPage() {
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {mode === "signin" ? (
-              <>New to Beistand?{" "}
+              <>New to BeistandPlus?{" "}
                 <button type="button" className="text-primary font-medium hover:underline" onClick={() => setMode("signup")}>Create an account</button>
               </>
             ) : (

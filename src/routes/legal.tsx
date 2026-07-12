@@ -5,8 +5,8 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 export const Route = createFileRoute("/legal")({
   head: () => ({
     meta: [
-      { title: "Legal — Beistand" },
-      { name: "description", content: "Terms of service, privacy notice, cookies, complaints procedure and imprint for Beistand." },
+      { title: "Legal — BeistandPlus" },
+      { name: "description", content: "Terms of service, privacy notice, cookies, complaints procedure and imprint for BeistandPlus." },
       { property: "og:type", content: "website" },
     ],
   }),

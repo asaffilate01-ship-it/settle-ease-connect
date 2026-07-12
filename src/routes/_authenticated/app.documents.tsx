@@ -32,7 +32,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 export const Route = createFileRoute("/_authenticated/app/documents")({
   head: () => ({
     meta: [
-      { title: "Secure vault — Beistand" },
+      { title: "Secure vault — BeistandPlus" },
       { name: "description", content: "Encrypted document vault with MFA, GDPR compliance, and second-person access on death or incapacity." },
     ],
   }),
@@ -156,7 +156,7 @@ function SecurityCard() {
             <img src="${qr}" style="max-width:280px" />
             <p>Or enter this secret manually:</p>
             <code style="user-select:all;background:#f4f4f4;padding:8px 12px;border-radius:6px">${secret}</code>
-            <p style="color:#666;margin-top:16px">Then return to Beistand and enter the 6-digit code.</p>
+            <p style="color:#666;margin-top:16px">Then return to BeistandPlus and enter the 6-digit code.</p>
           </body></html>`);
       }
       const code = window.prompt("Enter the 6-digit code from your authenticator app:");

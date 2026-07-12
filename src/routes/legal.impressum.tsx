@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/impressum")({
   head: () => ({
     meta: [
-      { title: "Impressum — Beistand" },
+      { title: "Impressum — BeistandPlus" },
       { name: "description", content: "Anbieterkennzeichnung nach § 5 DDG und § 18 Abs. 2 MStV." },
-      { property: "og:title", content: "Impressum — Beistand" },
+      { property: "og:title", content: "Impressum — BeistandPlus" },
       { property: "og:url", content: "/legal/impressum" },
     ],
     links: [{ rel: "canonical", href: "/legal/impressum" }],
@@ -21,7 +21,7 @@ function Page() {
 
       <LegalSection title="Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)">
         <p>
-          Beistand GmbH<br />
+          BeistandPlus GmbH<br />
           Musterstraße 1<br />
           10115 Berlin<br />
           Deutschland

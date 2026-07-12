@@ -29,7 +29,7 @@ export const Route = createFileRoute("/_authenticated/portal/admin/invite")({
     });
     if (!isAdmin) throw redirect({ to: "/app" });
   },
-  head: () => ({ meta: [{ title: "Admin · Invitations — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Admin · Invitations — BeistandPlus" }] }),
   component: AdminInvitePage,
 });
 

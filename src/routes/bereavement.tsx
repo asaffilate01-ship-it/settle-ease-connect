@@ -7,9 +7,9 @@ import heroBereavement from "@/assets/brand/hero-bereavement.jpg";
 export const Route = createFileRoute("/bereavement")({
   head: () => ({
     meta: [
-      { title: "Bereavement care in Germany — Beistand" },
+      { title: "Bereavement care in Germany — BeistandPlus" },
       { name: "description", content: "Muslim, Christian, Hindu, Sikh and Buddhist end-of-life care coordinated across families, funeral directors, religious organisations and consulates." },
-      { property: "og:title", content: "Bereavement care in Germany — Beistand" },
+      { property: "og:title", content: "Bereavement care in Germany — BeistandPlus" },
       { property: "og:description", content: "One workflow, every faith, burial in Germany or repatriation abroad." },
     ],
   }),
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/bereavement")({
 const homeStages = [
   { t: "Call 112 (unexpected) or Hausarzt (expected)" },
   { t: "Doctor certifies death and issues Todesbescheinigung" },
-  { t: "Family opens case in Beistand (60s form)" },
+  { t: "Family opens case in BeistandPlus (60s form)" },
   { t: "Case manager assigned, calls within 15 min" },
   { t: "Digital authority & GDPR consent" },
   { t: "Verified funeral director collects body" },
@@ -29,7 +29,7 @@ const homeStages = [
 
 const hospitalStages = [
   { t: "Hospital doctor certifies death" },
-  { t: "Family notified; hospital notifies Beistand" },
+  { t: "Family notified; hospital notifies BeistandPlus" },
   { t: "Case manager takes over coordination" },
   { t: "Digital authority & GDPR consent" },
   { t: "Handoff from hospital mortuary to funeral director" },
@@ -158,7 +158,7 @@ function Bereavement() {
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               International repatriation is complex — every destination has
-              different requirements. Beistand stores country-specific
+              different requirements. BeistandPlus stores country-specific
               checklists and works with consulates on your behalf.
             </p>
           </div>
@@ -186,7 +186,7 @@ function Bereavement() {
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Germany has strict but well-defined rules — Friedhofszwang,
-              Sargpflicht, second post-mortem, fixed burial windows. Beistand
+              Sargpflicht, second post-mortem, fixed burial windows. BeistandPlus
               maps them to your family's tradition and handles the paperwork
               with the Standesamt, cemetery, Krematorium and your religious
               organisation.
@@ -219,7 +219,7 @@ function Bereavement() {
               ))}
             </div>
             <p className="mt-6 text-xs text-muted-foreground">
-              Rules vary by Bundesland. Beistand's assistant applies the
+              Rules vary by Bundesland. BeistandPlus's assistant applies the
               correct Bestattungsgesetz for the city of death automatically.
             </p>
           </div>

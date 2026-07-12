@@ -127,7 +127,7 @@ export function BereavementQuoteWidget() {
           {submitting ? "Sending…" : "Request binding offers"}
         </Button>
         <p className="text-xs text-muted-foreground">
-          This is a non-binding indication. Beistand introduces you to licensed §34d GewO insurance
+          This is a non-binding indication. BeistandPlus introduces you to licensed §34d GewO insurance
           brokers. No advice is given until you speak with a broker.
         </p>
       </form>

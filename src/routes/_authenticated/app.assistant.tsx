@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated/app/assistant")({
 type Msg = { role: "user" | "assistant"; text: string };
 
 const seed: Msg[] = [
-  { role: "assistant", text: "Hallo Ahmed 👋 I'm Beistand AI. I can help with settlement, benefits, immigration, healthcare and end-of-life care in Germany. Ask me anything — in DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA, PL or ZH." },
+  { role: "assistant", text: "Hallo Ahmed 👋 I'm BeistandPlus AI. I can help with settlement, benefits, immigration, healthcare and end-of-life care in Germany. Ask me anything — in DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA, PL or ZH." },
 ];
 
 const suggestions = [
@@ -48,7 +48,7 @@ function AssistantPage() {
           <Sparkles className="h-5 w-5" />
         </div>
         <div>
-          <div className="font-display text-xl font-semibold">Beistand AI</div>
+          <div className="font-display text-xl font-semibold">BeistandPlus AI</div>
           <div className="text-xs text-muted-foreground">Always on · DE · EN · TR · UR · HI · PA · PS · AR · KU · RU · UK</div>
         </div>
       </div>

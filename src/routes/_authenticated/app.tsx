@@ -17,8 +17,8 @@ import { useQueryClient } from "@tanstack/react-query";
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
     meta: [
-      { title: "Dashboard — Beistand" },
-      { name: "description", content: "Your Beistand dashboard: cases, checklists, benefits, documents, and providers." },
+      { title: "Dashboard — BeistandPlus" },
+      { name: "description", content: "Your BeistandPlus dashboard: cases, checklists, benefits, documents, and providers." },
     ],
   }),
   component: AppLayout,
@@ -50,7 +50,7 @@ function AppLayout() {
       <AppSidebar />
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6 lg:px-8">
-          <Link to="/" className="lg:hidden font-display text-lg font-semibold">Beistand</Link>
+          <Link to="/" className="lg:hidden font-display text-lg font-semibold">BeistandPlus</Link>
           <div className="hidden max-w-lg flex-1 items-center gap-2 rounded-lg border border-border/60 bg-parchment/60 px-3 py-1.5 md:flex">
             <Search className="h-4 w-4 text-muted-foreground" />
             <input

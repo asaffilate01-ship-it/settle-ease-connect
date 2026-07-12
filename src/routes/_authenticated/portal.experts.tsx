@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/portal/experts")({
-  head: () => ({ meta: [{ title: "Expert roster — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Expert roster — BeistandPlus" }] }),
   component: ExpertsPage,
 });
 

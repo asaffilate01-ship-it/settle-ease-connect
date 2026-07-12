@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Loader2, Search } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/portal/knowledge")({
-  head: () => ({ meta: [{ title: "Knowledge base — Beistand" }] }),
+  head: () => ({ meta: [{ title: "Knowledge base — BeistandPlus" }] }),
   component: KnowledgePage,
 });
 
@@ -42,7 +42,7 @@ function KnowledgePage() {
       <PortalHeader
         crumbs={[{ label: "Knowledge base" }]}
         title="Internal knowledge base"
-        subtitle="Legal basis, SOPs, and assigned experts for every service Beistand delivers."
+        subtitle="Legal basis, SOPs, and assigned experts for every service BeistandPlus delivers."
         actions={
           <div className="relative w-full sm:w-72">
             <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />

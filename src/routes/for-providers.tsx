@@ -6,10 +6,10 @@ import { Building2, Church, Landmark, Hospital, Plane, Scale, Shield, Car, Baby,
 export const Route = createFileRoute("/for-providers")({
   head: () => ({
     meta: [
-      { title: "For providers — Beistand" },
+      { title: "For providers — BeistandPlus" },
       { name: "description", content: "Join Germany's largest cross-faith welfare and end-of-life network. Portals for funeral directors, mosques, churches, temples and gurdwaras." },
-      { property: "og:title", content: "For providers — Beistand" },
-      { property: "og:description", content: "Get verified referrals, manage cases, and grow your practice with Beistand." },
+      { property: "og:title", content: "For providers — BeistandPlus" },
+      { property: "og:description", content: "Get verified referrals, manage cases, and grow your practice with BeistandPlus." },
     ],
   }),
   component: ForProviders,
@@ -43,7 +43,7 @@ function ForProviders() {
           Build your practice. Stand with your community.
         </h1>
         <p className="mt-5 text-lg text-muted-foreground">
-          Beistand is quietly building Germany's first cross-faith welfare and
+          BeistandPlus is quietly building Germany's first cross-faith welfare and
           bereavement network. Joining is <strong>free for providers</strong> —
           no subscription, no listing fee. In return, you commit wholesale
           rates on the services you already offer, and we pass them through to

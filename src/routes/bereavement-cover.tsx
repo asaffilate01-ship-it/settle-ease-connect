@@ -8,9 +8,9 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/bereavement-cover")({
   head: () => ({
     meta: [
-      { title: "Bereavement Cover — €10,000 Sterbegeld | Beistand" },
+      { title: "Bereavement Cover — €10,000 Sterbegeld | BeistandPlus" },
       { name: "description", content: "Bereavement insurance from €12/month. €10,000 benefit paid directly to funeral directors, balance to your beneficiary — in Germany or abroad." },
-      { property: "og:title", content: "Bereavement Cover — Beistand" },
+      { property: "og:title", content: "Bereavement Cover — BeistandPlus" },
       { property: "og:description", content: "Full funeral costs covered. Direct payment to funeral directors, transparent invoicing, balance to beneficiary." },
     ],
   }),
@@ -87,7 +87,7 @@ function BereavementCover() {
         <h2 className="font-display text-3xl font-semibold">Claim flow when it matters</h2>
         <ol className="mt-8 space-y-4">
           {[
-            "Family opens a claim in Beistand (60-second form).",
+            "Family opens a claim in BeistandPlus (60-second form).",
             "Case manager assigned within 15 minutes; notifies insurer.",
             "Sterbeurkunde collected; funeral director from vetted directory engaged.",
             "Insurer pays funeral director directly — family pays nothing upfront.",
@@ -103,7 +103,7 @@ function BereavementCover() {
           ))}
         </ol>
         <div className="mt-10 rounded-lg border-l-4 border-primary bg-accent/30 p-5 text-sm text-muted-foreground">
-          Beistand acts as introducer (Tippgeber / §34d GewO broker where applicable). Advice and
+          BeistandPlus acts as introducer (Tippgeber / §34d GewO broker where applicable). Advice and
           binding offers come from the licensed partner insurer. See our{" "}
           <Link to="/legal/terms" className="underline">terms</Link> and{" "}
           <Link to="/legal/privacy" className="underline">privacy notice</Link>.

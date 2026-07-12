@@ -4,9 +4,9 @@ import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-ar
 export const Route = createFileRoute("/legal/terms")({
   head: () => ({
     meta: [
-      { title: "AGB — Beistand" },
+      { title: "AGB — BeistandPlus" },
       { name: "description", content: "Allgemeine Geschäftsbedingungen und Widerrufsbelehrung nach deutschem Recht (BGB, DDG)." },
-      { property: "og:title", content: "AGB — Beistand" },
+      { property: "og:title", content: "AGB — BeistandPlus" },
       { property: "og:url", content: "/legal/terms" },
     ],
     links: [{ rel: "canonical", href: "/legal/terms" }],
@@ -21,16 +21,16 @@ function Page() {
 
       <LegalSection title="1. Anbieter">
         <p>
-          Anbieter im Sinne des § 5 DDG ist die Beistand GmbH, Musterstraße 1, 10115 Berlin
-          (im Folgenden „Beistand", „wir"). Vollständige Angaben siehe {" "}
+          Anbieter im Sinne des § 5 DDG ist die BeistandPlus GmbH, Musterstraße 1, 10115 Berlin
+          (im Folgenden „BeistandPlus", „wir"). Vollständige Angaben siehe {" "}
           <a href="/legal/impressum">Impressum</a>.
         </p>
       </LegalSection>
 
       <LegalSection title="2. Geltungsbereich, Vertragssprache">
         <p>
-          Diese AGB gelten für alle Verträge zwischen Beistand und Ihnen über die Nutzung der
-          Beistand-Plattform. Vertragssprachen sind Deutsch und Englisch; maßgeblich ist im
+          Diese AGB gelten für alle Verträge zwischen BeistandPlus und Ihnen über die Nutzung der
+          BeistandPlus-Plattform. Vertragssprachen sind Deutsch und Englisch; maßgeblich ist im
           Zweifel die deutsche Fassung. Abweichende Bedingungen erkennen wir nicht an,
           soweit ihnen nicht ausdrücklich zugestimmt wurde.
         </p>
@@ -38,10 +38,10 @@ function Page() {
 
       <LegalSection title="3. Leistungen">
         <p>
-          Beistand ist eine Ansiedlungs- und Fürsorgeplattform für in Deutschland lebende oder
+          BeistandPlus ist eine Ansiedlungs- und Fürsorgeplattform für in Deutschland lebende oder
           zuziehende Menschen. Wir bieten Fallmanagement, Checklisten, ein Familien-Dokumenten-
           Depot, einen KI-Assistenten sowie die Vermittlung geprüfter Experten (Anwälte, Notare,
-          Steuerberater, Ärzte, Bestatter, Übersetzer). Beistand ist selbst <strong>keine</strong>
+          Steuerberater, Ärzte, Bestatter, Übersetzer). BeistandPlus ist selbst <strong>keine</strong>
           Kanzlei, Steuerkanzlei, Versicherungsvermittlung, Arztpraxis oder Bestattungsunternehmen.
           Beratungsverträge kommen ausschließlich zwischen Ihnen und dem jeweiligen Experten
           zustande.
@@ -73,7 +73,7 @@ function Page() {
           <strong>Widerrufsrecht.</strong> Sie haben das Recht, binnen vierzehn Tagen ohne
           Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn
           Tage ab dem Tag des Vertragsschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie
-          uns (Beistand GmbH, Musterstraße 1, 10115 Berlin, E-Mail
+          uns (BeistandPlus GmbH, Musterstraße 1, 10115 Berlin, E-Mail
           {" "}<a href="mailto:widerruf@beistand.de">widerruf@beistand.de</a>) mittels einer
           eindeutigen Erklärung (z. B. per Brief oder E-Mail) über Ihren Entschluss, diesen
           Vertrag zu widerrufen, informieren. Zur Wahrung der Widerrufsfrist reicht es aus,

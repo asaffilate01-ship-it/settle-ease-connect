@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/app/community")({
 const events = [
   { title: "Freitagsgebet & community lunch", where: "Şehitlik-Moschee, Berlin", when: "Fr · 13:15", tag: "Mosque" },
   { title: "Urdu-speaking women's circle", where: "Neukölln community centre", when: "Sa · 10:00", tag: "Community" },
-  { title: "Newcomer orientation (EN)", where: "Beistand HQ, Kreuzberg", when: "Sa · 15:00", tag: "Beistand" },
+  { title: "Newcomer orientation (EN)", where: "BeistandPlus HQ, Kreuzberg", when: "Sa · 15:00", tag: "BeistandPlus" },
   { title: "German conversation cafe", where: "Café Kotti", when: "So · 11:00", tag: "Language" },
   { title: "Kids Quran class", where: "Şehitlik-Moschee", when: "Sa · 09:00", tag: "Family" },
   { title: "Diwali celebration", where: "Sri Ganesha Tempel", when: "Nov 4 · 18:00", tag: "Temple" },
