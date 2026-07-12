@@ -109,7 +109,6 @@ function KnowledgeDetail() {
                   ))}
                 </div>
               )}
-            </div>
           </div>
         </div>
       )}
