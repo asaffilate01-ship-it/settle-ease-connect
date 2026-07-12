@@ -46,6 +46,9 @@
     "experts": "Expertenliste",
     "settings": "Einstellungen",
     "internal": "Intern",
+    "admin": "Admin",
+    "adminUsers": "Nutzer & Rollen",
+    "adminInvite": "Einladungen",
     "caseManagerRole": "Fallmanager · Berlin"
   },
   "language": {
