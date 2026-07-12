@@ -15,6 +15,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as DirectoryRouteImport } from './routes/directory'
@@ -100,6 +101,11 @@ const PricingRoute = PricingRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsuranceRoute = InsuranceRouteImport.update({
+  id: '/insurance',
+  path: '/insurance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -423,6 +429,7 @@ export interface FileRoutesByFullPath {
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
@@ -486,6 +493,7 @@ export interface FileRoutesByTo {
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
@@ -549,6 +557,7 @@ export interface FileRoutesById {
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
@@ -614,6 +623,7 @@ export interface FileRouteTypes {
     | '/directory'
     | '/for-providers'
     | '/how-it-works'
+    | '/insurance'
     | '/legal'
     | '/pricing'
     | '/services'
@@ -677,6 +687,7 @@ export interface FileRouteTypes {
     | '/directory'
     | '/for-providers'
     | '/how-it-works'
+    | '/insurance'
     | '/legal'
     | '/pricing'
     | '/services'
@@ -739,6 +750,7 @@ export interface FileRouteTypes {
     | '/directory'
     | '/for-providers'
     | '/how-it-works'
+    | '/insurance'
     | '/legal'
     | '/pricing'
     | '/services'
@@ -804,6 +816,7 @@ export interface RootRouteChildren {
   DirectoryRoute: typeof DirectoryRouteWithChildren
   ForProvidersRoute: typeof ForProvidersRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  InsuranceRoute: typeof InsuranceRoute
   LegalRoute: typeof LegalRouteWithChildren
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
@@ -855,6 +868,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insurance': {
+      id: '/insurance'
+      path: '/insurance'
+      fullPath: '/insurance'
+      preLoaderRoute: typeof InsuranceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -1444,6 +1464,7 @@ const rootRouteChildren: RootRouteChildren = {
   DirectoryRoute: DirectoryRouteWithChildren,
   ForProvidersRoute: ForProvidersRoute,
   HowItWorksRoute: HowItWorksRoute,
+  InsuranceRoute: InsuranceRoute,
   LegalRoute: LegalRouteWithChildren,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,

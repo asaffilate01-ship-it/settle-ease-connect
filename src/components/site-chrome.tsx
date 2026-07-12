@@ -41,6 +41,11 @@ export function SiteHeader() {
           href: "/students",
           hint: t("nav.hint.students", "For international students"),
         },
+        {
+          label: "Insurance",
+          href: "/insurance",
+          hint: "Broker-placed cover in 13 languages",
+        },
       ],
     },
     { label: t("nav.howItWorks", "How it works"), href: "/how-it-works" },
@@ -54,12 +59,13 @@ export function SiteHeader() {
     [t("nav.howItWorks"), "/how-it-works"],
     [t("nav.services"), "/services"],
     [t("nav.directory"), "/directory"],
-    [t("nav.bereavement"), "/bereavement"],
-    [t("nav.students", "Students"), "/students"],
-    [t("nav.forProviders"), "/for-providers"],
-    [t("nav.pricing"), "/pricing"],
-    [t("nav.blog"), "/blog"],
-  ];
+      [t("nav.bereavement"), "/bereavement"],
+      [t("nav.students", "Students"), "/students"],
+      ["Insurance", "/insurance"],
+      [t("nav.forProviders"), "/for-providers"],
+      [t("nav.pricing"), "/pricing"],
+      [t("nav.blog"), "/blog"],
+    ];
 
   return (
     <div className="safe-top sticky top-0 z-40">

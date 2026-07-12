@@ -1165,10 +1165,12 @@ export type Database = {
       }
       insurance_leads: {
         Row: {
-          age: number
+          age: number | null
           assigned_to: string | null
-          benefit_amount: number
+          benefit_amount: number | null
           call_log: Json
+          carrier_partner: string | null
+          commission_pct: number | null
           created_at: string
           email: string
           estimated_premium_max: number | null
@@ -1177,18 +1179,22 @@ export type Database = {
           id: string
           notes: string | null
           phone: string | null
+          preferred_contact: string | null
           preferred_language: string | null
+          product_line: string | null
           source: string | null
           status: string
-          tobacco: boolean
+          tobacco: boolean | null
           updated_at: string
-          waiting_period_months: number
+          waiting_period_months: number | null
         }
         Insert: {
-          age: number
+          age?: number | null
           assigned_to?: string | null
-          benefit_amount?: number
+          benefit_amount?: number | null
           call_log?: Json
+          carrier_partner?: string | null
+          commission_pct?: number | null
           created_at?: string
           email: string
           estimated_premium_max?: number | null
@@ -1197,18 +1203,22 @@ export type Database = {
           id?: string
           notes?: string | null
           phone?: string | null
+          preferred_contact?: string | null
           preferred_language?: string | null
+          product_line?: string | null
           source?: string | null
           status?: string
-          tobacco?: boolean
+          tobacco?: boolean | null
           updated_at?: string
-          waiting_period_months?: number
+          waiting_period_months?: number | null
         }
         Update: {
-          age?: number
+          age?: number | null
           assigned_to?: string | null
-          benefit_amount?: number
+          benefit_amount?: number | null
           call_log?: Json
+          carrier_partner?: string | null
+          commission_pct?: number | null
           created_at?: string
           email?: string
           estimated_premium_max?: number | null
@@ -1217,12 +1227,14 @@ export type Database = {
           id?: string
           notes?: string | null
           phone?: string | null
+          preferred_contact?: string | null
           preferred_language?: string | null
+          product_line?: string | null
           source?: string | null
           status?: string
-          tobacco?: boolean
+          tobacco?: boolean | null
           updated_at?: string
-          waiting_period_months?: number
+          waiting_period_months?: number | null
         }
         Relationships: []
       }
