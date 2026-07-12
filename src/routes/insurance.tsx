@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { submitInsuranceCallback } from "@/lib/insurance-callback.functions";
+import { enqueue, registerReplayHandler } from "@/lib/offline-queue";
 import {
   ShieldCheck,
   Stethoscope,
