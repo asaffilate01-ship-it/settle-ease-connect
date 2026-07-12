@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as DirectoryRouteImport } from './routes/directory'
@@ -21,6 +22,11 @@ import { Route as BereavementRouteImport } from './routes/bereavement'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
+import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
+import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -53,6 +59,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -98,6 +109,31 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalImpressumRoute = LegalImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalCookiesRoute = LegalCookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalComplaintsRoute = LegalComplaintsRouteImport.update({
+  id: '/complaints',
+  path: '/complaints',
+  getParentRoute: () => LegalRoute,
 } as any)
 const DirectoryListYourBusinessRoute =
   DirectoryListYourBusinessRouteImport.update({
@@ -213,12 +249,18 @@ export interface FileRoutesByFullPath {
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/legal': typeof LegalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/legal/complaints': typeof LegalComplaintsRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/impressum': typeof LegalImpressumRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -244,11 +286,17 @@ export interface FileRoutesByTo {
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/legal': typeof LegalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/legal/complaints': typeof LegalComplaintsRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/impressum': typeof LegalImpressumRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -276,12 +324,18 @@ export interface FileRoutesById {
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/legal': typeof LegalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/legal/complaints': typeof LegalComplaintsRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/impressum': typeof LegalImpressumRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -309,12 +363,18 @@ export interface FileRouteTypes {
     | '/directory'
     | '/for-providers'
     | '/how-it-works'
+    | '/legal'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/app'
     | '/blog/$slug'
     | '/directory/list-your-business'
+    | '/legal/complaints'
+    | '/legal/cookies'
+    | '/legal/impressum'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -340,11 +400,17 @@ export interface FileRouteTypes {
     | '/directory'
     | '/for-providers'
     | '/how-it-works'
+    | '/legal'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/blog/$slug'
     | '/directory/list-your-business'
+    | '/legal/complaints'
+    | '/legal/cookies'
+    | '/legal/impressum'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -371,12 +437,18 @@ export interface FileRouteTypes {
     | '/directory'
     | '/for-providers'
     | '/how-it-works'
+    | '/legal'
     | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/app'
     | '/blog/$slug'
     | '/directory/list-your-business'
+    | '/legal/complaints'
+    | '/legal/cookies'
+    | '/legal/impressum'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
     | '/_authenticated/app/cases'
@@ -404,6 +476,7 @@ export interface RootRouteChildren {
   DirectoryRoute: typeof DirectoryRouteWithChildren
   ForProvidersRoute: typeof ForProvidersRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  LegalRoute: typeof LegalRouteWithChildren
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -430,6 +503,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -494,6 +574,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/impressum': {
+      id: '/legal/impressum'
+      path: '/impressum'
+      fullPath: '/legal/impressum'
+      preLoaderRoute: typeof LegalImpressumRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/cookies': {
+      id: '/legal/cookies'
+      path: '/cookies'
+      fullPath: '/legal/cookies'
+      preLoaderRoute: typeof LegalCookiesRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/complaints': {
+      id: '/legal/complaints'
+      path: '/complaints'
+      fullPath: '/legal/complaints'
+      preLoaderRoute: typeof LegalComplaintsRouteImport
+      parentRoute: typeof LegalRoute
     }
     '/directory/list-your-business': {
       id: '/directory/list-your-business'
@@ -721,6 +836,24 @@ const DirectoryRouteWithChildren = DirectoryRoute._addFileChildren(
   DirectoryRouteChildren,
 )
 
+interface LegalRouteChildren {
+  LegalComplaintsRoute: typeof LegalComplaintsRoute
+  LegalCookiesRoute: typeof LegalCookiesRoute
+  LegalImpressumRoute: typeof LegalImpressumRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
+}
+
+const LegalRouteChildren: LegalRouteChildren = {
+  LegalComplaintsRoute: LegalComplaintsRoute,
+  LegalCookiesRoute: LegalCookiesRoute,
+  LegalImpressumRoute: LegalImpressumRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
+}
+
+const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -731,6 +864,7 @@ const rootRouteChildren: RootRouteChildren = {
   DirectoryRoute: DirectoryRouteWithChildren,
   ForProvidersRoute: ForProvidersRoute,
   HowItWorksRoute: HowItWorksRoute,
+  LegalRoute: LegalRouteWithChildren,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
