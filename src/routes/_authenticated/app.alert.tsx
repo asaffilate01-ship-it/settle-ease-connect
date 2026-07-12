@@ -18,11 +18,21 @@ const listClientsIAmNominatedFor = createServerFn({ method: "GET" })
     if (!email) return [];
     const { data, error } = await context.supabase
       .from("trusted_contacts")
-      .select("client_user_id, emergency_order, profiles:client_user_id(full_name)")
+      .select("client_user_id, emergency_order")
       .not("emergency_order", "is", null)
       .ilike("email", email);
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    const ids = Array.from(new Set(rows.map((r) => r.client_user_id)));
+    let names = new Map<string, string | null>();
+    if (ids.length) {
+      const { data: profs } = await context.supabase
+        .from("profiles")
+        .select("id, full_name")
+        .in("id", ids);
+      names = new Map((profs ?? []).map((p) => [p.id, p.full_name]));
+    }
+    return rows.map((r) => ({ ...r, profiles: { full_name: names.get(r.client_user_id) ?? null } }));
   });
 
 export const Route = createFileRoute("/_authenticated/app/alert")({
