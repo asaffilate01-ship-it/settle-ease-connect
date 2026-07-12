@@ -70,7 +70,7 @@ function ForProviders() {
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.desc}</p>
               <div className="mt-5 flex items-center justify-between">
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Access</span>
-                <span className="font-display text-sm font-semibold text-success">Free · {p.commitment}</span>
+                <span className="font-display text-sm font-semibold text-success">Free to join</span>
               </div>
             </div>
           ))}
