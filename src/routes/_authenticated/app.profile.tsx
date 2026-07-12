@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Plus, Trash2, ExternalLink, ClipboardList, Briefcase, HeartPulse, Users2, PiggyBank, AlertTriangle } from "lucide-react";
+import { Plus, Trash2, ExternalLink, ClipboardList, Briefcase, HeartPulse, Users2, PiggyBank, AlertTriangle, HeartHandshake, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,30 +10,39 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { listLifeAdmin, upsertLifeAdmin, deleteLifeAdmin } from "@/lib/life-admin.functions";
 import { listReferralPartners, createReferralLead, buildReferralUrl } from "@/lib/referrals.functions";
+import { listFamily, upsertFamily, deleteFamily } from "@/lib/immigration.functions";
 import { LIFE_EVENT_PLAYBOOKS, type Playbook } from "@/data/life-event-playbooks";
 
 export const Route = createFileRoute("/_authenticated/app/profile")({
   head: () => ({
     meta: [
-      { title: "My records — employment, pensions, contacts, events" },
-      { name: "description", content: "Store employment, pensions, health insurance, trusted contacts, and follow the right playbook for major life events." },
+      { title: "My records — employment, pensions, contacts, family, events" },
+      { name: "description", content: "Store employment, pensions, health insurance, trusted contacts, family members and follow the right playbook for major life events." },
     ],
   }),
   component: ProfilePage,
 });
 
-type Tab = "employment" | "pensions" | "health" | "contacts" | "events";
+type Tab = "employment" | "pensions" | "health" | "contacts" | "family" | "events";
 
 const TABS: { id: Tab; label: string; icon: any }[] = [
   { id: "employment", label: "Employment", icon: Briefcase },
   { id: "pensions", label: "Pensions", icon: PiggyBank },
   { id: "health", label: "Health insurance", icon: HeartPulse },
   { id: "contacts", label: "Trusted contacts", icon: Users2 },
+  { id: "family", label: "Family & dependants", icon: HeartHandshake },
   { id: "events", label: "Life-event playbooks", icon: AlertTriangle },
 ];
 
 function ProfilePage() {
   const [tab, setTab] = useState<Tab>("employment");
+  const fetchRows = useServerFn(listLifeAdmin);
+  const { data: contacts = [] } = useQuery({
+    queryKey: ["life", "trusted_contacts"],
+    queryFn: () => fetchRows({ data: { table: "trusted_contacts" } }),
+  });
+  const nominatedCount = (contacts as any[]).filter((c) => c.emergency_order != null).length;
+
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
@@ -43,6 +52,21 @@ function ProfilePage() {
           Everything we need to help you claim benefits, insurance, or navigate a major life event — kept in one place. Your case manager sees only what your plan allows.
         </p>
       </header>
+
+      {nominatedCount < 3 && (
+        <div className="rounded-2xl border border-red-500/40 bg-red-500/5 p-5">
+          <div className="flex items-start gap-3">
+            <ShieldAlert className="mt-0.5 h-5 w-5 text-red-600" />
+            <div className="flex-1">
+              <div className="font-semibold text-red-700">Please nominate 3 emergency contacts</div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                You've nominated <strong>{nominatedCount} of 3</strong>. These are the people we'll alert — and who can alert us — if you die, are hospitalised, go missing, or become unreachable. Set order 1, 2, 3 on the Trusted Contacts tab.
+              </p>
+              <Button size="sm" className="mt-3" onClick={() => setTab("contacts")}>Nominate now</Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-2 border-b border-border/60">
         {TABS.map(({ id, label, icon: Icon }) => (
@@ -62,10 +86,12 @@ function ProfilePage() {
       {tab === "pensions" && <PensionsSection />}
       {tab === "health" && <HealthSection />}
       {tab === "contacts" && <ContactsSection />}
+      {tab === "family" && <FamilySection />}
       {tab === "events" && <EventsSection />}
     </div>
   );
 }
+
 
 /* ---------------- generic list + form helper ---------------- */
 
@@ -305,9 +331,10 @@ function ContactsSection() {
         { name: "role", label: "Role", type: "select", options: ["next_of_kin", "medical_proxy", "executor", "employer_hr", "gp", "lawyer", "accountant", "notary", "embassy", "other"] },
         { name: "name", label: "Full name" },
         { name: "phone", label: "Phone", type: "tel" },
-        { name: "email", label: "Email", type: "email" },
+        { name: "email", label: "Email (used so this person can alert us)", type: "email" },
         { name: "address", label: "Address" },
         { name: "language", label: "Preferred language" },
+        { name: "emergency_order", label: "Emergency order (1, 2 or 3 — leave blank if not an emergency contact)", type: "number", placeholder: "1" },
         { name: "is_primary", label: "Primary contact for this role", type: "checkbox", placeholder: "Mark as the go-to person" },
         { name: "notes", label: "Notes", type: "textarea" },
       ]}
@@ -316,6 +343,7 @@ function ContactsSection() {
           <div className="flex items-center gap-2">
             <div className="font-semibold">{r.name}</div>
             <Badge variant="secondary">{r.role.replace(/_/g, " ")}</Badge>
+            {r.emergency_order != null && <Badge className="bg-red-500/15 text-red-700">Emergency #{r.emergency_order}</Badge>}
             {r.is_primary && <Badge className="bg-primary/15 text-primary">primary</Badge>}
           </div>
           <div className="text-sm text-muted-foreground">{r.phone ?? "—"} · {r.email ?? "—"}</div>
@@ -325,6 +353,121 @@ function ContactsSection() {
     />
   );
 }
+
+/* ---------------- Family & dependants ---------------- */
+
+function FamilySection() {
+  const qc = useQueryClient();
+  const fetchFamily = useServerFn(listFamily);
+  const upsert = useServerFn(upsertFamily);
+  const remove = useServerFn(deleteFamily);
+  const fetchHealth = useServerFn(listLifeAdmin);
+  const { data: members = [] } = useQuery({ queryKey: ["family"], queryFn: fetchFamily });
+  const { data: healthRows = [] } = useQuery({
+    queryKey: ["life", "health_insurance"],
+    queryFn: () => fetchHealth({ data: { table: "health_insurance" } }),
+  });
+  const [form, setForm] = useState<any | null>(null);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form) return;
+    await upsert({
+      data: {
+        ...form,
+        covered_by_subscription: !!form.covered_by_subscription,
+        added_to_health_insurance_id: form.added_to_health_insurance_id || null,
+        date_of_birth: form.date_of_birth || null,
+        arrival_date: form.arrival_date || null,
+      },
+    });
+    setForm(null);
+    qc.invalidateQueries({ queryKey: ["family"] });
+  }
+
+  async function del(id: string) {
+    if (!confirm("Remove this family member?")) return;
+    await remove({ data: { id } });
+    qc.invalidateQueries({ queryKey: ["family"] });
+  }
+
+  return (
+    <section className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="font-display text-xl font-semibold tracking-tight">Family & dependants</h2>
+          <p className="text-sm text-muted-foreground">Add children as they're born, family members as they arrive — link them to your health insurance and household subscription.</p>
+        </div>
+        <Button onClick={() => setForm(form ? null : { relationship: "child", covered_by_subscription: true })} className="bg-gradient-primary">
+          <Plus className="mr-2 h-4 w-4" />{form ? "Cancel" : "Add family member"}
+        </Button>
+      </div>
+
+      {form && (
+        <form onSubmit={submit} className="grid grid-cols-1 gap-3 rounded-2xl border border-border/60 bg-card p-6 sm:grid-cols-2">
+          <div>
+            <Label>Relationship</Label>
+            <select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={form.relationship} onChange={(e) => setForm({ ...form, relationship: e.target.value })}>
+              {["spouse","partner","child","parent","sibling","other"].map((r) => <option key={r} value={r}>{r}</option>)}
+            </select>
+          </div>
+          <div><Label>Full name</Label><Input value={form.full_name ?? ""} onChange={(e) => setForm({ ...form, full_name: e.target.value })} required /></div>
+          <div><Label>Date of birth</Label><Input type="date" value={form.date_of_birth ?? ""} onChange={(e) => setForm({ ...form, date_of_birth: e.target.value })} /></div>
+          <div><Label>Nationality</Label><Input value={form.nationality ?? ""} onChange={(e) => setForm({ ...form, nationality: e.target.value })} /></div>
+          <div>
+            <Label>Residency status</Label>
+            <select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={form.residency_status ?? ""} onChange={(e) => setForm({ ...form, residency_status: e.target.value })}>
+              <option value="">—</option>
+              {["eu_citizen","permanent_resident","temp_resident","pending","non_resident"].map((r) => <option key={r} value={r}>{r.replace(/_/g," ")}</option>)}
+            </select>
+          </div>
+          <div><Label>Passport number</Label><Input value={form.passport_number ?? ""} onChange={(e) => setForm({ ...form, passport_number: e.target.value })} /></div>
+          <div><Label>Arrival date in Germany</Label><Input type="date" value={form.arrival_date ?? ""} onChange={(e) => setForm({ ...form, arrival_date: e.target.value })} /></div>
+          <div>
+            <Label>Added to health insurance</Label>
+            <select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={form.added_to_health_insurance_id ?? ""} onChange={(e) => setForm({ ...form, added_to_health_insurance_id: e.target.value })}>
+              <option value="">— none —</option>
+              {(healthRows as any[]).map((h) => <option key={h.id} value={h.id}>{h.kasse} ({(h.kind || "").toUpperCase()})</option>)}
+            </select>
+          </div>
+          <label className="flex items-center gap-2 text-sm sm:col-span-2"><input type="checkbox" checked={!!form.covered_by_subscription} onChange={(e) => setForm({ ...form, covered_by_subscription: e.target.checked })} /> Include on our household subscription (Complete plan)</label>
+          <div className="sm:col-span-2"><Label>Notes</Label><Textarea rows={2} value={form.notes ?? ""} onChange={(e) => setForm({ ...form, notes: e.target.value })} /></div>
+          <div className="sm:col-span-2 flex justify-end gap-2"><Button type="button" variant="ghost" onClick={() => setForm(null)}>Cancel</Button><Button type="submit">{form.id ? "Save" : "Add"}</Button></div>
+        </form>
+      )}
+
+      {(members as any[]).length === 0 ? (
+        <div className="rounded-2xl border border-dashed p-8 text-center text-sm text-muted-foreground">No family members yet.</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {(members as any[]).map((m) => (
+            <div key={m.id} className="rounded-2xl border border-border/60 bg-card p-4 shadow-soft">
+              <div className="flex items-start justify-between">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold">{m.full_name}</span>
+                    <Badge variant="secondary">{m.relationship}</Badge>
+                    {m.covered_by_subscription && <Badge className="bg-emerald-500/15 text-emerald-700">on subscription</Badge>}
+                    {m.added_to_health_insurance_id && <Badge className="bg-sky-500/15 text-sky-700">on health cover</Badge>}
+                  </div>
+                  <div className="mt-1 text-xs text-muted-foreground">
+                    {m.date_of_birth ?? "?"} · {m.nationality ?? "—"} · {m.residency_status?.replace(/_/g, " ") ?? "—"}
+                  </div>
+                  {m.arrival_date && <div className="text-xs text-muted-foreground">Arrived: {m.arrival_date}</div>}
+                </div>
+                <div className="flex gap-1">
+                  <Button size="sm" variant="ghost" onClick={() => setForm(m)}>Edit</Button>
+                  <Button size="sm" variant="ghost" onClick={() => del(m.id)}><Trash2 className="h-4 w-4" /></Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 
 /* ---------------- Life-event playbooks ---------------- */
 
