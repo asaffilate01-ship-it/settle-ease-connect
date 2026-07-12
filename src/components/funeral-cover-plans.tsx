@@ -181,11 +181,11 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
           </div>
 
           <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent/20 p-4 text-sm">
-            <strong className="text-foreground">Example:</strong> A family of 2 adults (age 40) + 3 children
-            pays around <strong className="text-foreground">€37–52 / month</strong>. On a claim, the insurer
-            pays €10,000 direct to the funeral director; a typical German funeral runs €5,500–€8,000, leaving{" "}
-            <strong className="text-foreground">€2,000–€4,500 transferred to the named beneficiary</strong>.
+            <strong className="text-foreground">Example:</strong> On a claim, the insurer settles the funeral
+            invoices in full and{" "}
+            <strong className="text-foreground">any balance remaining after costs is paid to the named beneficiary</strong>.
           </div>
+
         </>
       )}
 
