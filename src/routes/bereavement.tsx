@@ -342,6 +342,9 @@ const partnerCommitments = [
   { title: "Written cooperation, not phone calls", body: "Every listed partner has signed a Kooperationsvereinbarung with fixed roles, escalation paths and pricing bands — attached to your case file." },
   { title: "Verified clergy and washers", body: "We check Personalausweis, Imamausweis / ministerial appointment, and Gemeinde authorisation before onboarding. Re-checked yearly." },
   { title: "Transparent partner pricing", body: "Ceremony contributions are itemised on your quote — nothing is bundled or marked-up silently. Sozialbestattung tariffs are honoured." },
+];
+
+
 
 
 function StageCard({ title, stages, tone }: { title: string; stages: { t: string }[]; tone: "primary" | "accent" }) {
