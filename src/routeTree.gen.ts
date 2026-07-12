@@ -18,10 +18,12 @@ import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BereavementCoverRouteImport } from './routes/bereavement-cover'
 import { Route as BereavementRouteImport } from './routes/bereavement'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PartnersInsurersRouteImport } from './routes/partners.insurers'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
@@ -91,6 +93,11 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BereavementCoverRoute = BereavementCoverRouteImport.update({
+  id: '/bereavement-cover',
+  path: '/bereavement-cover',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BereavementRoute = BereavementRouteImport.update({
   id: '/bereavement',
   path: '/bereavement',
@@ -108,6 +115,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersInsurersRoute = PartnersInsurersRouteImport.update({
+  id: '/partners/insurers',
+  path: '/partners/insurers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
@@ -244,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
+  '/bereavement-cover': typeof BereavementCoverRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
@@ -261,6 +274,7 @@ export interface FileRoutesByFullPath {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/partners/insurers': typeof PartnersInsurersRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -281,6 +295,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
+  '/bereavement-cover': typeof BereavementCoverRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
@@ -297,6 +312,7 @@ export interface FileRoutesByTo {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/partners/insurers': typeof PartnersInsurersRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -319,6 +335,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/bereavement': typeof BereavementRoute
+  '/bereavement-cover': typeof BereavementCoverRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
@@ -336,6 +353,7 @@ export interface FileRoutesById {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/partners/insurers': typeof PartnersInsurersRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
   '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
@@ -358,6 +376,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/bereavement'
+    | '/bereavement-cover'
     | '/blog'
     | '/contact'
     | '/directory'
@@ -375,6 +394,7 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/partners/insurers'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -395,6 +415,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/bereavement'
+    | '/bereavement-cover'
     | '/blog'
     | '/contact'
     | '/directory'
@@ -411,6 +432,7 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/partners/insurers'
     | '/app/assistant'
     | '/app/benefits'
     | '/app/cases'
@@ -432,6 +454,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/bereavement'
+    | '/bereavement-cover'
     | '/blog'
     | '/contact'
     | '/directory'
@@ -449,6 +472,7 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/partners/insurers'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
     | '/_authenticated/app/cases'
@@ -471,6 +495,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   BereavementRoute: typeof BereavementRoute
+  BereavementCoverRoute: typeof BereavementCoverRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   DirectoryRoute: typeof DirectoryRouteWithChildren
@@ -480,6 +505,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  PartnersInsurersRoute: typeof PartnersInsurersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -547,6 +573,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bereavement-cover': {
+      id: '/bereavement-cover'
+      path: '/bereavement-cover'
+      fullPath: '/bereavement-cover'
+      preLoaderRoute: typeof BereavementCoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bereavement': {
       id: '/bereavement'
       path: '/bereavement'
@@ -573,6 +606,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners/insurers': {
+      id: '/partners/insurers'
+      path: '/partners/insurers'
+      fullPath: '/partners/insurers'
+      preLoaderRoute: typeof PartnersInsurersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal/terms': {
@@ -859,6 +899,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   BereavementRoute: BereavementRoute,
+  BereavementCoverRoute: BereavementCoverRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   DirectoryRoute: DirectoryRouteWithChildren,
@@ -868,6 +909,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  PartnersInsurersRoute: PartnersInsurersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
