@@ -86,7 +86,7 @@ function Hero() {
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
-              <Languages className="h-4 w-4" /> DE · EN · UR · TR · AR · HI
+              <Languages className="h-4 w-4" /> DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL
             </span>
             <span className="inline-flex items-center gap-2">
               <ShieldCheck className="h-4 w-4" /> GDPR-first & bank-grade encryption
@@ -375,7 +375,8 @@ function BereavementBand() {
             Beistand coordinates every party — family, funeral director,
             hospital, Standesamt, mosque or church, cemetery, airline,
             consulate, insurance — inside a single, timestamped case file. In
-            English, German, Urdu, Turkish or Arabic.
+            German, English, Turkish, Urdu, Hindi, Punjabi, Arabic, Kurdish,
+            Russian, Ukrainian, Farsi or Polish.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary">

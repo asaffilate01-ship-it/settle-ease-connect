@@ -93,7 +93,7 @@ function Overview() {
             </div>
             <div>
               <div className="font-display text-lg font-semibold">Beistand AI</div>
-              <div className="text-xs text-muted-foreground">Ready to help — in DE, EN, UR, TR, AR</div>
+              <div className="text-xs text-muted-foreground">Ready to help — DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA, PL</div>
             </div>
           </div>
           <div className="mt-4 space-y-2">
