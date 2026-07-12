@@ -172,7 +172,49 @@ function Pricing() {
         </div>
 
         {/* Plan cards */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 lg:grid-cols-4">
+          {/* Community (free) tier */}
+          <div className="relative flex flex-col rounded-2xl border border-dashed border-teal/50 bg-card p-6 shadow-soft">
+            <div className="absolute -top-3 left-6 rounded-full bg-teal px-3 py-1 text-xs font-semibold text-[oklch(0.16_0.04_250)]">
+              Free · Community
+            </div>
+            <div className="font-display text-2xl font-semibold">Community</div>
+            <div className="text-sm text-muted-foreground">
+              A safety net for anyone in Germany — no card required.
+            </div>
+            <div className="mt-6 flex items-baseline gap-1">
+              <span className="font-display text-5xl font-semibold">€0</span>
+              <span className="text-sm text-muted-foreground">/ forever</span>
+            </div>
+            <div className="mt-1 text-xs text-muted-foreground">
+              Funded by paying members and NGO / municipal partners
+            </div>
+            <ul className="mt-6 flex-1 space-y-3 text-sm leading-relaxed">
+              {[
+                "AI letter translator & explainer — any German letter, 13 languages",
+                "Benefit-eligibility checker (Kindergeld, Wohngeld, Bürgergeld, Elterngeld)",
+                "Prefilled Anmeldung / Ummeldung / Abmeldung forms",
+                "Life-event playbooks and knowledge base",
+                "1 case per year with a real case manager (subject to fair-use review)",
+                "Multi-faith community & provider directory",
+                "Pay-per-use interpreter booking (no subscription needed)",
+                "Community forum — help from other members, moderated by our team",
+              ].map((f) => (
+                <li key={f} className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="outline" className="mt-6 border-teal/40 text-foreground hover:bg-teal/10">
+              <Link to="/auth">Start free</Link>
+            </Button>
+            <div className="mt-3 text-[11px] text-muted-foreground">
+              Refugees, asylum seekers and Bürgergeld recipients — Community stays free for as long as
+              you need it, no questions asked.
+            </div>
+          </div>
+
           {isLoading && (
             <div className="col-span-3 text-center text-muted-foreground text-sm">Loading plans…</div>
           )}
@@ -247,6 +289,14 @@ function Pricing() {
               </div>
             );
           })}
+        </div>
+
+        {/* Trust link */}
+        <div className="mt-8 text-center text-sm text-muted-foreground">
+          Every plan is backed by our{" "}
+          <Link to="/trust" className="font-semibold text-primary underline-offset-4 hover:underline">
+            published SLAs, licences and refund promises →
+          </Link>
         </div>
 
         {/* Launch scope */}
