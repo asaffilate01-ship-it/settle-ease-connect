@@ -62,6 +62,7 @@ import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
 import { Route as AuthenticatedPortalAdminInviteRouteImport } from './routes/_authenticated/portal.admin.invite'
+import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/_authenticated/app.messages.$channelId'
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
@@ -353,6 +354,12 @@ const AuthenticatedPortalAdminInviteRoute =
     path: '/admin/invite',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedAppMessagesChannelIdRoute =
+  AuthenticatedAppMessagesChannelIdRouteImport.update({
+    id: '/$channelId',
+    path: '/$channelId',
+    getParentRoute: () => AuthenticatedAppMessagesRoute,
+  } as any)
 const AuthenticatedAppCasesNewRoute =
   AuthenticatedAppCasesNewRouteImport.update({
     id: '/new',
@@ -401,7 +408,7 @@ export interface FileRoutesByFullPath {
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/location': typeof AuthenticatedAppLocationRoute
-  '/app/messages': typeof AuthenticatedAppMessagesRoute
+  '/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
@@ -418,6 +425,7 @@ export interface FileRoutesByFullPath {
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
@@ -455,7 +463,7 @@ export interface FileRoutesByTo {
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/location': typeof AuthenticatedAppLocationRoute
-  '/app/messages': typeof AuthenticatedAppMessagesRoute
+  '/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
@@ -472,6 +480,7 @@ export interface FileRoutesByTo {
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
@@ -513,7 +522,7 @@ export interface FileRoutesById {
   '/_authenticated/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/_authenticated/app/location': typeof AuthenticatedAppLocationRoute
-  '/_authenticated/app/messages': typeof AuthenticatedAppMessagesRoute
+  '/_authenticated/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
   '/_authenticated/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
@@ -530,6 +539,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/_authenticated/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
   '/_authenticated/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
@@ -588,6 +598,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/app/messages/$channelId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
     | '/portal/knowledge/$slug'
@@ -642,6 +653,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/app/messages/$channelId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
     | '/portal/knowledge/$slug'
@@ -699,6 +711,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
+    | '/_authenticated/app/messages/$channelId'
     | '/_authenticated/portal/admin/invite'
     | '/_authenticated/portal/admin/users'
     | '/_authenticated/portal/knowledge/$slug'
@@ -1095,6 +1108,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalAdminInviteRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/app/messages/$channelId': {
+      id: '/_authenticated/app/messages/$channelId'
+      path: '/$channelId'
+      fullPath: '/app/messages/$channelId'
+      preLoaderRoute: typeof AuthenticatedAppMessagesChannelIdRouteImport
+      parentRoute: typeof AuthenticatedAppMessagesRoute
+    }
     '/_authenticated/app/cases/new': {
       id: '/_authenticated/app/cases/new'
       path: '/new'
@@ -1127,6 +1147,21 @@ const AuthenticatedAppCasesRouteWithChildren =
     AuthenticatedAppCasesRouteChildren,
   )
 
+interface AuthenticatedAppMessagesRouteChildren {
+  AuthenticatedAppMessagesChannelIdRoute: typeof AuthenticatedAppMessagesChannelIdRoute
+}
+
+const AuthenticatedAppMessagesRouteChildren: AuthenticatedAppMessagesRouteChildren =
+  {
+    AuthenticatedAppMessagesChannelIdRoute:
+      AuthenticatedAppMessagesChannelIdRoute,
+  }
+
+const AuthenticatedAppMessagesRouteWithChildren =
+  AuthenticatedAppMessagesRoute._addFileChildren(
+    AuthenticatedAppMessagesRouteChildren,
+  )
+
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
@@ -1139,7 +1174,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppImmigrationRoute: typeof AuthenticatedAppImmigrationRoute
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
   AuthenticatedAppLocationRoute: typeof AuthenticatedAppLocationRoute
-  AuthenticatedAppMessagesRoute: typeof AuthenticatedAppMessagesRoute
+  AuthenticatedAppMessagesRoute: typeof AuthenticatedAppMessagesRouteWithChildren
   AuthenticatedAppNotificationsRoute: typeof AuthenticatedAppNotificationsRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
@@ -1160,7 +1195,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppImmigrationRoute: AuthenticatedAppImmigrationRoute,
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
   AuthenticatedAppLocationRoute: AuthenticatedAppLocationRoute,
-  AuthenticatedAppMessagesRoute: AuthenticatedAppMessagesRoute,
+  AuthenticatedAppMessagesRoute: AuthenticatedAppMessagesRouteWithChildren,
   AuthenticatedAppNotificationsRoute: AuthenticatedAppNotificationsRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
