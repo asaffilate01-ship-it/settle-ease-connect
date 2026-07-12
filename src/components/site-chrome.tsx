@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { SocialIcons } from "@/components/social-icons";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -16,6 +17,7 @@ export function SiteHeader() {
     [t("nav.bereavement"), "/bereavement"],
     [t("nav.forProviders"), "/for-providers"],
     [t("nav.pricing"), "/pricing"],
+    [t("nav.blog"), "/blog"],
   ];
 
   return (
