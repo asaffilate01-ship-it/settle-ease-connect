@@ -73,13 +73,13 @@ const groups: Group[] = [
     icon: "healthcare",
     title: "Healthcare",
     summary: "Doctors who speak your language, insurance you understand, mental-health care that meets you where you are.",
-    items: ["English- & Urdu-speaking doctors", "Insurance comparison", "Mental health support", "Pregnancy services"],
+    items: ["Multilingual doctors (English, Urdu, Turkish, Arabic, Russian and more)", "Insurance comparison", "Mental health support", "Pregnancy services"],
   },
   {
     icon: "community",
     title: "Community",
-    summary: "The people, places and rhythms of home — nearby, trusted, and open to your family.",
-    items: ["Mosque finder", "Prayer times", "Halal restaurants", "Islamic schools", "Women's groups", "Youth clubs"],
+    summary: "The people, places and rhythms of home — nearby, trusted and open to every faith and background.",
+    items: ["Mosque, church, temple & gurdwara finder", "Prayer & service times", "Halal, kosher & vegetarian restaurants", "Faith & language schools", "Women's & parents' groups", "Youth clubs & sports"],
   },
   {
     icon: "experts",
