@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
+import { bootAutoTranslate } from "@/lib/auto-translate";
 
 const STORAGE_KEY = "beistand.lang";
 const ONBOARDING_KEY = "beistand.lang.chosen";
@@ -17,11 +18,13 @@ export function useLanguage() {
     };
   }, [i18n]);
 
-  // Sync <html lang> and <html dir> whenever language changes.
+  // Sync <html lang> and <html dir> whenever language changes, and kick off
+  // the DOM-wide auto-translator for anything not covered by i18next keys.
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL(lang) ? "rtl" : "ltr";
+    bootAutoTranslate(lang);
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
