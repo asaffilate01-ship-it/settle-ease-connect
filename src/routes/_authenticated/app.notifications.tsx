@@ -90,6 +90,34 @@ function NotificationsPage() {
         )}
       </header>
 
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border bg-card p-4">
+        <div className="flex items-center gap-3">
+          <BellRing className="h-5 w-5 text-primary" />
+          <div>
+            <div className="font-medium">Browser push notifications</div>
+            <div className="text-xs text-muted-foreground">
+              {pushState === "unavailable"
+                ? "Not supported in this browser"
+                : pushState === "on"
+                  ? "Enabled on this device"
+                  : "Get pinged even when the tab is closed"}
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          {pushState !== "on" && pushState !== "unavailable" && (
+            <Button size="sm" onClick={enablePush} disabled={pushState === "enabling"}>
+              {pushState === "enabling" ? "Enabling…" : "Enable"}
+            </Button>
+          )}
+          {pushState === "on" && (
+            <Button size="sm" variant="outline" onClick={testPush}>
+              Send test
+            </Button>
+          )}
+        </div>
+      </div>
+
       {loading ? (
         <div className="rounded-2xl border p-8 text-center text-sm text-muted-foreground">Loading…</div>
       ) : items.length === 0 ? (
