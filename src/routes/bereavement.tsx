@@ -255,10 +255,97 @@ function Bereavement() {
         </div>
       </section>
 
+      <section className="border-t border-border/60 bg-parchment/50">
+        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+              Formal partnerships
+            </div>
+            <h2 className="display-lg mt-3 font-semibold">
+              Named faith & community partners across Germany.
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Every ceremony is coordinated with a partner organisation under a
+              written cooperation agreement (Kooperationsvereinbarung) — not an
+              ad-hoc phone call. That means agreed pricing, verified clergy,
+              response-time SLAs, and a single accountable contact per city.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {faithPartners.map((p) => (
+              <div key={p.name} className="flex flex-col rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-primary">{p.faith}</div>
+                    <div className="mt-1 font-display text-lg font-semibold leading-tight">{p.name}</div>
+                  </div>
+                  <Badge variant="outline" className="border-primary/30 text-[10px] text-primary">
+                    {p.tier}
+                  </Badge>
+                </div>
+                <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.role}</p>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-[11px] text-muted-foreground">
+                  <div><span className="font-medium text-foreground">Cities:</span> {p.cities}</div>
+                  <div><span className="font-medium text-foreground">SLA:</span> {p.sla}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            {partnerCommitments.map((c) => (
+              <div key={c.title} className="rounded-xl border border-border/60 bg-card p-5">
+                <div className="font-semibold">{c.title}</div>
+                <p className="mt-1.5 text-sm text-muted-foreground">{c.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <Button asChild variant="outline">
+              <Link to="/directory">Browse full partner directory</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/trust">Compliance & vetting standards</Link>
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              Are you a mosque, church, temple, gurdwara or funeral director?
+              Partnership onboarding is free —{" "}
+              <a href="mailto:partners@beistandplus.de" className="underline">partners@beistandplus.de</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );
 }
+
+const faithPartners = [
+  { faith: "Islam", name: "Zentralrat der Muslime — regional Gemeinden", tier: "Framework MOU", role: "Coordination of Ghusl, Kafan, Janazah prayer and access to muslimische Grabfelder in DITIB, VIKZ and independent Gemeinden.", cities: "Berlin, Hamburg, NRW, Frankfurt, München", sla: "Imam ≤ 4h" },
+  { faith: "Islam", name: "Islamische Bestattungshilfe e.V.", tier: "Preferred partner", role: "Volunteer-led ghusl teams and shroud-only burial in Länder that permit sargloses Bestatten.", cities: "NRW, Berlin, Bremen, Hamburg", sla: "Team ≤ 6h" },
+  { faith: "Christian", name: "Evangelische Kirche in Deutschland (EKD) — Diakonie", tier: "Cooperation letter", role: "Pastor scheduling, Trauergespräch, Aussegnung and cemetery liaison across evangelisch parishes.", cities: "Nationwide (parish-level)", sla: "Pastor ≤ 24h" },
+  { faith: "Christian", name: "Deutsche Bischofskonferenz — Caritas partners", tier: "Cooperation letter", role: "Katholische Requiem, priest scheduling and cemetery coordination through diocesan Caritas offices.", cities: "Nationwide (parish-level)", sla: "Priest ≤ 24h" },
+  { faith: "Jewish", name: "Zentralrat der Juden — Chevra Kadisha", tier: "Referral partnership", role: "Referral to the local Gemeinde's Chevra Kadisha for Tahara, plain-coffin burial and Jewish cemetery interment.", cities: "Berlin, Frankfurt, München, Köln, Düsseldorf", sla: "Same-day where halachically required" },
+  { faith: "Hindu", name: "Afghanischer Hindu-Verein & Sri Ganesha Hindu Tempel", tier: "Preferred partner", role: "Pandit for antyeshti rites at the crematorium, ashes-abroad export documentation to India.", cities: "Berlin, Hamm, Frankfurt, Hannover", sla: "Pandit ≤ 12h" },
+  { faith: "Sikh", name: "Gurdwara Sri Guru Nanak Sabha e.V.", tier: "Preferred partner", role: "Antim Ardas, Kirtan Sohila, cremation coordination and asthiyan handling.", cities: "Frankfurt, Köln, Hamburg, Stuttgart", sla: "Granthi ≤ 12h" },
+  { faith: "Buddhist", name: "Deutsche Buddhistische Union (DBU)", tier: "Referral partnership", role: "Referral to Theravāda, Mahāyāna or Vajrayāna sangha for cremation rites and memorial services.", cities: "Nationwide (network)", sla: "Monastic ≤ 24h" },
+  { faith: "Alevi", name: "Alevitische Gemeinde Deutschland (AABF)", tier: "Cooperation letter", role: "Dede coordination, cem evi ceremonies and burial in Alevi-designated cemetery fields.", cities: "Berlin, Köln, Hamburg, Stuttgart, Mannheim", sla: "Dede ≤ 12h" },
+  { faith: "Yezidi", name: "Zentralrat der Êzîden in Deutschland", tier: "Referral partnership", role: "Sheikh / Pir referral, culturally-correct washing and burial in Yezidi tradition.", cities: "NRW (Bielefeld, Celle, Hannover)", sla: "Elder ≤ 24h" },
+  { faith: "Orthodox", name: "Kommission der Orthodoxen Kirche in Deutschland (KOKiD)", tier: "Cooperation letter", role: "Greek, Serbian, Russian, Romanian and Bulgarian priest scheduling and Panikhida services.", cities: "Nationwide (parish-level)", sla: "Priest ≤ 24h" },
+  { faith: "Secular / humanist", name: "Humanistischer Verband Deutschlands (HVD)", tier: "Cooperation letter", role: "Trained secular celebrants for non-religious ceremonies, civil rites and memorial services.", cities: "Berlin, Brandenburg, Bayern, NRW, Niedersachsen", sla: "Celebrant ≤ 48h" },
+];
+
+const partnerCommitments = [
+  { title: "Written cooperation, not phone calls", body: "Every listed partner has signed a Kooperationsvereinbarung with fixed roles, escalation paths and pricing bands — attached to your case file." },
+  { title: "Verified clergy and washers", body: "We check Personalausweis, Imamausweis / ministerial appointment, and Gemeinde authorisation before onboarding. Re-checked yearly." },
+  { title: "Transparent partner pricing", body: "Ceremony contributions are itemised on your quote — nothing is bundled or marked-up silently. Sozialbestattung tariffs are honoured." },
+];
+
+
+
 
 function StageCard({ title, stages, tone }: { title: string; stages: { t: string }[]; tone: "primary" | "accent" }) {
   return (
