@@ -62,7 +62,7 @@ function AlertPage() {
     <div className="mx-auto max-w-2xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
         <div className="flex items-center gap-2 text-red-600"><ShieldAlert className="h-5 w-5" /><span className="text-xs font-semibold uppercase tracking-[0.16em]">Emergency channel</span></div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">Raise an emergency alert</h1>
+        <h1 className="display-lg font-semibold">Raise an emergency alert</h1>
         <p className="text-sm text-muted-foreground">If you're listed as a nominated emergency contact for someone, you can alert our team here 24/7. We'll acknowledge and take over.</p>
       </header>
 

@@ -88,7 +88,7 @@ function UpgradePage() {
         <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
           <Sparkles className="h-3 w-3" /> Plans & pricing
         </div>
-        <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">Choose the plan that fits your household</h1>
+        <h1 className="display-lg mt-3 font-semibold">Choose the plan that fits your household</h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-muted-foreground">
           Third-party costs (visa fees, notary, funeral director, translations) are always separate and transparent. Upgrade,
           downgrade or cancel any time.

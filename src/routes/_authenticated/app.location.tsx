@@ -109,7 +109,7 @@ function LocationPage() {
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
           <MapPin className="h-4 w-4" /> Live location
         </div>
-        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">Share your location</h1>
+        <h1 className="display-lg mt-1 font-semibold">Share your location</h1>
         <p className="text-sm text-muted-foreground">
           Send a live pin to your case team, or trigger an emergency share so your nominated contacts and our on-call team can see where you are until you stop it.
         </p>

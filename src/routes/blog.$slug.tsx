@@ -88,7 +88,7 @@ function BlogPost() {
           </span>
         </div>
 
-        <h1 className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+        <h1 className="display-hero mt-4 font-semibold">
           {post.title}
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">{post.excerpt}</p>
@@ -170,7 +170,7 @@ function PostNotFound() {
     <div className="min-h-screen">
       <SiteHeader />
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="font-display text-4xl font-semibold">Article not found</h1>
+        <h1 className="display-lg font-semibold">Article not found</h1>
         <p className="mt-3 text-muted-foreground">
           The article you're looking for doesn't exist or has moved.
         </p>

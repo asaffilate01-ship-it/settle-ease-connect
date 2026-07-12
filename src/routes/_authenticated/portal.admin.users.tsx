@@ -70,7 +70,7 @@ function AdminUsersPage() {
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">
             <Shield className="h-3.5 w-3.5" /> Admin
           </div>
-          <h1 className="mt-1 font-display text-3xl font-semibold">Users & roles</h1>
+          <h1 className="display-lg mt-1 font-semibold">Users & roles</h1>
           <p className="text-sm text-muted-foreground">
             Search accounts and manage role assignments across the platform.
           </p>

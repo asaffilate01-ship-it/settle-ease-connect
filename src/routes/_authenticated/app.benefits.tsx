@@ -100,7 +100,7 @@ function BenefitsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-semibold">Benefits & entitlements</h1>
+        <h1 className="display-lg font-semibold">Benefits & entitlements</h1>
         <p className="text-sm text-muted-foreground">
           Answer a few questions and BeistandPlus estimates what you're entitled to under 2026 German rates —
           family, housing, income support, study, pension, disability, illness, care, tax reliefs and

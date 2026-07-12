@@ -20,7 +20,7 @@ function ChecklistsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-semibold">Checklists</h1>
+        <h1 className="display-lg font-semibold">Checklists</h1>
         <p className="text-sm text-muted-foreground">Personalised step-by-steps for every stage of life in Germany.</p>
       </div>
 

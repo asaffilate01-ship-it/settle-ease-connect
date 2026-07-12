@@ -98,7 +98,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
             <ShieldCheck className="h-3.5 w-3.5" />
             Sterbegeldversicherung · Underwritten by regulated German insurers
           </div>
-          <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
+          <h2 className="display-lg mt-3 font-semibold">
             Funeral-costs insurance from about €12/month
           </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">

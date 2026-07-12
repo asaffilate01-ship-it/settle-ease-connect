@@ -101,7 +101,7 @@ function BugReportsPage() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             {t("bugs.subtitle")}
           </div>
-          <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+          <h1 className="display-lg mt-2 font-semibold">
             {t("bugs.title")}
           </h1>
         </div>

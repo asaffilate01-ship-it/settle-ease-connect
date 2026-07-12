@@ -58,7 +58,7 @@ function InsurancePage() {
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-4 sm:p-6">
       <header className="space-y-2">
-        <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Insurance</h1>
+        <h1 className="display-lg font-semibold">Insurance</h1>
         <p className="max-w-3xl text-sm text-muted-foreground">
           Browse German insurance providers, register clients directly on the insurer's system, and manage the full claim
           process — from first notice of loss to beneficiary payout and invoice reconciliation.

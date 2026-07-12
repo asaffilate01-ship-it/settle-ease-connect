@@ -188,7 +188,7 @@ function ForProviders() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           Provider network
         </div>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
+        <h1 className="display-hero mt-3 font-semibold">
           Build your practice. Stand with your community.
         </h1>
         <p className="mt-5 text-lg text-muted-foreground">

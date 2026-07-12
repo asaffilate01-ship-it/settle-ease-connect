@@ -50,7 +50,7 @@ function HowItWorks() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           How it works
         </div>
-        <h1 className="mt-3 font-display text-5xl font-semibold leading-tight tracking-tight sm:text-6xl">
+        <h1 className="display-hero mt-3 font-semibold">
           Five steps.<br />No paperwork storm.
         </h1>
         <div className="mt-16 space-y-10">
@@ -58,7 +58,7 @@ function HowItWorks() {
             <div key={s.n} className="grid gap-6 border-t border-border/60 pt-10 sm:grid-cols-[120px_1fr]">
               <div className="font-display text-4xl font-semibold text-accent-foreground/70">{s.n}</div>
               <div>
-                <h3 className="font-display text-2xl font-semibold">{s.title}</h3>
+                <h3 className="display-md font-semibold">{s.title}</h3>
                 <p className="mt-2 text-lg text-muted-foreground">{s.desc}</p>
               </div>
             </div>

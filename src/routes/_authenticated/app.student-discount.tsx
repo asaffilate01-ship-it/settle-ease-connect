@@ -100,7 +100,7 @@ function StudentDiscountPage() {
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
           <GraduationCap className="h-4 w-4" /> Student discount
         </div>
-        <h1 className="mt-1 font-display text-3xl font-semibold">Verify your student status</h1>
+        <h1 className="display-lg mt-1 font-semibold">Verify your student status</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Upload a valid student ID or enrolment certificate. Once approved, 30% is deducted from any plan for as long as
           your status is valid.

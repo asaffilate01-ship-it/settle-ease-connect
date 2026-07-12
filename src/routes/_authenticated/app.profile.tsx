@@ -47,7 +47,7 @@ function ProfilePage() {
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Life administration</div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">My records</h1>
+        <h1 className="display-lg font-semibold">My records</h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           Everything we need to help you claim benefits, insurance, or navigate a major life event — kept in one place. Your case manager sees only what your plan allows.
         </p>

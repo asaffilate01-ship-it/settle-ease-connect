@@ -13,7 +13,7 @@ function ProvidersPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-semibold">Provider directory</h1>
+        <h1 className="display-lg font-semibold">Provider directory</h1>
         <p className="text-sm text-muted-foreground">Verified partners across faith and profession, city by city.</p>
       </div>
 

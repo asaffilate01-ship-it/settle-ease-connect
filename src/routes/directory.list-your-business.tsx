@@ -53,7 +53,7 @@ function ListYourBusiness() {
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Community directory</div>
-        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h1 className="display-hero mt-3 font-semibold">
           Free to list. Seen by every BeistandPlus member.
         </h1>
         <p className="mt-5 text-base text-muted-foreground">
