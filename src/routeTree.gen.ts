@@ -21,7 +21,9 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
+import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
@@ -30,6 +32,7 @@ import { Route as AuthenticatedAppChecklistsRouteImport } from './routes/_authen
 import { Route as AuthenticatedAppCasesRouteImport } from './routes/_authenticated/app.cases'
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
+import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
 
@@ -92,10 +95,22 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedPortalKnowledgeRoute =
+  AuthenticatedPortalKnowledgeRouteImport.update({
+    id: '/portal/knowledge',
+    path: '/portal/knowledge',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedPortalFuneralRoute =
   AuthenticatedPortalFuneralRouteImport.update({
     id: '/portal/funeral',
     path: '/portal/funeral',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPortalExpertsRoute =
+  AuthenticatedPortalExpertsRouteImport.update({
+    id: '/portal/experts',
+    path: '/portal/experts',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAppSettingsRoute =
@@ -145,6 +160,12 @@ const AuthenticatedAppAssistantRoute =
     path: '/assistant',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedPortalKnowledgeSlugRoute =
+  AuthenticatedPortalKnowledgeSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => AuthenticatedPortalKnowledgeRoute,
+  } as any)
 const AuthenticatedAppCasesNewRoute =
   AuthenticatedAppCasesNewRouteImport.update({
     id: '/new',
@@ -177,10 +198,13 @@ export interface FileRoutesByFullPath {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -200,10 +224,13 @@ export interface FileRoutesByTo {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -226,10 +253,13 @@ export interface FileRoutesById {
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
+  '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -252,10 +282,13 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/providers'
     | '/app/settings'
+    | '/portal/experts'
     | '/portal/funeral'
+    | '/portal/knowledge'
     | '/app/'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/portal/knowledge/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -275,10 +308,13 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/providers'
     | '/app/settings'
+    | '/portal/experts'
     | '/portal/funeral'
+    | '/portal/knowledge'
     | '/app'
     | '/app/cases/$caseId'
     | '/app/cases/new'
+    | '/portal/knowledge/$slug'
   id:
     | '__root__'
     | '/'
@@ -300,10 +336,13 @@ export interface FileRouteTypes {
     | '/_authenticated/app/documents'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/settings'
+    | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
+    | '/_authenticated/portal/knowledge'
     | '/_authenticated/app/'
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
+    | '/_authenticated/portal/knowledge/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -405,11 +444,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/portal/knowledge': {
+      id: '/_authenticated/portal/knowledge'
+      path: '/portal/knowledge'
+      fullPath: '/portal/knowledge'
+      preLoaderRoute: typeof AuthenticatedPortalKnowledgeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/portal/funeral': {
       id: '/_authenticated/portal/funeral'
       path: '/portal/funeral'
       fullPath: '/portal/funeral'
       preLoaderRoute: typeof AuthenticatedPortalFuneralRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/portal/experts': {
+      id: '/_authenticated/portal/experts'
+      path: '/portal/experts'
+      fullPath: '/portal/experts'
+      preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app/settings': {
@@ -467,6 +520,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/assistant'
       preLoaderRoute: typeof AuthenticatedAppAssistantRouteImport
       parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/portal/knowledge/$slug': {
+      id: '/_authenticated/portal/knowledge/$slug'
+      path: '/$slug'
+      fullPath: '/portal/knowledge/$slug'
+      preLoaderRoute: typeof AuthenticatedPortalKnowledgeSlugRouteImport
+      parentRoute: typeof AuthenticatedPortalKnowledgeRoute
     }
     '/_authenticated/app/cases/new': {
       id: '/_authenticated/app/cases/new'
@@ -527,14 +587,34 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
 const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
+interface AuthenticatedPortalKnowledgeRouteChildren {
+  AuthenticatedPortalKnowledgeSlugRoute: typeof AuthenticatedPortalKnowledgeSlugRoute
+}
+
+const AuthenticatedPortalKnowledgeRouteChildren: AuthenticatedPortalKnowledgeRouteChildren =
+  {
+    AuthenticatedPortalKnowledgeSlugRoute:
+      AuthenticatedPortalKnowledgeSlugRoute,
+  }
+
+const AuthenticatedPortalKnowledgeRouteWithChildren =
+  AuthenticatedPortalKnowledgeRoute._addFileChildren(
+    AuthenticatedPortalKnowledgeRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+  AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
+  AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+  AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
+  AuthenticatedPortalKnowledgeRoute:
+    AuthenticatedPortalKnowledgeRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
