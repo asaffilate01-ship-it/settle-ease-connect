@@ -388,7 +388,7 @@ function CallbackForm({ defaultProduct }: { defaultProduct: Product["key"] }) {
 
   // Register replay so items queued offline get sent when the network returns.
   registerReplayHandler("insurance_callback", async (payload) => {
-    await submit({ data: payload as Parameters<typeof submit>[0]["data"] });
+    await submit({ data: payload as ReturnType<typeof buildPayload> });
   });
 
   const buildPayload = () => ({
