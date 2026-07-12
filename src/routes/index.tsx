@@ -191,7 +191,7 @@ function UrgencyTriage() {
     {
       tone: "urgent" as const,
       tag: "I need help now",
-      icon: HeartPulse,
+      icon: "urgent" as const,
       title: "Something happened — a death, a deadline, a letter I can't read.",
       copy: "Talk to a human case manager within one hour. We triage, translate and act — bereavement, eviction notices, visa expiries, hospital paperwork, Jobcenter appointments.",
       bullets: [
@@ -205,7 +205,7 @@ function UrgencyTriage() {
     {
       tone: "plan" as const,
       tag: "I'm planning ahead",
-      icon: ShieldCheck,
+      icon: "plan" as const,
       title: "Set up my life in Germany — properly, calmly, one step at a time.",
       copy: "Store documents in the family vault, apply for visas, benefits and housing, keep pensions and insurance in one place, and hand over cleanly to loved ones when the time comes.",
       bullets: [
