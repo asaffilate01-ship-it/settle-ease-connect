@@ -254,8 +254,37 @@
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
   h1 { letter-spacing: -0.035em; }
+
+  /* -------------------------------------------------------------- */
+  /* German has very long compound words (Staatsangehörigkeit,      */
+  /* Aufenthaltsgenehmigung…). Hyphenate + shrink display headings  */
+  /* one step so they don't overflow narrow columns or mobile.      */
+  /* -------------------------------------------------------------- */
+  html:lang(de) h1,
+  html:lang(de) h2,
+  html:lang(de) h3 {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  /* Scale display headings ~12% down in German so long words fit. */
+  html:lang(de) .font-display.text-4xl { font-size: 1.875rem; line-height: 2.25rem; }   /* was 2.25rem */
+  html:lang(de) .font-display.text-5xl { font-size: 2.5rem;   line-height: 2.75rem; }   /* was 3rem   */
+  html:lang(de) .font-display.text-6xl { font-size: 3rem;     line-height: 3.25rem; }   /* was 3.75rem*/
+  html:lang(de) .font-display.text-7xl { font-size: 3.5rem;   line-height: 3.75rem; }   /* was 4.5rem */
+  @media (min-width: 640px) {
+    html:lang(de) .font-display.sm\:text-5xl { font-size: 2.75rem; line-height: 3rem; }
+    html:lang(de) .font-display.sm\:text-6xl { font-size: 3.25rem; line-height: 3.5rem; }
+    html:lang(de) .font-display.sm\:text-7xl { font-size: 3.75rem; line-height: 4rem; }
+  }
+  @media (min-width: 1024px) {
+    html:lang(de) .font-display.lg\:text-6xl { font-size: 3.5rem;  line-height: 3.75rem; }
+    html:lang(de) .font-display.lg\:text-7xl { font-size: 4rem;    line-height: 4.25rem; }
+  }
 
   /* Better mobile tap targets */
   button, a, [role="button"] {

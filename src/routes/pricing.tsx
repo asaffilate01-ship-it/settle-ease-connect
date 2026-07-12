@@ -52,7 +52,7 @@ const PLAN_FEATURES: Record<string, string[]> = {
   basic: [
     "Personal life-admin vault (documents, IDs, permits, contracts) — encrypted, GDPR-hosted in Germany",
     "Deadline & renewal tracker (visa, Aufenthaltstitel, passport, insurance, MOT/TÜV, tenancy)",
-    "13-language interface — DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL · ZH",
+    "11-language interface — DE · EN · TR · UR · HI · PA · PS · AR · KU · RU · UK",
     "Anmeldung / Ummeldung / Abmeldung checklists with prefilled forms",
     "Tax ID, EWR & bank-account starter guides",
     "Knowledge base: benefits, visas, health, housing, schools, driving",
