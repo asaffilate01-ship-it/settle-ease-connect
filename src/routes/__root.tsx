@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import "@/i18n";
+import { LanguageOnboarding } from "@/components/language-onboarding";
+import { useLanguage } from "@/hooks/use-language";
 
 function NotFoundComponent() {
   return (
@@ -103,6 +106,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap",
       },
+      // Multi-script font stack for the 12 supported languages.
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -147,7 +155,15 @@ function RootComponent() {
   }, [queryClient, router]);
   return (
     <QueryClientProvider client={queryClient}>
+      <LanguageBridge />
       <Outlet />
+      <LanguageOnboarding />
     </QueryClientProvider>
   );
+}
+
+/** Keeps <html lang> and <html dir> in sync with the active i18next language. */
+function LanguageBridge() {
+  useLanguage();
+  return null;
 }
