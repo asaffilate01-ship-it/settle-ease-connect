@@ -14,6 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
+      directory_listings: {
+        Row: {
+          address: string | null
+          bundesland: string | null
+          business_name: string
+          category: string
+          city: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          featured: boolean
+          id: string
+          languages: string[]
+          logo_url: string | null
+          owner_user_id: string | null
+          paid_until: string | null
+          phone: string | null
+          status: string
+          subcategory: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          bundesland?: string | null
+          business_name: string
+          category: string
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          featured?: boolean
+          id?: string
+          languages?: string[]
+          logo_url?: string | null
+          owner_user_id?: string | null
+          paid_until?: string | null
+          phone?: string | null
+          status?: string
+          subcategory?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          bundesland?: string | null
+          business_name?: string
+          category?: string
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          featured?: boolean
+          id?: string
+          languages?: string[]
+          logo_url?: string | null
+          owner_user_id?: string | null
+          paid_until?: string | null
+          phone?: string | null
+          status?: string
+          subcategory?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       expert_services: {
         Row: {
           expert_id: string
