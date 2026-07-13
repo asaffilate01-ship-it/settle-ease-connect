@@ -57,7 +57,7 @@ function AgentLayout() {
           {NAV.map((n) => (
             <Link
               key={n.to}
-              to={n.to}
+              to={n.to as "/agent"}
               activeOptions={{ exact: n.exact ?? false }}
               activeProps={{ className: "bg-sidebar-accent text-sidebar-primary" }}
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
