@@ -14,6 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_commissions: {
+        Row: {
+          agent_user_id: string
+          commission_eur: number
+          commission_rate: number
+          created_at: string
+          gross_eur: number
+          id: string
+          notes: string | null
+          paid_at: string | null
+          period_month: string
+          product: string
+          referred_user_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          agent_user_id: string
+          commission_eur?: number
+          commission_rate?: number
+          created_at?: string
+          gross_eur?: number
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          period_month: string
+          product?: string
+          referred_user_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          agent_user_id?: string
+          commission_eur?: number
+          commission_rate?: number
+          created_at?: string
+          gross_eur?: number
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          period_month?: string
+          product?: string
+          referred_user_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      agent_referrals: {
+        Row: {
+          agent_user_id: string
+          created_at: string
+          id: string
+          notes: string | null
+          product: string | null
+          referred_email: string | null
+          referred_user_id: string | null
+          source: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          agent_user_id: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          product?: string | null
+          referred_email?: string | null
+          referred_user_id?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          agent_user_id?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          product?: string | null
+          referred_email?: string | null
+          referred_user_id?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      agents: {
+        Row: {
+          code: string
+          commission_rate: number
+          created_at: string
+          display_name: string | null
+          id: string
+          notes: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          commission_rate?: number
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          commission_rate?: number
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           action: string
@@ -1182,6 +1305,7 @@ export type Database = {
           preferred_contact: string | null
           preferred_language: string | null
           product_line: string | null
+          referring_agent_user_id: string | null
           source: string | null
           status: string
           tobacco: boolean | null
@@ -1206,6 +1330,7 @@ export type Database = {
           preferred_contact?: string | null
           preferred_language?: string | null
           product_line?: string | null
+          referring_agent_user_id?: string | null
           source?: string | null
           status?: string
           tobacco?: boolean | null
@@ -1230,6 +1355,7 @@ export type Database = {
           preferred_contact?: string | null
           preferred_language?: string | null
           product_line?: string | null
+          referring_agent_user_id?: string | null
           source?: string | null
           status?: string
           tobacco?: boolean | null
@@ -2092,6 +2218,7 @@ export type Database = {
           current_period_end: string | null
           id: string
           plan_code: string
+          referring_agent_user_id: string | null
           status: string
           stripe_customer_id: string | null
           stripe_subscription_id: string | null
@@ -2104,6 +2231,7 @@ export type Database = {
           current_period_end?: string | null
           id?: string
           plan_code: string
+          referring_agent_user_id?: string | null
           status?: string
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
@@ -2116,6 +2244,7 @@ export type Database = {
           current_period_end?: string | null
           id?: string
           plan_code?: string
+          referring_agent_user_id?: string | null
           status?: string
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
@@ -2558,6 +2687,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_agent: { Args: { _user_id: string }; Returns: boolean }
       is_channel_member: {
         Args: { _channel_id: string; _user_id: string }
         Returns: boolean
