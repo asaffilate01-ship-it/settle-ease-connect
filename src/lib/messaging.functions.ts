@@ -95,7 +95,8 @@ export const sendMessage = createServerFn({ method: "POST" })
       .neq("user_id", context.userId);
     if (members && members.length) {
       const preview = data.body.slice(0, 120);
-      await context.supabase.from("notifications").insert(
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { error: notifErr } = await supabaseAdmin.from("notifications").insert(
         members.map((m: any) => ({
           user_id: m.user_id,
           kind: "message",
@@ -106,6 +107,7 @@ export const sendMessage = createServerFn({ method: "POST" })
           entity_id: data.channel_id,
         })),
       );
+      if (notifErr) console.error("notification fan-out failed:", notifErr.message);
     }
     return row;
   });
