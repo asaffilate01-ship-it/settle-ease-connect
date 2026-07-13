@@ -19,6 +19,21 @@ type NavGroup = { label: string; href?: string; children?: NavChild[] };
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const { user, roles, loading } = useCurrentUser();
+  const isSignedIn = !!user && !loading;
+  const dashHref = isSignedIn ? landingForRoles(roles) : "/app";
+  const role = primaryRole(roles);
+
+  async function handleSignOut() {
+    await qc.cancelQueries();
+    qc.clear();
+    await supabase.auth.signOut();
+    setOpen(false);
+    navigate({ to: "/", replace: true });
+  }
+
 
   // Grouped desktop nav — collapses 8 links into 5 top-level slots.
   const groups: NavGroup[] = [
