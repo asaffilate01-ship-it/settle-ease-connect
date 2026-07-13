@@ -66,12 +66,6 @@ const tiers = [
   },
 ];
 
-const flatRate = [
-  "One blended flat rate across the whole pool — every member pays the same",
-  "Actuarially balanced across ages — the broker calculates the rate from your member roster",
-  "One SEPA-Corporate mandate per member, one bulk wire to the cover provider",
-  "Fluctuation clause: monthly CSV updates auto-adjust the global invoice",
-];
 
 const payoutFlow = [
   {
@@ -160,24 +154,6 @@ function GroupCoverPage() {
               </div>
             </Card>
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft sm:p-8">
-          <h2 className="font-display text-2xl font-semibold">Optional: blended flat rate</h2>
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            For simple bookkeeping, most large mandates settle on a single flat premium so every
-            member pays the same regardless of age. Recommended when the pool skews younger.
-          </p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {flatRate.map((f) => (
-              <div key={f} className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
-                <span className="text-sm">{f}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
