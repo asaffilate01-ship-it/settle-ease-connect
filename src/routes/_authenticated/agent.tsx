@@ -32,7 +32,7 @@ function AgentLayout() {
   const name = profile?.full_name || user?.email?.split("@")[0] || t("agent.defaultName", { defaultValue: "Agent" });
 
   const profileFn = useServerFn(getMyAgentProfile);
-  const { data: agentProfile } = useQuery({ queryKey: ["agent", "profile"], queryFn: () => profileFn() });
+  const { data: agentProfile } = useQuery({ queryKey: ["agent", "profile"], queryFn: () => profileFn(), enabled: !!user, retry: false });
   const rate = Number(agentProfile?.commission_rate ?? 5);
 
   const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
