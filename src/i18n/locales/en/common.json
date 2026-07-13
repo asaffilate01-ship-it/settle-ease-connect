@@ -59,7 +59,19 @@
     "adminUsers": "Users & roles",
     "adminInvite": "Invitations",
     "bugs": "Bug reports",
-    "caseManagerRole": "Case Manager · Berlin"
+    "caseManagerRole": "Case Manager · Berlin",
+    "insurance": "Insurance",
+    "immigration": "Immigration",
+    "profile": "Profile",
+    "messages": "Messages",
+    "notifications": "Notifications",
+    "location": "Location",
+    "alert": "Alert",
+    "upgrade": "Upgrade",
+    "referrals": "Referrals",
+    "insuranceOps": "Insurance ops",
+    "immigrationOps": "Immigration ops",
+    "audit": "Audit"
   },
   "language": {
     "label": "Language",

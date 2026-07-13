@@ -59,7 +59,19 @@
     "adminUsers": "صارفین اور کردار",
     "adminInvite": "دعوت نامے",
     "bugs": "بگ رپورٹس",
-    "caseManagerRole": "کیس مینیجر · Berlin"
+    "caseManagerRole": "کیس مینیجر · Berlin",
+    "insurance": "انشورنس",
+    "immigration": "امیگریشن",
+    "profile": "پروفائل",
+    "messages": "پیغامات",
+    "notifications": "اطلاعات",
+    "location": "مقام",
+    "alert": "انتباہ",
+    "upgrade": "اپ گریڈ",
+    "referrals": "حوالہ جات",
+    "insuranceOps": "انشورنس آپریشنز",
+    "immigrationOps": "امیگریشن آپریشنز",
+    "audit": "آڈٹ"
   },
   "language": {
     "label": "زبان",

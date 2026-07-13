@@ -59,7 +59,19 @@
     "adminUsers": "ਉਪਭੋਗਤਾ ਅਤੇ ਭੂਮਿਕਾਵਾਂ",
     "adminInvite": "ਸੱਦੇ",
     "bugs": "ਬੱਗ ਰਿਪੋਰਟਾਂ",
-    "caseManagerRole": "ਕੇਸ ਮੈਨੇਜਰ · Berlin"
+    "caseManagerRole": "ਕੇਸ ਮੈਨੇਜਰ · Berlin",
+    "insurance": "ਬੀਮਾ",
+    "immigration": "ਅਪ੍ਰਵਾਸ",
+    "profile": "ਪ੍ਰੋਫਾਈਲ",
+    "messages": "ਸੰਦੇਸ਼",
+    "notifications": "ਸੂਚਨਾਵਾਂ",
+    "location": "ਟਿਕਾਣਾ",
+    "alert": "ਚੇਤਾਵਨੀ",
+    "upgrade": "ਅਪਗ੍ਰੇਡ",
+    "referrals": "ਰੈਫਰਲ",
+    "insuranceOps": "ਬੀਮਾ ਓਪਰੇਸ਼ਨ",
+    "immigrationOps": "ਅਪ੍ਰਵਾਸ ਓਪਰੇਸ਼ਨ",
+    "audit": "ਆਡਿਟ"
   },
   "language": {
     "label": "ਭਾਸ਼ਾ",

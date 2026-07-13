@@ -59,7 +59,19 @@
     "adminUsers": "المستخدمون والأدوار",
     "adminInvite": "الدعوات",
     "bugs": "تقارير الأخطاء",
-    "caseManagerRole": "مدير الحالة · Berlin"
+    "caseManagerRole": "مدير الحالة · Berlin",
+    "insurance": "تأمين",
+    "immigration": "هجرة",
+    "profile": "الملف الشخصي",
+    "messages": "الرسائل",
+    "notifications": "الإشعارات",
+    "location": "الموقع",
+    "alert": "تنبيه",
+    "upgrade": "ترقية",
+    "referrals": "الإحالات",
+    "insuranceOps": "عمليات التأمين",
+    "immigrationOps": "عمليات الهجرة",
+    "audit": "تدقيق"
   },
   "language": {
     "label": "اللغة",

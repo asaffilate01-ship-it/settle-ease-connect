@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "ጀርመን" },
+  "brand": {
+    "location": "ጀርመን"
+  },
   "nav": {
     "howItWorks": "ከመይ ከም ዝሰርሕ",
     "services": "ኣገልግሎታት",
@@ -44,5 +46,22 @@
     "continue": "ቀጽል",
     "current": "ህሉው ቋንቋ"
   },
-  "hero": { "headlinePrefix": "ኣብ ጀርመን ንዝኾነ", "headlineHighlight": "መገዲ" }
+  "hero": {
+    "headlinePrefix": "ኣብ ጀርመን ንዝኾነ",
+    "headlineHighlight": "መገዲ"
+  },
+  "sidebar": {
+    "insurance": "ፕሮግረም",
+    "immigration": "ስደተኛ",
+    "profile": "መግለጺ",
+    "messages": "መልእኽታት",
+    "notifications": "መእተዊታት",
+    "location": "ኣቀማምጣ",
+    "alert": "መጠንቀቕታ",
+    "upgrade": "ምምሕያሽ",
+    "referrals": "ምራጽ",
+    "insuranceOps": "ናይ ፕሮግረም ስራሕ",
+    "immigrationOps": "ናይ ስደተኛ ስራሕ",
+    "audit": "ምሕተተ"
+  }
 }

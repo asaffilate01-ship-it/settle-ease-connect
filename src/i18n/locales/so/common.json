@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Jarmalka" },
+  "brand": {
+    "location": "Jarmalka"
+  },
   "nav": {
     "howItWorks": "Sida ay u shaqeyso",
     "services": "Adeegyada",
@@ -44,5 +46,22 @@
     "continue": "Sii wad",
     "current": "Luqadda hadda"
   },
-  "hero": { "headlinePrefix": "Wado kasta oo", "headlineHighlight": "Jarmalka" }
+  "hero": {
+    "headlinePrefix": "Wado kasta oo",
+    "headlineHighlight": "Jarmalka"
+  },
+  "sidebar": {
+    "insurance": "Caymiska",
+    "immigration": "Socdaalka",
+    "profile": "Astaanta",
+    "messages": "Fariimaha",
+    "notifications": "Ogeysiisyada",
+    "location": "Goobta",
+    "alert": "Digniin",
+    "upgrade": "Kor u qaadi",
+    "referrals": "Gudbiyayaasha",
+    "insuranceOps": "Hawlaha caymiska",
+    "immigrationOps": "Hawlaha socdaalka",
+    "audit": "Baaritaanka"
+  }
 }

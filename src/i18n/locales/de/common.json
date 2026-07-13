@@ -59,7 +59,19 @@
     "adminUsers": "Nutzer & Rollen",
     "adminInvite": "Einladungen",
     "bugs": "Fehlerberichte",
-    "caseManagerRole": "Fallmanager · Berlin"
+    "caseManagerRole": "Fallmanager · Berlin",
+    "insurance": "Versicherung",
+    "immigration": "Einwanderung",
+    "profile": "Profil",
+    "messages": "Nachrichten",
+    "notifications": "Benachrichtigungen",
+    "location": "Standort",
+    "alert": "Alarm",
+    "upgrade": "Upgrade",
+    "referrals": "Empfehlungen",
+    "insuranceOps": "Versicherungs-Ops",
+    "immigrationOps": "Einwanderungs-Ops",
+    "audit": "Audit"
   },
   "language": {
     "label": "Sprache",

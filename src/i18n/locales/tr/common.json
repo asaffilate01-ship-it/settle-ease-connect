@@ -59,7 +59,19 @@
     "adminUsers": "Kullanıcılar ve roller",
     "adminInvite": "Davetiyeler",
     "bugs": "Hata raporları",
-    "caseManagerRole": "Vaka Yöneticisi · Berlin"
+    "caseManagerRole": "Vaka Yöneticisi · Berlin",
+    "insurance": "Sigorta",
+    "immigration": "Göç",
+    "profile": "Profil",
+    "messages": "Mesajlar",
+    "notifications": "Bildirimler",
+    "location": "Konum",
+    "alert": "Uyarı",
+    "upgrade": "Yükselt",
+    "referrals": "Yönlendirmeler",
+    "insuranceOps": "Sigorta operasyonları",
+    "immigrationOps": "Göç operasyonları",
+    "audit": "Denetim"
   },
   "language": {
     "label": "Dil",
