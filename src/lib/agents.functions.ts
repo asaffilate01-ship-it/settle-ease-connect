@@ -100,6 +100,12 @@ export const addManualReferral = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+
+    // Verify the caller is an active agent (not just role-assigned).
+    const { data: active, error: activeErr } = await supabase.rpc("is_active_agent", { _user_id: userId });
+    if (activeErr) throw new Error(activeErr.message);
+    if (!active) throw new Error("Your agent account is not active. Contact BeistandPlus to reactivate.");
+
     const { error } = await supabase.from("agent_referrals").insert({
       agent_user_id: userId,
       referred_email: data.referredEmail.toLowerCase(),
