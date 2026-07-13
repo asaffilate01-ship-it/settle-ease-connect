@@ -12,13 +12,13 @@ import { Button } from "@/components/ui/button";
  * HanseMerkur 2024–2025). Ranges are Tippgeber-safe indications, never
  * binding quotes.
  *
- * Coverage: €10,000 default benefit per insured adult. Children under 18
+ * Coverage: €8,000 default benefit per insured adult. Children under 18
  * are included at no additional premium on family / extended-family plans
  * (matches how Monuta and DELA structure their Familien-Sterbegeld tarifs).
  */
 
 const ADULT_AGE_BANDS = [30, 40, 50, 60, 70] as const;
-const BENEFIT_EUR = 10_000;
+const BENEFIT_EUR = 8_000;
 
 function bandFor(age: number) {
   return estimatePremium({
@@ -36,13 +36,13 @@ function fmt(n: number) {
 type Household = "individual" | "family" | "extended";
 
 const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
-  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult · €10k benefit" },
-  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 children under 18 · €10k per adult" },
-  { key: "extended", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 children under 18 · €10k per adult" },
+  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult · €8k benefit" },
+  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 children under 18 · €8k per adult" },
+  { key: "extended", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 children under 18 · €8k per adult" },
 ];
 
 const COVERAGE = [
-  "€10,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
+  "€8,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
   "Direct settlement of funeral director, cemetery, mosque / church / temple, cremation, coffin, flowers, catering and death-certificate fees against original invoices",
   "Full repatriation of the body abroad (zinc coffin, embalming, consular NOC, airline cargo, receiving director in the home country)",
   "Sworn translations, estate paperwork, Standesamt, embassy / consulate coordination — all invoiced through the case file",
@@ -60,7 +60,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         const b = bandFor(age);
         return {
           label: `Age ${age}`,
-          detail: "1 adult · €10,000 payout",
+          detail: "1 adult · €8,000 payout",
           min: b.min,
           max: b.max,
         };
@@ -72,7 +72,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         const b = bandFor(age);
         return {
           label: `Both adults age ${age}`,
-          detail: "2 adults + up to 3 children · €10k per adult",
+          detail: "2 adults + up to 3 children · €8k per adult",
           min: b.min * 2,
           max: b.max * 2,
         };
@@ -83,7 +83,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       const b = bandFor(age);
       return {
         label: `All 4 adults age ${age}`,
-        detail: "4 adults + up to 3 children · €10k per adult",
+        detail: "4 adults + up to 3 children · €8k per adult",
         min: b.min * 4,
         max: b.max * 4,
       };
@@ -102,7 +102,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
             Funeral-costs insurance from about €12/month
           </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            A dedicated policy that pays out <strong className="text-foreground">€10,000 per insured adult</strong> to
+            A dedicated policy that pays out <strong className="text-foreground">€8,000 per insured adult</strong> to
             cover the funeral in full and everything around it. Whatever's left after the invoices are settled
             is transferred to your nominated beneficiary — so the family never has to find the money at the
             hardest moment.
@@ -169,7 +169,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <>
           <div className="mt-8">
-            <h3 className="font-display text-xl font-semibold">What the €10,000 covers — via BeistandPlus</h3>
+            <h3 className="font-display text-xl font-semibold">What the €8,000 covers — via BeistandPlus</h3>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {COVERAGE.map((c) => (
                 <div key={c} className="flex items-start gap-2">
