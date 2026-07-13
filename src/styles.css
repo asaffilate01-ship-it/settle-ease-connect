@@ -76,30 +76,30 @@
   /* ---- Paper & Ink ---- */
   --background: oklch(0.975 0.011 78);   /* warm cream #faf8f5 */
   --parchment: oklch(0.955 0.019 72);    /* softer cream tone for surfaces */
-  --foreground: oklch(0.18 0.015 40);    /* deep charcoal ink */
-  --ink: oklch(0.14 0.015 40);
+  --foreground: oklch(0.16 0.015 40);    /* deeper charcoal for readability */
+  --ink: oklch(0.12 0.015 40);
 
   /* ---- Terracotta signature ---- */
-  --terracotta: oklch(0.6 0.14 40);      /* #c4654a */
+  --terracotta: oklch(0.56 0.15 38);     /* slightly deeper for AA contrast */
   --peach: oklch(0.82 0.088 55);         /* #e8a87c */
-  --sage: oklch(0.5 0.055 145);          /* #4a6741 */
+  --sage: oklch(0.46 0.06 145);          /* deeper sage for readability */
 
-  --card: oklch(0.985 0.008 78);
-  --card-foreground: oklch(0.18 0.015 40);
-  --popover: oklch(0.985 0.008 78);
-  --popover-foreground: oklch(0.18 0.015 40);
+  --card: oklch(0.99 0.006 78);
+  --card-foreground: oklch(0.16 0.015 40);
+  --popover: oklch(0.99 0.006 78);
+  --popover-foreground: oklch(0.16 0.015 40);
 
   /* Primary — terracotta signature, used sparingly (CTAs, one-per-section stamp) */
-  --primary: oklch(0.6 0.14 40);
+  --primary: oklch(0.56 0.15 38);
   --primary-foreground: oklch(0.98 0.011 78);
 
   /* Secondary — sage; quiet supporting surfaces & links */
   --secondary: oklch(0.92 0.022 130);
-  --secondary-foreground: oklch(0.28 0.055 145);
+  --secondary-foreground: oklch(0.26 0.06 145);
 
-  /* Muted — warm cream card wash */
+  /* Muted — warm cream card wash; darker foreground so meta text is legible */
   --muted: oklch(0.94 0.018 70);
-  --muted-foreground: oklch(0.42 0.025 55);
+  --muted-foreground: oklch(0.36 0.028 55);
 
   /* Accent — sage as the second voice, complements terracotta */
   --accent: oklch(0.5 0.055 145);
