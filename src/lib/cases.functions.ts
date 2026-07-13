@@ -151,6 +151,13 @@ export const sendCaseMessage = createServerFn({ method: "POST" })
     }).parse(d),
   )
   .handler(async ({ data, context }) => {
+    // Non-internal callers must hold an active Complete-tier subscription.
+    const { data: isInternal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
+    if (!isInternal) {
+      await requirePlan(context.supabase, context.userId, "complete");
+    }
     const { data: row, error } = await context.supabase
       .from("case_messages")
       .insert({ ...data, sender_user_id: context.userId })
