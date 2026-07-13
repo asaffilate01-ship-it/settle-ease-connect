@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import logoMark from "@/assets/brand/logo-mark.png";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
