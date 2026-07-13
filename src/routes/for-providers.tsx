@@ -109,18 +109,6 @@ const portals: Array<{
     serves: "Migrants, expats and bereaved next of kin",
   },
   {
-    icon: Shield,
-    title: "Insurance providers",
-    desc: "Sterbegeld, life, health and liability cover matched at the right life stage.",
-    features: [
-      "Life-event triggers (birth, marriage, arrival, bereavement)",
-      "Multi-language quote and application flow",
-      "Broker-grade needs assessment by our advisors",
-      "Policy documents stored in the family vault",
-    ],
-    serves: "Households on Plus and Complete plans",
-  },
-  {
     icon: Car,
     title: "Driving instructors",
     desc: "Führerschein lessons, theory prep and EU licence conversion for new arrivals.",
