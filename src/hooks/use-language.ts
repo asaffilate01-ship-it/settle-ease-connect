@@ -61,7 +61,15 @@ export function useLanguage() {
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
-    void i18n.changeLanguage(next);
+    if (i18n && typeof i18n.changeLanguage === "function") {
+      try {
+        void i18n.changeLanguage(next);
+      } catch (err) {
+        console.warn("i18n.changeLanguage failed", err);
+      }
+    } else {
+      setLangState(next);
+    }
     try {
       localStorage.setItem(STORAGE_KEY, next);
       localStorage.setItem(ONBOARDING_KEY, "1");
