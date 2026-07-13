@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { listEmergencyAlerts, updateEmergencyAlert, listEmbassies, upsertEmbassy } from "@/lib/immigration.functions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/portal/immigration")({
   head: () => ({
@@ -44,6 +45,16 @@ function AlertsTab() {
   const fetchAlerts = useServerFn(listEmergencyAlerts);
   const update = useServerFn(updateEmergencyAlert);
   const { data: alerts = [], isLoading } = useQuery({ queryKey: ["alerts"], queryFn: fetchAlerts });
+
+  useEffect(() => {
+    const channel = supabase
+      .channel(`alerts:${Math.random().toString(36).slice(2)}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "emergency_alerts" }, () => {
+        qc.invalidateQueries({ queryKey: ["alerts"] });
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [qc]);
 
   async function setStatus(id: string, status: "acknowledged" | "resolved") {
     await update({ data: { id, status } });
