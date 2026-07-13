@@ -258,7 +258,7 @@ function Pricing() {
                 <div className="mt-6 flex items-baseline gap-1">
                   <span className="font-display display-lg font-semibold">€{plan.monthly_price_eur}</span>
                   <span className={`text-sm ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                    / month
+                    {t("pages.pricing.perMonth")}
                   </span>
                 </div>
                 <div className={`mt-1 text-xs ${highlight ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
