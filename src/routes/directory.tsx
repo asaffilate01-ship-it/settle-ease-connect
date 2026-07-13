@@ -195,7 +195,7 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
               Members only
             </div>
             <h2 className="display-lg text-balance mt-1 font-semibold">
-              Unlock all {count} verified providers.
+              Unlock all verified providers.
             </h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
               BeistandPlus members get full contact details, phone, email and
