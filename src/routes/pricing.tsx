@@ -140,7 +140,7 @@ function Pricing() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Pricing
           </div>
-          <h1 className="display-hero mt-3 font-semibold">
+          <h1 className="display-hero text-balance mt-3 font-semibold">
             One subscription. One trusted hand.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -306,7 +306,7 @@ function Pricing() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             What we help with at launch
           </div>
-          <h2 className="display-lg mt-3 font-semibold">
+          <h2 className="display-lg text-balance mt-3 font-semibold">
             Bereavement, benefits, housing, pensions and paperwork — done properly, in your language.
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
@@ -374,7 +374,7 @@ function Pricing() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               For providers
             </div>
-            <h2 className="display-lg mt-3 font-semibold">
+            <h2 className="display-lg text-balance mt-3 font-semibold">
               Vetted experts free. Public directory free too.
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">

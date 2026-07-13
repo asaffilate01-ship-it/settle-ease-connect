@@ -52,7 +52,7 @@ function Trust() {
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
               <ShieldCheck className="h-3.5 w-3.5" /> Trust & compliance
             </div>
-            <h1 className="display-hero mt-4 font-semibold">
+            <h1 className="display-hero text-balance mt-4 font-semibold">
               Built to be checked. Held to what we promise.
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-white/70">
@@ -74,7 +74,7 @@ function Trust() {
       {/* Compliance & licence badges */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <SectionEyebrow>Licences & registrations</SectionEyebrow>
-        <h2 className="display-lg mt-3 max-w-3xl font-semibold">
+        <h2 className="display-lg text-balance mt-3 max-w-3xl font-semibold">
           The paperwork behind the platform.
         </h2>
         <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
@@ -127,7 +127,7 @@ function Trust() {
       <section className="bg-parchment/50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionEyebrow>How we vet experts</SectionEyebrow>
-          <h2 className="display-lg mt-3 max-w-3xl font-semibold">
+          <h2 className="display-lg text-balance mt-3 max-w-3xl font-semibold">
             No expert reaches your case until they clear all five checks.
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
@@ -148,7 +148,7 @@ function Trust() {
       {/* SLAs */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <SectionEyebrow>Service level promises</SectionEyebrow>
-        <h2 className="display-lg mt-3 max-w-3xl font-semibold">
+        <h2 className="display-lg text-balance mt-3 max-w-3xl font-semibold">
           Response times we publish — and refund against.
         </h2>
         <p className="mt-3 max-w-3xl text-sm text-muted-foreground">

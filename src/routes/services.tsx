@@ -152,7 +152,7 @@ function Services() {
             <span className="h-1 w-1 rounded-full bg-accent" />
             Expert guidance for life in Germany
           </span>
-          <h1 className="display-hero mt-8 font-normal leading-[1.05] text-foreground">
+          <h1 className="display-hero text-balance mt-8 font-normal leading-[1.05] text-foreground">
             A companion for every
             <br />
             <span className="italic text-primary">essential milestone.</span>
@@ -168,7 +168,7 @@ function Services() {
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-all hover:shadow-elevated hover:-translate-y-0.5"
             >
               Open a case
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 rtl-flip" />
             </Link>
             <Link
               to="/how-it-works"
@@ -231,7 +231,7 @@ function Services() {
                 className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground transition-all group-hover:gap-3.5 group-hover:text-primary"
               >
                 Learn more
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
               </Link>
             </article>
           ))}
@@ -285,7 +285,7 @@ function Services() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
                 Ready when you are
               </div>
-              <h2 className="display-lg mt-4">
+              <h2 className="display-lg text-balance mt-4">
                 Let's take the next step,
                 <br className="hidden sm:block" />
                 <span className="italic">together.</span>
@@ -301,7 +301,7 @@ function Services() {
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-soft transition-transform hover:-translate-y-0.5"
               >
                 Open a case
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 rtl-flip" />
               </Link>
               <Link
                 to="/pricing"

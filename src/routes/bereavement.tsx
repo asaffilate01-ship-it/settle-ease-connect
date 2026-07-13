@@ -124,7 +124,7 @@ function Bereavement() {
           <Badge variant="outline" className="border-primary/30 bg-background/70 text-primary backdrop-blur">
             Bereavement care · 24/7
           </Badge>
-          <h1 className="display-hero mt-5 font-semibold leading-[1.05]">
+          <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
             One call. One case file.<br />
             <span className="italic text-primary">Every person who needs to be involved.</span>
           </h1>
@@ -155,7 +155,7 @@ function Bereavement() {
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Repatriation</div>
-            <h2 className="display-lg mt-3 font-semibold">
+            <h2 className="display-lg text-balance mt-3 font-semibold">
               Bringing your loved one home.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
@@ -183,7 +183,7 @@ function Bereavement() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               Burials & last rites in Germany
             </div>
-            <h2 className="display-lg mt-3 font-semibold">
+            <h2 className="display-lg text-balance mt-3 font-semibold">
               Every recognised form of burial and cremation, arranged for you.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
@@ -230,7 +230,7 @@ function Bereavement() {
 
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Every faith</div>
-        <h2 className="display-lg mt-3 font-semibold">
+        <h2 className="display-lg text-balance mt-3 font-semibold">
           Ceremonies handled with respect.
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -263,7 +263,7 @@ function Bereavement() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               Formal partnerships
             </div>
-            <h2 className="display-lg mt-3 font-semibold">
+            <h2 className="display-lg text-balance mt-3 font-semibold">
               Named faith & community partners across Germany.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">

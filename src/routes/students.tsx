@@ -65,7 +65,7 @@ function StudentsPage() {
             <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs backdrop-blur">
               <GraduationCap className="h-3.5 w-3.5" /> For international students
             </div>
-            <h1 className="display-hero mt-6 font-semibold leading-[1.05] text-foreground">
+            <h1 className="display-hero text-balance mt-6 font-semibold leading-[1.05] text-foreground">
               Study in Germany —{" "}
               <span className="relative inline-block">
                 <span className="relative z-10">without the paperwork panic</span>
@@ -127,7 +127,7 @@ function StudentsPage() {
       {/* What we help with */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">What we help with</div>
-        <h2 className="display-lg mt-2 font-semibold">Everything a student needs, one calm place.</h2>
+        <h2 className="display-lg text-balance mt-2 font-semibold">Everything a student needs, one calm place.</h2>
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {HELPS.map((h) => (
             <div key={h.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
@@ -145,7 +145,7 @@ function StudentsPage() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Claim the discount
           </div>
-          <h2 className="display-lg mt-2 font-semibold">Four steps, about five minutes.</h2>
+          <h2 className="display-lg text-balance mt-2 font-semibold">Four steps, about five minutes.</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-2xl border border-border/60 bg-card p-5">

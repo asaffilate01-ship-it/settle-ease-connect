@@ -84,7 +84,7 @@ function Hero() {
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
             <Receipt className="h-3.5 w-3.5" /> Steuererklärung · in your language
           </div>
-          <h1 className="display-hero mt-4 font-semibold">
+          <h1 className="display-hero text-balance mt-4 font-semibold">
             The average German employee gets <span className="text-teal">€1,095 back.</span>
           </h1>
           <p className="mt-4 max-w-xl text-lg text-white/70">
@@ -100,7 +100,7 @@ function Hero() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-teal text-[oklch(0.16_0.04_250)] hover:bg-teal/90">
               <a href="#estimator">
-                Start my estimate <ArrowRight className="ml-2 h-4 w-4" />
+                Start my estimate <ArrowRight className="ml-2 h-4 w-4 rtl-flip" />
               </a>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white">
@@ -177,7 +177,7 @@ function Wizard() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           Refund estimator
         </div>
-        <h2 className="display-lg mt-3 font-semibold">Answer 5 short questions.</h2>
+        <h2 className="display-lg text-balance mt-3 font-semibold">Answer 5 short questions.</h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">
           No sign-up, no upload. This is a plain-English estimate to show you whether it's worth
           filing — the actual return runs through our licensed partner.
@@ -207,14 +207,14 @@ function Wizard() {
             </Button>
             {step < 4 ? (
               <Button size="sm" onClick={() => setStep((s) => (s + 1) as WizardStep)}>
-                Next <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                Next <ArrowRight className="ml-1.5 h-3.5 w-3.5 rtl-flip" />
               </Button>
             ) : (
               <a
                 href="#book"
                 className="inline-flex items-center rounded-md bg-gradient-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft"
               >
-                Book my filing <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                Book my filing <ArrowRight className="ml-1.5 h-3.5 w-3.5 rtl-flip" />
               </a>
             )}
           </div>
@@ -625,7 +625,7 @@ function Trust() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               Why partner instead of file
             </div>
-            <h2 className="display-lg mt-3 font-semibold">We're not a Steuerberater — the pros we work with are.</h2>
+            <h2 className="display-lg text-balance mt-3 font-semibold">We're not a Steuerberater — the pros we work with are.</h2>
             <p className="mt-3 text-sm text-muted-foreground">
               The German Tax Consultancy Act (StBerG) reserves paid filing advice for licensed
               Steuerberater and BaFin-approved software providers. BeistandPlus is your language-
@@ -633,7 +633,7 @@ function Trust() {
               advice.
             </p>
             <Link to="/trust" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">
-              Full compliance page <ArrowRight className="h-3.5 w-3.5" />
+              Full compliance page <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
             </Link>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -672,7 +672,7 @@ function Faq() {
       <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
         FAQ
       </div>
-      <h2 className="display-lg mt-3 font-semibold">Common questions</h2>
+      <h2 className="display-lg text-balance mt-3 font-semibold">Common questions</h2>
       <div className="mt-8 space-y-3">
         {faqs.map(([q, a]) => (
           <details key={q} className="group rounded-xl border border-border/60 bg-card p-5 shadow-soft">

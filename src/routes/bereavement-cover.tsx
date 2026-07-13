@@ -44,7 +44,7 @@ function BereavementCover() {
 
       <section className="mx-auto max-w-6xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <Badge variant="secondary" className="uppercase tracking-wider">Sterbegeldversicherung</Badge>
-        <h1 className="display-hero mt-4 font-semibold">
+        <h1 className="display-hero text-balance mt-4 font-semibold">
           Bereavement cover, done properly.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
@@ -62,7 +62,7 @@ function BereavementCover() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">What's included</h2>
+        <h2 className="display-lg text-balance font-semibold">What's included</h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {includes.map((item) => (
             <div key={item} className="flex gap-3">
@@ -74,7 +74,7 @@ function BereavementCover() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Underwritten by partner insurers</h2>
+        <h2 className="display-lg text-balance font-semibold">Underwritten by partner insurers</h2>
         <p className="mt-2 text-muted-foreground">
           We compare offers from Germany's leading Sterbegeld providers so you don't have to.
         </p>
@@ -89,7 +89,7 @@ function BereavementCover() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Claim flow when it matters</h2>
+        <h2 className="display-lg text-balance font-semibold">Claim flow when it matters</h2>
         <ol className="mt-8 space-y-4">
           {[
             "Family opens a claim in BeistandPlus (60-second form).",

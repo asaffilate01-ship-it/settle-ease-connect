@@ -52,7 +52,7 @@ function HowItWorks() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           How it works
         </div>
-        <h1 className="display-hero mt-3 font-semibold">
+        <h1 className="display-hero text-balance mt-3 font-semibold">
           Five steps.<br />No paperwork storm.
         </h1>
         <div className="mt-16 space-y-10">
@@ -72,7 +72,7 @@ function HowItWorks() {
             Free to start. Upgrade only when you need the human help.
           </p>
           <a href="/app" className="mt-4 inline-flex items-center gap-1 font-medium text-primary">
-            Open your dashboard <ArrowRight className="h-4 w-4" />
+            Open your dashboard <ArrowRight className="h-4 w-4 rtl-flip" />
           </a>
         </div>
       </section>

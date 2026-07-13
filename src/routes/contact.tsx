@@ -26,7 +26,7 @@ function Contact() {
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Contact</div>
-          <h1 className="display-hero mt-3 font-semibold">
+          <h1 className="display-hero text-balance mt-3 font-semibold">
             We're here, in the language you speak.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">

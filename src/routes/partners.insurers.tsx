@@ -31,7 +31,7 @@ function PartnersInsurers() {
       <SiteHeader />
       <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
         <Badge variant="secondary" className="uppercase tracking-wider">Partnership brief</Badge>
-        <h1 className="display-hero mt-4 font-semibold">
+        <h1 className="display-hero text-balance mt-4 font-semibold">
           Distribute Sterbegeld to Germany's migrant families.
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">

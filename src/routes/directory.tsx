@@ -94,7 +94,7 @@ function DirectoryPage() {
           <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
             Members directory
           </Badge>
-          <h1 className="display-hero mt-4 font-semibold">
+          <h1 className="display-hero text-balance mt-4 font-semibold">
             Find someone who speaks your language.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -194,7 +194,7 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               Members only
             </div>
-            <h2 className="display-lg mt-1 font-semibold">
+            <h2 className="display-lg text-balance mt-1 font-semibold">
               Unlock all {count} verified providers.
             </h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
