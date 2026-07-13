@@ -96,7 +96,7 @@ export function GroupCoverIntake() {
         Brief a commercial broker for your group policy
       </h3>
       <p className="mt-1 text-sm text-muted-foreground">
-        We route this to a licensed §34d GewO broker who tenders the mandate to DELA, ERGO,
+        We route this to a licensed §34d GewO broker who tenders the mandate to our panel of regulated German Sterbegeld insurers,
         Münchener Verein and Solidar. No obligation — you review the bids.
       </p>
 
