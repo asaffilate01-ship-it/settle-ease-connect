@@ -47,6 +47,11 @@ export function SiteHeader() {
           hint: "Broker-placed cover in 13 languages",
         },
         {
+          label: "Group cover",
+          href: "/group-cover",
+          hint: "€20k Sterbegeld for associations & employers",
+        },
+        {
           label: "Tax refund",
           href: "/tax",
           hint: "Steuererklärung, guided in your language",
