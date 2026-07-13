@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,46 +21,46 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen">
       <SiteHeader />
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Contact</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">{t("pages.contact.eyebrow")}</div>
           <h1 className="display-hero text-balance mt-3 font-semibold">
-            We're here, in the language you speak.
+            {t("pages.contact.title")}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            For bereavement, call our 24/7 line. For everything else, drop us a
-            note — we reply within one business day.
+            {t("pages.contact.subtitle")}
           </p>
           <div className="mt-10 space-y-5 text-sm">
-            <Row icon={Phone} label="24/7 bereavement line" value="+49 30 1234 5678" />
-            <Row icon={Mail} label="General enquiries" value="hallo@beistand.de" />
-            <Row icon={MapPin} label="Office" value="Kreuzberg, Berlin · Termine nach Vereinbarung" />
+            <Row icon={Phone} label={t("pages.contact.line24")} value="+49 30 1234 5678" />
+            <Row icon={Mail} label={t("pages.contact.generalEnq")} value="hallo@beistand.de" />
+            <Row icon={MapPin} label={t("pages.contact.office")} value={t("pages.contact.officeValue")} />
           </div>
         </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            alert("Vielen Dank — wir melden uns bald.");
+            alert(t("pages.contact.thanks"));
           }}
           className="rounded-2xl border border-border/60 bg-card p-8 shadow-soft"
         >
           <div className="grid gap-4">
             <div>
-              <label className="text-sm font-medium">Name</label>
-              <Input required placeholder="Ihr Name" className="mt-1" />
+              <label className="text-sm font-medium">{t("pages.contact.name")}</label>
+              <Input required placeholder={t("pages.contact.namePh")} className="mt-1" />
             </div>
             <div>
-              <label className="text-sm font-medium">E-Mail</label>
+              <label className="text-sm font-medium">{t("pages.contact.email")}</label>
               <Input required type="email" placeholder="you@example.com" className="mt-1" />
             </div>
             <div>
-              <label className="text-sm font-medium">Nachricht</label>
-              <Textarea required placeholder="Wie können wir helfen?" className="mt-1 min-h-32" />
+              <label className="text-sm font-medium">{t("pages.contact.message")}</label>
+              <Textarea required placeholder={t("pages.contact.messagePh")} className="mt-1 min-h-32" />
             </div>
-            <Button type="submit" className="bg-gradient-primary">Nachricht senden</Button>
+            <Button type="submit" className="bg-gradient-primary">{t("pages.contact.send")}</Button>
           </div>
         </form>
       </section>
