@@ -74,7 +74,7 @@ function BereavementCover() {
               </h2>
               <p className="mt-3 text-muted-foreground">
                 Associations, employers and communities can hold one policy as the single
-                policyholder — with the insurer waiving health questions, waiving the waiting
+                policyholder — with the cover provider waiving health questions, waiving the waiting
                 period, and paying us as a fiduciary so we settle the funeral and pass the
                 balance to the family.
               </p>
@@ -107,7 +107,7 @@ function BereavementCover() {
                 Fiduciary payout
               </div>
               <ol className="mt-3 space-y-2 text-xs text-muted-foreground">
-                <li className="flex items-start gap-2"><Check className="mt-0.5 h-3.5 w-3.5 text-primary" />Insurer wires €20k to the association</li>
+                <li className="flex items-start gap-2"><Check className="mt-0.5 h-3.5 w-3.5 text-primary" />Provider wires €20k to the association</li>
                 <li className="flex items-start gap-2"><Check className="mt-0.5 h-3.5 w-3.5 text-primary" />Funeral director paid directly</li>
                 <li className="flex items-start gap-2"><Check className="mt-0.5 h-3.5 w-3.5 text-primary" />Balance to nominated beneficiary in 14 days</li>
               </ol>
@@ -129,7 +129,7 @@ function BereavementCover() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="display-lg text-balance font-semibold">Underwritten by partner insurers</h2>
+        <h2 className="display-lg text-balance font-semibold">Cover regulated under German law</h2>
         <p className="mt-2 text-muted-foreground">
           We compare offers from Germany's leading Sterbegeld providers so you don't have to.
         </p>
@@ -148,9 +148,9 @@ function BereavementCover() {
         <ol className="mt-8 space-y-4">
           {[
             "Family opens a claim in BeistandPlus (60-second form).",
-            "Case manager assigned within 15 minutes; notifies insurer.",
+            "Case manager assigned within 15 minutes; notifies the cover provider.",
             "Sterbeurkunde collected; funeral director from vetted directory engaged.",
-            "Insurer pays funeral director directly — family pays nothing upfront.",
+            "Cover provider pays funeral director directly — family pays nothing upfront.",
             "Line-item invoices posted to the family dashboard in real time.",
             "Any remaining balance transferred to the named beneficiary via SEPA.",
           ].map((step, i) => (
@@ -164,7 +164,8 @@ function BereavementCover() {
         </ol>
         <div className="mt-10 rounded-lg border-l-4 border-primary bg-accent/30 p-5 text-sm text-muted-foreground">
           BeistandPlus acts as introducer (Tippgeber / §34d GewO broker where applicable). Advice and
-          binding offers come from the licensed partner insurer. See our{" "}
+          binding offers come from the licensed partner provider, whose product is regulated under
+          German law. See our{" "}
           <Link to="/legal/terms" className="underline">terms</Link> and{" "}
           <Link to="/legal/privacy" className="underline">privacy notice</Link>.
         </div>
