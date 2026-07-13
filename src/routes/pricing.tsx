@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
-import { Check, Users, User, HeartHandshake, GraduationCap, BadgePercent } from "lucide-react";
+import { Check, Users, User, HeartHandshake } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 
