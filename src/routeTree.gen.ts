@@ -73,6 +73,7 @@ import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
+import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
@@ -425,6 +426,12 @@ const AuthenticatedAppAlertRoute = AuthenticatedAppAlertRouteImport.update({
   path: '/alert',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAgentClientsRoute =
+  AuthenticatedAgentClientsRouteImport.update({
+    id: '/clients',
+    path: '/clients',
+    getParentRoute: () => AuthenticatedAgentRoute,
+  } as any)
 const AuthenticatedPortalKnowledgeSlugRoute =
   AuthenticatedPortalKnowledgeSlugRouteImport.update({
     id: '/$slug',
@@ -502,6 +509,7 @@ export interface FileRoutesByFullPath {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
+  '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -571,6 +579,7 @@ export interface FileRoutesByTo {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
+  '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -645,6 +654,7 @@ export interface FileRoutesById {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
+  '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -719,6 +729,7 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/partners/insurers'
+    | '/agent/clients'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -788,6 +799,7 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/partners/insurers'
+    | '/agent/clients'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -861,6 +873,7 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/partners/insurers'
+    | '/_authenticated/agent/clients'
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -1375,6 +1388,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppAlertRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/agent/clients': {
+      id: '/_authenticated/agent/clients'
+      path: '/clients'
+      fullPath: '/agent/clients'
+      preLoaderRoute: typeof AuthenticatedAgentClientsRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
     '/_authenticated/portal/knowledge/$slug': {
       id: '/_authenticated/portal/knowledge/$slug'
       path: '/$slug'
@@ -1428,10 +1448,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAgentRouteChildren {
+  AuthenticatedAgentClientsRoute: typeof AuthenticatedAgentClientsRoute
   AuthenticatedAgentIndexRoute: typeof AuthenticatedAgentIndexRoute
 }
 
 const AuthenticatedAgentRouteChildren: AuthenticatedAgentRouteChildren = {
+  AuthenticatedAgentClientsRoute: AuthenticatedAgentClientsRoute,
   AuthenticatedAgentIndexRoute: AuthenticatedAgentIndexRoute,
 }
 
