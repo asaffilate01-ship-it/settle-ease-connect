@@ -112,15 +112,15 @@ function GroupCoverPage() {
 
       <section className="mx-auto max-w-6xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <Badge variant="secondary" className="uppercase tracking-wider">
-          Group Sterbegeld cover · regulated under German law
+          Sterbegeld cover · regulated under German law
         </Badge>
         <h1 className="display-hero text-balance mt-4 font-semibold">
-          One group policy. €20,000 per member. No health questions.
+          €20,000 of cover per member. No health questions.
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
-          A collective bereavement policy your association, employer or community can hold as the
-          single policyholder — with the cover provider bound to accept every member, waived waiting
-          periods, and funeral settlement handled by us on day one of a claim.
+          A collective bereavement cover your association, employer or community can hold as the
+          single contract holder — with the cover provider bound to accept every member, waived waiting
+          periods, and funeral settlement handled by us on day one of a claim. Everyone is covered under German law.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild className="bg-gradient-primary">
@@ -142,7 +142,7 @@ function GroupCoverPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Why a group VVaG plan beats retail buying</h2>
+        <h2 className="display-lg font-semibold">Why a collective VVaG cover beats retail buying</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {[
             "100% guaranteed collective acceptance — chronic illness or pre-existing conditions never trigger a premium hike or rejection.",
