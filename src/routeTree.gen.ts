@@ -37,6 +37,7 @@ import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
 import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
+import { Route as GroupCoverFiduciaryClauseRouteImport } from './routes/group-cover.fiduciary-clause'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
@@ -217,6 +218,12 @@ const LegalComplaintsRoute = LegalComplaintsRouteImport.update({
   path: '/complaints',
   getParentRoute: () => LegalRoute,
 } as any)
+const GroupCoverFiduciaryClauseRoute =
+  GroupCoverFiduciaryClauseRouteImport.update({
+    id: '/fiduciary-clause',
+    path: '/fiduciary-clause',
+    getParentRoute: () => GroupCoverRoute,
+  } as any)
 const DirectoryListYourBusinessRoute =
   DirectoryListYourBusinessRouteImport.update({
     id: '/list-your-business',
@@ -458,7 +465,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRoute
+  '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
@@ -475,6 +482,7 @@ export interface FileRoutesByFullPath {
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -527,7 +535,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRoute
+  '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
@@ -542,6 +550,7 @@ export interface FileRoutesByTo {
   '/trust': typeof TrustRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -596,7 +605,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRoute
+  '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
@@ -613,6 +622,7 @@ export interface FileRoutesById {
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -684,6 +694,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/blog/$slug'
     | '/directory/list-your-business'
+    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -751,6 +762,7 @@ export interface FileRouteTypes {
     | '/trust'
     | '/blog/$slug'
     | '/directory/list-your-business'
+    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -821,6 +833,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal'
     | '/blog/$slug'
     | '/directory/list-your-business'
+    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -875,7 +888,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DirectoryRoute: typeof DirectoryRouteWithChildren
   ForProvidersRoute: typeof ForProvidersRoute
-  GroupCoverRoute: typeof GroupCoverRoute
+  GroupCoverRoute: typeof GroupCoverRouteWithChildren
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
   LegalRoute: typeof LegalRouteWithChildren
@@ -1087,6 +1100,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/legal/complaints'
       preLoaderRoute: typeof LegalComplaintsRouteImport
       parentRoute: typeof LegalRoute
+    }
+    '/group-cover/fiduciary-clause': {
+      id: '/group-cover/fiduciary-clause'
+      path: '/fiduciary-clause'
+      fullPath: '/group-cover/fiduciary-clause'
+      preLoaderRoute: typeof GroupCoverFiduciaryClauseRouteImport
+      parentRoute: typeof GroupCoverRoute
     }
     '/directory/list-your-business': {
       id: '/directory/list-your-business'
@@ -1534,6 +1554,18 @@ const DirectoryRouteWithChildren = DirectoryRoute._addFileChildren(
   DirectoryRouteChildren,
 )
 
+interface GroupCoverRouteChildren {
+  GroupCoverFiduciaryClauseRoute: typeof GroupCoverFiduciaryClauseRoute
+}
+
+const GroupCoverRouteChildren: GroupCoverRouteChildren = {
+  GroupCoverFiduciaryClauseRoute: GroupCoverFiduciaryClauseRoute,
+}
+
+const GroupCoverRouteWithChildren = GroupCoverRoute._addFileChildren(
+  GroupCoverRouteChildren,
+)
+
 interface LegalRouteChildren {
   LegalComplaintsRoute: typeof LegalComplaintsRoute
   LegalCookiesRoute: typeof LegalCookiesRoute
@@ -1574,7 +1606,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DirectoryRoute: DirectoryRouteWithChildren,
   ForProvidersRoute: ForProvidersRoute,
-  GroupCoverRoute: GroupCoverRoute,
+  GroupCoverRoute: GroupCoverRouteWithChildren,
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
   LegalRoute: LegalRouteWithChildren,
@@ -1591,13 +1623,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

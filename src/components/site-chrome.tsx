@@ -47,6 +47,11 @@ export function SiteHeader() {
           hint: "Broker-placed cover in 13 languages",
         },
         {
+          label: "Group cover",
+          href: "/group-cover",
+          hint: "€20k Sterbegeld for associations & employers",
+        },
+        {
           label: "Tax refund",
           href: "/tax",
           hint: "Steuererklärung, guided in your language",
@@ -67,6 +72,7 @@ export function SiteHeader() {
       [t("nav.bereavement"), "/bereavement"],
       [t("nav.students", "Students"), "/students"],
       ["Insurance", "/insurance"],
+      ["Group cover", "/group-cover"],
       [t("nav.forProviders"), "/for-providers"],
       [t("nav.pricing"), "/pricing"],
       [t("nav.blog"), "/blog"],
@@ -277,6 +283,7 @@ export function SiteFooter() {
             [t("footer.howItWorks"), "/how-it-works"],
             [t("footer.services"), "/services"],
             [t("footer.bereavement"), "/bereavement"],
+            ["Group cover", "/group-cover"],
             [t("footer.pricing"), "/pricing"],
             [t("footer.blog"), "/blog"],
           ]}

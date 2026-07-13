@@ -12,6 +12,7 @@ import { Loader2, Mail, Phone, Save } from "lucide-react";
 import { toast } from "sonner";
 
 const STATUSES = ["new","contacted","quoted","won","lost","spam"] as const;
+const SOURCES = ["all", "quote_widget", "group_cover", "callback"] as const;
 
 export const Route = createFileRoute("/_authenticated/portal/leads")({
   head: () => ({ meta: [{ title: "Insurance leads — BeistandPlus" }] }),
@@ -25,6 +26,7 @@ function LeadsInbox() {
 
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<string>("all");
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const leadsQ = useQuery({ queryKey: ["insurance-leads"], queryFn: () => load() });
@@ -41,6 +43,7 @@ function LeadsInbox() {
 
   const leads = (leadsQ.data ?? []).filter((l: any) => {
     if (filter !== "all" && l.status !== filter) return false;
+    if (sourceFilter !== "all" && (l.source ?? "quote_widget") !== sourceFilter) return false;
     if (!q) return true;
     const s = q.toLowerCase();
     return l.full_name.toLowerCase().includes(s) || l.email.toLowerCase().includes(s);
@@ -62,6 +65,17 @@ function LeadsInbox() {
           {(["all", ...STATUSES] as const).map((s) => (
             <Button key={s} size="sm" variant={filter === s ? "default" : "outline"} onClick={() => setFilter(s)} className="capitalize">
               {s}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Source</span>
+        <div className="flex flex-wrap gap-1">
+          {SOURCES.map((s) => (
+            <Button key={s} size="sm" variant={sourceFilter === s ? "default" : "outline"} onClick={() => setSourceFilter(s)} className="capitalize">
+              {s.replace("_", " ")}
             </Button>
           ))}
         </div>
