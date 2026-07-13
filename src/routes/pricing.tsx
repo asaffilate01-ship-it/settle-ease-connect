@@ -534,7 +534,7 @@ function BereavementAddOn() {
       {enabled && (
         <div className="mt-4 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
           <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
-          {active.addOnEur}/mo added to your BeistandPlus plan. Payout: €10,000 per insured adult,
+          {active.addOnEur}/mo added to your BeistandPlus plan. Payout: €20,000 per insured adult,
           paid directly to the funeral director with the balance to your nominated beneficiary.
         </div>
       )}
