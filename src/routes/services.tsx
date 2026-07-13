@@ -285,16 +285,15 @@ function Services() {
           <div className="relative grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
             <div className="min-w-0">
               <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-                Ready when you are
+                {t("pages.services.readyEyebrow")}
               </div>
               <h2 className="display-lg text-balance mt-4">
-                Let's take the next step,
+                {t("pages.services.readyTitle1")}
                 <br className="hidden sm:block" />
-                <span className="italic">together.</span>
+                <span className="italic"> {t("pages.services.readyTitle2")}</span>
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-relaxed text-primary-foreground/80">
-                Open a free case in minutes. A case manager reviews it within
-                one working day and maps out your options — no obligation.
+                {t("pages.services.readyBody")}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -302,14 +301,14 @@ function Services() {
                 to="/app"
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-soft transition-transform hover:-translate-y-0.5"
               >
-                Open a case
+                {t("pages.services.openCase")}
                 <ArrowRight className="h-4 w-4 rtl-flip" />
               </Link>
               <Link
                 to="/pricing"
                 className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 px-6 py-3 text-sm font-medium text-primary-foreground/90 transition-colors hover:bg-primary-foreground/10"
               >
-                See pricing
+                {t("pages.services.seePricing")}
               </Link>
             </div>
           </div>
