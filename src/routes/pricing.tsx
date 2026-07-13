@@ -161,24 +161,24 @@ function Pricing() {
         {/* Household toggle */}
         <div className="mt-10 flex justify-center">
           <div className="inline-flex rounded-full border border-border/60 bg-card p-1 shadow-soft">
-            {HOUSEHOLD_TABS.map((t) => (
+            {HOUSEHOLD_TABS.map((tab) => (
               <button
-                key={t.key}
-                onClick={() => setHousehold(t.key)}
+                key={tab.key}
+                onClick={() => setHousehold(tab.key)}
                 className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
-                  household === t.key
+                  household === tab.key
                     ? "bg-gradient-primary text-primary-foreground shadow"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {t.icon}
-                {t.label}
+                {HOUSEHOLD_ICONS[tab.key]}
+                {tab.label}
               </button>
             ))}
           </div>
         </div>
         <div className="mt-2 text-center text-xs text-muted-foreground">
-          {HOUSEHOLD_TABS.find((t) => t.key === household)?.note}
+          {HOUSEHOLD_TABS.find((tab) => tab.key === household)?.note}
         </div>
 
         {/* Plan cards */}
