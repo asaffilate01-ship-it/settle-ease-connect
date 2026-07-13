@@ -103,7 +103,7 @@ export function BereavementQuoteWidget() {
         <div className="flex items-center justify-between rounded-lg border p-3">
           <div>
             <Label className="text-sm">24-month waiting period</Label>
-            <p className="text-xs text-muted-foreground">Simplified underwriting, lower premium</p>
+            <p className="text-xs text-muted-foreground">Simplified acceptance, lower premium</p>
           </div>
           <Switch checked={waiting > 0} onCheckedChange={(v) => setWaiting(v ? 24 : 0)} />
         </div>

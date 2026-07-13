@@ -32,7 +32,7 @@ const includes = [
 
 const insurers = [
   { name: "Monuta", note: "Funeral-director network built-in" },
-  { name: "Nürnberger", note: "Flexible underwriting" },
+  { name: "Nürnberger", note: "Flexible acceptance terms" },
   { name: "IDEAL", note: "Bonus-tier premiums" },
   { name: "HanseMerkur", note: "Vorsorge Plus product" },
 ];
