@@ -100,13 +100,13 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
             Sterbegeldversicherung · Underwritten by regulated German insurers
           </div>
           <h2 className="display-lg mt-3 font-semibold">
-            Funeral-costs insurance from about €12/month
+            Funeral-costs insurance from about €24/month
           </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            A dedicated policy that pays out <strong className="text-foreground">€8,000 per insured adult</strong> to
-            cover the funeral in full and everything around it. Whatever's left after the invoices are settled
-            is transferred to your nominated beneficiary — so the family never has to find the money at the
-            hardest moment.
+            A DELA-brokered policy that pays out <strong className="text-foreground">€20,000 per insured adult</strong>{" "}
+            — enough to cover the funeral in full (typical €4,200–€8,000) and still leave a substantial cash
+            balance for the family. Whatever's left after the invoices are settled is transferred to your
+            nominated beneficiary — so the family never has to find the money at the hardest moment.
           </p>
         </div>
       </div>
