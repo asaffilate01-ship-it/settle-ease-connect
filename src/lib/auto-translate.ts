@@ -178,11 +178,15 @@ async function translatePage() {
 
   if (pending.length === 0 && attrPending.length === 0) return;
 
-  // Batch in chunks of 40 to keep prompts small & fast.
-  const CHUNK = 40;
-  for (let i = 0; i < pending.length; i += CHUNK) {
-    const slice = pending.slice(i, i + CHUNK);
-    // Dedupe within the batch — many strings repeat (nav, footer, buttons).
+  // Batch in chunks of 60, run all chunks in parallel — the previous sequential
+  // await-in-loop made language switches feel painfully slow.
+  const CHUNK = 60;
+  const textChunks: { node: Text; src: string }[][] = [];
+  for (let i = 0; i < pending.length; i += CHUNK) textChunks.push(pending.slice(i, i + CHUNK));
+  const attrChunks: AttrPending[][] = [];
+  for (let i = 0; i < attrPending.length; i += CHUNK) attrChunks.push(attrPending.slice(i, i + CHUNK));
+
+  const runTextChunk = async (slice: { node: Text; src: string }[]) => {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
@@ -206,11 +210,9 @@ async function translatePage() {
     } catch (err) {
       console.warn("[auto-translate] batch failed", err);
     }
-  }
+  };
 
-  // Attribute batch (same batching strategy).
-  for (let i = 0; i < attrPending.length; i += CHUNK) {
-    const slice = attrPending.slice(i, i + CHUNK);
+  const runAttrChunk = async (slice: AttrPending[]) => {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
@@ -234,7 +236,12 @@ async function translatePage() {
     } catch (err) {
       console.warn("[auto-translate] attr batch failed", err);
     }
-  }
+  };
+
+  await Promise.all([
+    ...textChunks.map(runTextChunk),
+    ...attrChunks.map(runAttrChunk),
+  ]);
 }
 
 function restoreEnglish() {
