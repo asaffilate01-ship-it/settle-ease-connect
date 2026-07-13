@@ -1,11 +1,15 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocialIcons } from "@/components/social-icons";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { primaryRole, landingForRoles } from "@/lib/role-landing";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import logoMark from "@/assets/brand/logo-mark.png";
 import { MobileCtaBar } from "@/components/mobile-cta-bar";
 
