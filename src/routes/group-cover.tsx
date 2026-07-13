@@ -139,8 +139,8 @@ function GroupCoverPage() {
         </div>
       </section>
 
-
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+
         <h2 className="display-lg font-semibold">Three-tier member structure</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
           A clean pricing spine that maps onto how households actually look. The final per-member
