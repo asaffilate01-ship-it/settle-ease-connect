@@ -292,7 +292,7 @@ function Pricing() {
                   asChild
                   className={`mt-6 ${highlight ? "bg-accent text-accent-foreground hover:bg-accent/90" : "bg-gradient-primary"}`}
                 >
-                  <Link to="/app">Choose {meta.title}</Link>
+                  <Link to="/app">{t("pages.pricing.choose", { name: meta.title })}</Link>
                 </Button>
               </div>
             );
