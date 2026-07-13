@@ -279,24 +279,27 @@ function DesktopDropdown({ label, items }: { label: string; items: NavChild[] })
     <div className="group relative">
       <button
         type="button"
-        className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white focus-visible:bg-white/5 focus-visible:text-white focus-visible:outline-none"
+        className="flex items-center gap-1 rounded-md px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70 transition-colors hover:text-terracotta focus-visible:text-terracotta focus-visible:outline-none"
       >
         {label}
-        <ChevronDown className="h-4 w-4 opacity-60 transition-transform duration-200 group-hover:rotate-180" />
+        <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform duration-200 group-hover:rotate-180" />
       </button>
       <div
-        className="invisible absolute start-0 top-full z-50 mt-2 w-72 origin-top translate-y-1 rounded-xl border border-white/10 bg-[oklch(0.16_0.04_250/0.98)] p-2 opacity-0 shadow-elevated backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+        className="invisible absolute start-0 top-full z-50 mt-1 w-80 origin-top translate-y-1 border border-border/70 bg-background p-2 opacity-0 shadow-elevated transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
         role="menu"
       >
+        <div className="mb-1 border-b border-border/60 px-3 pb-2 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-terracotta">
+          {label}
+        </div>
         {items.map((it) => (
           <Link
             key={it.href + it.label}
             to={it.href}
             role="menuitem"
-            className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white focus-visible:outline-none"
+            className="block rounded-sm px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-parchment/70 hover:text-terracotta focus-visible:bg-parchment/70 focus-visible:outline-none"
           >
-            <div className="font-semibold">{it.label}</div>
-            {it.hint && <div className="mt-0.5 text-xs text-slate-400">{it.hint}</div>}
+            <div className="font-display text-[15px] font-semibold leading-tight">{it.label}</div>
+            {it.hint && <div className="mt-0.5 text-xs text-muted-foreground">{it.hint}</div>}
           </Link>
         ))}
       </div>
