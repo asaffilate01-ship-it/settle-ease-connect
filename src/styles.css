@@ -126,15 +126,15 @@
   --chart-4: oklch(0.35 0.05 145); /* deep sage */
   --chart-5: oklch(0.7 0.11 45);   /* copper */
 
-  /* Sidebar — inverted, deep sage panel for the app */
-  --sidebar: oklch(0.24 0.045 140);
-  --sidebar-foreground: oklch(0.95 0.015 78);
-  --sidebar-primary: oklch(0.6 0.14 40);
+  /* Sidebar — warm parchment panel, editorial to match site */
+  --sidebar: oklch(0.97 0.014 78);
+  --sidebar-foreground: oklch(0.16 0.02 40);
+  --sidebar-primary: oklch(0.56 0.15 38);
   --sidebar-primary-foreground: oklch(0.98 0.011 78);
-  --sidebar-accent: oklch(0.3 0.05 140);
-  --sidebar-accent-foreground: oklch(0.95 0.015 78);
-  --sidebar-border: oklch(0.34 0.05 140);
-  --sidebar-ring: oklch(0.6 0.14 40);
+  --sidebar-accent: oklch(0.93 0.022 72);
+  --sidebar-accent-foreground: oklch(0.16 0.02 40);
+  --sidebar-border: oklch(0.86 0.02 72);
+  --sidebar-ring: oklch(0.56 0.15 38);
 
   /* -------- Signature gradients — subtle, paper-based -------- */
   --gradient-hero:
