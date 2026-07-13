@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import logoMark from "@/assets/brand/logo-mark.png";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -55,7 +56,10 @@ function AppLayout() {
       <AppSidebar />
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6 lg:px-8">
-          <Link to="/" className="lg:hidden font-display text-lg font-semibold">BeistandPlus</Link>
+          <Link to="/" className="lg:hidden flex items-center gap-2 font-display text-lg font-semibold">
+            <img src={logoMark} alt="" className="h-7 w-7 object-contain" />
+            <span>BeistandPlus</span>
+          </Link>
           <div className="hidden max-w-lg flex-1 items-center gap-2 rounded-lg border border-border/60 bg-parchment/60 px-3 py-1.5 md:flex">
             <Search className="h-4 w-4 text-muted-foreground" />
             <input
