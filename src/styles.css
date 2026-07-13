@@ -464,3 +464,66 @@ p, li, dd, dt  { overflow-wrap: break-word; }
 html { transition: opacity 180ms ease; }
 html[data-lang-switching="1"] body { opacity: 0.55; transition: opacity 180ms ease; }
 html:not([data-lang-switching]) body { opacity: 1; transition: opacity 220ms ease; }
+
+/* ============================================================
+ * Per-script font & size overrides — read the app comfortably
+ * in every supported writing system.
+ * ============================================================ */
+
+/* Arabic + Kurdish (Sorani) — clear Naskh, slightly larger. */
+html[lang="ar"], html[lang="ku"] {
+  --font-sans: "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+}
+html[lang="ar"] body, html[lang="ku"] body { line-height: 1.7; }
+
+/* Urdu — Nastaliq needs extra line-height and a bigger base. */
+html[lang="ur"] {
+  --font-sans: "Noto Nastaliq Urdu", "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 18px;
+}
+html[lang="ur"] body,
+html[lang="ur"] h1, html[lang="ur"] h2, html[lang="ur"] h3, html[lang="ur"] h4 {
+  line-height: 2;
+}
+html[lang="ur"] .display-hero,
+html[lang="ur"] .display-lg,
+html[lang="ur"] .display-md { line-height: 1.6; }
+
+/* Persian (Farsi) — same base as Arabic; Naskh reads well on screen. */
+html[lang="fa"] {
+  --font-sans: "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+}
+html[lang="fa"] body { line-height: 1.75; }
+
+/* Hindi (Devanagari) — matras clip at 16px, needs 17px + looser leading. */
+html[lang="hi"] {
+  --font-sans: "Noto Sans Devanagari", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+}
+html[lang="hi"] body { line-height: 1.7; }
+
+/* Punjabi (Gurmukhi) — similar to Devanagari. */
+html[lang="pa"] {
+  --font-sans: "Noto Sans Gurmukhi", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+}
+html[lang="pa"] body { line-height: 1.7; }
+
+/* Simplified Chinese — Noto Sans SC, slightly larger, tighter letter-spacing. */
+html[lang="zh"] {
+  --font-sans: "Noto Sans SC", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+}
+html[lang="zh"] body { letter-spacing: 0; line-height: 1.7; }
+html[lang="zh"] h1, html[lang="zh"] h2, html[lang="zh"] h3 { letter-spacing: 0.01em; }
+
+/* Cyrillic (RU/UK) — Fira Sans covers Cyrillic well; nudge tracking. */
+html[lang="ru"] body, html[lang="uk"] body { letter-spacing: 0.005em; }
+
+/* RTL sidebar & nav — mirror horizontal padding but keep icons upright. */
+[dir="rtl"] .sidebar,
+[dir="rtl"] nav[aria-label] { text-align: right; }
+[dir="rtl"] svg[data-flip-in-rtl="true"] { transform: scaleX(-1); }
+
