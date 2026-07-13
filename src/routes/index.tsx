@@ -33,19 +33,20 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "BeistandPlus · Settlement, welfare & bereavement in Germany — 11 languages" },
+      { title: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 19 Sprachen" },
       {
         name: "description",
         content:
-          "BeistandPlus helps families settle, claim benefits, manage documents and coordinate end-of-life care in Germany. One calm platform in 11 languages, with human case managers and vetted experts.",
+          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 19 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
-      { property: "og:title", content: "BeistandPlus · For every path in Germany" },
+      { property: "og:title", content: "BeistandPlus · Für jeden Weg in Deutschland" },
       {
         property: "og:description",
         content:
-          "Settlement, benefits, documents, community and end-of-life care — one calm platform for families in Germany and the organisations that stand with them.",
+          "Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — eine ruhige Plattform für Familien in Deutschland und die Organisationen, die sie begleiten.",
       },
       { property: "og:url", content: "https://beistandplus.de/" },
+      { property: "og:locale", content: "de_DE" },
       { property: "og:image", content: "https://beistandplus.de/favicon.png" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/" }],
@@ -60,7 +61,7 @@ export const Route = createFileRoute("/")({
           url: "https://beistandplus.de/",
           logo: "https://beistandplus.de/favicon.png",
           description:
-            "Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in 11 languages.",
+            "Deutschlands digitale Plattform für Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — in 19 Sprachen.",
           address: {
             "@type": "PostalAddress",
             addressLocality: "Berlin",
@@ -70,6 +71,8 @@ export const Route = createFileRoute("/")({
           availableLanguage: [
             "German", "English", "Turkish", "Urdu", "Hindi", "Punjabi",
             "Pashto", "Arabic", "Kurdish", "Russian", "Ukrainian",
+            "Albanian", "Somali", "Tigrinya", "Portuguese", "Bosnian",
+            "Croatian", "Serbian", "Vietnamese", "French",
           ],
         }),
       },

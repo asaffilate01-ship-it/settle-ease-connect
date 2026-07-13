@@ -91,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "BeistandPlus is Germany's digital welfare and integration platform: settlement, benefits, documents, community and end-of-life care in one calm place — in 11 languages, for families and the organisations that stand with them.",
+          "BeistandPlus ist Deutschlands digitale Plattform für Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — ruhig, mehrsprachig und an der Seite von Familien und den Organisationen, die sie begleiten.",
       },
       { name: "author", content: "BeistandPlus GmbH" },
       { property: "og:site_name", content: "BeistandPlus" },
@@ -99,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "One calm platform for settlement, welfare, benefits and end-of-life care in Germany. Built for families, mosques, churches, funeral directors and case managers.",
+          "Eine ruhige Plattform für Ankommen, Sozialleistungen, Anträge und Vorsorge am Lebensende in Deutschland — für Familien, Moscheen, Kirchen, Bestatter und Case Manager.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://beistandplus.de/" },
@@ -134,7 +134,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <HeadContent />
       </head>
