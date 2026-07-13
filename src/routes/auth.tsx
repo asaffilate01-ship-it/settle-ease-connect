@@ -176,12 +176,33 @@ function AuthPage() {
   );
 }
 
-const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: string }[] = [
-  { email: "admin@beistand.de", role: "admin", label: "Admin", landing: "/portal" },
-  { email: "staff@beistand.de", role: "staff", label: "Staff", landing: "/portal" },
-  { email: "manager@beistand.de", role: "case_manager", label: "Case manager", landing: "/portal" },
-  { email: "expert@beistand.de", role: "expert", label: "Expert", landing: "/app" },
-  { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app" },
+const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: string; group: string }[] = [
+  // Internal / staff (portal.*)
+  { email: "admin@beistand.de", role: "admin", label: "Admin", landing: "/portal", group: "Internal" },
+  { email: "staff@beistand.de", role: "staff", label: "Staff", landing: "/portal", group: "Internal" },
+  { email: "manager@beistand.de", role: "case_manager", label: "Case manager", landing: "/portal", group: "Internal" },
+  { email: "insurance-admin@beistand.de", role: "insurance_admin", label: "Insurance admin", landing: "/portal/insurance", group: "Internal" },
+  { email: "tax-admin@beistand.de", role: "tax_admin", label: "Tax admin", landing: "/portal", group: "Internal" },
+  { email: "benefits-admin@beistand.de", role: "benefits_admin", label: "Benefits admin", landing: "/portal", group: "Internal" },
+  { email: "medical-admin@beistand.de", role: "medical_admin", label: "Medical admin", landing: "/portal", group: "Internal" },
+  { email: "arrival-admin@beistand.de", role: "new_arrival_admin", label: "New-arrival admin", landing: "/portal/immigration", group: "Internal" },
+  // Experts (regulated professionals — /app)
+  { email: "expert@beistand.de", role: "expert", label: "Expert (generic)", landing: "/app", group: "Experts" },
+  { email: "lawyer@beistand.de", role: "lawyer", label: "Lawyer", landing: "/app", group: "Experts" },
+  { email: "notary@beistand.de", role: "notary", label: "Notary", landing: "/app", group: "Experts" },
+  { email: "accountant@beistand.de", role: "accountant", label: "Accountant / Tax adviser", landing: "/app", group: "Experts" },
+  { email: "doctor@beistand.de", role: "doctor", label: "Doctor", landing: "/app", group: "Experts" },
+  { email: "social-worker@beistand.de", role: "social_worker", label: "Social worker", landing: "/app", group: "Experts" },
+  { email: "translator@beistand.de", role: "translator", label: "Translator", landing: "/app", group: "Experts" },
+  { email: "funeral@beistand.de", role: "funeral_director", label: "Funeral director", landing: "/app", group: "Experts" },
+  // Institutional providers
+  { email: "mosque@beistand.de", role: "mosque", label: "Mosque", landing: "/app", group: "Providers" },
+  { email: "church@beistand.de", role: "church", label: "Church", landing: "/app", group: "Providers" },
+  { email: "temple@beistand.de", role: "temple", label: "Temple", landing: "/app", group: "Providers" },
+  { email: "hospital@beistand.de", role: "hospital", label: "Hospital", landing: "/app", group: "Providers" },
+  // Families / beneficiaries
+  { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app", group: "Clients" },
+  { email: "beneficiary@beistand.de", role: "beneficiary", label: "Beneficiary", landing: "/app", group: "Clients" },
 ];
 const DEV_PASSWORD = "B3ist4nd_2026_Pass";
 
@@ -193,8 +214,8 @@ function DevLoginPanel({
   onLogin: (email: string, password: string) => void | Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
-  const isDev = import.meta.env.DEV;
-  if (!isDev) return null;
+
+  const groups = Array.from(new Set(DEV_ACCOUNTS.map((a) => a.group)));
 
   return (
     <div className="mt-8 rounded-2xl border border-dashed border-amber-400/60 bg-amber-50/60 p-4 dark:bg-amber-950/20">
