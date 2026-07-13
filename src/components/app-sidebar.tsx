@@ -78,6 +78,7 @@ const ROLE_LABEL: Record<AppRole, string> = {
   hospital: "Hospital Partner",
   beneficiary: "Beneficiary",
   family: "Family",
+  agent: "Agent",
 };
 
 const ROLE_TONE: Record<AppRole, string> = {
