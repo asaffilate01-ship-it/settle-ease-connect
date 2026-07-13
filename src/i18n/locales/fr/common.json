@@ -63,6 +63,90 @@
     "insuranceOps": "Opérations assurance",
     "immigrationOps": "Opérations immigration",
     "audit": "Audit",
-    "signOut": "Se déconnecter"
+    "signOut": "Se déconnecter",
+    "agent": "Agent",
+    "agentOverview": "Vue d'ensemble de l'agent",
+    "agentClients": "Mes clients",
+    "agentCommissions": "Commissions",
+    "agentLink": "Lien de parrainage"
+  },
+  "agent": {
+    "defaultName": "Agent",
+    "shortLabel": "Agent",
+    "portalLabel": "Portail de l'agent",
+    "recurringBadge": "Agent · {{rate}}% récurrent",
+    "nav": {
+      "overview": "Vue d'ensemble",
+      "clients": "Mes clients",
+      "commissions": "Commissions",
+      "link": "Lien de parrainage"
+    },
+    "home": {
+      "welcome": "Bienvenue",
+      "welcomeNamed": "Bienvenue, {{name}}",
+      "tagline": "Vendez des abonnements et des couvertures funéraires. Gagnez {{rate}}% récurrent sur chaque client parrainé.",
+      "recent": "Parrainages récents",
+      "emptyReferrals": "Pas encore de parrainages. Partagez votre lien depuis l'onglet « Lien de parrainage »."
+    },
+    "kpi": {
+      "clients": "Clients",
+      "thisMonth": "Ce mois-ci",
+      "pending": "En attente",
+      "paid": "Payé à ce jour"
+    },
+    "table": {
+      "when": "Quand",
+      "email": "E-mail",
+      "product": "Produit",
+      "source": "Source",
+      "status": "Statut"
+    },
+    "products": {
+      "basic": "Abonnement — Basique 5 €/mois",
+      "plus": "Abonnement — Plus 10 €/mois",
+      "complete": "Abonnement — Complet 25 €/mois",
+      "funeral": "Couverture funéraire",
+      "group": "Couverture de groupe"
+    },
+    "clients": {
+      "title": "Mes clients",
+      "subtitle": "Chaque abonnement que vous vendez vous rapporte {{rate}}% des frais mensuels, tant que le client reste avec nous. Remarque : nous vendons une couverture funéraire, pas une assurance funéraire.",
+      "logNew": "Enregistrer un nouveau parrainage",
+      "emailLabel": "E-mail du client",
+      "productLabel": "Produit",
+      "notesLabel": "Notes (facultatif)",
+      "notesPh": "Langue, ville, date de suivi…",
+      "saving": "Enregistrement…",
+      "submit": "Enregistrer le parrainage",
+      "all": "Tous les parrainages",
+      "empty": "Pas encore de parrainages.",
+      "logged": "Parrainage enregistré",
+      "saveFail": "Impossible d'enregistrer"
+    },
+    "commissions": {
+      "title": "Commissions",
+      "subtitle": "Payées mensuellement, calculées à hauteur de {{rate}}% du coût mensuel de l'abonnement pour chaque client que vous avez parrainé. Les coûts tiers (assurance, couverture funéraire) sont exclus de la base de commission.",
+      "period": "Période",
+      "gross": "Brut",
+      "rate": "Taux",
+      "commission": "Commission",
+      "paidAt": "Payé le",
+      "empty": "Pas encore de commissions — elles apparaîtront après la facturation du premier abonnement de votre client parrainé."
+    },
+    "link": {
+      "title": "Votre lien de parrainage",
+      "subtitle": "Toute personne qui s'inscrit dans les 60 jours suivant le clic sur votre lien vous est attribuée.",
+      "codeLine": "Votre code unique est",
+      "universal": "Lien universel",
+      "funeral": "Couverture funéraire",
+      "group": "Couverture de groupe",
+      "copy": "Copier",
+      "copied": "Copié",
+      "copyFail": "Échec de la copie",
+      "tips": "Conseils de vente",
+      "tip1": "Dites toujours couverture funéraire — jamais assurance funéraire. C'est un plan d'épargne et d'arrangement, pas un produit d'assurance réglementé.",
+      "tip2": "Niveaux d'abonnement : Basique 5 €, Plus 10 €, Complet 25 € par mois (foyer).",
+      "tip3": "Vous gagnez {{rate}}% récurrent, tant que le client reste abonné."
+    }
   }
 }

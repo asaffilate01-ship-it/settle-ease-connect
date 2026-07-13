@@ -72,7 +72,12 @@
     "insuranceOps": "ئۆپەراسیۆنی ئێنسێرانس",
     "immigrationOps": "ئۆپەراسیۆنی کۆچبەر",
     "audit": "پسپۆڕی",
-    "signOut": "چوونە دەرەوە"
+    "signOut": "چوونە دەرەوە",
+    "agent": "Nûner",
+    "agentOverview": "Pêşnêrîna nûner",
+    "agentClients": "Mişteriyên min",
+    "agentCommissions": "Komîsyon",
+    "agentLink": "Girêdana referansê"
   },
   "language": {
     "label": "Ziman",
@@ -143,5 +148,84 @@
   "hero": {
     "headlinePrefix": "Ji bo her rêyekê li",
     "headlineHighlight": "Almanyayê"
+  },
+  "agent": {
+    "defaultName": "Nûner",
+    "shortLabel": "Nûner",
+    "portalLabel": "Portala nûner",
+    "recurringBadge": "Nûner · {{rate}}% dubare",
+    "nav": {
+      "overview": "Pêşnêrîn",
+      "clients": "Mişteriyên min",
+      "commissions": "Komîsyon",
+      "link": "Girêdana referansê"
+    },
+    "home": {
+      "welcome": "Bi xêr hatî",
+      "welcomeNamed": "Bi xêr hatî, {{name}}",
+      "tagline": "Abonetî û bîmeya cenazeyan bifroşe. Li ser her xerîdarekî ku te anî, {{rate}}% komîsyona dubare qezenc bike.",
+      "recent": "Referansên dawî",
+      "emptyReferrals": "Hîn referans tune. Girêdana xwe ji taba “Girêdana referansê” parve bike."
+    },
+    "kpi": {
+      "clients": "Mişterî",
+      "thisMonth": "Vê mehê",
+      "pending": "Li benda",
+      "paid": "Heya niha hatî dayîn"
+    },
+    "table": {
+      "when": "Kengê",
+      "email": "E-name",
+      "product": "Berhem",
+      "source": "Çavkanî",
+      "status": "Rewş"
+    },
+    "products": {
+      "basic": "Abonetî — Bingehîn 5€/meh",
+      "plus": "Abonetî — Plus 10€/meh",
+      "complete": "Abonetî — Têr 25€/meh",
+      "funeral": "Bîmeya cenazeyê",
+      "group": "Bîmeya komî"
+    },
+    "clients": {
+      "title": "Mişteriyên min",
+      "subtitle": "Her abonetiyek ku tu difroşî, {{rate}}% ji heqê mehane digirî, heya ku xerîdar bi me re bimîne. Nîşe: Em bîmeya cenazeyan difroşin, ne bîmeya cenazeyan a garantîkirî.",
+      "logNew": "Referansek nû tomar bike",
+      "emailLabel": "E-nameya xerîdar",
+      "productLabel": "Berhem",
+      "notesLabel": "Nîşe (vebijarkî)",
+      "notesPh": "Ziman, bajar, dîroka şopandinê…",
+      "saving": "Tomarkirin…",
+      "submit": "Referansê tomar bike",
+      "all": "Hemî referans",
+      "empty": "Hîn referans tune.",
+      "logged": "Referans hat tomar kirin",
+      "saveFail": "Nehat tomarkirin"
+    },
+    "commissions": {
+      "title": "Komîsyon",
+      "subtitle": "Her meh tê dayîn, wekî {{rate}}% ji heqê abonetiyê yê mehane ji bo her xerîdarekî ku te anî tê hesibandin. Mesrefên sêyemîn (bîme, bîmeya cenazeyan) ji bingeha komîsyonê têne derxistin.",
+      "period": "Demjimêr",
+      "gross": "Brût",
+      "rate": "Rêjeyê",
+      "commission": "Komîsyon",
+      "paidAt": "Hat dayîn li",
+      "empty": "Hîn komîsyon tune — ew ê piştî ku abonetî ya xerîdarê te yê yekem tê fatûre kirin, xuya bibin."
+    },
+    "link": {
+      "title": "Girêdana referansa te",
+      "subtitle": "Her kesê ku di nav 60 rojan de piştî tikandina girêdana te qeyd bibe, dê ji te re were hesibandin.",
+      "codeLine": "Koda te ya yekta ye",
+      "universal": "Girêdana gerdûnî",
+      "funeral": "Bîmeya cenazeyê",
+      "group": "Bîmeya komî",
+      "copy": "Kopî bike",
+      "copied": "Hat kopî kirin",
+      "copyFail": "Kopîkirin serneket",
+      "tips": "Serişteyên firotanê",
+      "tip1": "Her gav bêje bîmeya cenazeyê — qet nebêje bîmeya cenazeyê a garantîkirî. Ew planek teserûf û rêkûpêk e, ne hilberek bîmeyê ya rêkûpêk.",
+      "tip2": "Abonetî: Bingehîn 5€, Plus 10€, Têr 25€ mehê (malbat).",
+      "tip3": "Tu {{rate}}% dubare qezenc dikî, heya ku xerîdar abonetî bimîne."
+    }
   }
 }

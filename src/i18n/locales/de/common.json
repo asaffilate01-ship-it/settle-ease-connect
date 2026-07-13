@@ -72,7 +72,12 @@
     "insuranceOps": "Versicherungs-Ops",
     "immigrationOps": "Einwanderungs-Ops",
     "audit": "Audit",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "agent": "Agent",
+    "agentOverview": "Agentenübersicht",
+    "agentClients": "Meine Kunden",
+    "agentCommissions": "Provisionen",
+    "agentLink": "Empfehlungslink"
   },
   "language": {
     "label": "Sprache",
@@ -225,6 +230,85 @@
       "messagePh": "Wie können wir helfen?",
       "send": "Nachricht senden",
       "thanks": "Vielen Dank – wir melden uns bald."
+    }
+  },
+  "agent": {
+    "defaultName": "Agent",
+    "shortLabel": "Agent",
+    "portalLabel": "Agentenportal",
+    "recurringBadge": "Agent · {{rate}}% wiederkehrend",
+    "nav": {
+      "overview": "Übersicht",
+      "clients": "Meine Kunden",
+      "commissions": "Provisionen",
+      "link": "Empfehlungslink"
+    },
+    "home": {
+      "welcome": "Willkommen",
+      "welcomeNamed": "Willkommen, {{name}}",
+      "tagline": "Verkaufe Abonnements und Bestattungsvorsorge. Verdiene {{rate}}% wiederkehrend an jedem geworbenen Kunden.",
+      "recent": "Aktuelle Empfehlungen",
+      "emptyReferrals": "Noch keine Empfehlungen. Teilen Sie Ihren Link über den Tab „Empfehlungslink“."
+    },
+    "kpi": {
+      "clients": "Kunden",
+      "thisMonth": "Diesen Monat",
+      "pending": "Ausstehend",
+      "paid": "Bisher bezahlt"
+    },
+    "table": {
+      "when": "Wann",
+      "email": "E-Mail",
+      "product": "Produkt",
+      "source": "Quelle",
+      "status": "Status"
+    },
+    "products": {
+      "basic": "Abonnement — Basic €5/Monat",
+      "plus": "Abonnement — Plus €10/Monat",
+      "complete": "Abonnement — Complete €25/Monat",
+      "funeral": "Bestattungsvorsorge",
+      "group": "Gruppenabsicherung"
+    },
+    "clients": {
+      "title": "Meine Kunden",
+      "subtitle": "Jedes Abonnement, das Sie verkaufen, bringt Ihnen {{rate}}% der monatlichen Gebühr, solange der Kunde bei uns bleibt. Hinweis: Wir verkaufen Bestattungsvorsorge, keine Bestattungsversicherung.",
+      "logNew": "Neue Empfehlung erfassen",
+      "emailLabel": "Kunden-E-Mail",
+      "productLabel": "Produkt",
+      "notesLabel": "Notizen (optional)",
+      "notesPh": "Sprache, Stadt, Follow-up-Datum…",
+      "saving": "Wird gespeichert…",
+      "submit": "Empfehlung erfassen",
+      "all": "Alle Empfehlungen",
+      "empty": "Noch keine Empfehlungen.",
+      "logged": "Empfehlung erfasst",
+      "saveFail": "Konnte nicht gespeichert werden"
+    },
+    "commissions": {
+      "title": "Provisionen",
+      "subtitle": "Monatlich ausgezahlt, berechnet als {{rate}}% der monatlichen Abonnementgebühr für jeden von Ihnen geworbenen Kunden. Drittanbieterkosten (Versicherung, Bestattungsvorsorge) sind von der Provisionsbasis ausgeschlossen.",
+      "period": "Zeitraum",
+      "gross": "Brutto",
+      "rate": "Rate",
+      "commission": "Provision",
+      "paidAt": "Ausgezahlt am",
+      "empty": "Noch keine Provisionen – diese erscheinen, nachdem das Abonnement Ihres ersten geworbenen Kunden abgerechnet wurde."
+    },
+    "link": {
+      "title": "Ihr Empfehlungslink",
+      "subtitle": "Jeder, der sich innerhalb von 60 Tagen nach Klicken auf Ihren Link anmeldet, wird Ihnen zugeordnet.",
+      "codeLine": "Ihr eindeutiger Code ist",
+      "universal": "Universeller Link",
+      "funeral": "Bestattungsvorsorge",
+      "group": "Gruppenabsicherung",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "copyFail": "Kopieren fehlgeschlagen",
+      "tips": "Verkaufstipps",
+      "tip1": "Sagen Sie immer Bestattungsvorsorge – niemals Bestattungsversicherung. Es ist ein Spar- und Organisationsplan, kein reguliertes Versicherungsprodukt.",
+      "tip2": "Abonnementstufen: Basic €5, Plus €10, Complete €25 pro Monat (Haushalt).",
+      "tip3": "Sie verdienen {{rate}}% wiederkehrend, solange der Kunde abonniert bleibt."
     }
   }
 }

@@ -2681,6 +2681,10 @@ export type Database = {
         Returns: boolean
       }
       generate_agent_code: { Args: never; Returns: string }
+      generate_monthly_agent_commissions: {
+        Args: { _period?: string }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
