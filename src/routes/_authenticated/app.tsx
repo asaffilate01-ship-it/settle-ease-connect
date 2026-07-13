@@ -103,5 +103,6 @@ function AppLayout() {
         <MobileTabBar />
       </div>
     </div>
+    </SidebarProvider>
   );
 }
