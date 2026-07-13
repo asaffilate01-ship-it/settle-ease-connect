@@ -225,7 +225,7 @@ function GroupCoverPage() {
         </ol>
         <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent/20 p-5 text-sm">
           <strong className="text-foreground">Speed:</strong> when a beneficiary is named on the
-          policy the payout bypasses the German inheritance process (no Erbschein) and lands in{" "}
+          cover the payout bypasses the German inheritance process (no Erbschein) and lands in{" "}
           <strong className="text-foreground">3–7 working days</strong>. Without a named
           beneficiary the money is held up 3–6 months waiting for a certificate of inheritance —
           which is precisely why the fiduciary clause exists.
