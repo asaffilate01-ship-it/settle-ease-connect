@@ -5,15 +5,18 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * BeistandPlus — design system v2 "Ocean Deep / Architectural"
- * Palette: deep navy, ocean, teal glow on a cool ivory.
- * Type:    Urbanist (display, wide) + Epilogue (body, refined).
- * Depth:   claymorphic 3D shadows for icons, layered soft shadows for cards.
+ * BeistandPlus — design system v3 "Terracotta & Sage · Magazine"
+ * Palette: warm cream paper, charcoal ink, terracotta signature stamp,
+ *          sage as the quiet secondary, peach for soft surfaces.
+ * Type:    DM Serif Display (headings, editorial) + Fira Sans (body, precise).
+ * Feeling: A well-made Sunday newspaper — hairline rules, small caps eyebrows,
+ *          serif headlines, one terracotta accent per section, generous air.
  */
 
 @theme inline {
-  --font-sans: "Epilogue", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "DM Serif Display", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "Fira Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -47,8 +50,11 @@
   --color-ring: var(--ring);
   --color-parchment: var(--parchment);
   --color-ink: var(--ink);
-  --color-ocean: var(--ocean);
-  --color-teal: var(--teal);
+  --color-terracotta: var(--terracotta);
+  --color-peach: var(--peach);
+  --color-sage: var(--sage);
+  --color-ocean: var(--terracotta); /* alias — legacy pages */
+  --color-teal: var(--sage);        /* alias — legacy pages */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -65,153 +71,135 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.5rem; /* magazine cards read tighter, more editorial */
 
-  /* Ocean Deep — cool ivory base, deep navy ink */
-  --background: oklch(0.985 0.005 220);
-  --foreground: oklch(0.18 0.04 250);
-  --parchment: oklch(0.965 0.012 220);
-  --ink: oklch(0.16 0.04 250);
-  --ocean: oklch(0.38 0.09 240);
-  --teal: oklch(0.72 0.11 195);
+  /* ---- Paper & Ink ---- */
+  --background: oklch(0.975 0.011 78);   /* warm cream #faf8f5 */
+  --parchment: oklch(0.955 0.019 72);    /* softer cream tone for surfaces */
+  --foreground: oklch(0.18 0.015 40);    /* deep charcoal ink */
+  --ink: oklch(0.14 0.015 40);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 250);
+  /* ---- Terracotta signature ---- */
+  --terracotta: oklch(0.6 0.14 40);      /* #c4654a */
+  --peach: oklch(0.82 0.088 55);         /* #e8a87c */
+  --sage: oklch(0.5 0.055 145);          /* #4a6741 */
 
-  /* Primary — deep navy #0c2340 */
-  --primary: oklch(0.24 0.07 250);
-  --primary-foreground: oklch(0.98 0.005 220);
+  --card: oklch(0.985 0.008 78);
+  --card-foreground: oklch(0.18 0.015 40);
+  --popover: oklch(0.985 0.008 78);
+  --popover-foreground: oklch(0.18 0.015 40);
 
-  --secondary: oklch(0.94 0.014 220);
-  --secondary-foreground: oklch(0.24 0.07 250);
+  /* Primary — terracotta signature, used sparingly (CTAs, one-per-section stamp) */
+  --primary: oklch(0.6 0.14 40);
+  --primary-foreground: oklch(0.98 0.011 78);
 
-  --muted: oklch(0.945 0.012 220);
-  --muted-foreground: oklch(0.48 0.03 240);
+  /* Secondary — sage; quiet supporting surfaces & links */
+  --secondary: oklch(0.92 0.022 130);
+  --secondary-foreground: oklch(0.28 0.055 145);
 
-  /* Accent — teal glow #5cbdb9 */
-  --accent: oklch(0.72 0.11 195);
-  --accent-foreground: oklch(0.16 0.05 240);
+  /* Muted — warm cream card wash */
+  --muted: oklch(0.94 0.018 70);
+  --muted-foreground: oklch(0.42 0.025 55);
 
-  /* Destructive — muted coral (not competing with teal) */
-  --destructive: oklch(0.58 0.19 25);
-  --destructive-foreground: oklch(0.98 0.005 220);
+  /* Accent — sage as the second voice, complements terracotta */
+  --accent: oklch(0.5 0.055 145);
+  --accent-foreground: oklch(0.98 0.011 78);
 
-  --success: oklch(0.66 0.13 165);
-  --success-foreground: oklch(0.98 0.005 220);
+  /* Destructive — deeper terracotta so urgent bereavement cards read hot */
+  --destructive: oklch(0.5 0.16 30);
+  --destructive-foreground: oklch(0.98 0.011 78);
 
-  --warning: oklch(0.8 0.13 75);
-  --warning-foreground: oklch(0.22 0.05 60);
+  --success: oklch(0.55 0.09 145);
+  --success-foreground: oklch(0.98 0.011 78);
 
-  --border: oklch(0.9 0.015 220);
-  --input: oklch(0.9 0.015 220);
-  --ring: oklch(0.55 0.13 210);
+  --warning: oklch(0.72 0.13 65);
+  --warning-foreground: oklch(0.2 0.03 55);
 
-  --chart-1: oklch(0.24 0.07 250);
-  --chart-2: oklch(0.42 0.11 235);
-  --chart-3: oklch(0.62 0.12 205);
-  --chart-4: oklch(0.72 0.11 195);
-  --chart-5: oklch(0.5 0.14 260);
+  /* Hairline borders — barely-there rules, not boxes */
+  --border: oklch(0.86 0.02 60);
+  --input: oklch(0.86 0.02 60);
+  --ring: oklch(0.6 0.14 40);
 
-  --sidebar: oklch(0.16 0.05 250);
-  --sidebar-foreground: oklch(0.94 0.012 220);
-  --sidebar-primary: oklch(0.72 0.11 195);
-  --sidebar-primary-foreground: oklch(0.16 0.05 250);
-  --sidebar-accent: oklch(0.22 0.06 250);
-  --sidebar-accent-foreground: oklch(0.98 0.005 220);
-  --sidebar-border: oklch(0.26 0.05 250);
-  --sidebar-ring: oklch(0.72 0.11 195);
+  --chart-1: oklch(0.6 0.14 40);   /* terracotta */
+  --chart-2: oklch(0.5 0.055 145); /* sage */
+  --chart-3: oklch(0.82 0.088 55); /* peach */
+  --chart-4: oklch(0.35 0.05 145); /* deep sage */
+  --chart-5: oklch(0.7 0.11 45);   /* copper */
 
-  /* Signature gradients — deep ocean radiance */
-  --gradient-hero: radial-gradient(
-      ellipse 900px 500px at 20% 0%,
-      oklch(0.72 0.11 195 / 0.28),
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 800px 600px at 100% 40%,
-      oklch(0.42 0.14 260 / 0.22),
-      transparent 65%
-    ),
-    radial-gradient(
-      ellipse 600px 400px at 40% 100%,
-      oklch(0.24 0.07 250 / 0.12),
-      transparent 70%
-    );
-  --gradient-primary: linear-gradient(
-    135deg,
-    oklch(0.24 0.07 250),
-    oklch(0.34 0.1 240)
-  );
-  --gradient-ocean: linear-gradient(
-    135deg,
-    oklch(0.24 0.07 250) 0%,
-    oklch(0.38 0.1 235) 45%,
-    oklch(0.62 0.12 205) 100%
-  );
-  --gradient-teal: linear-gradient(
-    135deg,
-    oklch(0.55 0.13 210),
-    oklch(0.78 0.1 190)
-  );
-  --gradient-aurora: linear-gradient(
-    135deg,
-    oklch(0.24 0.07 250) 0%,
-    oklch(0.5 0.14 260) 40%,
-    oklch(0.72 0.11 195) 100%
-  );
+  /* Sidebar — inverted, deep sage panel for the app */
+  --sidebar: oklch(0.24 0.045 140);
+  --sidebar-foreground: oklch(0.95 0.015 78);
+  --sidebar-primary: oklch(0.6 0.14 40);
+  --sidebar-primary-foreground: oklch(0.98 0.011 78);
+  --sidebar-accent: oklch(0.3 0.05 140);
+  --sidebar-accent-foreground: oklch(0.95 0.015 78);
+  --sidebar-border: oklch(0.34 0.05 140);
+  --sidebar-ring: oklch(0.6 0.14 40);
 
-  /* Card & clay shadows — layered for depth */
-  --shadow-soft: 0 1px 2px oklch(0.16 0.05 240 / 0.06),
-    0 8px 24px -10px oklch(0.24 0.07 250 / 0.18);
-  --shadow-elevated: 0 2px 6px oklch(0.16 0.05 240 / 0.08),
-    0 24px 48px -16px oklch(0.24 0.07 250 / 0.28);
-  --shadow-card: 0 1px 2px oklch(0.16 0.05 240 / 0.05),
-    0 4px 12px -4px oklch(0.24 0.07 250 / 0.1),
-    0 24px 60px -24px oklch(0.24 0.07 250 / 0.18);
-  /* Claymorphic — inner highlight + soft outer shadow for 3D depth */
+  /* -------- Signature gradients — subtle, paper-based -------- */
+  --gradient-hero:
+    radial-gradient(ellipse 900px 500px at 15% 0%,  oklch(0.82 0.088 55 / 0.35), transparent 62%),
+    radial-gradient(ellipse 800px 600px at 100% 20%, oklch(0.6 0.14 40 / 0.10), transparent 65%),
+    radial-gradient(ellipse 600px 400px at 40% 100%, oklch(0.5 0.055 145 / 0.10), transparent 70%);
+  --gradient-primary: linear-gradient(135deg, oklch(0.6 0.14 40), oklch(0.52 0.15 32));
+  --gradient-ocean:   linear-gradient(135deg, oklch(0.35 0.05 145), oklch(0.5 0.055 145)); /* sage — kept as alias */
+  --gradient-teal:    linear-gradient(135deg, oklch(0.5 0.055 145), oklch(0.62 0.06 140));
+  --gradient-aurora:  linear-gradient(135deg, oklch(0.6 0.14 40), oklch(0.82 0.088 55) 60%, oklch(0.5 0.055 145));
+
+  /* Card shadows — layered, warm, not blue */
+  --shadow-soft:
+    0 1px 2px oklch(0.14 0.015 40 / 0.05),
+    0 8px 24px -10px oklch(0.14 0.015 40 / 0.14);
+  --shadow-elevated:
+    0 2px 6px oklch(0.14 0.015 40 / 0.07),
+    0 24px 48px -18px oklch(0.14 0.015 40 / 0.22);
+  --shadow-card:
+    0 1px 2px oklch(0.14 0.015 40 / 0.04),
+    0 4px 12px -4px oklch(0.14 0.015 40 / 0.08),
+    0 24px 60px -28px oklch(0.14 0.015 40 / 0.16);
   --shadow-clay:
     inset 0 2px 3px oklch(1 0 0 / 0.55),
-    inset 0 -3px 6px oklch(0.24 0.07 250 / 0.28),
-    0 8px 20px -6px oklch(0.24 0.07 250 / 0.35),
-    0 2px 4px oklch(0.16 0.05 240 / 0.15);
+    inset 0 -3px 6px oklch(0.6 0.14 40 / 0.24),
+    0 8px 20px -6px oklch(0.14 0.015 40 / 0.3),
+    0 2px 4px oklch(0.14 0.015 40 / 0.12);
   --shadow-clay-sm:
     inset 0 1px 2px oklch(1 0 0 / 0.5),
-    inset 0 -2px 4px oklch(0.24 0.07 250 / 0.25),
-    0 4px 12px -3px oklch(0.24 0.07 250 / 0.3);
+    inset 0 -2px 4px oklch(0.6 0.14 40 / 0.22),
+    0 4px 12px -3px oklch(0.14 0.015 40 / 0.25);
   --shadow-glow-teal:
-    0 0 0 1px oklch(0.72 0.11 195 / 0.2),
-    0 10px 40px -10px oklch(0.72 0.11 195 / 0.5);
+    0 0 0 1px oklch(0.5 0.055 145 / 0.22),
+    0 10px 40px -10px oklch(0.5 0.055 145 / 0.4);
 }
 
 .dark {
-  --background: oklch(0.14 0.03 250);
-  --foreground: oklch(0.96 0.012 220);
-  --parchment: oklch(0.18 0.04 250);
-  --ink: oklch(0.96 0.012 220);
-  --ocean: oklch(0.55 0.13 210);
-  --card: oklch(0.2 0.05 250);
-  --card-foreground: oklch(0.96 0.012 220);
-  --popover: oklch(0.2 0.05 250);
-  --popover-foreground: oklch(0.96 0.012 220);
-  --primary: oklch(0.72 0.11 195);
-  --primary-foreground: oklch(0.14 0.03 250);
-  --secondary: oklch(0.24 0.06 250);
-  --secondary-foreground: oklch(0.96 0.012 220);
-  --muted: oklch(0.24 0.06 250);
-  --muted-foreground: oklch(0.72 0.02 220);
-  --accent: oklch(0.72 0.11 195);
-  --accent-foreground: oklch(0.14 0.03 250);
-  --destructive: oklch(0.62 0.2 25);
-  --destructive-foreground: oklch(0.98 0.005 220);
-  --success: oklch(0.72 0.13 165);
-  --success-foreground: oklch(0.14 0.03 250);
-  --warning: oklch(0.82 0.13 75);
-  --warning-foreground: oklch(0.22 0.05 60);
+  --background: oklch(0.16 0.02 40);
+  --foreground: oklch(0.95 0.015 78);
+  --parchment: oklch(0.2 0.025 40);
+  --ink: oklch(0.95 0.015 78);
+  --terracotta: oklch(0.68 0.15 42);
+  --peach: oklch(0.78 0.09 55);
+  --sage: oklch(0.65 0.07 145);
+  --card: oklch(0.22 0.025 40);
+  --card-foreground: oklch(0.95 0.015 78);
+  --popover: oklch(0.22 0.025 40);
+  --popover-foreground: oklch(0.95 0.015 78);
+  --primary: oklch(0.68 0.15 42);
+  --primary-foreground: oklch(0.16 0.02 40);
+  --secondary: oklch(0.28 0.04 145);
+  --secondary-foreground: oklch(0.95 0.015 78);
+  --muted: oklch(0.26 0.025 40);
+  --muted-foreground: oklch(0.75 0.02 70);
+  --accent: oklch(0.65 0.07 145);
+  --accent-foreground: oklch(0.16 0.02 40);
+  --destructive: oklch(0.6 0.18 30);
+  --destructive-foreground: oklch(0.98 0.011 78);
+  --success: oklch(0.7 0.11 145);
+  --success-foreground: oklch(0.16 0.02 40);
+  --warning: oklch(0.78 0.13 65);
+  --warning-foreground: oklch(0.2 0.03 55);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.11 195);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.68 0.15 42);
   --shadow-clay:
     inset 0 2px 3px oklch(1 0 0 / 0.15),
     inset 0 -3px 6px oklch(0 0 0 / 0.4),
@@ -228,7 +216,6 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    /* Respect iOS safe areas */
     scroll-padding-top: env(safe-area-inset-top);
   }
 
@@ -236,46 +223,43 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     background-image:
-      radial-gradient(
-        ellipse 1200px 700px at 50% -10%,
-        oklch(0.72 0.11 195 / 0.12),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 800px 500px at 100% 100%,
-        oklch(0.42 0.14 260 / 0.06),
-        transparent 65%
-      );
+      radial-gradient(ellipse 1200px 700px at 50% -10%, oklch(0.82 0.088 55 / 0.18), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 100% 100%, oklch(0.5 0.055 145 / 0.05), transparent 65%),
+      /* subtle paper grain */
+      repeating-linear-gradient(0deg,
+        oklch(0.14 0.015 40 / 0.012) 0px,
+        oklch(0.14 0.015 40 / 0.012) 1px,
+        transparent 1px,
+        transparent 3px);
     background-attachment: fixed;
     min-height: 100dvh;
+    font-feature-settings: "kern", "liga", "calt", "ss01";
   }
 
+  /* Editorial headings — DM Serif Display is a display serif; use it at size, keep body Fira Sans */
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 400; /* DM Serif Display only ships in 400 — weight comes from size + tracking */
+    letter-spacing: -0.015em;
     text-wrap: balance;
+    color: var(--color-ink);
   }
-  h1 { letter-spacing: -0.035em; }
+  h1 { letter-spacing: -0.025em; }
+  h4, h5 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.005em; }
 
-  /* -------------------------------------------------------------- */
-  /* German has very long compound words (Staatsangehörigkeit,      */
-  /* Aufenthaltsgenehmigung…). Hyphenate + shrink display headings  */
-  /* one step so they don't overflow narrow columns or mobile.      */
-  /* -------------------------------------------------------------- */
-  html:lang(de) h1,
-  html:lang(de) h2,
-  html:lang(de) h3 {
+  p, li, dd, dt { color: color-mix(in oklab, var(--color-foreground) 92%, transparent); }
+
+  /* Compound-word safety (German) */
+  html:lang(de) h1, html:lang(de) h2, html:lang(de) h3 {
     hyphens: auto;
     -webkit-hyphens: auto;
     overflow-wrap: break-word;
     word-break: normal;
   }
-  /* Scale display headings ~12% down in German so long words fit. */
-  html:lang(de) .font-display.text-4xl { font-size: 1.875rem; line-height: 2.25rem; }   /* was 2.25rem */
-  html:lang(de) .font-display.text-5xl { font-size: 2.5rem;   line-height: 2.75rem; }   /* was 3rem   */
-  html:lang(de) .font-display.text-6xl { font-size: 3rem;     line-height: 3.25rem; }   /* was 3.75rem*/
-  html:lang(de) .font-display.text-7xl { font-size: 3.5rem;   line-height: 3.75rem; }   /* was 4.5rem */
+  html:lang(de) .font-display.text-4xl { font-size: 1.875rem; line-height: 2.25rem; }
+  html:lang(de) .font-display.text-5xl { font-size: 2.5rem;   line-height: 2.75rem; }
+  html:lang(de) .font-display.text-6xl { font-size: 3rem;     line-height: 3.25rem; }
+  html:lang(de) .font-display.text-7xl { font-size: 3.5rem;   line-height: 3.75rem; }
   @media (min-width: 640px) {
     html:lang(de) .font-display.sm\:text-5xl { font-size: 2.75rem; line-height: 3rem; }
     html:lang(de) .font-display.sm\:text-6xl { font-size: 3.25rem; line-height: 3.5rem; }
@@ -286,102 +270,137 @@
     html:lang(de) .font-display.lg\:text-7xl { font-size: 4rem;    line-height: 4.25rem; }
   }
 
-  /* Better mobile tap targets */
-  button, a, [role="button"] {
-    -webkit-tap-highlight-color: transparent;
-  }
+  button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
 
-  /* Safe-area padding for the whole app on mobile */
-  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
-  /* Script-specific font stacks — activated by <html lang="…"> */
+  /* Script-specific font stacks */
   html:lang(ar), html:lang(ar) body { font-family: "Noto Sans Arabic", var(--font-sans); }
   html:lang(ur), html:lang(ur) body { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", var(--font-sans); }
   html:lang(fa), html:lang(fa) body { font-family: "Noto Sans Arabic", var(--font-sans); }
   html:lang(hi), html:lang(hi) body { font-family: "Noto Sans Devanagari", var(--font-sans); }
   html:lang(pa), html:lang(pa) body { font-family: "Noto Sans Gurmukhi", var(--font-sans); }
   html:lang(zh), html:lang(zh) body { font-family: "Noto Sans SC", var(--font-sans); }
-
   html:lang(ar) h1, html:lang(ar) h2, html:lang(ar) h3, html:lang(ar) h4, html:lang(ar) h5,
   html:lang(ur) h1, html:lang(ur) h2, html:lang(ur) h3, html:lang(ur) h4, html:lang(ur) h5,
-  html:lang(fa) h1, html:lang(fa) h2, html:lang(fa) h3, html:lang(fa) h4, html:lang(fa) h5 {
-    font-family: "Noto Sans Arabic", var(--font-display);
-  }
-  html:lang(hi) h1, html:lang(hi) h2, html:lang(hi) h3, html:lang(hi) h4, html:lang(hi) h5 {
-    font-family: "Noto Sans Devanagari", var(--font-display);
-  }
-  html:lang(pa) h1, html:lang(pa) h2, html:lang(pa) h3, html:lang(pa) h4, html:lang(pa) h5 {
-    font-family: "Noto Sans Gurmukhi", var(--font-display);
-  }
-  html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) h4, html:lang(zh) h5 {
-    font-family: "Noto Sans SC", var(--font-display);
+  html:lang(fa) h1, html:lang(fa) h2, html:lang(fa) h3, html:lang(fa) h4, html:lang(fa) h5 { font-family: "Noto Sans Arabic", var(--font-display); }
+  html:lang(hi) h1, html:lang(hi) h2, html:lang(hi) h3, html:lang(hi) h4, html:lang(hi) h5 { font-family: "Noto Sans Devanagari", var(--font-display); }
+  html:lang(pa) h1, html:lang(pa) h2, html:lang(pa) h3, html:lang(pa) h4, html:lang(pa) h5 { font-family: "Noto Sans Gurmukhi", var(--font-display); }
+  html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) h4, html:lang(zh) h5 { font-family: "Noto Sans SC", var(--font-display); }
+}
+
+@utility font-display { font-family: var(--font-display); }
+@utility font-sans-body { font-family: var(--font-sans); }
+
+@utility bg-gradient-hero    { background-image: var(--gradient-hero); }
+@utility bg-gradient-primary { background-image: var(--gradient-primary); }
+@utility bg-gradient-ocean   { background-image: var(--gradient-ocean); }
+@utility bg-gradient-teal    { background-image: var(--gradient-teal); }
+@utility bg-gradient-aurora  { background-image: var(--gradient-aurora); }
+@utility shadow-soft         { box-shadow: var(--shadow-soft); }
+@utility shadow-elevated     { box-shadow: var(--shadow-elevated); }
+@utility shadow-card         { box-shadow: var(--shadow-card); }
+@utility shadow-clay         { box-shadow: var(--shadow-clay); }
+@utility shadow-clay-sm      { box-shadow: var(--shadow-clay-sm); }
+@utility shadow-glow-teal    { box-shadow: var(--shadow-glow-teal); }
+
+/* -------- Editorial magazine helpers -------- */
+
+/* Small-caps eyebrow — sage, tracked, tiny. The section signpost. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Hairline rule with terracotta tick — replaces boxes as the section divider */
+@utility rule-hair {
+  display: block;
+  height: 1px;
+  background: color-mix(in oklab, var(--color-ink) 22%, transparent);
+  position: relative;
+}
+@utility rule-hair-mark {
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -3px;
+    height: 7px;
+    width: 40px;
+    background: var(--color-primary);
   }
 }
 
-@utility font-display {
+/* Numbered index — 01, 02, 03… in the display serif, muted */
+@utility index-num {
   font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: color-mix(in oklab, var(--color-ink) 45%, transparent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
-@utility bg-gradient-hero {
-  background-image: var(--gradient-hero);
-}
-@utility bg-gradient-primary {
-  background-image: var(--gradient-primary);
-}
-@utility bg-gradient-ocean {
-  background-image: var(--gradient-ocean);
-}
-@utility bg-gradient-teal {
-  background-image: var(--gradient-teal);
-}
-@utility bg-gradient-aurora {
-  background-image: var(--gradient-aurora);
-}
-@utility shadow-soft {
-  box-shadow: var(--shadow-soft);
-}
-@utility shadow-elevated {
-  box-shadow: var(--shadow-elevated);
-}
-@utility shadow-card {
-  box-shadow: var(--shadow-card);
-}
-@utility shadow-clay {
-  box-shadow: var(--shadow-clay);
-}
-@utility shadow-clay-sm {
-  box-shadow: var(--shadow-clay-sm);
-}
-@utility shadow-glow-teal {
-  box-shadow: var(--shadow-glow-teal);
-}
-
-/* Premium card — layered depth, soft border, hover lift */
-@utility card-premium {
-  background: linear-gradient(180deg, var(--color-card), oklch(0.98 0.008 220));
-  border: 1px solid oklch(0.9 0.015 220 / 0.7);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-card);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-elevated);
+/* Drop-cap for the opening editorial paragraph */
+@utility drop-cap {
+  &::first-letter {
+    font-family: var(--font-display);
+    float: left;
+    font-size: 3.6rem;
+    line-height: 0.9;
+    padding: 0.35rem 0.5rem 0 0;
+    color: var(--color-primary);
   }
 }
 
-/* Back-compat aliases so pre-Ocean-Deep gradient utilities still resolve. */
-@utility bg-gradient-warm {
-  background-image: var(--gradient-teal);
-}
-@utility bg-gradient-flag {
-  background-image: var(--gradient-ocean);
+/* Section frame — paper edge with a hairline rule, no card box */
+@utility section-plate {
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 12%, transparent);
+  padding-top: 3rem;
 }
 
-/* -------------------------------------------------------------------------- */
-/* Native / Capacitor: honour iOS notches and Android status bar.             */
-/* -------------------------------------------------------------------------- */
+/* Editorial card — paper stock, hairline border, subtle warm lift */
+@utility card-premium {
+  background: linear-gradient(180deg, var(--color-card), oklch(0.965 0.019 72));
+  border: 1px solid color-mix(in oklab, var(--color-ink) 10%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-elevated);
+    border-color: color-mix(in oklab, var(--color-primary) 40%, transparent);
+  }
+}
+
+/* Terracotta signature underline for one word in a headline */
+@utility headline-stamp {
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0.06em;
+    height: 0.32em;
+    background: color-mix(in oklab, var(--color-primary) 55%, transparent);
+    z-index: -1;
+    border-radius: 2px;
+    transform: skewX(-6deg);
+  }
+}
+
+/* Back-compat aliases so pre-v3 gradient utilities still resolve. */
+@utility bg-gradient-warm { background-image: var(--gradient-aurora); }
+@utility bg-gradient-flag { background-image: var(--gradient-primary); }
+
+/* Native / Capacitor safe areas */
 html.native body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
@@ -394,68 +413,54 @@ html.native {
   --safe-top: env(safe-area-inset-top);
   --safe-bottom: env(safe-area-inset-bottom);
 }
-html.keyboard-open body {
-  padding-bottom: var(--keyboard-height, 0px);
-}
-@utility safe-top { padding-top: env(safe-area-inset-top); }
+html.keyboard-open body { padding-bottom: var(--keyboard-height, 0px); }
+@utility safe-top    { padding-top: env(safe-area-inset-top); }
 @utility safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
-/* -------------------------------------------------------------------------- */
-/* Fluid display typography — clamps so long translations (DE/RU/UK/PA/UR)     */
-/* never overflow hero and section headings.                                   */
-/* -------------------------------------------------------------------------- */
+/* Fluid display typography — clamps for long translations */
 @utility display-hero {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2rem, 3.6vw + 1rem, 4.25rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4vw + 1rem, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
   text-wrap: balance;
   hyphens: auto;
   overflow-wrap: break-word;
 }
 @utility display-lg {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 2vw + 0.8rem, 2.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 2.2vw + 0.8rem, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   text-wrap: balance;
   hyphens: auto;
   overflow-wrap: break-word;
 }
 @utility display-md {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.25rem, 1.2vw + 0.8rem, 1.875rem);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.3vw + 0.8rem, 2rem);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
   text-wrap: balance;
   hyphens: auto;
   overflow-wrap: break-word;
 }
-@utility body-pretty {
-  text-wrap: pretty;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
-@utility card-title {
-  text-wrap: balance;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  min-width: 0;
-}
+@utility body-pretty { text-wrap: pretty; overflow-wrap: break-word; hyphens: auto; }
+@utility card-title  { text-wrap: balance; overflow-wrap: break-word; hyphens: auto; min-width: 0; }
 
-/* RTL helpers for Arabic, Urdu, Pashto, Kurdish. */
+/* RTL helpers */
 [dir="rtl"] .rtl-flip { transform: scaleX(-1); }
 [dir="rtl"] .text-start-safe { text-align: right; }
 [dir="ltr"] .text-start-safe { text-align: left; }
 
-/* Global long-word safety net — prevents translated words overflowing cards. */
+/* Long-word safety net */
 h1, h2, h3, h4 { overflow-wrap: break-word; hyphens: auto; }
 p, li, dd, dt  { overflow-wrap: break-word; }
 
-/* Smooth cross-fade while the auto-translator swaps text. */
+/* Smooth cross-fade during auto-translate swaps */
 html { transition: opacity 180ms ease; }
 html[data-lang-switching="1"] body { opacity: 0.55; transition: opacity 180ms ease; }
 html:not([data-lang-switching]) body { opacity: 1; transition: opacity 220ms ease; }

@@ -105,77 +105,101 @@ function Hero() {
   const { t } = useTranslation();
   return (
     <section className="relative overflow-hidden bg-gradient-hero">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8 lg:py-28">
-        <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-success" />
-            Now onboarding partners in Berlin & NRW
+      {/* Editorial masthead: date-stamp, issue no, running order */}
+      <div className="mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/15 pb-4">
+          <div className="eyebrow text-ink/60">Berlin · Ausgabe №01</div>
+          <div className="eyebrow text-ink/60">
+            {new Date().toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" })}
           </div>
-          <h1 className="display-hero text-balance mt-6 font-semibold leading-[1.05] text-foreground sm:display-hero">
+          <div className="eyebrow text-primary">Now onboarding — Berlin &amp; NRW</div>
+        </div>
+      </div>
+
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-24 pt-16 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:pt-20">
+        {/* LEAD — columnar editorial hero */}
+        <div className="lg:col-span-7">
+          <div className="eyebrow">Für Familien in Deutschland</div>
+          <h1 className="display-hero mt-5 text-ink">
             {t("hero.headlinePrefix", "Für jeden Weg in")}{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">{t("hero.headlineHighlight", "Deutschland")}</span>
-              <span className="absolute inset-x-0 bottom-2 -z-0 h-3 rounded-sm bg-accent/50" />
+            <span className="headline-stamp italic">
+              {t("hero.headlineHighlight", "Deutschland")}
             </span>
             .
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Whether you're planning your move to Germany — for work, study or
-            family — or already here and building a life, BeistandPlus is the calm
-            platform for visas, Anmeldung, housing, benefits, health, driving,
-            births, marriages, deaths and everything in between.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <p className="text-base leading-relaxed text-foreground/85 drop-cap">
+              Whether you're planning your move to Germany — for work, study or family — or already
+              here and building a life, BeistandPlus is the calm platform for every step.
+            </p>
+            <p className="text-base leading-relaxed text-foreground/85">
+              Visas, Anmeldung, housing, benefits, mandatory health insurance, driving, births,
+              marriages, deaths — one human case manager, in your language, for the whole way.
+            </p>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-elevated hover:bg-primary/90">
               <Link to="/app">
                 Open your dashboard
                 <ArrowRight className="ml-1 h-4 w-4 rtl-flip" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="border-ink/25 text-ink hover:bg-ink/5">
               <Link to="/bereavement">Report a bereavement</Link>
             </Button>
           </div>
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-2">
-              <Languages className="h-4 w-4" /> DE · EN · TR · UR · HI · PA · PS · AR · KU · RU · UK
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4" /> GDPR-first & bank-grade encryption
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Phone className="h-4 w-4" /> 24/7 human case manager
-            </span>
+
+          <div className="mt-12 border-t border-ink/15 pt-5">
+            <dl className="grid gap-x-8 gap-y-3 text-sm text-foreground/80 sm:grid-cols-3">
+              <div>
+                <dt className="eyebrow text-ink/55">Languages</dt>
+                <dd className="mt-1 flex items-center gap-2">
+                  <Languages className="h-4 w-4 text-accent" /> 19, native speakers
+                </dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink/55">Compliance</dt>
+                <dd className="mt-1 flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-accent" /> GDPR &amp; bank-grade
+                </dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink/55">Response</dt>
+                <dd className="mt-1 flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-accent" /> 24/7 case manager
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
 
+        {/* PLATE — cover image + issue plate */}
         <div className="relative lg:col-span-5">
-          <div className="relative overflow-hidden rounded-3xl shadow-elevated ring-1 ring-primary/10">
+          <figure className="relative overflow-hidden rounded-md ring-1 ring-ink/15">
             <img
               src={heroFamily}
               alt="A multicultural family in Berlin, supported by BeistandPlus"
               width={1600}
               height={1100}
               fetchPriority="high"
-              className="aspect-[4/5] w-full object-cover"
+              className="aspect-[4/5] w-full object-cover sepia-[0.08]"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
-                An Ihrer Seite — von Anfang an
-              </div>
-              <p className="mt-2 max-w-sm font-display text-lg leading-snug">
-                "From the airport to the Bürgeramt to the hospital — one team,
-                one plan, in our language."
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
+            <figcaption className="absolute inset-x-0 bottom-0 p-6 text-background">
+              <div className="eyebrow text-peach">An Ihrer Seite — von Anfang an</div>
+              <p className="mt-2 max-w-sm font-display text-xl italic leading-snug">
+                "From the airport to the Bürgeramt to the hospital — one team, one plan, in our language."
               </p>
-            </div>
-          </div>
-          <div className="mt-6 lg:absolute lg:-bottom-16 lg:-left-10 lg:mt-0 lg:w-[92%]">
+            </figcaption>
+          </figure>
+          <div className="mt-6 lg:absolute lg:-bottom-14 lg:-left-10 lg:mt-0 lg:w-[92%]">
             <HeroCard />
           </div>
         </div>
       </div>
-      <div className="h-0 lg:h-24" />
+      <div className="h-0 lg:h-20" />
     </section>
   );
 }
@@ -293,18 +317,20 @@ function UrgencyTriage() {
     },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Where should we start?
-        </div>
-        <h2 className="display-lg text-balance mt-3 font-semibold">
-          Two doors. One <span className="text-destructive">calm</span> team behind both.
+        <div className="eyebrow">Where should we start?</div>
+        <h2 className="display-lg mt-4">
+          Two doors. One <span className="headline-stamp italic">calm</span> team behind both.
         </h2>
-        <p className="mt-4 text-base text-muted-foreground">
-          Tell us whether today is an emergency or a plan. We'll match you to the right case manager, in your language, in minutes.
+        <p className="mt-5 text-base leading-relaxed text-foreground/80">
+          Tell us whether today is an emergency or a plan. We'll match you to the right case manager,
+          in your language, in minutes.
         </p>
+        <div className="mx-auto mt-8 h-px w-24 bg-primary" />
       </div>
+
+
 
       <div className="mt-14 grid gap-6 lg:grid-cols-2">
         {paths.map((p) => {
