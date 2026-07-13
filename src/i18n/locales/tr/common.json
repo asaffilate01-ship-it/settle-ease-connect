@@ -71,7 +71,8 @@
     "referrals": "Yönlendirmeler",
     "insuranceOps": "Sigorta operasyonları",
     "immigrationOps": "Göç operasyonları",
-    "audit": "Denetim"
+    "audit": "Denetim",
+    "signOut": "Çıkış yap"
   },
   "language": {
     "label": "Dil",
