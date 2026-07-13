@@ -14,7 +14,7 @@ export function BereavementQuoteWidget() {
   const submit = useServerFn(submitInsuranceLead);
 
   const [age, setAge] = useState(45);
-  const [benefit, setBenefit] = useState(8000);
+  const [benefit, setBenefit] = useState(20000);
   const [tobacco, setTobacco] = useState(false);
   const [waiting, setWaiting] = useState(0);
 
