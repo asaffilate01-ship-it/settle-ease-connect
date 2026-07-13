@@ -268,7 +268,6 @@ export function SiteHeader() {
               </div>
             </SheetContent>
           </Sheet>
-        </header>
       </div>
       <MobileCtaBar />
     </div>
