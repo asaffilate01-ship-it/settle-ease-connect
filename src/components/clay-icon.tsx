@@ -14,20 +14,27 @@ type ClayTone = "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink";
 type ClaySize = "sm" | "md" | "lg" | "xl";
 
 const toneStyles: Record<ClayTone, string> = {
-  ocean:
-    "bg-[linear-gradient(140deg,oklch(0.42_0.11_240),oklch(0.28_0.09_250))] text-white",
-  teal:
-    "bg-[linear-gradient(140deg,oklch(0.78_0.11_190),oklch(0.55_0.13_205))] text-white",
-  aurora:
-    "bg-[linear-gradient(140deg,oklch(0.62_0.16_275),oklch(0.42_0.15_255))] text-white",
+  /* Warm terracotta signature */
   coral:
-    "bg-[linear-gradient(140deg,oklch(0.75_0.16_35),oklch(0.6_0.19_25))] text-white",
+    "bg-[linear-gradient(140deg,oklch(0.72_0.14_45),oklch(0.52_0.16_32))] text-[oklch(0.98_0.01_78)]",
+  /* Peach — soft warm surface */
   sun:
-    "bg-[linear-gradient(140deg,oklch(0.88_0.15_85),oklch(0.72_0.16_65))] text-[oklch(0.22_0.05_60)]",
+    "bg-[linear-gradient(140deg,oklch(0.9_0.06_75),oklch(0.78_0.11_55))] text-[oklch(0.22_0.05_40)]",
+  /* Sage — quiet secondary */
   mint:
-    "bg-[linear-gradient(140deg,oklch(0.82_0.14_165),oklch(0.6_0.14_160))] text-white",
+    "bg-[linear-gradient(140deg,oklch(0.68_0.07_150),oklch(0.44_0.07_145))] text-[oklch(0.98_0.011_78)]",
+  /* Deep sage as authoritative "ocean" replacement */
+  ocean:
+    "bg-[linear-gradient(140deg,oklch(0.44_0.07_145),oklch(0.28_0.06_150))] text-[oklch(0.98_0.011_78)]",
+  /* Muted sage-teal blend */
+  teal:
+    "bg-[linear-gradient(140deg,oklch(0.6_0.07_155),oklch(0.42_0.07_150))] text-[oklch(0.98_0.011_78)]",
+  /* Terracotta → peach aurora */
+  aurora:
+    "bg-[linear-gradient(140deg,oklch(0.62_0.14_38),oklch(0.82_0.09_60))] text-[oklch(0.14_0.02_40)]",
+  /* Charcoal ink */
   ink:
-    "bg-[linear-gradient(140deg,oklch(0.32_0.05_250),oklch(0.16_0.05_250))] text-white",
+    "bg-[linear-gradient(140deg,oklch(0.28_0.02_40),oklch(0.12_0.015_40))] text-[oklch(0.98_0.011_78)]",
 };
 
 const sizeStyles: Record<ClaySize, { box: string; icon: number }> = {
