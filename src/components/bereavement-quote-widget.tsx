@@ -67,7 +67,7 @@ export function BereavementQuoteWidget() {
         <div className="text-2xl font-semibold">Danke — wir melden uns.</div>
         <p className="mt-3 text-muted-foreground">
           A licensed case manager will contact you within one working day to walk through the
-          binding offers from our partner insurers.
+          binding offers from our partner cover providers.
         </p>
       </Card>
     );
@@ -127,8 +127,8 @@ export function BereavementQuoteWidget() {
           {submitting ? "Sending…" : "Request binding offers"}
         </Button>
         <p className="text-xs text-muted-foreground">
-          This is a non-binding indication. BeistandPlus introduces you to licensed §34d GewO insurance
-          brokers. No advice is given until you speak with a broker.
+          This is a non-binding indication. BeistandPlus introduces you to licensed §34d GewO brokers
+          for cover regulated under German law. No advice is given until you speak with a broker.
         </p>
       </form>
 
@@ -150,9 +150,9 @@ export function BereavementQuoteWidget() {
           </ul>
 
           <div className="mt-6 border-t pt-4 text-xs text-muted-foreground">
-            Range reflects the spread across our panel of regulated German Sterbegeld insurers for a
-            €{benefit.toLocaleString("de-DE")} lifelong cover. Final premium depends on
-            health underwriting.
+            Range reflects the spread across our panel of Sterbegeld cover providers regulated under
+            German law for a €{benefit.toLocaleString("de-DE")} lifelong cover. Final premium depends
+            on health assessment.
           </div>
         </div>
       </div>
