@@ -22,13 +22,13 @@ export const Route = createFileRoute("/group-cover")({
       {
         name: "description",
         content:
-          "Group Sterbegeldversicherung for associations, employers and communities. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated German Sterbegeld insurers.",
+          "Group Sterbegeld cover for associations, employers and communities — regulated under German law. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated cover providers.",
       },
       { property: "og:title", content: "Group Bereavement Cover — BeistandPlus" },
       {
         property: "og:description",
         content:
-          "€20,000 collective death benefit per member. Waived health questions, waived waiting period, direct funeral settlement, balance to beneficiary.",
+          "€20,000 collective bereavement benefit per member. Waived health questions, waived waiting period, direct funeral settlement, balance to beneficiary.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -38,9 +38,9 @@ export const Route = createFileRoute("/group-cover")({
 });
 
 const insurers = [
-  { name: "DELA", note: "Cooperative · free child co-insurance under 20 · migrant-family focus" },
+  { name: "DELA", note: "Cooperative · free child co-cover under 20 · migrant-family focus" },
   { name: "Solidar VVaG", note: "Originated as a corporate group fund · deep group experience" },
-  { name: "Münchener Verein", note: "Flexible group underwriting · senior-friendly bands" },
+  { name: "Münchener Verein", note: "Flexible group terms · senior-friendly bands" },
   { name: "ERGO", note: "Large-scale institutional tenders · repatriation add-ons" },
   { name: "Allianz", note: "For very large mandates (25k+ lives) · corporate-grade SLAs" },
   { name: "HanseMerkur", note: "Vorsorge Plus bolt-ons available on the group frame" },
@@ -74,7 +74,7 @@ const tiers = [
 const flatRate = [
   "€35 flat / member / month across the whole pool (blended rate)",
   "Younger members subsidise older ones — actuarially balanced",
-  "One SEPA-Corporate mandate per member, one bulk wire to the insurer",
+  "One SEPA-Corporate mandate per member, one bulk wire to the cover provider",
   "Fluctuation clause: monthly CSV updates auto-adjust the global invoice",
 ];
 
@@ -86,7 +86,7 @@ const payoutFlow = [
   },
   {
     step: 2,
-    title: "Insurer wires €20,000 to our fiduciary account",
+    title: "Cover provider wires €20,000 to our fiduciary account",
     body: "Because the association is the named primary beneficiary with a fiduciary clause, no Erbschein is required. Payout typically lands in 3–7 working days.",
   },
   {
@@ -116,14 +116,14 @@ function GroupCoverPage() {
 
       <section className="mx-auto max-w-6xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <Badge variant="secondary" className="uppercase tracking-wider">
-          Sterbegeld-Gruppenversicherung
+          Group Sterbegeld cover · regulated under German law
         </Badge>
         <h1 className="display-hero text-balance mt-4 font-semibold">
           One group policy. €20,000 per member. No health questions.
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
           A collective bereavement policy your association, employer or community can hold as the
-          single policyholder — with the insurer bound to accept every member, waived waiting
+          single policyholder — with the cover provider bound to accept every member, waived waiting
           periods, and funeral settlement handled by us on day one of a claim.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
@@ -152,7 +152,7 @@ function GroupCoverPage() {
             "100% guaranteed collective acceptance — chronic illness or pre-existing conditions never trigger a premium hike or rejection.",
             "Waiting period waived: retail plans without health checks enforce 6–36 months; a group block of thousands of lives lets an institutional broker negotiate 0 months for the initial enrollment.",
             "Wholesale bulk discount of 15–30% versus retail — no acquisition or marketing cost baked into the group premium.",
-            "One monthly bulk invoice from the insurer. One SEPA batch from your treasury. Fluctuation clause handles joiners and leavers automatically.",
+            "One monthly bulk invoice from the cover provider. One SEPA batch from your treasury. Fluctuation clause handles joiners and leavers automatically.",
             "Mutuals (VVaG) have no shareholders — surplus flows back into the pool as premium buffers.",
             "Multilingual case manager, direct funeral settlement, fiduciary balance to the family — all inside BeistandPlus.",
           ].map((line) => (
@@ -240,10 +240,10 @@ function GroupCoverPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Underwriters we tender to</h2>
+        <h2 className="display-lg font-semibold">Cover providers we tender to</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Your brief goes to a licensed commercial insurance broker (§34d GewO) who runs a formal
-          tender with these carriers. You review the bids; nothing is binding until you sign.
+          Your brief goes to a licensed commercial §34d GewO broker who runs a formal tender with
+          these regulated German cover providers. You review the bids; nothing is binding until you sign.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {insurers.map((i) => (

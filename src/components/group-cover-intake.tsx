@@ -72,9 +72,9 @@ export function GroupCoverIntake() {
         <CheckCircle2 className="mx-auto h-10 w-10 text-success" />
         <h3 className="mt-4 font-display text-xl font-semibold">Thanks — we've got your brief.</h3>
         <p className="mt-2 text-sm text-muted-foreground">
-          A commercial insurance broker (§34d GewO) will review your organisation profile and
-          reach out within 2 working days with a shortlist of underwriters willing to bid on the
-          group framework agreement.
+          A licensed §34d GewO broker will review your organisation profile and reach out within
+          2 working days with a shortlist of cover providers (regulated under German law) willing
+          to bid on the group framework agreement.
         </p>
       </div>
     );
@@ -90,14 +90,14 @@ export function GroupCoverIntake() {
     >
       <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-parchment/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-foreground/80">
         <ShieldCheck className="h-3.5 w-3.5" />
-        Broker intake · Gruppenversicherungsvertrag
+        Broker intake · Group cover framework
       </div>
       <h3 className="mt-3 font-display text-xl font-semibold">
         Brief a commercial broker for your group policy
       </h3>
       <p className="mt-1 text-sm text-muted-foreground">
-        We route this to a licensed §34d GewO broker who tenders the mandate to our panel of regulated
-        German Sterbegeld insurers. No obligation — you review the bids.
+        We route this to a licensed §34d GewO broker who tenders the mandate to our panel of
+        Sterbegeld cover providers regulated under German law. No obligation — you review the bids.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -184,8 +184,8 @@ export function GroupCoverIntake() {
         <label className="flex items-start gap-2 text-sm">
           <Checkbox checked={fiduciary} onCheckedChange={(v) => setFiduciary(v === true)} />
           <span>
-            <strong>Fiduciary payout flow:</strong> insurer pays the association, we settle the
-            funeral director, the balance goes to the nominated beneficiary.
+            <strong>Fiduciary payout flow:</strong> cover provider pays the association, we settle
+            the funeral director, the balance goes to the nominated beneficiary.
           </span>
         </label>
         <label className="flex items-start gap-2 text-sm">
@@ -217,8 +217,8 @@ export function GroupCoverIntake() {
       </Button>
 
       <p className="mt-3 text-[11px] text-muted-foreground">
-        BeistandPlus routes the brief to a licensed commercial insurance broker (§34d GewO).
-        We never underwrite — the insurer issues any binding offer.
+        BeistandPlus routes the brief to a licensed §34d GewO broker. We never underwrite — the
+        cover provider issues any binding offer.
       </p>
     </form>
   );
