@@ -89,7 +89,7 @@ const PLAN_FEATURES: Record<string, string[]> = {
     "Repatriation coordination (zinc coffin, embalming, consular NOC, airline cargo, receiving director abroad)",
     "Immigration desk: visas, residence permits, naturalisation, repatriation, embassy & consulate contacts across Germany",
     "Lawyer, notary, tax adviser and doctor concierge — vetted, quoted, paid through platform escrow",
-    "Bereavement cover advisory (optional insurance add-on up to €8,000 payout — underwritten separately)",
+    "Funeral cover advisory (optional add-on up to €20,000 payout — underwritten separately)",
     "Full transparent invoicing — every third-party euro itemised, with remaining balance paid to your nominated beneficiary",
     "Life-plan review twice a year with your case manager",
     "Digital deputy access — a trusted person can act for you in illness or after death",
