@@ -70,6 +70,17 @@ function LeadsInbox() {
         </div>
       </div>
 
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Source</span>
+        <div className="flex flex-wrap gap-1">
+          {SOURCES.map((s) => (
+            <Button key={s} size="sm" variant={sourceFilter === s ? "default" : "outline"} onClick={() => setSourceFilter(s)} className="capitalize">
+              {s.replace("_", " ")}
+            </Button>
+          ))}
+        </div>
+      </div>
+
       <div className="grid gap-4 lg:grid-cols-[1fr_1.2fr]">
         <div className="rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden">
           {leadsQ.isLoading && <div className="p-6 text-center"><Loader2 className="mx-auto h-4 w-4 animate-spin" /></div>}
