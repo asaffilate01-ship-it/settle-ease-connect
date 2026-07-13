@@ -97,7 +97,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-parchment/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-foreground/80">
             <ShieldCheck className="h-3.5 w-3.5" />
-            Sterbegeldversicherung · Underwritten by regulated German insurers
+            Sterbegeld · Cover regulated under German law
           </div>
           <h2 className="display-lg mt-3 font-semibold">
             Approved & regulated expenses cover from about €24/month
@@ -159,11 +159,11 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         </table>
       </div>
       <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-        Ranges reflect published 2024–2025 rate tables from our panel of regulated German Sterbegeld insurers
-        for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health
-        declaration, smoker status and chosen waiting period; children under 20 are included at no
-        additional premium on the family and extended-family tarifs. Not a binding quote — the
-        licensed partner insurer issues the offer.
+        Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated
+        under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium
+        depends on age, health declaration, smoker status and chosen waiting period; children under 20
+        are included at no additional premium on the family and extended-family tarifs. Not a binding
+        quote — the licensed partner provider issues the offer.
       </p>
 
       {!compact && (
@@ -181,7 +181,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
           </div>
 
           <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent/20 p-4 text-sm">
-            <strong className="text-foreground">How it works:</strong> the insurer settles every
+            <strong className="text-foreground">How it works:</strong> the provider settles every
             approved and regulated invoice in full — funeral, burial or last rites, and repatriation
             if required — and{" "}
             <strong className="text-foreground">any balance is paid to the nominated beneficiary</strong>{" "}
@@ -202,8 +202,8 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
 
       <p className="mt-4 text-[11px] text-muted-foreground">
         BeistandPlus acts as introducer (Tippgeber / §34d GewO broker where applicable). Premiums are paid
-        directly to the insurer; BeistandPlus never underwrites. The subscription and the insurance premium
-        are billed separately.
+        directly to the cover provider; BeistandPlus never underwrites. The subscription and the cover
+        premium are billed separately.
       </p>
     </div>
   );
