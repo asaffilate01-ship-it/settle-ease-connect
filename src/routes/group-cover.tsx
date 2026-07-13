@@ -115,7 +115,7 @@ function GroupCoverPage() {
           Sterbegeld cover · regulated under German law
         </Badge>
         <h1 className="display-hero text-balance mt-4 font-semibold">
-          €20,000 of cover per member. No health questions.
+          €20,000 of cover per member.
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
           A collective bereavement cover your association, employer or community can hold as the
@@ -134,7 +134,7 @@ function GroupCoverPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Stat icon={ShieldCheck} label="100% acceptance" value="No health Qs" note="Risk spread across the pool" />
+          <Stat icon={ShieldCheck} label="100% acceptance" value="All members" note="Risk spread across the pool" />
           <Stat icon={Clock} label="Waiting period" value="0 months" note="Waived at group scale" />
           <Stat icon={Wallet} label="Wholesale discount" value="15–30%" note="Below consumer rates" />
           <Stat icon={Users} label="Free child cover" value="Under 20" note="Cooperative rider" />
