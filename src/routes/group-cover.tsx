@@ -140,24 +140,7 @@ function GroupCoverPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Why a collective VVaG cover beats retail buying</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {[
-            "100% guaranteed collective acceptance — chronic illness or pre-existing conditions never trigger a premium hike or rejection.",
-            "Waiting period waived: retail plans without health checks enforce 6–36 months; a group block of thousands of lives lets an institutional broker negotiate 0 months for the initial enrollment.",
-            "One monthly bulk invoice from the cover provider. One SEPA batch from your treasury. Fluctuation clause handles joiners and leavers automatically.",
-            "Mutuals (VVaG) have no shareholders — surplus flows back into the pool as premium buffers.",
-            "Multilingual case manager, direct funeral settlement, fiduciary balance to the family — all inside BeistandPlus.",
-          ].map((line) => (
-            <div key={line} className="flex gap-3">
-              <Check className="mt-1 h-5 w-5 shrink-0 text-primary" />
-              <span className="text-sm">{line}</span>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <h2 className="display-lg font-semibold">Three-tier member structure</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
           A clean pricing spine that maps onto how households actually look. The final per-member
