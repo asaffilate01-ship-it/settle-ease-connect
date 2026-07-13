@@ -110,9 +110,18 @@ export function AppSidebar() {
   const { t } = useTranslation();
   const { user, profile, roles, loading } = useCurrentUser();
   const sub = useSubscription();
+  const qc = useQueryClient();
   const isAdmin = roles.includes("admin");
   const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
   const audience: Audience = isInternal ? "internal" : "client";
+
+  async function handleSignOut() {
+    await qc.cancelQueries();
+    qc.clear();
+    await supabase.auth.signOut();
+    window.location.href = "/auth";
+  }
+
 
   const visibleNav = nav.filter((n) => {
     if (n.requiresRole === "admin" && !isAdmin) return false;
