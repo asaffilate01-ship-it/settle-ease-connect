@@ -119,7 +119,8 @@ export function AppSidebar() {
   const qc = useQueryClient();
   const isAdmin = roles.includes("admin");
   const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
-  const audience: Audience = isInternal ? "internal" : "client";
+  const isAgent = roles.includes("agent");
+  const audience: Audience = isInternal ? "internal" : isAgent ? "agent" : "client";
 
   async function handleSignOut() {
     await qc.cancelQueries();
@@ -132,6 +133,7 @@ export function AppSidebar() {
   const visibleNav = nav.filter((n) => {
     if (n.requiresRole === "admin" && !isAdmin) return false;
     if (n.requiresRole === "internal" && !isInternal) return false;
+    if (n.requiresRole === "agent" && !isAgent && !isInternal) return false;
     if (n.audience && n.audience !== "any" && n.audience !== audience) return false;
     return true;
   });
