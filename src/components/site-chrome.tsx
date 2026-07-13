@@ -98,9 +98,8 @@ export function SiteHeader() {
     ];
 
   return (
-    <div className="safe-top sticky top-0 z-40">
-      <div className="mx-auto max-w-7xl px-3 pt-3 sm:px-4 md:pt-4 md:px-6 lg:px-8">
-        <header className="flex h-14 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-[oklch(0.16_0.04_250/0.92)] px-3 shadow-elevated backdrop-blur-xl md:h-16 md:px-5">
+    <div className="safe-top sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 md:h-[72px]">
           {/* Logo */}
           <Link to="/" className="flex min-w-0 items-center gap-2.5">
             <img
@@ -112,14 +111,14 @@ export function SiteHeader() {
             />
             <div
               data-no-translate
-              className="truncate font-display text-lg font-semibold tracking-tight text-white md:text-xl"
+              className="truncate font-display text-xl font-semibold tracking-tight text-ink md:text-[22px]"
             >
-              Beistand<span className="text-teal">Plus</span>
+              Beistand<span className="text-terracotta">Plus</span>
             </div>
           </Link>
 
           {/* Grouped nav (desktop) */}
-          <nav className="hidden items-center gap-0.5 md:flex">
+          <nav className="hidden items-center gap-1 md:flex">
             {groups.map((g) =>
               g.children ? (
                 <DesktopDropdown key={g.label} label={g.label} items={g.children} />
@@ -127,7 +126,8 @@ export function SiteHeader() {
                 <Link
                   key={g.label}
                   to={g.href!}
-                  className="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
+                  className="rounded-md px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70 transition-colors hover:text-terracotta"
+                  activeProps={{ className: "text-terracotta" }}
                 >
                   {g.label}
                 </Link>
@@ -137,16 +137,14 @@ export function SiteHeader() {
 
           {/* Utility cluster (desktop) */}
           <div className="hidden items-center gap-3 md:flex">
-            <div className="[&_button]:!text-slate-300 [&_button:hover]:!bg-white/5 [&_button:hover]:!text-white">
-              <LanguageSwitcher />
-            </div>
-            <div className="h-6 w-px bg-white/10" />
+            <LanguageSwitcher />
+            <div className="h-5 w-px bg-border" />
             {isSignedIn ? (
               <>
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-300 transition-colors hover:text-white"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70 transition-colors hover:text-terracotta"
                 >
                   <LogOut className="h-4 w-4" />
                   {t("sidebar.signOut", { defaultValue: "Sign out" })}
@@ -154,7 +152,7 @@ export function SiteHeader() {
                 <Button
                   asChild
                   size="sm"
-                  className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
+                  className="h-9 rounded-none border border-ink bg-ink px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-parchment shadow-none transition-colors hover:bg-terracotta hover:border-terracotta"
                 >
                   <Link to={dashHref}>
                     {role === "agent"
@@ -169,14 +167,14 @@ export function SiteHeader() {
               <>
                 <Link
                   to="/auth"
-                  className="text-sm font-semibold text-slate-300 transition-colors hover:text-white"
+                  className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/70 transition-colors hover:text-terracotta"
                 >
                   {t("nav.signIn")}
                 </Link>
                 <Button
                   asChild
                   size="sm"
-                  className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
+                  className="h-9 rounded-none border border-ink bg-ink px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-parchment shadow-none transition-colors hover:bg-terracotta hover:border-terracotta"
                 >
                   <Link to="/auth">{t("nav.openDashboard")}</Link>
                 </Button>
