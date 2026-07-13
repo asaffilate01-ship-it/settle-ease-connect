@@ -187,7 +187,7 @@ export function SiteHeader() {
             <SheetTrigger asChild>
               <button
                 type="button"
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 text-white transition active:scale-95 md:hidden"
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-none border border-ink bg-ink text-parchment transition active:scale-95 md:hidden"
                 aria-label={t("nav.menu")}
               >
                 <Menu className="h-5 w-5" />
