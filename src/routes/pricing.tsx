@@ -241,7 +241,7 @@ function Pricing() {
               >
                 {meta.badge && highlight && (
                   <div className="absolute -top-3 left-6 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-                    {meta.badge}
+                    {t("pages.pricing.mostPopular")}
                   </div>
                 )}
                 {savings > 0 && (
