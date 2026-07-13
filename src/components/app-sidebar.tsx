@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
 import logoMark from "@/assets/brand/logo-mark.png";
 
-type Audience = "client" | "internal" | "any";
+type Audience = "client" | "internal" | "agent" | "any";
 
 type NavItem = {
   to: string;
@@ -18,9 +18,9 @@ type NavItem = {
   icon: Icon3DName;
   exact?: boolean;
   groupKey?: string;
-  requiresRole?: "admin" | "internal";
+  requiresRole?: "admin" | "internal" | "agent";
   requiresTier?: PlanGroup;
-  audience?: Audience; // client = only for non-internal; internal = only for internal; any = both
+  audience?: Audience;
 };
 
 const nav: NavItem[] = [
