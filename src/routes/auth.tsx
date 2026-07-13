@@ -225,9 +225,9 @@ function DevLoginPanel({
         className="flex w-full items-center justify-between text-left"
       >
         <span className="flex items-center gap-2 text-sm font-semibold text-amber-900 dark:text-amber-200">
-          🐞 Dev logins
+          🐞 Dev logins · every role
           <span className="rounded bg-amber-200/70 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-900 dark:bg-amber-900/60 dark:text-amber-100">
-            local only
+            testing
           </span>
         </span>
         <span className="text-xs text-amber-800/70 dark:text-amber-200/70">
@@ -235,32 +235,39 @@ function DevLoginPanel({
         </span>
       </button>
       {open && (
-        <div className="mt-3 space-y-2">
+        <div className="mt-3 space-y-3">
           <p className="text-xs text-amber-900/80 dark:text-amber-200/80">
-            One-click sign-in as any seeded RLS role. Password:{" "}
+            One-click sign-in as any seeded RLS role. Shared password:{" "}
             <code className="rounded bg-amber-100 px-1 py-0.5 dark:bg-amber-900/50">
               {DEV_PASSWORD}
             </code>
           </p>
-          <div className="grid gap-2">
-            {DEV_ACCOUNTS.map((a) => (
-              <button
-                key={a.email}
-                type="button"
-                disabled={disabled}
-                onClick={() => onLogin(a.email, DEV_PASSWORD)}
-                className="flex items-center justify-between rounded-lg border border-amber-300/60 bg-background/70 px-3 py-2 text-left text-sm hover:bg-background disabled:opacity-50"
-              >
-                <span>
-                  <span className="font-medium">{a.label}</span>
-                  <span className="ml-2 text-xs text-muted-foreground">{a.email}</span>
-                </span>
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                  → {a.landing}
-                </span>
-              </button>
-            ))}
-          </div>
+          {groups.map((g) => (
+            <div key={g}>
+              <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-amber-900/70 dark:text-amber-200/70">
+                {g}
+              </div>
+              <div className="grid gap-2">
+                {DEV_ACCOUNTS.filter((a) => a.group === g).map((a) => (
+                  <button
+                    key={a.email}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => onLogin(a.email, DEV_PASSWORD)}
+                    className="flex items-center justify-between rounded-lg border border-amber-300/60 bg-background/70 px-3 py-2 text-left text-sm hover:bg-background disabled:opacity-50"
+                  >
+                    <span>
+                      <span className="font-medium">{a.label}</span>
+                      <span className="ml-2 text-xs text-muted-foreground">{a.email}</span>
+                    </span>
+                    <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                      → {a.landing}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
