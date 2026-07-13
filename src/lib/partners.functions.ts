@@ -52,5 +52,17 @@ export const requestTaxHandoff = createServerFn({ method: "POST" })
   .handler(async ({ data }) => handoffToTaxfix(data));
 
 export const requestCareBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((raw) => careBookingSchema.parse(raw))
-  .handler(async ({ data }) => bookCareTranslation(data));
+  .handler(async ({ data }) => {
+    // Reject bookings scheduled in the past or absurdly far in the future.
+    const startMs = Date.parse(data.startAt);
+    const now = Date.now();
+    if (!Number.isFinite(startMs) || startMs < now - 5 * 60_000) {
+      throw new Error("Booking start must be in the future.");
+    }
+    if (startMs > now + 365 * 24 * 60 * 60 * 1000) {
+      throw new Error("Booking start is too far in the future.");
+    }
+    return bookCareTranslation(data);
+  });
