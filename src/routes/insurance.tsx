@@ -129,7 +129,7 @@ const PRODUCTS: Product[] = [
       "No investment component, no hidden fees",
       "Non-smoker discount up to 40%",
     ],
-    partner: "Hannoversche · Cosmos Direkt · DELA",
+    partner: "Hannoversche · Cosmos Direkt · Nürnberger",
   },
   {
     key: "bereavement",

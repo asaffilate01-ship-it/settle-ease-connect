@@ -22,7 +22,7 @@ export const Route = createFileRoute("/group-cover")({
       {
         name: "description",
         content:
-          "Group Sterbegeldversicherung for associations, employers and communities. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to DELA, ERGO, Münchener Verein, Solidar.",
+          "Group Sterbegeldversicherung for associations, employers and communities. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated German Sterbegeld insurers.",
       },
       { property: "og:title", content: "Group Bereavement Cover — BeistandPlus" },
       {
