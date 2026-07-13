@@ -27,8 +27,9 @@ export function useNotifications() {
 
   useEffect(() => {
     if (!user) return;
+    const topic = `notif:${user.id}:${Math.random().toString(36).slice(2)}`;
     const channel = supabase
-      .channel(`notif:${user.id}`)
+      .channel(topic)
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
@@ -36,7 +37,6 @@ export function useNotifications() {
           const n = payload.new as { title: string; body?: string };
           setFlash({ title: n.title, body: n.body });
           qc.invalidateQueries({ queryKey: ["notifications"] });
-          // native browser notification if allowed
           if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
             try {
               new Notification(n.title, { body: n.body ?? "", icon: "/favicon.png" });

@@ -44,7 +44,7 @@ function ChannelPage() {
   useEffect(() => {
     readFn({ data: { channel_id: channelId } }).catch(() => undefined);
     const ch = supabase
-      .channel(`msg:${channelId}`)
+      .channel(`msg:${channelId}:${Math.random().toString(36).slice(2)}`)
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "channel_messages", filter: `channel_id=eq.${channelId}` },
