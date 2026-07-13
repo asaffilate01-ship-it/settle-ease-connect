@@ -77,7 +77,88 @@
     "agentOverview": "Agent overview",
     "agentClients": "My clients",
     "agentCommissions": "Commissions",
-    "agentLink": "Referral link"
+    "agentLink": "Referral link",
+    "studentDiscount": "Student discount",
+    "studentsOps": "Student ops"
+  },
+  "agent": {
+    "defaultName": "Agent",
+    "shortLabel": "Agent",
+    "portalLabel": "Agent portal",
+    "recurringBadge": "Agent · {{rate}}% recurring",
+    "nav": {
+      "overview": "Overview",
+      "clients": "My clients",
+      "commissions": "Commissions",
+      "link": "Referral link"
+    },
+    "home": {
+      "welcome": "Welcome",
+      "welcomeNamed": "Welcome, {{name}}",
+      "tagline": "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
+      "recent": "Recent referrals",
+      "emptyReferrals": "No referrals yet. Share your link from the “Referral link” tab."
+    },
+    "kpi": {
+      "clients": "Clients",
+      "thisMonth": "This month",
+      "pending": "Pending",
+      "paid": "Paid to date"
+    },
+    "table": {
+      "when": "When",
+      "email": "Email",
+      "product": "Product",
+      "source": "Source",
+      "status": "Status"
+    },
+    "products": {
+      "basic": "Subscription — Basic €5/mo",
+      "plus": "Subscription — Plus €10/mo",
+      "complete": "Subscription — Complete €25/mo",
+      "funeral": "Funeral cover",
+      "group": "Group cover"
+    },
+    "clients": {
+      "title": "My clients",
+      "subtitle": "Every subscription you sell earns {{rate}}% of the monthly fee, for as long as the client stays with us. Note: we sell funeral cover, not funeral insurance.",
+      "logNew": "Log a new referral",
+      "emailLabel": "Client email",
+      "productLabel": "Product",
+      "notesLabel": "Notes (optional)",
+      "notesPh": "Language, city, follow-up date…",
+      "saving": "Saving…",
+      "submit": "Log referral",
+      "all": "All referrals",
+      "empty": "No referrals yet.",
+      "logged": "Referral logged",
+      "saveFail": "Could not save"
+    },
+    "commissions": {
+      "title": "Commissions",
+      "subtitle": "Paid monthly, calculated as {{rate}}% of the monthly subscription fee for each client you referred. Third-party costs (insurance, funeral cover) are excluded from the commission base.",
+      "period": "Period",
+      "gross": "Gross",
+      "rate": "Rate",
+      "commission": "Commission",
+      "paidAt": "Paid at",
+      "empty": "No commissions yet — they appear after your first referred client’s subscription is billed."
+    },
+    "link": {
+      "title": "Your referral link",
+      "subtitle": "Anyone who signs up within 60 days of clicking your link is attributed to you.",
+      "codeLine": "Your unique code is",
+      "universal": "Universal link",
+      "funeral": "Funeral cover",
+      "group": "Group cover",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copyFail": "Copy failed",
+      "tips": "Selling tips",
+      "tip1": "Always say funeral cover — never funeral insurance. It’s a savings-and-arrangement plan, not a regulated insurance product.",
+      "tip2": "Subscription tiers: Basic €5, Plus €10, Complete €25 per month (household).",
+      "tip3": "You earn {{rate}}% recurring, for as long as the client stays subscribed."
+    }
   },
   "language": {
     "label": "Language",
