@@ -73,6 +73,7 @@ import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
+import { Route as AuthenticatedAgentCommissionsRouteImport } from './routes/_authenticated/agent.commissions'
 import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
@@ -426,6 +427,12 @@ const AuthenticatedAppAlertRoute = AuthenticatedAppAlertRouteImport.update({
   path: '/alert',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAgentCommissionsRoute =
+  AuthenticatedAgentCommissionsRouteImport.update({
+    id: '/commissions',
+    path: '/commissions',
+    getParentRoute: () => AuthenticatedAgentRoute,
+  } as any)
 const AuthenticatedAgentClientsRoute =
   AuthenticatedAgentClientsRouteImport.update({
     id: '/clients',
@@ -510,6 +517,7 @@ export interface FileRoutesByFullPath {
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
+  '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -580,6 +588,7 @@ export interface FileRoutesByTo {
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
+  '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -655,6 +664,7 @@ export interface FileRoutesById {
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
+  '/_authenticated/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -730,6 +740,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/partners/insurers'
     | '/agent/clients'
+    | '/agent/commissions'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -800,6 +811,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/partners/insurers'
     | '/agent/clients'
+    | '/agent/commissions'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -874,6 +886,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/partners/insurers'
     | '/_authenticated/agent/clients'
+    | '/_authenticated/agent/commissions'
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -1388,6 +1401,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppAlertRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/agent/commissions': {
+      id: '/_authenticated/agent/commissions'
+      path: '/commissions'
+      fullPath: '/agent/commissions'
+      preLoaderRoute: typeof AuthenticatedAgentCommissionsRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
     '/_authenticated/agent/clients': {
       id: '/_authenticated/agent/clients'
       path: '/clients'
@@ -1449,11 +1469,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAgentRouteChildren {
   AuthenticatedAgentClientsRoute: typeof AuthenticatedAgentClientsRoute
+  AuthenticatedAgentCommissionsRoute: typeof AuthenticatedAgentCommissionsRoute
   AuthenticatedAgentIndexRoute: typeof AuthenticatedAgentIndexRoute
 }
 
 const AuthenticatedAgentRouteChildren: AuthenticatedAgentRouteChildren = {
   AuthenticatedAgentClientsRoute: AuthenticatedAgentClientsRoute,
+  AuthenticatedAgentCommissionsRoute: AuthenticatedAgentCommissionsRoute,
   AuthenticatedAgentIndexRoute: AuthenticatedAgentIndexRoute,
 }
 
