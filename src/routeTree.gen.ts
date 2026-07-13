@@ -42,6 +42,7 @@ import { Route as DirectoryListYourBusinessRouteImport } from './routes/director
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as AuthenticatedAgentRouteImport } from './routes/_authenticated/agent'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
@@ -243,6 +244,11 @@ const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAgentRoute = AuthenticatedAgentRouteImport.update({
+  id: '/agent',
+  path: '/agent',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPortalIndexRoute =
@@ -478,6 +484,7 @@ export interface FileRoutesByFullPath {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/agent': typeof AuthenticatedAgentRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -548,6 +555,7 @@ export interface FileRoutesByTo {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/agent': typeof AuthenticatedAgentRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
@@ -618,6 +626,7 @@ export interface FileRoutesById {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/_authenticated/agent': typeof AuthenticatedAgentRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -690,6 +699,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/agent'
     | '/app'
     | '/portal'
     | '/blog/$slug'
@@ -760,6 +770,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/agent'
     | '/blog/$slug'
     | '/directory/list-your-business'
     | '/group-cover/fiduciary-clause'
@@ -829,6 +840,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/_authenticated/agent'
     | '/_authenticated/app'
     | '/_authenticated/portal'
     | '/blog/$slug'
@@ -1134,6 +1146,13 @@ declare module '@tanstack/react-router' {
       path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AuthenticatedAppRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/agent': {
+      id: '/_authenticated/agent'
+      path: '/agent'
+      fullPath: '/agent'
+      preLoaderRoute: typeof AuthenticatedAgentRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/portal/': {
@@ -1520,11 +1539,13 @@ const AuthenticatedPortalRouteWithChildren =
   AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgentRoute: typeof AuthenticatedAgentRoute
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgentRoute: AuthenticatedAgentRoute,
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }

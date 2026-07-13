@@ -21,12 +21,12 @@ export const Route = createFileRoute("/_authenticated/agent")({
   component: AgentLayout,
 });
 
-const NAV = [
+const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
   { to: "/agent", label: "Overview", icon: Home, exact: true },
   { to: "/agent/clients", label: "My clients", icon: Users },
   { to: "/agent/commissions", label: "Commissions", icon: TrendingUp },
   { to: "/agent/link", label: "Referral link", icon: LinkIcon },
-] as const;
+];
 
 function AgentLayout() {
   const { user, profile } = useCurrentUser();
