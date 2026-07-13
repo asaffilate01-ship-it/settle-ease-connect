@@ -270,17 +270,25 @@ function restoreEnglish() {
   mutating = false;
 }
 
-function schedule() {
+function schedule(immediate = false) {
   if (scheduled) return;
   scheduled = true;
-  // requestIdleCallback where available, otherwise a short timeout.
   const run = () => {
     scheduled = false;
     if (inFlight) return;
     inFlight = translatePage().finally(() => {
       inFlight = null;
+      // clear the fade set by bootAutoTranslate
+      if (typeof document !== "undefined") {
+        document.documentElement.removeAttribute("data-lang-switching");
+      }
     });
   };
+  if (immediate) {
+    // Run on the next microtask so React can commit first, but don't wait for idle.
+    Promise.resolve().then(run);
+    return;
+  }
   if ("requestIdleCallback" in window) {
     (window as unknown as { requestIdleCallback: (cb: () => void, o?: object) => number })
       .requestIdleCallback(run, { timeout: 500 });
@@ -297,8 +305,13 @@ let observer: MutationObserver | null = null;
  */
 export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
+  const changed = currentLang !== lang;
   currentLang = lang;
-  schedule();
+  if (changed) {
+    // Mark html so a CSS rule can fade the page during the swap.
+    document.documentElement.setAttribute("data-lang-switching", "1");
+  }
+  schedule(changed);
 
   if (observer) return;
   observer = new MutationObserver((mutations) => {
