@@ -130,5 +130,88 @@
   "hero": {
     "headlinePrefix": "For every path in",
     "headlineHighlight": "Germany"
+  },
+  "pages": {
+    "pricing": {
+      "eyebrow": "Pricing",
+      "title": "One subscription. One trusted hand.",
+      "subtitle": "Members recover far more than their subscription in benefits claimed correctly, appointments not missed, and stress avoided. Household plans discounted for couples and families of up to 4 adults + 3 children.",
+      "individual": "Individual",
+      "family": "Family",
+      "extended": "Extended family",
+      "noteIndividual": "1 adult",
+      "noteFamily": "2 adults + up to 3 kids under 18",
+      "noteExtended": "Up to 4 adults + 3 kids under 18",
+      "communityBadge": "Free · Community",
+      "communityName": "Community",
+      "communityDesc": "A safety net for anyone in Germany — no card required.",
+      "forever": "/ forever",
+      "perMonth": "/ month",
+      "startFree": "Start free",
+      "choose": "Choose {{name}}",
+      "mostPopular": "Most popular",
+      "save": "Save {{percent}}%",
+      "loading": "Loading plans…",
+      "trustSuffix": "published SLAs, licences and refund promises →"
+    },
+    "services": {
+      "eyebrow": "Expert guidance for life in Germany",
+      "title1": "A companion for every",
+      "title2": "essential milestone.",
+      "subtitle": "From your first Anmeldung to securing your family's future, BeistandPlus offers dignified, expert support to navigate German administration with confidence — in thirteen languages, with a human by your side.",
+      "openCase": "Open a case",
+      "howItWorks": "How BeistandPlus works",
+      "ninePillars": "Nine areas of care",
+      "ribbon": "We work with you in your language",
+      "trustHuman": "Human first",
+      "trustHumanBody": "Real case managers in Berlin, Hamburg, München and Köln — every case answered by a person, not a bot.",
+      "trustGdpr": "GDPR-native",
+      "trustGdprBody": "Your documents live in an encrypted vault, hosted in Germany, with deputy access for illness or bereavement.",
+      "trustBill": "One transparent bill",
+      "trustBillBody": "Subscription for our work, at-cost for third-party fees, and full visibility of every euro.",
+      "readyEyebrow": "Ready when you are",
+      "readyTitle1": "Let's take the next step,",
+      "readyTitle2": "together.",
+      "readyBody": "Open a free case in minutes. A case manager reviews it within one working day and maps out your options — no obligation.",
+      "seePricing": "See pricing",
+      "learnMore": "Learn more",
+      "moreServices": "+{{count}} more services"
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title1": "Five steps.",
+      "title2": "No paperwork storm.",
+      "readyTitle": "Ready when you are.",
+      "readyBody": "Free to start. Upgrade only when you need the human help.",
+      "openDashboard": "Open your dashboard",
+      "steps": {
+        "s1Title": "Tell BeistandPlus what you need",
+        "s1Desc": "Newly arrived, applying for benefits, planning a family reunion, or facing a bereavement — start with a single form.",
+        "s2Title": "A plan appears within minutes",
+        "s2Desc": "Our AI compiles your personalised checklist — every appointment, document, deadline, and provider you'll need.",
+        "s3Title": "A human case manager picks up the phone",
+        "s3Desc": "In your language. They own your case from start to close, and coordinate every party involved.",
+        "s4Title": "Everything happens inside one case file",
+        "s4Desc": "Documents, letters, appointments, invoices, chat, audit trail — visible to you and the people helping you.",
+        "s5Title": "You get on with your life",
+        "s5Desc": "We remind you before deadlines, chase authorities on your behalf, and translate anything you don't understand."
+      }
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "We're here, in the language you speak.",
+      "subtitle": "For bereavement, call our 24/7 line. For everything else, drop us a note — we reply within one business day.",
+      "line24": "24/7 bereavement line",
+      "generalEnq": "General enquiries",
+      "office": "Office",
+      "officeValue": "Kreuzberg, Berlin · By appointment",
+      "name": "Name",
+      "namePh": "Your name",
+      "email": "Email",
+      "message": "Message",
+      "messagePh": "How can we help?",
+      "send": "Send message",
+      "thanks": "Thank you — we'll be in touch soon."
+    }
   }
 }

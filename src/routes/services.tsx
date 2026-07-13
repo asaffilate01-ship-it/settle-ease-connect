@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { ArrowRight } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import heroServices from "@/assets/brand/hero-services.jpg";
+
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -129,6 +131,7 @@ const groups: Group[] = [
 const languages = ["Deutsch", "English", "Türkçe", "اردو", "हिन्दी", "ਪੰਜਾਬੀ", "العربية", "کوردی", "Русский", "Українська", "فارسی", "Polski", "中文"];
 
 function Services() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-parchment/40">
       <SiteHeader />
@@ -150,31 +153,29 @@ function Services() {
         <div className="mx-auto max-w-4xl px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-32 sm:pb-20 lg:px-8">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/60 px-3.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent-foreground/80 backdrop-blur">
             <span className="h-1 w-1 rounded-full bg-accent" />
-            Expert guidance for life in Germany
+            {t("pages.services.eyebrow")}
           </span>
           <h1 className="display-hero text-balance mt-8 font-normal leading-[1.05] text-foreground">
-            A companion for every
+            {t("pages.services.title1")}
             <br />
-            <span className="italic text-primary">essential milestone.</span>
+            <span className="italic text-primary">{t("pages.services.title2")}</span>
           </h1>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            From your first Anmeldung to securing your family's future, BeistandPlus
-            offers dignified, expert support to navigate German administration
-            with confidence — in thirteen languages, with a human by your side.
+            {t("pages.services.subtitle")}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/app"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-all hover:shadow-elevated hover:-translate-y-0.5"
             >
-              Open a case
+              {t("pages.services.openCase")}
               <ArrowRight className="h-4 w-4 rtl-flip" />
             </Link>
             <Link
               to="/how-it-works"
               className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-6 py-3 text-sm font-medium text-foreground backdrop-blur transition-colors hover:bg-card"
             >
-              How BeistandPlus works
+              {t("pages.services.howItWorks")}
             </Link>
           </div>
         </div>
@@ -184,11 +185,12 @@ function Services() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 border-t border-primary/10 pt-10">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-foreground/70">
-            Nine areas of care
+            {t("pages.services.ninePillars")}
           </div>
           <div className="h-px w-16 bg-accent/60" />
         </div>
       </section>
+
 
       {/* Services Grid */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
@@ -221,7 +223,7 @@ function Services() {
                 ))}
                 {g.items.length > 5 && (
                   <li className="pl-5 pt-1 text-xs italic text-muted-foreground/80">
-                    +{g.items.length - 5} more services
+                    {t("pages.services.moreServices", { count: g.items.length - 5 })}
                   </li>
                 )}
               </ul>
@@ -230,7 +232,7 @@ function Services() {
                 to="/app"
                 className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground transition-all group-hover:gap-3.5 group-hover:text-primary"
               >
-                Learn more
+                {t("pages.services.learnMore")}
                 <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
               </Link>
             </article>
@@ -243,7 +245,7 @@ function Services() {
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-foreground/70">
-              We work with you in your language
+              {t("pages.services.ribbon")}
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-display text-lg text-foreground/80 sm:gap-x-8">
               {languages.map((l, i) => (
@@ -263,14 +265,14 @@ function Services() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-3">
           {[
-            { k: "Human first", v: "Real case managers in Berlin, Hamburg, München and Köln — every case answered by a person, not a bot." },
-            { k: "GDPR-native", v: "Your documents live in an encrypted vault, hosted in Germany, with deputy access for illness or bereavement." },
-            { k: "One transparent bill", v: "Subscription for our work, at-cost for third-party fees, and full visibility of every euro." },
-          ].map((t) => (
-            <div key={t.k}>
+            { k: t("pages.services.trustHuman"), v: t("pages.services.trustHumanBody") },
+            { k: t("pages.services.trustGdpr"), v: t("pages.services.trustGdprBody") },
+            { k: t("pages.services.trustBill"), v: t("pages.services.trustBillBody") },
+          ].map((item) => (
+            <div key={item.k}>
               <div className="h-px w-10 bg-accent" />
-              <div className="mt-5 font-display text-xl text-foreground">{t.k}</div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.v}</p>
+              <div className="mt-5 font-display text-xl text-foreground">{item.k}</div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.v}</p>
             </div>
           ))}
         </div>
@@ -283,16 +285,15 @@ function Services() {
           <div className="relative grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
             <div className="min-w-0">
               <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-                Ready when you are
+                {t("pages.services.readyEyebrow")}
               </div>
               <h2 className="display-lg text-balance mt-4">
-                Let's take the next step,
+                {t("pages.services.readyTitle1")}
                 <br className="hidden sm:block" />
-                <span className="italic">together.</span>
+                <span className="italic"> {t("pages.services.readyTitle2")}</span>
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-relaxed text-primary-foreground/80">
-                Open a free case in minutes. A case manager reviews it within
-                one working day and maps out your options — no obligation.
+                {t("pages.services.readyBody")}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -300,14 +301,14 @@ function Services() {
                 to="/app"
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-soft transition-transform hover:-translate-y-0.5"
               >
-                Open a case
+                {t("pages.services.openCase")}
                 <ArrowRight className="h-4 w-4 rtl-flip" />
               </Link>
               <Link
                 to="/pricing"
                 className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 px-6 py-3 text-sm font-medium text-primary-foreground/90 transition-colors hover:bg-primary-foreground/10"
               >
-                See pricing
+                {t("pages.services.seePricing")}
               </Link>
             </div>
           </div>

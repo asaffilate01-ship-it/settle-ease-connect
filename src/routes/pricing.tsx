@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
@@ -98,14 +99,21 @@ const PLAN_FEATURES: Record<string, string[]> = {
   ],
 };
 
-const HOUSEHOLD_TABS: { key: "individual" | "family" | "family_plus"; label: string; icon: React.ReactNode; note: string }[] = [
-  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult" },
-  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 kids under 18" },
-  { key: "family_plus", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 kids under 18" },
-];
+type HouseholdKey = "individual" | "family" | "family_plus";
+const HOUSEHOLD_ICONS: Record<HouseholdKey, React.ReactNode> = {
+  individual: <User className="h-4 w-4" />,
+  family: <Users className="h-4 w-4" />,
+  family_plus: <HeartHandshake className="h-4 w-4" />,
+};
 
 function Pricing() {
-  const [household, setHousehold] = useState<"individual" | "family" | "family_plus">("family");
+  const { t } = useTranslation();
+  const HOUSEHOLD_TABS: { key: HouseholdKey; label: string; note: string }[] = [
+    { key: "individual", label: t("pages.pricing.individual"), note: t("pages.pricing.noteIndividual") },
+    { key: "family", label: t("pages.pricing.family"), note: t("pages.pricing.noteFamily") },
+    { key: "family_plus", label: t("pages.pricing.extended"), note: t("pages.pricing.noteExtended") },
+  ];
+  const [household, setHousehold] = useState<HouseholdKey>("family");
 
   const { data: plans = [], isLoading } = useQuery({
     queryKey: ["subscription_plans"],
@@ -138,39 +146,37 @@ function Pricing() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
-            Pricing
+            {t("pages.pricing.eyebrow")}
           </div>
           <h1 className="display-hero text-balance mt-3 font-semibold">
-            One subscription. One trusted hand.
+            {t("pages.pricing.title")}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Members recover far more than their subscription in benefits claimed correctly,
-            appointments not missed, and stress avoided. Household plans discounted for couples and
-            families of up to 4 adults + 3 children.
+            {t("pages.pricing.subtitle")}
           </p>
         </div>
 
         {/* Household toggle */}
         <div className="mt-10 flex justify-center">
           <div className="inline-flex rounded-full border border-border/60 bg-card p-1 shadow-soft">
-            {HOUSEHOLD_TABS.map((t) => (
+            {HOUSEHOLD_TABS.map((tab) => (
               <button
-                key={t.key}
-                onClick={() => setHousehold(t.key)}
+                key={tab.key}
+                onClick={() => setHousehold(tab.key)}
                 className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
-                  household === t.key
+                  household === tab.key
                     ? "bg-gradient-primary text-primary-foreground shadow"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {t.icon}
-                {t.label}
+                {HOUSEHOLD_ICONS[tab.key]}
+                {tab.label}
               </button>
             ))}
           </div>
         </div>
         <div className="mt-2 text-center text-xs text-muted-foreground">
-          {HOUSEHOLD_TABS.find((t) => t.key === household)?.note}
+          {HOUSEHOLD_TABS.find((tab) => tab.key === household)?.note}
         </div>
 
         {/* Plan cards */}
@@ -178,15 +184,15 @@ function Pricing() {
           {/* Community (free) tier */}
           <div className="relative flex flex-col rounded-2xl border border-dashed border-teal/50 bg-card p-6 shadow-soft">
             <div className="absolute -top-3 left-6 rounded-full bg-teal px-3 py-1 text-xs font-semibold text-[oklch(0.16_0.04_250)]">
-              Free · Community
+              {t("pages.pricing.communityBadge")}
             </div>
-            <div className="font-display text-2xl font-semibold">Community</div>
+            <div className="font-display text-2xl font-semibold">{t("pages.pricing.communityName")}</div>
             <div className="text-sm text-muted-foreground">
-              A safety net for anyone in Germany — no card required.
+              {t("pages.pricing.communityDesc")}
             </div>
             <div className="mt-6 flex items-baseline gap-1">
               <span className="font-display display-lg font-semibold">€0</span>
-              <span className="text-sm text-muted-foreground">/ forever</span>
+              <span className="text-sm text-muted-foreground">{t("pages.pricing.forever")}</span>
             </div>
             <div className="mt-1 text-xs text-muted-foreground">
               Funded by paying members and NGO / municipal partners
@@ -209,7 +215,7 @@ function Pricing() {
               ))}
             </ul>
             <Button asChild variant="outline" className="mt-6 border-teal/40 text-foreground hover:bg-teal/10">
-              <Link to="/auth">Start free</Link>
+              <Link to="/auth">{t("pages.pricing.startFree")}</Link>
             </Button>
             <div className="mt-3 text-[11px] text-muted-foreground">
               Refugees, asylum seekers and Bürgergeld recipients — Community stays free for as long as
@@ -218,7 +224,7 @@ function Pricing() {
           </div>
 
           {isLoading && (
-            <div className="col-span-3 text-center text-muted-foreground text-sm">Loading plans…</div>
+            <div className="col-span-3 text-center text-muted-foreground text-sm">{t("pages.pricing.loading")}</div>
           )}
           {!isLoading && columns.map(({ group, plan, savings }) => {
             if (!plan) return null;
@@ -235,14 +241,14 @@ function Pricing() {
               >
                 {meta.badge && highlight && (
                   <div className="absolute -top-3 left-6 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-                    {meta.badge}
+                    {t("pages.pricing.mostPopular")}
                   </div>
                 )}
                 {savings > 0 && (
                   <div className={`absolute -top-3 right-6 rounded-full px-3 py-1 text-xs font-semibold ${
                     highlight ? "bg-background text-primary" : "bg-success/20 text-success-foreground border border-success/40"
                   }`}>
-                    Save {savings}%
+                    {t("pages.pricing.save", { percent: savings })}
                   </div>
                 )}
                 <div className="font-display text-2xl font-semibold">{meta.title}</div>
@@ -252,7 +258,7 @@ function Pricing() {
                 <div className="mt-6 flex items-baseline gap-1">
                   <span className="font-display display-lg font-semibold">€{plan.monthly_price_eur}</span>
                   <span className={`text-sm ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                    / month
+                    {t("pages.pricing.perMonth")}
                   </span>
                 </div>
                 <div className={`mt-1 text-xs ${highlight ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
@@ -286,7 +292,7 @@ function Pricing() {
                   asChild
                   className={`mt-6 ${highlight ? "bg-accent text-accent-foreground hover:bg-accent/90" : "bg-gradient-primary"}`}
                 >
-                  <Link to="/app">Choose {meta.title}</Link>
+                  <Link to="/app">{t("pages.pricing.choose", { name: meta.title })}</Link>
                 </Button>
               </div>
             );
