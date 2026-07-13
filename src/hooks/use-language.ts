@@ -26,6 +26,7 @@ export function useLanguage() {
   // the SSR HTML (always DEFAULT_LANG) and prevents hydration mismatches.
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!i18n || typeof i18n.changeLanguage !== "function") return;
     let saved: string | null = null;
     try {
       saved = localStorage.getItem(STORAGE_KEY);
@@ -38,7 +39,11 @@ export function useLanguage() {
       saved = match?.code ?? null;
     }
     if (saved && saved !== i18n.language && LANGUAGES.some((l) => l.code === saved)) {
-      void i18n.changeLanguage(saved);
+      try {
+        void i18n.changeLanguage(saved);
+      } catch (err) {
+        console.warn("i18n.changeLanguage failed", err);
+      }
     }
     // Only run once after mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,7 +61,15 @@ export function useLanguage() {
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
-    void i18n.changeLanguage(next);
+    if (i18n && typeof i18n.changeLanguage === "function") {
+      try {
+        void i18n.changeLanguage(next);
+      } catch (err) {
+        console.warn("i18n.changeLanguage failed", err);
+      }
+    } else {
+      setLangState(next);
+    }
     try {
       localStorage.setItem(STORAGE_KEY, next);
       localStorage.setItem(ONBOARDING_KEY, "1");
