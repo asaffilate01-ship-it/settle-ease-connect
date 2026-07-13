@@ -141,19 +141,47 @@ export function SiteHeader() {
               <LanguageSwitcher />
             </div>
             <div className="h-6 w-px bg-white/10" />
-            <Link
-              to="/app"
-              className="text-sm font-semibold text-slate-300 transition-colors hover:text-white"
-            >
-              {t("nav.signIn")}
-            </Link>
-            <Button
-              asChild
-              size="sm"
-              className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
-            >
-              <Link to="/app">{t("nav.openDashboard")}</Link>
-            </Button>
+            {isSignedIn ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-300 transition-colors hover:text-white"
+                >
+                  <LogOut className="h-4 w-4" />
+                  {t("sidebar.signOut", { defaultValue: "Sign out" })}
+                </button>
+                <Button
+                  asChild
+                  size="sm"
+                  className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
+                >
+                  <Link to={dashHref}>
+                    {role === "agent"
+                      ? t("nav.openAgentPortal", { defaultValue: "Agent portal" })
+                      : dashHref === "/portal"
+                      ? t("nav.openStaffPortal", { defaultValue: "Staff portal" })
+                      : t("nav.openDashboard")}
+                  </Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/auth"
+                  className="text-sm font-semibold text-slate-300 transition-colors hover:text-white"
+                >
+                  {t("nav.signIn")}
+                </Link>
+                <Button
+                  asChild
+                  size="sm"
+                  className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
+                >
+                  <Link to="/auth">{t("nav.openDashboard")}</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu trigger */}
