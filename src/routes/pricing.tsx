@@ -224,7 +224,7 @@ function Pricing() {
           </div>
 
           {isLoading && (
-            <div className="col-span-3 text-center text-muted-foreground text-sm">Loading plans…</div>
+            <div className="col-span-3 text-center text-muted-foreground text-sm">{t("pages.pricing.loading")}</div>
           )}
           {!isLoading && columns.map(({ group, plan, savings }) => {
             if (!plan) return null;
