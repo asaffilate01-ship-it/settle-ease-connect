@@ -131,17 +131,20 @@ export function AppSidebar() {
 
   return (
     <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
-      <div className="flex h-16 items-center gap-2.5 border-b border-sidebar-border px-5">
-        <div className="grid h-9 w-9 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-          <span className="font-display text-lg font-semibold">B</span>
+      <Link
+        to="/app"
+        className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5 transition-colors hover:bg-sidebar-accent/40"
+      >
+        <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-sidebar-primary to-sidebar-primary/70 shadow-soft ring-1 ring-sidebar-primary/30">
+          <img src={logoMark} alt="" className="h-6 w-6 object-contain" />
         </div>
-        <div className="leading-tight">
-          <div className="font-display text-lg font-semibold tracking-tight">BeistandPlus</div>
+        <div className="min-w-0 leading-tight">
+          <div className="truncate font-display text-lg font-semibold tracking-tight">BeistandPlus</div>
           <div className="text-[10px] uppercase tracking-[0.18em] text-sidebar-foreground/60">
             {isInternal ? t("sidebar.internal", { defaultValue: "Staff Portal" }) : t("sidebar.dashboard")}
           </div>
         </div>
-      </div>
+      </Link>
       <nav className="flex-1 space-y-1 p-3">
         {visibleNav.map((n, i) => {
           const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
