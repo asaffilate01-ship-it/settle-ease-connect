@@ -630,7 +630,7 @@ function Workflow() {
   ];
   return (
     <div className="rounded-3xl border border-primary-foreground/20 bg-primary-foreground/5 p-6 backdrop-blur">
-      <div className="text-xs uppercase tracking-widest text-accent">Case BST-2410-0042</div>
+      <div className="text-xs uppercase tracking-widest text-primary-foreground/90">Case BST-2410-0042</div>
       <div className="mt-1 font-display text-2xl">Repatriation · Berlin → Lahore</div>
       <ol className="mt-6 space-y-3">
         {stages.map((s, i) => (
