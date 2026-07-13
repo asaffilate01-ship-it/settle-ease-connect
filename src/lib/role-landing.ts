@@ -55,6 +55,7 @@ export function primaryRole(roles: AppRole[]): AppRole | null {
     "church",
     "temple",
     "hospital",
+    "agent",
     "beneficiary",
     "family",
   ];
