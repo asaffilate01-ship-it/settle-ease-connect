@@ -97,7 +97,7 @@ function StudentsPage() {
               </div>
               <div className="mt-4 flex items-baseline gap-2">
                 <span className="text-sm text-muted-foreground line-through">€10</span>
-                <span className="font-display text-5xl font-semibold text-foreground">€7</span>
+                <span className="font-display display-lg font-semibold text-foreground">€7</span>
                 <span className="text-sm text-muted-foreground">/ month</span>
               </div>
               <div className="text-xs text-muted-foreground">Plus plan · billed monthly · cancel any time</div>

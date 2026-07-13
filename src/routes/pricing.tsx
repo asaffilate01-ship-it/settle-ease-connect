@@ -185,7 +185,7 @@ function Pricing() {
               A safety net for anyone in Germany — no card required.
             </div>
             <div className="mt-6 flex items-baseline gap-1">
-              <span className="font-display text-5xl font-semibold">€0</span>
+              <span className="font-display display-lg font-semibold">€0</span>
               <span className="text-sm text-muted-foreground">/ forever</span>
             </div>
             <div className="mt-1 text-xs text-muted-foreground">
@@ -250,7 +250,7 @@ function Pricing() {
                   {plan.tagline}
                 </div>
                 <div className="mt-6 flex items-baseline gap-1">
-                  <span className="font-display text-5xl font-semibold">€{plan.monthly_price_eur}</span>
+                  <span className="font-display display-lg font-semibold">€{plan.monthly_price_eur}</span>
                   <span className={`text-sm ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                     / month
                   </span>
