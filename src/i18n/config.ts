@@ -28,7 +28,7 @@ export const LANGUAGES: { code: LangCode; nativeName: string; englishName: strin
 
 export const RTL_LANGS: ReadonlySet<LangCode> = new Set(["ar", "ur", "ps", "ku"]);
 
-export const DEFAULT_LANG: LangCode = "en";
+export const DEFAULT_LANG: LangCode = "de";
 
 export function isRTL(code: string): boolean {
   return RTL_LANGS.has(code as LangCode);
