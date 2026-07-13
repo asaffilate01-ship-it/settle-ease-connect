@@ -31,18 +31,28 @@ function Overview() {
   }
 
   const noPlan = sub.planGroup === "none";
+  const hour = new Date().getHours();
+  const greeting = hour < 5 ? "Guten Abend" : hour < 12 ? "Guten Morgen" : hour < 18 ? "Guten Tag" : "Guten Abend";
+  const today = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Willkommen zurück</span>
-            <PlanChip />
+      <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-soft sm:p-8">
+        <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl" aria-hidden />
+        <div className="relative flex flex-wrap items-end justify-between gap-4">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{today}</span>
+              <PlanChip />
+            </div>
+            <h1 className="display-lg mt-2 font-semibold">
+              {greeting}{firstName ? `, ${firstName}` : ""} — <span className="text-muted-foreground">here's your day.</span>
+            </h1>
+            <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+              Your household hub for settlement in Germany — checklists, benefits, insurance, cases and support in 12 languages.
+            </p>
           </div>
-          <h1 className="display-lg mt-2 font-semibold">
-            {firstName ? `${firstName}, ` : ""}here's your day.
-          </h1>
         </div>
       </div>
 
