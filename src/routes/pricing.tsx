@@ -146,15 +146,13 @@ function Pricing() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
-            Pricing
+            {t("pages.pricing.eyebrow")}
           </div>
           <h1 className="display-hero text-balance mt-3 font-semibold">
-            One subscription. One trusted hand.
+            {t("pages.pricing.title")}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Members recover far more than their subscription in benefits claimed correctly,
-            appointments not missed, and stress avoided. Household plans discounted for couples and
-            families of up to 4 adults + 3 children.
+            {t("pages.pricing.subtitle")}
           </p>
         </div>
 
