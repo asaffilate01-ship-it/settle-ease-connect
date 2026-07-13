@@ -14,16 +14,9 @@ import arCommon from "./locales/ar/common.json";
 import kuCommon from "./locales/ku/common.json";
 import ruCommon from "./locales/ru/common.json";
 import ukCommon from "./locales/uk/common.json";
-import psCommon from "./locales/ps/common.json";
-import sqCommon from "./locales/sq/common.json";
-import soCommon from "./locales/so/common.json";
-import tiCommon from "./locales/ti/common.json";
-import ptBRCommon from "./locales/pt-BR/common.json";
-import bsCommon from "./locales/bs/common.json";
-import hrCommon from "./locales/hr/common.json";
-import srCommon from "./locales/sr/common.json";
-import viCommon from "./locales/vi/common.json";
-import frCommon from "./locales/fr/common.json";
+import faCommon from "./locales/fa/common.json";
+import plCommon from "./locales/pl/common.json";
+import zhCommon from "./locales/zh/common.json";
 
 const resources = {
   en: { common: enCommon },
@@ -32,28 +25,20 @@ const resources = {
   ur: { common: urCommon },
   hi: { common: hiCommon },
   pa: { common: paCommon },
-  ps: { common: psCommon },
   ar: { common: arCommon },
   ku: { common: kuCommon },
   ru: { common: ruCommon },
   uk: { common: ukCommon },
-  sq: { common: sqCommon },
-  so: { common: soCommon },
-  ti: { common: tiCommon },
-  "pt-BR": { common: ptBRCommon },
-  bs: { common: bsCommon },
-  hr: { common: hrCommon },
-  sr: { common: srCommon },
-  vi: { common: viCommon },
-  fr: { common: frCommon },
+  fa: { common: faCommon },
+  pl: { common: plCommon },
+  zh: { common: zhCommon },
 } as const;
 
 if (!i18n.isInitialized) {
   // Always initialise with the default language so the server HTML and the
   // first client render match. A useEffect in <LanguageBridge> reads the
   // saved / detected preference AFTER hydration and calls changeLanguage,
-  // avoiding React hydration mismatches (e.g. server rendered "Services"
-  // while client hydrated as "خدمات").
+  // avoiding React hydration mismatches.
   i18n
     .use(initReactI18next)
     .init({
