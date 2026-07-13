@@ -1,11 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { Lock } from "lucide-react";
+import { Lock, LogOut } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useCurrentUser, type AppRole } from "@/hooks/use-current-user";
 import { primaryRole } from "@/lib/role-landing";
 import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import logoMark from "@/assets/brand/logo-mark.png";
 
 type Audience = "client" | "internal" | "any";
