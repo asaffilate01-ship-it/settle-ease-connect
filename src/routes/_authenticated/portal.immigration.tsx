@@ -46,6 +46,16 @@ function AlertsTab() {
   const update = useServerFn(updateEmergencyAlert);
   const { data: alerts = [], isLoading } = useQuery({ queryKey: ["alerts"], queryFn: fetchAlerts });
 
+  useEffect(() => {
+    const channel = supabase
+      .channel(`alerts:${Math.random().toString(36).slice(2)}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "emergency_alerts" }, () => {
+        qc.invalidateQueries({ queryKey: ["alerts"] });
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [qc]);
+
   async function setStatus(id: string, status: "acknowledged" | "resolved") {
     await update({ data: { id, status } });
     qc.invalidateQueries({ queryKey: ["alerts"] });
