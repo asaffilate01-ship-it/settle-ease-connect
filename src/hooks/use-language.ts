@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import "@/i18n";
 import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
 import { bootAutoTranslate } from "@/lib/auto-translate";
+
 
 const STORAGE_KEY = "beistand.lang";
 const ONBOARDING_KEY = "beistand.lang.chosen";
