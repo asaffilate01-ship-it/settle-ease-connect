@@ -16,7 +16,7 @@ function changeLanguageSafely(next: LangCode) {
   if (!safeI18n) return false;
 
   try {
-    void safeI18n.changeLanguage(next).catch((err) => {
+    void Promise.resolve(safeI18n.changeLanguage(next)).catch((err) => {
       console.warn("i18n.changeLanguage failed", err);
     });
     return true;
