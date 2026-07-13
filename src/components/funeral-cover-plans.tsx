@@ -8,17 +8,18 @@ import { Button } from "@/components/ui/button";
  * Funeral / bereavement cover — premium matrix.
  *
  * Individual and family plans built on top of `estimatePremium` (which
- * interpolates published rate tables from Monuta, DELA, Nürnberger, IDEAL,
+ * interpolates published rate tables from DELA, Monuta, Nürnberger, IDEAL,
  * HanseMerkur 2024–2025). Ranges are Tippgeber-safe indications, never
  * binding quotes.
  *
- * Coverage: €8,000 default benefit per insured adult. Children under 18
- * are included at no additional premium on family / extended-family plans
- * (matches how Monuta and DELA structure their Familien-Sterbegeld tarifs).
+ * Coverage: €20,000 default benefit per insured adult — matches the DELA
+ * cooperative €20k Sterbegeld tarif we broker into. Children under 20 are
+ * included at no additional premium on family / extended-family plans
+ * (DELA free-child rider).
  */
 
 const ADULT_AGE_BANDS = [30, 40, 50, 60, 70] as const;
-const BENEFIT_EUR = 8_000;
+const BENEFIT_EUR = 20_000;
 
 function bandFor(age: number) {
   return estimatePremium({
@@ -36,18 +37,18 @@ function fmt(n: number) {
 type Household = "individual" | "family" | "extended";
 
 const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
-  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult · €8k benefit" },
-  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 children under 18 · €8k per adult" },
-  { key: "extended", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 children under 18 · €8k per adult" },
+  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult · €20k benefit" },
+  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 children under 20 · €20k per adult" },
+  { key: "extended", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 children under 20 · €20k per adult" },
 ];
 
 const COVERAGE = [
-  "€8,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
+  "€20,000 benefit per insured adult — paid on death, no medical exam required for standard DELA tarifs",
   "Direct settlement of funeral director, cemetery, mosque / church / temple, cremation, coffin, flowers, catering and death-certificate fees against original invoices",
   "Full repatriation of the body abroad (zinc coffin, embalming, consular NOC, airline cargo, receiving director in the home country)",
   "Sworn translations, estate paperwork, Standesamt, embassy / consulate coordination — all invoiced through the case file",
   "Every euro itemised in your BeistandPlus case file so the family sees exactly where the money went",
-  "Any balance remaining after all approved costs are settled is paid to your nominated beneficiary via SEPA — in Germany or abroad, in their local currency",
+  "Any balance remaining after all approved costs are settled — frequently >€12,000 on a typical funeral — is paid to your nominated beneficiary via SEPA, in Germany or abroad, in their local currency",
   "24/7 multilingual case manager assigned within 1 hour of a claim being opened",
 ];
 
