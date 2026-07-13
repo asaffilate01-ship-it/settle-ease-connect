@@ -131,11 +131,18 @@ export const listEmergencyAlerts = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("emergency_alerts")
-      .select("*, profiles:client_user_id(full_name)")
+      .select("*")
       .order("created_at", { ascending: false })
       .limit(200);
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    const ids = Array.from(new Set(rows.map((r: any) => r.client_user_id).filter(Boolean)));
+    let nameMap = new Map<string, string>();
+    if (ids.length) {
+      const { data: profs } = await context.supabase.from("profiles").select("id, full_name").in("id", ids);
+      nameMap = new Map((profs ?? []).map((p: any) => [p.id, p.full_name]));
+    }
+    return rows.map((r: any) => ({ ...r, profiles: { full_name: nameMap.get(r.client_user_id) ?? null } }));
   });
 
 export const raiseEmergencyAlert = createServerFn({ method: "POST" })
