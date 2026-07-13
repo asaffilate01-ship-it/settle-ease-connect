@@ -49,8 +49,9 @@ function BereavementCover() {
           Bereavement cover, done properly.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          €8,000 paid directly to the funeral director. Any balance goes to your named beneficiary
-          in Germany or abroad. Estimate your premium below — a case manager takes it from there.
+          €20,000 DELA cover — the funeral director is settled directly, and the balance
+          (typically around €14,000) goes to your named beneficiary in Germany or abroad within 14 days.
+          Estimate your premium below — a case manager takes it from there.
         </p>
       </section>
 
