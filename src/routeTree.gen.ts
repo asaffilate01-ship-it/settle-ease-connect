@@ -19,6 +19,7 @@ import { Route as PartnershipsRouteImport } from './routes/partnerships'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as OfflineRouteImport } from './routes/offline'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as IntegrationCoursesRouteImport } from './routes/integration-courses'
 import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GroupCoverRouteImport } from './routes/group-cover'
@@ -132,6 +133,11 @@ const OfflineRoute = OfflineRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegrationCoursesRoute = IntegrationCoursesRouteImport.update({
+  id: '/integration-courses',
+  path: '/integration-courses',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsuranceRoute = InsuranceRouteImport.update({
@@ -500,6 +506,7 @@ export interface FileRoutesByFullPath {
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
+  '/integration-courses': typeof IntegrationCoursesRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
@@ -575,6 +582,7 @@ export interface FileRoutesByTo {
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
+  '/integration-courses': typeof IntegrationCoursesRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
@@ -649,6 +657,7 @@ export interface FileRoutesById {
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
+  '/integration-courses': typeof IntegrationCoursesRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
@@ -726,6 +735,7 @@ export interface FileRouteTypes {
     | '/group-cover'
     | '/how-it-works'
     | '/insurance'
+    | '/integration-courses'
     | '/legal'
     | '/offline'
     | '/partners'
@@ -801,6 +811,7 @@ export interface FileRouteTypes {
     | '/group-cover'
     | '/how-it-works'
     | '/insurance'
+    | '/integration-courses'
     | '/legal'
     | '/offline'
     | '/partners'
@@ -874,6 +885,7 @@ export interface FileRouteTypes {
     | '/group-cover'
     | '/how-it-works'
     | '/insurance'
+    | '/integration-courses'
     | '/legal'
     | '/offline'
     | '/partners'
@@ -951,6 +963,7 @@ export interface RootRouteChildren {
   GroupCoverRoute: typeof GroupCoverRouteWithChildren
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
+  IntegrationCoursesRoute: typeof IntegrationCoursesRoute
   LegalRoute: typeof LegalRouteWithChildren
   OfflineRoute: typeof OfflineRoute
   PartnersRoute: typeof PartnersRouteWithChildren
@@ -1033,6 +1046,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integration-courses': {
+      id: '/integration-courses'
+      path: '/integration-courses'
+      fullPath: '/integration-courses'
+      preLoaderRoute: typeof IntegrationCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insurance': {
@@ -1723,6 +1743,7 @@ const rootRouteChildren: RootRouteChildren = {
   GroupCoverRoute: GroupCoverRouteWithChildren,
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
+  IntegrationCoursesRoute: IntegrationCoursesRoute,
   LegalRoute: LegalRouteWithChildren,
   OfflineRoute: OfflineRoute,
   PartnersRoute: PartnersRouteWithChildren,
