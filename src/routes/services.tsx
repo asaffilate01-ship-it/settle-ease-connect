@@ -245,7 +245,7 @@ function Services() {
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-foreground/70">
-              We work with you in your language
+              {t("pages.services.ribbon")}
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-display text-lg text-foreground/80 sm:gap-x-8">
               {languages.map((l, i) => (
