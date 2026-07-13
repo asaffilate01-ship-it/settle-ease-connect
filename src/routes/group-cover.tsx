@@ -132,7 +132,7 @@ function GroupCoverPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Stat icon={ShieldCheck} label="100% acceptance" value="All members" note="Risk spread across the pool" />
           <Stat icon={Clock} label="Waiting period" value="0 months" note="Waived at group scale" />
           <Stat icon={Users} label="Free child cover" value="Under 20" note="Cooperative rider" />
