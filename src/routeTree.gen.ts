@@ -45,6 +45,7 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAgentRouteImport } from './routes/_authenticated/agent'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
@@ -261,6 +262,11 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAgentRoute,
 } as any)
 const AuthenticatedPortalStudentsRoute =
   AuthenticatedPortalStudentsRouteImport.update({
@@ -484,7 +490,7 @@ export interface FileRoutesByFullPath {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
-  '/agent': typeof AuthenticatedAgentRoute
+  '/agent': typeof AuthenticatedAgentRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -523,6 +529,7 @@ export interface FileRoutesByFullPath {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -555,7 +562,6 @@ export interface FileRoutesByTo {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
-  '/agent': typeof AuthenticatedAgentRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
@@ -592,6 +598,7 @@ export interface FileRoutesByTo {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -626,7 +633,7 @@ export interface FileRoutesById {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
-  '/_authenticated/agent': typeof AuthenticatedAgentRoute
+  '/_authenticated/agent': typeof AuthenticatedAgentRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -665,6 +672,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -738,6 +746,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/referrals'
     | '/portal/students'
+    | '/agent/'
     | '/app/'
     | '/portal/'
     | '/app/cases/$caseId'
@@ -770,7 +779,6 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
-    | '/agent'
     | '/blog/$slug'
     | '/directory/list-your-business'
     | '/group-cover/fiduciary-clause'
@@ -807,6 +815,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/referrals'
     | '/portal/students'
+    | '/agent'
     | '/app'
     | '/portal'
     | '/app/cases/$caseId'
@@ -879,6 +888,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/leads'
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
+    | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
@@ -1169,6 +1179,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/agent/': {
+      id: '/_authenticated/agent/'
+      path: '/'
+      fullPath: '/agent/'
+      preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
     '/_authenticated/portal/students': {
       id: '/_authenticated/portal/students'
       path: '/students'
@@ -1410,6 +1427,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAgentRouteChildren {
+  AuthenticatedAgentIndexRoute: typeof AuthenticatedAgentIndexRoute
+}
+
+const AuthenticatedAgentRouteChildren: AuthenticatedAgentRouteChildren = {
+  AuthenticatedAgentIndexRoute: AuthenticatedAgentIndexRoute,
+}
+
+const AuthenticatedAgentRouteWithChildren =
+  AuthenticatedAgentRoute._addFileChildren(AuthenticatedAgentRouteChildren)
+
 interface AuthenticatedAppCasesRouteChildren {
   AuthenticatedAppCasesCaseIdRoute: typeof AuthenticatedAppCasesCaseIdRoute
   AuthenticatedAppCasesNewRoute: typeof AuthenticatedAppCasesNewRoute
@@ -1539,13 +1567,13 @@ const AuthenticatedPortalRouteWithChildren =
   AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAgentRoute: typeof AuthenticatedAgentRoute
+  AuthenticatedAgentRoute: typeof AuthenticatedAgentRouteWithChildren
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAgentRoute: AuthenticatedAgentRoute,
+  AuthenticatedAgentRoute: AuthenticatedAgentRouteWithChildren,
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }
