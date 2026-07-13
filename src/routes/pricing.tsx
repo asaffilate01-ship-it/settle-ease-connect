@@ -248,7 +248,7 @@ function Pricing() {
                   <div className={`absolute -top-3 right-6 rounded-full px-3 py-1 text-xs font-semibold ${
                     highlight ? "bg-background text-primary" : "bg-success/20 text-success-foreground border border-success/40"
                   }`}>
-                    Save {savings}%
+                    {t("pages.pricing.save", { percent: savings })}
                   </div>
                 )}
                 <div className="font-display text-2xl font-semibold">{meta.title}</div>
