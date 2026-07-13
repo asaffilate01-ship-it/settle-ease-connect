@@ -48,7 +48,7 @@ function CasesList() {
   // Realtime: refresh list on any case change
   useEffect(() => {
     const ch = supabase
-      .channel("cases-list")
+      .channel(`cases-list:${Math.random().toString(36).slice(2)}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "cases" }, () => {
         qc.invalidateQueries({ queryKey: ["cases", "list"] });
       })
