@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#001B2E" },
+      { name: "theme-color", content: "#faf8f5" },
       { title: "BeistandPlus — Für jeden Weg in Deutschland" },
       {
         name: "description",
