@@ -75,9 +75,25 @@ const groups: Group[] = [
   },
   {
     icon: "healthcare",
+    title: "Health insurance (mandatory)",
+    summary: "Krankenversicherung is required by law from day one — public (GKV) or private (PKV), we get you covered before Anmeldung and TK/AOK/Barmer paperwork is done for you.",
+    items: [
+      "Gesetzliche Krankenversicherung (GKV): TK, AOK, Barmer, DAK, Techniker",
+      "Private Krankenversicherung (PKV) comparison (Ottonova, Hallesche, Debeka)",
+      "Expat / incoming health insurance (Mawista, Care Concept, DR-WALTER)",
+      "Student health insurance (under 30 / over 30 rules)",
+      "Family co-insurance (Familienversicherung — free for spouse & children)",
+      "Freelancer & self-employed KV (voluntary GKV vs PKV)",
+      "Pflegeversicherung (long-term care insurance, mandatory add-on)",
+      "Switching provider & Kündigung help",
+      "Reimbursement claims & bill translation",
+    ],
+  },
+  {
+    icon: "healthcare",
     title: "Healthcare",
-    summary: "Doctors who speak your language, insurance you understand, mental-health care that meets you where you are.",
-    items: ["Multilingual doctors (English, Urdu, Turkish, Arabic, Russian and more)", "Insurance comparison", "Mental health support", "Pregnancy services"],
+    summary: "Doctors who speak your language, appointments booked for you, mental-health care that meets you where you are.",
+    items: ["Multilingual doctors (English, Urdu, Turkish, Arabic, Russian and more)", "Termin booking (Facharzt waitlists)", "Mental health support", "Pregnancy & Hebamme services", "Dental & vision"],
   },
   {
     icon: "community",
