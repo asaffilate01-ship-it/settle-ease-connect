@@ -10,24 +10,24 @@ import { ArrowRight, Building2, Check, ShieldCheck, Users, Wallet } from "lucide
 export const Route = createFileRoute("/bereavement-cover")({
   head: () => ({
     meta: [
-      { title: "Bereavement Cover — €8,000 Sterbegeld | BeistandPlus" },
-      { name: "description", content: "Bereavement insurance from €12/month. €8,000 benefit paid directly to funeral directors, balance to your beneficiary — in Germany or abroad." },
-      { property: "og:title", content: "Bereavement Cover — BeistandPlus" },
-      { property: "og:description", content: "Full funeral costs covered. Direct payment to funeral directors, transparent invoicing, balance to beneficiary." },
+      { title: "Bereavement Cover — €20,000 Sterbegeld from DELA | BeistandPlus" },
+      { name: "description", content: "Bereavement insurance from about €24/month. €20,000 DELA benefit — funeral settled directly, ~€14,000 balance to your beneficiary in Germany or abroad." },
+      { property: "og:title", content: "Bereavement Cover — €20,000 Sterbegeld | BeistandPlus" },
+      { property: "og:description", content: "€20,000 DELA cover. Funeral costs settled directly, substantial cash balance to your named beneficiary within 14 days." },
     ],
   }),
   component: BereavementCover,
 });
 
 const includes = [
-  "€8,000 default benefit (adjustable €2k–€8k)",
+  "€20,000 default DELA benefit (adjustable €5k–€20k)",
   "Direct payment to funeral director — no upfront cost to family",
   "Transparent line-item invoicing throughout",
-  "Balance paid to named beneficiary via SEPA",
+  "Substantial balance (frequently >€12,000) paid to named beneficiary via SEPA",
   "Coverage for burial in Germany or repatriation abroad",
   "Multilingual case manager assigned on day one of a claim",
   "Coordinates with mosque, church, temple or consulate",
-  "No age cap up to 80; simplified underwriting available",
+  "Children under 20 co-insured free on DELA family tarif",
 ];
 
 const insurers = [
@@ -49,8 +49,9 @@ function BereavementCover() {
           Bereavement cover, done properly.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          €8,000 paid directly to the funeral director. Any balance goes to your named beneficiary
-          in Germany or abroad. Estimate your premium below — a case manager takes it from there.
+          €20,000 DELA cover — the funeral director is settled directly, and the balance
+          (typically around €14,000) goes to your named beneficiary in Germany or abroad within 14 days.
+          Estimate your premium below — a case manager takes it from there.
         </p>
       </section>
 
