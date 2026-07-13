@@ -22,7 +22,7 @@ export const Route = createFileRoute("/group-cover")({
       {
         name: "description",
         content:
-          "Group Sterbegeldversicherung for associations, employers and communities. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to DELA, ERGO, Münchener Verein, Solidar.",
+          "Group Sterbegeldversicherung for associations, employers and communities. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated German Sterbegeld insurers.",
       },
       { property: "og:title", content: "Group Bereavement Cover — BeistandPlus" },
       {
@@ -64,7 +64,7 @@ const tiers = [
   {
     title: "Tier 3 · Family",
     icon: <Building2 className="h-5 w-5" />,
-    detail: "2 adults + up to 3 children under 20 — kids co-insured free on DELA.",
+    detail: "2 adults + up to 3 children under 20 — kids co-insured free on the family tarif.",
     example: "Same €47/mo as the couple tier — children add €0 at the €3k baseline.",
     subsidised:
       "Broker negotiates a rider to lift the child payout from €3k to the full €20k for a small top-up.",
@@ -141,7 +141,7 @@ function GroupCoverPage() {
           <Stat icon={ShieldCheck} label="100% acceptance" value="No health Qs" note="Risk spread across the pool" />
           <Stat icon={Clock} label="Waiting period" value="0 months" note="Waived at group scale" />
           <Stat icon={Wallet} label="Wholesale discount" value="15–30%" note="Below consumer rates" />
-          <Stat icon={Users} label="Free child cover" value="Under 20" note="DELA cooperative rider" />
+          <Stat icon={Users} label="Free child cover" value="Under 20" note="Cooperative rider" />
         </div>
       </section>
 
@@ -153,7 +153,7 @@ function GroupCoverPage() {
             "Waiting period waived: retail plans without health checks enforce 6–36 months; a group block of thousands of lives lets an institutional broker negotiate 0 months for the initial enrollment.",
             "Wholesale bulk discount of 15–30% versus retail — no acquisition or marketing cost baked into the group premium.",
             "One monthly bulk invoice from the insurer. One SEPA batch from your treasury. Fluctuation clause handles joiners and leavers automatically.",
-            "Mutuals (VVaG) like DELA and Solidar have no shareholders — surplus flows back into the pool as premium buffers.",
+            "Mutuals (VVaG) have no shareholders — surplus flows back into the pool as premium buffers.",
             "Multilingual case manager, direct funeral settlement, fiduciary balance to the family — all inside BeistandPlus.",
           ].map((line) => (
             <div key={line} className="flex gap-3">

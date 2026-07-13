@@ -150,8 +150,8 @@ export function BereavementQuoteWidget() {
           </ul>
 
           <div className="mt-6 border-t pt-4 text-xs text-muted-foreground">
-            Range reflects the spread across Monuta, DELA, Nürnberger, IDEAL & HanseMerkur for a
-            €{benefit.toLocaleString("de-DE")} lifelong Sterbegeld policy. Final premium depends on
+            Range reflects the spread across our panel of regulated German Sterbegeld insurers for a
+            €{benefit.toLocaleString("de-DE")} lifelong cover. Final premium depends on
             health underwriting.
           </div>
         </div>

@@ -10,29 +10,28 @@ import { ArrowRight, Building2, Check, ShieldCheck, Users, Wallet } from "lucide
 export const Route = createFileRoute("/bereavement-cover")({
   head: () => ({
     meta: [
-      { title: "Bereavement Cover — €20,000 Sterbegeld from DELA | BeistandPlus" },
-      { name: "description", content: "Bereavement insurance from about €24/month. €20,000 DELA benefit — funeral settled directly, ~€14,000 balance to your beneficiary in Germany or abroad." },
-      { property: "og:title", content: "Bereavement Cover — €20,000 Sterbegeld | BeistandPlus" },
-      { property: "og:description", content: "€20,000 DELA cover. Funeral costs settled directly, substantial cash balance to your named beneficiary within 14 days." },
+      { title: "Bereavement Cover — €20,000 approved & regulated expenses cover | BeistandPlus" },
+      { name: "description", content: "Bereavement cover from about €24/month. €20,000 benefit to cover the full costs of the funeral and burial/last rites and repatriation if required, with any balance paid to the nominated beneficiary." },
+      { property: "og:title", content: "Bereavement Cover — €20,000 approved & regulated expenses cover | BeistandPlus" },
+      { property: "og:description", content: "€20,000 cover — funeral, burial or last rites and repatriation settled directly, with any balance paid to your nominated beneficiary." },
     ],
   }),
   component: BereavementCover,
 });
 
 const includes = [
-  "€20,000 default DELA benefit (adjustable €5k–€20k)",
+  "€20,000 default benefit per insured adult (adjustable €5k–€20k)",
   "Direct payment to funeral director — no upfront cost to family",
   "Transparent line-item invoicing throughout",
-  "Substantial balance (frequently >€12,000) paid to named beneficiary via SEPA",
-  "Coverage for burial in Germany or repatriation abroad",
+  "Any balance after approved and regulated expenses is paid to the nominated beneficiary via SEPA",
+  "Full costs of burial or last rites in Germany, or repatriation abroad, covered",
   "Multilingual case manager assigned on day one of a claim",
   "Coordinates with mosque, church, temple or consulate",
-  "Children under 20 co-insured free on DELA family tarif",
+  "Children under 20 co-insured free on the family tarif",
 ];
 
 const insurers = [
   { name: "Monuta", note: "Funeral-director network built-in" },
-  { name: "DELA", note: "Migrant-family focus, multilingual" },
   { name: "Nürnberger", note: "Flexible underwriting" },
   { name: "IDEAL", note: "Bonus-tier premiums" },
   { name: "HanseMerkur", note: "Vorsorge Plus product" },
@@ -44,14 +43,14 @@ function BereavementCover() {
       <SiteHeader />
 
       <section className="mx-auto max-w-6xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
-        <Badge variant="secondary" className="uppercase tracking-wider">Sterbegeldversicherung</Badge>
+        <Badge variant="secondary" className="uppercase tracking-wider">Approved & regulated expenses cover</Badge>
         <h1 className="display-hero text-balance mt-4 font-semibold">
           Bereavement cover, done properly.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          €20,000 DELA cover — the funeral director is settled directly, and the balance
-          (typically around €14,000) goes to your named beneficiary in Germany or abroad within 14 days.
-          Estimate your premium below — a case manager takes it from there.
+          €20,000 cover — enough to meet the full costs of the funeral and burial or last rites,
+          plus repatriation if required, with any balance paid to your nominated beneficiary in
+          Germany or abroad within 14 days. Estimate your premium below — a case manager takes it from there.
         </p>
       </section>
 
@@ -82,7 +81,7 @@ function BereavementCover() {
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
                 {[
                   { icon: ShieldCheck, text: "100% acceptance, no health Qs" },
-                  { icon: Users, text: "Free child cover under 20 (DELA)" },
+                  { icon: Users, text: "Free child cover under 20" },
                   { icon: Wallet, text: "15–30% below retail rates" },
                   { icon: Building2, text: "3–7 day payout, fiduciary flow" },
                 ].map(({ icon: Icon, text }) => (

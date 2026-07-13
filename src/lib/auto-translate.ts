@@ -178,11 +178,15 @@ async function translatePage() {
 
   if (pending.length === 0 && attrPending.length === 0) return;
 
-  // Batch in chunks of 40 to keep prompts small & fast.
-  const CHUNK = 40;
-  for (let i = 0; i < pending.length; i += CHUNK) {
-    const slice = pending.slice(i, i + CHUNK);
-    // Dedupe within the batch — many strings repeat (nav, footer, buttons).
+  // Batch in chunks of 60, run all chunks in parallel — the previous sequential
+  // await-in-loop made language switches feel painfully slow.
+  const CHUNK = 60;
+  const textChunks: { node: Text; src: string }[][] = [];
+  for (let i = 0; i < pending.length; i += CHUNK) textChunks.push(pending.slice(i, i + CHUNK));
+  const attrChunks: AttrPending[][] = [];
+  for (let i = 0; i < attrPending.length; i += CHUNK) attrChunks.push(attrPending.slice(i, i + CHUNK));
+
+  const runTextChunk = async (slice: { node: Text; src: string }[]) => {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
@@ -206,11 +210,9 @@ async function translatePage() {
     } catch (err) {
       console.warn("[auto-translate] batch failed", err);
     }
-  }
+  };
 
-  // Attribute batch (same batching strategy).
-  for (let i = 0; i < attrPending.length; i += CHUNK) {
-    const slice = attrPending.slice(i, i + CHUNK);
+  const runAttrChunk = async (slice: AttrPending[]) => {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
@@ -234,7 +236,12 @@ async function translatePage() {
     } catch (err) {
       console.warn("[auto-translate] attr batch failed", err);
     }
-  }
+  };
+
+  await Promise.all([
+    ...textChunks.map(runTextChunk),
+    ...attrChunks.map(runAttrChunk),
+  ]);
 }
 
 function restoreEnglish() {
@@ -263,17 +270,25 @@ function restoreEnglish() {
   mutating = false;
 }
 
-function schedule() {
+function schedule(immediate = false) {
   if (scheduled) return;
   scheduled = true;
-  // requestIdleCallback where available, otherwise a short timeout.
   const run = () => {
     scheduled = false;
     if (inFlight) return;
     inFlight = translatePage().finally(() => {
       inFlight = null;
+      // clear the fade set by bootAutoTranslate
+      if (typeof document !== "undefined") {
+        document.documentElement.removeAttribute("data-lang-switching");
+      }
     });
   };
+  if (immediate) {
+    // Run on the next microtask so React can commit first, but don't wait for idle.
+    Promise.resolve().then(run);
+    return;
+  }
   if ("requestIdleCallback" in window) {
     (window as unknown as { requestIdleCallback: (cb: () => void, o?: object) => number })
       .requestIdleCallback(run, { timeout: 500 });
@@ -290,8 +305,13 @@ let observer: MutationObserver | null = null;
  */
 export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
+  const changed = currentLang !== lang;
   currentLang = lang;
-  schedule();
+  if (changed) {
+    // Mark html so a CSS rule can fade the page during the swap.
+    document.documentElement.setAttribute("data-lang-switching", "1");
+  }
+  schedule(changed);
 
   if (observer) return;
   observer = new MutationObserver((mutations) => {

@@ -43,12 +43,12 @@ const TABS: { key: Household; label: string; icon: React.ReactNode; note: string
 ];
 
 const COVERAGE = [
-  "€20,000 benefit per insured adult — paid on death, no medical exam required for standard DELA tarifs",
+  "€20,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
   "Direct settlement of funeral director, cemetery, mosque / church / temple, cremation, coffin, flowers, catering and death-certificate fees against original invoices",
   "Full repatriation of the body abroad (zinc coffin, embalming, consular NOC, airline cargo, receiving director in the home country)",
   "Sworn translations, estate paperwork, Standesamt, embassy / consulate coordination — all invoiced through the case file",
   "Every euro itemised in your BeistandPlus case file so the family sees exactly where the money went",
-  "Any balance remaining after all approved costs are settled — frequently >€12,000 on a typical funeral — is paid to your nominated beneficiary via SEPA, in Germany or abroad, in their local currency",
+  "Any balance remaining after all approved and regulated expenses are settled is paid to your nominated beneficiary via SEPA, in Germany or abroad, in their local currency",
   "24/7 multilingual case manager assigned within 1 hour of a claim being opened",
 ];
 
@@ -100,13 +100,12 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
             Sterbegeldversicherung · Underwritten by regulated German insurers
           </div>
           <h2 className="display-lg mt-3 font-semibold">
-            Funeral-costs insurance from about €24/month
+            Approved & regulated expenses cover from about €24/month
           </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            A DELA-brokered policy that pays out <strong className="text-foreground">€20,000 per insured adult</strong>{" "}
-            — enough to cover the funeral in full (typical €4,200–€8,000) and still leave a substantial cash
-            balance for the family. Whatever's left after the invoices are settled is transferred to your
-            nominated beneficiary — so the family never has to find the money at the hardest moment.
+            A €20,000 benefit per insured adult — enough to cover the full costs of the funeral and
+            burial or last rites, plus repatriation if required, with any balance going to your
+            nominated beneficiary. The family never has to find the money at the hardest moment.
           </p>
         </div>
       </div>
@@ -160,10 +159,10 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         </table>
       </div>
       <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-        Ranges reflect published 2024–2025 rate tables from DELA, Monuta, Nürnberger, IDEAL and HanseMerkur
+        Ranges reflect published 2024–2025 rate tables from our panel of regulated German Sterbegeld insurers
         for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health
         declaration, smoker status and chosen waiting period; children under 20 are included at no
-        additional premium on the family and extended-family DELA tarifs. Not a binding quote — the
+        additional premium on the family and extended-family tarifs. Not a binding quote — the
         licensed partner insurer issues the offer.
       </p>
 
@@ -182,10 +181,11 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
           </div>
 
           <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent/20 p-4 text-sm">
-            <strong className="text-foreground">Example:</strong> On a typical €6,000 funeral, the insurer
-            settles every invoice in full and{" "}
-            <strong className="text-foreground">around €14,000 is paid to the named beneficiary</strong>{" "}
-            within 14 days — usable for rent, counseling, repatriation add-ons or immediate living expenses.
+            <strong className="text-foreground">How it works:</strong> the insurer settles every
+            approved and regulated invoice in full — funeral, burial or last rites, and repatriation
+            if required — and{" "}
+            <strong className="text-foreground">any balance is paid to the nominated beneficiary</strong>{" "}
+            within 14 days.
           </div>
 
         </>
