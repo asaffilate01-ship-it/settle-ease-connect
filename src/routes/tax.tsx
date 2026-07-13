@@ -35,7 +35,7 @@ export const Route = createFileRoute("/tax")({
       {
         name: "description",
         content:
-          "Get an instant refund estimate for your German Steuererklärung and let a vetted partner (Taxfix, Wundertax or a local Steuerberater) file it for you. 19 languages, one flat price, refund-or-free.",
+          "Get an instant refund estimate for your German Steuererklärung and let a vetted partner (Taxfix, Wundertax or a local Steuerberater) file it for you. 13 languages, one flat price, refund-or-free.",
       },
       { property: "og:title", content: "German tax refund, guided in your language" },
       {
@@ -93,7 +93,7 @@ function Hero() {
             Steuerberater) files it for you, in your language, for one flat price.
           </p>
           <div className="mt-6 flex flex-wrap gap-2 text-xs">
-            <HeroChip icon={Languages}>19 languages</HeroChip>
+            <HeroChip icon={Languages}>13 languages</HeroChip>
             <HeroChip icon={Sparkles}>Refund-or-free promise</HeroChip>
             <HeroChip icon={ShieldCheck}>StBerG-compliant partners</HeroChip>
           </div>
