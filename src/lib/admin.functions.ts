@@ -3,8 +3,11 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const ROLES = [
-  "admin","staff","case_manager","expert","family",
-  "funeral_director","mosque","church","temple","hospital",
+  "admin","staff","case_manager",
+  "insurance_admin","tax_admin","benefits_admin","medical_admin","new_arrival_admin",
+  "lawyer","accountant","doctor","notary","translator","social_worker",
+  "expert","funeral_director","mosque","church","temple","hospital",
+  "beneficiary","family","agent",
 ] as const;
 const RoleSchema = z.enum(ROLES);
 

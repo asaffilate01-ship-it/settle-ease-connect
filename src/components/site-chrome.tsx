@@ -1,11 +1,15 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocialIcons } from "@/components/social-icons";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { primaryRole, landingForRoles } from "@/lib/role-landing";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import logoMark from "@/assets/brand/logo-mark.png";
 import { MobileCtaBar } from "@/components/mobile-cta-bar";
 
@@ -15,6 +19,21 @@ type NavGroup = { label: string; href?: string; children?: NavChild[] };
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const { user, roles, loading } = useCurrentUser();
+  const isSignedIn = !!user && !loading;
+  const dashHref = isSignedIn ? landingForRoles(roles) : "/app";
+  const role = primaryRole(roles);
+
+  async function handleSignOut() {
+    await qc.cancelQueries();
+    qc.clear();
+    await supabase.auth.signOut();
+    setOpen(false);
+    navigate({ to: "/", replace: true });
+  }
+
 
   // Grouped desktop nav — collapses 8 links into 5 top-level slots.
   const groups: NavGroup[] = [
@@ -122,19 +141,47 @@ export function SiteHeader() {
               <LanguageSwitcher />
             </div>
             <div className="h-6 w-px bg-white/10" />
-            <Link
-              to="/app"
-              className="text-sm font-semibold text-slate-300 transition-colors hover:text-white"
-            >
-              {t("nav.signIn")}
-            </Link>
-            <Button
-              asChild
-              size="sm"
-              className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
-            >
-              <Link to="/app">{t("nav.openDashboard")}</Link>
-            </Button>
+            {isSignedIn ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-300 transition-colors hover:text-white"
+                >
+                  <LogOut className="h-4 w-4" />
+                  {t("sidebar.signOut", { defaultValue: "Sign out" })}
+                </button>
+                <Button
+                  asChild
+                  size="sm"
+                  className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
+                >
+                  <Link to={dashHref}>
+                    {role === "agent"
+                      ? t("nav.openAgentPortal", { defaultValue: "Agent portal" })
+                      : dashHref === "/portal"
+                      ? t("nav.openStaffPortal", { defaultValue: "Staff portal" })
+                      : t("nav.openDashboard")}
+                  </Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/auth"
+                  className="text-sm font-semibold text-slate-300 transition-colors hover:text-white"
+                >
+                  {t("nav.signIn")}
+                </Link>
+                <Button
+                  asChild
+                  size="sm"
+                  className="h-9 rounded-lg bg-teal px-4 font-semibold text-[oklch(0.16_0.04_250)] shadow-glow-teal transition-all hover:scale-[1.02] hover:brightness-105 active:scale-95"
+                >
+                  <Link to="/auth">{t("nav.openDashboard")}</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu trigger */}
@@ -199,14 +246,26 @@ export function SiteHeader() {
                 </nav>
 
                 <div className="safe-bottom border-t border-border/60 bg-background/95 px-4 pt-3 pb-4">
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button asChild variant="outline" size="lg" className="h-12 rounded-xl text-[15px]">
-                      <Link to="/app" onClick={() => setOpen(false)}>{t("nav.signIn")}</Link>
-                    </Button>
-                    <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
-                      <Link to="/app" onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
-                    </Button>
-                  </div>
+                  {isSignedIn ? (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button variant="outline" size="lg" className="h-12 rounded-xl text-[15px]" onClick={handleSignOut}>
+                        <LogOut className="me-2 h-4 w-4" />
+                        {t("sidebar.signOut", { defaultValue: "Sign out" })}
+                      </Button>
+                      <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
+                        <Link to={dashHref} onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button asChild variant="outline" size="lg" className="h-12 rounded-xl text-[15px]">
+                        <Link to="/auth" onClick={() => setOpen(false)}>{t("nav.signIn")}</Link>
+                      </Button>
+                      <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
+                        <Link to="/auth" onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </SheetContent>

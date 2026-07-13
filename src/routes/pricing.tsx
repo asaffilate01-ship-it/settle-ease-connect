@@ -20,7 +20,7 @@ export const Route = createFileRoute("/pricing")({
       { property: "og:title", content: "Pricing — BeistandPlus" },
       {
         property: "og:description",
-        content: "From €5/month solo. Family plans from €9/month. Case management from €25/month.",
+        content: "Basic €5/mo · Plus €10/mo · Complete €25/mo. Household discounts for couples and families. Third-party fees always separate.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

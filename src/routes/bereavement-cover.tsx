@@ -70,7 +70,7 @@ function BereavementCover() {
                 Group / association cover
               </Badge>
               <h2 className="display-lg mt-3 text-balance font-semibold">
-                Covering 10,000 members? Use a group Sterbegeld plan instead.
+                Covering 10,000 members? Use a group funeral cover plan (Sterbegeld) instead.
               </h2>
               <p className="mt-3 text-muted-foreground">
                 Associations, employers and communities can hold one policy as the single

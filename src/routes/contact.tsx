@@ -49,16 +49,16 @@ function Contact() {
         >
           <div className="grid gap-4">
             <div>
-              <label className="text-sm font-medium">{t("pages.contact.name")}</label>
-              <Input required placeholder={t("pages.contact.namePh")} className="mt-1" />
+              <label htmlFor="contact-name" className="text-sm font-medium">{t("pages.contact.name")}</label>
+              <Input id="contact-name" required placeholder={t("pages.contact.namePh")} className="mt-1" />
             </div>
             <div>
-              <label className="text-sm font-medium">{t("pages.contact.email")}</label>
-              <Input required type="email" placeholder="you@example.com" className="mt-1" />
+              <label htmlFor="contact-email" className="text-sm font-medium">{t("pages.contact.email")}</label>
+              <Input id="contact-email" required type="email" placeholder="you@example.com" className="mt-1" />
             </div>
             <div>
-              <label className="text-sm font-medium">{t("pages.contact.message")}</label>
-              <Textarea required placeholder={t("pages.contact.messagePh")} className="mt-1 min-h-32" />
+              <label htmlFor="contact-message" className="text-sm font-medium">{t("pages.contact.message")}</label>
+              <Textarea id="contact-message" required placeholder={t("pages.contact.messagePh")} className="mt-1 min-h-32" />
             </div>
             <Button type="submit" className="bg-gradient-primary">{t("pages.contact.send")}</Button>
           </div>

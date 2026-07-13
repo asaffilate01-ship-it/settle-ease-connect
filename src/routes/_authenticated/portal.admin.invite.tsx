@@ -147,13 +147,16 @@ function AdminInvitePage() {
         )}
       </div>
 
-      <div className="rounded-2xl border border-dashed border-border/60 bg-parchment/60 p-4 text-xs text-muted-foreground">
-        <strong>Dummy seed accounts</strong> — sign up with any of these emails to get the role instantly:
-        <code className="ml-2 rounded bg-muted px-1.5 py-0.5">admin@beistand.de</code>
-        <code className="ml-2 rounded bg-muted px-1.5 py-0.5">staff@beistand.de</code>
-        <code className="ml-2 rounded bg-muted px-1.5 py-0.5">manager@beistand.de</code>
-        <code className="ml-2 rounded bg-muted px-1.5 py-0.5">expert@beistand.de</code>
-      </div>
+      {import.meta.env.DEV && (
+        <div className="rounded-2xl border border-dashed border-border/60 bg-parchment/60 p-4 text-xs text-muted-foreground">
+          <strong>Dev-only seed accounts</strong> — sign up with any of these emails on the dev preview to get the role instantly:
+          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">admin@beistand.de</code>
+          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">staff@beistand.de</code>
+          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">manager@beistand.de</code>
+          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">expert@beistand.de</code>
+          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">agent@beistand.de</code>
+        </div>
+      )}
     </div>
   );
 }
