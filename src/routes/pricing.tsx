@@ -215,7 +215,7 @@ function Pricing() {
               ))}
             </ul>
             <Button asChild variant="outline" className="mt-6 border-teal/40 text-foreground hover:bg-teal/10">
-              <Link to="/auth">Start free</Link>
+              <Link to="/auth">{t("pages.pricing.startFree")}</Link>
             </Button>
             <div className="mt-3 text-[11px] text-muted-foreground">
               Refugees, asylum seekers and Bürgergeld recipients — Community stays free for as long as
