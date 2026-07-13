@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
-import { Building2, Church, Landmark, Hospital, Plane, Scale, Shield, Car, Baby, Heart, GraduationCap, Home } from "lucide-react";
+import { Building2, Church, Landmark, Hospital, Plane, Scale, Car, Baby, Heart, GraduationCap, Home } from "lucide-react";
 
 export const Route = createFileRoute("/for-providers")({
   head: () => ({
@@ -107,18 +107,6 @@ const portals: Array<{
       "Fixed-fee or hourly billing through the platform",
     ],
     serves: "Migrants, expats and bereaved next of kin",
-  },
-  {
-    icon: Shield,
-    title: "Insurance providers",
-    desc: "Sterbegeld, life, health and liability cover matched at the right life stage.",
-    features: [
-      "Life-event triggers (birth, marriage, arrival, bereavement)",
-      "Multi-language quote and application flow",
-      "Broker-grade needs assessment by our advisors",
-      "Policy documents stored in the family vault",
-    ],
-    serves: "Households on Plus and Complete plans",
   },
   {
     icon: Car,
