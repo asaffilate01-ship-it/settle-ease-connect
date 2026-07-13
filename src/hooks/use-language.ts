@@ -48,9 +48,6 @@ export function useLanguage() {
     // Only run once after mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-    // Only run once after mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
 
 
