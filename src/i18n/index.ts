@@ -49,26 +49,24 @@ const resources = {
 } as const;
 
 if (!i18n.isInitialized) {
-  // On the server render with the default language; the client-side detector
-  // re-runs after hydration and switches once we know the user's preference.
-  const isBrowser = typeof window !== "undefined";
-  const chain = i18n.use(initReactI18next);
-  if (isBrowser) chain.use(LanguageDetector);
-  chain.init({
-    resources,
-    lng: isBrowser ? undefined : DEFAULT_LANG,
-    fallbackLng: DEFAULT_LANG,
-    supportedLngs: LANGUAGES.map((l) => l.code),
-    defaultNS: "common",
-    ns: ["common"],
-    interpolation: { escapeValue: false },
-    detection: {
-      order: ["localStorage", "navigator", "htmlTag"],
-      lookupLocalStorage: "beistand.lang",
-      caches: ["localStorage"],
-    },
-    react: { useSuspense: false },
-  });
+  // Always initialise with the default language so the server HTML and the
+  // first client render match. A useEffect in <LanguageBridge> reads the
+  // saved / detected preference AFTER hydration and calls changeLanguage,
+  // avoiding React hydration mismatches (e.g. server rendered "Services"
+  // while client hydrated as "خدمات").
+  i18n
+    .use(initReactI18next)
+    .init({
+      resources,
+      lng: DEFAULT_LANG,
+      fallbackLng: DEFAULT_LANG,
+      supportedLngs: LANGUAGES.map((l) => l.code),
+      defaultNS: "common",
+      ns: ["common"],
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
 }
+
 
 export default i18n;
