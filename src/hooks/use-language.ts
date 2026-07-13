@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import "@/i18n";
+import appI18n from "@/i18n";
 import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
 import { bootAutoTranslate } from "@/lib/auto-translate";
 
@@ -8,25 +7,45 @@ import { bootAutoTranslate } from "@/lib/auto-translate";
 const STORAGE_KEY = "beistand.lang";
 const ONBOARDING_KEY = "beistand.lang.chosen";
 
+function getSafeI18n() {
+  return appI18n && typeof appI18n.changeLanguage === "function" ? appI18n : null;
+}
+
+function changeLanguageSafely(next: LangCode) {
+  const safeI18n = getSafeI18n();
+  if (!safeI18n) return false;
+
+  try {
+    void Promise.resolve(safeI18n.changeLanguage(next)).catch((err) => {
+      console.warn("i18n.changeLanguage failed", err);
+    });
+    return true;
+  } catch (err) {
+    console.warn("i18n.changeLanguage failed", err);
+    return false;
+  }
+}
+
 export function useLanguage() {
-  const { i18n } = useTranslation();
-  const [lang, setLangState] = useState<LangCode>((i18n.language as LangCode) || "en");
+  const [lang, setLangState] = useState<LangCode>((appI18n.language as LangCode) || "en");
 
   useEffect(() => {
-    if (!i18n || typeof i18n.on !== "function") return;
+    const safeI18n = getSafeI18n();
+    if (!safeI18n || typeof safeI18n.on !== "function") return;
     const handler = (l: string) => setLangState(l as LangCode);
-    i18n.on("languageChanged", handler);
+    safeI18n.on("languageChanged", handler);
     return () => {
-      i18n.off?.("languageChanged", handler);
+      safeI18n.off?.("languageChanged", handler);
     };
-  }, [i18n]);
+  }, []);
 
   // After hydration, apply the user's saved language preference. Doing this
   // in useEffect (not during init) ensures the first client render matches
   // the SSR HTML (always DEFAULT_LANG) and prevents hydration mismatches.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!i18n || typeof i18n.changeLanguage !== "function") return;
+    const safeI18n = getSafeI18n();
+    if (!safeI18n) return;
     let saved: string | null = null;
     try {
       saved = localStorage.getItem(STORAGE_KEY);
@@ -38,12 +57,8 @@ export function useLanguage() {
       const match = LANGUAGES.find((l) => l.code === nav || l.code.startsWith(nav ?? ""));
       saved = match?.code ?? null;
     }
-    if (saved && saved !== i18n.language && LANGUAGES.some((l) => l.code === saved)) {
-      try {
-        void i18n.changeLanguage(saved);
-      } catch (err) {
-        console.warn("i18n.changeLanguage failed", err);
-      }
+    if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
+      changeLanguageSafely(saved as LangCode);
     }
     // Only run once after mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,13 +76,7 @@ export function useLanguage() {
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
-    if (i18n && typeof i18n.changeLanguage === "function") {
-      try {
-        void i18n.changeLanguage(next);
-      } catch (err) {
-        console.warn("i18n.changeLanguage failed", err);
-      }
-    } else {
+    if (!changeLanguageSafely(next)) {
       setLangState(next);
     }
     try {
