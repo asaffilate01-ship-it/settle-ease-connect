@@ -265,14 +265,14 @@ function Services() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-3">
           {[
-            { k: "Human first", v: "Real case managers in Berlin, Hamburg, München and Köln — every case answered by a person, not a bot." },
-            { k: "GDPR-native", v: "Your documents live in an encrypted vault, hosted in Germany, with deputy access for illness or bereavement." },
-            { k: "One transparent bill", v: "Subscription for our work, at-cost for third-party fees, and full visibility of every euro." },
-          ].map((t) => (
-            <div key={t.k}>
+            { k: t("pages.services.trustHuman"), v: t("pages.services.trustHumanBody") },
+            { k: t("pages.services.trustGdpr"), v: t("pages.services.trustGdprBody") },
+            { k: t("pages.services.trustBill"), v: t("pages.services.trustBillBody") },
+          ].map((item) => (
+            <div key={item.k}>
               <div className="h-px w-10 bg-accent" />
-              <div className="mt-5 font-display text-xl text-foreground">{t.k}</div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.v}</p>
+              <div className="mt-5 font-display text-xl text-foreground">{item.k}</div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.v}</p>
             </div>
           ))}
         </div>
