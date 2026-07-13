@@ -484,9 +484,9 @@ function BereavementAddOn() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/80">
             Optional add-on
           </div>
-          <h3 className="display-md mt-2 font-semibold">Bereavement cover — flat €10,000 per adult</h3>
+          <h3 className="display-md mt-2 font-semibold">Funeral cover — flat €20,000 per adult</h3>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Add regulated bereavement cover (regulated under German law) to any plan. Flat €10,000 sum
+            Add regulated funeral cover (regulated under German law) to any plan. Flat €20,000 sum
             per adult, no health questions, funeral director settled directly and any balance
             transferred to your nominated beneficiary. Prices below are indicative — the final rate
             is confirmed on enrolment.
