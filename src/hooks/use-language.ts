@@ -11,12 +11,14 @@ export function useLanguage() {
   const [lang, setLangState] = useState<LangCode>((i18n.language as LangCode) || "en");
 
   useEffect(() => {
+    if (!i18n || typeof i18n.on !== "function") return;
     const handler = (l: string) => setLangState(l as LangCode);
     i18n.on("languageChanged", handler);
     return () => {
-      i18n.off("languageChanged", handler);
+      i18n.off?.("languageChanged", handler);
     };
   }, [i18n]);
+
 
   // Sync <html lang> and <html dir> whenever language changes, and kick off
   // the DOM-wide auto-translator for anything not covered by i18next keys.
