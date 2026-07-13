@@ -299,7 +299,7 @@ function Pricing() {
           })}
         </div>
 
-        {/* Bereavement cover add-on toggle */}
+        {/* Funeral cover add-on toggle */}
         <BereavementAddOn />
 
         {/* Trust link */}
