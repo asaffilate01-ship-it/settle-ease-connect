@@ -40,6 +40,7 @@ const nav: NavItem[] = [
   { to: "/app/location", labelKey: "sidebar.location", icon: "providers", audience: "any" },
   { to: "/app/alert", labelKey: "sidebar.alert", icon: "bug", audience: "any" },
   { to: "/app/upgrade", labelKey: "sidebar.upgrade", icon: "benefits", audience: "client" },
+  { to: "/app/student-discount", labelKey: "sidebar.studentDiscount", icon: "benefits", audience: "client" },
   { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
