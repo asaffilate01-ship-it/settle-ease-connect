@@ -134,15 +134,15 @@ const PRODUCTS: Product[] = [
   {
     key: "bereavement",
     name: "Family bereavement cover",
-    tagline: "€20,000 DELA cover — funeral settled directly, balance to family.",
+    tagline: "€20,000 cover — full costs of funeral, burial or last rites and repatriation settled directly, balance to the nominated beneficiary.",
     from: "from €24 / mo",
     icon: Flower2,
     bullets: [
-      "€20,000 DELA benefit per adult · children under 20 free",
+      "€20,000 benefit per adult · children under 20 free",
       "Repatriation to home country included",
-      "Around €14,000 balance paid to your nominated beneficiary",
+      "Any balance paid to your nominated beneficiary",
     ],
-    partner: "DELA · Monuta · Nürnberger",
+    partner: "Regulated German Sterbegeld panel",
   },
   {
     key: "pet",
