@@ -7,7 +7,6 @@ import { GroupCoverIntake } from "@/components/group-cover-intake";
 import {
   Building2,
   Users,
-  Wallet,
   Clock,
   ShieldCheck,
   HeartHandshake,
@@ -133,10 +132,9 @@ function GroupCoverPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Stat icon={ShieldCheck} label="100% acceptance" value="All members" note="Risk spread across the pool" />
           <Stat icon={Clock} label="Waiting period" value="0 months" note="Waived at group scale" />
-          <Stat icon={Wallet} label="Wholesale discount" value="15–30%" note="Below consumer rates" />
           <Stat icon={Users} label="Free child cover" value="Under 20" note="Cooperative rider" />
         </div>
       </section>
@@ -147,7 +145,6 @@ function GroupCoverPage() {
           {[
             "100% guaranteed collective acceptance — chronic illness or pre-existing conditions never trigger a premium hike or rejection.",
             "Waiting period waived: retail plans without health checks enforce 6–36 months; a group block of thousands of lives lets an institutional broker negotiate 0 months for the initial enrollment.",
-            "Wholesale bulk discount of 15–30% versus retail — no acquisition or marketing cost baked into the group premium.",
             "One monthly bulk invoice from the cover provider. One SEPA batch from your treasury. Fluctuation clause handles joiners and leavers automatically.",
             "Mutuals (VVaG) have no shareholders — surplus flows back into the pool as premium buffers.",
             "Multilingual case manager, direct funeral settlement, fiduciary balance to the family — all inside BeistandPlus.",
