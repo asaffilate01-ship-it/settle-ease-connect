@@ -50,30 +50,26 @@ const tiers = [
   {
     title: "Tier 1 · Single member",
     icon: <Users className="h-5 w-5" />,
-    detail: "Adults 18–75, one insured life, €20,000 payout.",
-    example: "Age 30: ~€21–23/mo retail · Age 55: ~€60–70/mo · Age 75: ~€150–180/mo",
-    subsidised: "After 15–30% group discount: typically 20–30% cheaper across every age band.",
+    detail: "One insured adult (18–75), €20,000 flat payout.",
+    note: "Structure only — the per-member rate is set by the broker tender for your pool.",
   },
   {
     title: "Tier 2 · Couple",
     icon: <HeartHandshake className="h-5 w-5" />,
-    detail: "Both adults on the group tariff at their respective ages, €20k each.",
-    example: "Father 35 (~€25) + Mother 30 (~€22) ≈ €47/mo retail baseline.",
-    subsidised: "Group frame: ~€33–40/mo for the couple after institutional discount.",
+    detail: "Both adults on the group frame, €20,000 payout each.",
+    note: "Structure only — the couple rate comes back with the tender bids.",
   },
   {
     title: "Tier 3 · Family",
     icon: <Building2 className="h-5 w-5" />,
-    detail: "2 adults + up to 3 children under 20 — kids co-insured free on the family tarif.",
-    example: "Same €47/mo as the couple tier — children add €0 at the €3k baseline.",
-    subsidised:
-      "Broker negotiates a rider to lift the child payout from €3k to the full €20k for a small top-up.",
+    detail: "2 adults + up to 3 children under 20 — children co-insured on the family tarif.",
+    note: "Structure only — child payout level and the family rate are set in the tender.",
   },
 ];
 
 const flatRate = [
-  "€35 flat / member / month across the whole pool (blended rate)",
-  "Younger members subsidise older ones — actuarially balanced",
+  "One blended flat rate across the whole pool — every member pays the same",
+  "Actuarially balanced across ages — the broker calculates the rate from your member roster",
   "One SEPA-Corporate mandate per member, one bulk wire to the cover provider",
   "Fluctuation clause: monthly CSV updates auto-adjust the global invoice",
 ];
@@ -167,8 +163,9 @@ function GroupCoverPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <h2 className="display-lg font-semibold">Three-tier member structure</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          A clean pricing spine that maps onto how households actually look. Broker negotiates the
-          final group tariff — the ranges below are retail baselines before institutional discount.
+          A clean pricing spine that maps onto how households actually look. The final per-member
+          rate is confirmed by the broker tender for your pool — we don't quote premium estimates
+          up front.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {tiers.map((t) => (
@@ -179,13 +176,9 @@ function GroupCoverPage() {
               </div>
               <div className="mt-2 font-display text-lg font-semibold">{t.title.split("·")[1]?.trim()}</div>
               <p className="mt-2 text-sm text-muted-foreground">{t.detail}</p>
-              <div className="mt-3 rounded-md bg-parchment/50 p-3 text-xs">
-                <div className="font-semibold text-foreground">Retail example</div>
-                <div className="mt-1 text-muted-foreground">{t.example}</div>
-              </div>
               <div className="mt-3 rounded-md border border-primary/20 bg-accent/20 p-3 text-xs">
-                <div className="font-semibold text-foreground">In a group frame</div>
-                <div className="mt-1 text-muted-foreground">{t.subsidised}</div>
+                <div className="font-semibold text-foreground">How pricing is set</div>
+                <div className="mt-1 text-muted-foreground">{t.note}</div>
               </div>
             </Card>
           ))}

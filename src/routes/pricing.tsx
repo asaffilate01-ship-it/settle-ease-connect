@@ -299,6 +299,9 @@ function Pricing() {
           })}
         </div>
 
+        {/* Bereavement cover add-on toggle */}
+        <BereavementAddOn />
+
         {/* Trust link */}
         <div className="mt-8 text-center text-sm text-muted-foreground">
           Every plan is backed by our{" "}
@@ -430,3 +433,117 @@ function Row({ label, note }: { label: string; note: string }) {
     </div>
   );
 }
+
+type CoverBandKey = "individual" | "student" | "small_family" | "large_family";
+const COVER_BANDS: {
+  key: CoverBandKey;
+  label: string;
+  household: string;
+  addOnEur: number;
+  icon: React.ReactNode;
+}[] = [
+  {
+    key: "individual",
+    label: "Individual",
+    household: "1 adult · €10,000 payout",
+    addOnEur: 8,
+    icon: <User className="h-4 w-4" />,
+  },
+  {
+    key: "student",
+    label: "Student",
+    household: "1 adult · €10,000 payout · verified student ID",
+    addOnEur: 5,
+    icon: <GraduationCap className="h-4 w-4" />,
+  },
+  {
+    key: "small_family",
+    label: "Small family",
+    household: "Up to 2 adults + 3 children · €10,000 per adult · children co-covered",
+    addOnEur: 14,
+    icon: <Users className="h-4 w-4" />,
+  },
+  {
+    key: "large_family",
+    label: "Large family",
+    household: "Up to 4 adults + 3 children · €10,000 per adult · children co-covered",
+    addOnEur: 26,
+    icon: <HeartHandshake className="h-4 w-4" />,
+  },
+];
+
+function BereavementAddOn() {
+  const [enabled, setEnabled] = useState(false);
+  const [band, setBand] = useState<CoverBandKey>("small_family");
+  const active = COVER_BANDS.find((b) => b.key === band)!;
+
+  return (
+    <div className="mt-12 rounded-2xl border border-primary/30 bg-card p-6 shadow-soft sm:p-8">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/80">
+            Optional add-on
+          </div>
+          <h3 className="display-md mt-2 font-semibold">Bereavement cover — flat €10,000 per adult</h3>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            Add regulated bereavement cover (regulated under German law) to any plan. Flat €10,000 sum
+            per adult, no health questions, funeral director settled directly and any balance
+            transferred to your nominated beneficiary. Prices below are indicative — the final rate
+            is confirmed on enrolment.
+          </p>
+        </div>
+        <label className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-parchment/60 px-3 py-2 text-sm font-medium">
+          <input
+            type="checkbox"
+            className="h-4 w-4 accent-primary"
+            checked={enabled}
+            onChange={(e) => setEnabled(e.target.checked)}
+          />
+          {enabled ? "Add-on selected" : "Add cover to my plan"}
+        </label>
+      </div>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {COVER_BANDS.map((b) => {
+          const isActive = b.key === band;
+          return (
+            <button
+              key={b.key}
+              type="button"
+              onClick={() => setBand(b.key)}
+              className={`flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition ${
+                isActive
+                  ? "border-primary bg-accent/20 shadow-soft"
+                  : "border-border/60 bg-card hover:border-primary/40"
+              }`}
+            >
+              <div className="flex items-center gap-2 text-primary">
+                {b.icon}
+                <span className="text-xs font-semibold uppercase tracking-widest">{b.label}</span>
+              </div>
+              <div className="font-display text-2xl font-semibold">
+                +€{b.addOnEur}
+                <span className="ml-1 text-xs font-normal text-muted-foreground">/ month</span>
+              </div>
+              <div className="text-xs text-muted-foreground">{b.household}</div>
+            </button>
+          );
+        })}
+      </div>
+
+      {enabled && (
+        <div className="mt-4 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
+          <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
+          {active.addOnEur}/mo added to your BeistandPlus plan. Payout: €10,000 per insured adult,
+          paid directly to the funeral director with the balance to your nominated beneficiary.
+        </div>
+      )}
+
+      <div className="mt-3 text-[11px] text-muted-foreground">
+        Cover regulated under German law. Add-on price is billed alongside your BeistandPlus
+        subscription; children are co-covered on the family bands at no extra premium.
+      </div>
+    </div>
+  );
+}
+
