@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
 const CASE_TYPES = [
   "bereavement","visa_application","visa_extension","nationality","family_reunification",
@@ -9,6 +11,45 @@ const CASE_TYPES = [
 const CASE_STATUSES = [
   "new","triage","in_progress","awaiting_client","awaiting_expert","on_hold","completed","closed","cancelled",
 ] as const;
+
+type PlanGroup = "none" | "basic" | "plus" | "complete";
+const PLAN_RANK: Record<PlanGroup, number> = { none: 0, basic: 1, plus: 2, complete: 3 };
+
+async function getActivePlanGroup(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+): Promise<PlanGroup> {
+  const { data: sub } = await supabase
+    .from("subscriptions")
+    .select("plan_code, status")
+    .eq("user_id", userId)
+    .in("status", ["active", "trialing", "past_due"])
+    .order("current_period_end", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (!sub?.plan_code) return "none";
+  const { data: plan } = await supabase
+    .from("subscription_plans")
+    .select("plan_group")
+    .eq("code", sub.plan_code)
+    .maybeSingle();
+  const g = (plan?.plan_group as PlanGroup | undefined) ?? "basic";
+  return g;
+}
+
+async function requirePlan(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  required: PlanGroup,
+) {
+  const current = await getActivePlanGroup(supabase, userId);
+  if (PLAN_RANK[current] < PLAN_RANK[required]) {
+    throw new Error(
+      `This feature requires the ${required} plan. Please upgrade to continue.`,
+    );
+  }
+}
+
 
 export const listCases = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -66,6 +107,13 @@ export const createCase = createServerFn({ method: "POST" })
     }).parse(d),
   )
   .handler(async ({ data, context }) => {
+    // Enforce paid-tier gating server-side. Client-side Paywall is UX only.
+    const { data: isInternal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
+    if (!isInternal) {
+      await requirePlan(context.supabase, context.userId, "complete");
+    }
     const { data: row, error } = await context.supabase
       .from("cases")
       .insert({ ...data, client_user_id: context.userId })
@@ -103,6 +151,13 @@ export const sendCaseMessage = createServerFn({ method: "POST" })
     }).parse(d),
   )
   .handler(async ({ data, context }) => {
+    // Non-internal callers must hold an active Complete-tier subscription.
+    const { data: isInternal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
+    if (!isInternal) {
+      await requirePlan(context.supabase, context.userId, "complete");
+    }
     const { data: row, error } = await context.supabase
       .from("case_messages")
       .insert({ ...data, sender_user_id: context.userId })
