@@ -63,6 +63,90 @@
     "insuranceOps": "Operacionet e sigurimit",
     "immigrationOps": "Operacionet e imigracionit",
     "audit": "Auditimi",
-    "signOut": "Dil"
+    "signOut": "Dil",
+    "agent": "Agjent",
+    "agentOverview": "Pasqyra e agjentit",
+    "agentClients": "Klientët e mi",
+    "agentCommissions": "Komisionet",
+    "agentLink": "Lidhja e referimit"
+  },
+  "agent": {
+    "defaultName": "Agjent",
+    "shortLabel": "Agjent",
+    "portalLabel": "Portali i agjentit",
+    "recurringBadge": "Agjent · {{rate}}% i përsëritur",
+    "nav": {
+      "overview": "Pasqyrë",
+      "clients": "Klientët e mi",
+      "commissions": "Komisionet",
+      "link": "Lidhja e referimit"
+    },
+    "home": {
+      "welcome": "Mirë se vini",
+      "welcomeNamed": "Mirë se vini, {{name}}",
+      "tagline": "Shisni abonime dhe mbulim funerali. Fitoni {{rate}}% të përsëritur për çdo klient të referuar.",
+      "recent": "Referimet e fundit",
+      "emptyReferrals": "Nuk ka referime ende. Ndani lidhjen tuaj nga skeda \"Lidhja e referimit\"."
+    },
+    "kpi": {
+      "clients": "Klientë",
+      "thisMonth": "Këtë muaj",
+      "pending": "Në pritje",
+      "paid": "Paguar deri më sot"
+    },
+    "table": {
+      "when": "Kur",
+      "email": "Email",
+      "product": "Produkti",
+      "source": "Burimi",
+      "status": "Statusi"
+    },
+    "products": {
+      "basic": "Abonim — Basic €5/muaj",
+      "plus": "Abonim — Plus €10/muaj",
+      "complete": "Abonim — Complete €25/muaj",
+      "funeral": "Mbulim funerali",
+      "group": "Mbulim grupi"
+    },
+    "clients": {
+      "title": "Klientët e mi",
+      "subtitle": "Çdo abonim që shisni, fitoni {{rate}}% të tarifës mujore, për aq kohë sa klienti qëndron me ne. Shënim: ne shesim mbulim funerali, jo sigurim funerali.",
+      "logNew": "Regjistro një referim të ri",
+      "emailLabel": "Email-i i klientit",
+      "productLabel": "Produkti",
+      "notesLabel": "Shënime (opsionale)",
+      "notesPh": "Gjuha, qyteti, data e ndjekjes…",
+      "saving": "Po ruaj…",
+      "submit": "Regjistro referimin",
+      "all": "Të gjitha referimet",
+      "empty": "Nuk ka referime ende.",
+      "logged": "Referimi u regjistrua",
+      "saveFail": "Nuk mund të ruhej"
+    },
+    "commissions": {
+      "title": "Komisionet",
+      "subtitle": "Paguar çdo muaj, e llogaritur si {{rate}}% e tarifës mujore të abonimit për çdo klient që keni referuar. Kostot e palëve të treta (sigurimi, mbulimi funerali) përjashtohen nga baza e komisionit.",
+      "period": "Periudha",
+      "gross": "Bruto",
+      "rate": "Norma",
+      "commission": "Komisioni",
+      "paidAt": "Paguar në",
+      "empty": "Nuk ka komisione ende — ato shfaqen pasi të faturohet abonimi i klientit tuaj të parë të referuar."
+    },
+    "link": {
+      "title": "Lidhja juaj e referimit",
+      "subtitle": "Kushdo që regjistrohet brenda 60 ditëve pas klikimit të lidhjes suaj i atribuohet juve.",
+      "codeLine": "Kodi juaj unik është",
+      "universal": "Lidhja universale",
+      "funeral": "Mbulim funerali",
+      "group": "Mbulim grupi",
+      "copy": "Kopjo",
+      "copied": "Kopjuar",
+      "copyFail": "Kopjimi dështoi",
+      "tips": "Këshilla për shitje",
+      "tip1": "Gjithmonë thuaj mbulim funerali — asnjëherë sigurim funerali. Është një plan kursimi dhe rregullimi, jo një produkt sigurimi i rregulluar.",
+      "tip2": "Nivelet e abonimeve: Basic €5, Plus €10, Complete €25 në muaj (familje).",
+      "tip3": "Ju fitoni {{rate}}% të përsëritur, për aq kohë sa klienti qëndron i abonuar."
+    }
   }
 }

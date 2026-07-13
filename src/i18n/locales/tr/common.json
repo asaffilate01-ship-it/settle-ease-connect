@@ -72,7 +72,12 @@
     "insuranceOps": "Sigorta operasyonları",
     "immigrationOps": "Göç operasyonları",
     "audit": "Denetim",
-    "signOut": "Çıkış yap"
+    "signOut": "Çıkış yap",
+    "agent": "Acenta",
+    "agentOverview": "Acenta genel bakışı",
+    "agentClients": "Müşterilerim",
+    "agentCommissions": "Komisyonlar",
+    "agentLink": "Referans bağlantısı"
   },
   "language": {
     "label": "Dil",
@@ -143,5 +148,84 @@
   "hero": {
     "headlinePrefix": "Her yol için",
     "headlineHighlight": "Almanya"
+  },
+  "agent": {
+    "defaultName": "Agent",
+    "shortLabel": "Agent",
+    "portalLabel": "Acenta portalı",
+    "recurringBadge": "Acenta · %{{rate}} tekrarlayan",
+    "nav": {
+      "overview": "Genel Bakış",
+      "clients": "Müşterilerim",
+      "commissions": "Komisyonlar",
+      "link": "Referans bağlantısı"
+    },
+    "home": {
+      "welcome": "Hoş geldiniz",
+      "welcomeNamed": "Hoş geldiniz, {{name}}",
+      "tagline": "Abonelik ve cenaze sigortası satın. Yönlendirdiğiniz her müşteri için %{{rate}} tekrarlayan kazanın.",
+      "recent": "Son referanslar",
+      "emptyReferrals": "Henüz referans yok. Bağlantınızı “Referans bağlantısı” sekmesinden paylaşın."
+    },
+    "kpi": {
+      "clients": "Müşteriler",
+      "thisMonth": "Bu ay",
+      "pending": "Beklemede",
+      "paid": "Bugüne kadar ödenen"
+    },
+    "table": {
+      "when": "Ne zaman",
+      "email": "E-posta",
+      "product": "Ürün",
+      "source": "Kaynak",
+      "status": "Durum"
+    },
+    "products": {
+      "basic": "Abonelik — Temel 5€/ay",
+      "plus": "Abonelik — Artı 10€/ay",
+      "complete": "Abonelik — Tam 25€/ay",
+      "funeral": "Cenaze sigortası",
+      "group": "Grup sigortası"
+    },
+    "clients": {
+      "title": "Müşterilerim",
+      "subtitle": "Sattığınız her abonelik, müşteri bizde kaldığı sürece aylık ücretin %{{rate}}'ini kazandırır. Not: Cenaze sigortası değil, cenaze sigortası satıyoruz.",
+      "logNew": "Yeni bir referans kaydet",
+      "emailLabel": "Müşteri e-postası",
+      "productLabel": "Ürün",
+      "notesLabel": "Notlar (isteğe bağlı)",
+      "notesPh": "Dil, şehir, takip tarihi…",
+      "saving": "Kaydediliyor…",
+      "submit": "Referansı kaydet",
+      "all": "Tüm referanslar",
+      "empty": "Henüz referans yok.",
+      "logged": "Referans kaydedildi",
+      "saveFail": "Kaydedilemedi"
+    },
+    "commissions": {
+      "title": "Komisyonlar",
+      "subtitle": "Aylık ödenir, yönlendirdiğiniz her müşteri için aylık abonelik ücretinin %{{rate}}'i olarak hesaplanır. Üçüncü taraf maliyetleri (sigorta, cenaze sigortası) komisyon tabanından hariç tutulur.",
+      "period": "Dönem",
+      "gross": "Brüt",
+      "rate": "Oran",
+      "commission": "Komisyon",
+      "paidAt": "Ödeme tarihi",
+      "empty": "Henüz komisyon yok — bunlar, ilk yönlendirilen müşterinizin aboneliği faturalandırıldıktan sonra görünür."
+    },
+    "link": {
+      "title": "Referans bağlantınız",
+      "subtitle": "Bağlantınıza tıkladıktan sonra 60 gün içinde kaydolan herkes size atfedilir.",
+      "codeLine": "Benzersiz kodunuz",
+      "universal": "Evrensel bağlantı",
+      "funeral": "Cenaze sigortası",
+      "group": "Grup sigortası",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "copyFail": "Kopyalama başarısız",
+      "tips": "Satış ipuçları",
+      "tip1": "Her zaman cenaze sigortası deyin — asla cenaze sigortası demeyin. Bu düzenlenmiş bir sigorta ürünü değil, birikim ve düzenleme planıdır.",
+      "tip2": "Abonelik katmanları: Temel 5€, Artı 10€, Tam 25€ aylık (hane).",
+      "tip3": "Müşteri abone kaldığı sürece %{{rate}} tekrarlayan kazanırsınız."
+    }
   }
 }

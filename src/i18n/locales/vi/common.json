@@ -63,6 +63,90 @@
     "insuranceOps": "Vận hành bảo hiểm",
     "immigrationOps": "Vận hành nhập cư",
     "audit": "Kiểm toán",
-    "signOut": "Đăng xuất"
+    "signOut": "Đăng xuất",
+    "agent": "Đại lý",
+    "agentOverview": "Tổng quan đại lý",
+    "agentClients": "Khách hàng của tôi",
+    "agentCommissions": "Hoa hồng",
+    "agentLink": "Liên kết giới thiệu"
+  },
+  "agent": {
+    "defaultName": "Đại lý",
+    "shortLabel": "Đại lý",
+    "portalLabel": "Cổng đại lý",
+    "recurringBadge": "Đại lý · {{rate}}% định kỳ",
+    "nav": {
+      "overview": "Tổng quan",
+      "clients": "Khách hàng của tôi",
+      "commissions": "Hoa hồng",
+      "link": "Liên kết giới thiệu"
+    },
+    "home": {
+      "welcome": "Chào mừng bạn",
+      "welcomeNamed": "Chào mừng, {{name}}",
+      "tagline": "Bán các gói đăng ký và bảo hiểm tang lễ. Kiếm {{rate}}% định kỳ trên mỗi khách hàng được giới thiệu.",
+      "recent": "Giới thiệu gần đây",
+      "emptyReferrals": "Chưa có lượt giới thiệu nào. Chia sẻ liên kết của bạn từ tab “Liên kết giới thiệu”."
+    },
+    "kpi": {
+      "clients": "Khách hàng",
+      "thisMonth": "Tháng này",
+      "pending": "Đang chờ xử lý",
+      "paid": "Đã thanh toán đến nay"
+    },
+    "table": {
+      "when": "Thời gian",
+      "email": "Email",
+      "product": "Sản phẩm",
+      "source": "Nguồn",
+      "status": "Trạng thái"
+    },
+    "products": {
+      "basic": "Gói đăng ký — Cơ bản €5/tháng",
+      "plus": "Gói đăng ký — Plus €10/tháng",
+      "complete": "Gói đăng ký — Hoàn chỉnh €25/tháng",
+      "funeral": "Bảo hiểm tang lễ",
+      "group": "Bảo hiểm nhóm"
+    },
+    "clients": {
+      "title": "Khách hàng của tôi",
+      "subtitle": "Mỗi gói đăng ký bạn bán sẽ kiếm được {{rate}}% phí hàng tháng, miễn là khách hàng tiếp tục sử dụng dịch vụ của chúng tôi. Lưu ý: chúng tôi bán bảo hiểm tang lễ, không phải bảo hiểm tang lễ.",
+      "logNew": "Ghi lại một lượt giới thiệu mới",
+      "emailLabel": "Email khách hàng",
+      "productLabel": "Sản phẩm",
+      "notesLabel": "Ghi chú (tùy chọn)",
+      "notesPh": "Ngôn ngữ, thành phố, ngày theo dõi…",
+      "saving": "Đang lưu…",
+      "submit": "Ghi lại lượt giới thiệu",
+      "all": "Tất cả các lượt giới thiệu",
+      "empty": "Chưa có lượt giới thiệu nào.",
+      "logged": "Đã ghi lại lượt giới thiệu",
+      "saveFail": "Không thể lưu"
+    },
+    "commissions": {
+      "title": "Hoa hồng",
+      "subtitle": "Được thanh toán hàng tháng, được tính bằng {{rate}}% phí đăng ký hàng tháng cho mỗi khách hàng bạn giới thiệu. Các chi phí của bên thứ ba (bảo hiểm, bảo hiểm tang lễ) được loại trừ khỏi cơ sở tính hoa hồng.",
+      "period": "Kỳ hạn",
+      "gross": "Tổng cộng",
+      "rate": "Tỷ lệ",
+      "commission": "Hoa hồng",
+      "paidAt": "Đã thanh toán vào",
+      "empty": "Chưa có hoa hồng nào — chúng sẽ xuất hiện sau khi gói đăng ký của khách hàng được giới thiệu đầu tiên của bạn được lập hóa đơn."
+    },
+    "link": {
+      "title": "Liên kết giới thiệu của bạn",
+      "subtitle": "Bất kỳ ai đăng ký trong vòng 60 ngày kể từ khi nhấp vào liên kết của bạn đều được tính cho bạn.",
+      "codeLine": "Mã duy nhất của bạn là",
+      "universal": "Liên kết phổ quát",
+      "funeral": "Bảo hiểm tang lễ",
+      "group": "Bảo hiểm nhóm",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép",
+      "copyFail": "Sao chép không thành công",
+      "tips": "Mẹo bán hàng",
+      "tip1": "Luôn nói bảo hiểm tang lễ — không bao giờ nói bảo hiểm tang lễ. Đây là một kế hoạch tiết kiệm và sắp xếp, không phải một sản phẩm bảo hiểm được quản lý.",
+      "tip2": "Các cấp đăng ký: Cơ bản €5, Plus €10, Hoàn chỉnh €25 mỗi tháng (gia đình).",
+      "tip3": "Bạn kiếm được {{rate}}% định kỳ, miễn là khách hàng vẫn đăng ký."
+    }
   }
 }

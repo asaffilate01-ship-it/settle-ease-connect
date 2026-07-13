@@ -63,6 +63,90 @@
     "insuranceOps": "Operacije osiguranja",
     "immigrationOps": "Operacije imigracije",
     "audit": "Revizija",
-    "signOut": "Odjava"
+    "signOut": "Odjava",
+    "agent": "Agent",
+    "agentOverview": "Pregled agenta",
+    "agentClients": "Moji klijenti",
+    "agentCommissions": "Provizije",
+    "agentLink": "Link za preporuku"
+  },
+  "agent": {
+    "defaultName": "Agent",
+    "shortLabel": "Agent",
+    "portalLabel": "Agent portal",
+    "recurringBadge": "Agent · {{rate}}% ponavljajuće",
+    "nav": {
+      "overview": "Pregled",
+      "clients": "Moji klijenti",
+      "commissions": "Provizije",
+      "link": "Link za preporuku"
+    },
+    "home": {
+      "welcome": "Dobrodošli",
+      "welcomeNamed": "Dobrodošli, {{name}}",
+      "tagline": "Prodajte pretplate i pogrebno osiguranje. Zaradite {{rate}}% ponavljajuće za svakog preporučenog klijenta.",
+      "recent": "Nedavne preporuke",
+      "emptyReferrals": "Još nema preporuka. Podijelite svoj link iz kartice „Link za preporuku”."
+    },
+    "kpi": {
+      "clients": "Klijenti",
+      "thisMonth": "Ovaj mjesec",
+      "pending": "Na čekanju",
+      "paid": "Plaćeno do danas"
+    },
+    "table": {
+      "when": "Kada",
+      "email": "Email",
+      "product": "Proizvod",
+      "source": "Izvor",
+      "status": "Status"
+    },
+    "products": {
+      "basic": "Pretplata — Osnovna €5/mj",
+      "plus": "Pretplata — Plus €10/mj",
+      "complete": "Pretplata — Potpuna €25/mj",
+      "funeral": "Pogrebno osiguranje",
+      "group": "Grupno osiguranje"
+    },
+    "clients": {
+      "title": "Moji klijenti",
+      "subtitle": "Svaka pretplata koju prodate donosi vam {{rate}}% mjesečne naknade, sve dok klijent ostaje s nama. Napomena: prodajemo pogrebno osiguranje, ne osiguranje za pogreb.",
+      "logNew": "Zabilježite novu preporuku",
+      "emailLabel": "Email klijenta",
+      "productLabel": "Proizvod",
+      "notesLabel": "Bilješke (opcionalno)",
+      "notesPh": "Jezik, grad, datum praćenja…",
+      "saving": "Spremanje…",
+      "submit": "Zabilježite preporuku",
+      "all": "Sve preporuke",
+      "empty": "Još nema preporuka.",
+      "logged": "Preporuka zabilježena",
+      "saveFail": "Spremanje nije uspjelo"
+    },
+    "commissions": {
+      "title": "Provizije",
+      "subtitle": "Plaćaju se mjesečno, izračunavaju se kao {{rate}}% mjesečne naknade za pretplatu za svakog klijenta kojeg ste preporučili. Troškovi trećih strana (osiguranje, pogrebno osiguranje) isključeni su iz osnovice provizije.",
+      "period": "Period",
+      "gross": "Bruto",
+      "rate": "Stopa",
+      "commission": "Provizija",
+      "paidAt": "Plaćeno",
+      "empty": "Još nema provizija — pojavit će se nakon što prva pretplata vašeg preporučenog klijenta bude naplaćena."
+    },
+    "link": {
+      "title": "Vaš link za preporuku",
+      "subtitle": "Svatko tko se prijavi unutar 60 dana od klika na vaš link pripisuje se vama.",
+      "codeLine": "Vaš jedinstveni kod je",
+      "universal": "Univerzalni link",
+      "funeral": "Pogrebno osiguranje",
+      "group": "Grupno osiguranje",
+      "copy": "Kopiraj",
+      "copied": "Kopirano",
+      "copyFail": "Kopiranje nije uspjelo",
+      "tips": "Savjeti za prodaju",
+      "tip1": "Uvijek recite pogrebno osiguranje — nikad osiguranje za pogreb. To je plan štednje i dogovora, a ne regulirani osigurateljni proizvod.",
+      "tip2": "Razina pretplate: Osnovna €5, Plus €10, Potpuna €25 mjesečno (kućanstvo).",
+      "tip3": "Zaradjujete {{rate}}% ponavljajuće, sve dok je klijent pretplaćen."
+    }
   }
 }
