@@ -246,14 +246,26 @@ export function SiteHeader() {
                 </nav>
 
                 <div className="safe-bottom border-t border-border/60 bg-background/95 px-4 pt-3 pb-4">
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button asChild variant="outline" size="lg" className="h-12 rounded-xl text-[15px]">
-                      <Link to="/app" onClick={() => setOpen(false)}>{t("nav.signIn")}</Link>
-                    </Button>
-                    <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
-                      <Link to="/app" onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
-                    </Button>
-                  </div>
+                  {isSignedIn ? (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button variant="outline" size="lg" className="h-12 rounded-xl text-[15px]" onClick={handleSignOut}>
+                        <LogOut className="me-2 h-4 w-4" />
+                        {t("sidebar.signOut", { defaultValue: "Sign out" })}
+                      </Button>
+                      <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
+                        <Link to={dashHref} onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button asChild variant="outline" size="lg" className="h-12 rounded-xl text-[15px]">
+                        <Link to="/auth" onClick={() => setOpen(false)}>{t("nav.signIn")}</Link>
+                      </Button>
+                      <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
+                        <Link to="/auth" onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </SheetContent>
