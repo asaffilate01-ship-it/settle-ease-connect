@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import appI18n from "@/i18n";
 import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
 import { bootAutoTranslate } from "@/lib/auto-translate";
@@ -28,7 +27,6 @@ function changeLanguageSafely(next: LangCode) {
 }
 
 export function useLanguage() {
-  const { i18n } = useTranslation();
   const [lang, setLangState] = useState<LangCode>((appI18n.language as LangCode) || "en");
 
   useEffect(() => {
