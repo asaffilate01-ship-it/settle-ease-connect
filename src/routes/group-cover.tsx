@@ -50,30 +50,26 @@ const tiers = [
   {
     title: "Tier 1 · Single member",
     icon: <Users className="h-5 w-5" />,
-    detail: "Adults 18–75, one insured life, €20,000 payout.",
-    example: "Age 30: ~€21–23/mo retail · Age 55: ~€60–70/mo · Age 75: ~€150–180/mo",
-    subsidised: "After 15–30% group discount: typically 20–30% cheaper across every age band.",
+    detail: "One insured adult (18–75), €20,000 flat payout.",
+    note: "Structure only — the per-member rate is set by the broker tender for your pool.",
   },
   {
     title: "Tier 2 · Couple",
     icon: <HeartHandshake className="h-5 w-5" />,
-    detail: "Both adults on the group tariff at their respective ages, €20k each.",
-    example: "Father 35 (~€25) + Mother 30 (~€22) ≈ €47/mo retail baseline.",
-    subsidised: "Group frame: ~€33–40/mo for the couple after institutional discount.",
+    detail: "Both adults on the group frame, €20,000 payout each.",
+    note: "Structure only — the couple rate comes back with the tender bids.",
   },
   {
     title: "Tier 3 · Family",
     icon: <Building2 className="h-5 w-5" />,
-    detail: "2 adults + up to 3 children under 20 — kids co-insured free on the family tarif.",
-    example: "Same €47/mo as the couple tier — children add €0 at the €3k baseline.",
-    subsidised:
-      "Broker negotiates a rider to lift the child payout from €3k to the full €20k for a small top-up.",
+    detail: "2 adults + up to 3 children under 20 — children co-insured on the family tarif.",
+    note: "Structure only — child payout level and the family rate are set in the tender.",
   },
 ];
 
 const flatRate = [
-  "€35 flat / member / month across the whole pool (blended rate)",
-  "Younger members subsidise older ones — actuarially balanced",
+  "One blended flat rate across the whole pool — every member pays the same",
+  "Actuarially balanced across ages — the broker calculates the rate from your member roster",
   "One SEPA-Corporate mandate per member, one bulk wire to the cover provider",
   "Fluctuation clause: monthly CSV updates auto-adjust the global invoice",
 ];
