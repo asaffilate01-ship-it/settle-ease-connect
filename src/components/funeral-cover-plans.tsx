@@ -160,17 +160,17 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         </table>
       </div>
       <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-        Ranges reflect published 2024–2025 rate tables from Monuta, DELA, Nürnberger, IDEAL and HanseMerkur
-        for non-smokers with no waiting period. Actual premium depends on age, health declaration, smoker
-        status and chosen waiting period; children under 18 are included at no additional premium on the
-        family and extended-family tarifs. Not a binding quote — the licensed partner insurer issues the
-        offer.
+        Ranges reflect published 2024–2025 rate tables from DELA, Monuta, Nürnberger, IDEAL and HanseMerkur
+        for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health
+        declaration, smoker status and chosen waiting period; children under 20 are included at no
+        additional premium on the family and extended-family DELA tarifs. Not a binding quote — the
+        licensed partner insurer issues the offer.
       </p>
 
       {!compact && (
         <>
           <div className="mt-8">
-            <h3 className="font-display text-xl font-semibold">What the €8,000 covers — via BeistandPlus</h3>
+            <h3 className="font-display text-xl font-semibold">What the €20,000 covers — via BeistandPlus</h3>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {COVERAGE.map((c) => (
                 <div key={c} className="flex items-start gap-2">
@@ -182,9 +182,10 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
           </div>
 
           <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent/20 p-4 text-sm">
-            <strong className="text-foreground">Example:</strong> On a claim, the insurer settles the funeral
-            invoices in full and{" "}
-            <strong className="text-foreground">any balance remaining after costs is paid to the named beneficiary</strong>.
+            <strong className="text-foreground">Example:</strong> On a typical €6,000 funeral, the insurer
+            settles every invoice in full and{" "}
+            <strong className="text-foreground">around €14,000 is paid to the named beneficiary</strong>{" "}
+            within 14 days — usable for rent, counseling, repatriation add-ons or immediate living expenses.
           </div>
 
         </>
