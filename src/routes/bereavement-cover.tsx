@@ -9,8 +9,8 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/bereavement-cover")({
   head: () => ({
     meta: [
-      { title: "Bereavement Cover — €10,000 Sterbegeld | BeistandPlus" },
-      { name: "description", content: "Bereavement insurance from €12/month. €10,000 benefit paid directly to funeral directors, balance to your beneficiary — in Germany or abroad." },
+      { title: "Bereavement Cover — €8,000 Sterbegeld | BeistandPlus" },
+      { name: "description", content: "Bereavement insurance from €12/month. €8,000 benefit paid directly to funeral directors, balance to your beneficiary — in Germany or abroad." },
       { property: "og:title", content: "Bereavement Cover — BeistandPlus" },
       { property: "og:description", content: "Full funeral costs covered. Direct payment to funeral directors, transparent invoicing, balance to beneficiary." },
     ],
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/bereavement-cover")({
 });
 
 const includes = [
-  "€10,000 default benefit (adjustable €2k–€20k)",
+  "€8,000 default benefit (adjustable €2k–€8k)",
   "Direct payment to funeral director — no upfront cost to family",
   "Transparent line-item invoicing throughout",
   "Balance paid to named beneficiary via SEPA",
@@ -48,7 +48,7 @@ function BereavementCover() {
           Bereavement cover, done properly.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          €10,000 paid directly to the funeral director. Any balance goes to your named beneficiary
+          €8,000 paid directly to the funeral director. Any balance goes to your named beneficiary
           in Germany or abroad. Estimate your premium below — a case manager takes it from there.
         </p>
       </section>
