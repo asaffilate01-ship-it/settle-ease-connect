@@ -167,6 +167,16 @@ function RootComponent() {
       return false;
     });
     installOfflineQueue();
+
+    // Capture ?ref=<agent_code> for attribution (60-day window).
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get("ref");
+      if (ref && /^[a-zA-Z0-9_-]{3,32}$/.test(ref)) {
+        document.cookie = `bp_ref=${encodeURIComponent(ref)}; Max-Age=${60 * 24 * 60 * 60}; Path=/; SameSite=Lax`;
+        try { localStorage.setItem("bp_ref", ref); } catch { /* ignore */ }
+      }
+    } catch { /* ignore */ }
     return () => {
       mounted = false;
       unsubscribe?.();

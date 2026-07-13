@@ -32,7 +32,8 @@ export type AppRole =
   | "temple"
   | "hospital"
   | "beneficiary"
-  | "family";
+  | "family"
+  | "agent";
 
 export function useCurrentUser() {
   const [user, setUser] = useState<User | null>(null);

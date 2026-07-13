@@ -42,8 +42,10 @@ import { Route as DirectoryListYourBusinessRouteImport } from './routes/director
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as AuthenticatedAgentRouteImport } from './routes/_authenticated/agent'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
@@ -71,6 +73,9 @@ import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
+import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authenticated/agent.link'
+import { Route as AuthenticatedAgentCommissionsRouteImport } from './routes/_authenticated/agent.commissions'
+import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
@@ -245,6 +250,11 @@ const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAgentRoute = AuthenticatedAgentRouteImport.update({
+  id: '/agent',
+  path: '/agent',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPortalIndexRoute =
   AuthenticatedPortalIndexRouteImport.update({
     id: '/',
@@ -255,6 +265,11 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAgentRoute,
 } as any)
 const AuthenticatedPortalStudentsRoute =
   AuthenticatedPortalStudentsRouteImport.update({
@@ -413,6 +428,23 @@ const AuthenticatedAppAlertRoute = AuthenticatedAppAlertRouteImport.update({
   path: '/alert',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAgentLinkRoute = AuthenticatedAgentLinkRouteImport.update({
+  id: '/link',
+  path: '/link',
+  getParentRoute: () => AuthenticatedAgentRoute,
+} as any)
+const AuthenticatedAgentCommissionsRoute =
+  AuthenticatedAgentCommissionsRouteImport.update({
+    id: '/commissions',
+    path: '/commissions',
+    getParentRoute: () => AuthenticatedAgentRoute,
+  } as any)
+const AuthenticatedAgentClientsRoute =
+  AuthenticatedAgentClientsRouteImport.update({
+    id: '/clients',
+    path: '/clients',
+    getParentRoute: () => AuthenticatedAgentRoute,
+  } as any)
 const AuthenticatedPortalKnowledgeSlugRoute =
   AuthenticatedPortalKnowledgeSlugRouteImport.update({
     id: '/$slug',
@@ -478,6 +510,7 @@ export interface FileRoutesByFullPath {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/agent': typeof AuthenticatedAgentRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -489,6 +522,9 @@ export interface FileRoutesByFullPath {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
+  '/agent/clients': typeof AuthenticatedAgentClientsRoute
+  '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
+  '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -516,6 +552,7 @@ export interface FileRoutesByFullPath {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -557,6 +594,9 @@ export interface FileRoutesByTo {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
+  '/agent/clients': typeof AuthenticatedAgentClientsRoute
+  '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
+  '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -584,6 +624,7 @@ export interface FileRoutesByTo {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -618,6 +659,7 @@ export interface FileRoutesById {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/_authenticated/agent': typeof AuthenticatedAgentRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -629,6 +671,9 @@ export interface FileRoutesById {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/partners/insurers': typeof PartnersInsurersRoute
+  '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
+  '/_authenticated/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
+  '/_authenticated/agent/link': typeof AuthenticatedAgentLinkRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -656,6 +701,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
@@ -690,6 +736,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/agent'
     | '/app'
     | '/portal'
     | '/blog/$slug'
@@ -701,6 +748,9 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/partners/insurers'
+    | '/agent/clients'
+    | '/agent/commissions'
+    | '/agent/link'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -728,6 +778,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/referrals'
     | '/portal/students'
+    | '/agent/'
     | '/app/'
     | '/portal/'
     | '/app/cases/$caseId'
@@ -769,6 +820,9 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/partners/insurers'
+    | '/agent/clients'
+    | '/agent/commissions'
+    | '/agent/link'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -796,6 +850,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/referrals'
     | '/portal/students'
+    | '/agent'
     | '/app'
     | '/portal'
     | '/app/cases/$caseId'
@@ -829,6 +884,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/_authenticated/agent'
     | '/_authenticated/app'
     | '/_authenticated/portal'
     | '/blog/$slug'
@@ -840,6 +896,9 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/partners/insurers'
+    | '/_authenticated/agent/clients'
+    | '/_authenticated/agent/commissions'
+    | '/_authenticated/agent/link'
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -867,6 +926,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/leads'
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
+    | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
@@ -1136,6 +1196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/agent': {
+      id: '/_authenticated/agent'
+      path: '/agent'
+      fullPath: '/agent'
+      preLoaderRoute: typeof AuthenticatedAgentRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/portal/': {
       id: '/_authenticated/portal/'
       path: '/'
@@ -1149,6 +1216,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/agent/': {
+      id: '/_authenticated/agent/'
+      path: '/'
+      fullPath: '/agent/'
+      preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
     }
     '/_authenticated/portal/students': {
       id: '/_authenticated/portal/students'
@@ -1339,6 +1413,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppAlertRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/agent/link': {
+      id: '/_authenticated/agent/link'
+      path: '/link'
+      fullPath: '/agent/link'
+      preLoaderRoute: typeof AuthenticatedAgentLinkRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/_authenticated/agent/commissions': {
+      id: '/_authenticated/agent/commissions'
+      path: '/commissions'
+      fullPath: '/agent/commissions'
+      preLoaderRoute: typeof AuthenticatedAgentCommissionsRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/_authenticated/agent/clients': {
+      id: '/_authenticated/agent/clients'
+      path: '/clients'
+      fullPath: '/agent/clients'
+      preLoaderRoute: typeof AuthenticatedAgentClientsRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
     '/_authenticated/portal/knowledge/$slug': {
       id: '/_authenticated/portal/knowledge/$slug'
       path: '/$slug'
@@ -1390,6 +1485,23 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedAgentRouteChildren {
+  AuthenticatedAgentClientsRoute: typeof AuthenticatedAgentClientsRoute
+  AuthenticatedAgentCommissionsRoute: typeof AuthenticatedAgentCommissionsRoute
+  AuthenticatedAgentLinkRoute: typeof AuthenticatedAgentLinkRoute
+  AuthenticatedAgentIndexRoute: typeof AuthenticatedAgentIndexRoute
+}
+
+const AuthenticatedAgentRouteChildren: AuthenticatedAgentRouteChildren = {
+  AuthenticatedAgentClientsRoute: AuthenticatedAgentClientsRoute,
+  AuthenticatedAgentCommissionsRoute: AuthenticatedAgentCommissionsRoute,
+  AuthenticatedAgentLinkRoute: AuthenticatedAgentLinkRoute,
+  AuthenticatedAgentIndexRoute: AuthenticatedAgentIndexRoute,
+}
+
+const AuthenticatedAgentRouteWithChildren =
+  AuthenticatedAgentRoute._addFileChildren(AuthenticatedAgentRouteChildren)
 
 interface AuthenticatedAppCasesRouteChildren {
   AuthenticatedAppCasesCaseIdRoute: typeof AuthenticatedAppCasesCaseIdRoute
@@ -1520,11 +1632,13 @@ const AuthenticatedPortalRouteWithChildren =
   AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgentRoute: typeof AuthenticatedAgentRouteWithChildren
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgentRoute: AuthenticatedAgentRouteWithChildren,
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }
@@ -1623,13 +1737,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

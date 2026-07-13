@@ -200,6 +200,8 @@ const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: strin
   { email: "church@beistand.de", role: "church", label: "Church", landing: "/app", group: "Providers" },
   { email: "temple@beistand.de", role: "temple", label: "Temple", landing: "/app", group: "Providers" },
   { email: "hospital@beistand.de", role: "hospital", label: "Hospital", landing: "/app", group: "Providers" },
+  // Agents (sellers)
+  { email: "agent@beistand.de", role: "agent", label: "Agent (seller)", landing: "/agent", group: "Agents" },
   // Families / beneficiaries
   { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app", group: "Clients" },
   { email: "beneficiary@beistand.de", role: "beneficiary", label: "Beneficiary", landing: "/app", group: "Clients" },

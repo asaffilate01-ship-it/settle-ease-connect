@@ -28,6 +28,7 @@ const EXPERT_ROLES: AppRole[] = [
 
 export function landingForRoles(roles: AppRole[]): string {
   if (roles.some((r) => INTERNAL_ROLES.includes(r))) return "/portal";
+  if (roles.includes("agent")) return "/agent";
   if (roles.some((r) => EXPERT_ROLES.includes(r))) return "/app";
   return "/app";
 }
@@ -54,6 +55,7 @@ export function primaryRole(roles: AppRole[]): AppRole | null {
     "church",
     "temple",
     "hospital",
+    "agent",
     "beneficiary",
     "family",
   ];

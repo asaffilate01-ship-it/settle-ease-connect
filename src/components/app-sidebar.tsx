@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
 import logoMark from "@/assets/brand/logo-mark.png";
 
-type Audience = "client" | "internal" | "any";
+type Audience = "client" | "internal" | "agent" | "any";
 
 type NavItem = {
   to: string;
@@ -18,9 +18,9 @@ type NavItem = {
   icon: Icon3DName;
   exact?: boolean;
   groupKey?: string;
-  requiresRole?: "admin" | "internal";
+  requiresRole?: "admin" | "internal" | "agent";
   requiresTier?: PlanGroup;
-  audience?: Audience; // client = only for non-internal; internal = only for internal; any = both
+  audience?: Audience;
 };
 
 const nav: NavItem[] = [
@@ -50,6 +50,10 @@ const nav: NavItem[] = [
   { to: "/portal/audit", labelKey: "sidebar.audit", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
+  { to: "/agent", labelKey: "sidebar.agentOverview", icon: "overview", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent", exact: true },
+  { to: "/agent/clients", labelKey: "sidebar.agentClients", icon: "experts", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
+  { to: "/agent/commissions", labelKey: "sidebar.agentCommissions", icon: "benefits", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
+  { to: "/agent/link", labelKey: "sidebar.agentLink", icon: "providers", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
   { to: "/app/bugs", labelKey: "sidebar.bugs", icon: "bug", audience: "any" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings", audience: "any" },
 ];
@@ -78,6 +82,7 @@ const ROLE_LABEL: Record<AppRole, string> = {
   hospital: "Hospital Partner",
   beneficiary: "Beneficiary",
   family: "Family",
+  agent: "Agent",
 };
 
 const ROLE_TONE: Record<AppRole, string> = {
@@ -103,6 +108,7 @@ const ROLE_TONE: Record<AppRole, string> = {
   hospital: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-300",
   beneficiary: "bg-primary/15 text-primary",
   family: "bg-primary/15 text-primary",
+  agent: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
 };
 
 export function AppSidebar() {
@@ -113,7 +119,8 @@ export function AppSidebar() {
   const qc = useQueryClient();
   const isAdmin = roles.includes("admin");
   const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
-  const audience: Audience = isInternal ? "internal" : "client";
+  const isAgent = roles.includes("agent");
+  const audience: Audience = isInternal ? "internal" : isAgent ? "agent" : "client";
 
   async function handleSignOut() {
     await qc.cancelQueries();
@@ -126,6 +133,7 @@ export function AppSidebar() {
   const visibleNav = nav.filter((n) => {
     if (n.requiresRole === "admin" && !isAdmin) return false;
     if (n.requiresRole === "internal" && !isInternal) return false;
+    if (n.requiresRole === "agent" && !isAgent && !isInternal) return false;
     if (n.audience && n.audience !== "any" && n.audience !== audience) return false;
     return true;
   });
