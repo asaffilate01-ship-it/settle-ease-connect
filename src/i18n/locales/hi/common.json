@@ -59,7 +59,19 @@
     "adminUsers": "उपयोगकर्ता और भूमिकाएँ",
     "adminInvite": "आमंत्रण",
     "bugs": "बग रिपोर्ट",
-    "caseManagerRole": "केस मैनेजर · Berlin"
+    "caseManagerRole": "केस मैनेजर · Berlin",
+    "insurance": "बीमा",
+    "immigration": "आव्रजन",
+    "profile": "प्रोफ़ाइल",
+    "messages": "संदेश",
+    "notifications": "सूचनाएं",
+    "location": "स्थान",
+    "alert": "अलर्ट",
+    "upgrade": "अपग्रेड",
+    "referrals": "रेफरल",
+    "insuranceOps": "बीमा संचालन",
+    "immigrationOps": "आव्रजन संचालन",
+    "audit": "ऑडिट"
   },
   "language": {
     "label": "भाषा",

@@ -59,7 +59,19 @@
     "adminUsers": "Користувачі та ролі",
     "adminInvite": "Запрошення",
     "bugs": "Звіти про помилки",
-    "caseManagerRole": "Кейс-менеджер · Berlin"
+    "caseManagerRole": "Кейс-менеджер · Berlin",
+    "insurance": "Страхування",
+    "immigration": "Імміграція",
+    "profile": "Профіль",
+    "messages": "Повідомлення",
+    "notifications": "Сповіщення",
+    "location": "Розташування",
+    "alert": "Сповіщення",
+    "upgrade": "Оновити",
+    "referrals": "Реферали",
+    "insuranceOps": "Страхові операції",
+    "immigrationOps": "Операції з імміграції",
+    "audit": "Аудит"
   },
   "language": {
     "label": "Мова",

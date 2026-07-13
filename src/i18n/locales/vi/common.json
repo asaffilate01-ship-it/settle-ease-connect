@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Đức" },
+  "brand": {
+    "location": "Đức"
+  },
   "nav": {
     "howItWorks": "Cách hoạt động",
     "services": "Dịch vụ",
@@ -44,5 +46,22 @@
     "continue": "Tiếp tục",
     "current": "Ngôn ngữ hiện tại"
   },
-  "hero": { "headlinePrefix": "Cho mọi con đường ở", "headlineHighlight": "Đức" }
+  "hero": {
+    "headlinePrefix": "Cho mọi con đường ở",
+    "headlineHighlight": "Đức"
+  },
+  "sidebar": {
+    "insurance": "Bảo hiểm",
+    "immigration": "Nhập cư",
+    "profile": "Hồ sơ",
+    "messages": "Tin nhắn",
+    "notifications": "Thông báo",
+    "location": "Vị trí",
+    "alert": "Cảnh báo",
+    "upgrade": "Nâng cấp",
+    "referrals": "Giới thiệu",
+    "insuranceOps": "Vận hành bảo hiểm",
+    "immigrationOps": "Vận hành nhập cư",
+    "audit": "Kiểm toán"
+  }
 }

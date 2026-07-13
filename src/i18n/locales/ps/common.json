@@ -59,7 +59,19 @@
     "adminUsers": "کاروونکي او رولونه",
     "adminInvite": "بلنې",
     "bugs": "د تېروتنو راپورونه",
-    "caseManagerRole": "د قضیې مدیر · برلین"
+    "caseManagerRole": "د قضیې مدیر · برلین",
+    "insurance": "بیمه",
+    "immigration": "کډوالتوب",
+    "profile": "پروفایل",
+    "messages": "پیغامونه",
+    "notifications": "خبرتیاوې",
+    "location": "ځای",
+    "alert": "خبرتیا",
+    "upgrade": "apګریډ",
+    "referrals": " referralو",
+    "insuranceOps": "د بیمې عملیات",
+    "immigrationOps": "د کډوالتوب عملیات",
+    "audit": "تفتیش"
   },
   "language": {
     "label": "ژبه",

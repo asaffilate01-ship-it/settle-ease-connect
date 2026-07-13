@@ -59,7 +59,19 @@
     "adminUsers": "Bikarhêner û rol",
     "adminInvite": "Vexwendname",
     "bugs": "Raporên xeletiyan",
-    "caseManagerRole": "Rêveberê Dozê · Berlin"
+    "caseManagerRole": "Rêveberê Dozê · Berlin",
+    "insurance": "ئێنسێرانس",
+    "immigration": "کۆچبەر",
+    "profile": "پڕۆفایل",
+    "messages": "پەیامەکان",
+    "notifications": "ئاگادارکردنەوەکان",
+    "location": "شوێن",
+    "alert": "ئاگاداری",
+    "upgrade": "بەرزکردنەوە",
+    "referrals": "سەردانکردن",
+    "insuranceOps": "ئۆپەراسیۆنی ئێنسێرانس",
+    "immigrationOps": "ئۆپەراسیۆنی کۆچبەر",
+    "audit": "پسپۆڕی"
   },
   "language": {
     "label": "Ziman",

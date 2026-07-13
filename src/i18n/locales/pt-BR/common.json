@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Alemanha" },
+  "brand": {
+    "location": "Alemanha"
+  },
   "nav": {
     "howItWorks": "Como funciona",
     "services": "Serviços",
@@ -44,5 +46,22 @@
     "continue": "Continuar",
     "current": "Idioma atual"
   },
-  "hero": { "headlinePrefix": "Para cada caminho na", "headlineHighlight": "Alemanha" }
+  "hero": {
+    "headlinePrefix": "Para cada caminho na",
+    "headlineHighlight": "Alemanha"
+  },
+  "sidebar": {
+    "insurance": "Seguro",
+    "immigration": "Imigração",
+    "profile": "Perfil",
+    "messages": "Mensagens",
+    "notifications": "Notificações",
+    "location": "Localização",
+    "alert": "Alerta",
+    "upgrade": "Upgrade",
+    "referrals": "Indicações",
+    "insuranceOps": "Operações de seguro",
+    "immigrationOps": "Operações de imigração",
+    "audit": "Auditoria"
+  }
 }

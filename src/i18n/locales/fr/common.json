@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Allemagne" },
+  "brand": {
+    "location": "Allemagne"
+  },
   "nav": {
     "howItWorks": "Comment ça marche",
     "services": "Services",
@@ -44,5 +46,22 @@
     "continue": "Continuer",
     "current": "Langue actuelle"
   },
-  "hero": { "headlinePrefix": "Pour chaque parcours en", "headlineHighlight": "Allemagne" }
+  "hero": {
+    "headlinePrefix": "Pour chaque parcours en",
+    "headlineHighlight": "Allemagne"
+  },
+  "sidebar": {
+    "insurance": "Assurance",
+    "immigration": "Immigration",
+    "profile": "Profil",
+    "messages": "Messages",
+    "notifications": "Notifications",
+    "location": "Localisation",
+    "alert": "Alerte",
+    "upgrade": "Améliorer",
+    "referrals": "Parrainages",
+    "insuranceOps": "Opérations assurance",
+    "immigrationOps": "Opérations immigration",
+    "audit": "Audit"
+  }
 }

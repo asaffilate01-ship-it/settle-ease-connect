@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Немачка" },
+  "brand": {
+    "location": "Немачка"
+  },
   "nav": {
     "howItWorks": "Како функционише",
     "services": "Услуге",
@@ -44,5 +46,22 @@
     "continue": "Настави",
     "current": "Тренутни језик"
   },
-  "hero": { "headlinePrefix": "За сваки пут у", "headlineHighlight": "Немачкој" }
+  "hero": {
+    "headlinePrefix": "За сваки пут у",
+    "headlineHighlight": "Немачкој"
+  },
+  "sidebar": {
+    "insurance": "Osiguranje",
+    "immigration": "Imigracija",
+    "profile": "Profil",
+    "messages": "Poruke",
+    "notifications": "Obaveštenja",
+    "location": "Lokacija",
+    "alert": "Upozorenje",
+    "upgrade": "Nadogradnja",
+    "referrals": "Preporuke",
+    "insuranceOps": "Operacije osiguranja",
+    "immigrationOps": "Operacije imigracije",
+    "audit": "Revizija"
+  }
 }

@@ -59,7 +59,19 @@
     "adminUsers": "Пользователи и роли",
     "adminInvite": "Приглашения",
     "bugs": "Отчеты об ошибках",
-    "caseManagerRole": "Менеджер по работе со случаями · Berlin"
+    "caseManagerRole": "Менеджер по работе со случаями · Berlin",
+    "insurance": "Страхование",
+    "immigration": "Иммиграция",
+    "profile": "Профиль",
+    "messages": "Сообщения",
+    "notifications": "Уведомления",
+    "location": "Местоположение",
+    "alert": "Оповещение",
+    "upgrade": "Обновить",
+    "referrals": "Рефералы",
+    "insuranceOps": "Страховые операции",
+    "immigrationOps": "Операции по иммиграции",
+    "audit": "Аудит"
   },
   "language": {
     "label": "Язык",

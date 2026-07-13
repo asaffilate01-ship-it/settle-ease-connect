@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Gjermani" },
+  "brand": {
+    "location": "Gjermani"
+  },
   "nav": {
     "howItWorks": "Si funksionon",
     "services": "Shërbimet",
@@ -44,5 +46,22 @@
     "continue": "Vazhdo",
     "current": "Gjuha aktuale"
   },
-  "hero": { "headlinePrefix": "Për çdo rrugë në", "headlineHighlight": "Gjermani" }
+  "hero": {
+    "headlinePrefix": "Për çdo rrugë në",
+    "headlineHighlight": "Gjermani"
+  },
+  "sidebar": {
+    "insurance": "Sigurimi",
+    "immigration": "Imigracioni",
+    "profile": "Profili",
+    "messages": "Mesazhet",
+    "notifications": "Njoftimet",
+    "location": "Vendndodhja",
+    "alert": "Sinjalizim",
+    "upgrade": "Përmirësim",
+    "referrals": "Rekomandimet",
+    "insuranceOps": "Operacionet e sigurimit",
+    "immigrationOps": "Operacionet e imigracionit",
+    "audit": "Auditimi"
+  }
 }
