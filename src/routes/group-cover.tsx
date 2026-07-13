@@ -22,13 +22,13 @@ export const Route = createFileRoute("/group-cover")({
       {
         name: "description",
         content:
-          "Group Sterbegeldversicherung for associations, employers and communities. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated German Sterbegeld insurers.",
+          "Group Sterbegeld cover for associations, employers and communities — regulated under German law. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated cover providers.",
       },
       { property: "og:title", content: "Group Bereavement Cover — BeistandPlus" },
       {
         property: "og:description",
         content:
-          "€20,000 collective death benefit per member. Waived health questions, waived waiting period, direct funeral settlement, balance to beneficiary.",
+          "€20,000 collective bereavement benefit per member. Waived health questions, waived waiting period, direct funeral settlement, balance to beneficiary.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -38,9 +38,9 @@ export const Route = createFileRoute("/group-cover")({
 });
 
 const insurers = [
-  { name: "DELA", note: "Cooperative · free child co-insurance under 20 · migrant-family focus" },
+  { name: "DELA", note: "Cooperative · free child co-cover under 20 · migrant-family focus" },
   { name: "Solidar VVaG", note: "Originated as a corporate group fund · deep group experience" },
-  { name: "Münchener Verein", note: "Flexible group underwriting · senior-friendly bands" },
+  { name: "Münchener Verein", note: "Flexible group terms · senior-friendly bands" },
   { name: "ERGO", note: "Large-scale institutional tenders · repatriation add-ons" },
   { name: "Allianz", note: "For very large mandates (25k+ lives) · corporate-grade SLAs" },
   { name: "HanseMerkur", note: "Vorsorge Plus bolt-ons available on the group frame" },
@@ -74,7 +74,7 @@ const tiers = [
 const flatRate = [
   "€35 flat / member / month across the whole pool (blended rate)",
   "Younger members subsidise older ones — actuarially balanced",
-  "One SEPA-Corporate mandate per member, one bulk wire to the insurer",
+  "One SEPA-Corporate mandate per member, one bulk wire to the cover provider",
   "Fluctuation clause: monthly CSV updates auto-adjust the global invoice",
 ];
 
@@ -86,7 +86,7 @@ const payoutFlow = [
   },
   {
     step: 2,
-    title: "Insurer wires €20,000 to our fiduciary account",
+    title: "Cover provider wires €20,000 to our fiduciary account",
     body: "Because the association is the named primary beneficiary with a fiduciary clause, no Erbschein is required. Payout typically lands in 3–7 working days.",
   },
   {
