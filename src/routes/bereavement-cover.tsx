@@ -4,7 +4,8 @@ import { BereavementQuoteWidget } from "@/components/bereavement-quote-widget";
 import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Building2, Check, ShieldCheck, Users, Wallet } from "lucide-react";
 
 export const Route = createFileRoute("/bereavement-cover")({
   head: () => ({

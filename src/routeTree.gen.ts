@@ -21,6 +21,7 @@ import { Route as OfflineRouteImport } from './routes/offline'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as GroupCoverRouteImport } from './routes/group-cover'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -135,6 +136,11 @@ const InsuranceRoute = InsuranceRouteImport.update({
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GroupCoverRoute = GroupCoverRouteImport.update({
+  id: '/group-cover',
+  path: '/group-cover',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForProvidersRoute = ForProvidersRouteImport.update({
@@ -452,6 +458,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
+  '/group-cover': typeof GroupCoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
@@ -520,6 +527,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
+  '/group-cover': typeof GroupCoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
@@ -588,6 +596,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
   '/for-providers': typeof ForProvidersRoute
+  '/group-cover': typeof GroupCoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/legal': typeof LegalRouteWithChildren
@@ -658,6 +667,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/directory'
     | '/for-providers'
+    | '/group-cover'
     | '/how-it-works'
     | '/insurance'
     | '/legal'
@@ -726,6 +736,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/directory'
     | '/for-providers'
+    | '/group-cover'
     | '/how-it-works'
     | '/insurance'
     | '/legal'
@@ -793,6 +804,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/directory'
     | '/for-providers'
+    | '/group-cover'
     | '/how-it-works'
     | '/insurance'
     | '/legal'
@@ -863,6 +875,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DirectoryRoute: typeof DirectoryRouteWithChildren
   ForProvidersRoute: typeof ForProvidersRoute
+  GroupCoverRoute: typeof GroupCoverRoute
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
   LegalRoute: typeof LegalRouteWithChildren
@@ -961,6 +974,13 @@ declare module '@tanstack/react-router' {
       path: '/how-it-works'
       fullPath: '/how-it-works'
       preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/group-cover': {
+      id: '/group-cover'
+      path: '/group-cover'
+      fullPath: '/group-cover'
+      preLoaderRoute: typeof GroupCoverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/for-providers': {
@@ -1554,6 +1574,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DirectoryRoute: DirectoryRouteWithChildren,
   ForProvidersRoute: ForProvidersRoute,
+  GroupCoverRoute: GroupCoverRoute,
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
   LegalRoute: LegalRouteWithChildren,
