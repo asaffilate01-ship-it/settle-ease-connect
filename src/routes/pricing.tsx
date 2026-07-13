@@ -99,14 +99,21 @@ const PLAN_FEATURES: Record<string, string[]> = {
   ],
 };
 
-const HOUSEHOLD_TABS: { key: "individual" | "family" | "family_plus"; label: string; icon: React.ReactNode; note: string }[] = [
-  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult" },
-  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 kids under 18" },
-  { key: "family_plus", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 kids under 18" },
-];
+type HouseholdKey = "individual" | "family" | "family_plus";
+const HOUSEHOLD_ICONS: Record<HouseholdKey, React.ReactNode> = {
+  individual: <User className="h-4 w-4" />,
+  family: <Users className="h-4 w-4" />,
+  family_plus: <HeartHandshake className="h-4 w-4" />,
+};
 
 function Pricing() {
-  const [household, setHousehold] = useState<"individual" | "family" | "family_plus">("family");
+  const { t } = useTranslation();
+  const HOUSEHOLD_TABS: { key: HouseholdKey; label: string; note: string }[] = [
+    { key: "individual", label: t("pages.pricing.individual"), note: t("pages.pricing.noteIndividual") },
+    { key: "family", label: t("pages.pricing.family"), note: t("pages.pricing.noteFamily") },
+    { key: "family_plus", label: t("pages.pricing.extended"), note: t("pages.pricing.noteExtended") },
+  ];
+  const [household, setHousehold] = useState<HouseholdKey>("family");
 
   const { data: plans = [], isLoading } = useQuery({
     queryKey: ["subscription_plans"],
