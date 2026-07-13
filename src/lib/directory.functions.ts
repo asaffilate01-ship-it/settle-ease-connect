@@ -18,7 +18,7 @@ export const listDirectoryListings = createServerFn({ method: "GET" })
     const supabase = publicClient();
     let q = supabase
       .from("directory_listings")
-      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, phone, email, logo_url, featured")
+      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, logo_url, featured")
       .eq("status", "active")
       .order("featured", { ascending: false })
       .order("business_name");
