@@ -176,12 +176,33 @@ function AuthPage() {
   );
 }
 
-const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: string }[] = [
-  { email: "admin@beistand.de", role: "admin", label: "Admin", landing: "/portal" },
-  { email: "staff@beistand.de", role: "staff", label: "Staff", landing: "/portal" },
-  { email: "manager@beistand.de", role: "case_manager", label: "Case manager", landing: "/portal" },
-  { email: "expert@beistand.de", role: "expert", label: "Expert", landing: "/app" },
-  { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app" },
+const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: string; group: string }[] = [
+  // Internal / staff (portal.*)
+  { email: "admin@beistand.de", role: "admin", label: "Admin", landing: "/portal", group: "Internal" },
+  { email: "staff@beistand.de", role: "staff", label: "Staff", landing: "/portal", group: "Internal" },
+  { email: "manager@beistand.de", role: "case_manager", label: "Case manager", landing: "/portal", group: "Internal" },
+  { email: "insurance-admin@beistand.de", role: "insurance_admin", label: "Insurance admin", landing: "/portal/insurance", group: "Internal" },
+  { email: "tax-admin@beistand.de", role: "tax_admin", label: "Tax admin", landing: "/portal", group: "Internal" },
+  { email: "benefits-admin@beistand.de", role: "benefits_admin", label: "Benefits admin", landing: "/portal", group: "Internal" },
+  { email: "medical-admin@beistand.de", role: "medical_admin", label: "Medical admin", landing: "/portal", group: "Internal" },
+  { email: "arrival-admin@beistand.de", role: "new_arrival_admin", label: "New-arrival admin", landing: "/portal/immigration", group: "Internal" },
+  // Experts (regulated professionals — /app)
+  { email: "expert@beistand.de", role: "expert", label: "Expert (generic)", landing: "/app", group: "Experts" },
+  { email: "lawyer@beistand.de", role: "lawyer", label: "Lawyer", landing: "/app", group: "Experts" },
+  { email: "notary@beistand.de", role: "notary", label: "Notary", landing: "/app", group: "Experts" },
+  { email: "accountant@beistand.de", role: "accountant", label: "Accountant / Tax adviser", landing: "/app", group: "Experts" },
+  { email: "doctor@beistand.de", role: "doctor", label: "Doctor", landing: "/app", group: "Experts" },
+  { email: "social-worker@beistand.de", role: "social_worker", label: "Social worker", landing: "/app", group: "Experts" },
+  { email: "translator@beistand.de", role: "translator", label: "Translator", landing: "/app", group: "Experts" },
+  { email: "funeral@beistand.de", role: "funeral_director", label: "Funeral director", landing: "/app", group: "Experts" },
+  // Institutional providers
+  { email: "mosque@beistand.de", role: "mosque", label: "Mosque", landing: "/app", group: "Providers" },
+  { email: "church@beistand.de", role: "church", label: "Church", landing: "/app", group: "Providers" },
+  { email: "temple@beistand.de", role: "temple", label: "Temple", landing: "/app", group: "Providers" },
+  { email: "hospital@beistand.de", role: "hospital", label: "Hospital", landing: "/app", group: "Providers" },
+  // Families / beneficiaries
+  { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app", group: "Clients" },
+  { email: "beneficiary@beistand.de", role: "beneficiary", label: "Beneficiary", landing: "/app", group: "Clients" },
 ];
 const DEV_PASSWORD = "B3ist4nd_2026_Pass";
 
@@ -193,8 +214,8 @@ function DevLoginPanel({
   onLogin: (email: string, password: string) => void | Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
-  const isDev = import.meta.env.DEV;
-  if (!isDev) return null;
+
+  const groups = Array.from(new Set(DEV_ACCOUNTS.map((a) => a.group)));
 
   return (
     <div className="mt-8 rounded-2xl border border-dashed border-amber-400/60 bg-amber-50/60 p-4 dark:bg-amber-950/20">
@@ -204,9 +225,9 @@ function DevLoginPanel({
         className="flex w-full items-center justify-between text-left"
       >
         <span className="flex items-center gap-2 text-sm font-semibold text-amber-900 dark:text-amber-200">
-          🐞 Dev logins
+          🐞 Dev logins · every role
           <span className="rounded bg-amber-200/70 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-900 dark:bg-amber-900/60 dark:text-amber-100">
-            local only
+            testing
           </span>
         </span>
         <span className="text-xs text-amber-800/70 dark:text-amber-200/70">
@@ -214,32 +235,39 @@ function DevLoginPanel({
         </span>
       </button>
       {open && (
-        <div className="mt-3 space-y-2">
+        <div className="mt-3 space-y-3">
           <p className="text-xs text-amber-900/80 dark:text-amber-200/80">
-            One-click sign-in as any seeded RLS role. Password:{" "}
+            One-click sign-in as any seeded RLS role. Shared password:{" "}
             <code className="rounded bg-amber-100 px-1 py-0.5 dark:bg-amber-900/50">
               {DEV_PASSWORD}
             </code>
           </p>
-          <div className="grid gap-2">
-            {DEV_ACCOUNTS.map((a) => (
-              <button
-                key={a.email}
-                type="button"
-                disabled={disabled}
-                onClick={() => onLogin(a.email, DEV_PASSWORD)}
-                className="flex items-center justify-between rounded-lg border border-amber-300/60 bg-background/70 px-3 py-2 text-left text-sm hover:bg-background disabled:opacity-50"
-              >
-                <span>
-                  <span className="font-medium">{a.label}</span>
-                  <span className="ml-2 text-xs text-muted-foreground">{a.email}</span>
-                </span>
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                  → {a.landing}
-                </span>
-              </button>
-            ))}
-          </div>
+          {groups.map((g) => (
+            <div key={g}>
+              <div className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-amber-900/70 dark:text-amber-200/70">
+                {g}
+              </div>
+              <div className="grid gap-2">
+                {DEV_ACCOUNTS.filter((a) => a.group === g).map((a) => (
+                  <button
+                    key={a.email}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => onLogin(a.email, DEV_PASSWORD)}
+                    className="flex items-center justify-between rounded-lg border border-amber-300/60 bg-background/70 px-3 py-2 text-left text-sm hover:bg-background disabled:opacity-50"
+                  >
+                    <span>
+                      <span className="font-medium">{a.label}</span>
+                      <span className="ml-2 text-xs text-muted-foreground">{a.email}</span>
+                    </span>
+                    <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                      → {a.landing}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
