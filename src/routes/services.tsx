@@ -153,31 +153,29 @@ function Services() {
         <div className="mx-auto max-w-4xl px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-32 sm:pb-20 lg:px-8">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/60 px-3.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent-foreground/80 backdrop-blur">
             <span className="h-1 w-1 rounded-full bg-accent" />
-            Expert guidance for life in Germany
+            {t("pages.services.eyebrow")}
           </span>
           <h1 className="display-hero text-balance mt-8 font-normal leading-[1.05] text-foreground">
-            A companion for every
+            {t("pages.services.title1")}
             <br />
-            <span className="italic text-primary">essential milestone.</span>
+            <span className="italic text-primary">{t("pages.services.title2")}</span>
           </h1>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            From your first Anmeldung to securing your family's future, BeistandPlus
-            offers dignified, expert support to navigate German administration
-            with confidence — in thirteen languages, with a human by your side.
+            {t("pages.services.subtitle")}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/app"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-all hover:shadow-elevated hover:-translate-y-0.5"
             >
-              Open a case
+              {t("pages.services.openCase")}
               <ArrowRight className="h-4 w-4 rtl-flip" />
             </Link>
             <Link
               to="/how-it-works"
               className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-6 py-3 text-sm font-medium text-foreground backdrop-blur transition-colors hover:bg-card"
             >
-              How BeistandPlus works
+              {t("pages.services.howItWorks")}
             </Link>
           </div>
         </div>
@@ -187,11 +185,12 @@ function Services() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 border-t border-primary/10 pt-10">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-foreground/70">
-            Nine areas of care
+            {t("pages.services.ninePillars")}
           </div>
           <div className="h-px w-16 bg-accent/60" />
         </div>
       </section>
+
 
       {/* Services Grid */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
