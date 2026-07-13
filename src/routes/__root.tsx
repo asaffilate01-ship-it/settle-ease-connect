@@ -118,11 +118,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fira+Mono:wght@400;500;700&display=swap",
       },
-      // Multi-script font stack for the supported languages (Arabic, Urdu/Pashto Nastaliq,
-      // Devanagari, Gurmukhi, Ethiopic for Tigrinya, Cyrillic covered by Urbanist/Epilogue).
+      // Multi-script font stack for the 13 supported languages:
+      // Arabic (ar), Urdu Nastaliq (ur), Persian (fa), Arabic script for Kurdish (ku),
+      // Devanagari (hi), Gurmukhi (pa), Simplified Chinese (zh).
+      // Cyrillic (ru/uk) and Latin (de/en/tr/pl) are covered by Fira Sans.
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap",
       },
     ],
   }),

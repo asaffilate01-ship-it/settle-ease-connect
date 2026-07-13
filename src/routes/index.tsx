@@ -33,11 +33,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 19 Sprachen" },
+      { title: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
       {
         name: "description",
         content:
-          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 19 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
+          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
       { property: "og:title", content: "BeistandPlus · Für jeden Weg in Deutschland" },
       {
@@ -61,7 +61,7 @@ export const Route = createFileRoute("/")({
           url: "https://beistandplus.de/",
           logo: "https://beistandplus.de/favicon.png",
           description:
-            "Deutschlands digitale Plattform für Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — in 19 Sprachen.",
+            "Deutschlands digitale Plattform für Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — in 13 Sprachen.",
           address: {
             "@type": "PostalAddress",
             addressLocality: "Berlin",
@@ -156,7 +156,7 @@ function Hero() {
               <div>
                 <dt className="eyebrow text-ink/55">Languages</dt>
                 <dd className="mt-1 flex items-center gap-2">
-                  <Languages className="h-4 w-4 text-accent" /> 19, native speakers
+                  <Languages className="h-4 w-4 text-accent" /> 13, native speakers
                 </dd>
               </div>
               <div>
