@@ -12,6 +12,7 @@ import { Loader2, Mail, Phone, Save } from "lucide-react";
 import { toast } from "sonner";
 
 const STATUSES = ["new","contacted","quoted","won","lost","spam"] as const;
+const SOURCES = ["all", "quote_widget", "group_cover", "callback"] as const;
 
 export const Route = createFileRoute("/_authenticated/portal/leads")({
   head: () => ({ meta: [{ title: "Insurance leads — BeistandPlus" }] }),
