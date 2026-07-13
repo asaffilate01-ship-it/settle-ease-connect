@@ -131,6 +131,7 @@ const groups: Group[] = [
 const languages = ["Deutsch", "English", "Türkçe", "اردو", "हिन्दी", "ਪੰਜਾਬੀ", "العربية", "کوردی", "Русский", "Українська", "فارسی", "Polski", "中文"];
 
 function Services() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-parchment/40">
       <SiteHeader />
