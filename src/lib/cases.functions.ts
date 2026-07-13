@@ -107,6 +107,13 @@ export const createCase = createServerFn({ method: "POST" })
     }).parse(d),
   )
   .handler(async ({ data, context }) => {
+    // Enforce paid-tier gating server-side. Client-side Paywall is UX only.
+    const { data: isInternal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
+    if (!isInternal) {
+      await requirePlan(context.supabase, context.userId, "complete");
+    }
     const { data: row, error } = await context.supabase
       .from("cases")
       .insert({ ...data, client_user_id: context.userId })
