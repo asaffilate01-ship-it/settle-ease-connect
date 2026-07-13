@@ -72,6 +72,7 @@ export function SiteHeader() {
       [t("nav.bereavement"), "/bereavement"],
       [t("nav.students", "Students"), "/students"],
       ["Insurance", "/insurance"],
+      ["Group cover", "/group-cover"],
       [t("nav.forProviders"), "/for-providers"],
       [t("nav.pricing"), "/pricing"],
       [t("nav.blog"), "/blog"],
