@@ -61,19 +61,19 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         const b = bandFor(age);
         return {
           label: `Age ${age}`,
-          detail: "1 adult · €8,000 payout",
+          detail: "1 adult · €20,000 payout",
           min: b.min,
           max: b.max,
         };
       });
     }
     if (tab === "family") {
-      // 2 adults, matched-age approximation, kids included free.
+      // 2 adults, matched-age approximation, kids included free on DELA.
       return ADULT_AGE_BANDS.slice(0, 4).map((age) => {
         const b = bandFor(age);
         return {
           label: `Both adults age ${age}`,
-          detail: "2 adults + up to 3 children · €8k per adult",
+          detail: "2 adults + up to 3 children · €20k per adult",
           min: b.min * 2,
           max: b.max * 2,
         };
@@ -84,7 +84,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       const b = bandFor(age);
       return {
         label: `All 4 adults age ${age}`,
-        detail: "4 adults + up to 3 children · €8k per adult",
+        detail: "4 adults + up to 3 children · €20k per adult",
         min: b.min * 4,
         max: b.max * 4,
       };
