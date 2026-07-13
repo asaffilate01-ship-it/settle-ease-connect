@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 import { DEFAULT_LANG, LANGUAGES } from "./config";
+
 
 // Statically import every locale so Vite bundles them all.
 import enCommon from "./locales/en/common.json";
