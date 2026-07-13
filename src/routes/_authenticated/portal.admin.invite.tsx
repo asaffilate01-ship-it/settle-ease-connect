@@ -149,12 +149,15 @@ function AdminInvitePage() {
 
       {import.meta.env.DEV && (
         <div className="rounded-2xl border border-dashed border-border/60 bg-parchment/60 p-4 text-xs text-muted-foreground">
-          <strong>Dev-only seed accounts</strong> — sign up with any of these emails on the dev preview to get the role instantly:
-          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">admin@beistand.de</code>
-          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">staff@beistand.de</code>
-          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">manager@beistand.de</code>
-          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">expert@beistand.de</code>
-          <code className="ml-2 rounded bg-muted px-1.5 py-0.5">agent@beistand.de</code>
+          <strong>Dev-only test logins</strong> — pre-seeded accounts, sign in on <code className="rounded bg-muted px-1.5 py-0.5">/auth</code>:
+          <div className="mt-2 grid gap-1 font-mono">
+            <div>admin@beistand.de · admin</div>
+            <div>staff@beistand.de · staff</div>
+            <div>manager@beistand.de · case_manager</div>
+            <div>expert@beistand.de · expert</div>
+            <div>agent@beistand.de · agent</div>
+          </div>
+          <div className="mt-2">Password for all: <code className="rounded bg-muted px-1.5 py-0.5">beistand2026!</code></div>
         </div>
       )}
     </div>
