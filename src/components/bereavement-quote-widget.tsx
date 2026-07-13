@@ -89,7 +89,7 @@ export function BereavementQuoteWidget() {
             <Label>Benefit amount</Label>
             <span className="text-sm font-medium tabular-nums">€{benefit.toLocaleString("de-DE")}</span>
           </div>
-          <Slider min={2000} max={8000} step={1000} value={[benefit]} onValueChange={(v) => setBenefit(v[0])} className="mt-2" />
+          <Slider min={5000} max={20000} step={1000} value={[benefit]} onValueChange={(v) => setBenefit(v[0])} className="mt-2" />
         </div>
 
         <div className="flex items-center justify-between rounded-lg border p-3">
