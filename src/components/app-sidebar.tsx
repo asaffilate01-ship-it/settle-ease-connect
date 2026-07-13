@@ -6,6 +6,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { useCurrentUser, type AppRole } from "@/hooks/use-current-user";
 import { primaryRole } from "@/lib/role-landing";
 import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
+import logoMark from "@/assets/brand/logo-mark.png";
 
 type Audience = "client" | "internal" | "any";
 
