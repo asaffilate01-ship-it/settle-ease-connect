@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { ArrowRight } from "lucide-react";
 
@@ -16,44 +17,24 @@ export const Route = createFileRoute("/how-it-works")({
   component: HowItWorks,
 });
 
-const steps = [
-  {
-    n: "01",
-    title: "Tell BeistandPlus what you need",
-    desc: "Newly arrived, applying for benefits, planning a family reunion, or facing a bereavement — start with a single form.",
-  },
-  {
-    n: "02",
-    title: "A plan appears within minutes",
-    desc: "Our AI compiles your personalised checklist — every appointment, document, deadline, and provider you'll need.",
-  },
-  {
-    n: "03",
-    title: "A human case manager picks up the phone",
-    desc: "In your language. They own your case from start to close, and coordinate every party involved.",
-  },
-  {
-    n: "04",
-    title: "Everything happens inside one case file",
-    desc: "Documents, letters, appointments, invoices, chat, audit trail — visible to you and the people helping you.",
-  },
-  {
-    n: "05",
-    title: "You get on with your life",
-    desc: "We remind you before deadlines, chase authorities on your behalf, and translate anything you don't understand.",
-  },
-];
-
 function HowItWorks() {
+  const { t } = useTranslation();
+  const steps = [
+    { n: "01", title: t("pages.howItWorks.steps.s1Title"), desc: t("pages.howItWorks.steps.s1Desc") },
+    { n: "02", title: t("pages.howItWorks.steps.s2Title"), desc: t("pages.howItWorks.steps.s2Desc") },
+    { n: "03", title: t("pages.howItWorks.steps.s3Title"), desc: t("pages.howItWorks.steps.s3Desc") },
+    { n: "04", title: t("pages.howItWorks.steps.s4Title"), desc: t("pages.howItWorks.steps.s4Desc") },
+    { n: "05", title: t("pages.howItWorks.steps.s5Title"), desc: t("pages.howItWorks.steps.s5Desc") },
+  ];
   return (
     <div className="min-h-screen">
       <SiteHeader />
       <section className="mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
-          How it works
+          {t("pages.howItWorks.eyebrow")}
         </div>
         <h1 className="display-hero text-balance mt-3 font-semibold">
-          Five steps.<br />No paperwork storm.
+          {t("pages.howItWorks.title1")}<br />{t("pages.howItWorks.title2")}
         </h1>
         <div className="mt-16 space-y-10">
           {steps.map((s) => (
@@ -67,12 +48,10 @@ function HowItWorks() {
           ))}
         </div>
         <div className="mt-20 rounded-2xl border border-border/60 bg-card p-8 shadow-soft">
-          <div className="font-display text-2xl font-semibold">Ready when you are.</div>
-          <p className="mt-2 text-muted-foreground">
-            Free to start. Upgrade only when you need the human help.
-          </p>
+          <div className="font-display text-2xl font-semibold">{t("pages.howItWorks.readyTitle")}</div>
+          <p className="mt-2 text-muted-foreground">{t("pages.howItWorks.readyBody")}</p>
           <a href="/app" className="mt-4 inline-flex items-center gap-1 font-medium text-primary">
-            Open your dashboard <ArrowRight className="h-4 w-4 rtl-flip" />
+            {t("pages.howItWorks.openDashboard")} <ArrowRight className="h-4 w-4 rtl-flip" />
           </a>
         </div>
       </section>
