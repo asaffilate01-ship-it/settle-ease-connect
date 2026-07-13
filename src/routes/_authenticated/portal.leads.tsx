@@ -43,6 +43,7 @@ function LeadsInbox() {
 
   const leads = (leadsQ.data ?? []).filter((l: any) => {
     if (filter !== "all" && l.status !== filter) return false;
+    if (sourceFilter !== "all" && (l.source ?? "quote_widget") !== sourceFilter) return false;
     if (!q) return true;
     const s = q.toLowerCase();
     return l.full_name.toLowerCase().includes(s) || l.email.toLowerCase().includes(s);
