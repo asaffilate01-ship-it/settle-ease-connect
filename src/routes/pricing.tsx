@@ -299,6 +299,9 @@ function Pricing() {
           })}
         </div>
 
+        {/* Bereavement cover add-on toggle */}
+        <BereavementAddOn />
+
         {/* Trust link */}
         <div className="mt-8 text-center text-sm text-muted-foreground">
           Every plan is backed by our{" "}
