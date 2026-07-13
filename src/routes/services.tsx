@@ -223,7 +223,7 @@ function Services() {
                 ))}
                 {g.items.length > 5 && (
                   <li className="pl-5 pt-1 text-xs italic text-muted-foreground/80">
-                    +{g.items.length - 5} more services
+                    {t("pages.services.moreServices", { count: g.items.length - 5 })}
                   </li>
                 )}
               </ul>
@@ -232,7 +232,7 @@ function Services() {
                 to="/app"
                 className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground transition-all group-hover:gap-3.5 group-hover:text-primary"
               >
-                Learn more
+                {t("pages.services.learnMore")}
                 <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
               </Link>
             </article>
