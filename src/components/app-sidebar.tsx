@@ -215,7 +215,15 @@ export function AppSidebar() {
           )}
         </div>
 
+        <button
+          onClick={handleSignOut}
+          className="group flex w-full items-center gap-2 rounded-lg bg-sidebar-primary/10 px-3 py-2 text-sm font-semibold text-sidebar-primary transition-colors hover:bg-sidebar-primary hover:text-sidebar-primary-foreground"
+        >
+          <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+          {t("sidebar.signOut", { defaultValue: "Sign out" })}
+        </button>
       </div>
+
     </aside>
   );
 }
