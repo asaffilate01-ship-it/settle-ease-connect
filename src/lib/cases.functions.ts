@@ -108,6 +108,38 @@ export const sendCaseMessage = createServerFn({ method: "POST" })
       .insert({ ...data, sender_user_id: context.userId })
       .select().single();
     if (error) throw new Error(error.message);
+
+    // Fan out notifications to other case members (best-effort, via admin to bypass RLS INSERT gate)
+    try {
+      const [{ data: c }, { data: parts }] = await Promise.all([
+        context.supabase.from("cases").select("client_user_id, case_manager_user_id, title, reference").eq("id", data.case_id).maybeSingle(),
+        context.supabase.from("case_participants").select("user_id").eq("case_id", data.case_id),
+      ]);
+      const recipients = new Set<string>();
+      if (c?.case_manager_user_id) recipients.add(c.case_manager_user_id);
+      if (!data.internal_note && c?.client_user_id) recipients.add(c.client_user_id);
+      (parts ?? []).forEach((p: any) => { if (p.user_id) recipients.add(p.user_id); });
+      recipients.delete(context.userId);
+      if (recipients.size) {
+        const preview = data.body.slice(0, 120);
+        const label = c?.reference ? `Case ${c.reference}` : (c?.title ?? "Case");
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { error: notifErr } = await supabaseAdmin.from("notifications").insert(
+          Array.from(recipients).map((uid) => ({
+            user_id: uid,
+            kind: data.internal_note ? "case_internal" : "case_message",
+            title: `${label}: new message`,
+            body: preview,
+            link: `/app/cases/${data.case_id}`,
+            entity_type: "case",
+            entity_id: data.case_id,
+          })),
+        );
+        if (notifErr) console.error("case notification fan-out failed:", notifErr.message);
+      }
+    } catch (e) {
+      console.error("case notification fan-out threw:", e);
+    }
     return row;
   });
 
