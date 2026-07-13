@@ -283,6 +283,7 @@ export function SiteFooter() {
             [t("footer.howItWorks"), "/how-it-works"],
             [t("footer.services"), "/services"],
             [t("footer.bereavement"), "/bereavement"],
+            ["Group cover", "/group-cover"],
             [t("footer.pricing"), "/pricing"],
             [t("footer.blog"), "/blog"],
           ]}
