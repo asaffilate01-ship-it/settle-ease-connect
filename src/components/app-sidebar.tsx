@@ -50,6 +50,10 @@ const nav: NavItem[] = [
   { to: "/portal/audit", labelKey: "sidebar.audit", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
+  { to: "/agent", labelKey: "sidebar.agentOverview", icon: "overview", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent", exact: true },
+  { to: "/agent/clients", labelKey: "sidebar.agentClients", icon: "experts", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
+  { to: "/agent/commissions", labelKey: "sidebar.agentCommissions", icon: "benefits", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
+  { to: "/agent/link", labelKey: "sidebar.agentLink", icon: "providers", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
   { to: "/app/bugs", labelKey: "sidebar.bugs", icon: "bug", audience: "any" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings", audience: "any" },
 ];
