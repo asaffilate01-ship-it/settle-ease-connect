@@ -259,22 +259,22 @@ function Pricing() {
                 )}
                 {savings > 0 && (
                   <div className={`absolute -top-3 right-6 rounded-full px-3 py-1 text-xs font-semibold ${
-                    highlight ? "bg-background text-primary" : "bg-success/20 text-success-foreground border border-success/40"
+                    highlight ? "bg-background text-primary" : "bg-success/15 text-success border border-success/40"
                   }`}>
                     {t("pages.pricing.save", { percent: savings })}
                   </div>
                 )}
                 <div className="font-display text-2xl font-semibold">{meta.title}</div>
-                <div className={`text-sm ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                <div className={`text-sm ${highlight ? "text-primary-foreground/85" : "text-muted-foreground"}`}>
                   {plan.tagline}
                 </div>
                 <div className="mt-6 flex items-baseline gap-1">
                   <span className="font-display display-lg font-semibold">€{plan.monthly_price_eur}</span>
-                  <span className={`text-sm ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                  <span className={`text-sm ${highlight ? "text-primary-foreground/85" : "text-muted-foreground"}`}>
                     {t("pages.pricing.perMonth")}
                   </span>
                 </div>
-                <div className={`mt-1 text-xs ${highlight ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                <div className={`mt-1 text-xs ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   Covers up to {plan.max_adults} adult{plan.max_adults > 1 ? "s" : ""}
                   {plan.max_children > 0 ? ` + ${plan.max_children} children under 18` : ""}
                 </div>
@@ -286,7 +286,7 @@ function Pricing() {
                         <li
                           key={f}
                           className={`pt-1 text-xs font-semibold uppercase tracking-[0.14em] ${
-                            highlight ? "text-accent" : "text-primary/80"
+                            highlight ? "text-primary-foreground/90" : "text-primary/80"
                           }`}
                         >
                           {f}
@@ -294,8 +294,8 @@ function Pricing() {
                       );
                     }
                     return (
-                      <li key={f} className="flex items-start gap-2 text-sm leading-relaxed">
-                        <Check className={`mt-0.5 h-4 w-4 shrink-0 ${highlight ? "text-accent" : "text-success"}`} />
+                      <li key={f} className={`flex items-start gap-2 text-sm leading-relaxed ${highlight ? "text-primary-foreground" : ""}`}>
+                        <Check className={`mt-0.5 h-4 w-4 shrink-0 ${highlight ? "text-primary-foreground" : "text-success"}`} />
                         <span>{f}</span>
                       </li>
                     );
@@ -303,7 +303,7 @@ function Pricing() {
                 </ul>
                 <Button
                   asChild
-                  className={`mt-6 ${highlight ? "bg-accent text-accent-foreground hover:bg-accent/90" : "bg-gradient-primary"}`}
+                  className={`mt-6 ${highlight ? "bg-background text-primary hover:bg-background/90" : "bg-gradient-primary"}`}
                 >
                   <Link to="/app">{t("pages.pricing.choose", { name: meta.title })}</Link>
                 </Button>
