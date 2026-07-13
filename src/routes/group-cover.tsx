@@ -163,8 +163,9 @@ function GroupCoverPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <h2 className="display-lg font-semibold">Three-tier member structure</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          A clean pricing spine that maps onto how households actually look. Broker negotiates the
-          final group tariff — the ranges below are retail baselines before institutional discount.
+          A clean pricing spine that maps onto how households actually look. The final per-member
+          rate is confirmed by the broker tender for your pool — we don't quote premium estimates
+          up front.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {tiers.map((t) => (
