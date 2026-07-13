@@ -62,6 +62,7 @@
     "referrals": "Parrainages",
     "insuranceOps": "Opérations assurance",
     "immigrationOps": "Opérations immigration",
-    "audit": "Audit"
+    "audit": "Audit",
+    "signOut": "Se déconnecter"
   }
 }

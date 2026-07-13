@@ -71,7 +71,8 @@
     "referrals": "Рефералы",
     "insuranceOps": "Страховые операции",
     "immigrationOps": "Операции по иммиграции",
-    "audit": "Аудит"
+    "audit": "Аудит",
+    "signOut": "Выйти"
   },
   "language": {
     "label": "Язык",

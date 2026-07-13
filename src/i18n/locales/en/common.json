@@ -71,7 +71,8 @@
     "referrals": "Referrals",
     "insuranceOps": "Insurance ops",
     "immigrationOps": "Immigration ops",
-    "audit": "Audit"
+    "audit": "Audit",
+    "signOut": "Sign out"
   },
   "language": {
     "label": "Language",
