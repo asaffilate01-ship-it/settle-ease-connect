@@ -26,6 +26,7 @@ function LeadsInbox() {
 
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<string>("all");
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const leadsQ = useQuery({ queryKey: ["insurance-leads"], queryFn: () => load() });
