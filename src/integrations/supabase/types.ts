@@ -2688,6 +2688,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_active_agent: { Args: { _user_id: string }; Returns: boolean }
       is_agent: { Args: { _user_id: string }; Returns: boolean }
       is_channel_member: {
         Args: { _channel_id: string; _user_id: string }
