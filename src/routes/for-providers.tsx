@@ -10,7 +10,9 @@ export const Route = createFileRoute("/for-providers")({
       { name: "description", content: "Join Germany's largest cross-faith welfare and end-of-life network. Portals for funeral directors, mosques, churches, temples and gurdwaras." },
       { property: "og:title", content: "For providers — BeistandPlus" },
       { property: "og:description", content: "Get verified referrals, manage cases, and grow your practice with BeistandPlus." },
+      { property: "og:url", content: "https://beistandplus.de/for-providers" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/for-providers" }],
   }),
   component: ForProviders,
 });

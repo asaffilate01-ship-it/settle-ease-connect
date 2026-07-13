@@ -11,7 +11,9 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Welfare, benefits, immigration, employment, housing, healthcare, community and end-of-life care in Germany." },
       { property: "og:title", content: "Services — BeistandPlus" },
       { property: "og:description", content: "Every service a new arrival or long-time resident in Germany needs, in one place." },
+      { property: "og:url", content: "https://beistandplus.de/services" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/services" }],
   }),
   component: Services,
 });

@@ -9,7 +9,9 @@ export const Route = createFileRoute("/how-it-works")({
       { name: "description", content: "The Beistand workflow: settle, claim, belong, stand with — coordinated by a human case manager and an AI assistant." },
       { property: "og:title", content: "How it works — BeistandPlus" },
       { property: "og:description", content: "From your first Anmeldung to the hardest moments, here's how BeistandPlus carries you." },
+      { property: "og:url", content: "https://beistandplus.de/how-it-works" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/how-it-works" }],
   }),
   component: HowItWorks,
 });

@@ -11,7 +11,9 @@ export const Route = createFileRoute("/bereavement")({
       { name: "description", content: "Muslim, Christian, Hindu, Sikh and Buddhist end-of-life care coordinated across families, funeral directors, religious organisations and consulates." },
       { property: "og:title", content: "Bereavement care in Germany — BeistandPlus" },
       { property: "og:description", content: "One workflow, every faith, burial in Germany or repatriation abroad." },
+      { property: "og:url", content: "https://beistandplus.de/bereavement" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/bereavement" }],
   }),
   component: Bereavement,
 });

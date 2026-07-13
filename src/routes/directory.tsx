@@ -54,7 +54,9 @@ export const Route = createFileRoute("/directory")({
       { name: "description", content: "Multilingual lawyers, doctors, immigration specialists, tax advisors, welfare experts, imams and more across Germany. Free to list, member access to view." },
       { property: "og:title", content: "Members directory — BeistandPlus" },
       { property: "og:description", content: "Verified & community-listed service providers for expats and migrants in Germany. Free listings for providers, member access for families." },
+      { property: "og:url", content: "https://beistandplus.de/directory" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/directory" }],
   }),
   component: DirectoryPage,
 });

@@ -8,7 +8,9 @@ export const Route = createFileRoute("/legal")({
       { title: "Legal — BeistandPlus" },
       { name: "description", content: "Terms of service, privacy notice, cookies, complaints procedure and imprint for BeistandPlus." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://beistandplus.de/legal" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/legal" }],
   }),
   component: LegalLayout,
 });

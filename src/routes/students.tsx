@@ -30,7 +30,9 @@ export const Route = createFileRoute("/students")({
           "Landing in Germany to study? Get 30% off your BeistandPlus membership with a valid student ID.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://beistandplus.de/students" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/students" }],
   }),
   component: StudentsPage,
 });
