@@ -2592,6 +2592,7 @@ export type Database = {
         | "translator"
         | "social_worker"
         | "beneficiary"
+        | "agent"
       case_participant_role:
         | "client"
         | "case_manager"
@@ -2789,6 +2790,7 @@ export const Constants = {
         "translator",
         "social_worker",
         "beneficiary",
+        "agent",
       ],
       case_participant_role: [
         "client",
