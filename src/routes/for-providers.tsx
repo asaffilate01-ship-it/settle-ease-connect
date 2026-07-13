@@ -10,7 +10,9 @@ export const Route = createFileRoute("/for-providers")({
       { name: "description", content: "Join Germany's largest cross-faith welfare and end-of-life network. Portals for funeral directors, mosques, churches, temples and gurdwaras." },
       { property: "og:title", content: "For providers — BeistandPlus" },
       { property: "og:description", content: "Get verified referrals, manage cases, and grow your practice with BeistandPlus." },
+      { property: "og:url", content: "https://beistandplus.de/for-providers" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/for-providers" }],
   }),
   component: ForProviders,
 });
@@ -188,7 +190,7 @@ function ForProviders() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           Provider network
         </div>
-        <h1 className="display-hero mt-3 font-semibold">
+        <h1 className="display-hero text-balance mt-3 font-semibold">
           Build your practice. Stand with your community.
         </h1>
         <p className="mt-5 text-lg text-muted-foreground">

@@ -23,7 +23,9 @@ export const Route = createFileRoute("/pricing")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://beistandplus.de/pricing" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/pricing" }],
   }),
   component: Pricing,
 });
@@ -138,7 +140,7 @@ function Pricing() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Pricing
           </div>
-          <h1 className="display-hero mt-3 font-semibold">
+          <h1 className="display-hero text-balance mt-3 font-semibold">
             One subscription. One trusted hand.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -183,7 +185,7 @@ function Pricing() {
               A safety net for anyone in Germany — no card required.
             </div>
             <div className="mt-6 flex items-baseline gap-1">
-              <span className="font-display text-5xl font-semibold">€0</span>
+              <span className="font-display display-lg font-semibold">€0</span>
               <span className="text-sm text-muted-foreground">/ forever</span>
             </div>
             <div className="mt-1 text-xs text-muted-foreground">
@@ -248,7 +250,7 @@ function Pricing() {
                   {plan.tagline}
                 </div>
                 <div className="mt-6 flex items-baseline gap-1">
-                  <span className="font-display text-5xl font-semibold">€{plan.monthly_price_eur}</span>
+                  <span className="font-display display-lg font-semibold">€{plan.monthly_price_eur}</span>
                   <span className={`text-sm ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                     / month
                   </span>
@@ -304,7 +306,7 @@ function Pricing() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             What we help with at launch
           </div>
-          <h2 className="display-lg mt-3 font-semibold">
+          <h2 className="display-lg text-balance mt-3 font-semibold">
             Bereavement, benefits, housing, pensions and paperwork — done properly, in your language.
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
@@ -372,7 +374,7 @@ function Pricing() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
               For providers
             </div>
-            <h2 className="display-lg mt-3 font-semibold">
+            <h2 className="display-lg text-balance mt-3 font-semibold">
               Vetted experts free. Public directory free too.
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">

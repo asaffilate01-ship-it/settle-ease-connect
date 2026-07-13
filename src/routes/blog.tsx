@@ -34,7 +34,7 @@ function BlogIndex() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             {t("blog.title")}
           </div>
-          <h1 className="display-hero mt-3 font-semibold">
+          <h1 className="display-hero text-balance mt-3 font-semibold">
             {t("blog.subtitle")}
           </h1>
         </div>
@@ -63,12 +63,12 @@ function BlogIndex() {
                 {dateFmt.format(new Date(featured.publishedAt))} · {t("blog.minRead", { count: featured.minutesToRead })}
               </span>
             </div>
-            <h2 className="display-lg mt-4 font-semibold">
+            <h2 className="display-lg text-balance mt-4 font-semibold">
               {featured.title}
             </h2>
             <p className="mt-3 text-base text-muted-foreground">{featured.excerpt}</p>
             <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              {t("blog.readMore")} <ArrowRight className="h-4 w-4" />
+              {t("blog.readMore")} <ArrowRight className="h-4 w-4 rtl-flip" />
             </span>
           </div>
         </Link>
@@ -104,7 +104,7 @@ function BlogIndex() {
                 <h3 className="mt-3 font-display text-xl font-semibold leading-snug">{post.title}</h3>
                 <p className="mt-2 flex-1 text-sm text-muted-foreground">{post.excerpt}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                  {t("blog.readMore")} <ArrowRight className="h-4 w-4" />
+                  {t("blog.readMore")} <ArrowRight className="h-4 w-4 rtl-flip" />
                 </span>
               </div>
             </Link>

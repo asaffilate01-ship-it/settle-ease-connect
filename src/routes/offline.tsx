@@ -78,7 +78,7 @@ function OfflinePage() {
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
             <WifiOff className="h-3.5 w-3.5" /> Built for weak signal
           </div>
-          <h1 className="display-hero mt-4 font-semibold">
+          <h1 className="display-hero text-balance mt-4 font-semibold">
             Works offline. <span className="text-teal">Syncs when you're back.</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-white/70">
@@ -169,7 +169,7 @@ function OfflinePage() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             How it works
           </div>
-          <h2 className="display-lg mt-3 font-semibold">Your data stays with you until it's safe to send.</h2>
+          <h2 className="display-lg text-balance mt-3 font-semibold">Your data stays with you until it's safe to send.</h2>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <Feature icon={HardDriveDownload} title="Stored on-device">

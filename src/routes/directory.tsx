@@ -54,7 +54,9 @@ export const Route = createFileRoute("/directory")({
       { name: "description", content: "Multilingual lawyers, doctors, immigration specialists, tax advisors, welfare experts, imams and more across Germany. Free to list, member access to view." },
       { property: "og:title", content: "Members directory — BeistandPlus" },
       { property: "og:description", content: "Verified & community-listed service providers for expats and migrants in Germany. Free listings for providers, member access for families." },
+      { property: "og:url", content: "https://beistandplus.de/directory" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/directory" }],
   }),
   component: DirectoryPage,
 });
@@ -92,7 +94,7 @@ function DirectoryPage() {
           <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
             Members directory
           </Badge>
-          <h1 className="display-hero mt-4 font-semibold">
+          <h1 className="display-hero text-balance mt-4 font-semibold">
             Find someone who speaks your language.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -192,7 +194,7 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               Members only
             </div>
-            <h2 className="display-lg mt-1 font-semibold">
+            <h2 className="display-lg text-balance mt-1 font-semibold">
               Unlock all {count} verified providers.
             </h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">

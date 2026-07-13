@@ -236,7 +236,7 @@ function PartnershipsHub() {
         <Badge variant="outline" className="border-primary/30 text-primary">
           Institutional partnerships
         </Badge>
-        <h1 className="display-hero mt-5 font-semibold leading-[1.05]">
+        <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
           Five tracks.<br />
           <span className="italic text-primary">One trusted intake for migrants in Germany.</span>
         </h1>
@@ -340,7 +340,7 @@ function PartnershipsHub() {
               </p>
               <Button asChild variant="outline" size="sm">
                 <a href={`mailto:${track.contactEmail}?subject=Partnership%20inquiry%20—%20${encodeURIComponent(track.name)}`}>
-                  Start a conversation <ArrowRight className="ml-1 h-4 w-4" />
+                  Start a conversation <ArrowRight className="ml-1 h-4 w-4 rtl-flip" />
                 </a>
               </Button>
             </footer>

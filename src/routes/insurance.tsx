@@ -174,7 +174,7 @@ function InsuranceLanding() {
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
               <ShieldCheck className="h-3.5 w-3.5" /> Broker-placed · §34d GewO
             </div>
-            <h1 className="display-hero mt-4 font-semibold">
+            <h1 className="display-hero text-balance mt-4 font-semibold">
               Insurance in Germany, <span className="text-teal">without the paperwork.</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg text-white/70">
@@ -190,7 +190,7 @@ function InsuranceLanding() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-teal text-[oklch(0.16_0.04_250)] hover:bg-teal/90">
                 <a href="#callback">
-                  Request a callback <ArrowRight className="ml-2 h-4 w-4" />
+                  Request a callback <ArrowRight className="ml-2 h-4 w-4 rtl-flip" />
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white">
@@ -226,7 +226,7 @@ function InsuranceLanding() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Product lines
           </div>
-          <h2 className="display-lg mt-3 font-semibold">
+          <h2 className="display-lg text-balance mt-3 font-semibold">
             Seven policies cover 90% of what a household in Germany actually needs.
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -275,7 +275,7 @@ function InsuranceLanding() {
                 </div>
                 <div className="mt-1 text-xs font-medium">{p.partner}</div>
                 <div className={`mt-4 inline-flex items-center gap-1 text-xs font-semibold ${active ? "text-primary" : "text-muted-foreground group-hover:text-primary"}`}>
-                  {active ? "Selected" : "Get a quote"} <ArrowRight className="h-3.5 w-3.5" />
+                  {active ? "Selected" : "Get a quote"} <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
                 </div>
               </button>
             );
@@ -291,7 +291,7 @@ function InsuranceLanding() {
               <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
                 How we get paid
               </div>
-              <h2 className="display-lg mt-3 font-semibold">
+              <h2 className="display-lg text-balance mt-3 font-semibold">
                 Commission-only, fully disclosed.
               </h2>
               <p className="mt-3 text-sm text-muted-foreground">
@@ -301,7 +301,7 @@ function InsuranceLanding() {
                 German insurer's tariffs.
               </p>
               <Link to="/trust" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">
-                Read the full compliance page <ArrowRight className="h-3.5 w-3.5" />
+                Read the full compliance page <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
               </Link>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -332,7 +332,7 @@ function InsuranceLanding() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
             Request a callback
           </div>
-          <h2 className="display-lg mt-3 font-semibold">
+          <h2 className="display-lg text-balance mt-3 font-semibold">
             Tell us what you need. We'll come back within one working day.
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">

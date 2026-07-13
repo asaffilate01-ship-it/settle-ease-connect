@@ -9,7 +9,9 @@ export const Route = createFileRoute("/how-it-works")({
       { name: "description", content: "The Beistand workflow: settle, claim, belong, stand with — coordinated by a human case manager and an AI assistant." },
       { property: "og:title", content: "How it works — BeistandPlus" },
       { property: "og:description", content: "From your first Anmeldung to the hardest moments, here's how BeistandPlus carries you." },
+      { property: "og:url", content: "https://beistandplus.de/how-it-works" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/how-it-works" }],
   }),
   component: HowItWorks,
 });
@@ -50,7 +52,7 @@ function HowItWorks() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
           How it works
         </div>
-        <h1 className="display-hero mt-3 font-semibold">
+        <h1 className="display-hero text-balance mt-3 font-semibold">
           Five steps.<br />No paperwork storm.
         </h1>
         <div className="mt-16 space-y-10">
@@ -70,7 +72,7 @@ function HowItWorks() {
             Free to start. Upgrade only when you need the human help.
           </p>
           <a href="/app" className="mt-4 inline-flex items-center gap-1 font-medium text-primary">
-            Open your dashboard <ArrowRight className="h-4 w-4" />
+            Open your dashboard <ArrowRight className="h-4 w-4 rtl-flip" />
           </a>
         </div>
       </section>

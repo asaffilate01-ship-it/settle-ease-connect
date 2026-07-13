@@ -37,7 +37,7 @@ function Partners() {
 
       <section className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
         <Badge variant="outline" className="border-primary/30 text-primary">Partner API layer</Badge>
-        <h1 className="display-hero mt-5 font-semibold leading-[1.05]">
+        <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
           One workflow.<br />
           <span className="italic text-primary">Every partner API behind it.</span>
         </h1>
@@ -49,7 +49,7 @@ function Partners() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Live integrations</h2>
+        <h2 className="display-lg text-balance font-semibold">Live integrations</h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           Each adapter reports its own status. A partner in <span className="font-medium">mock</span> mode
           still returns a realistic response so onboarding, demos and offline usage
@@ -86,7 +86,7 @@ function Partners() {
         </div>
 
         <div className="mt-16">
-          <h2 className="display-lg font-semibold">Adapter contract</h2>
+          <h2 className="display-lg text-balance font-semibold">Adapter contract</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Every partner implements one of three narrow interfaces — quote,
             handoff, or booking — and lives under <code className="rounded bg-muted px-1.5 py-0.5 text-xs">src/lib/partners/*</code>.
@@ -108,7 +108,7 @@ function Partners() {
         </div>
 
         <div className="mt-16">
-          <h2 className="display-lg font-semibold">Onboarding roadmap</h2>
+          <h2 className="display-lg text-balance font-semibold">Onboarding roadmap</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Publicly tracked so partners can see exactly where they'd slot in.
           </p>
