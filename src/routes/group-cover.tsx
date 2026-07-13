@@ -117,9 +117,7 @@ function GroupCoverPage() {
           €20,000 of cover per member.
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
-          A collective bereavement cover your association, employer or community can hold as the
-          single contract holder — with the cover provider bound to accept every member, waived waiting
-          periods, and funeral settlement handled by us on day one of a claim. Everyone is covered under German law.
+          You are covered to €20,000 under German law — with no health questions, no waiting periods, and funeral settlement handled by us from day one of a claim.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild className="bg-gradient-primary">
