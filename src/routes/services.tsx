@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { ArrowRight } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import heroServices from "@/assets/brand/hero-services.jpg";
+
 
 export const Route = createFileRoute("/services")({
   head: () => ({
