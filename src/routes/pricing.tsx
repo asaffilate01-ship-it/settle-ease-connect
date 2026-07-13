@@ -89,7 +89,7 @@ const PLAN_FEATURES: Record<string, string[]> = {
     "Repatriation coordination (zinc coffin, embalming, consular NOC, airline cargo, receiving director abroad)",
     "Immigration desk: visas, residence permits, naturalisation, repatriation, embassy & consulate contacts across Germany",
     "Lawyer, notary, tax adviser and doctor concierge — vetted, quoted, paid through platform escrow",
-    "Bereavement cover advisory (optional insurance add-on up to €8,000 payout — underwritten separately)",
+    "Funeral cover advisory (optional add-on up to €20,000 payout — underwritten separately)",
     "Full transparent invoicing — every third-party euro itemised, with remaining balance paid to your nominated beneficiary",
     "Life-plan review twice a year with your case manager",
     "Digital deputy access — a trusted person can act for you in illness or after death",
@@ -299,7 +299,7 @@ function Pricing() {
           })}
         </div>
 
-        {/* Bereavement cover add-on toggle */}
+        {/* Funeral cover add-on toggle */}
         <BereavementAddOn />
 
         {/* Trust link */}
@@ -445,29 +445,29 @@ const COVER_BANDS: {
   {
     key: "individual",
     label: "Individual",
-    household: "1 adult · €10,000 payout",
-    addOnEur: 8,
+    household: "1 adult · €20,000 payout",
+    addOnEur: 16,
     icon: <User className="h-4 w-4" />,
   },
   {
     key: "student",
     label: "Student",
-    household: "1 adult · €10,000 payout · verified student ID",
-    addOnEur: 5,
+    household: "1 adult · €20,000 payout · verified student ID",
+    addOnEur: 10,
     icon: <GraduationCap className="h-4 w-4" />,
   },
   {
     key: "small_family",
     label: "Small family",
-    household: "Up to 2 adults + 3 children · €10,000 per adult · children co-covered",
-    addOnEur: 14,
+    household: "Up to 2 adults + 3 children · €20,000 per adult · children co-covered",
+    addOnEur: 28,
     icon: <Users className="h-4 w-4" />,
   },
   {
     key: "large_family",
     label: "Large family",
-    household: "Up to 4 adults + 3 children · €10,000 per adult · children co-covered",
-    addOnEur: 26,
+    household: "Up to 4 adults + 3 children · €20,000 per adult · children co-covered",
+    addOnEur: 52,
     icon: <HeartHandshake className="h-4 w-4" />,
   },
 ];
@@ -484,9 +484,9 @@ function BereavementAddOn() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/80">
             Optional add-on
           </div>
-          <h3 className="display-md mt-2 font-semibold">Bereavement cover — flat €10,000 per adult</h3>
+          <h3 className="display-md mt-2 font-semibold">Funeral cover — flat €20,000 per adult</h3>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Add regulated bereavement cover (regulated under German law) to any plan. Flat €10,000 sum
+            Add regulated funeral cover (regulated under German law) to any plan. Flat €20,000 sum
             per adult, no health questions, funeral director settled directly and any balance
             transferred to your nominated beneficiary. Prices below are indicative — the final rate
             is confirmed on enrolment.
@@ -534,7 +534,7 @@ function BereavementAddOn() {
       {enabled && (
         <div className="mt-4 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
           <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
-          {active.addOnEur}/mo added to your BeistandPlus plan. Payout: €10,000 per insured adult,
+          {active.addOnEur}/mo added to your BeistandPlus plan. Payout: €20,000 per insured adult,
           paid directly to the funeral director with the balance to your nominated beneficiary.
         </div>
       )}
