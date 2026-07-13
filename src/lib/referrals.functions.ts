@@ -139,8 +139,8 @@ export const updateReferralLead = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-export function buildReferralUrl(template: string, sub: string) {
+export function buildReferralUrl(template: string, sub: string, ref?: string | null) {
   return template
-    .replace("{ref}", "beistand-de")
+    .replace("{ref}", encodeURIComponent(ref || "direct"))
     .replace("{sub}", encodeURIComponent(sub || "direct"));
 }
