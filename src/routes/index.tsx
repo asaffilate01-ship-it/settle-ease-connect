@@ -588,7 +588,7 @@ function BereavementBand() {
       <div className="absolute inset-0 opacity-20 bg-gradient-warm" />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-6">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground/90">
             End-of-Life Care
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -630,7 +630,7 @@ function Workflow() {
   ];
   return (
     <div className="rounded-3xl border border-primary-foreground/20 bg-primary-foreground/5 p-6 backdrop-blur">
-      <div className="text-xs uppercase tracking-widest text-accent">Case BST-2410-0042</div>
+      <div className="text-xs uppercase tracking-widest text-primary-foreground/90">Case BST-2410-0042</div>
       <div className="mt-1 font-display text-2xl">Repatriation · Berlin → Lahore</div>
       <ol className="mt-6 space-y-3">
         {stages.map((s, i) => (

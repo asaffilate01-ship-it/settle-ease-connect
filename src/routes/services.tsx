@@ -300,7 +300,7 @@ function Services() {
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
           <div className="relative grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
             <div className="min-w-0">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary-foreground/90">
                 {t("pages.services.readyEyebrow")}
               </div>
               <h2 className="display-lg text-balance mt-4">
