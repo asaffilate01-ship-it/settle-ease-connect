@@ -184,15 +184,15 @@ function Pricing() {
           {/* Community (free) tier */}
           <div className="relative flex flex-col rounded-2xl border border-dashed border-teal/50 bg-card p-6 shadow-soft">
             <div className="absolute -top-3 left-6 rounded-full bg-teal px-3 py-1 text-xs font-semibold text-[oklch(0.16_0.04_250)]">
-              Free · Community
+              {t("pages.pricing.communityBadge")}
             </div>
-            <div className="font-display text-2xl font-semibold">Community</div>
+            <div className="font-display text-2xl font-semibold">{t("pages.pricing.communityName")}</div>
             <div className="text-sm text-muted-foreground">
-              A safety net for anyone in Germany — no card required.
+              {t("pages.pricing.communityDesc")}
             </div>
             <div className="mt-6 flex items-baseline gap-1">
               <span className="font-display display-lg font-semibold">€0</span>
-              <span className="text-sm text-muted-foreground">/ forever</span>
+              <span className="text-sm text-muted-foreground">{t("pages.pricing.forever")}</span>
             </div>
             <div className="mt-1 text-xs text-muted-foreground">
               Funded by paying members and NGO / municipal partners
