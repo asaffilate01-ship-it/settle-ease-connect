@@ -48,7 +48,7 @@ function CaseDetail() {
 
   useEffect(() => {
     const ch = supabase
-      .channel(`case-${caseId}`)
+      .channel(`case-${caseId}:${Math.random().toString(36).slice(2)}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "case_messages", filter: `case_id=eq.${caseId}` }, () => {
         qc.invalidateQueries({ queryKey: ["case", caseId] });
       })
