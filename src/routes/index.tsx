@@ -317,18 +317,20 @@ function UrgencyTriage() {
     },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Where should we start?
-        </div>
-        <h2 className="display-lg text-balance mt-3 font-semibold">
-          Two doors. One <span className="text-destructive">calm</span> team behind both.
+        <div className="eyebrow">Where should we start?</div>
+        <h2 className="display-lg mt-4">
+          Two doors. One <span className="headline-stamp italic">calm</span> team behind both.
         </h2>
-        <p className="mt-4 text-base text-muted-foreground">
-          Tell us whether today is an emergency or a plan. We'll match you to the right case manager, in your language, in minutes.
+        <p className="mt-5 text-base leading-relaxed text-foreground/80">
+          Tell us whether today is an emergency or a plan. We'll match you to the right case manager,
+          in your language, in minutes.
         </p>
+        <div className="mx-auto mt-8 h-px w-24 bg-primary" />
       </div>
+
+
 
       <div className="mt-14 grid gap-6 lg:grid-cols-2">
         {paths.map((p) => {
