@@ -265,6 +265,19 @@ function GroupCoverPage() {
             </div>
           ))}
         </div>
+        <div className="mt-6 rounded-xl border border-border/60 bg-parchment/40 p-5 text-sm">
+          <div className="font-semibold">Sample fiduciary clause (Treuhandvereinbarung)</div>
+          <p className="mt-1 text-muted-foreground">
+            A print-ready template members sign at enrolment — designating the association
+            as revocable beneficiary with a fiduciary mandate, and naming the family
+            beneficiary for the surplus.
+          </p>
+          <Button asChild variant="outline" size="sm" className="mt-3">
+            <Link to="/group-cover/fiduciary-clause">
+              Open template <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </section>
 
       <section id="intake" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
