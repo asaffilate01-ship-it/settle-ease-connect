@@ -5,6 +5,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { featherStatus, quoteFromFeather } from "./partners/feather";
 import { taxfixStatus, handoffToTaxfix } from "./partners/taxfix";
 import { bookCareTranslation, careTranslationStatus } from "./partners/care-translation";
