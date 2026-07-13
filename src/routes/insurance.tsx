@@ -134,13 +134,13 @@ const PRODUCTS: Product[] = [
   {
     key: "bereavement",
     name: "Family bereavement cover",
-    tagline: "One premium, whole household, invoices settled directly.",
-    from: "from €12 / mo",
+    tagline: "€20,000 DELA cover — funeral settled directly, balance to family.",
+    from: "from €24 / mo",
     icon: Flower2,
     bullets: [
+      "€20,000 DELA benefit per adult · children under 20 free",
       "Repatriation to home country included",
-      "Multi-faith funeral partners named up-front",
-      "Any balance paid to your nominated beneficiary",
+      "Around €14,000 balance paid to your nominated beneficiary",
     ],
     partner: "DELA · Monuta · Nürnberger",
   },
