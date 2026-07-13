@@ -65,12 +65,26 @@ export const createReferralLead = createServerFn({ method: "POST" })
         partner_id: z.string().uuid(),
         case_id: z.string().uuid().optional().nullable(),
         source_page: z.string().max(200).optional().nullable(),
-        commission_expected_cents: z.number().int().min(0).default(0),
         notes: z.string().max(1000).optional().nullable(),
       })
       .parse(raw),
   )
   .handler(async ({ data, context }) => {
+    // Look up the partner's configured commission — never trust client input.
+    const { data: partner, error: pErr } = await context.supabase
+      .from("referral_partners")
+      .select("commission_model, commission_rate, commission_flat_cents, active")
+      .eq("id", data.partner_id)
+      .maybeSingle();
+    if (pErr) throw new Error(pErr.message);
+    if (!partner || !partner.active) throw new Error("Partner not found or inactive");
+
+    // Server-computed expected commission (best-effort estimate for flat/cpl/cpa).
+    const expected =
+      partner.commission_model === "flat" || partner.commission_model === "cpl" || partner.commission_model === "cpa"
+        ? Number(partner.commission_flat_cents ?? 0)
+        : 0;
+
     const { data: inserted, error } = await context.supabase
       .from("referral_leads")
       .insert({
@@ -78,7 +92,7 @@ export const createReferralLead = createServerFn({ method: "POST" })
         client_user_id: context.userId,
         case_id: data.case_id ?? null,
         source_page: data.source_page ?? null,
-        commission_expected_cents: data.commission_expected_cents,
+        commission_expected_cents: expected,
         notes: data.notes ?? null,
         status: "sent",
       })
