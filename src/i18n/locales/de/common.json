@@ -71,7 +71,8 @@
     "referrals": "Empfehlungen",
     "insuranceOps": "Versicherungs-Ops",
     "immigrationOps": "Einwanderungs-Ops",
-    "audit": "Audit"
+    "audit": "Audit",
+    "signOut": "Abmelden"
   },
   "language": {
     "label": "Sprache",
