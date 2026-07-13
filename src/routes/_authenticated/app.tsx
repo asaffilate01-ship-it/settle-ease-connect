@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -48,7 +49,9 @@ function AppLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <SidebarProvider>
+    <div className="flex min-h-screen bg-background w-full">
+
       <AppSidebar />
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6 lg:px-8">
@@ -100,5 +103,6 @@ function AppLayout() {
         <MobileTabBar />
       </div>
     </div>
+    </SidebarProvider>
   );
 }
