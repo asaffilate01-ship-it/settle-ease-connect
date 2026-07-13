@@ -136,7 +136,7 @@ export function AppSidebar() {
         className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5 transition-colors hover:bg-sidebar-accent/40"
       >
         <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-sidebar-primary to-sidebar-primary/70 shadow-soft ring-1 ring-sidebar-primary/30">
-          <img src={logoMark} alt="" className="h-6 w-6 object-contain" />
+          <img src={logoMark} alt="" className="h-6 w-6 object-contain brightness-0 invert" />
         </div>
         <div className="min-w-0 leading-tight">
           <div className="truncate font-display text-lg font-semibold tracking-tight">BeistandPlus</div>
