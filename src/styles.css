@@ -454,3 +454,8 @@ html.keyboard-open body {
 /* Global long-word safety net — prevents translated words overflowing cards. */
 h1, h2, h3, h4 { overflow-wrap: break-word; hyphens: auto; }
 p, li, dd, dt  { overflow-wrap: break-word; }
+
+/* Smooth cross-fade while the auto-translator swaps text. */
+html { transition: opacity 180ms ease; }
+html[data-lang-switching="1"] body { opacity: 0.55; transition: opacity 180ms ease; }
+html:not([data-lang-switching]) body { opacity: 1; transition: opacity 220ms ease; }
