@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GroupCoverIntake } from "@/components/group-cover-intake";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import {
   Building2,
   Users,
@@ -90,9 +91,12 @@ const legalNotes = [
 ];
 
 function GroupCoverPage() {
+  const { roles } = useCurrentUser();
+  const isAdmin = roles.includes("admin") || roles.includes("staff");
   return (
     <div className="min-h-screen">
       <SiteHeader />
+
 
       <section className="mx-auto max-w-6xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <Badge variant="secondary" className="uppercase tracking-wider">
@@ -106,7 +110,7 @@ function GroupCoverPage() {
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild className="bg-gradient-primary">
-            <a href="#intake">Get funeral cover <ArrowRight className="ml-1 h-4 w-4" /></a>
+            <Link to="/contact">Get funeral cover <ArrowRight className="ml-1 h-4 w-4" /></Link>
           </Button>
           <Button asChild variant="outline">
             <Link to="/bereavement-cover">See individual cover</Link>
@@ -202,9 +206,12 @@ function GroupCoverPage() {
         </div>
       </section>
 
-      <section id="intake" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-        <GroupCoverIntake />
-      </section>
+      {isAdmin && (
+        <section id="intake" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+          <GroupCoverIntake />
+        </section>
+      )}
+
 
       <SiteFooter />
     </div>
