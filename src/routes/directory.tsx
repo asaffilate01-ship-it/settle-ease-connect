@@ -55,6 +55,7 @@ export const Route = createFileRoute("/directory")({
 });
 
 function DirectoryPage() {
+  const { t } = useTranslation();
   const [category, setCategory] = useState("");
   const [city, setCity] = useState("");
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
@@ -85,24 +86,21 @@ function DirectoryPage() {
       <section className="border-b border-border/60 bg-gradient-hero">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
           <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
-            Members directory
+            {t("directory.badge", { defaultValue: "Members directory" })}
           </Badge>
           <h1 className="display-hero text-balance mt-4 font-semibold">
-            Find someone who speaks your language.
+            {t("directory.heroTitle", { defaultValue: "Find someone who speaks your language." })}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Multilingual lawyers, doctors, imams, tax advisors, welfare experts,
-            teachers and translators across Germany — searchable by city and
-            language. <strong className="text-foreground">Free for providers to list</strong>,
-            member access for families and clients.
+            {t("directory.heroBody", { defaultValue: "Multilingual lawyers, doctors, imams, tax advisors, welfare experts, teachers and translators across Germany — searchable by city and language. Free for providers to list, member access for families and clients." })}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
-              <Link to="/directory/list-your-business">List your business — free</Link>
+              <Link to="/directory/list-your-business">{t("directory.listCta", { defaultValue: "List your business — free" })}</Link>
             </Button>
             {!hasAccess && (
               <Button asChild size="lg" variant="outline">
-                <Link to="/pricing">See member plans</Link>
+                <Link to="/pricing">{t("directory.seePlans", { defaultValue: "See member plans" })}</Link>
               </Button>
             )}
           </div>
@@ -117,22 +115,24 @@ function DirectoryPage() {
               <input
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                placeholder="Filter by city (Berlin, Munich…)"
+                placeholder={t("directory.cityPlaceholder", { defaultValue: "Filter by city (Berlin, Munich…)" })}
                 className="w-full rounded-lg border border-border/60 bg-background py-2 pl-9 pr-3 text-sm"
               />
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {CATEGORIES.map((c) => (
+              {CATEGORY_KEYS.map((k) => (
                 <button
-                  key={c.key}
-                  onClick={() => setCategory(c.key)}
+                  key={k || "all"}
+                  onClick={() => setCategory(k)}
                   className={`rounded-full border px-3 py-1 text-xs transition ${
-                    category === c.key
+                    category === k
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border/60 bg-background text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {c.label}
+                  {t(`directory.categories.${k || "all"}`, {
+                    defaultValue: k === "" ? "All" : k.charAt(0).toUpperCase() + k.slice(1),
+                  })}
                 </button>
               ))}
             </div>
@@ -142,14 +142,14 @@ function DirectoryPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         {(isLoading || authLoading) && (
-          <p className="text-sm text-muted-foreground">Loading…</p>
+          <p className="text-sm text-muted-foreground">{t("common.loading", { defaultValue: "Loading…" })}</p>
         )}
         {!isLoading && !authLoading && listings.length === 0 && (
           <div className="rounded-2xl border border-dashed border-border/60 p-10 text-center">
             <p className="text-sm text-muted-foreground">
-              No listings match your filters yet. Be one of the first —{" "}
+              {t("directory.emptyPrefix", { defaultValue: "No listings match your filters yet. Be one of the first —" })}{" "}
               <Link to="/directory/list-your-business" className="text-primary underline-offset-4 hover:underline">
-                list your business for free
+                {t("directory.emptyCta", { defaultValue: "list your business for free" })}
               </Link>
               .
             </p>
@@ -159,7 +159,7 @@ function DirectoryPage() {
         {!isLoading && !authLoading && listings.length > 0 && (
           <>
             {!hasAccess && (
-              <MemberPaywall count={listings.length} signedIn={signedIn === true} />
+              <MemberPaywall signedIn={signedIn === true} />
             )}
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {listings.map((l: any) => (
@@ -174,6 +174,7 @@ function DirectoryPage() {
     </div>
   );
 }
+
 
 function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }) {
   return (
