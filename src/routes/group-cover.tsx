@@ -107,17 +107,17 @@ function GroupCoverPage() {
           Sterbegeld cover · regulated under German law
         </Badge>
         <h1 className="display-hero text-balance mt-4 font-semibold">
-          €20,000 of cover per member.
+          €20,000 of funeral cover.
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
           You are covered to €20,000 under German law — with no health questions, no waiting periods, and funeral settlement handled by us from day one of a claim.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild className="bg-gradient-primary">
-            <a href="#intake">Brief a broker <ArrowRight className="ml-1 h-4 w-4" /></a>
+            <a href="#intake">Get funeral cover <ArrowRight className="ml-1 h-4 w-4" /></a>
           </Button>
           <Button asChild variant="outline">
-            <Link to="/bereavement-cover">Individual cover instead</Link>
+            <Link to="/bereavement-cover">See individual cover</Link>
           </Button>
         </div>
       </section>
