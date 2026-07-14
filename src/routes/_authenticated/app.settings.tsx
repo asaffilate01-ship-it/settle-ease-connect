@@ -82,11 +82,19 @@ function SettingsPage() {
               onChange={(e) => setLang(e.target.value)}
               className="mt-1.5 flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
             >
-              <option value="en">English</option>
               <option value="de">Deutsch</option>
-              <option value="ur">اردو</option>
-              <option value="ar">العربية</option>
+              <option value="en">English</option>
               <option value="tr">Türkçe</option>
+              <option value="ur">اردو</option>
+              <option value="hi">हिन्दी</option>
+              <option value="pa">ਪੰਜਾਬੀ</option>
+              <option value="ar">العربية</option>
+              <option value="ku">Kurdî</option>
+              <option value="ru">Русский</option>
+              <option value="uk">Українська</option>
+              <option value="fa">فارسی</option>
+              <option value="pl">Polski</option>
+              <option value="zh">中文</option>
             </select>
           </div>
         </div>
