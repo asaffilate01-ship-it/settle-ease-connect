@@ -17,7 +17,7 @@
  */
 import { translateBatch } from "./translate.functions";
 
-const CACHE_PREFIX = "bs.t.v1.";
+const CACHE_PREFIX = "bs.t.v2.";
 const SKIP_TAGS = new Set([
   "SCRIPT", "STYLE", "NOSCRIPT", "CODE", "PRE", "KBD", "SAMP",
   "TEXTAREA", "INPUT", "SELECT", "OPTION", "SVG", "PATH",
