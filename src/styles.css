@@ -275,11 +275,10 @@
   .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
-  /* Reserve room below marketing content so the mobile CTA bar doesn't
-     obscure the footer on small screens. Marketing pages set `data-marketing`
-     on the root so we can scope this to those views. */
+  /* Reserve room below marketing footers so the mobile CTA bar doesn't
+     obscure the copyright line on small screens. */
   @media (max-width: 767px) {
-    [data-marketing] footer { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
+    footer[data-site-footer] { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
   }
 
   /* Better mobile hero rhythm — the fluid clamp on `display-hero` can still
