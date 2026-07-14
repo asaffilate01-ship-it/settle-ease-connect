@@ -412,8 +412,8 @@ export const sendExpertQuote = createServerFn({ method: "POST" })
     await supabase.from("case_events").insert({
       case_id: data.caseId,
       event_type: "quote_sent",
-      created_by: userId,
-      metadata: { quote_id: (inserted as { id: string }).id, amount_eur: data.amountEur } as any,
+      actor_user_id: userId,
+      payload: { quote_id: (inserted as { id: string }).id, amount_eur: data.amountEur },
     });
 
     return { ok: true, id: (inserted as { id: string }).id };
