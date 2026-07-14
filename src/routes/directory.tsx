@@ -24,6 +24,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   education: GraduationCap,
   religious: Building2,
   translator: Languages,
+  travel: Plane,
   funeral: Flower2,
   other: LayoutGrid,
 };
@@ -31,12 +32,12 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
 const CATEGORY_TONES: Record<string, "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink"> = {
   lawyer: "ocean", immigration: "aurora", tax: "mint", welfare: "sun",
   doctor: "teal", medical: "coral", education: "aurora", religious: "ink",
-  translator: "teal", funeral: "coral", other: "ocean",
+  translator: "teal", travel: "aurora", funeral: "coral", other: "ocean",
 };
 
 const CATEGORY_KEYS = [
   "", "lawyer", "immigration", "tax", "welfare", "doctor", "medical",
-  "education", "religious", "translator", "funeral", "other",
+  "education", "religious", "translator", "travel", "funeral", "other",
 ] as const;
 
 
