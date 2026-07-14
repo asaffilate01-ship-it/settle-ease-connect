@@ -16,9 +16,12 @@ export const listDirectoryListings = createServerFn({ method: "GET" })
   .inputValidator((d: { category?: string; city?: string } | undefined) => d ?? {})
   .handler(async ({ data }) => {
     const supabase = publicClient();
+    // Public browsing never returns PII (email/phone/address). Owner contact
+    // details are visible only after opening a listing when signed-in, via a
+    // separate owner-scoped path — not implemented here.
     let q = supabase
       .from("directory_listings")
-      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, logo_url, featured, phone, email, address")
+      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, logo_url, featured")
       .eq("status", "active")
       .order("featured", { ascending: false })
       .order("business_name");
