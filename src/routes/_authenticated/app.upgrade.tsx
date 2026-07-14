@@ -153,6 +153,8 @@ function UpgradePage() {
         </div>
       )}
 
+      <FuneralCoverUpsell defaultEmail={user?.email ?? undefined} defaultName={profile?.full_name ?? undefined} />
+
       <PaymentTestModeBanner />
       <div className="rounded-2xl border bg-muted/30 p-4 text-xs text-muted-foreground">
         <strong className="text-foreground">Note:</strong> plan changes take effect immediately. Verified students automatically get 20% off tier subscriptions at checkout — funeral cover is priced separately.
