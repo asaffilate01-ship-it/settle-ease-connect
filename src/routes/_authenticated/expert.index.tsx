@@ -112,6 +112,12 @@ function ExpertHome() {
         />
       </section>
 
+      {prof.data && prof.data.bucket !== "generic" && (
+        <ProfessionWidget bucket={prof.data.bucket} profession={prof.data.profession ?? ""} items={prof.data.items ?? []} />
+      )}
+
+
+
       <section>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-display text-xl font-semibold">
