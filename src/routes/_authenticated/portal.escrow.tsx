@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { CheckCircle2, Wallet, Clock } from "lucide-react";
-import { listEscrowInvoices, releaseEscrow } from "@/lib/payments.functions";
+import { listEscrowInvoices, releaseEscrow, autoReleaseEligibleEscrow } from "@/lib/payments.functions";
 
 export const Route = createFileRoute("/_authenticated/portal/escrow")({
   head: () => ({ meta: [{ title: "Escrow release — Staff" }] }),
@@ -19,6 +19,7 @@ function EscrowPage() {
   const [tab, setTab] = useState<Tab>("held_escrow");
   const listFn = useServerFn(listEscrowInvoices);
   const releaseFn = useServerFn(releaseEscrow);
+  const autoFn = useServerFn(autoReleaseEligibleEscrow);
   const qc = useQueryClient();
 
   const { data = [], isLoading } = useQuery({
@@ -35,16 +36,39 @@ function EscrowPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const autoMut = useMutation({
+    mutationFn: () => autoFn({ data: { olderThanDays: 14 } }),
+    onSuccess: (r: any) => {
+      toast.success(`Auto-released ${r.released_count} invoice(s)${r.failed_count ? ` · ${r.failed_count} failed` : ""}`);
+      qc.invalidateQueries({ queryKey: ["portal", "escrow"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   return (
     <div className="mx-auto max-w-5xl space-y-6">
-      <div>
-        <div className="flex items-center gap-2">
-          <Wallet className="h-5 w-5 text-primary" />
-          <h1 className="font-display text-2xl font-semibold">Escrow release</h1>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <Wallet className="h-5 w-5 text-primary" />
+            <h1 className="font-display text-2xl font-semibold">Escrow release</h1>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Client funds held on paid invoices. Release once expert work is delivered — creates a pending payout row.
+          </p>
         </div>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Client funds held on paid invoices. Release once expert work is delivered — creates a pending payout row.
-        </p>
+        {tab === "held_escrow" && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => autoMut.mutate()}
+            disabled={autoMut.isPending}
+            title="Release every held invoice older than 14 days"
+          >
+            <Clock className="mr-1.5 h-4 w-4" />
+            {autoMut.isPending ? "Releasing…" : "Auto-release >14d"}
+          </Button>
+        )}
       </div>
 
       <div className="flex gap-2 border-b border-border/60">
