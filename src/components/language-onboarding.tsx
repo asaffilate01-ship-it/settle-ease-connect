@@ -42,7 +42,11 @@ export function LanguageOnboarding() {
               <li key={l.code}>
                 <button
                   type="button"
-                  onClick={() => setLanguage(l.code)}
+                  onClick={() => {
+                    setLanguage(l.code);
+                    markLanguageChosen();
+                    setVisible(false);
+                  }}
                   className={`flex w-full items-center justify-between rounded-lg border px-3 py-2 text-start transition ${
                     active
                       ? "border-primary/60 bg-primary/5"
