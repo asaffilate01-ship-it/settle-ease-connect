@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, Link, useNavigate, redirect } from "@tanstack/
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { LogOut, Home, Briefcase, Wallet, UserCircle } from "lucide-react";
+import { LogOut, Home, Briefcase, Wallet, UserCircle, FileText, Receipt, CalendarClock } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
 import logoMark from "@/assets/brand/logo-mark.png";

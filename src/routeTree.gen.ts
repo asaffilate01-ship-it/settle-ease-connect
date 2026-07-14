@@ -105,6 +105,7 @@ import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_
 import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
 import { Route as AuthenticatedPortalAdminInviteRouteImport } from './routes/_authenticated/portal.admin.invite'
+import { Route as AuthenticatedExpertCasesCaseIdRouteImport } from './routes/_authenticated/expert.cases.$caseId'
 import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/_authenticated/app.messages.$channelId'
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
@@ -635,6 +636,12 @@ const AuthenticatedPortalAdminInviteRoute =
     path: '/admin/invite',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedExpertCasesCaseIdRoute =
+  AuthenticatedExpertCasesCaseIdRouteImport.update({
+    id: '/$caseId',
+    path: '/$caseId',
+    getParentRoute: () => AuthenticatedExpertCasesRoute,
+  } as any)
 const AuthenticatedAppMessagesChannelIdRoute =
   AuthenticatedAppMessagesChannelIdRouteImport.update({
     id: '/$channelId',
@@ -718,7 +725,7 @@ export interface FileRoutesByFullPath {
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/expert/availability': typeof AuthenticatedExpertAvailabilityRoute
-  '/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/expert/cases': typeof AuthenticatedExpertCasesRouteWithChildren
   '/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
@@ -748,6 +755,7 @@ export interface FileRoutesByFullPath {
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
   '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
+  '/expert/cases/$caseId': typeof AuthenticatedExpertCasesCaseIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
@@ -814,7 +822,7 @@ export interface FileRoutesByTo {
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/expert/availability': typeof AuthenticatedExpertAvailabilityRoute
-  '/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/expert/cases': typeof AuthenticatedExpertCasesRouteWithChildren
   '/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
@@ -844,6 +852,7 @@ export interface FileRoutesByTo {
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
   '/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
+  '/expert/cases/$caseId': typeof AuthenticatedExpertCasesCaseIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
@@ -916,7 +925,7 @@ export interface FileRoutesById {
   '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/_authenticated/expert/availability': typeof AuthenticatedExpertAvailabilityRoute
-  '/_authenticated/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/_authenticated/expert/cases': typeof AuthenticatedExpertCasesRouteWithChildren
   '/_authenticated/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
@@ -946,6 +955,7 @@ export interface FileRoutesById {
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
   '/_authenticated/app/messages/$channelId': typeof AuthenticatedAppMessagesChannelIdRoute
+  '/_authenticated/expert/cases/$caseId': typeof AuthenticatedExpertCasesCaseIdRoute
   '/_authenticated/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/_authenticated/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
@@ -1048,6 +1058,7 @@ export interface FileRouteTypes {
     | '/app/cases/$caseId'
     | '/app/cases/new'
     | '/app/messages/$channelId'
+    | '/expert/cases/$caseId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
     | '/portal/gantt/$caseId'
@@ -1144,6 +1155,7 @@ export interface FileRouteTypes {
     | '/app/cases/$caseId'
     | '/app/cases/new'
     | '/app/messages/$channelId'
+    | '/expert/cases/$caseId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
     | '/portal/gantt/$caseId'
@@ -1245,6 +1257,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
     | '/_authenticated/app/messages/$channelId'
+    | '/_authenticated/expert/cases/$caseId'
     | '/_authenticated/portal/admin/invite'
     | '/_authenticated/portal/admin/users'
     | '/_authenticated/portal/gantt/$caseId'
@@ -1957,6 +1970,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalAdminInviteRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/expert/cases/$caseId': {
+      id: '/_authenticated/expert/cases/$caseId'
+      path: '/$caseId'
+      fullPath: '/expert/cases/$caseId'
+      preLoaderRoute: typeof AuthenticatedExpertCasesCaseIdRouteImport
+      parentRoute: typeof AuthenticatedExpertCasesRoute
+    }
     '/_authenticated/app/messages/$channelId': {
       id: '/_authenticated/app/messages/$channelId'
       path: '/$channelId'
@@ -2079,9 +2099,23 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
 const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
+interface AuthenticatedExpertCasesRouteChildren {
+  AuthenticatedExpertCasesCaseIdRoute: typeof AuthenticatedExpertCasesCaseIdRoute
+}
+
+const AuthenticatedExpertCasesRouteChildren: AuthenticatedExpertCasesRouteChildren =
+  {
+    AuthenticatedExpertCasesCaseIdRoute: AuthenticatedExpertCasesCaseIdRoute,
+  }
+
+const AuthenticatedExpertCasesRouteWithChildren =
+  AuthenticatedExpertCasesRoute._addFileChildren(
+    AuthenticatedExpertCasesRouteChildren,
+  )
+
 interface AuthenticatedExpertRouteChildren {
   AuthenticatedExpertAvailabilityRoute: typeof AuthenticatedExpertAvailabilityRoute
-  AuthenticatedExpertCasesRoute: typeof AuthenticatedExpertCasesRoute
+  AuthenticatedExpertCasesRoute: typeof AuthenticatedExpertCasesRouteWithChildren
   AuthenticatedExpertInvoicesRoute: typeof AuthenticatedExpertInvoicesRoute
   AuthenticatedExpertPayoutsRoute: typeof AuthenticatedExpertPayoutsRoute
   AuthenticatedExpertProfileRoute: typeof AuthenticatedExpertProfileRoute
@@ -2091,7 +2125,7 @@ interface AuthenticatedExpertRouteChildren {
 
 const AuthenticatedExpertRouteChildren: AuthenticatedExpertRouteChildren = {
   AuthenticatedExpertAvailabilityRoute: AuthenticatedExpertAvailabilityRoute,
-  AuthenticatedExpertCasesRoute: AuthenticatedExpertCasesRoute,
+  AuthenticatedExpertCasesRoute: AuthenticatedExpertCasesRouteWithChildren,
   AuthenticatedExpertInvoicesRoute: AuthenticatedExpertInvoicesRoute,
   AuthenticatedExpertPayoutsRoute: AuthenticatedExpertPayoutsRoute,
   AuthenticatedExpertProfileRoute: AuthenticatedExpertProfileRoute,
