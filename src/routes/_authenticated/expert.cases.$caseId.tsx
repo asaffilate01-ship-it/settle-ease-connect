@@ -103,6 +103,18 @@ function ExpertCaseDetail() {
         {c.summary && (
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{c.summary}</p>
         )}
+        <div className="mt-5 flex flex-wrap gap-2 border-t border-border/40 pt-4">
+          <QuoteDrawer onSubmit={(v) => sendQuote.mutate(v)} pending={sendQuote.isPending} />
+          <InvoiceDrawer onSubmit={(v) => issueInvoice.mutate(v)} pending={issueInvoice.isPending} />
+          <Link
+            to="/app/cases/$caseId"
+            params={{ caseId }}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-input px-3 py-2 text-sm hover:bg-accent/10"
+          >
+            <MessageSquare className="h-4 w-4" />
+            {t("expert.case.messageManager", { defaultValue: "Message case manager" })}
+          </Link>
+        </div>
       </header>
 
       <div className="grid gap-4 lg:grid-cols-2">
