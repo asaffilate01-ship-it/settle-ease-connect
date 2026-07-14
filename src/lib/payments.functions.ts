@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import {
   type StripeEnv,
@@ -8,6 +9,76 @@ import {
 
 type CheckoutSessionResult = { clientSecret: string } | { error: string };
 type PortalSessionResult = { url: string } | { error: string };
+
+async function assertInternal(context: { supabase: any; userId: string }) {
+  const { data: staff } = await context.supabase.rpc("is_internal", {
+    _user_id: context.userId,
+  });
+  if (!staff) throw new Error("Forbidden: staff only");
+}
+
+export const listEscrowInvoices = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { status?: "held_escrow" | "released" | "paid" } | undefined) => d ?? {})
+  .handler(async ({ data, context }) => {
+    await assertInternal(context);
+    const status = data.status ?? "held_escrow";
+    const { data: rows, error } = await context.supabase
+      .from("case_invoices")
+      .select(
+        "id, case_id, expert_id, amount_eur, vat_eur, platform_fee_eur, payout_to_expert_eur, status, paid_at, released_at, created_at, experts!inner(full_name, email, profession, compensation_model)",
+      )
+      .eq("status", status)
+      .order("paid_at", { ascending: false, nullsFirst: false })
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return rows ?? [];
+  });
+
+export const releaseEscrow = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      invoiceId: z.string().uuid(),
+      notes: z.string().max(1000).optional(),
+    }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertInternal(context);
+    const { data: inv, error: invErr } = await context.supabase
+      .from("case_invoices")
+      .select("id, case_id, expert_id, amount_eur, payout_to_expert_eur, platform_fee_eur, status")
+      .eq("id", data.invoiceId)
+      .single();
+    if (invErr || !inv) throw new Error("Invoice not found");
+    if (!inv.expert_id) throw new Error("Invoice has no expert assigned");
+    if (inv.status !== "held_escrow" && inv.status !== "paid") {
+      throw new Error(`Cannot release from status "${inv.status}"`);
+    }
+    const releasedAt = new Date().toISOString();
+    const { error: updErr } = await context.supabase
+      .from("case_invoices")
+      .update({ status: "released", released_at: releasedAt })
+      .eq("id", inv.id);
+    if (updErr) throw new Error(updErr.message);
+
+    const payoutAmount = inv.payout_to_expert_eur ?? inv.amount_eur;
+    const { error: payErr } = await context.supabase.from("expert_payouts").insert({
+      expert_id: inv.expert_id,
+      case_id: inv.case_id,
+      invoice_id: inv.id,
+      period_month: releasedAt.slice(0, 7) + "-01",
+      kind: "escrow_release",
+      description: data.notes ?? "Escrow released to expert",
+      gross_eur: inv.amount_eur,
+      amount_eur: payoutAmount,
+      currency: "EUR",
+      status: "pending",
+      created_by: context.userId,
+    });
+    if (payErr) throw new Error(payErr.message);
+    return { ok: true, released_at: releasedAt };
+  });
 
 const STUDENT_COUPON_ID = "STUDENT20";
 const TIER_PRICE_PREFIXES = ["basic", "plus", "complete"] as const;
