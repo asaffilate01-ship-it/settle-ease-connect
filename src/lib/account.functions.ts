@@ -66,9 +66,9 @@ export const getMyAccountSummary = createServerFn({ method: "GET" })
           .eq("client_user_id", userId),
       ]);
 
-    const plan =
-      subRes.data?.plan_code &&
-      (planRes.data ?? []).find((p) => p.code === subRes.data!.plan_code);
+    const plan = subRes.data?.plan_code
+      ? (planRes.data ?? []).find((p) => p.code === subRes.data!.plan_code) ?? null
+      : null;
 
     return {
       subscription: subRes.data
