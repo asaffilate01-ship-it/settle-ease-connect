@@ -158,9 +158,9 @@ function GroupCoverPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <h2 className="display-lg font-semibold">Payout flow — how we handle the funeral</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          The association is named as the <em>primary beneficiary with a fiduciary mandate</em>{" "}
-          (Widerrufliches Bezugsrecht mit Treuhandauftrag). Every member names their family
-          beneficiary for the surplus.
+          BeistandPlus is named as the <em>primary beneficiary with a fiduciary mandate</em>{" "}
+          (Widerrufliches Bezugsrecht mit Treuhandauftrag). You name your family beneficiary
+          for the surplus.
         </p>
         <ol className="mt-6 space-y-4">
           {payoutFlow.map((s) => (
