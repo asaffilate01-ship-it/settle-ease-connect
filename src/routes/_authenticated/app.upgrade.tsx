@@ -132,8 +132,8 @@ function UpgradePage() {
                 </ul>
                 <button
                   type="button"
-                  disabled={isCurrent || subscribing === p.code}
-                  onClick={() => subscribe(p.code)}
+                  disabled={isCurrent}
+                  onClick={() => subscribe(p.code, p.name)}
                   className={`mt-6 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${
                     isCurrent
                       ? "border bg-muted text-muted-foreground"
@@ -142,7 +142,7 @@ function UpgradePage() {
                         : "border-2 border-primary text-primary hover:bg-primary/5"
                   } disabled:opacity-60`}
                 >
-                  {isCurrent ? "Current plan" : subscribing === p.code ? "Activating…" : `Choose ${p.name}`}
+                  {isCurrent ? "Current plan" : `Choose ${p.name}`}
                 </button>
               </article>
             );
@@ -150,11 +150,12 @@ function UpgradePage() {
         </div>
       )}
 
+      <PaymentTestModeBanner />
       <div className="rounded-2xl border bg-muted/30 p-4 text-xs text-muted-foreground">
-        <strong className="text-foreground">Note:</strong> plan changes take effect immediately. This preview activates a
-        30-day trial without payment; once Stripe is connected, checkouts will bill your card and manage renewals automatically.
+        <strong className="text-foreground">Note:</strong> plan changes take effect immediately. Verified students automatically get 20% off tier subscriptions at checkout — funeral cover is priced separately.
         <Link to="/app/settings" className="ml-1 text-primary hover:underline">Manage billing →</Link>
       </div>
+      {checkoutElement}
     </div>
   );
 }
