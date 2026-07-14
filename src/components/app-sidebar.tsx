@@ -59,6 +59,7 @@ const nav: NavItem[] = [
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/agent", labelKey: "sidebar.agentOverview", icon: "overview", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent", exact: true },
+  { to: "/agent/leads", labelKey: "sidebar.agentLeads", icon: "benefits", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
   { to: "/agent/clients", labelKey: "sidebar.agentClients", icon: "experts", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
   { to: "/agent/commissions", labelKey: "sidebar.agentCommissions", icon: "benefits", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
   { to: "/agent/link", labelKey: "sidebar.agentLink", icon: "providers", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
