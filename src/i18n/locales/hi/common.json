@@ -12,7 +12,26 @@
     "blog": "ब्लॉग",
     "signIn": "साइन इन करें",
     "openDashboard": "डैशबोर्ड खोलें",
-    "menu": "मेनू"
+    "menu": "मेनू",
+    "students": "छात्र",
+    "insurance": "बीमा",
+    "groupCover": "समूह कवर",
+    "taxRefund": "टैक्स रिफंड",
+    "leavingGermany": "जर्मनी छोड़ना",
+    "close": "बंद करें",
+    "openAgentPortal": "एजेंट पोर्टल",
+    "openStaffPortal": "स्टाफ पोर्टल",
+    "more": "और",
+    "hint": {
+      "services": "सभी बसावट और कल्याण सेवाएँ",
+      "directory": "सत्यापित स्थानीय प्रदाता खोजें",
+      "bereavement": "जीवन-अंत सहायता और कवर",
+      "students": "अंतरराष्ट्रीय छात्रों के लिए",
+      "insurance": "13 भाषाओं में ब्रोकर-आधारित कवर",
+      "groupCover": "संस्थाओं और नियोक्ताओं के लिए €20k Sterbegeld",
+      "taxRefund": "आपकी भाषा में मार्गदर्शित टैक्स रिटर्न",
+      "leavingGermany": "प्रस्थान चेकलिस्ट, टैक्स समापन और कागजी काम"
+    }
   },
   "footer": {
     "tagline": "जर्मनी में हर राह के लिए। बसने, कल्याण, लाभ और अंतिम संस्कार की देखभाल — परिवारों और उनका साथ देने वाले संगठनों के लिए एक शांत मंच।",
@@ -37,7 +56,12 @@
     "complaints": "शिकायतें",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "सावधानी से बनाया गया",
-    "followUs": "हमें फॉलो करें"
+    "followUs": "हमें फॉलो करें",
+    "groupCover": "समूह कवर",
+    "trust": "विश्वास और अनुपालन",
+    "partners": "भागीदार",
+    "institutional": "संस्थागत साझेदारियाँ",
+    "offline": "ऑफलाइन मोड"
   },
   "sidebar": {
     "dashboard": "डैशबोर्ड",

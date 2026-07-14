@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import appI18n from "@/i18n";
 import { DEFAULT_LANG, isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
+import { bootAutoTranslate } from "@/lib/auto-translate";
 
 const STORAGE_KEY = "beistand.lang";
 const ONBOARDING_KEY = "beistand.lang.chosen";
@@ -14,7 +15,22 @@ let savedLangApplied = false;
 function revealBody() {
   if (typeof document === "undefined") return;
   document.documentElement.removeAttribute("data-lang-pending");
+  document.documentElement.removeAttribute("data-lang-switching");
   document.querySelector("style[data-lang-gate]")?.remove();
+}
+
+function ensureLanguageGate() {
+  if (typeof document === "undefined") return;
+  if (document.querySelector("style[data-lang-gate]")) return;
+  const style = document.createElement("style");
+  style.setAttribute("data-lang-gate", "");
+  style.textContent =
+    "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
+  document.head.appendChild(style);
+}
+
+function shouldKeepGateForDomTranslation(lang: string | null) {
+  return !!lang || document.documentElement.hasAttribute("data-lang-pending");
 }
 
 
@@ -50,6 +66,9 @@ export function useLanguage() {
     if (!safeI18n || typeof safeI18n.on !== "function") return;
     const handler = (l: string) => setLangState(l as LangCode);
     safeI18n.on("languageChanged", handler);
+    if (safeI18n.language && LANGUAGES.some((l) => l.code === safeI18n.language)) {
+      handler(safeI18n.language);
+    }
     return () => {
       safeI18n.off?.("languageChanged", handler);
     };
@@ -74,8 +93,12 @@ export function useLanguage() {
     if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
       changeLanguageSafely(saved as LangCode);
     }
-    // Reveal body on the next frame so React has committed the swapped text.
-    requestAnimationFrame(revealBody);
+    // For non-default languages the DOM auto-translator clears the gate after
+    // hardcoded page copy has been translated too. Revealing here causes the
+    // half-English / half-German flash the live site was showing.
+    if (!shouldKeepGateForDomTranslation(saved)) {
+      requestAnimationFrame(revealBody);
+    }
   }, []);
 
 
@@ -85,13 +108,30 @@ export function useLanguage() {
     document.documentElement.dir = isRTL(l) ? "rtl" : "ltr";
   };
   useEffect(() => {
+    const pendingLang =
+      typeof document !== "undefined"
+        ? document.documentElement.getAttribute("data-lang-pending")
+        : null;
+    if (
+      typeof document !== "undefined" &&
+      lang === DEFAULT_LANG &&
+      pendingLang !== null &&
+      pendingLang !== DEFAULT_LANG
+    ) {
+      return;
+    }
     applyHtmlAttrs(lang);
+    bootAutoTranslate(lang);
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
     // Synchronous swap — no View Transitions cross-fade (that animated
     // frame added ~200-300ms of perceived lag, especially on RTL flips).
     applyHtmlAttrs(next);
+    if (typeof document !== "undefined") {
+      ensureLanguageGate();
+      document.documentElement.setAttribute("data-lang-switching", next);
+    }
     if (!changeLanguageSafely(next)) {
       setLangState(next);
     }

@@ -12,7 +12,26 @@
     "blog": "Blog",
     "signIn": "Giriş yap",
     "openDashboard": "Kontrol panelini aç",
-    "menu": "Menü"
+    "menu": "Menü",
+    "students": "Öğrenciler",
+    "insurance": "Sigorta",
+    "groupCover": "Grup teminatı",
+    "taxRefund": "Vergi iadesi",
+    "leavingGermany": "Almanya’dan ayrılma",
+    "close": "Kapat",
+    "openAgentPortal": "Agent portalı",
+    "openStaffPortal": "Ekip portalı",
+    "more": "Daha fazla",
+    "hint": {
+      "services": "Tüm yerleşim ve sosyal destek hizmetleri",
+      "directory": "Onaylı yerel sağlayıcıları bulun",
+      "bereavement": "Vefat desteği ve teminat",
+      "students": "Uluslararası öğrenciler için",
+      "insurance": "13 dilde aracı üzerinden teminat",
+      "groupCover": "Dernekler ve işverenler için 20.000 € Sterbegeld",
+      "taxRefund": "Kendi dilinizde rehberli vergi beyannamesi",
+      "leavingGermany": "Ayrılış kontrol listesi, vergi kapanışı ve evraklar"
+    }
   },
   "footer": {
     "tagline": "Almanya'daki her yolculuk için. Uyum, refah, sosyal yardımlar ve yaşam sonu bakımı — aileler ve onlara destek olan kuruluşlar için sakin bir platform.",
@@ -37,7 +56,12 @@
     "complaints": "Şikayetler",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Özenle hazırlandı",
-    "followUs": "Bizi takip edin"
+    "followUs": "Bizi takip edin",
+    "groupCover": "Grup teminatı",
+    "trust": "Güven & uyum",
+    "partners": "Partnerler",
+    "institutional": "Kurumsal ortaklıklar",
+    "offline": "Çevrimdışı mod"
   },
   "sidebar": {
     "dashboard": "Kontrol Paneli",

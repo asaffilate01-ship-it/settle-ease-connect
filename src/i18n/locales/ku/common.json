@@ -12,7 +12,26 @@
     "blog": "Blog",
     "signIn": "Têkeve",
     "openDashboard": "Dashboard veke",
-    "menu": "Menû"
+    "menu": "Menû",
+    "students": "Xwendekar",
+    "insurance": "Sîgorta",
+    "groupCover": "Parastina komê",
+    "taxRefund": "Vegera bacê",
+    "leavingGermany": "Derketin ji Almanyayê",
+    "close": "Girtin",
+    "openAgentPortal": "Portala agentê",
+    "openStaffPortal": "Portala tîmê",
+    "more": "Zêdetir",
+    "hint": {
+      "services": "Hemû xizmetên bicihbûn û alîkariyê",
+      "directory": "Dabînkerên herêmî yên pejirandî bibînin",
+      "bereavement": "Piştgiriya dawiya jiyanê û parastin",
+      "students": "Ji bo xwendekarên navneteweyî",
+      "insurance": "Parastin bi 13 zimanan bi brokerê",
+      "groupCover": "€20k Sterbegeld ji bo komele û kardêran",
+      "taxRefund": "Daxuyaniya bacê bi zimanê we",
+      "leavingGermany": "Lîsteya derketinê, dawîkirina bacê û kaxezkarî"
+    }
   },
   "footer": {
     "tagline": "Ji bo her riya li Almanya. Bicîbûn, refah, feydeyên, û lênêrîna dawiya-jiyanê — platformeke aram ji bo malbatan û rêxistinên ku piştgiriya wan dikin.",
@@ -37,7 +56,12 @@
     "complaints": "Giliyên",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Bi eleqeyê hatiye çêkirin",
-    "followUs": "Me bişopînin"
+    "followUs": "Me bişopînin",
+    "groupCover": "Parastina komê",
+    "trust": "Bawerî û lihevhatin",
+    "partners": "Hevkar",
+    "institutional": "Hevkariyên saziyî",
+    "offline": "Moda offline"
   },
   "sidebar": {
     "dashboard": "Dashboard",

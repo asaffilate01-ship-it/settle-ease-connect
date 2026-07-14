@@ -12,7 +12,26 @@
     "blog": "المدونة",
     "signIn": "تسجيل الدخول",
     "openDashboard": "فتح لوحة التحكم",
-    "menu": "القائمة"
+    "menu": "القائمة",
+    "students": "الطلاب",
+    "insurance": "التأمين",
+    "groupCover": "تغطية جماعية",
+    "taxRefund": "استرداد الضريبة",
+    "leavingGermany": "مغادرة ألمانيا",
+    "close": "إغلاق",
+    "openAgentPortal": "بوابة الوكيل",
+    "openStaffPortal": "بوابة الفريق",
+    "more": "المزيد",
+    "hint": {
+      "services": "كل خدمات الاستقرار والدعم الاجتماعي",
+      "directory": "اعثر على مزودين محليين موثوقين",
+      "bereavement": "دعم وتغطية نهاية الحياة",
+      "students": "للطلاب الدوليين",
+      "insurance": "تغطية عبر وسيط بـ 13 لغة",
+      "groupCover": "Sterbegeld بقيمة 20,000 يورو للجمعيات وأصحاب العمل",
+      "taxRefund": "إقرار ضريبي موجه بلغتك",
+      "leavingGermany": "قائمة مغادرة، إغلاق ضريبي وأوراق"
+    }
   },
   "footer": {
     "tagline": "لكل مسار في ألمانيا. الاستقرار والرعاية الاجتماعية والمزايا ورعاية نهاية الحياة — منصة هادئة واحدة للعائلات والمنظمات التي تقف معهم.",
@@ -37,7 +56,12 @@
     "complaints": "الشكاوى",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "صُمم بعناية",
-    "followUs": "تابعنا"
+    "followUs": "تابعنا",
+    "groupCover": "تغطية جماعية",
+    "trust": "الثقة والامتثال",
+    "partners": "الشركاء",
+    "institutional": "شراكات مؤسسية",
+    "offline": "وضع عدم الاتصال"
   },
   "sidebar": {
     "dashboard": "لوحة التحكم",

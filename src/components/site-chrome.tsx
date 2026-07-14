@@ -56,29 +56,29 @@ export function SiteHeader() {
           hint: t("nav.hint.bereavement", "End-of-life support & cover"),
         },
         {
-          label: t("nav.students", "Students"),
+          label: t("nav.students"),
           href: "/students",
-          hint: t("nav.hint.students", "For international students"),
+          hint: t("nav.hint.students"),
         },
         {
-          label: "Insurance",
+          label: t("nav.insurance"),
           href: "/insurance",
-          hint: "Broker-placed cover in 13 languages",
+          hint: t("nav.hint.insurance"),
         },
         {
-          label: "Group cover",
+          label: t("nav.groupCover"),
           href: "/group-cover",
-          hint: "€20k Sterbegeld for associations & employers",
+          hint: t("nav.hint.groupCover"),
         },
         {
-          label: "Tax refund",
+          label: t("nav.taxRefund"),
           href: "/tax",
-          hint: "Steuererklärung, guided in your language",
+          hint: t("nav.hint.taxRefund"),
         },
         {
-          label: "Leaving Germany",
+          label: t("nav.leavingGermany"),
           href: "/leaving-germany",
-          hint: "Wegzug checklist, tax farewell & paperwork",
+          hint: t("nav.hint.leavingGermany"),
         },
       ],
     },
@@ -94,11 +94,11 @@ export function SiteHeader() {
     [t("nav.services"), "/services"],
     [t("nav.directory"), "/directory"],
       [t("nav.bereavement"), "/bereavement"],
-      [t("nav.students", "Students"), "/students"],
-      ["Insurance", "/insurance"],
-      ["Group cover", "/group-cover"],
-      ["Tax refund", "/tax"],
-      ["Leaving Germany", "/leaving-germany"],
+      [t("nav.students"), "/students"],
+      [t("nav.insurance"), "/insurance"],
+      [t("nav.groupCover"), "/group-cover"],
+      [t("nav.taxRefund"), "/tax"],
+      [t("nav.leavingGermany"), "/leaving-germany"],
       [t("nav.forProviders"), "/for-providers"],
       [t("nav.pricing"), "/pricing"],
       [t("nav.blog"), "/blog"],
@@ -219,7 +219,7 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
-                    aria-label={t("nav.close", "Close")}
+                    aria-label={t("nav.close")}
                     className="grid h-10 w-10 place-items-center rounded-full bg-muted/70 text-foreground/80 transition active:scale-95"
                   >
                     <X className="h-5 w-5" />
@@ -354,7 +354,7 @@ export function SiteFooter() {
             [t("footer.howItWorks"), "/how-it-works"],
             [t("footer.services"), "/services"],
             [t("footer.bereavement"), "/bereavement"],
-            ["Group cover", "/group-cover"],
+            [t("footer.groupCover"), "/group-cover"],
             [t("footer.pricing"), "/pricing"],
             [t("footer.blog"), "/blog"],
           ]}
@@ -372,11 +372,11 @@ export function SiteFooter() {
           title={t("footer.colCompany")}
           links={[
             [t("footer.contact"), "/contact"],
-            ["Trust & compliance", "/trust"],
-            ["Partners", "/partners"],
-            ["Institutional partnerships", "/partnerships"],
+            [t("footer.trust"), "/trust"],
+            [t("footer.partners"), "/partners"],
+            [t("footer.institutional"), "/partnerships"],
 
-            ["Offline mode", "/offline"],
+            [t("footer.offline"), "/offline"],
           ]}
 
         />
