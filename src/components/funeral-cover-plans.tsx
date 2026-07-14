@@ -37,24 +37,28 @@ function fmt(n: number) {
 
 type Household = "individual" | "family" | "extended";
 
-const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
-  { key: "individual", label: "Individual", icon: <User className="h-4 w-4" />, note: "1 adult · €20k benefit" },
-  { key: "family", label: "Family", icon: <Users className="h-4 w-4" />, note: "2 adults + up to 3 children under 20 · €20k per adult" },
-  { key: "extended", label: "Extended family", icon: <HeartHandshake className="h-4 w-4" />, note: "Up to 4 adults + 3 children under 20 · €20k per adult" },
-];
-
-const COVERAGE = [
-  "€20,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
-  "Direct settlement of funeral director, cemetery, mosque / church / temple, cremation, coffin, flowers, catering and death-certificate fees against original invoices",
-  "Full repatriation of the body abroad (zinc coffin, embalming, consular NOC, airline cargo, receiving director in the home country)",
-  "Sworn translations, estate paperwork, Standesamt, embassy / consulate coordination — all invoiced through the case file",
-  "Every euro itemised in your BeistandPlus case file so the family sees exactly where the money went",
-  "Any balance remaining after all approved and regulated expenses are settled is paid to your nominated beneficiary via SEPA, in Germany or abroad, in their local currency",
-  "24/7 multilingual case manager assigned within 1 hour of a claim being opened",
-];
-
 export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<Household>("family");
+
+  const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
+    { key: "individual", label: t("funeralCover.tabs.individual", "Individual"), icon: <User className="h-4 w-4" />, note: t("funeralCover.tabs.individualNote", "1 adult · €20k benefit") },
+    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 children under 20 · €20k per adult") },
+    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + 3 children under 20 · €20k per adult") },
+  ];
+
+  const COVERAGE: string[] = t("funeralCover.coverage", {
+    returnObjects: true,
+    defaultValue: [
+      "€20,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
+      "Direct settlement of funeral director, cemetery, mosque / church / temple, cremation, coffin, flowers, catering and death-certificate fees against original invoices",
+      "Full repatriation of the body abroad (zinc coffin, embalming, consular NOC, airline cargo, receiving director in the home country)",
+      "Sworn translations, estate paperwork, Standesamt, embassy / consulate coordination — all invoiced through the case file",
+      "Every euro itemised in your BeistandPlus case file so the family sees exactly where the money went",
+      "Any balance remaining after all approved and regulated expenses are settled is paid to your nominated beneficiary via SEPA, in Germany or abroad, in their local currency",
+      "24/7 multilingual case manager assigned within 1 hour of a claim being opened",
+    ],
+  }) as unknown as string[];
 
   const rows = useMemo(() => {
     if (tab === "individual") {
