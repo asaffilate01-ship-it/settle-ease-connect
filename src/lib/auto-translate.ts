@@ -34,8 +34,31 @@ let mutating = false;
 const langNames: Record<string, string> = {
   en: "English", de: "German", tr: "Turkish", ur: "Urdu", hi: "Hindi",
   pa: "Punjabi", ps: "Pashto", ar: "Arabic", ku: "Kurdish (Kurmanji)",
-  ru: "Russian", uk: "Ukrainian",
+  ru: "Russian", uk: "Ukrainian", fa: "Persian (Farsi)", pl: "Polish",
+  zh: "Simplified Chinese",
 };
+
+/**
+ * Cheap heuristic: does this text look like it's already in `lang`?
+ * We only need to distinguish German from English source text — the two
+ * languages the codebase actually mixes at author-time. Everything else
+ * routes through the AI translator.
+ */
+function looksLike(text: string, lang: string): boolean {
+  const t = text.toLowerCase();
+  if (lang === "de") {
+    if (/[äöüß]/.test(t)) return true;
+    // Common German stopwords / connective words.
+    if (/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch)\b/.test(t)) return true;
+    return false;
+  }
+  if (lang === "en") {
+    if (/[äöüß]/.test(t)) return false;
+    if (/\b(the|and|or|not|with|for|from|is|are|we|you|they|their|a|an|to|of|on|in|about|after|before|already|also|any|when|then|so|every|germany|english)\b/.test(t)) return true;
+    return false;
+  }
+  return false;
+}
 
 function shouldSkip(el: Element | null): boolean {
   while (el) {
@@ -117,9 +140,14 @@ function collectAttrTargets(): AttrPending[] {
       const srcKey = `data-i18n-attr-${attr}`;
       const src = el.getAttribute(srcKey);
       if (!src) {
-        // No stashed source yet. Only capture when we're in the base
-        // language; otherwise the current value is already a translation
-        // and would poison future switches.
+        // No stashed source yet — capture the current value as the source
+        // and mark its language via a cheap heuristic. This lets us fix
+        // author-time mixing (e.g. English strings on a German page).
+        const detected = looksLike(trimmed, "de") ? "de" : looksLike(trimmed, "en") ? "en" : "en";
+        el.setAttribute(srcKey, trimmed);
+        el.setAttribute(`data-i18n-attrlang-${attr}`, detected);
+        if (detected === currentLang) continue;
+        out.push({ el, attr, src: trimmed });
         continue;
       }
       const langKey = `data-i18n-attrlang-${attr}`;
@@ -178,15 +206,8 @@ function seedEnglishSources() {
 
 async function translatePage() {
   if (typeof window === "undefined") return;
-  if (currentLang === "en") {
-    // We are in the base language. First, restore anything previously
-    // translated back to its stashed English source. Then seed the source
-    // attribute on every currently-visible node so that a later switch to
-    // another language has the correct English source to translate from.
-    restoreEnglish();
-    seedEnglishSources();
-    return;
-  }
+  // Always restore-to-source pass first if the user switched back to a base
+  // language for which we have stashed sources. This keeps the DOM stable.
   const nodes = collectTextNodes();
   const attrTargets = collectAttrTargets();
   const pending: { node: Text; src: string }[] = [];
@@ -195,15 +216,30 @@ async function translatePage() {
   for (const node of nodes) {
     const parent = node.parentElement;
     if (!parent) continue;
-    const src = parent.getAttribute(SRC_ATTR);
+    const text = node.nodeValue?.trim();
+    if (!text) continue;
+    let src = parent.getAttribute(SRC_ATTR);
+    let srcLang = parent.getAttribute(LANG_ATTR);
     if (!src) {
-      // No stashed source. Skip — the seed pass while lang === "en" is
-      // responsible for capturing sources; stashing here would poison
-      // the cache with an already-translated string.
+      // Seed: capture the current text as source and detect its language.
+      const detected = looksLike(text, "de") ? "de" : looksLike(text, "en") ? "en" : "en";
+      mutating = true;
+      parent.setAttribute(SRC_ATTR, text);
+      parent.setAttribute(LANG_ATTR, detected);
+      mutating = false;
+      src = text;
+      srcLang = detected;
+    }
+    // Already in the target language — nothing to do.
+    if (srcLang === currentLang) continue;
+    // If source and target match by heuristic, skip too (stashed src may be
+    // the same language as current text if a previous swap already translated).
+    if (looksLike(src, currentLang)) {
+      mutating = true;
+      parent.setAttribute(LANG_ATTR, currentLang);
+      mutating = false;
       continue;
     }
-    const targetLang = parent.getAttribute(LANG_ATTR);
-    if (targetLang === currentLang) continue;
 
     const cached = cacheGet(currentLang, src);
     if (cached) {
