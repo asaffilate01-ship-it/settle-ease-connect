@@ -138,7 +138,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-const PRE_HYDRATION_LANG_SCRIPT = `(function(){try{var l=localStorage.getItem('beistand.lang')||'de';var d=document.documentElement;d.setAttribute('data-lang-pending',l);d.setAttribute('lang',l);d.setAttribute('dir',(l==='ar'||l==='ur'||l==='fa'||l==='ku')?'rtl':'ltr');var s=document.createElement('style');s.setAttribute('data-lang-gate','');s.textContent='html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}';document.head.appendChild(s);setTimeout(function(){var g=document.querySelector('style[data-lang-gate]');if(g)g.remove();d.removeAttribute('data-lang-pending');d.removeAttribute('data-lang-switching');},4500);}catch(e){}})();`;
+const PRE_HYDRATION_LANG_SCRIPT = `(function(){try{var l=localStorage.getItem('beistand.lang');if(!l||l==='de')return;var d=document.documentElement;d.setAttribute('data-lang-pending',l);d.setAttribute('lang',l);d.setAttribute('dir',(l==='ar'||l==='ur'||l==='fa'||l==='ku')?'rtl':'ltr');var s=document.createElement('style');s.setAttribute('data-lang-gate','');s.textContent='html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}';document.head.appendChild(s);setTimeout(function(){var g=document.querySelector('style[data-lang-gate]');if(g)g.remove();d.removeAttribute('data-lang-pending');d.removeAttribute('data-lang-switching');},4500);}catch(e){}})();`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
