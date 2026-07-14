@@ -514,7 +514,8 @@ function BereavementAddOn() {
         </label>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
         {COVER_BANDS.map((b) => {
           const isActive = b.key === band;
           return (
