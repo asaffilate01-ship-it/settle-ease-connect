@@ -1,9 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ClipboardList, FileText, Receipt, MessageSquare, Clock } from "lucide-react";
-import { getMyExpertCase } from "@/lib/expert-portal.functions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { ArrowLeft, ClipboardList, FileText, Receipt, MessageSquare, Clock, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
+import {
+  getMyExpertCase,
+  sendExpertQuote,
+  issueExpertInvoice,
+} from "@/lib/expert-portal.functions";
 
 export const Route = createFileRoute("/_authenticated/expert/cases/$caseId")({
   head: () => ({ meta: [{ title: "Expert — case" }] }),
