@@ -76,6 +76,7 @@ import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authen
 import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
 import { Route as AuthenticatedExpertInvoicesRouteImport } from './routes/_authenticated/expert.invoices'
 import { Route as AuthenticatedExpertCasesRouteImport } from './routes/_authenticated/expert.cases'
+import { Route as AuthenticatedExpertAvailabilityRouteImport } from './routes/_authenticated/expert.availability'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppStudentDiscountRouteImport } from './routes/_authenticated/app.student-discount'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
@@ -468,6 +469,12 @@ const AuthenticatedExpertCasesRoute =
     path: '/cases',
     getParentRoute: () => AuthenticatedExpertRoute,
   } as any)
+const AuthenticatedExpertAvailabilityRoute =
+  AuthenticatedExpertAvailabilityRouteImport.update({
+    id: '/availability',
+    path: '/availability',
+    getParentRoute: () => AuthenticatedExpertRoute,
+  } as any)
 const AuthenticatedAppUpgradeRoute = AuthenticatedAppUpgradeRouteImport.update({
   id: '/upgrade',
   path: '/upgrade',
@@ -710,6 +717,7 @@ export interface FileRoutesByFullPath {
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/expert/availability': typeof AuthenticatedExpertAvailabilityRoute
   '/expert/cases': typeof AuthenticatedExpertCasesRoute
   '/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
@@ -805,6 +813,7 @@ export interface FileRoutesByTo {
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/expert/availability': typeof AuthenticatedExpertAvailabilityRoute
   '/expert/cases': typeof AuthenticatedExpertCasesRoute
   '/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
@@ -906,6 +915,7 @@ export interface FileRoutesById {
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/_authenticated/expert/availability': typeof AuthenticatedExpertAvailabilityRoute
   '/_authenticated/expert/cases': typeof AuthenticatedExpertCasesRoute
   '/_authenticated/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
@@ -1007,6 +1017,7 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/student-discount'
     | '/app/upgrade'
+    | '/expert/availability'
     | '/expert/cases'
     | '/expert/invoices'
     | '/expert/payouts'
@@ -1102,6 +1113,7 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/student-discount'
     | '/app/upgrade'
+    | '/expert/availability'
     | '/expert/cases'
     | '/expert/invoices'
     | '/expert/payouts'
@@ -1202,6 +1214,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/settings'
     | '/_authenticated/app/student-discount'
     | '/_authenticated/app/upgrade'
+    | '/_authenticated/expert/availability'
     | '/_authenticated/expert/cases'
     | '/_authenticated/expert/invoices'
     | '/_authenticated/expert/payouts'
@@ -1741,6 +1754,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExpertCasesRouteImport
       parentRoute: typeof AuthenticatedExpertRoute
     }
+    '/_authenticated/expert/availability': {
+      id: '/_authenticated/expert/availability'
+      path: '/availability'
+      fullPath: '/expert/availability'
+      preLoaderRoute: typeof AuthenticatedExpertAvailabilityRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
+    }
     '/_authenticated/app/upgrade': {
       id: '/_authenticated/app/upgrade'
       path: '/upgrade'
@@ -2060,6 +2080,7 @@ const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
 interface AuthenticatedExpertRouteChildren {
+  AuthenticatedExpertAvailabilityRoute: typeof AuthenticatedExpertAvailabilityRoute
   AuthenticatedExpertCasesRoute: typeof AuthenticatedExpertCasesRoute
   AuthenticatedExpertInvoicesRoute: typeof AuthenticatedExpertInvoicesRoute
   AuthenticatedExpertPayoutsRoute: typeof AuthenticatedExpertPayoutsRoute
@@ -2069,6 +2090,7 @@ interface AuthenticatedExpertRouteChildren {
 }
 
 const AuthenticatedExpertRouteChildren: AuthenticatedExpertRouteChildren = {
+  AuthenticatedExpertAvailabilityRoute: AuthenticatedExpertAvailabilityRoute,
   AuthenticatedExpertCasesRoute: AuthenticatedExpertCasesRoute,
   AuthenticatedExpertInvoicesRoute: AuthenticatedExpertInvoicesRoute,
   AuthenticatedExpertPayoutsRoute: AuthenticatedExpertPayoutsRoute,
