@@ -463,8 +463,8 @@ export const issueExpertInvoice = createServerFn({ method: "POST" })
     await supabase.from("case_events").insert({
       case_id: data.caseId,
       event_type: "invoice_issued",
-      created_by: userId,
-      metadata: { invoice_id: (inserted as { id: string }).id, amount_eur: data.amountEur } as any,
+      actor_user_id: userId,
+      payload: { invoice_id: (inserted as { id: string }).id, amount_eur: data.amountEur },
     });
 
     return { ok: true, id: (inserted as { id: string }).id };
