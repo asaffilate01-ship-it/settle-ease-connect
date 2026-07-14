@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GroupCoverIntake } from "@/components/group-cover-intake";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import {
   Building2,
   Users,
