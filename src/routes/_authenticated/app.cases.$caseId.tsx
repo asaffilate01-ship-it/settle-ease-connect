@@ -270,3 +270,224 @@ function EventsPanel({ events, nameOf }: { events: Ev[]; nameOf: (id: string | n
     </div>
   );
 }
+
+type TimelineItem = {
+  id: string;
+  kind: "message" | "internal" | "task_created" | "task_done" | "document" | "quote" | "invoice" | "event";
+  at: string;
+  actor: string | null;
+  title: string;
+  body?: string | null;
+  meta?: string | null;
+};
+
+function UnifiedTimeline({
+  data,
+  nameOf,
+}: {
+  data: {
+    messages: Msg[];
+    tasks: Task[];
+    events: Ev[];
+    documents: Array<{ id: string; title?: string | null; filename?: string | null; created_at: string; uploaded_by?: string | null }>;
+    quotes: Array<{ id: string; title?: string | null; total_eur?: number | null; status?: string | null; created_at: string; created_by?: string | null }>;
+    invoices: Array<{ id: string; description?: string | null; amount_eur?: number | null; status?: string | null; created_at: string; issued_by?: string | null }>;
+  };
+  nameOf: (id: string | null) => string;
+}) {
+  const [filter, setFilter] = useState<"all" | "conversation" | "tasks" | "files" | "money" | "activity">("all");
+
+  const items = useMemo<TimelineItem[]>(() => {
+    const list: TimelineItem[] = [];
+    for (const m of data.messages) {
+      list.push({
+        id: `m-${m.id}`,
+        kind: m.internal_note ? "internal" : "message",
+        at: m.created_at,
+        actor: m.sender_user_id,
+        title: m.internal_note ? "Internal note" : "Message",
+        body: m.body,
+      });
+    }
+    for (const t of data.tasks) {
+      list.push({
+        id: `tc-${t.id}`,
+        kind: "task_created",
+        at: (t as unknown as { created_at?: string }).created_at ?? new Date().toISOString(),
+        actor: t.assignee_user_id,
+        title: `Task added: ${t.title}`,
+        meta: t.due_at ? `due ${format(new Date(t.due_at), "MMM d")}` : null,
+      });
+      if (t.done) {
+        list.push({
+          id: `td-${t.id}`,
+          kind: "task_done",
+          at: (t as unknown as { done_at?: string | null }).done_at ?? new Date().toISOString(),
+          actor: t.assignee_user_id,
+          title: `Task completed: ${t.title}`,
+        });
+      }
+    }
+    for (const d of data.documents ?? []) {
+      list.push({
+        id: `d-${d.id}`,
+        kind: "document",
+        at: d.created_at,
+        actor: d.uploaded_by ?? null,
+        title: `Document uploaded: ${d.title ?? d.filename ?? "file"}`,
+      });
+    }
+    for (const q of data.quotes ?? []) {
+      list.push({
+        id: `q-${q.id}`,
+        kind: "quote",
+        at: q.created_at,
+        actor: q.created_by ?? null,
+        title: `Quote ${q.status ?? "issued"}: ${q.title ?? "Estimate"}`,
+        meta: q.total_eur != null ? `€${Number(q.total_eur).toFixed(2)}` : null,
+      });
+    }
+    for (const inv of data.invoices ?? []) {
+      list.push({
+        id: `i-${inv.id}`,
+        kind: "invoice",
+        at: inv.created_at,
+        actor: inv.issued_by ?? null,
+        title: `Invoice ${inv.status ?? "issued"}: ${inv.description ?? "Invoice"}`,
+        meta: inv.amount_eur != null ? `€${Number(inv.amount_eur).toFixed(2)}` : null,
+      });
+    }
+    for (const ev of data.events) {
+      list.push({
+        id: `e-${ev.id}`,
+        kind: "event",
+        at: ev.created_at,
+        actor: ev.actor_user_id,
+        title: ev.event_type.replace(/_/g, " ").replace(/\./g, " · "),
+      });
+    }
+    list.sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
+    return list;
+  }, [data]);
+
+  const filtered = useMemo(() => {
+    if (filter === "all") return items;
+    return items.filter((i) => {
+      if (filter === "conversation") return i.kind === "message" || i.kind === "internal";
+      if (filter === "tasks") return i.kind === "task_created" || i.kind === "task_done";
+      if (filter === "files") return i.kind === "document";
+      if (filter === "money") return i.kind === "quote" || i.kind === "invoice";
+      if (filter === "activity") return i.kind === "event";
+      return true;
+    });
+  }, [items, filter]);
+
+  const grouped = useMemo(() => {
+    const map = new Map<string, TimelineItem[]>();
+    for (const it of filtered) {
+      const key = format(new Date(it.at), "yyyy-MM-dd");
+      const arr = map.get(key) ?? [];
+      arr.push(it);
+      map.set(key, arr);
+    }
+    return Array.from(map.entries());
+  }, [filtered]);
+
+  const iconFor = (k: TimelineItem["kind"]) => {
+    switch (k) {
+      case "message": return <MessageSquare className="h-3.5 w-3.5" />;
+      case "internal": return <Lock className="h-3.5 w-3.5" />;
+      case "task_created": return <ListTodo className="h-3.5 w-3.5" />;
+      case "task_done": return <CheckCircle2 className="h-3.5 w-3.5" />;
+      case "document": return <FileText className="h-3.5 w-3.5" />;
+      case "quote":
+      case "invoice": return <Receipt className="h-3.5 w-3.5" />;
+      default: return <Activity className="h-3.5 w-3.5" />;
+    }
+  };
+
+  const chipCls = (k: TimelineItem["kind"]) => {
+    switch (k) {
+      case "internal": return "bg-amber-500/10 text-amber-700 border-amber-500/30";
+      case "task_done": return "bg-success/10 text-success border-success/30";
+      case "quote":
+      case "invoice": return "bg-primary/10 text-primary border-primary/30";
+      case "document": return "bg-blue-500/10 text-blue-700 border-blue-500/30";
+      case "task_created": return "bg-parchment/60 text-foreground border-border/60";
+      case "message": return "bg-card text-foreground border-border/60";
+      default: return "bg-muted text-muted-foreground border-border/60";
+    }
+  };
+
+  const filters: { key: typeof filter; label: string }[] = [
+    { key: "all", label: "All" },
+    { key: "conversation", label: "Conversation" },
+    { key: "tasks", label: "Tasks" },
+    { key: "files", label: "Files" },
+    { key: "money", label: "Quotes & invoices" },
+    { key: "activity", label: "System activity" },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card shadow-soft">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border/60 px-5 py-3">
+        <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mr-2">
+          Unified timeline · {filtered.length}
+        </div>
+        <div className="ml-auto flex flex-wrap gap-1">
+          {filters.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              onClick={() => setFilter(f.key)}
+              className={`rounded-full border px-2.5 py-1 text-xs transition ${
+                filter === f.key
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border/60 text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {grouped.length === 0 ? (
+        <div className="px-5 py-8 text-center text-sm text-muted-foreground">
+          Nothing to show for this filter yet.
+        </div>
+      ) : (
+        <div className="p-5 space-y-6">
+          {grouped.map(([day, entries]) => (
+            <section key={day}>
+              <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                {format(new Date(day), "EEEE, PP")}
+              </div>
+              <ol className="relative space-y-3 border-l border-border/60 pl-5">
+                {entries.map((it) => (
+                  <li key={it.id} className="relative">
+                    <span className={`absolute -left-[26px] inline-flex h-5 w-5 items-center justify-center rounded-full border ${chipCls(it.kind)}`}>
+                      {iconFor(it.kind)}
+                    </span>
+                    <div className="rounded-xl border border-border/60 bg-background/50 p-3">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs text-muted-foreground">
+                        <span className="font-medium text-foreground">{it.title}</span>
+                        {it.meta && <Badge variant="outline" className="text-[10px]">{it.meta}</Badge>}
+                        <span className="ml-auto">
+                          {nameOf(it.actor)} · {format(new Date(it.at), "HH:mm")} · {formatDistanceToNow(new Date(it.at), { addSuffix: true })}
+                        </span>
+                      </div>
+                      {it.body && (
+                        <div className="mt-1.5 whitespace-pre-wrap text-sm">{it.body}</div>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
