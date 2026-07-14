@@ -16,7 +16,7 @@ import {
   Home,
   Scale,
   HeartPulse,
-  Flower2,
+  HeartPulse,
   PawPrint,
   Umbrella,
   ArrowRight,
