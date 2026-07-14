@@ -20,6 +20,7 @@ import { Route as PartnershipsRouteImport } from './routes/partnerships'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as OfflineRouteImport } from './routes/offline'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as LeavingGermanyRouteImport } from './routes/leaving-germany'
 import { Route as IntegrationCoursesRouteImport } from './routes/integration-courses'
 import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
@@ -147,6 +148,11 @@ const OfflineRoute = OfflineRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeavingGermanyRoute = LeavingGermanyRouteImport.update({
+  id: '/leaving-germany',
+  path: '/leaving-germany',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IntegrationCoursesRoute = IntegrationCoursesRouteImport.update({
@@ -566,6 +572,7 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
+  '/leaving-germany': typeof LeavingGermanyRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
@@ -651,6 +658,7 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
+  '/leaving-germany': typeof LeavingGermanyRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
@@ -735,6 +743,7 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
+  '/leaving-germany': typeof LeavingGermanyRoute
   '/legal': typeof LegalRouteWithChildren
   '/offline': typeof OfflineRoute
   '/partners': typeof PartnersRouteWithChildren
@@ -822,6 +831,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/insurance'
     | '/integration-courses'
+    | '/leaving-germany'
     | '/legal'
     | '/offline'
     | '/partners'
@@ -907,6 +917,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/insurance'
     | '/integration-courses'
+    | '/leaving-germany'
     | '/legal'
     | '/offline'
     | '/partners'
@@ -990,6 +1001,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/insurance'
     | '/integration-courses'
+    | '/leaving-germany'
     | '/legal'
     | '/offline'
     | '/partners'
@@ -1077,6 +1089,7 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
   IntegrationCoursesRoute: typeof IntegrationCoursesRoute
+  LeavingGermanyRoute: typeof LeavingGermanyRoute
   LegalRoute: typeof LegalRouteWithChildren
   OfflineRoute: typeof OfflineRoute
   PartnersRoute: typeof PartnersRouteWithChildren
@@ -1170,6 +1183,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaving-germany': {
+      id: '/leaving-germany'
+      path: '/leaving-germany'
+      fullPath: '/leaving-germany'
+      preLoaderRoute: typeof LeavingGermanyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/integration-courses': {
@@ -1934,6 +1954,7 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
   IntegrationCoursesRoute: IntegrationCoursesRoute,
+  LeavingGermanyRoute: LeavingGermanyRoute,
   LegalRoute: LegalRouteWithChildren,
   OfflineRoute: OfflineRoute,
   PartnersRoute: PartnersRouteWithChildren,

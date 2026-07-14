@@ -75,6 +75,11 @@ export function SiteHeader() {
           href: "/tax",
           hint: "Steuererklärung, guided in your language",
         },
+        {
+          label: "Leaving Germany",
+          href: "/leaving-germany",
+          hint: "Wegzug checklist, tax farewell & paperwork",
+        },
       ],
     },
     { label: t("nav.howItWorks", "How it works"), href: "/how-it-works" },
