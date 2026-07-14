@@ -447,12 +447,13 @@ function Row({ label, note }: { label: string; note: string }) {
   );
 }
 
-type CoverBandKey = "individual" | "student" | "small_family" | "large_family";
+type CoverBandKey = "individual" | "small_family" | "large_family";
 const COVER_BANDS: {
   key: CoverBandKey;
   label: string;
   household: string;
   addOnEur: number;
+  priceId: string;
   icon: React.ReactNode;
 }[] = [
   {
@@ -460,27 +461,23 @@ const COVER_BANDS: {
     label: "Individual",
     household: "1 adult · €20,000 payout",
     addOnEur: 16,
+    priceId: "funeral_cover_individual_monthly",
     icon: <User className="h-4 w-4" />,
   },
   {
-    key: "student",
-    label: "Student",
-    household: "1 adult · €20,000 payout · verified student ID",
-    addOnEur: 10,
-    icon: <GraduationCap className="h-4 w-4" />,
-  },
-  {
     key: "small_family",
-    label: "Small family",
+    label: "Family",
     household: "Up to 2 adults + 3 children · €20,000 per adult · children co-covered",
     addOnEur: 28,
+    priceId: "funeral_cover_family_monthly",
     icon: <Users className="h-4 w-4" />,
   },
   {
     key: "large_family",
-    label: "Large family",
+    label: "Extended family",
     household: "Up to 4 adults + 3 children · €20,000 per adult · children co-covered",
     addOnEur: 52,
+    priceId: "funeral_cover_family_plus_monthly",
     icon: <HeartHandshake className="h-4 w-4" />,
   },
 ];
