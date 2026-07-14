@@ -568,10 +568,8 @@ html.keyboard-open body { padding-bottom: var(--keyboard-height, 0px); }
 h1, h2, h3, h4 { overflow-wrap: break-word; hyphens: auto; }
 p, li, dd, dt  { overflow-wrap: break-word; }
 
-/* Smooth cross-fade during auto-translate swaps */
-html { transition: opacity 180ms ease; }
-html[data-lang-switching="1"] body { opacity: 0.55; transition: opacity 180ms ease; }
-html:not([data-lang-switching]) body { opacity: 1; transition: opacity 220ms ease; }
+/* Language switches are instant — i18n resources are pre-bundled.
+   No page-wide dim; any stray non-key text is filled in the background. */
 
 /* ============================================================
  * Per-script font & size overrides — read the app comfortably
