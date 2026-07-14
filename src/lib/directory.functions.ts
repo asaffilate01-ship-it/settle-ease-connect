@@ -18,7 +18,7 @@ export const listDirectoryListings = createServerFn({ method: "GET" })
     const supabase = publicClient();
     let q = supabase
       .from("directory_listings")
-      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, logo_url, featured")
+      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, logo_url, featured, phone, email, address")
       .eq("status", "active")
       .order("featured", { ascending: false })
       .order("business_name");
@@ -28,6 +28,7 @@ export const listDirectoryListings = createServerFn({ method: "GET" })
     if (error) return { listings: [], error: error.message };
     return { listings: rows ?? [], error: null };
   });
+
 
 const listingSchema = z.object({
   business_name: z.string().min(2).max(200),
