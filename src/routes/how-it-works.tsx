@@ -29,7 +29,7 @@ function HowItWorks() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           {t("pages.howItWorks.eyebrow")}
         </div>

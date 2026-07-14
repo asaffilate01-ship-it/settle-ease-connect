@@ -174,7 +174,7 @@ function ForProviders() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-4xl px-4 py-12 sm:py-20 text-center sm:px-6 lg:px-8">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Provider network
         </div>

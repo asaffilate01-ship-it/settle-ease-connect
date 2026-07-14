@@ -47,7 +47,7 @@ function Trust() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-[oklch(0.16_0.04_250)] text-white">
         <div className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(60%_60%_at_20%_10%,oklch(0.72_0.18_190/0.35),transparent),radial-gradient(50%_50%_at_90%_30%,oklch(0.68_0.22_25/0.25),transparent)]" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
               <ShieldCheck className="h-3.5 w-3.5" /> Trust & compliance

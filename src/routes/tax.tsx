@@ -79,7 +79,7 @@ function Hero() {
   return (
     <section className="relative overflow-hidden bg-[oklch(0.16_0.04_250)] text-white">
       <div className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(60%_60%_at_15%_15%,oklch(0.72_0.18_190/0.35),transparent),radial-gradient(45%_55%_at_85%_25%,oklch(0.68_0.22_25/0.22),transparent)]" />
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-12 sm:py-20 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:px-8">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
             <Receipt className="h-3.5 w-3.5" /> Steuererklärung · in your language
@@ -172,7 +172,7 @@ function Wizard() {
   const result = useMemo(() => estimateTaxRefund(input), [input]);
 
   return (
-    <section id="estimator" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+    <section id="estimator" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
       <div className="text-center">
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Refund estimator
@@ -668,7 +668,7 @@ function Faq() {
     ["I don't have a tax ID (Steueridentifikationsnummer) yet.", "You can still start — we'll help you request the ID from the Bundeszentralamt für Steuern in your language. It's needed before filing but not before the estimate."],
   ];
   return (
-    <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-4xl px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
       <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
         FAQ
       </div>

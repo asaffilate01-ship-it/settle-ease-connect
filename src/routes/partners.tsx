@@ -35,7 +35,7 @@ function Partners() {
     <div className="min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-4xl px-4 py-14 sm:py-24 text-center sm:px-6 lg:px-8">
         <Badge variant="outline" className="border-primary/30 text-primary">Partner API layer</Badge>
         <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
           One workflow.<br />
