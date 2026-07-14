@@ -206,15 +206,8 @@ function seedEnglishSources() {
 
 async function translatePage() {
   if (typeof window === "undefined") return;
-  if (currentLang === "en") {
-    // We are in the base language. First, restore anything previously
-    // translated back to its stashed English source. Then seed the source
-    // attribute on every currently-visible node so that a later switch to
-    // another language has the correct English source to translate from.
-    restoreEnglish();
-    seedEnglishSources();
-    return;
-  }
+  // Always restore-to-source pass first if the user switched back to a base
+  // language for which we have stashed sources. This keeps the DOM stable.
   const nodes = collectTextNodes();
   const attrTargets = collectAttrTargets();
   const pending: { node: Text; src: string }[] = [];
@@ -223,15 +216,30 @@ async function translatePage() {
   for (const node of nodes) {
     const parent = node.parentElement;
     if (!parent) continue;
-    const src = parent.getAttribute(SRC_ATTR);
+    const text = node.nodeValue?.trim();
+    if (!text) continue;
+    let src = parent.getAttribute(SRC_ATTR);
+    let srcLang = parent.getAttribute(LANG_ATTR);
     if (!src) {
-      // No stashed source. Skip — the seed pass while lang === "en" is
-      // responsible for capturing sources; stashing here would poison
-      // the cache with an already-translated string.
+      // Seed: capture the current text as source and detect its language.
+      const detected = looksLike(text, "de") ? "de" : looksLike(text, "en") ? "en" : "en";
+      mutating = true;
+      parent.setAttribute(SRC_ATTR, text);
+      parent.setAttribute(LANG_ATTR, detected);
+      mutating = false;
+      src = text;
+      srcLang = detected;
+    }
+    // Already in the target language — nothing to do.
+    if (srcLang === currentLang) continue;
+    // If source and target match by heuristic, skip too (stashed src may be
+    // the same language as current text if a previous swap already translated).
+    if (looksLike(src, currentLang)) {
+      mutating = true;
+      parent.setAttribute(LANG_ATTR, currentLang);
+      mutating = false;
       continue;
     }
-    const targetLang = parent.getAttribute(LANG_ATTR);
-    if (targetLang === currentLang) continue;
 
     const cached = cacheGet(currentLang, src);
     if (cached) {
