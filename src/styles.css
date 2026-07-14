@@ -243,7 +243,7 @@
     font-weight: 400; /* DM Serif Display only ships in 400 — weight comes from size + tracking */
     letter-spacing: -0.015em;
     text-wrap: balance;
-    color: var(--color-ink);
+    color: inherit;
   }
   h1 { letter-spacing: -0.025em; }
   h4, h5 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.005em; }
