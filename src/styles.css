@@ -248,7 +248,7 @@
   h1 { letter-spacing: -0.025em; }
   h4, h5 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.005em; }
 
-  p, li, dd, dt { color: color-mix(in oklab, var(--color-foreground) 92%, transparent); }
+  :where(p, li, dd, dt) { color: color-mix(in oklab, var(--color-foreground) 92%, transparent); }
 
   /* Compound-word safety (German) */
   html:lang(de) h1, html:lang(de) h2, html:lang(de) h3 {
