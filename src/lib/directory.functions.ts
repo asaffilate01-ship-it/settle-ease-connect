@@ -94,7 +94,10 @@ export const listDirectoryModerationQueue = createServerFn({ method: "GET" })
   .inputValidator((d: { status?: "pending" | "active" | "rejected" | "suspended" } | undefined) => d ?? {})
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { data: rows, error } = await context.supabase
+    // Moderation view needs PII, which is no longer granted to authenticated.
+    // Read via admin client after the staff-role check above.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await supabaseAdmin
       .from("directory_listings")
       .select("*")
       .eq("status", data.status ?? "pending")
