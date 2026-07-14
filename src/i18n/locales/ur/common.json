@@ -12,7 +12,26 @@
     "blog": "بلاگ",
     "signIn": "سائن ان کریں",
     "openDashboard": "ڈیش بورڈ کھولیں",
-    "menu": "مینو"
+    "menu": "مینو",
+    "students": "طلبہ",
+    "insurance": "انشورنس",
+    "groupCover": "گروپ کور",
+    "taxRefund": "ٹیکس ریفنڈ",
+    "leavingGermany": "جرمنی چھوڑنا",
+    "close": "بند کریں",
+    "openAgentPortal": "ایجنٹ پورٹل",
+    "openStaffPortal": "اسٹاف پورٹل",
+    "more": "مزید",
+    "hint": {
+      "services": "تمام آبادکاری اور فلاحی خدمات",
+      "directory": "تصدیق شدہ مقامی فراہم کنندگان تلاش کریں",
+      "bereavement": "اختتامی زندگی کی مدد اور کور",
+      "students": "بین الاقوامی طلبہ کے لیے",
+      "insurance": "13 زبانوں میں بروکر کے ذریعے کور",
+      "groupCover": "انجمنوں اور آجروں کے لیے €20k Sterbegeld",
+      "taxRefund": "آپ کی زبان میں رہنمائی کے ساتھ ٹیکس ریٹرن",
+      "leavingGermany": "روانگی چیک لسٹ، ٹیکس اختتام اور کاغذات"
+    }
   },
   "footer": {
     "tagline": "جرمنی میں ہر راستے کے لیے۔ آبادکاری، بہبود، فوائد، اور آخری رسومات — خاندانوں اور ان کے ساتھ کھڑی تنظیموں کے لیے ایک پُرسکون پلیٹ فارم۔",
@@ -37,7 +56,12 @@
     "complaints": "شکایات",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "دیکھ بھال کے ساتھ بنایا گیا",
-    "followUs": "ہمیں فالو کریں"
+    "followUs": "ہمیں فالو کریں",
+    "groupCover": "گروپ کور",
+    "trust": "اعتماد اور تعمیل",
+    "partners": "پارٹنرز",
+    "institutional": "ادارہ جاتی شراکتیں",
+    "offline": "آف لائن موڈ"
   },
   "sidebar": {
     "dashboard": "ڈیش بورڈ",

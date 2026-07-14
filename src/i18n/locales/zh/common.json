@@ -12,7 +12,26 @@
     "blog": "博客",
     "signIn": "登录",
     "openDashboard": "打开控制台",
-    "menu": "菜单"
+    "menu": "菜单",
+    "students": "学生",
+    "insurance": "保险",
+    "groupCover": "团体保障",
+    "taxRefund": "退税",
+    "leavingGermany": "离开德国",
+    "close": "关闭",
+    "openAgentPortal": "代理门户",
+    "openStaffPortal": "团队门户",
+    "more": "更多",
+    "hint": {
+      "services": "所有安居与福利服务",
+      "directory": "查找经审核的本地服务商",
+      "bereavement": "临终支持与保障",
+      "students": "面向国际学生",
+      "insurance": "13 种语言的经纪人安排保障",
+      "groupCover": "面向协会和雇主的 €20k Sterbegeld",
+      "taxRefund": "用您的语言指导报税",
+      "leavingGermany": "离境清单、税务结清和文书"
+    }
   },
   "footer": {
     "tagline": "陪伴您在德国的每一段旅程。定居、社会福利、津贴和临终关怀 — 为家庭和陪伴他们的机构提供一个安心的平台。",
@@ -37,7 +56,12 @@
     "complaints": "投诉",
     "copyright": "© {{year}} BeistandPlus GmbH · 柏林",
     "madeWithCare": "用心打造",
-    "followUs": "关注我们"
+    "followUs": "关注我们",
+    "groupCover": "团体保障",
+    "trust": "信任与合规",
+    "partners": "合作伙伴",
+    "institutional": "机构合作",
+    "offline": "离线模式"
   },
   "sidebar": {
     "dashboard": "控制台",

@@ -55,7 +55,26 @@
     "blog": "Blog",
     "signIn": "Sign in",
     "openDashboard": "Open dashboard",
-    "menu": "Menu"
+    "menu": "Menu",
+    "students": "Students",
+    "insurance": "Insurance",
+    "groupCover": "Group cover",
+    "taxRefund": "Tax refund",
+    "leavingGermany": "Leaving Germany",
+    "close": "Close",
+    "openAgentPortal": "Agent portal",
+    "openStaffPortal": "Staff portal",
+    "more": "More",
+    "hint": {
+      "services": "All settlement & welfare services",
+      "directory": "Find vetted local providers",
+      "bereavement": "End-of-life support & cover",
+      "students": "For international students",
+      "insurance": "Broker-placed cover in 13 languages",
+      "groupCover": "€20k Sterbegeld for associations & employers",
+      "taxRefund": "Tax return, guided in your language",
+      "leavingGermany": "Departure checklist, tax farewell & paperwork"
+    }
   },
   "footer": {
     "tagline": "For every path in Germany. Settlement, welfare, benefits, and end-of-life care — one calm platform for families and the organisations that stand with them.",
@@ -80,7 +99,12 @@
     "complaints": "Complaints",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Built with care",
-    "followUs": "Follow us"
+    "followUs": "Follow us",
+    "groupCover": "Group cover",
+    "trust": "Trust & compliance",
+    "partners": "Partners",
+    "institutional": "Institutional partnerships",
+    "offline": "Offline mode"
   },
   "sidebar": {
     "dashboard": "Dashboard",

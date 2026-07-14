@@ -12,7 +12,26 @@
     "blog": "ਬਲੌਗ",
     "signIn": "ਸਾਈਨ ਇਨ ਕਰੋ",
     "openDashboard": "ਡੈਸ਼ਬੋਰਡ ਖੋਲ੍ਹੋ",
-    "menu": "ਮੇਨੂ"
+    "menu": "ਮੇਨੂ",
+    "students": "ਵਿਦਿਆਰਥੀ",
+    "insurance": "ਬੀਮਾ",
+    "groupCover": "ਗਰੁੱਪ ਕਵਰ",
+    "taxRefund": "ਟੈਕਸ ਰਿਫੰਡ",
+    "leavingGermany": "ਜਰਮਨੀ ਛੱਡਣਾ",
+    "close": "ਬੰਦ ਕਰੋ",
+    "openAgentPortal": "ਏਜੰਟ ਪੋਰਟਲ",
+    "openStaffPortal": "ਸਟਾਫ ਪੋਰਟਲ",
+    "more": "ਹੋਰ",
+    "hint": {
+      "services": "ਸਾਰੀਆਂ ਸੈਟਲਮੈਂਟ ਅਤੇ ਭਲਾਈ ਸੇਵਾਵਾਂ",
+      "directory": "ਤਸਦੀਕਸ਼ੁਦਾ ਸਥਾਨਕ ਪ੍ਰਦਾਤਾ ਲੱਭੋ",
+      "bereavement": "ਜੀਵਨ-ਅੰਤ ਸਹਾਇਤਾ ਅਤੇ ਕਵਰ",
+      "students": "ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਿਦਿਆਰਥੀਆਂ ਲਈ",
+      "insurance": "13 ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਬ੍ਰੋਕਰ ਰਾਹੀਂ ਕਵਰ",
+      "groupCover": "ਸੰਸਥਾਵਾਂ ਅਤੇ ਨਿਯੋਗਦਾਤਾਵਾਂ ਲਈ €20k Sterbegeld",
+      "taxRefund": "ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਮਾਰਗਦਰਸ਼ਿਤ ਟੈਕਸ ਰਿਟਰਨ",
+      "leavingGermany": "ਰਵਾਨਗੀ ਚੈੱਕਲਿਸਟ, ਟੈਕਸ ਸਮਾਪਤੀ ਅਤੇ ਕਾਗਜ਼ੀ ਕਾਰਵਾਈ"
+    }
   },
   "footer": {
     "tagline": "ਜਰਮਨੀ ਵਿੱਚ ਹਰ ਮਾਰਗ ਲਈ। ਸੈਟਲਮੈਂਟ, ਭਲਾਈ, ਲਾਭ, ਅਤੇ ਅੰਤਿਮ-ਸੰਸਕਾਰ ਦੀ ਦੇਖਭਾਲ — ਪਰਿਵਾਰਾਂ ਅਤੇ ਉਹਨਾਂ ਦੇ ਨਾਲ ਖੜ੍ਹੇ ਸੰਗਠਨਾਂ ਲਈ ਇੱਕ ਸ਼ਾਂਤ ਪਲੇਟਫਾਰਮ।",
@@ -37,7 +56,12 @@
     "complaints": "ਸ਼ਿਕਾਇਤਾਂ",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "ਦੇਖਭਾਲ ਨਾਲ ਬਣਾਇਆ ਗਿਆ",
-    "followUs": "ਸਾਡੇ ਨਾਲ ਜੁੜੋ"
+    "followUs": "ਸਾਡੇ ਨਾਲ ਜੁੜੋ",
+    "groupCover": "ਗਰੁੱਪ ਕਵਰ",
+    "trust": "ਭਰੋਸਾ ਅਤੇ ਅਨੁਕੂਲਤਾ",
+    "partners": "ਭਾਗੀਦਾਰ",
+    "institutional": "ਸੰਸਥਾਗਤ ਭਾਗੀਦਾਰੀਆਂ",
+    "offline": "ਆਫਲਾਈਨ ਮੋਡ"
   },
   "sidebar": {
     "dashboard": "ਡੈਸ਼ਬੋਰਡ",

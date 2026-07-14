@@ -55,7 +55,26 @@
     "blog": "Blog",
     "signIn": "Anmelden",
     "openDashboard": "Dashboard öffnen",
-    "menu": "Menü"
+    "menu": "Menü",
+    "students": "Studierende",
+    "insurance": "Versicherung",
+    "groupCover": "Gruppenabsicherung",
+    "taxRefund": "Steuererstattung",
+    "leavingGermany": "Deutschland verlassen",
+    "close": "Schließen",
+    "openAgentPortal": "Agentenportal",
+    "openStaffPortal": "Teamportal",
+    "more": "Mehr",
+    "hint": {
+      "services": "Alle Ankommens- und Sozialleistungen",
+      "directory": "Geprüfte lokale Anbieter finden",
+      "bereavement": "Unterstützung und Absicherung im Trauerfall",
+      "students": "Für internationale Studierende",
+      "insurance": "Vermittelte Absicherung in 13 Sprachen",
+      "groupCover": "20.000 € Sterbegeld für Vereine & Arbeitgeber",
+      "taxRefund": "Steuererklärung in Ihrer Sprache begleitet",
+      "leavingGermany": "Wegzug-Checkliste, Steuerabschluss & Papierkram"
+    }
   },
   "footer": {
     "tagline": "Für jeden Weg in Deutschland. Integration, soziale Leistungen, Unterstützung und Fürsorge am Lebensende – eine verlässliche Plattform für Familien und die Organisationen, die sie begleiten.",
@@ -80,7 +99,12 @@
     "complaints": "Beschwerden",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Mit Sorgfalt erstellt",
-    "followUs": "Folgen Sie uns"
+    "followUs": "Folgen Sie uns",
+    "groupCover": "Gruppenabsicherung",
+    "trust": "Vertrauen & Compliance",
+    "partners": "Partner",
+    "institutional": "Institutionelle Partnerschaften",
+    "offline": "Offline-Modus"
   },
   "sidebar": {
     "dashboard": "Dashboard",

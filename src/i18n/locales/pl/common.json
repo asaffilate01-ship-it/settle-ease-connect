@@ -12,7 +12,26 @@
     "blog": "Blog",
     "signIn": "Zaloguj się",
     "openDashboard": "Otwórz panel",
-    "menu": "Menu"
+    "menu": "Menu",
+    "students": "Studenci",
+    "insurance": "Ubezpieczenie",
+    "groupCover": "Ochrona grupowa",
+    "taxRefund": "Zwrot podatku",
+    "leavingGermany": "Wyjazd z Niemiec",
+    "close": "Zamknij",
+    "openAgentPortal": "Portal agenta",
+    "openStaffPortal": "Portal zespołu",
+    "more": "Więcej",
+    "hint": {
+      "services": "Wszystkie usługi osiedleńcze i socjalne",
+      "directory": "Znajdź sprawdzonych lokalnych dostawców",
+      "bereavement": "Wsparcie i ochrona na koniec życia",
+      "students": "Dla studentów zagranicznych",
+      "insurance": "Ochrona przez brokera w 13 językach",
+      "groupCover": "Sterbegeld €20k dla stowarzyszeń i pracodawców",
+      "taxRefund": "Deklaracja podatkowa z pomocą w Twoim języku",
+      "leavingGermany": "Lista wyjazdowa, zamknięcie podatków i dokumenty"
+    }
   },
   "footer": {
     "tagline": "Dla każdej drogi w Niemczech. Osiedlanie się, świadczenia socjalne, zasiłki i opieka u kresu życia — jedna spokojna platforma dla rodzin i organizacji, które im towarzyszą.",
@@ -37,7 +56,12 @@
     "complaints": "Reklamacje",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
     "madeWithCare": "Zrobione z troską",
-    "followUs": "Obserwuj nas"
+    "followUs": "Obserwuj nas",
+    "groupCover": "Ochrona grupowa",
+    "trust": "Zaufanie i zgodność",
+    "partners": "Partnerzy",
+    "institutional": "Partnerstwa instytucjonalne",
+    "offline": "Tryb offline"
   },
   "sidebar": {
     "dashboard": "Panel",
