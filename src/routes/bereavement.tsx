@@ -120,7 +120,7 @@ function Bereavement() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
         </div>
-        <div className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
+        <div className="mx-auto max-w-4xl px-4 py-14 sm:py-24 text-center sm:px-6 sm:py-32 lg:px-8">
           <Badge variant="outline" className="border-primary/30 bg-background/70 text-primary backdrop-blur">
             Bereavement care · 24/7
           </Badge>
@@ -144,7 +144,7 @@ function Bereavement() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-2">
           <StageCard title="If death is at home" stages={homeStages} tone="primary" />
           <StageCard title="If death is in hospital" stages={hospitalStages} tone="accent" />
@@ -152,9 +152,9 @@ function Bereavement() {
       </section>
 
       <section className="bg-parchment/50">
-        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Repatriation</div>
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Repatriation</div>
             <h2 className="display-lg text-balance mt-3 font-semibold">
               Bringing your loved one home.
             </h2>
@@ -178,9 +178,9 @@ function Bereavement() {
       </section>
 
       <section className="border-t border-border/60 bg-card">
-        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
               Burials & last rites in Germany
             </div>
             <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -228,8 +228,8 @@ function Bereavement() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Every faith</div>
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Every faith</div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
           Ceremonies handled with respect.
         </h2>
@@ -258,9 +258,9 @@ function Bereavement() {
       </section>
 
       <section className="border-t border-border/60 bg-parchment/50">
-        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
               Formal partnerships
             </div>
             <h2 className="display-lg text-balance mt-3 font-semibold">

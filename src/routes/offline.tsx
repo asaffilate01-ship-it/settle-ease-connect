@@ -166,7 +166,7 @@ function OfflinePage() {
       {/* How it works */}
       <section className="bg-parchment/50">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             How it works
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">Your data stays with you until it's safe to send.</h2>

@@ -275,6 +275,21 @@
   .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
+  /* Reserve room below marketing footers so the mobile CTA bar doesn't
+     obscure the copyright line on small screens. */
+  @media (max-width: 767px) {
+    footer[data-site-footer] { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
+    /* When scrolling to an anchor / focused input, keep it clear of the
+       fixed mobile CTA bar (~72px tall + safe area). */
+    html { scroll-padding-bottom: 6rem; scroll-padding-top: 4rem; }
+  }
+
+  /* Better mobile hero rhythm — the fluid clamp on `display-hero` can still
+     feel oversized in narrow viewports for long German words. */
+  @media (max-width: 480px) {
+    .display-hero { font-size: clamp(2rem, 8vw, 2.5rem); line-height: 1.05; }
+  }
+
   /* Script-specific font stacks */
   html:lang(ar), html:lang(ar) body { font-family: "Noto Sans Arabic", var(--font-sans); }
   html:lang(ur), html:lang(ur) body { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", var(--font-sans); }

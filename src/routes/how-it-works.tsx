@@ -29,8 +29,8 @@ function HowItWorks() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+      <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           {t("pages.howItWorks.eyebrow")}
         </div>
         <h1 className="display-hero text-balance mt-3 font-semibold">
@@ -39,7 +39,7 @@ function HowItWorks() {
         <div className="mt-16 space-y-10">
           {steps.map((s) => (
             <div key={s.n} className="grid gap-6 border-t border-border/60 pt-10 sm:grid-cols-[120px_1fr]">
-              <div className="font-display text-4xl font-semibold text-accent-foreground/70">{s.n}</div>
+              <div className="font-display text-4xl font-semibold text-foreground/60">{s.n}</div>
               <div>
                 <h3 className="display-md font-semibold">{s.title}</h3>
                 <p className="mt-2 text-lg text-muted-foreground">{s.desc}</p>

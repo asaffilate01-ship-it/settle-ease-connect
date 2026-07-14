@@ -169,7 +169,7 @@ function PostNotFound() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <div className="mx-auto max-w-2xl px-4 py-24 text-center">
+      <div className="mx-auto max-w-2xl px-4 py-14 sm:py-24 text-center">
         <h1 className="display-lg text-balance font-semibold">Article not found</h1>
         <p className="mt-3 text-muted-foreground">
           The article you're looking for doesn't exist or has moved.

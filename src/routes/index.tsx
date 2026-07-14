@@ -317,7 +317,7 @@ function UrgencyTriage() {
     },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
         <div className="eyebrow">Where should we start?</div>
         <h2 className="display-lg mt-4">
@@ -426,9 +426,9 @@ function Journeys() {
     },
   ];
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Two journeys, one companion
         </div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -475,9 +475,9 @@ function LifeInGermany() {
   ];
   return (
     <section className="bg-parchment/40">
-      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         <div className="max-w-2xl">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Every chapter of life in Germany
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -544,9 +544,9 @@ function Pillars() {
     },
   ];
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Was BeistandPlus macht
         </div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -586,7 +586,7 @@ function BereavementBand() {
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
       <div className="absolute inset-0 opacity-20 bg-gradient-warm" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-6">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground/90">
             End-of-Life Care
@@ -670,9 +670,9 @@ function RolesGrid() {
     { icon: ShieldCheck, title: "Hospitals & authorities", copy: "Secure handoff of certification and mortuary handover." },
   ];
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Roles</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Roles</div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
           Every stakeholder, their own portal.
         </h2>
@@ -709,9 +709,9 @@ function BenefitsShowcase() {
   ];
   return (
     <section className="bg-parchment/40">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Benefits Checker</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Benefits Checker</div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             Know exactly what you're entitled to.
           </h2>
@@ -752,10 +752,10 @@ function NetworkMap() {
     { name: "Stuttgart", role: "Planned", partners: 4 },
   ];
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Provider Network</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Provider Network</div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             A verified partner in every city.
           </h2>
@@ -805,9 +805,9 @@ function AiAssistant() {
   ];
   return (
     <section className="bg-parchment/40">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">AI Assistant</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">AI Assistant</div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             Ask anything, in any language.
           </h2>
@@ -838,7 +838,7 @@ function AiAssistant() {
 
 function CTA() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-primary p-12 text-primary-foreground shadow-elevated lg:p-20">
         <div className="absolute inset-0 opacity-30 bg-gradient-warm" />
         <div className="relative max-w-2xl">

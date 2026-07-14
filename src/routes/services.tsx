@@ -200,7 +200,7 @@ function Services() {
       {/* Editorial intro rule */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 border-t border-primary/10 pt-10">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-foreground/70">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
             {t("pages.services.ninePillars")}
           </div>
           <div className="h-px w-16 bg-accent/60" />
@@ -260,7 +260,7 @@ function Services() {
       <section className="border-y border-primary/10 bg-card/60">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-6 text-center">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-foreground/70">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
               {t("pages.services.ribbon")}
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-display text-lg text-foreground/80 sm:gap-x-8">

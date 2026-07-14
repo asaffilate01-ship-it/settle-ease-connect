@@ -78,7 +78,7 @@ export default function IntegrationCourses() {
           <span>Newcomer's Guide · No. 04</span>
           <span>Integration &amp; Language</span>
         </div>
-        <div className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           A plain-language guide
         </div>
         <h1 className="display-hero text-balance mt-3 font-semibold">
@@ -114,7 +114,7 @@ export default function IntegrationCourses() {
       {/* Eligibility */}
       <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-[180px_1fr]">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">01 · Who can join</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">01 · Who can join</div>
           <div className="space-y-4 text-lg text-muted-foreground">
             <p>
               <strong className="text-foreground">Entitled (Anspruch):</strong> new residents with a permit under §§ 23, 28, 30, 32, 36
@@ -135,7 +135,7 @@ export default function IntegrationCourses() {
       {/* Structure */}
       <section className="mx-auto max-w-4xl border-t border-border/60 px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-[180px_1fr]">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">02 · What's inside</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">02 · What's inside</div>
           <div className="space-y-6 text-lg text-muted-foreground">
             <p>
               A general Integrationskurs is <strong className="text-foreground">700 hours</strong>: six language modules (A1.1 → B1.2)
@@ -154,7 +154,7 @@ export default function IntegrationCourses() {
       {/* Cost */}
       <section className="mx-auto max-w-4xl border-t border-border/60 px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-[180px_1fr]">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">03 · What it costs</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">03 · What it costs</div>
           <div className="space-y-4 text-lg text-muted-foreground">
             <p>
               <strong className="text-foreground">€2.29 per hour</strong> (2026 rate) — about €1,600 for the full course. You pay half up
@@ -173,7 +173,7 @@ export default function IntegrationCourses() {
 
       {/* Steps */}
       <section className="mx-auto max-w-4xl border-t border-border/60 px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">04 · Step by step</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">04 · Step by step</div>
         <div className="mt-8 space-y-8">
           {[
             {
@@ -203,7 +203,7 @@ export default function IntegrationCourses() {
             },
           ].map((s) => (
             <div key={s.n} className="grid gap-4 border-t border-border/60 pt-6 sm:grid-cols-[60px_1fr]">
-              <div className="font-display text-3xl font-semibold text-accent-foreground/70">{s.n}</div>
+              <div className="font-display text-3xl font-semibold text-foreground/60">{s.n}</div>
               <div>
                 <h3 className="display-md font-semibold">{s.t}</h3>
                 <p className="mt-2 text-muted-foreground">{s.d}</p>
@@ -215,7 +215,7 @@ export default function IntegrationCourses() {
 
       {/* Official links */}
       <section className="mx-auto max-w-4xl border-t border-border/60 px-4 py-16 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           <MapPin className="h-4 w-4" /> 05 · Official links
         </div>
         <div className="mt-6 divide-y divide-border/60 rounded-2xl border border-border/60 bg-card">
@@ -239,7 +239,7 @@ export default function IntegrationCourses() {
 
       {/* Alternatives */}
       <section className="mx-auto max-w-4xl border-t border-border/60 px-4 py-16 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           <Users className="h-4 w-4" /> 06 · If you're not eligible — free & cheap alternatives
         </div>
         <p className="mt-3 max-w-2xl text-muted-foreground">

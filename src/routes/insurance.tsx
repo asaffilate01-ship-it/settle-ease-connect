@@ -169,7 +169,7 @@ function InsuranceLanding() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-[oklch(0.16_0.04_250)] text-white">
         <div className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(60%_60%_at_15%_15%,oklch(0.72_0.18_190/0.35),transparent),radial-gradient(45%_55%_at_85%_25%,oklch(0.68_0.22_25/0.22),transparent)]" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:px-8">
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-12 sm:py-20 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:px-8">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-teal">
               <ShieldCheck className="h-3.5 w-3.5" /> Broker-placed · §34d GewO
@@ -221,9 +221,9 @@ function InsuranceLanding() {
       </section>
 
       {/* Products */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Product lines
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -288,7 +288,7 @@ function InsuranceLanding() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
             <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
                 How we get paid
               </div>
               <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -327,9 +327,9 @@ function InsuranceLanding() {
       </section>
 
       {/* Callback form */}
-      <section id="callback" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+      <section id="callback" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Request a callback
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">

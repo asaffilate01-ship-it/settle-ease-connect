@@ -31,7 +31,7 @@ function BlogIndex() {
 
       <section className="mx-auto max-w-7xl px-4 pb-4 pt-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="max-w-2xl">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             {t("blog.title")}
           </div>
           <h1 className="display-hero text-balance mt-3 font-semibold">

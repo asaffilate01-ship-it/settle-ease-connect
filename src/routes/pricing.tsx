@@ -157,9 +157,9 @@ function Pricing() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             {t("pages.pricing.eyebrow")}
           </div>
           <h1 className="display-hero text-balance mt-3 font-semibold">
@@ -326,7 +326,7 @@ function Pricing() {
 
         {/* Launch scope */}
         <div className="mt-24 rounded-2xl border border-border/60 bg-parchment/50 p-8">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             What we help with at launch
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -394,7 +394,7 @@ function Pricing() {
         {/* Providers strip */}
         <div className="mt-10 grid gap-6 rounded-2xl border border-border/60 bg-parchment/50 p-8 lg:grid-cols-2">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
               For providers
             </div>
             <h2 className="display-lg text-balance mt-3 font-semibold">
