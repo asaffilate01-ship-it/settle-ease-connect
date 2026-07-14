@@ -71,6 +71,7 @@ import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
+import { Route as AuthenticatedExpertQuotesRouteImport } from './routes/_authenticated/expert.quotes'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
 import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
 import { Route as AuthenticatedExpertCasesRouteImport } from './routes/_authenticated/expert.cases'
@@ -436,6 +437,12 @@ const AuthenticatedPortalAuditRoute =
     path: '/audit',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedExpertQuotesRoute =
+  AuthenticatedExpertQuotesRouteImport.update({
+    id: '/quotes',
+    path: '/quotes',
+    getParentRoute: () => AuthenticatedExpertRoute,
+  } as any)
 const AuthenticatedExpertProfileRoute =
   AuthenticatedExpertProfileRouteImport.update({
     id: '/profile',
@@ -699,6 +706,7 @@ export interface FileRoutesByFullPath {
   '/expert/cases': typeof AuthenticatedExpertCasesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
+  '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
@@ -792,6 +800,7 @@ export interface FileRoutesByTo {
   '/expert/cases': typeof AuthenticatedExpertCasesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
+  '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
@@ -891,6 +900,7 @@ export interface FileRoutesById {
   '/_authenticated/expert/cases': typeof AuthenticatedExpertCasesRoute
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
+  '/_authenticated/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
@@ -990,6 +1000,7 @@ export interface FileRouteTypes {
     | '/expert/cases'
     | '/expert/payouts'
     | '/expert/profile'
+    | '/expert/quotes'
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
@@ -1083,6 +1094,7 @@ export interface FileRouteTypes {
     | '/expert/cases'
     | '/expert/payouts'
     | '/expert/profile'
+    | '/expert/quotes'
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
@@ -1181,6 +1193,7 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/cases'
     | '/_authenticated/expert/payouts'
     | '/_authenticated/expert/profile'
+    | '/_authenticated/expert/quotes'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
@@ -1680,6 +1693,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalAuditRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/expert/quotes': {
+      id: '/_authenticated/expert/quotes'
+      path: '/quotes'
+      fullPath: '/expert/quotes'
+      preLoaderRoute: typeof AuthenticatedExpertQuotesRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
+    }
     '/_authenticated/expert/profile': {
       id: '/_authenticated/expert/profile'
       path: '/profile'
@@ -2023,6 +2043,7 @@ interface AuthenticatedExpertRouteChildren {
   AuthenticatedExpertCasesRoute: typeof AuthenticatedExpertCasesRoute
   AuthenticatedExpertPayoutsRoute: typeof AuthenticatedExpertPayoutsRoute
   AuthenticatedExpertProfileRoute: typeof AuthenticatedExpertProfileRoute
+  AuthenticatedExpertQuotesRoute: typeof AuthenticatedExpertQuotesRoute
   AuthenticatedExpertIndexRoute: typeof AuthenticatedExpertIndexRoute
 }
 
@@ -2030,6 +2051,7 @@ const AuthenticatedExpertRouteChildren: AuthenticatedExpertRouteChildren = {
   AuthenticatedExpertCasesRoute: AuthenticatedExpertCasesRoute,
   AuthenticatedExpertPayoutsRoute: AuthenticatedExpertPayoutsRoute,
   AuthenticatedExpertProfileRoute: AuthenticatedExpertProfileRoute,
+  AuthenticatedExpertQuotesRoute: AuthenticatedExpertQuotesRoute,
   AuthenticatedExpertIndexRoute: AuthenticatedExpertIndexRoute,
 }
 
