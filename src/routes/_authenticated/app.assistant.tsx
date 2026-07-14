@@ -35,7 +35,7 @@ function AssistantPage() {
       {
         role: "assistant",
         text:
-          "Great question. I've drafted a short answer with the exact steps and can generate the application forms when you're ready. (Connect Lovable AI to enable live answers.)",
+          "Great question. I've drafted a short answer with the exact steps and can generate the application forms when you're ready. (Live AI answers activate once the assistant is connected.)",
       },
     ]);
     setInput("");
