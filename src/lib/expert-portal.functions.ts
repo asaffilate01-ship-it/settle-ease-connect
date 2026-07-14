@@ -366,3 +366,106 @@ export const getMyProfessionActivity = createServerFn({ method: "GET" })
     }
     return { profession, bucket, items: [] as any[] };
   });
+
+// ---------- Send a quote from the expert portal ----------
+export const sendExpertQuote = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((raw: unknown) =>
+    z
+      .object({
+        caseId: z.string().uuid(),
+        title: z.string().min(2).max(200),
+        description: z.string().max(4000).optional().nullable(),
+        amountEur: z.number().min(1).max(1_000_000),
+        compensationModel: z.enum(["hourly", "flat_fee", "wholesale", "direct_bill", "referral_fee"]).default("flat_fee"),
+      })
+      .parse(raw),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    // Resolve expert row
+    const { data: me } = await supabase
+      .from("experts")
+      .select("id")
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (!me) throw new Error("You don't have an expert profile.");
+
+    const { data: inserted, error } = await supabase
+      .from("case_quotes")
+      .insert({
+        case_id: data.caseId,
+        expert_id: (me as { id: string }).id,
+        created_by: userId,
+        title: data.title,
+        description: data.description ?? null,
+        amount_eur: data.amountEur,
+        compensation_model: data.compensationModel,
+        status: "sent",
+        sent_at: new Date().toISOString(),
+      })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+
+    // Log a case event (best-effort)
+    await supabase.from("case_events").insert({
+      case_id: data.caseId,
+      event_type: "quote_sent",
+      created_by: userId,
+      metadata: { quote_id: (inserted as { id: string }).id, amount_eur: data.amountEur } as any,
+    });
+
+    return { ok: true, id: (inserted as { id: string }).id };
+  });
+
+// ---------- Issue an invoice from the expert portal ----------
+export const issueExpertInvoice = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((raw: unknown) =>
+    z
+      .object({
+        caseId: z.string().uuid(),
+        amountEur: z.number().min(1).max(1_000_000),
+        quoteId: z.string().uuid().optional().nullable(),
+      })
+      .parse(raw),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { data: me } = await supabase
+      .from("experts")
+      .select("id")
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (!me) throw new Error("You don't have an expert profile.");
+
+    // 15% platform fee by default; the escrow console can adjust before release.
+    const platformFee = Math.round(data.amountEur * 0.15 * 100) / 100;
+    const payout = Math.round((data.amountEur - platformFee) * 100) / 100;
+
+    const { data: inserted, error } = await supabase
+      .from("case_invoices")
+      .insert({
+        case_id: data.caseId,
+        expert_id: (me as { id: string }).id,
+        quote_id: data.quoteId ?? null,
+        amount_eur: data.amountEur,
+        platform_fee_eur: platformFee,
+        payout_to_expert_eur: payout,
+        vat_eur: 0,
+        status: "pending",
+      })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+
+    await supabase.from("case_events").insert({
+      case_id: data.caseId,
+      event_type: "invoice_issued",
+      created_by: userId,
+      metadata: { invoice_id: (inserted as { id: string }).id, amount_eur: data.amountEur } as any,
+    });
+
+    return { ok: true, id: (inserted as { id: string }).id };
+  });
