@@ -58,6 +58,7 @@ import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalImmigrationRouteImport } from './routes/_authenticated/portal.immigration'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
+import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
@@ -347,6 +348,12 @@ const AuthenticatedPortalExpertsRoute =
     path: '/experts',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalEscrowRoute =
+  AuthenticatedPortalEscrowRouteImport.update({
+    id: '/escrow',
+    path: '/escrow',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalDirectoryRoute =
   AuthenticatedPortalDirectoryRouteImport.update({
     id: '/directory',
@@ -602,6 +609,7 @@ export interface FileRoutesByFullPath {
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
+  '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -682,6 +690,7 @@ export interface FileRoutesByTo {
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
+  '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -767,6 +776,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
+  '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/_authenticated/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -852,6 +862,7 @@ export interface FileRouteTypes {
     | '/portal/audit'
     | '/portal/capacity'
     | '/portal/directory'
+    | '/portal/escrow'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/immigration'
@@ -932,6 +943,7 @@ export interface FileRouteTypes {
     | '/portal/audit'
     | '/portal/capacity'
     | '/portal/directory'
+    | '/portal/escrow'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/immigration'
@@ -1016,6 +1028,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/directory'
+    | '/_authenticated/portal/escrow'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
     | '/_authenticated/portal/immigration'
@@ -1412,6 +1425,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/escrow': {
+      id: '/_authenticated/portal/escrow'
+      path: '/escrow'
+      fullPath: '/portal/escrow'
+      preLoaderRoute: typeof AuthenticatedPortalEscrowRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/directory': {
       id: '/_authenticated/portal/directory'
       path: '/directory'
@@ -1761,6 +1781,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
+  AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
   AuthenticatedPortalImmigrationRoute: typeof AuthenticatedPortalImmigrationRoute
@@ -1779,6 +1800,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
+  AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
   AuthenticatedPortalImmigrationRoute: AuthenticatedPortalImmigrationRoute,
@@ -1908,13 +1930,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
