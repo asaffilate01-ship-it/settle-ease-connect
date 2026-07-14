@@ -1,11 +1,17 @@
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import appI18n from "@/i18n";
-import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
+import { DEFAULT_LANG, isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
 
 
 
 const STORAGE_KEY = "beistand.lang";
 const ONBOARDING_KEY = "beistand.lang.chosen";
+
+// Module-scope flag: the saved-language load is applied exactly once per
+// full-page load, and only AFTER the first React commit. That guarantees
+// SSR HTML and first-client-render both see DEFAULT_LANG, so
+// useTranslation consumers can't hydration-mismatch on nav labels.
+let savedLangApplied = false;
 
 function getSafeI18n() {
   return appI18n && typeof appI18n.changeLanguage === "function" ? appI18n : null;
@@ -16,15 +22,8 @@ function changeLanguageSafely(next: LangCode) {
   if (!safeI18n) return false;
 
   try {
-    // Resources are statically bundled and already in memory, so
-    // changeLanguage resolves in the same microtask. We still wrap the
-    // resulting React re-render (which fans out across every
-    // useTranslation consumer) in startTransition so React can slice the
-    // work and keep the switcher responsive.
     startTransition(() => {
       const result = safeI18n.changeLanguage(next);
-      // The returned promise is already-resolved here; swallow any late
-      // rejection so it doesn't surface as an unhandled promise.
       if (result && typeof (result as Promise<unknown>).catch === "function") {
         (result as Promise<unknown>).catch((err) => {
           console.warn("i18n.changeLanguage failed", err);
@@ -39,7 +38,11 @@ function changeLanguageSafely(next: LangCode) {
 }
 
 export function useLanguage() {
-  const [lang, setLangState] = useState<LangCode>((appI18n.language as LangCode) || "en");
+  // ALWAYS start at DEFAULT_LANG on both server and client so hydration
+  // matches unconditionally. The saved-language swap happens in an effect
+  // below, after the first commit.
+  const [lang, setLangState] = useState<LangCode>(DEFAULT_LANG);
+  const hydratedRef = useRef(false);
 
   useEffect(() => {
     const safeI18n = getSafeI18n();
@@ -51,10 +54,11 @@ export function useLanguage() {
     };
   }, []);
 
-  // After hydration, apply the user's saved language preference. We do NOT
-  // auto-detect from navigator.language — that caused the page to flip to
-  // another language on load. The onboarding sheet is where visitors pick.
+  // After the first commit, apply the user's saved language once.
   useEffect(() => {
+    hydratedRef.current = true;
+    if (savedLangApplied) return;
+    savedLangApplied = true;
     if (typeof window === "undefined") return;
     const safeI18n = getSafeI18n();
     if (!safeI18n) return;
@@ -67,8 +71,6 @@ export function useLanguage() {
     if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
       changeLanguageSafely(saved as LangCode);
     }
-    // Only run once after mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

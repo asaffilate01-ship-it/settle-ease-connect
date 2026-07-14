@@ -1,82 +1,51 @@
+# Close all remaining gaps
 
-# Role-specific dashboards — full rollout
+Six workstreams, ordered by user-visible impact. I'll execute them in this order and stop between blocks if you want to redirect.
 
-Right now every signed-in user lands in one of three shells (`/app`, `/agent`, `/portal`) with the **same** sidebar and home page regardless of role. This plan gives each role a purpose-built portal — its own landing page, its own navigation, and only the surfaces that role actually uses.
+## 1. Hydration mismatch (blocking runtime error)
+Root cause: `useLanguage` initialises `useState((appI18n.language as LangCode) || "en")`. If the i18n singleton is ever mutated before the first client render (module init race, HMR, or view transition mid-navigation), SSR ("de") ≠ client (e.g. "ar") and every `useTranslation` consumer mismatches.
 
-Scope agreed:
-- Family/Beneficiary (`/app`)
-- Experts — lawyer, accountant, doctor, notary, translator, social_worker, funeral_director, mosque, church, temple, hospital
-- Agents (`/agent`)
-- Internal staff — one focused console per admin domain
+Fix:
+- Always initialise client state to `DEFAULT_LANG` (matches SSR unconditionally).
+- Gate the saved-language `changeLanguage` call behind a `useHydrated()` flag so it only runs after the first commit.
+- Add a `<LanguageBridge>` in `__root.tsx` that owns the effect once, instead of every consumer re-triggering it.
 
-## What each role gets
+## 2. Agent dashboard rebuild (`agent.index.tsx`)
+Currently 4 KPI tiles + last-10 referrals. Plan called for:
+- MTD earnings sparkline (last 30 days).
+- Pipeline by stage (pending → converted → paid) as a horizontal funnel with counts + €.
+- Share-link performance: clicks, sign-ups, conversion %, top source.
+- Recent referrals table stays but gains product-mix chip.
 
-**Family / Beneficiary** — `/app`
-Landing: active cases, next actions, checklist progress, benefit reminders, household vault status, upgrade nudge.
-Nav: Cases · Checklists · Benefits · Documents · Insurance · Providers · Community · Messages · Settings.
+New server fn `getMyAgentDashboard` in `agents.functions.ts` returning `{ kpis, sparkline, pipeline, linkStats, recent }` in one round-trip.
 
-**Experts (all professions)** — new `/expert` shell
-Landing: assigned cases queue, quotes to send, open invoices, upcoming appointments, wholesale/referral earnings YTD, verification status.
-Nav: My cases · Quotes · Invoices · Payouts · Availability · Profile · Messages.
-Profession-specific widgets: lawyers see regulated-referral fee log; translators/funeral/admin see wholesale-rate jobs; mosques/churches/temples/hospitals see community requests.
+## 3. Expert case detail actions (`expert.cases.$caseId.tsx`)
+Today it's a thin wrapper. Add:
+- Send quote drawer (title, amount, model, expiry) → `sendExpertQuote` server fn.
+- Issue invoice drawer (amount, description) → `issueExpertInvoice` server fn.
+- Case timeline (events + quotes + invoices merged).
+- Message case manager button (deep-links to `/app/messages/$channelId`).
 
-**Agents** — `/agent` (already exists, refocus)
-Landing: this-month commissions, active referrals, pipeline by stage, top-converting share link.
-Nav: Clients · Commissions · Referral link · Marketing assets · Payouts.
+## 4. Domain sub-console tabs
+Each of `portal.tax.tsx` / `portal.insurance.tsx` / `portal.medical.tsx` / `portal.new-arrivals.tsx` / `portal.benefits.tsx` gains an in-page tab bar: **Leads · Quotes · Callbacks · Reconciliation**. Same URL, tab state via `?tab=` search param — no new route files needed.
 
-**Internal staff — one console per admin domain** under `/portal`
-- `admin` / `staff` / `case_manager` → `/portal` (global ops console — as today, but no longer shared with the specialists)
-- `insurance_admin` → `/portal/insurance` (leads, quotes, callbacks, commission reconciliation)
-- `tax_admin` → `/portal/tax` (tax leads, filings, deadlines, TaxFix handoffs)
-- `benefits_admin` → `/portal/benefits` (benefit applications, eligibility rules, appeals)
-- `medical_admin` → `/portal/medical` (doctor/hospital roster, medical cases, translations)
-- `new_arrival_admin` → `/portal/new-arrivals` (arrival playbooks, integration courses, housing)
+## 5. i18n nav labels for the 11 non-EN/DE locales
+Add `nav.expert.*`, `nav.portal.insurance`, `nav.portal.medical`, `nav.portal.newArrivals`, `nav.portal.benefits`, `nav.agent.*` keys to `tr / ur / hi / pa / ar / ku / fa / ru / uk / pl / zh` common.json — machine-translated first pass, native strings for the top 6 languages by user base (TR, AR, UR, RU, FA, PL).
 
-Each admin console shows KPIs, queue, and activity scoped to **that domain only** — no leaking into unrelated domains.
+## 6. Blog translations
+6 new posts have EN bodies only. Generate DE + TR + AR full-body translations first (highest-traffic non-EN), keep other 9 locales falling back to EN with a small `translation.pending` banner on the article page so it doesn't feel broken.
 
-## How
+## Files touched (approx.)
+- edit: `src/hooks/use-language.ts`, `src/routes/__root.tsx`
+- edit: `src/routes/_authenticated/agent.index.tsx`, `src/lib/agents.functions.ts`
+- edit: `src/routes/_authenticated/expert.cases.$caseId.tsx`, `src/lib/expert-portal.functions.ts`
+- edit: 5 `portal.<domain>.tsx` files
+- edit: 11 locale `common.json` files
+- edit: `src/data/blog-posts.ts` (+DE/TR/AR bodies for 6 posts)
 
-### 1. Role landing routing
-Extend `src/lib/role-landing.ts`:
-- Add `EXPERT` bucket → `/expert`
-- Split internal roles: each `*_admin` → its own domain URL
-- `admin` / `staff` / `case_manager` keep `/portal`
-- Auth success + `/` redirect use `landingForRoles()` — already wired.
+## Not doing (unless you say so)
+- Native strings for locales beyond top-6 (auto-translate fallback stays).
+- Full-body blog translations for 9 remaining locales.
+- Redesigning existing single-page domain consoles beyond adding the tab bar.
 
-### 2. New protected shell: `/_authenticated/expert`
-- `expert.tsx` — sidebar + header (mirrors `app.tsx` structure, expert-flavored nav)
-- `expert.index.tsx` — dashboard (KPI tiles, cases queue, earnings)
-- `expert.cases.tsx`, `expert.cases.$caseId.tsx` — reuse existing case detail
-- `expert.quotes.tsx`, `expert.invoices.tsx`, `expert.payouts.tsx` — thin wrappers over existing server fns filtered by `experts.user_id = auth.uid()`
-- `expert.availability.tsx`, `expert.profile.tsx`
-- Profession-specific widget lives inside `expert.index.tsx`, keyed off `experts.profession`.
-
-### 3. Domain consoles under `/_authenticated/portal/*`
-For each of insurance / tax / benefits / medical / new-arrivals:
-- New index route (e.g. `portal.insurance.index.tsx`) with domain-scoped KPIs + queue.
-- Existing surfaces (`portal.leads.tsx`, `portal.insurance.tsx` etc.) become sub-pages of that console.
-- New portal sidebar switches automatically based on the admin's role — `admin`/`staff` see all consoles, specialists see only theirs.
-- Reuse `getOpsConsole` server fn but add a `domain` filter param (`insurance` | `tax` | `benefits` | `medical` | `new_arrivals`) so it scopes leads/cases/invoices/activity accordingly.
-
-### 4. Consumer app landing polish
-- `/app/index.tsx` cleaned to show only family-relevant widgets (already close, minor pass).
-
-### 5. Agent portal polish
-- `/agent/index.tsx` rebuilt as a real dashboard (commissions MTD, pipeline, share-link performance) — currently it's basic.
-
-## Delivery order
-1. Landing router + role bucket split (foundation).
-2. `/expert` shell + dashboard (biggest new surface).
-3. Split `/portal` into 5 domain consoles + role-based sidebar.
-4. Agent dashboard rebuild.
-5. Family dashboard cleanup pass.
-
-## Technical notes
-- No schema changes. All scoping done via server functions using `has_role()` and existing FK columns (`experts.user_id`, `case_assignments.expert_id`, `insurance_leads.assigned_to_user_id`, etc.).
-- Reuse `PortalHeader`, `KpiTile`, `QueueRow`, `ActivityItem` primitives — no new UI kit.
-- New shells copy the layout pattern from `_authenticated/app.tsx` (SidebarProvider + header + Outlet).
-- i18n: new nav labels added to all 13 locale files.
-
-This is ~5 sessions of work. I'll do it in the order above; each step ships a usable slice.
-
-Approve and I'll start with step 1 (landing router) + step 2 (`/expert` shell).
+Confirm and I'll execute 1 → 6 in order. Or point to which of the six matters most and I'll do just those.
