@@ -41,6 +41,7 @@ import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
 import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
 import { Route as GroupCoverFiduciaryClauseRouteImport } from './routes/group-cover.fiduciary-clause'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
+import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -78,6 +79,7 @@ import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authenticated/agent.link'
 import { Route as AuthenticatedAgentCommissionsRouteImport } from './routes/_authenticated/agent.commissions'
 import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
+import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
@@ -247,6 +249,11 @@ const DirectoryListYourBusinessRoute =
     path: '/list-your-business',
     getParentRoute: () => DirectoryRoute,
   } as any)
+const CheckoutReturnRoute = CheckoutReturnRouteImport.update({
+  id: '/checkout/return',
+  path: '/checkout/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -457,6 +464,12 @@ const AuthenticatedAgentClientsRoute =
     path: '/clients',
     getParentRoute: () => AuthenticatedAgentRoute,
   } as any)
+const ApiPublicPaymentsWebhookRoute =
+  ApiPublicPaymentsWebhookRouteImport.update({
+    id: '/api/public/payments/webhook',
+    path: '/api/public/payments/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedPortalKnowledgeSlugRoute =
   AuthenticatedPortalKnowledgeSlugRouteImport.update({
     id: '/$slug',
@@ -528,6 +541,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -576,6 +590,7 @@ export interface FileRoutesByFullPath {
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -602,6 +617,7 @@ export interface FileRoutesByTo {
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -650,6 +666,7 @@ export interface FileRoutesByTo {
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -681,6 +698,7 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
@@ -729,6 +747,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
   '/_authenticated/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -760,6 +779,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/portal'
     | '/blog/$slug'
+    | '/checkout/return'
     | '/directory/list-your-business'
     | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
@@ -808,6 +828,7 @@ export interface FileRouteTypes {
     | '/portal/admin/users'
     | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
+    | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -834,6 +855,7 @@ export interface FileRouteTypes {
     | '/tax'
     | '/trust'
     | '/blog/$slug'
+    | '/checkout/return'
     | '/directory/list-your-business'
     | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
@@ -882,6 +904,7 @@ export interface FileRouteTypes {
     | '/portal/admin/users'
     | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
+    | '/api/public/payments/webhook'
   id:
     | '__root__'
     | '/'
@@ -912,6 +935,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/portal'
     | '/blog/$slug'
+    | '/checkout/return'
     | '/directory/list-your-business'
     | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
@@ -960,6 +984,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/admin/users'
     | '/_authenticated/portal/gantt/$caseId'
     | '/_authenticated/portal/knowledge/$slug'
+    | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -987,6 +1012,8 @@ export interface RootRouteChildren {
   StudentsRoute: typeof StudentsRoute
   TaxRoute: typeof TaxRoute
   TrustRoute: typeof TrustRoute
+  CheckoutReturnRoute: typeof CheckoutReturnRoute
+  ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1214,6 +1241,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/directory/list-your-business'
       preLoaderRoute: typeof DirectoryListYourBusinessRouteImport
       parentRoute: typeof DirectoryRoute
+    }
+    '/checkout/return': {
+      id: '/checkout/return'
+      path: '/checkout/return'
+      fullPath: '/checkout/return'
+      preLoaderRoute: typeof CheckoutReturnRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -1473,6 +1507,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/agent/clients'
       preLoaderRoute: typeof AuthenticatedAgentClientsRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/api/public/payments/webhook': {
+      id: '/api/public/payments/webhook'
+      path: '/api/public/payments/webhook'
+      fullPath: '/api/public/payments/webhook'
+      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/portal/knowledge/$slug': {
       id: '/_authenticated/portal/knowledge/$slug'
@@ -1775,17 +1816,9 @@ const rootRouteChildren: RootRouteChildren = {
   StudentsRoute: StudentsRoute,
   TaxRoute: TaxRoute,
   TrustRoute: TrustRoute,
+  CheckoutReturnRoute: CheckoutReturnRoute,
+  ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

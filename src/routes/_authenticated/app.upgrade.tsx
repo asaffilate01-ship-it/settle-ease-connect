@@ -1,9 +1,11 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useSubscription } from "@/lib/subscription";
+import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
+import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 
 type Plan = {
   code: string;
@@ -29,9 +31,8 @@ function UpgradePage() {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [household, setHousehold] = useState<"single" | "family">("single");
   const [loading, setLoading] = useState(true);
-  const [subscribing, setSubscribing] = useState<string | null>(null);
-  const nav = useNavigate();
   const sub = useSubscription();
+  const { openCheckout, checkoutElement } = useStripeCheckout();
 
   useEffect(() => {
     (async () => {
@@ -45,35 +46,15 @@ function UpgradePage() {
     })();
   }, []);
 
-  async function subscribe(planCode: string) {
-    setSubscribing(planCode);
-    const { data: u } = await supabase.auth.getUser();
-    const uid = u.user?.id;
-    if (!uid) {
-      toast.error("Please sign in first");
-      setSubscribing(null);
-      return;
+  function subscribe(planCode: string, planName: string) {
+    try {
+      openCheckout({
+        priceId: planCode,
+        title: `Subscribe to ${planName}`,
+      });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Checkout unavailable");
     }
-    const periodEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
-    // Cancel any existing active/trialing sub row for this user, then insert new one.
-    await supabase
-      .from("subscriptions")
-      .update({ status: "cancelled" })
-      .eq("user_id", uid)
-      .in("status", ["active", "trialing", "past_due"]);
-    const { error } = await supabase.from("subscriptions").insert({
-      user_id: uid,
-      plan_code: planCode,
-      status: "trialing",
-      current_period_end: periodEnd,
-    });
-    setSubscribing(null);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success("Plan activated (trial). Redirecting to your dashboard…");
-    setTimeout(() => nav({ to: "/app" }), 600);
   }
 
   const filtered = plans.filter((p) =>
@@ -151,8 +132,8 @@ function UpgradePage() {
                 </ul>
                 <button
                   type="button"
-                  disabled={isCurrent || subscribing === p.code}
-                  onClick={() => subscribe(p.code)}
+                  disabled={isCurrent}
+                  onClick={() => subscribe(p.code, p.name)}
                   className={`mt-6 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${
                     isCurrent
                       ? "border bg-muted text-muted-foreground"
@@ -161,7 +142,7 @@ function UpgradePage() {
                         : "border-2 border-primary text-primary hover:bg-primary/5"
                   } disabled:opacity-60`}
                 >
-                  {isCurrent ? "Current plan" : subscribing === p.code ? "Activating…" : `Choose ${p.name}`}
+                  {isCurrent ? "Current plan" : `Choose ${p.name}`}
                 </button>
               </article>
             );
@@ -169,11 +150,12 @@ function UpgradePage() {
         </div>
       )}
 
+      <PaymentTestModeBanner />
       <div className="rounded-2xl border bg-muted/30 p-4 text-xs text-muted-foreground">
-        <strong className="text-foreground">Note:</strong> plan changes take effect immediately. This preview activates a
-        30-day trial without payment; once Stripe is connected, checkouts will bill your card and manage renewals automatically.
+        <strong className="text-foreground">Note:</strong> plan changes take effect immediately. Verified students automatically get 20% off tier subscriptions at checkout — funeral cover is priced separately.
         <Link to="/app/settings" className="ml-1 text-primary hover:underline">Manage billing →</Link>
       </div>
+      {checkoutElement}
     </div>
   );
 }

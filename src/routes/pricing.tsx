@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Users, User, HeartHandshake, GraduationCap, BadgePercent } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
+import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -487,6 +488,19 @@ function BereavementAddOn() {
   const [enabled, setEnabled] = useState(false);
   const [band, setBand] = useState<CoverBandKey>("small_family");
   const active = COVER_BANDS.find((b) => b.key === band)!;
+  const { openCheckout, checkoutElement } = useStripeCheckout();
+
+  async function handleAddCover() {
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) {
+      window.location.href = "/auth?redirect=/pricing";
+      return;
+    }
+    openCheckout({
+      priceId: active.priceId,
+      title: `Funeral cover — ${active.label}`,
+    });
+  }
 
   return (
     <div className="mt-12 rounded-2xl border border-primary/30 bg-card p-6 shadow-soft sm:p-8">
@@ -515,7 +529,6 @@ function BereavementAddOn() {
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-
         {COVER_BANDS.map((b) => {
           const isActive = b.key === band;
           return (
@@ -544,10 +557,14 @@ function BereavementAddOn() {
       </div>
 
       {enabled && (
-        <div className="mt-4 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
-          <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
-          {active.addOnEur}/mo added to your BeistandPlus plan. Payout: €20,000 per insured adult,
-          paid directly to the funeral director with the balance to your nominated beneficiary.
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
+          <div>
+            <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
+            {active.addOnEur}/mo. €20,000 per insured adult.
+          </div>
+          <Button onClick={handleAddCover} className="bg-gradient-primary">
+            Subscribe to cover
+          </Button>
         </div>
       )}
 
@@ -555,7 +572,9 @@ function BereavementAddOn() {
         Cover regulated under German law. Add-on price is billed alongside your BeistandPlus
         subscription; children are co-covered on the family bands at no extra premium.
       </div>
+      {checkoutElement}
     </div>
   );
 }
+
 
