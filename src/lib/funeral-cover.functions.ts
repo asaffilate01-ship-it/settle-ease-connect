@@ -15,11 +15,7 @@ const LeadSchema = z.object({
   notes: z.string().trim().max(2000).optional().nullable(),
 });
 
-async function assertInternal(context: {
-  supabase: NonNullable<Awaited<ReturnType<typeof requireSupabaseAuth>>>["supabase"];
-  userId: string;
-}) {
-  // narrow-typed helper — RPC call scoped by RLS as the user
+async function assertInternal(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase.rpc("is_internal", {
     _user_id: context.userId,
   });
