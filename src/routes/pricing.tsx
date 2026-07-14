@@ -486,7 +486,7 @@ const COVER_BANDS: {
 function BereavementAddOn() {
   const { t } = useTranslation();
   const [enabled, setEnabled] = useState(false);
-  const [band, setBand] = useState<CoverBandKey>("small_family");
+  const [band, setBand] = useState<CoverBandKey>("individual");
   const active = COVER_BANDS.find((b) => b.key === band)!;
   const { openCheckout, checkoutElement } = useStripeCheckout();
 
