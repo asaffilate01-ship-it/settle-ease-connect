@@ -263,15 +263,7 @@ async function translatePage() {
     }
   };
 
-  await Promise.all([
-    ...textChunks.slice(0, 4).map(runTextChunk),
-    ...attrChunks.slice(0, 2).map(runAttrChunk),
-  ]);
-  clearLanguageGate(currentLang);
-  await Promise.all([
-    ...textChunks.slice(4).map(runTextChunk),
-    ...attrChunks.slice(2).map(runAttrChunk),
-  ]);
+  await Promise.all([...textChunks.map(runTextChunk), ...attrChunks.map(runAttrChunk)]);
 }
 
 function schedule() {
