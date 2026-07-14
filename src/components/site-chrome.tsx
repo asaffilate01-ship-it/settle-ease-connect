@@ -315,7 +315,7 @@ function DesktopDropdown({ label, items }: { label: string; items: NavChild[] })
 export function SiteFooter() {
   const { t } = useTranslation();
   return (
-    <footer className="border-t border-border/60 bg-parchment/40">
+    <footer data-site-footer className="border-t border-border/60 bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-6 lg:px-8">
         <div className="lg:col-span-2">
           <div className="flex items-center gap-3">
