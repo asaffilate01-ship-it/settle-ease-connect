@@ -130,12 +130,13 @@ function Hero() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <p className="text-base leading-relaxed text-foreground/85 drop-cap">
-              {t("hero.introA")}
+              {t("hero.introA", "Ob Sie Ihren Umzug nach Deutschland planen — für Arbeit, Studium oder Familie — oder bereits hier sind und sich ein Leben aufbauen: BeistandPlus ist die ruhige Plattform für jeden Schritt.")}
             </p>
             <p className="text-base leading-relaxed text-foreground/85">
-              {t("hero.introB")}
+              {t("hero.introB", "Visa, Anmeldung, Wohnen, Sozialleistungen, gesetzliche Krankenversicherung, Führerschein, Geburten, Hochzeiten, Sterbefälle — ein persönlicher Case Manager, in Ihrer Sprache, den ganzen Weg.")}
             </p>
           </div>
+
 
           <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-elevated hover:bg-primary/90">

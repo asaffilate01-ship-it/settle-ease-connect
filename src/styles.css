@@ -549,9 +549,9 @@ html.keyboard-open body { padding-bottom: var(--keyboard-height, 0px); }
 @utility display-md {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.375rem, 1.3vw + 0.8rem, 2rem);
-  line-height: 1.12;
-  letter-spacing: -0.012em;
+  font-size: clamp(1.125rem, 0.7vw + 0.75rem, 1.5rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
   text-wrap: balance;
   hyphens: auto;
   overflow-wrap: break-word;
