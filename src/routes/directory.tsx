@@ -34,20 +34,11 @@ const CATEGORY_TONES: Record<string, "ocean" | "teal" | "aurora" | "coral" | "su
   translator: "teal", funeral: "coral", other: "ocean",
 };
 
-const CATEGORIES = [
-  { key: "", label: "All" },
-  { key: "lawyer", label: "Lawyers" },
-  { key: "immigration", label: "Immigration" },
-  { key: "tax", label: "Tax advisors" },
-  { key: "welfare", label: "Welfare / benefits / pensions" },
-  { key: "doctor", label: "Doctors" },
-  { key: "medical", label: "Medical specialists" },
-  { key: "education", label: "Education" },
-  { key: "religious", label: "Religious" },
-  { key: "translator", label: "Translators" },
-  { key: "funeral", label: "Funeral" },
-  { key: "other", label: "Other" },
-];
+const CATEGORY_KEYS = [
+  "", "lawyer", "immigration", "tax", "welfare", "doctor", "medical",
+  "education", "religious", "translator", "funeral", "other",
+] as const;
+
 
 export const Route = createFileRoute("/directory")({
   head: () => ({
