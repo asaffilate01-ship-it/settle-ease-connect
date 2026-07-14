@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, User, Users, HeartHandshake, ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { estimatePremium } from "@/lib/premium-estimator";
 import { Button } from "@/components/ui/button";
 
