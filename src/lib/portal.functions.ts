@@ -494,3 +494,171 @@ export const getPortalOverview = getOpsConsole;
 // Suppress unused-import lint for the admin helper — retained for future
 // admin-only endpoints in later portal-rebuild steps.
 void assertAdmin;
+
+// ---------- Financials / P&L ----------
+
+export const getFinancials = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((raw: unknown) =>
+    z.object({ months: z.number().int().min(1).max(24).default(6) }).parse(raw ?? {}),
+  )
+  .handler(async ({ data, context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    const now = new Date();
+    const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (data.months - 1), 1));
+    const startIso = start.toISOString();
+
+    const [invoicesRes, payoutsRes, commissionsRes, subsRes, plansRes] = await Promise.all([
+      supa.from("case_invoices")
+        .select("amount_eur, vat_eur, platform_fee_eur, payout_to_expert_eur, status, paid_at, released_at, created_at, expert_id")
+        .gte("created_at", startIso),
+      supa.from("expert_payouts")
+        .select("amount_eur, status, period_month, paid_at, created_at, expert_id, kind"),
+      supa.from("agent_commissions")
+        .select("commission_eur, gross_eur, status, period_month, paid_at, agent_user_id"),
+      supa.from("subscriptions")
+        .select("plan_code, status, created_at, canceled_at"),
+      supa.from("subscription_plans").select("code, monthly_price_eur, name"),
+    ]);
+
+    if (invoicesRes.error) throw new Error(invoicesRes.error.message);
+    if (payoutsRes.error) throw new Error(payoutsRes.error.message);
+    if (commissionsRes.error) throw new Error(commissionsRes.error.message);
+
+    const invoices = invoicesRes.data ?? [];
+    const payouts = payoutsRes.data ?? [];
+    const commissions = commissionsRes.data ?? [];
+    const subs = subsRes.data ?? [];
+    const plans = plansRes.data ?? [];
+    const planPrice: Record<string, number> = {};
+    plans.forEach((p: any) => { planPrice[p.code] = Number(p.monthly_price_eur ?? 0); });
+
+    // Build month buckets
+    const buckets: { key: string; label: string; start: Date; end: Date }[] = [];
+    for (let i = 0; i < data.months; i++) {
+      const d = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + i, 1));
+      const next = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1));
+      const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+      buckets.push({
+        key,
+        label: d.toLocaleString("en", { month: "short", year: "2-digit", timeZone: "UTC" }),
+        start: d,
+        end: next,
+      });
+    }
+
+    // MRR: sum of active subs at start of each month
+    const activeSubs = subs.filter((s: any) => s.status === "active" || s.status === "trialing" || s.status === "past_due");
+
+    const rows = buckets.map((b) => {
+      const inRange = (iso: string | null | undefined) => {
+        if (!iso) return false;
+        const t = new Date(iso).getTime();
+        return t >= b.start.getTime() && t < b.end.getTime();
+      };
+      const inPeriod = (period: string | null | undefined) => period && period.startsWith(b.key);
+
+      const paidInvoices = invoices.filter((i: any) => inRange(i.paid_at));
+      const invoiceRevenue = paidInvoices.reduce((s: number, i: any) => s + Number(i.amount_eur ?? 0), 0);
+      const platformFees = paidInvoices.reduce((s: number, i: any) => s + Number(i.platform_fee_eur ?? 0), 0);
+      const expertPayoutsForInvoices = paidInvoices.reduce((s: number, i: any) => s + Number(i.payout_to_expert_eur ?? 0), 0);
+
+      // Subscription MRR: subs created before period end AND not canceled before period start
+      const subMrr = activeSubs
+        .filter((s: any) => new Date(s.created_at).getTime() < b.end.getTime())
+        .filter((s: any) => !s.canceled_at || new Date(s.canceled_at).getTime() >= b.start.getTime())
+        .reduce((sum: number, s: any) => sum + (planPrice[s.plan_code] ?? 0), 0);
+
+      const payoutExpense = payouts
+        .filter((p: any) => inPeriod(p.period_month) || inRange(p.paid_at))
+        .reduce((s: number, p: any) => s + Number(p.amount_eur ?? 0), 0);
+
+      const commissionExpense = commissions
+        .filter((c: any) => inPeriod(c.period_month))
+        .reduce((s: number, c: any) => s + Number(c.commission_eur ?? 0), 0);
+
+      const revenue = invoiceRevenue + subMrr;
+      const cogs = expertPayoutsForInvoices + commissionExpense;
+      const gross = revenue - cogs;
+
+      return {
+        key: b.key,
+        label: b.label,
+        subscriptionRevenue: round2(subMrr),
+        invoiceRevenue: round2(invoiceRevenue),
+        revenue: round2(revenue),
+        platformFees: round2(platformFees),
+        expertPayouts: round2(payoutExpense || expertPayoutsForInvoices),
+        agentCommissions: round2(commissionExpense),
+        cogs: round2(cogs),
+        grossProfit: round2(gross),
+      };
+    });
+
+    const totals = rows.reduce(
+      (acc, r) => ({
+        revenue: acc.revenue + r.revenue,
+        subscriptionRevenue: acc.subscriptionRevenue + r.subscriptionRevenue,
+        invoiceRevenue: acc.invoiceRevenue + r.invoiceRevenue,
+        expertPayouts: acc.expertPayouts + r.expertPayouts,
+        agentCommissions: acc.agentCommissions + r.agentCommissions,
+        platformFees: acc.platformFees + r.platformFees,
+        grossProfit: acc.grossProfit + r.grossProfit,
+      }),
+      { revenue: 0, subscriptionRevenue: 0, invoiceRevenue: 0, expertPayouts: 0, agentCommissions: 0, platformFees: 0, grossProfit: 0 },
+    );
+
+    // Outstanding expenses
+    const pendingPayouts = payouts
+      .filter((p: any) => p.status === "pending" || p.status === "approved")
+      .reduce((s: number, p: any) => s + Number(p.amount_eur ?? 0), 0);
+    const pendingCommissions = commissions
+      .filter((c: any) => c.status !== "paid")
+      .reduce((s: number, c: any) => s + Number(c.commission_eur ?? 0), 0);
+    const heldEscrow = invoices
+      .filter((i: any) => i.status === "held_escrow")
+      .reduce((s: number, i: any) => s + Number(i.payout_to_expert_eur ?? 0), 0);
+
+    return {
+      months: rows,
+      totals: {
+        revenue: round2(totals.revenue),
+        subscriptionRevenue: round2(totals.subscriptionRevenue),
+        invoiceRevenue: round2(totals.invoiceRevenue),
+        expertPayouts: round2(totals.expertPayouts),
+        agentCommissions: round2(totals.agentCommissions),
+        platformFees: round2(totals.platformFees),
+        grossProfit: round2(totals.grossProfit),
+      },
+      outstanding: {
+        pendingExpertPayouts: round2(pendingPayouts),
+        pendingAgentCommissions: round2(pendingCommissions),
+        heldInEscrow: round2(heldEscrow),
+      },
+      activeSubscriptions: activeSubs.length,
+    };
+  });
+
+export const listRecentExpenses = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    const [payouts, comms] = await Promise.all([
+      supa.from("expert_payouts")
+        .select("id, amount_eur, status, kind, description, period_month, paid_at, created_at, experts(full_name, profession)")
+        .order("created_at", { ascending: false })
+        .limit(50),
+      supa.from("agent_commissions")
+        .select("id, commission_eur, gross_eur, status, product, period_month, paid_at, created_at, agents(code)")
+        .order("created_at", { ascending: false })
+        .limit(50),
+    ]);
+    return {
+      payouts: payouts.data ?? [],
+      commissions: comms.data ?? [],
+    };
+  });
+
+function round2(n: number) { return Math.round(n * 100) / 100; }
