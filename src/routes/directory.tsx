@@ -176,7 +176,8 @@ function DirectoryPage() {
 }
 
 
-function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }) {
+function MemberPaywall({ signedIn }: { signedIn: boolean }) {
+  const { t } = useTranslation();
   return (
     <div className="mb-8 overflow-hidden rounded-3xl border border-primary/20 bg-gradient-hero p-6 shadow-card sm:p-8">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -186,26 +187,23 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
           </span>
           <div>
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              Members only
+              {t("directory.paywall.eyebrow", { defaultValue: "Members only" })}
             </div>
             <h2 className="display-lg text-balance mt-1 font-semibold">
-              Unlock all verified providers.
+              {t("directory.paywall.title", { defaultValue: "Unlock all verified providers." })}
             </h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              BeistandPlus members get full contact details, phone, email and
-              website for every listing — plus a human case manager who can
-              introduce you. Directory listings are free for providers; access
-              is included with every BeistandPlus plan.
+              {t("directory.paywall.body", { defaultValue: "BeistandPlus members get full contact details, phone, email and website for every listing — plus a human case manager who can introduce you. Directory listings are free for providers; access is included with every BeistandPlus plan." })}
             </p>
           </div>
         </div>
         <div className="flex flex-wrap gap-3 sm:shrink-0">
           <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
-            <Link to="/pricing">See plans from €5</Link>
+            <Link to="/pricing">{t("directory.paywall.cta", { defaultValue: "See plans from €5" })}</Link>
           </Button>
           {!signedIn && (
             <Button asChild size="lg" variant="outline">
-              <Link to="/auth">Sign in</Link>
+              <Link to="/auth">{t("directory.paywall.signIn", { defaultValue: "Sign in" })}</Link>
             </Button>
           )}
         </div>
@@ -213,6 +211,7 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
     </div>
   );
 }
+
 
 function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) {
   const key = String(l.category ?? "other").toLowerCase();
