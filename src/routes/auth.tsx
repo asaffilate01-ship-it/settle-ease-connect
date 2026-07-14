@@ -102,9 +102,15 @@ function AuthPage() {
 
   return (
     <div className="min-h-screen bg-parchment flex flex-col">
-      <header className="p-6">
+      <header className="flex items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-6">
         <Link to="/" className="inline-flex items-center">
-          <img src={logoFull} alt="BeistandPlus" className="h-10 w-auto" />
+          <img src={logoFull} alt="BeistandPlus" className="h-9 w-auto sm:h-10" />
+        </Link>
+        <Link
+          to="/"
+          className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-terracotta"
+        >
+          ← Home
         </Link>
       </header>
       <main className="flex-1 flex items-center justify-center px-4 pb-16">
