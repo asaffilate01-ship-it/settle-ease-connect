@@ -195,17 +195,11 @@ async function translatePage() {
   for (const node of nodes) {
     const parent = node.parentElement;
     if (!parent) continue;
-    let src = parent.getAttribute(SRC_ATTR);
-    const nodeText = node.nodeValue!.trim();
+    const src = parent.getAttribute(SRC_ATTR);
     if (!src) {
-      // No stashed source. We only trust the current DOM as the source if
-      // it is currently rendered in the base language. Otherwise the text
-      // is already translated by react-i18next (or a previous run) and
-      // stashing it now would poison future language switches with the
-      // wrong "source" string.
-      //
-      // Since currentLang !== "en" here, skip stashing and skip translating
-      // this node — the seed pass on the next EN visit will capture it.
+      // No stashed source. Skip — the seed pass while lang === "en" is
+      // responsible for capturing sources; stashing here would poison
+      // the cache with an already-translated string.
       continue;
     }
     const targetLang = parent.getAttribute(LANG_ATTR);
