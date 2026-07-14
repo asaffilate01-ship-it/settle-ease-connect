@@ -1,19 +1,14 @@
 /**
  * Live DOM auto-translator.
  *
- * On every route change (or DOM mutation), we walk the document, collect
- * visible text nodes that haven't been translated for the current language
- * yet, batch them through the Lovable AI gateway and swap the text in place.
- *
- * Design notes:
- * - We stash the ORIGINAL text on `data-i18n-src` the first time we see a
- *   node, so switching languages later re-translates from the source.
- * - We cache every (lang, source) pair in localStorage so repeat visits are
- *   instant and free.
- * - Elements can opt out with `data-no-translate` (used for brand marks,
- *   emails, code blocks, etc.).
- * - We intentionally skip <script>, <style>, <code>, <pre>, form inputs,
- *   and anything already inside a `[data-no-translate]` subtree.
+ * Design:
+ * - We store the ORIGINAL text/attr value plus the language we last stamped
+ *   in in-memory WeakMaps. NO `data-*` attributes are ever written to the
+ *   DOM — that would cause SSR/CSR hydration mismatches.
+ * - Translations are cached per (lang, source) pair in localStorage so
+ *   repeat visits are instant and free.
+ * - The first pass is deferred until after React hydration commits.
+ * - Elements can opt out with `data-no-translate`.
  */
 import { translateBatch } from "./translate.functions";
 
@@ -23,13 +18,17 @@ const SKIP_TAGS = new Set([
   "TEXTAREA", "INPUT", "SELECT", "OPTION", "SVG", "PATH",
 ]);
 const SKIP_ATTR = "data-no-translate";
-const SRC_ATTR = "data-i18n-src";
-const LANG_ATTR = "data-i18n-lang";
 
 let currentLang = "en";
 let inFlight: Promise<void> | null = null;
 let scheduled = false;
 let mutating = false;
+let hydrated = false;
+
+// Per text-node state: original source text + last language we applied.
+const textState = new WeakMap<Text, { src: string; srcLang: string; lang: string }>();
+// Per element+attr state.
+const attrState = new WeakMap<Element, Map<string, { src: string; srcLang: string; lang: string }>>();
 
 const langNames: Record<string, string> = {
   en: "English", de: "German", tr: "Turkish", ur: "Urdu", hi: "Hindi",
@@ -38,18 +37,11 @@ const langNames: Record<string, string> = {
   zh: "Simplified Chinese",
 };
 
-/**
- * Cheap heuristic: does this text look like it's already in `lang`?
- * We only need to distinguish German from English source text — the two
- * languages the codebase actually mixes at author-time. Everything else
- * routes through the AI translator.
- */
 function looksLike(text: string, lang: string): boolean {
   const t = text.toLowerCase();
   if (lang === "de") {
     if (/[äöüß]/.test(t)) return true;
-    // Common German stopwords / connective words.
-    if (/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch)\b/.test(t)) return true;
+    if (/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch)\b/.test(t)) return true;
     return false;
   }
   if (lang === "en") {
@@ -70,153 +62,43 @@ function shouldSkip(el: Element | null): boolean {
 }
 
 function cacheGet(lang: string, src: string): string | null {
-  try {
-    return localStorage.getItem(CACHE_PREFIX + lang + ":" + hash(src));
-  } catch {
-    return null;
-  }
+  try { return localStorage.getItem(CACHE_PREFIX + lang + ":" + hash(src)); } catch { return null; }
 }
 function cacheSet(lang: string, src: string, translated: string) {
-  try {
-    localStorage.setItem(CACHE_PREFIX + lang + ":" + hash(src), translated);
-  } catch {
-    /* quota — ignore */
-  }
+  try { localStorage.setItem(CACHE_PREFIX + lang + ":" + hash(src), translated); } catch { /* quota */ }
 }
 
-/** Cheap 32-bit hash — collisions are irrelevant, we only need a stable key. */
 function hash(s: string): string {
   let h = 0;
-  for (let i = 0; i < s.length; i++) {
-    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
-  }
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
   return (h >>> 0).toString(36);
 }
 
+const ATTR_LIST = ["alt", "title", "aria-label", "placeholder"] as const;
+
 function collectTextNodes(): Text[] {
   const out: Text[] = [];
-  const walker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    {
-      acceptNode(node) {
-        const t = node.nodeValue;
-        if (!t) return NodeFilter.FILTER_REJECT;
-        const trimmed = t.trim();
-        // Skip pure whitespace, single chars, numbers-only, and short symbolic strings.
-        if (trimmed.length < 2) return NodeFilter.FILTER_REJECT;
-        if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) return NodeFilter.FILTER_REJECT;
-        if (shouldSkip(node.parentElement)) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      },
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const t = node.nodeValue;
+      if (!t) return NodeFilter.FILTER_REJECT;
+      const trimmed = t.trim();
+      if (trimmed.length < 2) return NodeFilter.FILTER_REJECT;
+      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) return NodeFilter.FILTER_REJECT;
+      if (shouldSkip(node.parentElement)) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
     },
-  );
+  });
   let n: Node | null;
   while ((n = walker.nextNode())) out.push(n as Text);
   return out;
 }
 
-/**
- * Translatable attributes ({@link https://developer.mozilla.org/en-US/docs/Web/HTML}).
- * We stash the original on `data-i18n-attr-<name>` so switching languages later
- * re-translates from source.
- */
-const ATTR_LIST = ["alt", "title", "aria-label", "placeholder"] as const;
-
 type AttrPending = { el: Element; attr: string; src: string };
-
-function collectAttrTargets(): AttrPending[] {
-  const out: AttrPending[] = [];
-  const sel = ATTR_LIST.map((a) => `[${a}]`).join(",");
-  const els = document.querySelectorAll<HTMLElement>(sel);
-  els.forEach((el) => {
-    if (shouldSkip(el)) return;
-    for (const attr of ATTR_LIST) {
-      const val = el.getAttribute(attr);
-      if (!val) continue;
-      const trimmed = val.trim();
-      if (trimmed.length < 2) continue;
-      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
-      const srcKey = `data-i18n-attr-${attr}`;
-      const src = el.getAttribute(srcKey);
-      if (!src) {
-        // No stashed source yet — capture the current value as the source
-        // and mark its language via a cheap heuristic. This lets us fix
-        // author-time mixing (e.g. English strings on a German page).
-        const detected = looksLike(trimmed, "de") ? "de" : looksLike(trimmed, "en") ? "en" : "en";
-        el.setAttribute(srcKey, trimmed);
-        el.setAttribute(`data-i18n-attrlang-${attr}`, detected);
-        if (detected === currentLang) continue;
-        out.push({ el, attr, src: trimmed });
-        continue;
-      }
-      const langKey = `data-i18n-attrlang-${attr}`;
-      const currentAttrLang = el.getAttribute(langKey);
-      // If we already stamped this attr for the current language, only skip
-      // when the DOM still holds the translated value; React can reset the
-      // attribute between passes.
-      if (currentAttrLang === currentLang) {
-        const cached = cacheGet(currentLang, src);
-        if (cached && el.getAttribute(attr) === cached) continue;
-      }
-      out.push({ el, attr, src });
-    }
-  });
-  return out;
-}
-
-/**
- * Called on every pass while currentLang === "en" (the base language).
- * Stashes the current English text/attribute values onto data-i18n-src so
- * subsequent language switches translate from the correct source, even for
- * strings owned by react-i18next.
- */
-function seedEnglishSources() {
-  // Text nodes
-  const nodes = collectTextNodes();
-  mutating = true;
-  for (const node of nodes) {
-    const parent = node.parentElement;
-    if (!parent) continue;
-    const existing = parent.getAttribute(SRC_ATTR);
-    const text = node.nodeValue?.trim();
-    if (!text) continue;
-    if (!existing) {
-      parent.setAttribute(SRC_ATTR, text);
-      parent.setAttribute(LANG_ATTR, "en");
-    } else if (existing !== text) {
-      // The English copy changed (e.g. a key updated). Refresh the source.
-      parent.setAttribute(SRC_ATTR, text);
-      parent.setAttribute(LANG_ATTR, "en");
-    }
-  }
-  // Attributes
-  const sel = ATTR_LIST.map((a) => `[${a}]`).join(",");
-  document.querySelectorAll<HTMLElement>(sel).forEach((el) => {
-    if (shouldSkip(el)) return;
-    for (const attr of ATTR_LIST) {
-      const val = el.getAttribute(attr);
-      if (!val) continue;
-      const trimmed = val.trim();
-      if (trimmed.length < 2) continue;
-      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
-      const srcKey = `data-i18n-attr-${attr}`;
-      const existing = el.getAttribute(srcKey);
-      if (!existing || existing !== trimmed) {
-        el.setAttribute(srcKey, trimmed);
-        el.setAttribute(`data-i18n-attrlang-${attr}`, "en");
-      }
-    }
-  });
-  mutating = false;
-}
 
 async function translatePage() {
   if (typeof window === "undefined") return;
-  // Always restore-to-source pass first if the user switched back to a base
-  // language for which we have stashed sources. This keeps the DOM stable.
   const nodes = collectTextNodes();
-  const attrTargets = collectAttrTargets();
   const pending: { node: Text; src: string }[] = [];
   const attrPending: AttrPending[] = [];
 
@@ -225,65 +107,86 @@ async function translatePage() {
     if (!parent) continue;
     const text = node.nodeValue?.trim();
     if (!text) continue;
-    let src = parent.getAttribute(SRC_ATTR);
-    let srcLang = parent.getAttribute(LANG_ATTR);
-    if (!src) {
-      // Seed: capture the current text as source and detect its language.
+
+    let state = textState.get(node);
+    if (!state) {
       const detected = looksLike(text, "de") ? "de" : looksLike(text, "en") ? "en" : "en";
-      mutating = true;
-      parent.setAttribute(SRC_ATTR, text);
-      parent.setAttribute(LANG_ATTR, detected);
-      mutating = false;
-      src = text;
-      srcLang = detected;
+      state = { src: text, srcLang: detected, lang: detected };
+      textState.set(node, state);
     }
-    // If we already have a cached translation, always reconcile the DOM to
-    // match it. React re-renders can reset the text back to the source
-    // between our passes — trusting LANG_ATTR alone would leave those
-    // resets untranslated forever.
-    const cached = cacheGet(currentLang, src);
+
+    const cached = cacheGet(currentLang, state.src);
     if (cached) {
       if (node.nodeValue !== cached) {
         mutating = true;
         node.nodeValue = cached;
-        parent.setAttribute(LANG_ATTR, currentLang);
-        mutating = false;
-      } else if (srcLang !== currentLang) {
-        mutating = true;
-        parent.setAttribute(LANG_ATTR, currentLang);
         mutating = false;
       }
+      state.lang = currentLang;
       continue;
     }
-    // No cache yet. If the source already reads as the target language, mark
-    // and skip; otherwise queue it for the batch translator.
-    if (srcLang === currentLang) continue;
-    if (looksLike(src, currentLang)) {
-      mutating = true;
-      parent.setAttribute(LANG_ATTR, currentLang);
-      mutating = false;
+    if (state.srcLang === currentLang) {
+      // Ensure DOM shows source
+      if (node.nodeValue !== state.src) {
+        mutating = true;
+        node.nodeValue = state.src;
+        mutating = false;
+      }
+      state.lang = currentLang;
       continue;
     }
-    pending.push({ node, src });
+    if (looksLike(state.src, currentLang)) {
+      state.lang = currentLang;
+      continue;
+    }
+    pending.push({ node, src: state.src });
   }
 
-  // Attributes: alt / title / aria-label / placeholder
-  for (const t of attrTargets) {
-    const cached = cacheGet(currentLang, t.src);
-    if (cached) {
-      mutating = true;
-      t.el.setAttribute(t.attr, cached);
-      t.el.setAttribute(`data-i18n-attrlang-${t.attr}`, currentLang);
-      mutating = false;
-      continue;
+  // Attributes
+  const sel = ATTR_LIST.map((a) => `[${a}]`).join(",");
+  document.querySelectorAll<HTMLElement>(sel).forEach((el) => {
+    if (shouldSkip(el)) return;
+    let map = attrState.get(el);
+    for (const attr of ATTR_LIST) {
+      const val = el.getAttribute(attr);
+      if (!val) continue;
+      const trimmed = val.trim();
+      if (trimmed.length < 2) continue;
+      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
+
+      if (!map) { map = new Map(); attrState.set(el, map); }
+      let s = map.get(attr);
+      if (!s) {
+        const detected = looksLike(trimmed, "de") ? "de" : looksLike(trimmed, "en") ? "en" : "en";
+        s = { src: trimmed, srcLang: detected, lang: detected };
+        map.set(attr, s);
+      }
+      const cached = cacheGet(currentLang, s.src);
+      if (cached) {
+        if (el.getAttribute(attr) !== cached) {
+          mutating = true;
+          el.setAttribute(attr, cached);
+          mutating = false;
+        }
+        s.lang = currentLang;
+        continue;
+      }
+      if (s.srcLang === currentLang) {
+        if (el.getAttribute(attr) !== s.src) {
+          mutating = true;
+          el.setAttribute(attr, s.src);
+          mutating = false;
+        }
+        s.lang = currentLang;
+        continue;
+      }
+      if (looksLike(s.src, currentLang)) { s.lang = currentLang; continue; }
+      attrPending.push({ el, attr, src: s.src });
     }
-    attrPending.push(t);
-  }
+  });
 
   if (pending.length === 0 && attrPending.length === 0) return;
 
-  // Batch in chunks of 60, run all chunks in parallel — the previous sequential
-  // await-in-loop made language switches feel painfully slow.
   const CHUNK = 60;
   const textChunks: { node: Text; src: string }[][] = [];
   for (let i = 0; i < pending.length; i += CHUNK) textChunks.push(pending.slice(i, i + CHUNK));
@@ -294,11 +197,7 @@ async function translatePage() {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
-        data: {
-          targetLang: currentLang,
-          targetName: langNames[currentLang] ?? currentLang,
-          texts: uniqueSrcs,
-        },
+        data: { targetLang: currentLang, targetName: langNames[currentLang] ?? currentLang, texts: uniqueSrcs },
       });
       const map = new Map<string, string>();
       uniqueSrcs.forEach((s, idx) => map.set(s, translations[idx] ?? s));
@@ -308,7 +207,8 @@ async function translatePage() {
         if (!t) continue;
         cacheSet(currentLang, src, t);
         node.nodeValue = t;
-        node.parentElement?.setAttribute(LANG_ATTR, currentLang);
+        const st = textState.get(node);
+        if (st) st.lang = currentLang;
       }
       mutating = false;
     } catch (err) {
@@ -320,11 +220,7 @@ async function translatePage() {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
-        data: {
-          targetLang: currentLang,
-          targetName: langNames[currentLang] ?? currentLang,
-          texts: uniqueSrcs,
-        },
+        data: { targetLang: currentLang, targetName: langNames[currentLang] ?? currentLang, texts: uniqueSrcs },
       });
       const map = new Map<string, string>();
       uniqueSrcs.forEach((s, idx) => map.set(s, translations[idx] ?? s));
@@ -334,7 +230,9 @@ async function translatePage() {
         if (!t) continue;
         cacheSet(currentLang, src, t);
         el.setAttribute(attr, t);
-        el.setAttribute(`data-i18n-attrlang-${attr}`, currentLang);
+        const m = attrState.get(el);
+        const s = m?.get(attr);
+        if (s) s.lang = currentLang;
       }
       mutating = false;
     } catch (err) {
@@ -342,57 +240,29 @@ async function translatePage() {
     }
   };
 
-  await Promise.all([
-    ...textChunks.map(runTextChunk),
-    ...attrChunks.map(runAttrChunk),
-  ]);
+  await Promise.all([...textChunks.map(runTextChunk), ...attrChunks.map(runAttrChunk)]);
 }
 
-function restoreEnglish() {
-  const marked = document.querySelectorAll<HTMLElement>(`[${SRC_ATTR}]`);
-  mutating = true;
-  marked.forEach((el) => {
-    const src = el.getAttribute(SRC_ATTR);
-    if (!src) return;
-    for (const child of Array.from(el.childNodes)) {
-      if (child.nodeType === Node.TEXT_NODE && child.nodeValue?.trim()) {
-        child.nodeValue = src;
-        break;
-      }
-    }
-    el.setAttribute(LANG_ATTR, "en");
-  });
-  // Restore attributes
-  for (const attr of ATTR_LIST) {
-    const srcKey = `data-i18n-attr-${attr}`;
-    document.querySelectorAll<HTMLElement>(`[${srcKey}]`).forEach((el) => {
-      const src = el.getAttribute(srcKey);
-      if (src) el.setAttribute(attr, src);
-      el.setAttribute(`data-i18n-attrlang-${attr}`, "en");
-    });
-  }
-  mutating = false;
-}
-
-function schedule(immediate = false) {
+function schedule() {
   if (scheduled) return;
   scheduled = true;
   const run = () => {
     scheduled = false;
+    if (!hydrated) {
+      // Try again on the next frame — we must never mutate the DOM before
+      // React finishes hydrating, or hydration mismatches occur.
+      scheduled = true;
+      setTimeout(() => { scheduled = false; schedule(); }, 50);
+      return;
+    }
     if (inFlight) return;
     inFlight = translatePage().finally(() => {
       inFlight = null;
-      // clear the fade set by bootAutoTranslate
       if (typeof document !== "undefined") {
         document.documentElement.removeAttribute("data-lang-switching");
       }
     });
   };
-  if (immediate) {
-    // Run on the next microtask so React can commit first, but don't wait for idle.
-    Promise.resolve().then(run);
-    return;
-  }
   if ("requestIdleCallback" in window) {
     (window as unknown as { requestIdleCallback: (cb: () => void, o?: object) => number })
       .requestIdleCallback(run, { timeout: 500 });
@@ -403,6 +273,17 @@ function schedule(immediate = false) {
 
 let observer: MutationObserver | null = null;
 
+function markHydratedSoon() {
+  if (hydrated) return;
+  // Wait two rAFs + a macrotask so React 19 concurrent hydration is done.
+  const done = () => { hydrated = true; };
+  if (typeof requestAnimationFrame === "function") {
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(done, 0)));
+  } else {
+    setTimeout(done, 100);
+  }
+}
+
 /**
  * Boot the auto-translator. Idempotent — subsequent calls just update the
  * active language and re-scan the DOM.
@@ -411,29 +292,19 @@ export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
   const changed = currentLang !== lang;
   currentLang = lang;
-  if (changed) {
-    // Mark html so a CSS rule can fade the page during the swap.
+  markHydratedSoon();
+  if (changed && hydrated) {
     document.documentElement.setAttribute("data-lang-switching", "1");
   }
-  schedule(changed);
+  schedule();
 
   if (observer) return;
   observer = new MutationObserver((mutations) => {
-    if (mutating) return;
+    if (mutating || !hydrated) return;
     for (const m of mutations) {
-      if (m.type === "childList" && m.addedNodes.length > 0) {
-        schedule();
-        return;
-      }
-      if (m.type === "characterData") {
-        schedule();
-        return;
-      }
+      if (m.type === "childList" && m.addedNodes.length > 0) { schedule(); return; }
+      if (m.type === "characterData") { schedule(); return; }
     }
   });
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    characterData: true,
-  });
+  observer.observe(document.body, { childList: true, subtree: true, characterData: true });
 }
