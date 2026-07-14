@@ -1,8 +1,6 @@
-import { startTransition, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import appI18n from "@/i18n";
 import { DEFAULT_LANG, isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
-
-
 
 const STORAGE_KEY = "beistand.lang";
 const ONBOARDING_KEY = "beistand.lang.chosen";
@@ -20,16 +18,15 @@ function getSafeI18n() {
 function changeLanguageSafely(next: LangCode) {
   const safeI18n = getSafeI18n();
   if (!safeI18n) return false;
-
   try {
-    startTransition(() => {
-      const result = safeI18n.changeLanguage(next);
-      if (result && typeof (result as Promise<unknown>).catch === "function") {
-        (result as Promise<unknown>).catch((err) => {
-          console.warn("i18n.changeLanguage failed", err);
-        });
-      }
-    });
+    // Synchronous — no startTransition. All locale bundles are eagerly
+    // loaded, so i18next fires languageChanged in the same frame.
+    const result = safeI18n.changeLanguage(next);
+    if (result && typeof (result as Promise<unknown>).catch === "function") {
+      (result as Promise<unknown>).catch((err) => {
+        console.warn("i18n.changeLanguage failed", err);
+      });
+    }
     return true;
   } catch (err) {
     console.warn("i18n.changeLanguage failed", err);
@@ -38,9 +35,6 @@ function changeLanguageSafely(next: LangCode) {
 }
 
 export function useLanguage() {
-  // ALWAYS start at DEFAULT_LANG on both server and client so hydration
-  // matches unconditionally. The saved-language swap happens in an effect
-  // below, after the first commit.
   const [lang, setLangState] = useState<LangCode>(DEFAULT_LANG);
   const hydratedRef = useRef(false);
 
@@ -54,7 +48,6 @@ export function useLanguage() {
     };
   }, []);
 
-  // After the first commit, apply the user's saved language once.
   useEffect(() => {
     hydratedRef.current = true;
     if (savedLangApplied) return;
@@ -73,11 +66,6 @@ export function useLanguage() {
     }
   }, []);
 
-
-
-  // Sync <html lang> and <html dir> whenever language changes. Do this
-  // synchronously (not in useEffect) inside the same view transition as
-  // the i18n swap so LTR↔RTL flips paint in one frame, not two.
   const applyHtmlAttrs = (l: LangCode) => {
     if (typeof document === "undefined") return;
     document.documentElement.lang = l;
@@ -88,28 +76,17 @@ export function useLanguage() {
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
-    const swap = () => {
-      applyHtmlAttrs(next);
-      if (!changeLanguageSafely(next)) {
-        setLangState(next);
-      }
-    };
-    // View Transitions API cross-fades the reflow (including the RTL flip)
-    // into a single animated frame, so the switch feels instant instead of
-    // flashing through an unstyled paint. Safe fallback when unsupported.
-    const doc = typeof document !== "undefined" ? (document as Document & {
-      startViewTransition?: (cb: () => void) => { finished: Promise<void> };
-    }) : null;
-    if (doc?.startViewTransition) {
-      doc.startViewTransition(swap);
-    } else {
-      swap();
+    // Synchronous swap — no View Transitions cross-fade (that animated
+    // frame added ~200-300ms of perceived lag, especially on RTL flips).
+    applyHtmlAttrs(next);
+    if (!changeLanguageSafely(next)) {
+      setLangState(next);
     }
     try {
       localStorage.setItem(STORAGE_KEY, next);
       localStorage.setItem(ONBOARDING_KEY, "1");
     } catch {
-      // ignore storage errors (private mode etc.)
+      // ignore
     }
   };
 
