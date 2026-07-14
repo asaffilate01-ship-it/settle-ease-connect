@@ -37,6 +37,7 @@ function AgentLayout() {
 
   const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
     { to: "/agent", label: t("agent.nav.overview", { defaultValue: "Overview" }), icon: Home, exact: true },
+    { to: "/agent/leads", label: t("agent.nav.leads", { defaultValue: "Leads & funnel" }), icon: Filter },
     { to: "/agent/clients", label: t("agent.nav.clients", { defaultValue: "My clients" }), icon: Users },
     { to: "/agent/commissions", label: t("agent.nav.commissions", { defaultValue: "Commissions" }), icon: TrendingUp },
     { to: "/agent/link", label: t("agent.nav.link", { defaultValue: "Referral link" }), icon: LinkIcon },
