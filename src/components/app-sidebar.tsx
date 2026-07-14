@@ -142,7 +142,17 @@ export function AppSidebar() {
   const sub = useSubscription();
   const qc = useQueryClient();
   const isAdmin = roles.includes("admin");
-  const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
+  const isBroadInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
+  const SPECIALIST_ROLES: SpecialistDomain[] = [
+    "insurance_admin",
+    "tax_admin",
+    "benefits_admin",
+    "medical_admin",
+    "new_arrival_admin",
+  ];
+  const mySpecialistRoles = SPECIALIST_ROLES.filter((r) => roles.includes(r));
+  const isSpecialist = mySpecialistRoles.length > 0;
+  const isInternal = isBroadInternal || isSpecialist;
   const isAgent = roles.includes("agent");
   const audience: Audience = isInternal ? "internal" : isAgent ? "agent" : "client";
 
@@ -157,8 +167,14 @@ export function AppSidebar() {
   const visibleNav = nav.filter((n) => {
     if (n.requiresRole === "admin" && !isAdmin) return false;
     if (n.requiresRole === "internal" && !isInternal) return false;
-    if (n.requiresRole === "agent" && !isAgent && !isInternal) return false;
+    if (n.requiresRole === "agent" && !isAgent && !isBroadInternal) return false;
     if (n.audience && n.audience !== "any" && n.audience !== audience) return false;
+    // Specialist scoping: when the user is a specialist (and NOT broad internal or admin),
+    // filter portal items down to their domain + shared items.
+    if (isSpecialist && !isBroadInternal) {
+      if (n.broadInternalOnly) return false;
+      if (n.specialistDomain && !mySpecialistRoles.includes(n.specialistDomain)) return false;
+    }
     return true;
   });
 
