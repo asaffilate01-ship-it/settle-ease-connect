@@ -279,6 +279,9 @@
      obscure the copyright line on small screens. */
   @media (max-width: 767px) {
     footer[data-site-footer] { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
+    /* When scrolling to an anchor / focused input, keep it clear of the
+       fixed mobile CTA bar (~72px tall + safe area). */
+    html { scroll-padding-bottom: 6rem; scroll-padding-top: 4rem; }
   }
 
   /* Better mobile hero rhythm — the fluid clamp on `display-hero` can still
