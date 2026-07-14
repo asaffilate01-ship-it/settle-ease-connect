@@ -1,6 +1,6 @@
 {
   "brand": {
-    "location": "Deutschland"
+    "location": "Almanya"
   },
   "nav": {
     "howItWorks": "Nasıl çalışır",
@@ -15,7 +15,7 @@
     "menu": "Menü"
   },
   "footer": {
-    "tagline": "Deutschland'daki her yolculuk için. Uyum, refah, sosyal yardımlar ve yaşam sonu bakımı — aileler ve onlara destek olan kuruluşlar için sakin bir platform.",
+    "tagline": "Almanya'daki her yolculuk için. Uyum, refah, sosyal yardımlar ve yaşam sonu bakımı — aileler ve onlara destek olan kuruluşlar için sakin bir platform.",
     "colPlatform": "Platform",
     "colForProviders": "Sağlayıcılar için",
     "colCompany": "Şirket",
@@ -30,9 +30,9 @@
     "churches": "Kiliseler",
     "temples": "Tapınaklar ve Gurdwaralar",
     "contact": "İletişim",
-    "impressum": "Künye",
+    "impressum": "Künye (Impressum)",
     "terms": "Hizmet şartları",
-    "privacy": "Veri koruma",
+    "privacy": "Gizlilik ve GDPR",
     "cookies": "Çerezler",
     "complaints": "Şikayetler",
     "copyright": "© {{year}} BeistandPlus GmbH · Berlin",
@@ -51,7 +51,7 @@
     "community": "Topluluk",
     "knowledge": "Bilgi tabanı",
     "experts": "Uzmanlar listesi",
-    "escrow": "Escrow release",
+    "escrow": "Emanet serbest bırakma",
     "funeralCover": "Cenaze Sigortası",
     "settings": "Ayarlar",
     "internal": "Dahili",
@@ -75,21 +75,21 @@
     "immigrationOps": "Göç operasyonları",
     "audit": "Denetim",
     "signOut": "Çıkış yap",
-    "agent": "Acenta",
+    "agent": "Temsilci",
     "agentOverview": "Acenta genel bakışı",
     "agentClients": "Müşterilerim",
     "agentCommissions": "Komisyonlar",
     "agentLink": "Referans bağlantısı",
     "studentsOps": "Öğrenci operasyonları",
     "studentDiscount": "Öğrenci indirimi",
-    "account": "My account",
+    "account": "Hesabım",
     "capacity": "Kapasite",
     "directoryMod": "Rehber Moderasyonu"
   },
   "language": {
     "label": "Dil",
     "choose": "Dilinizi seçin",
-    "chooseDescription": "BeistandPlus 13 dil konuşur. Lütfen kendi dilinizi seçin — istediğiniz zaman herhangi bir sayfanın sağ üst köşesinden değiştirebilirsiniz.",
+    "chooseDescription": "BeistandPlus 13 dil konuşur. Lütfen kendi dilinizi seçin; istediğiniz zaman herhangi bir sayfanın sağ üst köşesinden değiştirebilirsiniz.",
     "continue": "Devam et",
     "current": "Mevcut dil"
   },
@@ -127,7 +127,7 @@
     "titleLabel": "Başlık",
     "titlePlaceholder": "Sorunun kısa özeti",
     "descriptionLabel": "Açıklama",
-    "descriptionPlaceholder": "Üretme adımları, beklenen sonuç, gerçek sonuç...",
+    "descriptionPlaceholder": "Tekrar oluşturma adımları, beklenen sonuç, gerçek sonuç...",
     "severityLabel": "Önem derecesi",
     "submit": "Hatayı gönder",
     "cancel": "İptal",
@@ -155,12 +155,12 @@
   "hero": {
     "headlinePrefix": "Her yol için",
     "headlineHighlight": "Almanya",
-    "introA": "İster Almanya'ya taşınmayı planlıyor olun — iş, eğitim ya da aile için — ister burada yeni bir hayat kuruyor olun: BeistandPlus her adımda size eşlik eden sakin bir platformdur.",
+    "introA": "İster Almanya'ya iş, eğitim ya da aile için taşınmayı planlıyor olun, ister burada yeni bir hayat kuruyor olun: BeistandPlus her adımda size eşlik eden güvenilir bir platformdur.",
     "introB": "Vize, Anmeldung, konut, sosyal yardımlar, zorunlu sağlık sigortası, ehliyet, doğumlar, evlilikler, vefatlar — kendi dilinizde, tüm süreç boyunca tek bir vaka yöneticisi."
   },
   "agent": {
-    "defaultName": "Agent",
-    "shortLabel": "Agent",
+    "defaultName": "Temsilci",
+    "shortLabel": "Temsilci",
     "portalLabel": "Acenta portalı",
     "recurringBadge": "Acenta · %{{rate}} tekrarlayan",
     "nav": {
@@ -172,7 +172,7 @@
     "home": {
       "welcome": "Hoş geldiniz",
       "welcomeNamed": "Hoş geldiniz, {{name}}",
-      "tagline": "Abonelik ve cenaze sigortası satın. Yönlendirdiğiniz her müşteri için %{{rate}} tekrarlayan kazanın.",
+      "tagline": "Abonelik ve cenaze teminatı satın. Yönlendirdiğiniz her müşteri için %{{rate}} oranında tekrar eden kazanç sağlayın.",
       "recent": "Son referanslar",
       "emptyReferrals": "Henüz referans yok. Bağlantınızı “Referans bağlantısı” sekmesinden paylaşın."
     },
@@ -198,7 +198,7 @@
     },
     "clients": {
       "title": "Müşterilerim",
-      "subtitle": "Sattığınız her abonelik, müşteri bizde kaldığı sürece aylık ücretin %{{rate}}'ini kazandırır. Not: Cenaze sigortası değil, cenaze sigortası satıyoruz.",
+      "subtitle": "Sattığınız her abonelik, müşteri bizde kaldığı sürece aylık ücretin %{{rate}}'ini kazandırır. Not: Cenaze sigortası değil, cenaze teminatı satıyoruz.",
       "logNew": "Yeni bir referans kaydet",
       "emailLabel": "Müşteri e-postası",
       "productLabel": "Ürün",
@@ -213,7 +213,7 @@
     },
     "commissions": {
       "title": "Komisyonlar",
-      "subtitle": "Aylık ödenir, yönlendirdiğiniz her müşteri için aylık abonelik ücretinin %{{rate}}'i olarak hesaplanır. Üçüncü taraf maliyetleri (sigorta, cenaze sigortası) komisyon tabanından hariç tutulur.",
+      "subtitle": "Aylık ödenir, yönlendirdiğiniz her müşteri için aylık abonelik ücretinin %{{rate}}'i olarak hesaplanır. Üçüncü taraf maliyetleri (sigorta, cenaze teminatı) komisyon tabanından hariç tutulur.",
       "period": "Dönem",
       "gross": "Brüt",
       "rate": "Oran",
@@ -232,31 +232,31 @@
       "copied": "Kopyalandı",
       "copyFail": "Kopyalama başarısız",
       "tips": "Satış ipuçları",
-      "tip1": "Her zaman cenaze sigortası deyin — asla cenaze sigortası demeyin. Bu düzenlenmiş bir sigorta ürünü değil, birikim ve düzenleme planıdır.",
+      "tip1": "Her zaman cenaze teminatı deyin, asla cenaze sigortası demeyin. Bu, düzenlenmiş bir sigorta ürünü değil, birikim ve düzenleme planıdır.",
       "tip2": "Abonelik katmanları: Temel 5€, Artı 10€, Tam 25€ aylık (hane).",
-      "tip3": "Müşteri abone kaldığı sürece %{{rate}} tekrarlayan kazanırsınız."
+      "tip3": "Müşteri abone kaldığı sürece, tekrarlayan olarak %{{rate}} kazanırsınız."
     }
   },
   "pages": {
     "services": {
-      "eyebrow": "Almanya'daki hayatınız için uzman rehberliği",
+      "eyebrow": "Almanya'daki yaşamınız için uzman rehberliği",
       "title1": "Her önemli adımda",
-      "title2": "yanınızda bir dost.",
+      "title2": "yanınızda bir yol arkadaşı.",
       "subtitle": "İlk Anmeldung'unuzdan ailenizin geleceğini güvence altına almaya kadar, BeistandPlus, Alman idaresinde güvenle yol almanız için on üç dilde, yanınızda bir insanla, saygın ve uzman destek sunar.",
       "openCase": "Dosya aç",
       "howItWorks": "BeistandPlus nasıl çalışır",
       "ninePillars": "Dokuz hizmet alanı",
       "ribbon": "Sizin dilinizde yanınızdayız",
-      "trustHuman": "Önce insan",
+      "trustHuman": "Önce İnsan",
       "trustHumanBody": "Berlin, Hamburg, Münih ve Köln'de gerçek dosya yöneticileri — her dosya bir bot değil, bir insan tarafından yanıtlanır.",
-      "trustGdpr": "GDPR uyumlu",
+      "trustGdpr": "GDPR Uyumlu",
       "trustGdprBody": "Belgeleriniz Almanya'da barındırılan şifreli bir kasada tutulur, hastalık veya vefat durumunda vekil erişimi ile.",
-      "trustBill": "Tek şeffaf fatura",
-      "trustBillBody": "Hizmetimiz için abonelik, üçüncü taraf ücretleri maliyetine, her Euro'nun tam görünürlüğü.",
-      "readyEyebrow": "Hazır olduğunuzda",
+      "trustBill": "Tek Şeffaf Fatura",
+      "trustBillBody": "Hizmetimiz için abonelik, üçüncü taraf ücretleri maliyetine ve her Euro'nun tam görünürlüğü.",
+      "readyEyebrow": "Hazır olduğunuzda biz de hazırız",
       "readyTitle1": "Bir sonraki adımı",
       "readyTitle2": "birlikte atalım.",
-      "readyBody": "Dakikalar içinde ücretsiz bir dosya açın. Bir dosya yöneticisi bir iş günü içinde inceler ve seçeneklerinizi belirler — hiçbir zorunluluk yok.",
+      "readyBody": "Dakikalar içinde ücretsiz bir dosya açın. Bir dosya yöneticisi bir iş günü içinde inceler ve seçeneklerinizi belirler — hiçbir yükümlülük altına girmezsiniz.",
       "seePricing": "Fiyatları gör",
       "learnMore": "Daha fazla bilgi",
       "moreServices": "+{{count}} hizmet daha"
@@ -273,83 +273,83 @@
       "noteExtended": "En fazla 4 yetişkin + 18 yaş altı 3 çocuk",
       "communityBadge": "Ücretsiz · Topluluk",
       "communityName": "Topluluk",
-      "communityDesc": "Almanya'daki herkes için bir güvence ağı — kart gerekmez.",
+      "communityDesc": "Almanya'daki herkes için bir destek ağı — kart gerekmez.",
       "forever": "/ sonsuza kadar",
       "perMonth": "/ ay",
       "startFree": "Ücretsiz başla",
       "choose": "{{name}}'yi seç",
       "mostPopular": "En popüler",
-      "save": "%{{percent}} tasarruf",
+      "save": "%{{percent}} tasarruf edin",
       "loading": "Planlar yükleniyor…",
-      "trustSuffix": "yayınlanan SLA'lar, lisanslar ve iade sözleri →"
+      "trustSuffix": "yayınlanmış SLA'lar, lisanslar ve iade taahhütleri →"
     },
     "howItWorks": {
       "eyebrow": "Nasıl çalışır",
       "title1": "Beş adım.",
-      "title2": "Bürokratik karmaşaya son.",
-      "readyTitle": "Hazır olduğunuzda.",
-      "readyBody": "Başlamak ücretsiz. Sadece insan yardımına ihtiyaç duyduğunuzda yükseltin.",
+      "title2": "Bürokrasi karmaşasına son.",
+      "readyTitle": "Hazır olduğunuzda biz de hazırız.",
+      "readyBody": "Başlamak ücretsizdir. Sadece insan yardımına ihtiyaç duyduğunuzda yükseltin.",
       "openDashboard": "Panelinizi açın",
       "steps": {
         "s1Title": "BeistandPlus'a neye ihtiyacınız olduğunu söyleyin",
         "s1Desc": "Yeni geldiniz, yardım başvurusu yapıyor, aile birleşimi planlıyor veya yas yaşıyorsanız — tek bir formla başlayın.",
         "s2Title": "Bir plan dakikalar içinde ortaya çıkar",
-        "s2Desc": "AI'mız kişiselleştirilmiş kontrol listenizi derler — ihtiyacınız olan her randevu, belge, son tarih ve tedarikçi.",
-        "s3Title": "İnsan bir vaka yöneticisi telefonun diğer ucunda",
-        "s3Desc": "Sizin dilinizde. Dosyanızı baştan sona sahiplenir ve ilgili tüm tarafları koordine eder.",
+        "s2Desc": "Yapay zekamız kişiselleştirilmiş kontrol listenizi derler — ihtiyacınız olan her randevu, belge, son tarih ve hizmet sağlayıcı.",
+        "s3Title": "İnsan bir vaka yöneticisi telefonun ucunda",
+        "s3Desc": "Kendi dilinizde. Dosyanızı baştan sona sahiplenir ve ilgili tüm tarafları koordine eder.",
         "s4Title": "Her şey tek bir dosyada gerçekleşir",
-        "s4Desc": "Belgeler, mektuplar, randevular, faturalar, sohbet, denetim izi — size ve yardım eden kişilere görünür.",
-        "s5Title": "Siz hayatınıza devam edin",
-        "s5Desc": "Son tarihlerden önce hatırlatırız, sizin adınıza makamları takip eder ve anlamadığınız her şeyi çeviririz."
+        "s4Desc": "Belgeler, mektuplar, randevular, faturalar, sohbet geçmişi, denetim izi — size ve size yardım eden kişilere görünür.",
+        "s5Title": "Siz hayatınıza devam edin.",
+        "s5Desc": "Son teslim tarihlerinden önce size hatırlatmalar yapar, sizin adınıza yetkililerle iletişime geçer ve anlamadığınız her şeyi çeviririz."
       }
     },
     "contact": {
       "eyebrow": "İletişim",
-      "title": "Buradayız, sizin konuştuğunuz dilde.",
-      "subtitle": "Vefat durumunda, 7/24 hattımızı arayın. Diğer her şey için bize bir not bırakın — bir iş günü içinde yanıt veririz.",
-      "line24": "7/24 vefat hattı",
-      "generalEnq": "Genel sorular",
+      "title": "Konuştuğunuz dilde yanınızdayız.",
+      "subtitle": "Vefat durumları için 7/24 hattımızı arayın. Diğer tüm konular için bize bir not bırakın — bir iş günü içinde yanıt veririz.",
+      "line24": "7/24 vefat destek hattı",
+      "generalEnq": "Genel sorularınız",
       "office": "Ofis",
       "officeValue": "Kreuzberg, Berlin · Randevu ile",
       "name": "Ad",
-      "namePh": "Adınız",
+      "namePh": "Adınız Soyadınız",
       "email": "E-posta",
       "message": "Mesaj",
       "messagePh": "Size nasıl yardımcı olabiliriz?",
       "send": "Mesaj gönder",
-      "thanks": "Teşekkürler — en kısa sürede size döneceğiz."
+      "thanks": "Teşekkür ederiz — en kısa sürede sizinle iletişime geçeceğiz."
     }
   },
   "funeralCover": {
-    "badge": "Sterbegeld · Alman hukukuna göre düzenlenmiş teminat",
-    "headline": "Ayda yaklaşık 24 €'dan başlayan onaylı ve düzenlenmiş gider teminatı",
-    "subhead": "Sigortalı yetişkin başına 20.000 € fayda — cenaze ve defin veya son ayinlerin tüm masraflarını karşılamaya yeterli, ayrıca gerekirse ülkeye iade masrafları da dahil olmak üzere, kalan bakiye belirlediğiniz hak sahibine gider. Aile, en zor anda para bulmak zorunda kalmaz.",
-    "disclaimer": "Fiyat aralıkları, Alman hukukuna göre düzenlenmiş Sterbegeld sağlayıcılarımızın 2024–2025 yılları için yayınladığı fiyat tablolarını yansıtmaktadır. Bu fiyatlar, 20.000 €'lık bir fayda için bekleme süresi olmayan sigara içmeyenler içindir. Gerçek prim, yaşa, sağlık beyanına, sigara kullanım durumuna ve seçilen bekleme süresine bağlıdır; 18 yaşın altındaki çocuklar, aile ve geniş aile tarifelerinde ek prim ödemeden dahildir. Bu bağlayıcı bir teklif değildir — teklifi lisanslı iş ortağı sağlayıcı sunar.",
+    "badge": "Sterbegeld · Alman hukukuna göre düzenlenmiş güvence",
+    "headline": "Ayda yaklaşık 24 €'dan başlayan onaylı ve düzenlenmiş gider güvencesi",
+    "subhead": "Sigortalı yetişkin başına 20.000 € fayda — cenaze ve defin veya son ayinlerin tüm masraflarını karşılamaya yeterli, ayrıca gerekirse ülkeye iade masrafları da dahil olmak üzere, kalan bakiye belirlediğiniz hak sahibine gider. Aile, en zor anda maddi sıkıntı yaşamaz.",
+    "disclaimer": "Fiyat aralıkları, Alman hukukuna göre düzenlenmiş Sterbegeld sağlayıcılarımızın 2024–2025 yılları için yayınladığı fiyat tablolarını yansıtmaktadır. Bu fiyatlar, 20.000 €'luk bir fayda için bekleme süresi olmayan sigara içmeyenler içindir. Gerçek prim, yaşa, sağlık beyanına, sigara kullanım durumuna ve seçilen bekleme süresine bağlıdır; 18 yaşın altındaki çocuklar, aile ve geniş aile tarifelerinde ek prim ödemeden dahildir. Bu bağlayıcı bir teklif değildir — teklifi lisanslı iş ortağı sağlayıcı sunar.",
     "coverageTitle": "20.000 € neleri kapsar — BeistandPlus aracılığıyla",
     "howLabel": "Nasıl çalışır:",
     "howBody": "sağlayıcı, onaylanmış ve düzenlenmiş her faturayı tam olarak öder — cenaze, defin veya son ayinler ve gerekirse ülkeye iade — ve kalan bakiye 14 gün içinde belirlenen hak sahibine ödenir.",
     "ctaEstimate": "Primimi tahmin et",
     "ctaTalk": "Bir vaka yöneticisiyle konuş",
-    "introducer": "BeistandPlus, tanıtıcı (Tippgeber / uygun olduğu durumlarda §34d GewO aracı) olarak hareket eder. Primler doğrudan teminat sağlayıcıya ödenir; BeistandPlus asla sigorta etmez. Abonelik ve teminat primi ayrı ayrı faturalandırılır.",
+    "introducer": "BeistandPlus, tanıtıcı (Tippgeber / uygun olduğu durumlarda §34d GewO aracı) olarak hareket eder. Primler doğrudan güvence sağlayıcıya ödenir; BeistandPlus asla sigorta etmez. Abonelik ve güvence primi ayrı ayrı faturalandırılır.",
     "tabs": {
       "individual": "Bireysel",
-      "individualNote": "1 yetişkin · 20 bin € fayda",
+      "individualNote": "1 yetişkin · 20.000 € fayda",
       "family": "Aile",
-      "familyNote": "2 yetişkin + 18 yaş altı 3 çocuğa kadar · yetişkin başına 20 bin €",
+      "familyNote": "2 yetişkin + 18 yaş altı 3 çocuğa kadar · yetişkin başına 20.000 €",
       "extended": "Geniş aile",
-      "extendedNote": "4 yetişkine kadar + 18 yaş altı 3 çocuk · yetişkin başına 20 bin €"
+      "extendedNote": "4 yetişkine kadar + 18 yaş altı 3 çocuk · yetişkin başına 20.000 €"
     },
     "rows": {
       "individualLabel": "Yaş {{age}}",
       "individualDetail": "1 yetişkin · 20.000 € ödeme",
       "familyLabel": "İki yetişkin de {{age}} yaşında",
-      "familyDetail": "2 yetişkin + 3 çocuğa kadar · yetişkin başına 20 bin €",
+      "familyDetail": "2 yetişkin + 3 çocuğa kadar · yetişkin başına 20.000 €",
       "extendedLabel": "Dört yetişkin de {{age}} yaşında",
-      "extendedDetail": "4 yetişkin + 3 çocuğa kadar · yetişkin başına 20 bin €"
+      "extendedDetail": "4 yetişkin + 3 çocuğa kadar · yetişkin başına 20.000 €"
     },
     "table": {
       "composition": "Kompozisyon",
-      "cover": "Kapsam",
+      "cover": "Güvence",
       "premium": "Tahmini aylık prim",
       "perMo": "/ ay"
     },
@@ -365,26 +365,26 @@
   },
   "directory": {
     "badge": "Üyeler dizini",
-    "heroTitle": "Dilinizi konuşan birini bulun.",
-    "heroBody": "Almanya genelinde çok dilli avukatlar, doktorlar, imamlar, vergi danışmanları, refah uzmanları, öğretmenler ve çevirmenler — şehir ve dile göre aranabilir. Sağlayıcılar için listeleme ücretsizdir, aileler ve müşteriler için üyelik erişimi mevcuttur.",
-    "listCta": "İşletmenizi listeleyin — ücretsiz",
-    "seePlans": "Üye planlarını görün",
-    "cityPlaceholder": "Şehre göre filtrele (Berlin, Münih…)",
+    "heroTitle": "Kendi dilinizi konuşan birini bulun.",
+    "heroBody": "Almanya genelinde çok dilli avukatlar, doktorlar, imamlar, vergi danışmanları, sosyal yardım uzmanları, öğretmenler ve çevirmenler — şehir ve dile göre aranabilir. Sağlayıcılar için listeleme ücretsizdir, aileler ve müşteriler için üyelik erişimi mevcuttur.",
+    "listCta": "İşletmenizi ücretsiz listeleyin",
+    "seePlans": "Üyelik planlarını görün",
+    "cityPlaceholder": "Şehre göre filtrele (Berlin, Münih...)",
     "featured": "Öne çıkanlar",
     "website": "Web sitesi",
-    "addressHidden": "Tam adres gizli",
+    "addressHidden": "Tam adres gizli tutulmuştur",
     "mapTitle": "{{name}} Haritası",
     "openInMaps": "Google Haritalar'da aç →",
-    "lockedNote": "Üyeler için iletişim, adres ve harita",
+    "lockedNote": "Üyeler için iletişim, adres ve harita bilgileri",
     "unlock": "Kilidi aç →",
-    "emptyPrefix": "Henüz filtrelerinize uyan hiçbir liste yok. İlklerden biri olun —",
+    "emptyPrefix": "Henüz filtrelerinize uyan bir liste bulunamadı. İlklerden biri olun —",
     "emptyCta": "işletmenizi ücretsiz listeleyin",
     "categories": {
       "all": "Tümü",
       "lawyer": "Avukatlar",
       "immigration": "Göçmenlik",
       "tax": "Vergi danışmanları",
-      "welfare": "Refah / yardımlar / emekli maaşları",
+      "welfare": "Sosyal yardım / ödenekler / emekli maaşları",
       "doctor": "Doktorlar",
       "medical": "Tıp uzmanları",
       "education": "Eğitim",
@@ -394,11 +394,11 @@
       "other": "Diğer"
     },
     "paywall": {
-      "eyebrow": "Sadece üyeler",
-      "title": "Tüm doğrulanmış sağlayıcıların kilidini açın.",
-      "body": "BeistandPlus üyeleri, her liste için tam iletişim bilgilerine, telefon, e-posta ve web sitesine erişir — ayrıca sizi tanıştırabilecek bir insan vaka yöneticisi de bulunur. Dizin listelemeleri sağlayıcılar için ücretsizdir; erişim her BeistandPlus planına dahildir.",
-      "cta": "5 €'dan başlayan planları görün",
-      "signIn": "Giriş yap"
+      "eyebrow": "Üyelere özel",
+      "title": "Tüm doğrulanmış sağlayıcıların kilidini açın",
+      "body": "BeistandPlus üyeleri, her liste için tam iletişim bilgilerine (telefon, e-posta ve web sitesi) erişebilirler. Ayrıca sizi ilgili sağlayıcılarla tanıştırabilecek bir vaka yöneticisi de hizmetinizdedir. Dizin listelemeleri sağlayıcılar için ücretsizdir; erişim tüm BeistandPlus planlarına dahildir.",
+      "cta": "5 €'dan başlayan planları inceleyin",
+      "signIn": "Giriş yapın"
     }
   },
   "common": {

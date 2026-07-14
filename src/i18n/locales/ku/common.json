@@ -1,6 +1,6 @@
 {
   "brand": {
-    "location": "Deutschland"
+    "location": "Almanya"
   },
   "nav": {
     "howItWorks": "Çawa dixebite",
@@ -15,7 +15,7 @@
     "menu": "Menû"
   },
   "footer": {
-    "tagline": "Ji bo her riya li Deutschland. Bicîbûn, refah, feydeyên, û lênêrîna dawiya-jiyanê — platformeke aram ji bo malbatan û rêxistinên ku piştgiriya wan dikin.",
+    "tagline": "Ji bo her riya li Almanya. Bicîbûn, refah, feydeyên, û lênêrîna dawiya-jiyanê — platformeke aram ji bo malbatan û rêxistinên ku piştgiriya wan dikin.",
     "colPlatform": "Platform",
     "colForProviders": "Ji bo dabînkeran",
     "colCompany": "Şîrket",
@@ -54,33 +54,33 @@
     "escrow": "Serbestberdana emanetê",
     "funeralCover": "Sîgorteya cenazeyê",
     "settings": "Mîheng",
-    "internal": "Hundirîn",
+    "internal": "Navxweyî",
     "staffPortal": "Pêşnêrîna karmendan",
     "leads": "Rêberên bîmeyê",
     "admin": "Rêveber",
     "adminUsers": "Bikarhêner û rol",
     "adminInvite": "Vexwendname",
     "bugs": "Raporên xeletiyan",
-    "caseManagerRole": "Rêveberê Dozê · Berlin",
-    "insurance": "ئێنسێرانس",
-    "immigration": "کۆچبەر",
-    "profile": "پڕۆفایل",
-    "messages": "پەیامەکان",
-    "notifications": "ئاگادارکردنەوەکان",
-    "location": "شوێن",
-    "alert": "ئاگاداری",
-    "upgrade": "بەرزکردنەوە",
-    "referrals": "سەردانکردن",
-    "insuranceOps": "ئۆپەراسیۆنی ئێنسێرانس",
-    "immigrationOps": "ئۆپەراسیۆنی کۆچبەر",
-    "audit": "پسپۆڕی",
-    "signOut": "چوونە دەرەوە",
+    "caseManagerRole": "Rêveberê Dozê · Berlîn",
+    "insurance": "Bîme",
+    "immigration": "Koçberî",
+    "profile": "Profîl",
+    "messages": "Peyam",
+    "notifications": "Agahdarî",
+    "location": "Cih",
+    "alert": "Hişyarî",
+    "upgrade": "Nûvekirin",
+    "referrals": "Referans",
+    "insuranceOps": "Operasyonên Bîmeyê",
+    "immigrationOps": "Operasyonên Koçberiyê",
+    "audit": "Kontrol",
+    "signOut": "Derkeve",
     "agent": "Nûner",
     "agentOverview": "Pêşnêrîna nûner",
-    "agentClients": "Mişteriyên min",
+    "agentClients": "Miştiriyên min",
     "agentCommissions": "Komîsyon",
     "agentLink": "Girêdana referansê",
-    "studentsOps": "Karên xwendekaran",
+    "studentsOps": "Operasyonên xwendekaran",
     "studentDiscount": "Daxistina xwendekaran",
     "account": "Hesabê min",
     "capacity": "Kapasîte",
@@ -128,7 +128,7 @@
     "titlePlaceholder": "Kurteyek kurt a pirsgirêkê",
     "descriptionLabel": "Danasîn",
     "descriptionPlaceholder": "Gavên dubarekirinê, encama hêvîkirî, encama rastîn...",
-    "severityLabel": "Girêdan",
+    "severityLabel": "Giranî",
     "submit": "Xeletiyê bişîne",
     "cancel": "Betal bike",
     "loading": "Raporan bar dike...",
@@ -154,9 +154,9 @@
   },
   "hero": {
     "headlinePrefix": "Ji bo her rêyekê li",
-    "headlineHighlight": "Almanyayê",
+    "headlineHighlight": "Almanya",
     "introA": "Ka hûn plana koçkirina xwe ya Almanyayê dikin — ji bo kar, xwendin an malbatê — an jî berê li vir in û jiyanekê ava dikin: BeistandPlus ji bo her gavê platformek aramî ye.",
-    "introB": "Vîze, Anmeldung, xanî, alîkarî, sîgorteya tenduristiyê ya mecbûrî, ajotin, jidayikbûn, dawet û mirin — rêveberekî dozê yê mirovî, bi zimanê we, ji destpêkê heta dawiyê."
+    "introB": "Vîze, Anmeldung, xanî, alîkarî, sîgorteya tenduristiyê ya mecbûrî, ajotin, jidayikbûn, zewac û mirin — rêveberekî dozê yê mirovî, bi zimanê we, ji destpêkê heta dawiyê."
   },
   "agent": {
     "defaultName": "Nûner",
@@ -165,14 +165,14 @@
     "recurringBadge": "Nûner · {{rate}}% dubare",
     "nav": {
       "overview": "Pêşnêrîn",
-      "clients": "Mişteriyên min",
+      "clients": "Miştiriyên min",
       "commissions": "Komîsyon",
       "link": "Girêdana referansê"
     },
     "home": {
       "welcome": "Bi xêr hatî",
       "welcomeNamed": "Bi xêr hatî, {{name}}",
-      "tagline": "Abonetî û bîmeya cenazeyan bifroşe. Li ser her xerîdarekî ku te anî, {{rate}}% komîsyona dubare qezenc bike.",
+      "tagline": "Abonetî û bîmeya cenazeyan bifiroşe. Li ser her xerîdarekî ku te anî, {{rate}}% komîsyona dubare qezenc bike.",
       "recent": "Referansên dawî",
       "emptyReferrals": "Hîn referans tune. Girêdana xwe ji taba “Girêdana referansê” parve bike."
     },
@@ -226,20 +226,20 @@
       "subtitle": "Her kesê ku di nav 60 rojan de piştî tikandina girêdana te qeyd bibe, dê ji te re were hesibandin.",
       "codeLine": "Koda te ya yekta ye",
       "universal": "Girêdana gerdûnî",
-      "funeral": "Bîmeya cenazeyê",
-      "group": "Bîmeya komî",
+      "funeral": "Sîgorteya cenazeyê",
+      "group": "Sîgorteya komî",
       "copy": "Kopî bike",
       "copied": "Hat kopî kirin",
       "copyFail": "Kopîkirin serneket",
       "tips": "Serişteyên firotanê",
-      "tip1": "Her gav bêje bîmeya cenazeyê — qet nebêje bîmeya cenazeyê a garantîkirî. Ew planek teserûf û rêkûpêk e, ne hilberek bîmeyê ya rêkûpêk.",
-      "tip2": "Abonetî: Bingehîn 5€, Plus 10€, Têr 25€ mehê (malbat).",
+      "tip1": "Her gav bêje sîgorteya cenazeyê — qet nebêje sîgorteya cenazeyê ya garantîkirî. Ew planek teserûf û rêkûpêk e, ne hilberek sîgorteyê ya rêkûpêk.",
+      "tip2": "Abonetî: Bingehîn 5€, Plus 10€, Tevahî 25€ mehê (malbat).",
       "tip3": "Tu {{rate}}% dubare qezenc dikî, heya ku xerîdar abonetî bimîne."
     }
   },
   "pages": {
     "services": {
-      "eyebrow": "Rêberiya pispor bo jiyana we li Almanyayê",
+      "eyebrow": "Rêberiya pispor ji bo jiyana we li Almanyayê",
       "title1": "Hevalek ji bo her",
       "title2": "gavên girîng.",
       "subtitle": "Ji yekem Anmeldung a we heya ewlekirina paşeroja malbata we, BeistandPlus piştgiriyek bi rûmet û pispor pêşkêşî dike da ku hûn bi pêbawerî di rêveberiya Almanî de bigerin – bi sêzdeh zimanan, bi mirovekî li kêleka we.",
@@ -247,12 +247,12 @@
       "howItWorks": "BeistandPlus çawa dixebite",
       "ninePillars": "Neh warên xizmetê",
       "ribbon": "Em bi we re bi zimanê we dixebitin",
-      "trustHuman": "Berî her tiştî mirov",
+      "trustHuman": "Mirov pêşî",
       "trustHumanBody": "Rêveberên dosyeyên rastîn li Berlin, Hamburg, München û Köln — bersiv ji mirovekî tê, ne bot.",
       "trustGdpr": "Li gorî GDPR",
       "trustGdprBody": "Belgeyên we di embarkirineke şîfrekirî de li Almanyayê ne, bi destûra cîgir dema nexweşî yan matemê.",
       "trustBill": "Yek fatûre ya zelal",
-      "trustBillBody": "Aboneyî ji bo xebata me, mesrefên aliyê sêyem tenê bi mesrefê, dîtina her Euro bi tevahî.",
+      "trustBillBody": "Abonetî ji bo xebata me, mesrefên aliyê sêyem tenê bi mesrefê, dîtina her Euro bi tevahî.",
       "readyEyebrow": "Kengî hûn amade bin",
       "readyTitle1": "Gava paşîn bavêjin,",
       "readyTitle2": "bi hev re.",
@@ -273,7 +273,7 @@
       "noteExtended": "Heta 4 mezin + 3 zarok di bin 18 salî de",
       "communityBadge": "Belaş · Civak",
       "communityName": "Civak",
-      "communityDesc": "Toreke ewlehiyê ji bo her kesê li Almanyayê – bêyî qertê.",
+      "communityDesc": "Toreke ewlehiyê ji bo her kesê li Almanyayê – bêyî hewcedariya qertê.",
       "forever": "/ her tim",
       "perMonth": "/ meh",
       "startFree": "Belaş dest pê bike",
@@ -281,7 +281,7 @@
       "mostPopular": "Ya herî populer",
       "save": "%{{percent}} teser bike",
       "loading": "Plan tê barkirin…",
-      "trustSuffix": "SLA, lîsansên û sozên vegerandinê yên belavkirî →"
+      "trustSuffix": "SLA, lîsans û sozên vegerandinê yên belavkirî →"
     },
     "howItWorks": {
       "eyebrow": "Çawa dixebite",
@@ -297,80 +297,80 @@
         "s2Desc": "AI-ya me lîsteya te ya kesane amade dike — her hevdîtin, belge, dawî û pêşkêşkar.",
         "s3Title": "Rêveberek doza mirovî têlefonê hildide",
         "s3Desc": "Bi zimanê we. Dosyeya we ji destpêkê heta dawîyê rêve dibe.",
-        "s4Title": "Her tişt di yek dosyeyê de",
-        "s4Desc": "Belge, name, hevdîtin, fatûre, chat, dîroka çalakî — ji we û ji alîkaran re xuya ne.",
+        "s4Title": "Her tişt di yek dosyeyê de tê rêvebirin",
+        "s4Desc": "Belge, name, hevdîtin, fatûre, sohbet, dîroka çalakiyan — ji we û ji alîkarên we re xuya ne.",
         "s5Title": "Hûn bi jiyana xwe re mijûl dibin",
-        "s5Desc": "Em berî dawiyê bîr dixin, ji navê we bi saziyên re dişopînin û her tiştê nefêmkirî werdigerînin."
+        "s5Desc": "Em berî demên dawîn bîra we dixin, li ser navê we bi saziyan re dişopînin û her tiştê ku hûn fêm nakin werdigerînin."
       }
     },
     "contact": {
       "eyebrow": "Têkilî",
       "title": "Em li vir in — bi zimanê we.",
-      "subtitle": "Ji bo şînê, li xeta me ya 24/7 bigerin. Ji bo her tiştê din, peyamekê ji me re bişînin – em di nav rojek karsaziyê de bersiv didin.",
+      "subtitle": "Ji bo şînê, li xeta me ya 24/7 bigerin. Ji bo her tiştê din, peyamekê ji me re bişînin – em di nav rojek kar de bersiv didin.",
       "line24": "Xeta şînê ya 24/7",
       "generalEnq": "Pirsên giştî",
       "office": "Nivîsgeh",
-      "officeValue": "Kreuzberg, Berlin · Bi randevûyê",
+      "officeValue": "Kreuzberg, Berlîn · Bi randevûyê",
       "name": "Nav",
       "namePh": "Navê we",
       "email": "E-name",
       "message": "Peyam",
-      "messagePh": "Em çawa dikarin alîkar bin?",
+      "messagePh": "Em çawa dikarin alîkariya we bikin?",
       "send": "Peyamê bişîne",
-      "thanks": "Spas — em zû têkilî datînin."
+      "thanks": "Spas — em ê di nêzîk de bi we re têkevin têkiliyê."
     }
   },
   "funeralCover": {
-    "badge": "Sterbegeld · Bînerênkirina di bin qanûna Alman de",
-    "headline": "Bînerênkirina mesrefên pejirandî û birêker ji nêzîk €24/meh",
-    "subhead": "Feydeyek €20,000 ji bo her mezinê bînerênkirî — têne ku hemû mesrefên cenaze û veşartinê an merasîma dawî, plus vegerandina welat heke hewce be, bi her balansa ku diçe berjewendiya weya destnîşankirî. Malbat qet ne hewce ye ku di dema herî dijwar de drav bibîne.",
-    "disclaimer": "Rêjeyên tabloyên rêteyên weşandî yên 2024–2025 ji panela me ya pêkarên Sterbegeld ku di bin qanûna Alman de hatine birêkerkirin, ji bo kesên cixare nekêne ku dema bendewariyê tune ye li ser feydeyek €20,000. Prêmêta rastî bi temen, daxuyaniya tenduristî, rewşa cixarekêne û dema bendewariyê ya hilbijartî ve girêde ye; zarokên di bin 18 salî de bê prêmêta zêde li ser tarîfeyên malbatî û malbata berfireh tên de. Ne gotarek girêde ye — pêkarê hevkarê lîsanskirî pêkanî dide.",
+    "badge": "Sterbegeld · Bîmeya di bin qanûna Alman de",
+    "headline": "Bîmeya mesrefên pejirandî û rêkxistî ji nêzîkî 24 €/mehê",
+    "subhead": "Feydeyek 20.000 € ji bo her mezinê bîmekirî — têra ku hemî mesrefên cenaze û veşartinê an merasîma dawî, plus vegerandina welat heke hewce be, bi her balansa ku diçe berjewendiya weya destnîşankirî. Malbat qet ne hewce ye ku di dema herî dijwar de drav bibîne.",
+    "disclaimer": "Rêjeyên tabloyên rêjeyên weşandî yên 2024–2025 ji panela me ya pêşkêşkerên Sterbegeld ku di bin qanûna Alman de hatine rêkxistin, ji bo kesên cixare nekêş ku dema bendewariyê tune ye li ser feydeyek 20.000 €. Prîma rastî bi temen, daxuyaniya tenduristî, rewşa cixarekêş û dema bendewariyê ya hilbijartî ve girêdayî ye; zarokên di bin 18 salî de bê prîmaya zêde li ser tarîfeyên malbatî û malbata berfireh tên de. Ne gotarek girêdayî ye — pêşkêşkerê hevkarê lîsanskirî pêşniyarê dide.",
     "coverageTitle": "Tişta ku €20,000 vedigire — bi riya BeistandPlus",
     "howLabel": "Ew çawa dixebite:",
-    "howBody": "pêkar her fatûreya pejirandî û birêker bi tevahî dide — cenaze, veşartin an merasîma dawî, û vegerandina welat heke hewce be — û her balansa ku diçe berjewendiya destnîşankirî di nav 14 rojan de tê dayîn.",
+    "howBody": "pêşkêşker her fatûreya pejirandî û rêkxistî bi tevahî dide — cenaze, veşartin an merasîma dawî, û vegerandina welat heke hewce be — û her balansa ku diçe berjewendiya destnîşankirî di nav 14 rojan de tê dayîn.",
     "ctaEstimate": "Prêmêta min texmîn bike",
     "ctaTalk": "Bi rêveberê dozê re bipeyive",
-    "introducer": "BeistandPlus wekî danasîner (Tippgeber / §34d GewO broker heke hewce be) tevdigere. Prêmêta rasterast ji pêkarê bînerênkirinê re tên dayîn; BeistandPlus qet bînerênkirinê nake. Abonetî û prêmêta bînerênkirinê cuda tên fatûrekirin.",
+    "introducer": "BeistandPlus wekî danasîner (Tippgeber / §34d GewO broker heke hewce be) tevdigere. Prîma rasterast ji pêşkêşkerê bîmeyê re tên dayîn; BeistandPlus qet bîmeyê nake. Abonetî û prîmaya bîmeyê cuda tên fatûrekirin.",
     "tabs": {
       "individual": "Kesane",
-      "individualNote": "1 mezin · 20 hezar euro feyde",
+      "individualNote": "1 mezin · 20 hezar € feyde",
       "family": "Malbat",
-      "familyNote": "2 mezin + heta 3 zarokên di bin 18 salî de · 20 hezar euro ji bo her mezinî",
+      "familyNote": "2 mezin + heta 3 zarokên di bin 18 salî de · 20 hezar € ji bo her mezinî",
       "extended": "Malbata berfireh",
-      "extendedNote": "Heta 4 mezin + 3 zarokên di bin 18 salî de · 20 hezar euro ji bo her mezinî"
+      "extendedNote": "Heta 4 mezin + 3 zarokên di bin 18 salî de · 20 hezar € ji bo her mezinî"
     },
     "rows": {
       "individualLabel": "Temen {{age}}",
       "individualDetail": "1 mezin · 20.000 € dravdan",
       "familyLabel": "Herdu mezin temen {{age}}",
-      "familyDetail": "2 mezin + heta 3 zarokan · 20.000 € ji bo her mezin",
+      "familyDetail": "2 mezin + heta 3 zarokan · 20.000 € ji bo her mezinî",
       "extendedLabel": "Hemî 4 mezinên temenê {{age}}",
-      "extendedDetail": "4 mezin + heya 3 zarokan · 20 hezar € ji bo her mezinan"
+      "extendedDetail": "4 mezin + heya 3 zarokan · 20 hezar € ji bo her mezinî"
     },
     "table": {
       "composition": "Pêkhatî",
-      "cover": "Girtin",
-      "premium": "Pêreya mehane ya texmînkirî",
+      "cover": "Bîme",
+      "premium": "Prîmaya mehane ya texmînkirî",
       "perMo": "/ meh"
     },
     "coverage": [
-      "20.000 € feyde ji bo her mezinê bîmeser — di dema mirinê de tê dayîn, ji bo tarifên standard muayeneya bijîşkî ne hewce ye",
+      "20.000 € feyde ji bo her mezinê bîmekirî — di dema mirinê de tê dayîn, ji bo tarîfên standard muayeneya bijîşkî ne hewce ye",
       "Danûstandina rasterast a rêveberê cenaze, goristan, mizgeft / dêr / perestgeh, şewitandin, tabût, kulîlk, xwarin û xercên belgeya mirinê li hember fatûreyên orîjînal",
       "Vegera tevahî ya laşê bo derveyî welat (tabûta zinc, embalmkirin, NOC konsolosî, kargoya balafirgehê, rêveberê wergir li welatê malê)",
-      "Wergerênên sondxwarî, kaxezên mîratê, Standesamt, hevrêkeriya balyozxane / konsolosxaneyê — hemû di pelê dozê de tên fatûrekirin",
-      "Her euro di pelê doza we ya BeistandPlus de bi hûrgîlî tê nîşandan da ku malbat tam bibîne ka pere çû ku derê",
-      "Her balansa ku piştî hemû mesrefên pejirandî û rêkxistî hatine dayîn, bi riya SEPA, li Almanya an derveyî welat, bi diravê wan ê herêmî ji wergirê we yê destnîşankirî re tê dayîn",
-      "Rêveberê dozê ya pirzimanî ya 24/7 di nav 1 saetê de piştî vekirina daxwazekê tê tayînkirin"
+      "Wergerên sondxwarî, kaxezên mîratê, Standesamt, hevrêziya balyozxane / konsolosxaneyê — hemî di pelê dozê de tên fatûrekirin",
+      "Her euro di pelê doza we ya BeistandPlus de bi hûrgilî tê nîşandan da ku malbat tam bibîne ka pere çû ku derê",
+      "Her balansa ku piştî hemî mesrefên pejirandî û rêkxistî hatine dayîn, bi riya SEPA, li Almanya an derveyî welat, bi diravê wan ê herêmî ji wergirê we yê destnîşankirî re tê dayîn",
+      "Rêveberê dozê yê pirzimanî yê 24/7 di nav 1 saetê de piştî vekirina daxwazekê tê tayînkirin"
     ]
   },
   "directory": {
-    "badge": "Pêrgala endaman",
+    "badge": "Pêrgeha endaman",
     "heroTitle": "Kesekî ku bi zimanê we diaxive bibînin.",
-    "heroBody": "Parêzvan, bijîşk, îmam, şêrwirmendên bacê, pisporên refahê, mamoste û wergêrên pirzimanî li seranserê Almanya — bi bajar û ziman tên gerandin. Ji bo pêkarên belaş e ku navnîş bikin, gihîştina endaman ji bo malbat û mişterîyan.",
-    "listCta": "Karsaziya xwe navnîş bikin — belaş",
+    "heroBody": "Parêzer, bijîşk, îmam, şêwirmendên bacê, pisporên refahê, mamoste û wergêrên pirzimanî li seranserê Almanya — bi bajar û ziman tên gerandin. Ji bo pêşkêşkeran belaş e ku xwe tomar bikin, gihîştina endaman ji bo malbat û mişteriyan e.",
+    "listCta": "Karsaziya xwe tomar bikin — belaş",
     "seePlans": "Plansaziyên endamtiyê bibînin",
     "cityPlaceholder": "Li gorî bajêr fîltre bike (Berlîn, Munîh…)",
-    "featured": "Taybetmendî",
+    "featured": "Taybet",
     "website": "Malper",
     "addressHidden": "Navnîşana tevahî veşartî ye",
     "mapTitle": "Nexşeya {{name}}",
@@ -395,8 +395,8 @@
     },
     "paywall": {
       "eyebrow": "Tenê ji bo endaman",
-      "title": "Hemî pêşkêşkerên verastkirî vekin.",
-      "body": "Endamên BeistandPlus ji bo her navnîşekê agahdariya têkiliyê ya tevahî, têlefon, e-name û malperê digirin – plus rêveberek doza mirovî ku dikare we bide nasîn. Navnîşên navnîşan ji bo pêşkêşkeran belaş in; gihîştin bi her plana BeistandPlus re tê de ye.",
+      "title": "Hemî pêşkêşkarên pejirandî vekin.",
+      "body": "Endamên BeistandPlus ji bo her navnîşekê agahdariya têkiliyê ya tevahî, têlefon, e-name û malperê digirin – digel rêveberek doza mirovî ku dikare we bide nasîn. Navnîşên navnîşan ji bo pêşkêşkeran belaş in; gihîştin bi her plana BeistandPlus re tê de ye.",
       "cta": "Planên ji €5 bibînin",
       "signIn": "Têkeve"
     }
