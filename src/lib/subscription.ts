@@ -21,7 +21,7 @@ export const FEATURE_TIER: Record<string, PlanGroup> = {
   assistant: "basic",
   checklists: "basic",
   documents: "basic",
-  community: "basic",
+  community: "none",
   providers: "basic",
   benefits: "basic",
   bugs: "basic",
