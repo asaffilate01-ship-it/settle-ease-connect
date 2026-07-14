@@ -486,7 +486,7 @@ const COVER_BANDS: {
 function BereavementAddOn() {
   const { t } = useTranslation();
   const [enabled, setEnabled] = useState(false);
-  const [band, setBand] = useState<CoverBandKey>("small_family");
+  const [band, setBand] = useState<CoverBandKey>("individual");
   const active = COVER_BANDS.find((b) => b.key === band)!;
   const { openCheckout, checkoutElement } = useStripeCheckout();
 
@@ -535,16 +535,19 @@ function BereavementAddOn() {
             <button
               key={b.key}
               type="button"
-              onClick={() => setBand(b.key)}
+              onClick={() => { setBand(b.key); setEnabled(true); }}
               className={`flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition ${
                 isActive
                   ? "border-primary bg-accent/20 shadow-soft"
                   : "border-border/60 bg-card hover:border-primary/40"
               }`}
             >
-              <div className="flex items-center gap-2 text-primary">
-                {b.icon}
-                <span className="text-xs font-semibold uppercase tracking-widest">{b.label}</span>
+              <div className="flex w-full items-center justify-between gap-2 text-primary">
+                <div className="flex items-center gap-2">
+                  {b.icon}
+                  <span className="text-xs font-semibold uppercase tracking-widest">{b.label}</span>
+                </div>
+                {isActive && <Check className="h-4 w-4 text-primary" aria-label="Selected" />}
               </div>
               <div className="font-display text-2xl font-semibold">
                 +€{b.addOnEur}
@@ -560,7 +563,7 @@ function BereavementAddOn() {
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
           <div>
             <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
-            {active.addOnEur}/mo. €20,000 per insured adult.
+            {active.addOnEur}/mo · {active.household}
           </div>
           <Button onClick={handleAddCover} className="bg-gradient-primary">
             Subscribe to cover
