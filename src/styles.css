@@ -54,7 +54,8 @@
   --color-peach: var(--peach);
   --color-sage: var(--sage);
   --color-ocean: var(--terracotta); /* alias — legacy pages */
-  --color-teal: var(--sage);        /* alias — legacy pages */
+  --color-teal: oklch(0.72 0.12 195); /* bright teal accent — readable on dark hero backgrounds */
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);

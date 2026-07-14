@@ -16,7 +16,7 @@ import {
   Home,
   Scale,
   HeartPulse,
-  Flower2,
+
   PawPrint,
   Umbrella,
   ArrowRight,
@@ -33,8 +33,9 @@ export const Route = createFileRoute("/insurance")({
       {
         name: "description",
         content:
-          "Expat health, liability, household, legal expenses, term life and bereavement cover — placed through our §34d GewO broker partner with BaFin-supervised carriers. Explained in your language, disclosed transparently.",
+          "Expat health, liability, household, legal expenses and term life cover — placed through our §34d GewO broker partner with BaFin-supervised carriers. Explained in your language, disclosed transparently.",
       },
+
       { property: "og:title", content: "Insurance in Germany, without the paperwork" },
       {
         property: "og:description",
@@ -55,8 +56,8 @@ type Product = {
     | "household"
     | "legal_expenses"
     | "term_life"
-    | "bereavement"
     | "pet";
+
   name: string;
   tagline: string;
   from: string;
@@ -132,19 +133,7 @@ const PRODUCTS: Product[] = [
     partner: "Hannoversche · Cosmos Direkt · Nürnberger",
   },
   {
-    key: "bereavement",
-    name: "Family bereavement cover",
-    tagline: "€20,000 cover — full costs of funeral, burial or last rites and repatriation settled directly, balance to the nominated beneficiary.",
-    from: "from €24 / mo",
-    icon: Flower2,
-    bullets: [
-      "€20,000 benefit per adult · children under 20 free",
-      "Repatriation to home country included",
-      "Any balance paid to your nominated beneficiary",
-    ],
-    partner: "Regulated German Sterbegeld panel",
-  },
-  {
+
     key: "pet",
     name: "Pet health & liability",
     tagline: "Vet bills and third-party damage for dogs and cats.",
