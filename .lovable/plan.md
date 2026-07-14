@@ -1,65 +1,82 @@
-## Phase A — i18n cleanup & wiring
 
-### A1. Canonical locale set (13)
-Keep: `de, en, tr, ur, hi, pa, ar, ku, ru, uk, fa, pl, zh`
-Remove: `bs, hr, sq, sr, ti, so, vi, pt-BR, fr, ps` (folders deleted)
-Add: `pl` (Polish), `zh` (Simplified Chinese)
-Update `src/i18n/config.ts` language list, `language-onboarding.tsx`, `language-switcher.tsx`, and `lang-flag.tsx` to match.
+# Role-specific dashboards — full rollout
 
-### A2. Translation completeness
-For each of the 13 locales, ensure `common.json` has full parity with `en/common.json` (nav, footer, language, hero, sidebar, agent, plus new keys added below). I will fill gaps using existing translations as reference + native-quality DE-EU-migrant phrasing (not literal machine translation).
+Right now every signed-in user lands in one of three shells (`/app`, `/agent`, `/portal`) with the **same** sidebar and home page regardless of role. This plan gives each role a purpose-built portal — its own landing page, its own navigation, and only the surfaces that role actually uses.
 
-### A3. Wire `useTranslation` into pages that currently hardcode English
-Public: `index.tsx`, `services.tsx`, `pricing.tsx`, `how-it-works.tsx`, `contact.tsx`, `blog.tsx`, `blog.$slug.tsx`, `legal.tsx` (+ children).
-Agent portal: verify `agent.index/clients/commissions/link` all read from `t()` (they should already — I will audit).
-Authenticated app shell: `app.tsx` sidebar, `app.index.tsx`, `app.cases.tsx`, `app.messages.tsx`, `app.profile.tsx`, `app.notifications.tsx` (labels/tabs/CTAs only — leave user-generated content untouched).
+Scope agreed:
+- Family/Beneficiary (`/app`)
+- Experts — lawyer, accountant, doctor, notary, translator, social_worker, funeral_director, mosque, church, temple, hospital
+- Agents (`/agent`)
+- Internal staff — one focused console per admin domain
 
-New translation namespaces added to each locale: `home`, `services`, `pricing`, `howItWorks`, `contact`, `blog`, `legal`, `appShell`.
+## What each role gets
 
-### A4. Font sizes & script-specific rendering
-Add per-script CSS overrides in `src/styles.css`:
-- **Arabic/Farsi/Urdu/Kurdish (RTL)**: `dir="rtl"`, use `Noto Naskh Arabic` at +1px body size, tighter line-height for headings, flip iconography via `[dir=rtl]` selectors on sidebar/nav.
-- **Hindi/Punjabi (Devanagari/Gurmukhi)**: `Noto Sans Devanagari` / `Noto Sans Gurmukhi`, increase body from 16→17px (matras clip at 16).
-- **Chinese**: `Noto Sans SC`, tabular numerics, tighter letter-spacing, larger body 17px.
-- **Cyrillic (RU/UK)**: default stack already works — verify no clipped headings.
-- **Tigrinya-style scripts**: not applicable after cleanup.
+**Family / Beneficiary** — `/app`
+Landing: active cases, next actions, checklist progress, benefit reminders, household vault status, upgrade nudge.
+Nav: Cases · Checklists · Benefits · Documents · Insurance · Providers · Community · Messages · Settings.
 
-Root route wires `<html lang dir>` from i18n current language, and adds `<link>` tags for the Noto webfonts in the `<head>` (per project rule: no `@import` remote in styles.css).
+**Experts (all professions)** — new `/expert` shell
+Landing: assigned cases queue, quotes to send, open invoices, upcoming appointments, wholesale/referral earnings YTD, verification status.
+Nav: My cases · Quotes · Invoices · Payouts · Availability · Profile · Messages.
+Profession-specific widgets: lawyers see regulated-referral fee log; translators/funeral/admin see wholesale-rate jobs; mosques/churches/temples/hospitals see community requests.
 
-### A5. Verification
-- Playwright: load `/` in each of the 13 languages via `?lng=xx`, screenshot hero + pricing + footer. Visually confirm no overflow, no clipped diacritics, correct RTL flip.
-- Compare `en/common.json` keyset against every other locale — fail loudly if any key is missing.
+**Agents** — `/agent` (already exists, refocus)
+Landing: this-month commissions, active referrals, pipeline by stage, top-converting share link.
+Nav: Clients · Commissions · Referral link · Marketing assets · Payouts.
 
----
+**Internal staff — one console per admin domain** under `/portal`
+- `admin` / `staff` / `case_manager` → `/portal` (global ops console — as today, but no longer shared with the specialists)
+- `insurance_admin` → `/portal/insurance` (leads, quotes, callbacks, commission reconciliation)
+- `tax_admin` → `/portal/tax` (tax leads, filings, deadlines, TaxFix handoffs)
+- `benefits_admin` → `/portal/benefits` (benefit applications, eligibility rules, appeals)
+- `medical_admin` → `/portal/medical` (doctor/hospital roster, medical cases, translations)
+- `new_arrival_admin` → `/portal/new-arrivals` (arrival playbooks, integration courses, housing)
 
-## Phase B — Business-model audit & punch-list
+Each admin console shows KPIs, queue, and activity scoped to **that domain only** — no leaking into unrelated domains.
 
-Deliverable: written report (no code changes in this phase) covering:
+## How
 
-1. **Payments / escrow** — status of `useStripeCheckout`, `subscription_plans` table, whether webhook route `/api/public/webhooks/stripe` exists, whether escrow release logic is implemented. Recommend `enable_stripe_payments` (built-in) if not yet enabled.
-2. **Public directory** (`/directory`, €10/yr) — schema, listing CRUD, payment flow, moderation.
-3. **Expert onboarding** — invitation flow, `experts.compensation_model` toggle UI, wholesale vs referral routing.
-4. **Three-sided case workspace** — client/case-manager/expert views on `app.cases.$caseId`, staff-only notes, `can_access_case()` RLS.
-5. **Knowledge base** under `/portal/knowledge` — content status, SOP coverage.
-6. **Email templates** — auth + transactional, across 13 languages.
-7. **Family funeral insurance** add-on.
+### 1. Role landing routing
+Extend `src/lib/role-landing.ts`:
+- Add `EXPERT` bucket → `/expert`
+- Split internal roles: each `*_admin` → its own domain URL
+- `admin` / `staff` / `case_manager` keep `/portal`
+- Auth success + `/` redirect use `landingForRoles()` — already wired.
 
-Each item classified: ✅ shipped · 🟡 partial · ❌ missing, with next concrete step.
+### 2. New protected shell: `/_authenticated/expert`
+- `expert.tsx` — sidebar + header (mirrors `app.tsx` structure, expert-flavored nav)
+- `expert.index.tsx` — dashboard (KPI tiles, cases queue, earnings)
+- `expert.cases.tsx`, `expert.cases.$caseId.tsx` — reuse existing case detail
+- `expert.quotes.tsx`, `expert.invoices.tsx`, `expert.payouts.tsx` — thin wrappers over existing server fns filtered by `experts.user_id = auth.uid()`
+- `expert.availability.tsx`, `expert.profile.tsx`
+- Profession-specific widget lives inside `expert.index.tsx`, keyed off `experts.profession`.
 
----
+### 3. Domain consoles under `/_authenticated/portal/*`
+For each of insurance / tax / benefits / medical / new-arrivals:
+- New index route (e.g. `portal.insurance.index.tsx`) with domain-scoped KPIs + queue.
+- Existing surfaces (`portal.leads.tsx`, `portal.insurance.tsx` etc.) become sub-pages of that console.
+- New portal sidebar switches automatically based on the admin's role — `admin`/`staff` see all consoles, specialists see only theirs.
+- Reuse `getOpsConsole` server fn but add a `domain` filter param (`insurance` | `tax` | `benefits` | `medical` | `new_arrivals`) so it scopes leads/cases/invoices/activity accordingly.
+
+### 4. Consumer app landing polish
+- `/app/index.tsx` cleaned to show only family-relevant widgets (already close, minor pass).
+
+### 5. Agent portal polish
+- `/agent/index.tsx` rebuilt as a real dashboard (commissions MTD, pipeline, share-link performance) — currently it's basic.
+
+## Delivery order
+1. Landing router + role bucket split (foundation).
+2. `/expert` shell + dashboard (biggest new surface).
+3. Split `/portal` into 5 domain consoles + role-based sidebar.
+4. Agent dashboard rebuild.
+5. Family dashboard cleanup pass.
 
 ## Technical notes
+- No schema changes. All scoping done via server functions using `has_role()` and existing FK columns (`experts.user_id`, `case_assignments.expert_id`, `insurance_leads.assigned_to_user_id`, etc.).
+- Reuse `PortalHeader`, `KpiTile`, `QueueRow`, `ActivityItem` primitives — no new UI kit.
+- New shells copy the layout pattern from `_authenticated/app.tsx` (SidebarProvider + header + Outlet).
+- i18n: new nav labels added to all 13 locale files.
 
-- Locale removal is `rm -rf src/i18n/locales/{bs,hr,sq,sr,ti,so,vi,pt-BR,fr,ps}`. Config file drives dropdown, so unreferenced folders vanish from UI automatically.
-- Font loading: add `<link rel="preconnect">` + `<link rel="stylesheet">` to Google Fonts Noto family inside `__root.tsx` `head()`, not CSS `@import`.
-- HTML `dir` attribute set via `useEffect` in root component reading `i18n.language`; alternatively via `useLanguage()` hook (already exists per file listing).
-- No route file changes required for language switching — `useLanguage` hook + i18next handle it.
+This is ~5 sessions of work. I'll do it in the order above; each step ships a usable slice.
 
----
-
-## Out of scope (this plan)
-- Rewriting business copy or marketing content.
-- Backend schema changes (Phase B is audit-only).
-- New feature work beyond what's already in the codebase.
-
-I will pause after Phase A for you to spot-check translations before starting Phase B.
+Approve and I'll start with step 1 (landing router) + step 2 (`/expert` shell).
