@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "德国" },
+  "brand": {
+    "location": "德国"
+  },
   "nav": {
     "howItWorks": "如何运作",
     "services": "服务",
@@ -77,14 +79,20 @@
     "agentCommissions": "佣金",
     "agentLink": "推荐链接",
     "studentDiscount": "学生优惠",
-    "studentsOps": "学生运营"
+    "studentsOps": "学生运营",
+    "account": "My account"
   },
   "agent": {
     "defaultName": "代理",
     "shortLabel": "代理",
     "portalLabel": "代理门户",
     "recurringBadge": "代理 · {{rate}}% 持续",
-    "nav": { "overview": "概览", "clients": "我的客户", "commissions": "佣金", "link": "推荐链接" },
+    "nav": {
+      "overview": "概览",
+      "clients": "我的客户",
+      "commissions": "佣金",
+      "link": "推荐链接"
+    },
     "home": {
       "welcome": "欢迎",
       "welcomeNamed": "欢迎，{{name}}",
@@ -92,8 +100,19 @@
       "recent": "近期推荐",
       "emptyReferrals": "暂无推荐。从「推荐链接」标签分享您的链接。"
     },
-    "kpi": { "clients": "客户", "thisMonth": "本月", "pending": "待处理", "paid": "累计已付" },
-    "table": { "when": "时间", "email": "邮箱", "product": "产品", "source": "来源", "status": "状态" },
+    "kpi": {
+      "clients": "客户",
+      "thisMonth": "本月",
+      "pending": "待处理",
+      "paid": "累计已付"
+    },
+    "table": {
+      "when": "时间",
+      "email": "邮箱",
+      "product": "产品",
+      "source": "来源",
+      "status": "状态"
+    },
     "products": {
       "basic": "订阅 — Basic €5/月",
       "plus": "订阅 — Plus €10/月",
@@ -119,7 +138,11 @@
     "commissions": {
       "title": "佣金",
       "subtitle": "每月支付，按您推荐客户月订阅费的 {{rate}}% 计算。第三方费用（保险、殡葬保障）不计入佣金基数。",
-      "period": "周期", "gross": "总额", "rate": "费率", "commission": "佣金", "paidAt": "支付时间",
+      "period": "周期",
+      "gross": "总额",
+      "rate": "费率",
+      "commission": "佣金",
+      "paidAt": "支付时间",
       "empty": "暂无佣金 — 您推荐客户首次扣款后将出现。"
     },
     "link": {
@@ -129,7 +152,9 @@
       "universal": "通用链接",
       "funeral": "殡葬保障",
       "group": "团体保障",
-      "copy": "复制", "copied": "已复制", "copyFail": "复制失败",
+      "copy": "复制",
+      "copied": "已复制",
+      "copyFail": "复制失败",
       "tips": "销售建议",
       "tip1": "始终称为殡葬保障 — 切勿称为殡葬保险。这是储蓄与安排计划，不是受监管的保险产品。",
       "tip2": "订阅等级：Basic €5，Plus €10，Complete €25，每月（家庭）。",
@@ -186,11 +211,26 @@
     "noDescription": "未提供描述。",
     "delete": "删除报告",
     "confirmDelete": "删除此报告？此操作无法撤销。",
-    "filter": { "all": "全部状态" },
-    "severity": { "low": "低", "medium": "中", "high": "高", "critical": "紧急" },
-    "status": { "open": "未处理", "in_progress": "处理中", "resolved": "已解决", "closed": "已关闭" }
+    "filter": {
+      "all": "全部状态"
+    },
+    "severity": {
+      "low": "低",
+      "medium": "中",
+      "high": "高",
+      "critical": "紧急"
+    },
+    "status": {
+      "open": "未处理",
+      "in_progress": "处理中",
+      "resolved": "已解决",
+      "closed": "已关闭"
+    }
   },
-  "hero": { "headlinePrefix": "陪伴您在", "headlineHighlight": "德国" },
+  "hero": {
+    "headlinePrefix": "陪伴您在",
+    "headlineHighlight": "德国"
+  },
   "pages": {
     "pricing": {
       "eyebrow": "价格",

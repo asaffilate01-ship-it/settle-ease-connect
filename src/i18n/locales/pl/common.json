@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "Niemcy" },
+  "brand": {
+    "location": "Niemcy"
+  },
   "nav": {
     "howItWorks": "Jak to działa",
     "services": "Usługi",
@@ -77,7 +79,8 @@
     "agentCommissions": "Prowizje",
     "agentLink": "Link polecający",
     "studentDiscount": "Zniżka studencka",
-    "studentsOps": "Operacje studenckie"
+    "studentsOps": "Operacje studenckie",
+    "account": "My account"
   },
   "agent": {
     "defaultName": "Agent",
@@ -97,8 +100,19 @@
       "recent": "Ostatnie polecenia",
       "emptyReferrals": "Brak poleceń. Udostępnij swój link z zakładki „Link polecający”."
     },
-    "kpi": { "clients": "Klienci", "thisMonth": "Ten miesiąc", "pending": "Oczekujące", "paid": "Wypłacono" },
-    "table": { "when": "Kiedy", "email": "E-mail", "product": "Produkt", "source": "Źródło", "status": "Status" },
+    "kpi": {
+      "clients": "Klienci",
+      "thisMonth": "Ten miesiąc",
+      "pending": "Oczekujące",
+      "paid": "Wypłacono"
+    },
+    "table": {
+      "when": "Kiedy",
+      "email": "E-mail",
+      "product": "Produkt",
+      "source": "Źródło",
+      "status": "Status"
+    },
     "products": {
       "basic": "Subskrypcja — Basic €5/mies.",
       "plus": "Subskrypcja — Plus €10/mies.",
@@ -124,7 +138,11 @@
     "commissions": {
       "title": "Prowizje",
       "subtitle": "Wypłacane miesięcznie, jako {{rate}}% miesięcznej opłaty subskrypcyjnej za każdego poleconego klienta. Koszty stron trzecich (ubezpieczenia, pakiet pogrzebowy) są wyłączone z podstawy prowizji.",
-      "period": "Okres", "gross": "Brutto", "rate": "Stawka", "commission": "Prowizja", "paidAt": "Wypłacono",
+      "period": "Okres",
+      "gross": "Brutto",
+      "rate": "Stawka",
+      "commission": "Prowizja",
+      "paidAt": "Wypłacono",
       "empty": "Brak prowizji — pojawią się po pierwszym rozliczeniu subskrypcji poleconego klienta."
     },
     "link": {
@@ -134,7 +152,9 @@
       "universal": "Link uniwersalny",
       "funeral": "Pakiet pogrzebowy",
       "group": "Pakiet grupowy",
-      "copy": "Kopiuj", "copied": "Skopiowano", "copyFail": "Nie udało się skopiować",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano",
+      "copyFail": "Nie udało się skopiować",
       "tips": "Wskazówki sprzedażowe",
       "tip1": "Zawsze mów pakiet pogrzebowy — nigdy ubezpieczenie pogrzebowe. To plan oszczędnościowo-organizacyjny, nie regulowany produkt ubezpieczeniowy.",
       "tip2": "Poziomy subskrypcji: Basic €5, Plus €10, Complete €25 miesięcznie (na gospodarstwo).",
@@ -191,11 +211,26 @@
     "noDescription": "Brak opisu.",
     "delete": "Usuń zgłoszenie",
     "confirmDelete": "Usunąć to zgłoszenie? Nie można tego cofnąć.",
-    "filter": { "all": "Wszystkie statusy" },
-    "severity": { "low": "Niski", "medium": "Średni", "high": "Wysoki", "critical": "Krytyczny" },
-    "status": { "open": "Otwarte", "in_progress": "W toku", "resolved": "Rozwiązane", "closed": "Zamknięte" }
+    "filter": {
+      "all": "Wszystkie statusy"
+    },
+    "severity": {
+      "low": "Niski",
+      "medium": "Średni",
+      "high": "Wysoki",
+      "critical": "Krytyczny"
+    },
+    "status": {
+      "open": "Otwarte",
+      "in_progress": "W toku",
+      "resolved": "Rozwiązane",
+      "closed": "Zamknięte"
+    }
   },
-  "hero": { "headlinePrefix": "Dla każdej drogi w", "headlineHighlight": "Niemczech" },
+  "hero": {
+    "headlinePrefix": "Dla każdej drogi w",
+    "headlineHighlight": "Niemczech"
+  },
   "pages": {
     "pricing": {
       "eyebrow": "Cennik",
