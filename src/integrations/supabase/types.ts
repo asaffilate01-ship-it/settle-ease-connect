@@ -1065,6 +1065,168 @@ export type Database = {
         }
         Relationships: []
       }
+      expert_invitations: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          bundesland: string | null
+          city: string | null
+          compensation_model: Database["public"]["Enums"]["compensation_model"]
+          created_at: string
+          created_expert_id: string | null
+          email: string
+          expires_at: string
+          full_name: string
+          hourly_rate_eur: number | null
+          id: string
+          invited_by: string | null
+          languages: string[]
+          personal_message: string | null
+          profession: string
+          referral_fee_pct: number | null
+          token: string
+          updated_at: string
+          wholesale_rate_eur: number | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          bundesland?: string | null
+          city?: string | null
+          compensation_model?: Database["public"]["Enums"]["compensation_model"]
+          created_at?: string
+          created_expert_id?: string | null
+          email: string
+          expires_at?: string
+          full_name: string
+          hourly_rate_eur?: number | null
+          id?: string
+          invited_by?: string | null
+          languages?: string[]
+          personal_message?: string | null
+          profession: string
+          referral_fee_pct?: number | null
+          token: string
+          updated_at?: string
+          wholesale_rate_eur?: number | null
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          bundesland?: string | null
+          city?: string | null
+          compensation_model?: Database["public"]["Enums"]["compensation_model"]
+          created_at?: string
+          created_expert_id?: string | null
+          email?: string
+          expires_at?: string
+          full_name?: string
+          hourly_rate_eur?: number | null
+          id?: string
+          invited_by?: string | null
+          languages?: string[]
+          personal_message?: string | null
+          profession?: string
+          referral_fee_pct?: number | null
+          token?: string
+          updated_at?: string
+          wholesale_rate_eur?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expert_invitations_created_expert_id_fkey"
+            columns: ["created_expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      expert_payouts: {
+        Row: {
+          amount_eur: number
+          case_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          description: string | null
+          expert_id: string
+          gross_eur: number
+          id: string
+          invoice_id: string | null
+          kind: string
+          notes: string | null
+          paid_at: string | null
+          payment_reference: string | null
+          period_month: string
+          rate: number | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount_eur: number
+          case_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          description?: string | null
+          expert_id: string
+          gross_eur?: number
+          id?: string
+          invoice_id?: string | null
+          kind: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_reference?: string | null
+          period_month?: string
+          rate?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount_eur?: number
+          case_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          description?: string | null
+          expert_id?: string
+          gross_eur?: number
+          id?: string
+          invoice_id?: string | null
+          kind?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_reference?: string | null
+          period_month?: string
+          rate?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expert_payouts_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_payouts_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_payouts_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "case_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       expert_services: {
         Row: {
           expert_id: string
@@ -2682,6 +2844,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_expert_invitation: { Args: { _token: string }; Returns: string }
       can_access_case: {
         Args: { _case_id: string; _user_id: string }
         Returns: boolean
