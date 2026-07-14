@@ -33,8 +33,9 @@ export const translateBatch = createServerFn({ method: "POST" })
       "Rules: (1) Keep meaning, tone and length close to the source — this is UI copy. " +
       "(2) Preserve placeholders like {{name}}, {count}, %s, <b>...</b>, URLs and emails EXACTLY. " +
       "(3) Never translate the brand name 'BeistandPlus', 'BeistandPlus' or product names. " +
-      "(4) Return ONLY a JSON object of the form {\"t\":[\"...\", \"...\"]} with the same number of items in the same order. " +
-      "(5) No commentary, no markdown fences.";
+      "(4) If an item is already in " + data.targetName + ", return it unchanged. " +
+      "(5) Return ONLY a JSON object of the form {\"t\":[\"...\", \"...\"]} with the same number of items in the same order. " +
+      "(6) No commentary, no markdown fences.";
 
     const user = JSON.stringify({ items: data.texts });
 
