@@ -486,6 +486,7 @@ const COVER_BANDS: {
 ];
 
 function BereavementAddOn() {
+  const { t } = useTranslation();
   const [enabled, setEnabled] = useState(false);
   const [band, setBand] = useState<CoverBandKey>("small_family");
   const active = COVER_BANDS.find((b) => b.key === band)!;
@@ -536,7 +537,7 @@ function BereavementAddOn() {
               </div>
               <div className="font-display text-2xl font-semibold">
                 +€{b.addOnEur}
-                <span className="ml-1 text-xs font-normal text-muted-foreground">/ month</span>
+                <span className="ml-1 text-xs font-normal text-muted-foreground">{t("pages.pricing.perMonth")}</span>
               </div>
               <div className="text-xs text-muted-foreground">{b.household}</div>
             </button>
