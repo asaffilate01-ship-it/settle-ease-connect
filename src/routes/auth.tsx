@@ -5,13 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 import { resolveLandingForCurrentUser } from "@/lib/role-landing";
 import logoFull from "@/assets/brand/logo-full.png";
 
-
-
 type Search = { redirect?: string };
+type Mode = "signin" | "signup" | "forgot";
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>): Search => ({
@@ -36,16 +35,16 @@ function sanitizeRedirect(value: string | undefined): string | null {
   return null;
 }
 
-
 function AuthPage() {
   const navigate = useNavigate();
   const { redirect } = Route.useSearch();
   const explicitTarget = sanitizeRedirect(redirect);
 
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
 
   async function goToLanding() {
@@ -54,15 +53,11 @@ function AuthPage() {
   }
 
   useEffect(() => {
-    // If already signed in, bounce to role-based landing (or explicit redirect).
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) void goToLanding();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-
-
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -84,7 +79,7 @@ function AuthPage() {
         }
         toast.success("Welcome to BeistandPlus");
         await goToLanding();
-      } else {
+      } else if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) {
           toast.error(error.message);
@@ -92,6 +87,18 @@ function AuthPage() {
           return;
         }
         await goToLanding();
+      } else {
+        // forgot password
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        setLoading(false);
+        if (error) {
+          toast.error(error.message);
+          return;
+        }
+        toast.success("If an account exists, a reset link has been sent.");
+        setMode("signin");
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
@@ -99,6 +106,14 @@ function AuthPage() {
     }
   }
 
+  const heading =
+    mode === "signin" ? "Welcome back" : mode === "signup" ? "Create your account" : "Reset your password";
+  const subheading =
+    mode === "signin"
+      ? "Sign in to manage your case, benefits and documents."
+      : mode === "signup"
+      ? "One calm place for settlement, welfare and end-of-life care in Germany."
+      : "Enter your email and we'll send you a secure link to set a new password.";
 
   return (
     <div className="min-h-screen bg-parchment flex flex-col">
@@ -114,20 +129,11 @@ function AuthPage() {
         </Link>
       </header>
       <main className="flex-1 flex items-center justify-center px-4 pb-16">
-        <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-soft">
-          <h1 className="font-display text-2xl font-semibold text-foreground">
-            {mode === "signin" ? "Welcome back" : "Create your account"}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {mode === "signin"
-              ? "Sign in to manage your case, benefits and documents."
-              : "One calm place for settlement, welfare and end-of-life care in Germany."}
-          </p>
+        <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-6 shadow-soft sm:p-8">
+          <h1 className="font-display text-2xl font-semibold text-foreground">{heading}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{subheading}</p>
 
-
-
-
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {mode === "signup" && (
               <div>
                 <Label htmlFor="name">Full name</Label>
@@ -136,27 +142,83 @@ function AuthPage() {
             )}
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required autoComplete="email" />
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+                autoComplete="email"
+              />
             </div>
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" required minLength={8} autoComplete={mode === "signin" ? "current-password" : "new-password"} />
-            </div>
+
+            {mode !== "forgot" && (
+              <div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  {mode === "signin" && (
+                    <button
+                      type="button"
+                      onClick={() => setMode("forgot")}
+                      className="text-xs font-medium text-primary hover:underline"
+                    >
+                      Forgot password?
+                    </button>
+                  )}
+                </div>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPw ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="At least 8 characters"
+                    required
+                    minLength={8}
+                    autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                    className="pr-11"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPw((s) => !s)}
+                    aria-label={showPw ? "Hide password" : "Show password"}
+                    className="absolute inset-y-0 right-0 grid w-11 place-items-center text-muted-foreground transition-colors hover:text-foreground"
+                    tabIndex={-1}
+                  >
+                    {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+            )}
+
             <Button type="submit" className="w-full h-11" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {mode === "signin" ? "Sign in" : "Create account"}
+              {mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Send reset link"}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            {mode === "signin" ? (
-              <>New to BeistandPlus?{" "}
-                <button type="button" className="text-primary font-medium hover:underline" onClick={() => setMode("signup")}>Create an account</button>
+            {mode === "signin" && (
+              <>
+                New to BeistandPlus?{" "}
+                <button type="button" className="text-primary font-medium hover:underline" onClick={() => setMode("signup")}>
+                  Create an account
+                </button>
               </>
-            ) : (
-              <>Already have an account?{" "}
-                <button type="button" className="text-primary font-medium hover:underline" onClick={() => setMode("signin")}>Sign in</button>
+            )}
+            {mode === "signup" && (
+              <>
+                Already have an account?{" "}
+                <button type="button" className="text-primary font-medium hover:underline" onClick={() => setMode("signin")}>
+                  Sign in
+                </button>
               </>
+            )}
+            {mode === "forgot" && (
+              <button type="button" className="text-primary font-medium hover:underline" onClick={() => setMode("signin")}>
+                ← Back to sign in
+              </button>
             )}
           </p>
 
@@ -183,7 +245,6 @@ function AuthPage() {
 }
 
 const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: string; group: string }[] = [
-  // Internal / staff (portal.*)
   { email: "admin@beistand.de", role: "admin", label: "Admin", landing: "/portal", group: "Internal" },
   { email: "staff@beistand.de", role: "staff", label: "Staff", landing: "/portal", group: "Internal" },
   { email: "manager@beistand.de", role: "case_manager", label: "Case manager", landing: "/portal", group: "Internal" },
@@ -192,7 +253,6 @@ const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: strin
   { email: "benefits-admin@beistand.de", role: "benefits_admin", label: "Benefits admin", landing: "/portal", group: "Internal" },
   { email: "medical-admin@beistand.de", role: "medical_admin", label: "Medical admin", landing: "/portal", group: "Internal" },
   { email: "arrival-admin@beistand.de", role: "new_arrival_admin", label: "New-arrival admin", landing: "/portal/immigration", group: "Internal" },
-  // Experts (regulated professionals — /app)
   { email: "expert@beistand.de", role: "expert", label: "Expert (generic)", landing: "/app", group: "Experts" },
   { email: "lawyer@beistand.de", role: "lawyer", label: "Lawyer", landing: "/app", group: "Experts" },
   { email: "notary@beistand.de", role: "notary", label: "Notary", landing: "/app", group: "Experts" },
@@ -201,14 +261,11 @@ const DEV_ACCOUNTS: { email: string; role: string; label: string; landing: strin
   { email: "social-worker@beistand.de", role: "social_worker", label: "Social worker", landing: "/app", group: "Experts" },
   { email: "translator@beistand.de", role: "translator", label: "Translator", landing: "/app", group: "Experts" },
   { email: "funeral@beistand.de", role: "funeral_director", label: "Funeral director", landing: "/app", group: "Experts" },
-  // Institutional providers
   { email: "mosque@beistand.de", role: "mosque", label: "Mosque", landing: "/app", group: "Providers" },
   { email: "church@beistand.de", role: "church", label: "Church", landing: "/app", group: "Providers" },
   { email: "temple@beistand.de", role: "temple", label: "Temple", landing: "/app", group: "Providers" },
   { email: "hospital@beistand.de", role: "hospital", label: "Hospital", landing: "/app", group: "Providers" },
-  // Agents (sellers)
   { email: "agent@beistand.de", role: "agent", label: "Agent (seller)", landing: "/agent", group: "Agents" },
-  // Families / beneficiaries
   { email: "family@beistand.de", role: "family", label: "Family (client)", landing: "/app", group: "Clients" },
   { email: "beneficiary@beistand.de", role: "beneficiary", label: "Beneficiary", landing: "/app", group: "Clients" },
 ];
@@ -222,7 +279,6 @@ function DevLoginPanel({
   onLogin: (email: string, password: string) => void | Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
-
   const groups = Array.from(new Set(DEV_ACCOUNTS.map((a) => a.group)));
 
   return (
@@ -238,17 +294,13 @@ function DevLoginPanel({
             testing
           </span>
         </span>
-        <span className="text-xs text-amber-800/70 dark:text-amber-200/70">
-          {open ? "Hide" : "Show"}
-        </span>
+        <span className="text-xs text-amber-800/70 dark:text-amber-200/70">{open ? "Hide" : "Show"}</span>
       </button>
       {open && (
         <div className="mt-3 space-y-3">
           <p className="text-xs text-amber-900/80 dark:text-amber-200/80">
             One-click sign-in as any seeded RLS role. Shared password:{" "}
-            <code className="rounded bg-amber-100 px-1 py-0.5 dark:bg-amber-900/50">
-              {DEV_PASSWORD}
-            </code>
+            <code className="rounded bg-amber-100 px-1 py-0.5 dark:bg-amber-900/50">{DEV_PASSWORD}</code>
           </p>
           {groups.map((g) => (
             <div key={g}>
@@ -268,9 +320,7 @@ function DevLoginPanel({
                       <span className="font-medium">{a.label}</span>
                       <span className="ml-2 text-xs text-muted-foreground">{a.email}</span>
                     </span>
-                    <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                      → {a.landing}
-                    </span>
+                    <span className="text-[10px] uppercase tracking-wide text-muted-foreground">→ {a.landing}</span>
                   </button>
                 ))}
               </div>
@@ -281,5 +331,3 @@ function DevLoginPanel({
     </div>
   );
 }
-
-

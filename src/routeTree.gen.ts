@@ -14,6 +14,7 @@ import { Route as TaxRouteImport } from './routes/tax'
 import { Route as StudentsRouteImport } from './routes/students'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PartnershipsRouteImport } from './routes/partnerships'
 import { Route as PartnersRouteImport } from './routes/partners'
@@ -108,6 +109,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -512,6 +518,7 @@ export interface FileRoutesByFullPath {
   '/partners': typeof PartnersRouteWithChildren
   '/partnerships': typeof PartnershipsRoute
   '/pricing': typeof PricingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
@@ -588,6 +595,7 @@ export interface FileRoutesByTo {
   '/partners': typeof PartnersRouteWithChildren
   '/partnerships': typeof PartnershipsRoute
   '/pricing': typeof PricingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
@@ -663,6 +671,7 @@ export interface FileRoutesById {
   '/partners': typeof PartnersRouteWithChildren
   '/partnerships': typeof PartnershipsRoute
   '/pricing': typeof PricingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/students': typeof StudentsRoute
@@ -741,6 +750,7 @@ export interface FileRouteTypes {
     | '/partners'
     | '/partnerships'
     | '/pricing'
+    | '/reset-password'
     | '/services'
     | '/sitemap.xml'
     | '/students'
@@ -817,6 +827,7 @@ export interface FileRouteTypes {
     | '/partners'
     | '/partnerships'
     | '/pricing'
+    | '/reset-password'
     | '/services'
     | '/sitemap.xml'
     | '/students'
@@ -891,6 +902,7 @@ export interface FileRouteTypes {
     | '/partners'
     | '/partnerships'
     | '/pricing'
+    | '/reset-password'
     | '/services'
     | '/sitemap.xml'
     | '/students'
@@ -969,6 +981,7 @@ export interface RootRouteChildren {
   PartnersRoute: typeof PartnersRouteWithChildren
   PartnershipsRoute: typeof PartnershipsRoute
   PricingRoute: typeof PricingRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudentsRoute: typeof StudentsRoute
@@ -1011,6 +1024,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -1749,6 +1769,7 @@ const rootRouteChildren: RootRouteChildren = {
   PartnersRoute: PartnersRouteWithChildren,
   PartnershipsRoute: PartnershipsRoute,
   PricingRoute: PricingRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudentsRoute: StudentsRoute,
