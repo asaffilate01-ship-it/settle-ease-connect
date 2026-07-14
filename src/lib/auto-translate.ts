@@ -230,21 +230,29 @@ async function translatePage() {
       src = text;
       srcLang = detected;
     }
-    // Already in the target language — nothing to do.
-    if (srcLang === currentLang) continue;
-    // If source and target match by heuristic, skip too (stashed src may be
-    // the same language as current text if a previous swap already translated).
-    if (looksLike(src, currentLang)) {
-      mutating = true;
-      parent.setAttribute(LANG_ATTR, currentLang);
-      mutating = false;
-      continue;
-    }
-
+    // If we already have a cached translation, always reconcile the DOM to
+    // match it. React re-renders can reset the text back to the source
+    // between our passes — trusting LANG_ATTR alone would leave those
+    // resets untranslated forever.
     const cached = cacheGet(currentLang, src);
     if (cached) {
+      if (node.nodeValue !== cached) {
+        mutating = true;
+        node.nodeValue = cached;
+        parent.setAttribute(LANG_ATTR, currentLang);
+        mutating = false;
+      } else if (srcLang !== currentLang) {
+        mutating = true;
+        parent.setAttribute(LANG_ATTR, currentLang);
+        mutating = false;
+      }
+      continue;
+    }
+    // No cache yet. If the source already reads as the target language, mark
+    // and skip; otherwise queue it for the batch translator.
+    if (srcLang === currentLang) continue;
+    if (looksLike(src, currentLang)) {
       mutating = true;
-      node.nodeValue = cached;
       parent.setAttribute(LANG_ATTR, currentLang);
       mutating = false;
       continue;
