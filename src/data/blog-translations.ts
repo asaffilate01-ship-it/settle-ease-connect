@@ -310,7 +310,7 @@ export const BLOG_TRANSLATIONS: TranslationsBySlug = {
         { type: "h2", text: "4. Kündigungsfrist" },
         { type: "p", text: "Bei unbefristeten Verträgen können Mieter immer mit drei Monaten kündigen. Für den Vermieter wachsen die Fristen mit der Mietdauer. Klauseln, die Sie als Mieter länger binden, sind meist unwirksam." },
         { type: "h2", text: "5. Schönheitsreparaturen" },
-        { type: "p", text: "Kein Punkt wird häufiger vor Gericht verhandelt. Die meisten starren Fristenpläne ("alle 3 Jahre streichen") sind unwirksam. Nicht bei Auszug panisch werden — wir prüfen Ihre konkrete Formulierung." },
+        { type: "p", text: "Kein Punkt wird häufiger vor Gericht verhandelt. Die meisten starren Fristenpläne (\"alle 3 Jahre streichen\") sind unwirksam. Nicht bei Auszug panisch werden — wir prüfen Ihre konkrete Formulierung." },
         { type: "h2", text: "6. Untermiete und Anmeldung" },
         { type: "p", text: "Sie haben ein gesetzliches Recht auf Anmeldung an der Vertragsadresse. Wenn ein Vermieter die Wohnungsgeberbestätigung verweigert, ist das ein Alarmsignal — Finger weg." },
       ],
