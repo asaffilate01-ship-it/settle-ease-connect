@@ -206,9 +206,12 @@ function GroupCoverPage() {
         </div>
       </section>
 
-      <section id="intake" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-        <GroupCoverIntake />
-      </section>
+      {isAdmin && (
+        <section id="intake" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+          <GroupCoverIntake />
+        </section>
+      )}
+
 
       <SiteFooter />
     </div>
