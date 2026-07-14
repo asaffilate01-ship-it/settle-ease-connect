@@ -40,6 +40,7 @@ import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
 import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
 import { Route as GroupCoverFiduciaryClauseRouteImport } from './routes/group-cover.fiduciary-clause'
+import { Route as ExpertInviteTokenRouteImport } from './routes/expert-invite.$token'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -243,6 +244,11 @@ const GroupCoverFiduciaryClauseRoute =
     path: '/fiduciary-clause',
     getParentRoute: () => GroupCoverRoute,
   } as any)
+const ExpertInviteTokenRoute = ExpertInviteTokenRouteImport.update({
+  id: '/expert-invite/$token',
+  path: '/expert-invite/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DirectoryListYourBusinessRoute =
   DirectoryListYourBusinessRouteImport.update({
     id: '/list-your-business',
@@ -543,6 +549,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/expert-invite/$token': typeof ExpertInviteTokenRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
@@ -619,6 +626,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/expert-invite/$token': typeof ExpertInviteTokenRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
@@ -700,6 +708,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
+  '/expert-invite/$token': typeof ExpertInviteTokenRoute
   '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
@@ -781,6 +790,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
+    | '/expert-invite/$token'
     | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
@@ -857,6 +867,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
+    | '/expert-invite/$token'
     | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
@@ -937,6 +948,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
+    | '/expert-invite/$token'
     | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
@@ -1013,6 +1025,7 @@ export interface RootRouteChildren {
   TaxRoute: typeof TaxRoute
   TrustRoute: typeof TrustRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
+  ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -1234,6 +1247,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/group-cover/fiduciary-clause'
       preLoaderRoute: typeof GroupCoverFiduciaryClauseRouteImport
       parentRoute: typeof GroupCoverRoute
+    }
+    '/expert-invite/$token': {
+      id: '/expert-invite/$token'
+      path: '/expert-invite/$token'
+      fullPath: '/expert-invite/$token'
+      preLoaderRoute: typeof ExpertInviteTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/directory/list-your-business': {
       id: '/directory/list-your-business'
@@ -1817,6 +1837,7 @@ const rootRouteChildren: RootRouteChildren = {
   TaxRoute: TaxRoute,
   TrustRoute: TrustRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
+  ExpertInviteTokenRoute: ExpertInviteTokenRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
