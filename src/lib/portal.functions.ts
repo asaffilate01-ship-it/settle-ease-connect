@@ -774,3 +774,73 @@ export const getNewArrivalsConsole = createServerFn({ method: "GET" })
       embassies,
     };
   });
+
+export const getInsuranceConsole = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    const [leadsRes, callbacksRes, healthRes, funeralRes] = await Promise.all([
+      supa.from("insurance_leads")
+        .select("id, full_name, email, product, insurer, monthly_eur, status, source, created_at, assigned_to_user_id")
+        .order("created_at", { ascending: false })
+        .limit(200),
+      // insurance-related callbacks live inside insurance_leads via status='callback'
+      supa.from("insurance_leads")
+        .select("id, full_name, email, product, status, created_at")
+        .eq("status", "callback")
+        .order("created_at", { ascending: false })
+        .limit(50),
+      supa.from("health_insurance")
+        .select("id, user_id, insurer, plan_type, monthly_eur, status, updated_at")
+        .order("updated_at", { ascending: false })
+        .limit(50),
+      supa.from("funeral_policies")
+        .select("id, user_id, insurer, sum_insured_eur, monthly_eur, status, updated_at")
+        .order("updated_at", { ascending: false })
+        .limit(50),
+    ]);
+    const leads = leadsRes.data ?? [];
+    const callbacks = callbacksRes.data ?? [];
+    const health = healthRes.data ?? [];
+    const funeral = funeralRes.data ?? [];
+
+    const byStatus: Record<string, number> = {};
+    leads.forEach((l: any) => {
+      const s = l.status ?? "new";
+      byStatus[s] = (byStatus[s] ?? 0) + 1;
+    });
+    const byProduct: Record<string, number> = {};
+    leads.forEach((l: any) => {
+      const p = l.product ?? "unknown";
+      byProduct[p] = (byProduct[p] ?? 0) + 1;
+    });
+    const monthlyPipeline = leads.reduce(
+      (s: number, l: any) => s + Number(l.monthly_eur ?? 0),
+      0,
+    );
+    const converted = leads.filter(
+      (l: any) => l.status === "converted" || l.status === "policy_active",
+    ).length;
+
+    return {
+      leadTotal: leads.length,
+      openLeads: leads.filter(
+        (l: any) => l.status !== "closed" && l.status !== "converted" && l.status !== "declined",
+      ).length,
+      callbackCount: callbacks.length,
+      converted,
+      conversion: leads.length ? Math.round((converted / leads.length) * 100) : 0,
+      monthlyPipeline: Math.round(monthlyPipeline),
+      byStatus,
+      byProduct,
+      leads: leads.slice(0, 50),
+      callbacks: callbacks.slice(0, 20),
+      activePolicies: {
+        health: health.length,
+        funeral: funeral.length,
+      },
+      recentHealth: health.slice(0, 15),
+      recentFuneral: funeral.slice(0, 15),
+    };
+  });
