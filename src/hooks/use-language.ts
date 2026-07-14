@@ -30,7 +30,7 @@ function ensureLanguageGate() {
 }
 
 function shouldKeepGateForDomTranslation(lang: string | null) {
-  return !!lang && lang !== DEFAULT_LANG;
+  return !!lang || document.documentElement.hasAttribute("data-lang-pending");
 }
 
 
