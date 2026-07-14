@@ -46,9 +46,11 @@ import { Route as DirectoryListYourBusinessRouteImport } from './routes/director
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
+import { Route as AuthenticatedExpertRouteImport } from './routes/_authenticated/expert'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAgentRouteImport } from './routes/_authenticated/agent'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
+import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
@@ -64,6 +66,9 @@ import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authent
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
+import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
+import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
+import { Route as AuthenticatedExpertCasesRouteImport } from './routes/_authenticated/expert.cases'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppStudentDiscountRouteImport } from './routes/_authenticated/app.student-discount'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
@@ -281,6 +286,11 @@ const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   path: '/portal',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedExpertRoute = AuthenticatedExpertRouteImport.update({
+  id: '/expert',
+  path: '/expert',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -296,6 +306,12 @@ const AuthenticatedPortalIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedExpertIndexRoute =
+  AuthenticatedExpertIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedExpertRoute,
   } as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
@@ -384,6 +400,24 @@ const AuthenticatedPortalAuditRoute =
     id: '/audit',
     path: '/audit',
     getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedExpertProfileRoute =
+  AuthenticatedExpertProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedExpertRoute,
+  } as any)
+const AuthenticatedExpertPayoutsRoute =
+  AuthenticatedExpertPayoutsRouteImport.update({
+    id: '/payouts',
+    path: '/payouts',
+    getParentRoute: () => AuthenticatedExpertRoute,
+  } as any)
+const AuthenticatedExpertCasesRoute =
+  AuthenticatedExpertCasesRouteImport.update({
+    id: '/cases',
+    path: '/cases',
+    getParentRoute: () => AuthenticatedExpertRoute,
   } as any)
 const AuthenticatedAppUpgradeRoute = AuthenticatedAppUpgradeRouteImport.update({
   id: '/upgrade',
@@ -586,6 +620,7 @@ export interface FileRoutesByFullPath {
   '/trust': typeof TrustRoute
   '/agent': typeof AuthenticatedAgentRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/expert': typeof AuthenticatedExpertRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
@@ -620,6 +655,9 @@ export interface FileRoutesByFullPath {
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
+  '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
@@ -635,6 +673,7 @@ export interface FileRoutesByFullPath {
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/expert/': typeof AuthenticatedExpertIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
@@ -703,6 +742,9 @@ export interface FileRoutesByTo {
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
+  '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
@@ -718,6 +760,7 @@ export interface FileRoutesByTo {
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/expert': typeof AuthenticatedExpertIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
@@ -757,6 +800,7 @@ export interface FileRoutesById {
   '/trust': typeof TrustRoute
   '/_authenticated/agent': typeof AuthenticatedAgentRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/expert': typeof AuthenticatedExpertRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
@@ -791,6 +835,9 @@ export interface FileRoutesById {
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
+  '/_authenticated/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
+  '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
@@ -806,6 +853,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
@@ -845,6 +893,7 @@ export interface FileRouteTypes {
     | '/trust'
     | '/agent'
     | '/app'
+    | '/expert'
     | '/portal'
     | '/blog/$slug'
     | '/checkout/return'
@@ -879,6 +928,9 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/student-discount'
     | '/app/upgrade'
+    | '/expert/cases'
+    | '/expert/payouts'
+    | '/expert/profile'
     | '/portal/audit'
     | '/portal/capacity'
     | '/portal/directory'
@@ -894,6 +946,7 @@ export interface FileRouteTypes {
     | '/portal/students'
     | '/agent/'
     | '/app/'
+    | '/expert/'
     | '/portal/'
     | '/app/cases/$caseId'
     | '/app/cases/new'
@@ -962,6 +1015,9 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/app/student-discount'
     | '/app/upgrade'
+    | '/expert/cases'
+    | '/expert/payouts'
+    | '/expert/profile'
     | '/portal/audit'
     | '/portal/capacity'
     | '/portal/directory'
@@ -977,6 +1033,7 @@ export interface FileRouteTypes {
     | '/portal/students'
     | '/agent'
     | '/app'
+    | '/expert'
     | '/portal'
     | '/app/cases/$caseId'
     | '/app/cases/new'
@@ -1015,6 +1072,7 @@ export interface FileRouteTypes {
     | '/trust'
     | '/_authenticated/agent'
     | '/_authenticated/app'
+    | '/_authenticated/expert'
     | '/_authenticated/portal'
     | '/blog/$slug'
     | '/checkout/return'
@@ -1049,6 +1107,9 @@ export interface FileRouteTypes {
     | '/_authenticated/app/settings'
     | '/_authenticated/app/student-discount'
     | '/_authenticated/app/upgrade'
+    | '/_authenticated/expert/cases'
+    | '/_authenticated/expert/payouts'
+    | '/_authenticated/expert/profile'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/directory'
@@ -1064,6 +1125,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/students'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
+    | '/_authenticated/expert/'
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
@@ -1367,6 +1429,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/expert': {
+      id: '/_authenticated/expert'
+      path: '/expert'
+      fullPath: '/expert'
+      preLoaderRoute: typeof AuthenticatedExpertRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/app': {
       id: '/_authenticated/app'
       path: '/app'
@@ -1387,6 +1456,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/'
       preLoaderRoute: typeof AuthenticatedPortalIndexRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/expert/': {
+      id: '/_authenticated/expert/'
+      path: '/'
+      fullPath: '/expert/'
+      preLoaderRoute: typeof AuthenticatedExpertIndexRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
     }
     '/_authenticated/app/': {
       id: '/_authenticated/app/'
@@ -1492,6 +1568,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/audit'
       preLoaderRoute: typeof AuthenticatedPortalAuditRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/expert/profile': {
+      id: '/_authenticated/expert/profile'
+      path: '/profile'
+      fullPath: '/expert/profile'
+      preLoaderRoute: typeof AuthenticatedExpertProfileRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
+    }
+    '/_authenticated/expert/payouts': {
+      id: '/_authenticated/expert/payouts'
+      path: '/payouts'
+      fullPath: '/expert/payouts'
+      preLoaderRoute: typeof AuthenticatedExpertPayoutsRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
+    }
+    '/_authenticated/expert/cases': {
+      id: '/_authenticated/expert/cases'
+      path: '/cases'
+      fullPath: '/expert/cases'
+      preLoaderRoute: typeof AuthenticatedExpertCasesRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
     }
     '/_authenticated/app/upgrade': {
       id: '/_authenticated/app/upgrade'
@@ -1802,6 +1899,23 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
 const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
+interface AuthenticatedExpertRouteChildren {
+  AuthenticatedExpertCasesRoute: typeof AuthenticatedExpertCasesRoute
+  AuthenticatedExpertPayoutsRoute: typeof AuthenticatedExpertPayoutsRoute
+  AuthenticatedExpertProfileRoute: typeof AuthenticatedExpertProfileRoute
+  AuthenticatedExpertIndexRoute: typeof AuthenticatedExpertIndexRoute
+}
+
+const AuthenticatedExpertRouteChildren: AuthenticatedExpertRouteChildren = {
+  AuthenticatedExpertCasesRoute: AuthenticatedExpertCasesRoute,
+  AuthenticatedExpertPayoutsRoute: AuthenticatedExpertPayoutsRoute,
+  AuthenticatedExpertProfileRoute: AuthenticatedExpertProfileRoute,
+  AuthenticatedExpertIndexRoute: AuthenticatedExpertIndexRoute,
+}
+
+const AuthenticatedExpertRouteWithChildren =
+  AuthenticatedExpertRoute._addFileChildren(AuthenticatedExpertRouteChildren)
+
 interface AuthenticatedPortalKnowledgeRouteChildren {
   AuthenticatedPortalKnowledgeSlugRoute: typeof AuthenticatedPortalKnowledgeSlugRoute
 }
@@ -1864,12 +1978,14 @@ const AuthenticatedPortalRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgentRoute: typeof AuthenticatedAgentRouteWithChildren
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+  AuthenticatedExpertRoute: typeof AuthenticatedExpertRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgentRoute: AuthenticatedAgentRouteWithChildren,
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+  AuthenticatedExpertRoute: AuthenticatedExpertRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }
 
@@ -1973,13 +2089,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
