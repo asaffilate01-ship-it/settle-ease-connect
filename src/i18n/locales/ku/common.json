@@ -227,5 +227,88 @@
       "tip2": "Abonetî: Bingehîn 5€, Plus 10€, Têr 25€ mehê (malbat).",
       "tip3": "Tu {{rate}}% dubare qezenc dikî, heya ku xerîdar abonetî bimîne."
     }
+  },
+  "pages": {
+    "services": {
+      "eyebrow": "Rêberiya pispor bo jiyana we li Almanyayê",
+      "title1": "Hevalek ji bo her",
+      "title2": "gavên girîng.",
+      "subtitle": "Ji Anmeldunga we ya yekem heta ewlekariya paşeroja malbata we, BeistandPlus bi sêzdeh zimanan piştgirîya pispor a bi rûmet pêşkêş dike — bi mirovekî li kêleka we.",
+      "openCase": "Dosyayekê veke",
+      "howItWorks": "BeistandPlus çawa dixebite",
+      "ninePillars": "Neh warên xizmetê",
+      "ribbon": "Em bi zimanê we bi we re dixebitin",
+      "trustHuman": "Berî her tiştî mirov",
+      "trustHumanBody": "Rêveberên dosyeyên rastîn li Berlin, Hamburg, München û Köln — bersiv ji mirovekî tê, ne bot.",
+      "trustGdpr": "Li gorî GDPR",
+      "trustGdprBody": "Belgeyên we di embarkirineke şîfrekirî de li Almanyayê ne, bi destûra cîgir dema nexweşî yan matemê.",
+      "trustBill": "Yek fatûre ya zelal",
+      "trustBillBody": "Aboneyî ji bo xebata me, mesrefên aliyê sêyem tenê bi mesrefê, dîtina her Euro bi tevahî.",
+      "readyEyebrow": "Kengî hûn amade bin",
+      "readyTitle1": "Gava paşîn bavêjin,",
+      "readyTitle2": "bi hev re.",
+      "readyBody": "Di deqîqeyan de dosyayeke belaş vekin. Rêveberê dosyeyê di rojekê xebatê de dinêre — bêyî mecbûrî.",
+      "seePricing": "Nirxan bibîne",
+      "learnMore": "Zêdetir fêr bibe",
+      "moreServices": "+{{count}} xizmetên din"
+    },
+    "pricing": {
+      "eyebrow": "Nirx",
+      "title": "Yek aboneyî. Yek destê ewlekar.",
+      "subtitle": "Endam ji aboneya xwe pir zêdetir vedigirin — di mafên rast standî de, hevdîtinên nefetisandî û stresa dûrxistî. Planên malbatê ji bo cotan û malbatên heta 4 mezin + 3 zarok bi erzanî.",
+      "individual": "Kesane",
+      "family": "Malbat",
+      "extended": "Malbata berfireh",
+      "noteIndividual": "1 mezin",
+      "noteFamily": "2 mezin + heta 3 zarok di bin 18 salî de",
+      "noteExtended": "Heta 4 mezin + 3 zarok di bin 18 salî de",
+      "communityBadge": "Belaş · Civak",
+      "communityName": "Civak",
+      "communityDesc": "Torgilokek ewlehiyê ji her kesê li Almanyayê re — bêyî qartê.",
+      "forever": "/ her tim",
+      "perMonth": "/ meh",
+      "startFree": "Belaş dest pê bike",
+      "choose": "{{name}} hilbijêre",
+      "mostPopular": "Ya herî populer",
+      "save": "%{{percent}} teser bike",
+      "loading": "Plan tê barkirin…",
+      "trustSuffix": "SLA, lîsansên û sozên vegerandinê yên belavkirî →"
+    },
+    "howItWorks": {
+      "eyebrow": "Çawa dixebite",
+      "title1": "Pênc gav.",
+      "title2": "Bê bahoza kaxez.",
+      "readyTitle": "Kengî hûn amade bin.",
+      "readyBody": "Destpêk belaş e. Tenê dema alîkariya mirov lazim bike, dest bi abonebûnê bikin.",
+      "openDashboard": "Panela xwe veke",
+      "steps": {
+        "s1Title": "Ji BeistandPlus re bêje çi lazim e",
+        "s1Desc": "Nû hatî, ji bo alîkariyan serî lê didî, plansaziya yekbûna malbatê an di matemê de yî — bi yek formê dest pê bike.",
+        "s2Title": "Di deqîqeyan de plansaziyek derdikeve",
+        "s2Desc": "AI-ya me lîsteya te ya kesane amade dike — her hevdîtin, belge, dawî û pêşkêşkar.",
+        "s3Title": "Rêveberê mirov telefonê hildide",
+        "s3Desc": "Bi zimanê we. Dosyeya we ji destpêkê heta dawîyê rêve dibe.",
+        "s4Title": "Her tişt di yek dosyeyê de",
+        "s4Desc": "Belge, name, hevdîtin, fatûre, chat, dîroka çalakî — ji we û ji alîkaran re xuya ne.",
+        "s5Title": "Hûn jiyana xwe berdewam dikin",
+        "s5Desc": "Em berî dawiyê bîr dixin, ji navê we bi saziyên re dişopînin û her tiştê nefêmkirî werdigerînin."
+      }
+    },
+    "contact": {
+      "eyebrow": "Têkilî",
+      "title": "Em li vir in — bi zimanê we.",
+      "subtitle": "Ji bo matemê, xetta me ya 24/7 bang bikin. Ji her tiştê din re peyamekê bihêlin — em di rojekê xebatê de bersiv didin.",
+      "line24": "Xetta matemê 24/7",
+      "generalEnq": "Pirsên giştî",
+      "office": "Nivîsgeh",
+      "officeValue": "Kreuzberg, Berlin · Bi randevûyê",
+      "name": "Nav",
+      "namePh": "Navê we",
+      "email": "Email",
+      "message": "Peyam",
+      "messagePh": "Em çawa dikarin alîkar bin?",
+      "send": "Peyamê bişîne",
+      "thanks": "Spas — em zû têkilî datînin."
+    }
   }
 }
