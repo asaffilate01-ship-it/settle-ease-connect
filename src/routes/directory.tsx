@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useTranslation } from "react-i18next";
 import { listDirectoryListings } from "@/lib/directory.functions";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSubscription, tierMeets } from "@/lib/subscription";
 import { ClayIcon } from "@/components/clay-icon";
 import { PolishedCard } from "@/components/polished-card";
+
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   lawyer: Scale,
@@ -32,20 +34,11 @@ const CATEGORY_TONES: Record<string, "ocean" | "teal" | "aurora" | "coral" | "su
   translator: "teal", funeral: "coral", other: "ocean",
 };
 
-const CATEGORIES = [
-  { key: "", label: "All" },
-  { key: "lawyer", label: "Lawyers" },
-  { key: "immigration", label: "Immigration" },
-  { key: "tax", label: "Tax advisors" },
-  { key: "welfare", label: "Welfare / benefits / pensions" },
-  { key: "doctor", label: "Doctors" },
-  { key: "medical", label: "Medical specialists" },
-  { key: "education", label: "Education" },
-  { key: "religious", label: "Religious" },
-  { key: "translator", label: "Translators" },
-  { key: "funeral", label: "Funeral" },
-  { key: "other", label: "Other" },
-];
+const CATEGORY_KEYS = [
+  "", "lawyer", "immigration", "tax", "welfare", "doctor", "medical",
+  "education", "religious", "translator", "funeral", "other",
+] as const;
+
 
 export const Route = createFileRoute("/directory")({
   head: () => ({
@@ -62,6 +55,7 @@ export const Route = createFileRoute("/directory")({
 });
 
 function DirectoryPage() {
+  const { t } = useTranslation();
   const [category, setCategory] = useState("");
   const [city, setCity] = useState("");
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
@@ -92,24 +86,21 @@ function DirectoryPage() {
       <section className="border-b border-border/60 bg-gradient-hero">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
           <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
-            Members directory
+            {t("directory.badge", { defaultValue: "Members directory" })}
           </Badge>
           <h1 className="display-hero text-balance mt-4 font-semibold">
-            Find someone who speaks your language.
+            {t("directory.heroTitle", { defaultValue: "Find someone who speaks your language." })}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Multilingual lawyers, doctors, imams, tax advisors, welfare experts,
-            teachers and translators across Germany — searchable by city and
-            language. <strong className="text-foreground">Free for providers to list</strong>,
-            member access for families and clients.
+            {t("directory.heroBody", { defaultValue: "Multilingual lawyers, doctors, imams, tax advisors, welfare experts, teachers and translators across Germany — searchable by city and language. Free for providers to list, member access for families and clients." })}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
-              <Link to="/directory/list-your-business">List your business — free</Link>
+              <Link to="/directory/list-your-business">{t("directory.listCta", { defaultValue: "List your business — free" })}</Link>
             </Button>
             {!hasAccess && (
               <Button asChild size="lg" variant="outline">
-                <Link to="/pricing">See member plans</Link>
+                <Link to="/pricing">{t("directory.seePlans", { defaultValue: "See member plans" })}</Link>
               </Button>
             )}
           </div>
@@ -124,22 +115,24 @@ function DirectoryPage() {
               <input
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                placeholder="Filter by city (Berlin, Munich…)"
+                placeholder={t("directory.cityPlaceholder", { defaultValue: "Filter by city (Berlin, Munich…)" })}
                 className="w-full rounded-lg border border-border/60 bg-background py-2 pl-9 pr-3 text-sm"
               />
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {CATEGORIES.map((c) => (
+              {CATEGORY_KEYS.map((k) => (
                 <button
-                  key={c.key}
-                  onClick={() => setCategory(c.key)}
+                  key={k || "all"}
+                  onClick={() => setCategory(k)}
                   className={`rounded-full border px-3 py-1 text-xs transition ${
-                    category === c.key
+                    category === k
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border/60 bg-background text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {c.label}
+                  {t(`directory.categories.${k || "all"}`, {
+                    defaultValue: k === "" ? "All" : k.charAt(0).toUpperCase() + k.slice(1),
+                  })}
                 </button>
               ))}
             </div>
@@ -149,14 +142,14 @@ function DirectoryPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         {(isLoading || authLoading) && (
-          <p className="text-sm text-muted-foreground">Loading…</p>
+          <p className="text-sm text-muted-foreground">{t("common.loading", { defaultValue: "Loading…" })}</p>
         )}
         {!isLoading && !authLoading && listings.length === 0 && (
           <div className="rounded-2xl border border-dashed border-border/60 p-10 text-center">
             <p className="text-sm text-muted-foreground">
-              No listings match your filters yet. Be one of the first —{" "}
+              {t("directory.emptyPrefix", { defaultValue: "No listings match your filters yet. Be one of the first —" })}{" "}
               <Link to="/directory/list-your-business" className="text-primary underline-offset-4 hover:underline">
-                list your business for free
+                {t("directory.emptyCta", { defaultValue: "list your business for free" })}
               </Link>
               .
             </p>
@@ -166,7 +159,7 @@ function DirectoryPage() {
         {!isLoading && !authLoading && listings.length > 0 && (
           <>
             {!hasAccess && (
-              <MemberPaywall count={listings.length} signedIn={signedIn === true} />
+              <MemberPaywall signedIn={signedIn === true} />
             )}
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {listings.map((l: any) => (
@@ -182,7 +175,9 @@ function DirectoryPage() {
   );
 }
 
-function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }) {
+
+function MemberPaywall({ signedIn }: { signedIn: boolean }) {
+  const { t } = useTranslation();
   return (
     <div className="mb-8 overflow-hidden rounded-3xl border border-primary/20 bg-gradient-hero p-6 shadow-card sm:p-8">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -192,26 +187,23 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
           </span>
           <div>
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              Members only
+              {t("directory.paywall.eyebrow", { defaultValue: "Members only" })}
             </div>
             <h2 className="display-lg text-balance mt-1 font-semibold">
-              Unlock all verified providers.
+              {t("directory.paywall.title", { defaultValue: "Unlock all verified providers." })}
             </h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              BeistandPlus members get full contact details, phone, email and
-              website for every listing — plus a human case manager who can
-              introduce you. Directory listings are free for providers; access
-              is included with every BeistandPlus plan.
+              {t("directory.paywall.body", { defaultValue: "BeistandPlus members get full contact details, phone, email and website for every listing — plus a human case manager who can introduce you. Directory listings are free for providers; access is included with every BeistandPlus plan." })}
             </p>
           </div>
         </div>
         <div className="flex flex-wrap gap-3 sm:shrink-0">
           <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
-            <Link to="/pricing">See plans from €5</Link>
+            <Link to="/pricing">{t("directory.paywall.cta", { defaultValue: "See plans from €5" })}</Link>
           </Button>
           {!signedIn && (
             <Button asChild size="lg" variant="outline">
-              <Link to="/auth">Sign in</Link>
+              <Link to="/auth">{t("directory.paywall.signIn", { defaultValue: "Sign in" })}</Link>
             </Button>
           )}
         </div>
@@ -220,10 +212,15 @@ function MemberPaywall({ count, signedIn }: { count: number; signedIn: boolean }
   );
 }
 
+
 function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) {
+  const { t } = useTranslation();
   const key = String(l.category ?? "other").toLowerCase();
   const Icon = CATEGORY_ICONS[key] ?? LayoutGrid;
   const tone = CATEGORY_TONES[key] ?? "ocean";
+  const catLabel = t(`directory.categories.${key}`, {
+    defaultValue: key.charAt(0).toUpperCase() + key.slice(1),
+  });
   return (
     <PolishedCard glow className="flex flex-col p-5">
       <div className="flex items-start justify-between gap-3">
@@ -232,13 +229,13 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
           <div className="min-w-0">
             <div className="truncate font-display text-lg font-semibold">{l.business_name}</div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground">
-              {l.category}{l.subcategory ? ` · ${l.subcategory}` : ""}
+              {catLabel}{l.subcategory ? ` · ${l.subcategory}` : ""}
             </div>
           </div>
         </div>
         {l.featured && (
           <Badge className="shrink-0 gap-1 bg-accent text-accent-foreground">
-            <Star className="h-3 w-3" /> Featured
+            <Star className="h-3 w-3" /> {t("directory.featured", { defaultValue: "Featured" })}
           </Badge>
         )}
       </div>
@@ -273,7 +270,9 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
             )}
             <div className="flex items-center gap-2 select-none">
               <MapPin className="h-3.5 w-3.5" />
-              <span className="rounded bg-muted px-12 py-0.5 text-transparent blur-[3px]">Full address hidden</span>
+              <span className="rounded bg-muted px-12 py-0.5 text-transparent blur-[3px]">
+                {t("directory.addressHidden", { defaultValue: "Full address hidden" })}
+              </span>
             </div>
           </>
         ) : (
@@ -285,7 +284,7 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
               <div className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> <a href={`mailto:${l.email}`} className="hover:text-foreground">{l.email}</a></div>
             )}
             {l.website && (
-              <div className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> <a href={l.website} target="_blank" rel="noreferrer" className="hover:text-foreground">Website</a></div>
+              <div className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> <a href={l.website} target="_blank" rel="noreferrer" className="hover:text-foreground">{t("directory.website", { defaultValue: "Website" })}</a></div>
             )}
             {l.address && (
               <div className="flex items-start gap-2"><MapPin className="h-3.5 w-3.5 mt-0.5" /> <span>{l.address}</span></div>
@@ -297,7 +296,7 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
       {!locked && l.address && (
         <div className="mt-4 overflow-hidden rounded-xl border border-border/60">
           <iframe
-            title={`Map of ${l.business_name}`}
+            title={t("directory.mapTitle", { defaultValue: "Map of {{name}}", name: l.business_name })}
             src={`https://www.google.com/maps?q=${encodeURIComponent(`${l.business_name}, ${l.address}, ${l.city ?? ""}`)}&output=embed`}
             className="h-40 w-full"
             loading="lazy"
@@ -309,7 +308,7 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
             rel="noreferrer"
             className="block bg-muted/40 px-3 py-1.5 text-center text-xs text-primary hover:underline"
           >
-            Open in Google Maps →
+            {t("directory.openInMaps", { defaultValue: "Open in Google Maps →" })}
           </a>
         </div>
       )}
@@ -317,14 +316,15 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
       {locked && (
         <div className="mt-4 flex items-center justify-between gap-2 rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs">
           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
-            <Lock className="h-3.5 w-3.5" /> Contact, address & map for members
+            <Lock className="h-3.5 w-3.5" /> {t("directory.lockedNote", { defaultValue: "Contact, address & map for members" })}
           </span>
           <Link to="/pricing" className="font-medium text-primary hover:underline">
-            Unlock →
+            {t("directory.unlock", { defaultValue: "Unlock →" })}
           </Link>
         </div>
       )}
     </PolishedCard>
+
   );
 }
 
