@@ -499,3 +499,159 @@ function SliderField({
     </div>
   );
 }
+
+/* -------- Currently claimed / active applications -------- */
+
+function CurrentlyClaimedSection() {
+  const fetchFn = useServerFn(listMyClaimedBenefits);
+  const { data, isLoading } = useQuery({
+    queryKey: ["my-claimed-benefits"],
+    queryFn: () => fetchFn(),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+        <div className="text-sm text-muted-foreground">Loading your claimed & active benefits…</div>
+      </div>
+    );
+  }
+
+  const insurance = data?.insurance ?? [];
+  const tax = data?.tax ?? [];
+  const cases = data?.cases ?? [];
+  const anything = insurance.length + tax.length + cases.length > 0;
+
+  if (!anything) {
+    return (
+      <div className="rounded-2xl border border-dashed border-border/60 p-6">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
+          <Wallet className="h-4 w-4" /> Currently claimed
+        </div>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Nothing on file yet. Run the eligibility checker below, then a case manager helps you apply — anything you claim will show up here.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+      <div className="flex items-center gap-2">
+        <div className="grid h-8 w-8 place-items-center rounded-full bg-emerald-500/15 text-emerald-700">
+          <Wallet className="h-4 w-4" />
+        </div>
+        <div>
+          <h2 className="font-display text-xl font-semibold">Currently claimed & in progress</h2>
+          <p className="text-xs text-muted-foreground">
+            What you're already receiving or actively applying for, pulled from your active cases and applications.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <ClaimGroup
+          title="Insurance policies"
+          icon={<ShieldCheck className="h-4 w-4" />}
+          empty="No insurance leads yet."
+          items={insurance.map((r) => ({
+            id: r.id,
+            title: r.product ?? "Insurance policy",
+            subtitle: r.provider ?? "Provider pending",
+            status: r.status,
+            valueLabel: r.monthly_eur ? `€${Math.round(r.monthly_eur).toLocaleString("de-DE")} / month` : null,
+          }))}
+        />
+        <ClaimGroup
+          title="Tax filings"
+          icon={<Receipt className="h-4 w-4" />}
+          empty="No tax filings yet."
+          items={tax.map((r) => ({
+            id: r.id,
+            title: `Steuererklärung ${r.tax_year}`,
+            subtitle: null,
+            status: r.status,
+            valueLabel: r.estimated_refund_eur
+              ? `€${Math.round(r.estimated_refund_eur).toLocaleString("de-DE")} estimated refund`
+              : null,
+          }))}
+        />
+        <ClaimGroup
+          title="Active cases"
+          icon={<Briefcase className="h-4 w-4" />}
+          empty="No open cases."
+          items={cases.map((r) => ({
+            id: r.id,
+            title: r.title ?? r.reference ?? "Case",
+            subtitle: r.case_type ?? null,
+            status: r.status,
+            valueLabel: null,
+            link: `/app/cases/${r.id}`,
+          }))}
+        />
+      </div>
+    </div>
+  );
+}
+
+function ClaimGroup({
+  title,
+  icon,
+  items,
+  empty,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  empty: string;
+  items: Array<{
+    id: string;
+    title: string;
+    subtitle: string | null;
+    status: string;
+    valueLabel: string | null;
+    link?: string;
+  }>;
+}) {
+  return (
+    <div className="rounded-xl border border-border/50 bg-background/50 p-4">
+      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+        {icon}
+        {title}
+      </div>
+      {items.length === 0 ? (
+        <p className="mt-2 text-xs italic text-muted-foreground">{empty}</p>
+      ) : (
+        <ul className="mt-2 space-y-2">
+          {items.map((it) => (
+            <li key={it.id} className="rounded-lg bg-card px-3 py-2 shadow-soft">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <div className="truncate text-sm font-medium text-ink">
+                    {it.link ? (
+                      <Link to={it.link} className="hover:underline">
+                        {it.title}
+                      </Link>
+                    ) : (
+                      it.title
+                    )}
+                  </div>
+                  {it.subtitle && (
+                    <div className="truncate text-[11px] uppercase tracking-widest text-muted-foreground">
+                      {it.subtitle}
+                    </div>
+                  )}
+                </div>
+                <Badge variant="outline" className="text-[10px] uppercase tracking-widest">
+                  {it.status}
+                </Badge>
+              </div>
+              {it.valueLabel && (
+                <div className="mt-1 text-xs font-medium text-emerald-700">{it.valueLabel}</div>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
