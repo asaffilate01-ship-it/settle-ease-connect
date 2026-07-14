@@ -229,7 +229,9 @@
   },
   "hero": {
     "headlinePrefix": "Dla każdej drogi w",
-    "headlineHighlight": "Niemczech"
+    "headlineHighlight": "Niemczech",
+    "introA": "Niezależnie od tego, czy planujesz przeprowadzkę do Niemiec — do pracy, na studia lub do rodziny — czy już tu jesteś i budujesz swoje życie, BeistandPlus to spokojna platforma na każdy krok.",
+    "introB": "Wizy, Anmeldung, mieszkanie, świadczenia, obowiązkowe ubezpieczenie zdrowotne, prawo jazdy, narodziny, śluby, śmierci — jeden ludzki opiekun sprawy, w Twoim języku, przez całą drogę."
   },
   "pages": {
     "pricing": {

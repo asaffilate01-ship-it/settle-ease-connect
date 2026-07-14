@@ -193,7 +193,9 @@
   },
   "hero": {
     "headlinePrefix": "Für jeden Weg in",
-    "headlineHighlight": "Deutschland"
+    "headlineHighlight": "Deutschland",
+    "introA": "Ob Sie Ihren Umzug nach Deutschland planen — für Arbeit, Studium oder Familie — oder bereits hier sind und sich ein Leben aufbauen: BeistandPlus ist die ruhige Plattform für jeden Schritt.",
+    "introB": "Visa, Anmeldung, Wohnen, Sozialleistungen, gesetzliche Krankenversicherung, Führerschein, Geburten, Hochzeiten, Sterbefälle — ein persönlicher Case Manager, in Ihrer Sprache, den ganzen Weg."
   },
   "pages": {
     "pricing": {

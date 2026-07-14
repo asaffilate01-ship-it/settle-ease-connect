@@ -272,7 +272,9 @@
   },
   "hero": {
     "headlinePrefix": "For every path in",
-    "headlineHighlight": "Germany"
+    "headlineHighlight": "Germany",
+    "introA": "Whether you're planning your move to Germany — for work, study or family — or already here and building a life, BeistandPlus is the calm platform for every step.",
+    "introB": "Visas, Anmeldung, housing, benefits, mandatory health insurance, driving, births, marriages, deaths — one human case manager, in your language, for the whole way."
   },
   "pages": {
     "pricing": {

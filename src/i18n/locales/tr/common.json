@@ -150,7 +150,9 @@
   },
   "hero": {
     "headlinePrefix": "Her yol için",
-    "headlineHighlight": "Almanya"
+    "headlineHighlight": "Almanya",
+    "introA": "İster Almanya'ya taşınmayı planlıyor olun — iş, eğitim ya da aile için — ister burada yeni bir hayat kuruyor olun: BeistandPlus her adımda size eşlik eden sakin bir platformdur.",
+    "introB": "Vize, Anmeldung, konut, sosyal yardımlar, zorunlu sağlık sigortası, ehliyet, doğumlar, evlilikler, vefatlar — kendi dilinizde, tüm süreç boyunca tek bir vaka yöneticisi."
   },
   "agent": {
     "defaultName": "Agent",
