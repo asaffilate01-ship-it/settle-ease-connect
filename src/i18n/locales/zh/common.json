@@ -86,7 +86,11 @@
     "capacity": "工作负载",
     "directoryMod": "目录审核",
     "agentLeads": "我的客户 — funnel",
-    "financials": "Financials"
+    "financials": "Financials",
+    "taxOps": "Tax ops",
+    "benefitsOps": "Benefits ops",
+    "medicalOps": "Medical ops",
+    "newArrivalsOps": "New arrivals"
   },
   "agent": {
     "defaultName": "代理",
