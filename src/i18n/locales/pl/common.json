@@ -51,7 +51,7 @@
     "community": "Społeczność",
     "knowledge": "Baza wiedzy",
     "experts": "Rejestr ekspertów",
-    "escrow": "Escrow release",
+    "escrow": "Zwolnienie depozytu",
     "funeralCover": "Ubezpieczenie pogrzebowe",
     "settings": "Ustawienia",
     "internal": "Wewnętrzne",
@@ -82,7 +82,7 @@
     "agentLink": "Link polecający",
     "studentDiscount": "Zniżka studencka",
     "studentsOps": "Operacje studenckie",
-    "account": "My account",
+    "account": "Moje konto",
     "capacity": "Obciążenie",
     "directoryMod": "Moderacja katalogu"
   },
@@ -98,17 +98,17 @@
       "link": "Link polecający"
     },
     "home": {
-      "welcome": "Witaj",
-      "welcomeNamed": "Witaj, {{name}}",
+      "welcome": "Witaj!",
+      "welcomeNamed": "Witaj, {{name}}!",
       "tagline": "Sprzedawaj subskrypcje i pakiet pogrzebowy. Zarabiaj {{rate}}% cyklicznie od każdego poleconego klienta.",
       "recent": "Ostatnie polecenia",
       "emptyReferrals": "Brak poleceń. Udostępnij swój link z zakładki „Link polecający”."
     },
     "kpi": {
       "clients": "Klienci",
-      "thisMonth": "Ten miesiąc",
+      "thisMonth": "W tym miesiącu",
       "pending": "Oczekujące",
-      "paid": "Wypłacono"
+      "paid": "Wypłacono do dziś"
     },
     "table": {
       "when": "Kiedy",
@@ -126,27 +126,27 @@
     },
     "clients": {
       "title": "Moi klienci",
-      "subtitle": "Każda sprzedana subskrypcja daje {{rate}}% opłaty miesięcznej, tak długo jak klient pozostaje z nami. Uwaga: sprzedajemy pakiet pogrzebowy, nie ubezpieczenie pogrzebowe.",
+      "subtitle": "Każda sprzedana subskrypcja generuje {{rate}}% miesięcznej opłaty, tak długo, jak klient pozostaje z nami. Uwaga: sprzedajemy pakiet pogrzebowy, a nie ubezpieczenie pogrzebowe.",
       "logNew": "Zarejestruj nowe polecenie",
       "emailLabel": "E-mail klienta",
       "productLabel": "Produkt",
       "notesLabel": "Notatki (opcjonalnie)",
-      "notesPh": "Język, miasto, data kontaktu…",
+      "notesPh": "Język, miasto, data kontaktu...",
       "saving": "Zapisywanie…",
       "submit": "Zarejestruj polecenie",
       "all": "Wszystkie polecenia",
       "empty": "Brak poleceń.",
-      "logged": "Polecenie zarejestrowane",
+      "logged": "Polecenie zostało zarejestrowane",
       "saveFail": "Nie udało się zapisać"
     },
     "commissions": {
       "title": "Prowizje",
-      "subtitle": "Wypłacane miesięcznie, jako {{rate}}% miesięcznej opłaty subskrypcyjnej za każdego poleconego klienta. Koszty stron trzecich (ubezpieczenia, pakiet pogrzebowy) są wyłączone z podstawy prowizji.",
+      "subtitle": "Wypłacane miesięcznie, naliczane jako {{rate}}% miesięcznej opłaty subskrypcyjnej za każdego poleconego klienta. Koszty stron trzecich (ubezpieczenia, pakiet pogrzebowy) są wyłączone z podstawy prowizji.",
       "period": "Okres",
       "gross": "Brutto",
       "rate": "Stawka",
       "commission": "Prowizja",
-      "paidAt": "Wypłacono",
+      "paidAt": "Data wypłaty",
       "empty": "Brak prowizji — pojawią się po pierwszym rozliczeniu subskrypcji poleconego klienta."
     },
     "link": {
@@ -154,13 +154,13 @@
       "subtitle": "Każdy, kto zarejestruje się w ciągu 60 dni od kliknięcia Twojego linku, zostaje przypisany do Ciebie.",
       "codeLine": "Twój unikalny kod to",
       "universal": "Link uniwersalny",
-      "funeral": "Pakiet pogrzebowy",
-      "group": "Pakiet grupowy",
+      "funeral": "Ubezpieczenie pogrzebowe",
+      "group": "Ubezpieczenie grupowe",
       "copy": "Kopiuj",
       "copied": "Skopiowano",
       "copyFail": "Nie udało się skopiować",
       "tips": "Wskazówki sprzedażowe",
-      "tip1": "Zawsze mów pakiet pogrzebowy — nigdy ubezpieczenie pogrzebowe. To plan oszczędnościowo-organizacyjny, nie regulowany produkt ubezpieczeniowy.",
+      "tip1": "Zawsze mów „ubezpieczenie pogrzebowe” — nigdy „ubezpieczenie na wypadek śmierci”. To plan oszczędnościowo-organizacyjny, a nie regulowany produkt ubezpieczeniowy.",
       "tip2": "Poziomy subskrypcji: Basic €5, Plus €10, Complete €25 miesięcznie (na gospodarstwo).",
       "tip3": "Zarabiasz {{rate}}% cyklicznie, tak długo jak klient pozostaje subskrybentem."
     }
@@ -168,13 +168,13 @@
   "language": {
     "label": "Język",
     "choose": "Wybierz swój język",
-    "chooseDescription": "BeistandPlus mówi w 13 językach. Wybierz swój — możesz go zmienić w dowolnej chwili w prawym górnym rogu.",
+    "chooseDescription": "BeistandPlus obsługuje 13 języków. Wybierz swój — możesz go zmienić w dowolnej chwili w prawym górnym rogu dowolnej strony.",
     "continue": "Kontynuuj",
     "current": "Bieżący język"
   },
   "cookies": {
     "title": "Używamy plików cookie",
-    "body": "BeistandPlus używa niezbędnych plików cookie do działania strony i utrzymania Cię w stanie zalogowania. Za Twoją zgodą używamy również analitycznych plików cookie, aby zrozumieć, jak platforma jest używana, abyśmy mogli ją ulepszyć. Możesz zmienić lub wycofać swoją zgodę w dowolnym momencie.",
+    "body": "BeistandPlus używa niezbędnych plików cookie do działania strony i utrzymania Cię w stanie zalogowania. Za Twoją zgodą używamy również analitycznych plików cookie, aby zrozumieć, jak platforma jest używana, abyśmy mogli ją ulepszyć. Możesz zmienić lub wycofać swoją zgodę w dowolnym momencie, klikając „Preferencje”.",
     "acceptAll": "Zaakceptuj wszystkie",
     "essentialOnly": "Tylko niezbędne",
     "preferences": "Preferencje",
@@ -194,9 +194,9 @@
     "author": "Autor: {{name}}"
   },
   "legal": {
-    "sectionLabel": "Informacje prawne",
+    "sectionLabel": "Zagadnienia prawne",
     "lastUpdated": "Ostatnia aktualizacja {{date}}",
-    "onlyDeEn": "Ten dokument jest dostępny wyłącznie w języku niemieckim i angielskim — teksty prawne muszą zostać sprawdzone przez wykwalifikowanego prawnika przed publikacją tłumaczeń."
+    "onlyDeEn": "Ten dokument jest dostępny wyłącznie w języku angielskim i niemieckim — teksty prawne muszą zostać sprawdzone przez wykwalifikowanego prawnika przed publikacją tłumaczeń."
   },
   "bugs": {
     "title": "Zgłoszenia błędów",
@@ -204,14 +204,14 @@
     "newReport": "Zgłoś błąd",
     "closeForm": "Zamknij formularz",
     "titleLabel": "Tytuł",
-    "titlePlaceholder": "Krótki opis problemu",
+    "titlePlaceholder": "Krótkie podsumowanie problemu",
     "descriptionLabel": "Opis",
     "descriptionPlaceholder": "Kroki reprodukcji, oczekiwany rezultat, faktyczny rezultat…",
     "severityLabel": "Priorytet",
     "submit": "Wyślij zgłoszenie",
     "cancel": "Anuluj",
     "loading": "Ładowanie zgłoszeń…",
-    "empty": "Brak zgłoszeń. Znalazłeś coś? Kliknij powyżej, aby zgłosić.",
+    "empty": "Brak zgłoszeń błędów. Znalazłeś coś? Kliknij przycisk powyżej, aby to zgłosić.",
     "noDescription": "Brak opisu.",
     "delete": "Usuń zgłoszenie",
     "confirmDelete": "Usunąć to zgłoszenie? Nie można tego cofnąć.",
@@ -250,7 +250,7 @@
       "noteExtended": "Do 4 dorosłych + 3 dzieci poniżej 18 lat",
       "communityBadge": "Bezpłatnie · Społeczność",
       "communityName": "Społeczność",
-      "communityDesc": "Sieć bezpieczeństwa dla każdego w Niemczech – bez karty.",
+      "communityDesc": "Wsparcie dla każdego w Niemczech — bez karty.",
       "forever": "/ na zawsze",
       "perMonth": "/ miesiąc",
       "startFree": "Zacznij bezpłatnie",
@@ -263,8 +263,8 @@
     "services": {
       "eyebrow": "Ekspercka pomoc w życiu w Niemczech",
       "title1": "Towarzysz na każdym",
-      "title2": "ważnym kroku.",
-      "subtitle": "Od pierwszej Anmeldung po zabezpieczenie przyszłości Twojej rodziny, BeistandPlus oferuje godne i fachowe wsparcie w poruszaniu się po niemieckiej administracji z pewnością siebie – w trzynastu językach, z człowiekiem u Twojego boku.",
+      "title2": "ważnym etapie.",
+      "subtitle": "Od pierwszej Anmeldung po zabezpieczenie przyszłości Twojej rodziny, BeistandPlus oferuje godne i fachowe wsparcie w poruszaniu się po niemieckiej administracji z pewnością siebie — w trzynastu językach, z człowiekiem u Twojego boku.",
       "openCase": "Otwórz sprawę",
       "howItWorks": "Jak działa BeistandPlus",
       "ninePillars": "Dziewięć obszarów opieki",
@@ -274,11 +274,11 @@
       "trustGdpr": "Zgodne z RODO",
       "trustGdprBody": "Twoje dokumenty w zaszyfrowanym sejfie, hostowane w Niemczech, z dostępem zastępczym na wypadek choroby lub śmierci.",
       "trustBill": "Jeden przejrzysty rachunek",
-      "trustBillBody": "Subskrypcja za naszą pracę, opłaty stron trzecich po kosztach, pełna widoczność każdego euro.",
+      "trustBillBody": "Subskrypcja za naszą pracę, opłaty stron trzecich po kosztach i pełna widoczność każdego euro.",
       "readyEyebrow": "Gotowi, kiedy Ty",
       "readyTitle1": "Zróbmy razem",
       "readyTitle2": "kolejny krok.",
-      "readyBody": "Otwórz bezpłatną sprawę w kilka minut. Opiekun przegląda ją w ciągu jednego dnia roboczego i mapuje opcje — bez zobowiązań.",
+      "readyBody": "Otwórz bezpłatną sprawę w kilka minut. Opiekun przegląda ją w ciągu jednego dnia roboczego i przedstawia opcje — bez zobowiązań.",
       "seePricing": "Zobacz cennik",
       "learnMore": "Dowiedz się więcej",
       "moreServices": "+{{count}} więcej usług"
@@ -288,31 +288,31 @@
       "title1": "Pięć kroków.",
       "title2": "Żadnej biurokratycznej udręki.",
       "readyTitle": "Gotowi, kiedy Ty.",
-      "readyBody": "Bezpłatny start. Ulepsz tylko gdy potrzebujesz pomocy człowieka.",
+      "readyBody": "Bezpłatny start. Ulepsz tylko, gdy potrzebujesz pomocy człowieka.",
       "openDashboard": "Otwórz panel",
       "steps": {
         "s1Title": "Powiedz BeistandPlus czego potrzebujesz",
-        "s1Desc": "Świeżo przyjechany, składasz wniosek o świadczenia, planujesz połączenie rodziny czy stoisz w obliczu żałoby — zacznij od jednego formularza.",
+        "s1Desc": "Świeżo przybyły, składasz wniosek o świadczenia, planujesz połączenie rodziny czy stoisz w obliczu żałoby — zacznij od jednego formularza.",
         "s2Title": "Plan pojawi się w kilka minut",
-        "s2Desc": "Nasza AI tworzy Twoją spersonalizowaną listę — każde spotkanie, dokument, termin i dostawca którego potrzebujesz.",
+        "s2Desc": "Nasza AI tworzy Twoją spersonalizowaną listę — każde spotkanie, dokument, termin i dostawca, którego potrzebujesz.",
         "s3Title": "Osobisty opiekun sprawy odbiera telefon",
         "s3Desc": "W Twoim języku. Prowadzi Twoją sprawę od początku do końca i koordynuje wszystkie strony.",
-        "s4Title": "Wszystko dzieje się w jednym pliku sprawy",
-        "s4Desc": "Dokumenty, pisma, spotkania, faktury, czat, ślad audytowy — widoczne dla Ciebie i osób pomagających.",
+        "s4Title": "Wszystko dzieje się w jednej teczce sprawy",
+        "s4Desc": "Dokumenty, pisma, spotkania, faktury, czat, ślad audytowy — widoczne dla Ciebie i osób, które Ci pomagają.",
         "s5Title": "Ty zajmujesz się swoim życiem",
-        "s5Desc": "Przypominamy przed terminami, ścigamy urzędy w Twoim imieniu i tłumaczymy wszystko czego nie rozumiesz."
+        "s5Desc": "Przypominamy o terminach, kontaktujemy się z urzędami w Twoim imieniu i tłumaczymy wszystko, czego nie rozumiesz."
       }
     },
     "contact": {
       "eyebrow": "Kontakt",
-      "title": "Jesteśmy tu — w Twoim języku.",
+      "title": "Jesteśmy tu, w Twoim języku.",
       "subtitle": "W przypadku żałoby zadzwoń na naszą całodobową infolinię. W każdej innej sprawie napisz do nas – odpowiemy w ciągu jednego dnia roboczego.",
       "line24": "Całodobowa infolinia w przypadku żałoby",
       "generalEnq": "Zapytania ogólne",
       "office": "Biuro",
       "officeValue": "Kreuzberg, Berlin · Po umówieniu",
       "name": "Imię",
-      "namePh": "Twoje imię",
+      "namePh": "Twoje imię i nazwisko",
       "email": "E-mail",
       "message": "Wiadomość",
       "messagePh": "W czym możemy pomóc?",
@@ -324,7 +324,7 @@
     "badge": "Sterbegeld · Ubezpieczenie regulowane prawem niemieckim",
     "headline": "Zatwierdzone i regulowane pokrycie kosztów od około 24 €/miesiąc",
     "subhead": "Świadczenie w wysokości 20 000 € na ubezpieczoną osobę dorosłą — wystarczające na pokrycie pełnych kosztów pogrzebu i pochówku lub ostatniego pożegnania, a także repatriacji w razie potrzeby, z ewentualną resztą przekazaną wskazanemu beneficjentowi. Rodzina nigdy nie musi szukać pieniędzy w najtrudniejszym momencie.",
-    "disclaimer": "Zakresy odzwierciedlają opublikowane tabele stawek na lata 2024–2025 od naszych dostawców Sterbegeld regulowanych prawem niemieckim, dla osób niepalących bez okresu karencji, ze świadczeniem w wysokości 20 000 €. Rzeczywista wysokość składki zależy od wieku, deklaracji zdrowotnej, statusu palacza i wybranego okresu karencji; dzieci poniüej 18 roku życia są objęte bez dodatkowej składki w ramach taryf rodzinnych i rozszerzonych taryf rodzinnych. Nie jest to wiążąca oferta — ofertę wystawia licencjonowany partner.",
+    "disclaimer": "Zakresy odzwierciedlają opublikowane tabele stawek na lata 2024–2025 od naszych dostawców Sterbegeld regulowanych prawem niemieckim, dla osób niepalących bez okresu karencji, ze świadczeniem w wysokości 20 000 €. Rzeczywista wysokość składki zależy od wieku, deklaracji zdrowotnej, statusu palacza i wybranego okresu karencji; dzieci poniżej 18 roku życia są objęte bez dodatkowej składki w ramach taryf rodzinnych i rozszerzonych taryf rodzinnych. Nie jest to wiążąca oferta — ofertę wystawia licencjonowany partner.",
     "coverageTitle": "Co obejmuje 20 000 € — za pośrednictwem BeistandPlus",
     "howLabel": "Jak to działa:",
     "howBody": "dostawca reguluje w całości każdą zatwierdzoną i uregulowaną fakturę — pogrzeb, pochówek lub ostatnie pożegnanie, a także repatriację w razie potrzeby — a wszelka pozostała kwota jest wypłacana wskazanemu beneficjentowi w ciągu 14 dni.",
@@ -367,9 +367,9 @@
     "badge": "Katalog członków",
     "heroTitle": "Znajdź kogoś, kto mówi w Twoim języku.",
     "heroBody": "Wielojęzyczni prawnicy, lekarze, imamowie, doradcy podatkowi, eksperci ds. opieki społecznej, nauczyciele i tłumacze w całych Niemczech — z możliwością wyszukiwania według miasta i języka. Bezpłatne dla dostawców, dostęp dla członków dla rodzin i klientów.",
-    "listCta": "Wymień swoją firmę — za darmo",
-    "seePlans": "Zobacz plany członkowskie",
-    "cityPlaceholder": "Filtruj według miasta (Berlin, Monachium…)",
+    "listCta": "Dodaj swoją firmę — za darmo",
+    "seePlans": "Zobacz plany członkostwa",
+    "cityPlaceholder": "Filtruj według miasta (np. Berlin, Monachium)",
     "featured": "Wyróżnione",
     "website": "Strona internetowa",
     "addressHidden": "Pełny adres ukryty",
@@ -396,7 +396,7 @@
     "paywall": {
       "eyebrow": "Tylko dla członków",
       "title": "Odblokuj wszystkich zweryfikowanych dostawców.",
-      "body": "Członkowie BeistandPlus otrzymują pełne dane kontaktowe, telefon, e-mail i stronę internetową dla każdego wpisu – plus osobistego opiekuna sprawy, który może Cię przedstawić. Wpisy do katalogu są bezpłatne dla dostawców; dostęp jest wliczony w każdy plan BeistandPlus.",
+      "body": "Członkowie BeistandPlus otrzymują pełne dane kontaktowe, telefon, e-mail i stronę internetową dla każdego wpisu – plus osobistego opiekuna, który może Cię przedstawić. Wpisy do katalogu są bezpłatne dla dostawców; dostęp jest wliczony w każdy plan BeistandPlus.",
       "cta": "Zobacz plany od 5 €",
       "signIn": "Zaloguj się"
     }

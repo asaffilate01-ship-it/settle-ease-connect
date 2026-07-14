@@ -17,7 +17,7 @@
   "footer": {
     "tagline": "陪伴您在德国的每一段旅程。定居、社会福利、津贴和临终关怀 — 为家庭和陪伴他们的机构提供一个安心的平台。",
     "colPlatform": "平台",
-    "colForProviders": "服务提供者",
+    "colForProviders": "面向服务提供者",
     "colCompany": "公司",
     "colLegal": "法律",
     "howItWorks": "如何运作",
@@ -25,12 +25,12 @@
     "bereavement": "丧亲",
     "pricing": "价格",
     "blog": "博客",
-    "funeralDirectors": "殡仪服务",
+    "funeralDirectors": "殡仪馆",
     "mosques": "清真寺与伊玛目",
     "churches": "教堂",
     "temples": "寺庙与谒师所",
     "contact": "联系我们",
-    "impressum": "版本说明",
+    "impressum": "版本说明 (Impressum)",
     "terms": "服务条款",
     "privacy": "隐私与 GDPR",
     "cookies": "Cookies",
@@ -51,7 +51,7 @@
     "community": "社区",
     "knowledge": "知识库",
     "experts": "专家名录",
-    "escrow": "Freigabe Treuhandkonto",
+    "escrow": "托管账户放款",
     "funeralCover": "丧葬保险",
     "settings": "设置",
     "internal": "内部",
@@ -82,7 +82,7 @@
     "agentLink": "推荐链接",
     "studentDiscount": "学生优惠",
     "studentsOps": "学生运营",
-    "account": "Mein Konto",
+    "account": "我的账户",
     "capacity": "工作负载",
     "directoryMod": "目录审核"
   },
@@ -90,7 +90,7 @@
     "defaultName": "代理",
     "shortLabel": "代理",
     "portalLabel": "代理门户",
-    "recurringBadge": "代理 · {{rate}}% 持续",
+    "recurringBadge": "代理 · {{rate}}% 续订",
     "nav": {
       "overview": "概览",
       "clients": "我的客户",
@@ -100,7 +100,7 @@
     "home": {
       "welcome": "欢迎",
       "welcomeNamed": "欢迎，{{name}}",
-      "tagline": "销售订阅和殡葬保障。每位推荐客户获得 {{rate}}% 持续佣金。",
+      "tagline": "销售订阅和殡葬保障。每位推荐客户可获得 {{rate}}% 的持续佣金。",
       "recent": "近期推荐",
       "emptyReferrals": "暂无推荐。从「推荐链接」标签分享您的链接。"
     },
@@ -126,7 +126,7 @@
     },
     "clients": {
       "title": "我的客户",
-      "subtitle": "您销售的每份订阅可获得月费的 {{rate}}%，客户续订期间持续有效。注意：我们销售殡葬保障，而非殡葬保险。",
+      "subtitle": "您销售的每份订阅，在客户续订期间，您可获得月费的 {{rate}}%。注意：我们销售的是殡葬保障，而非殡葬保险。",
       "logNew": "记录新推荐",
       "emailLabel": "客户邮箱",
       "productLabel": "产品",
@@ -141,13 +141,13 @@
     },
     "commissions": {
       "title": "佣金",
-      "subtitle": "每月支付，按您推荐客户月订阅费的 {{rate}}% 计算。第三方费用（保险、殡葬保障）不计入佣金基数。",
+      "subtitle": "每月支付，按您推荐的每位客户月订阅费的 {{rate}}% 计算。第三方费用（保险、殡葬保障）不计入佣金基数。",
       "period": "周期",
       "gross": "总额",
       "rate": "费率",
       "commission": "佣金",
       "paidAt": "支付时间",
-      "empty": "暂无佣金 — 您推荐客户首次扣款后将出现。"
+      "empty": "暂无佣金 — 佣金将在您推荐客户的首次订阅扣款后显示。"
     },
     "link": {
       "title": "您的推荐链接",
@@ -162,7 +162,7 @@
       "tips": "销售建议",
       "tip1": "始终称为殡葬保障 — 切勿称为殡葬保险。这是储蓄与安排计划，不是受监管的保险产品。",
       "tip2": "订阅等级：Basic €5，Plus €10，Complete €25，每月（家庭）。",
-      "tip3": "客户续订期间，您持续获得 {{rate}}% 佣金。"
+      "tip3": "只要客户保持订阅，您将持续获得 {{rate}}% 的佣金。"
     }
   },
   "language": {
@@ -174,7 +174,7 @@
   },
   "cookies": {
     "title": "我们使用 Cookie",
-    "body": "BeistandPlus使用必要的Cookie来运行网站并保持您的登录状态。在您同意的情况下，我们还会使用分析Cookie来了解平台的使用情况，以便我们改进服务。您可以随时更改或撤回您的同意。",
+    "body": "BeistandPlus 使用必要的 Cookie 来运行网站并保持您的登录状态。在您同意的情况下，我们还会使用分析 Cookie 来了解平台的使用情况，以便我们改进服务。您可以随时更改或撤回您的同意。",
     "acceptAll": "全部接受",
     "essentialOnly": "仅必要",
     "preferences": "偏好设置",
@@ -200,7 +200,7 @@
   },
   "bugs": {
     "title": "错误报告",
-    "subtitle": "发现异常？",
+    "subtitle": "发现问题？",
     "newReport": "报告错误",
     "closeForm": "关闭表单",
     "titleLabel": "标题",
@@ -208,13 +208,13 @@
     "descriptionLabel": "描述",
     "descriptionPlaceholder": "重现步骤、预期结果、实际结果…",
     "severityLabel": "严重程度",
-    "submit": "提交",
+    "submit": "提交错误报告",
     "cancel": "取消",
     "loading": "正在加载报告…",
-    "empty": "暂无错误报告。发现问题？点击上方按钮报告。",
+    "empty": "暂无错误报告。发现问题？点击上方按钮报告问题。",
     "noDescription": "未提供描述。",
     "delete": "删除报告",
-    "confirmDelete": "删除此报告？此操作无法撤销。",
+    "confirmDelete": "确定删除此报告？此操作无法撤销。",
     "filter": {
       "all": "全部状态"
     },
@@ -222,7 +222,7 @@
       "low": "低",
       "medium": "中",
       "high": "高",
-      "critical": "紧急"
+      "critical": "危急"
     },
     "status": {
       "open": "未处理",
@@ -232,16 +232,16 @@
     }
   },
   "hero": {
-    "headlinePrefix": "陪伴您在",
+    "headlinePrefix": "在",
     "headlineHighlight": "德国",
-    "introA": "无论您正计划前往德国 — 为了工作、学习或家庭 — 还是已在此建立生活，BeistandPlus 都是每一步都陪伴您的沉稳平台。",
-    "introB": "签证、Anmeldung、住房、福利、法定医疗保险、驾照、出生、婚姻、丧事 — 一位人类案例管理员，用您的语言，全程陪伴。"
+    "introA": "无论您是计划前往德国工作、学习或与家人团聚，还是已经在此安家落户，BeistandPlus 都能为您提供全程的稳妥支持。",
+    "introB": "签证、Anmeldung、住房、福利、法定医疗保险、驾照、出生、婚姻、丧葬事宜——全程由一位专属案例经理以您的母语提供协助。"
   },
   "pages": {
     "pricing": {
       "eyebrow": "价格",
-      "title": "一份订阅，一份安心。",
-      "subtitle": "会员通过正确申请福利、准时赴约和减少压力，收回远超订阅费的价值。家庭套餐为最多 4 位成人 + 3 位子女的伴侣与家庭提供折扣。",
+      "title": "一份订阅，全程无忧。",
+      "subtitle": "会员通过正确申请福利、准时赴约和避免不必要的压力，所获得的价值远超订阅费用。伴侣和最多 4 位成人 + 3 位子女的家庭可享受家庭套餐折扣。",
       "individual": "个人",
       "family": "家庭",
       "extended": "大家庭",
@@ -251,9 +251,9 @@
       "communityBadge": "免费 · 社区",
       "communityName": "社区",
       "communityDesc": "在德国，人人都能拥有的保障——无需银行卡。",
-      "forever": "/ 永久",
+      "forever": "/ 永久有效",
       "perMonth": "/ 月",
-      "startFree": "免费开始",
+      "startFree": "免费开始使用",
       "choose": "选择 {{name}}",
       "mostPopular": "最受欢迎",
       "save": "节省 {{percent}}%",
@@ -262,23 +262,23 @@
     },
     "services": {
       "eyebrow": "在德生活的专业指导",
-      "title1": "陪伴每一个",
-      "title2": "关键节点。",
+      "title1": "陪伴您度过每一个",
+      "title2": "重要里程碑。",
       "subtitle": "从初次Anmeldung到为家人规划未来，BeistandPlus提供有尊严的专业支持，助您自信应对德国行政事务——我们提供13种语言服务，并有专人全程陪伴。",
       "openCase": "创建案件",
       "howItWorks": "BeistandPlus 如何运作",
       "ninePillars": "九大关怀领域",
       "ribbon": "我们用您的语言与您沟通",
       "trustHuman": "以人为先",
-      "trustHumanBody": "柏林、汉堡、慕尼黑和科隆的真人案件经理 — 每个案件都由真人接待，不是机器人。",
+      "trustHumanBody": "柏林、汉堡、慕尼黑和科隆的真人案件经理 — 每个案件都由真人处理，而非机器人。",
       "trustGdpr": "GDPR 原生",
-      "trustGdprBody": "您的文档存放在德国托管的加密保险库中，支持在患病或丧亲时代管访问。",
+      "trustGdprBody": "您的文档存放在德国托管的加密保险库中，支持在患病或丧亲时授权他人访问。",
       "trustBill": "一张透明账单",
-      "trustBillBody": "我们的工作按订阅计费，第三方费用按成本，每一欧元完全可见。",
-      "readyEyebrow": "随时准备好",
+      "trustBillBody": "我们的服务按订阅计费，第三方费用按成本收取，每一欧元都清晰可见。",
+      "readyEyebrow": "随时为您准备",
       "readyTitle1": "让我们一起",
       "readyTitle2": "迈出下一步。",
-      "readyBody": "几分钟内免费开案。案件经理在一个工作日内审阅并规划您的方案 — 无任何义务。",
+      "readyBody": "几分钟内免费开案。案件经理将在一个工作日内审阅并规划您的方案 — 无任何义务。",
       "seePricing": "查看价格",
       "learnMore": "了解更多",
       "moreServices": "还有 {{count}} 项服务"
@@ -287,26 +287,26 @@
       "eyebrow": "如何运作",
       "title1": "五个步骤。",
       "title2": "告别繁琐文书。",
-      "readyTitle": "随时准备好。",
-      "readyBody": "免费开始。只在需要人工帮助时升级。",
+      "readyTitle": "随时为您准备。",
+      "readyBody": "免费开始。仅在需要人工协助时升级。",
       "openDashboard": "打开控制台",
       "steps": {
         "s1Title": "告诉 BeistandPlus 您的需求",
-        "s1Desc": "新到德国、申请福利、家庭团聚，或面对丧亲 — 从一个表单开始。",
+        "s1Desc": "无论是新到德国、申请福利、家庭团聚，还是面对丧亲之痛 — 从一个简单的表格开始。",
         "s2Title": "几分钟内生成方案",
-        "s2Desc": "AI 编制您的个性化清单 — 每次预约、每份文件、每个截止日期和您需要的服务方。",
-        "s3Title": "专属人工客服随时待命",
-        "s3Desc": "用您的语言。从开始到结束负责您的案件，协调所有相关方。",
-        "s4Title": "一切都在一个案件档案中",
-        "s4Desc": "文档、信件、预约、发票、聊天、审计轨迹 — 您和帮助您的人都可见。",
+        "s2Desc": "我们的AI将为您编制个性化清单 — 包含您所需的所有预约、文件、截止日期和提供方。",
+        "s3Title": "专属人工案件经理为您服务",
+        "s3Desc": "用您的语言。他们将全程负责您的案件，并协调所有相关方。",
+        "s4Title": "所有事务集中在一个案件档案中",
+        "s4Desc": "文件、信件、预约、发票、聊天记录、审计追踪——您和协助您的人员均可查看。",
         "s5Title": "您尽享生活，我们打理一切",
-        "s5Desc": "我们在截止日前提醒、代您跟进当局、翻译您不理解的一切。"
+        "s5Desc": "我们会在截止日期前提醒您，代您与相关机构沟通，并翻译您不理解的任何内容。"
       }
     },
     "contact": {
       "eyebrow": "联系我们",
-      "title": "我们在这里 — 用您的语言。",
-      "subtitle": "如遇丧亲，请拨打我们的24/7热线。其他事宜，请给我们留言——我们会在一个工作日内回复。",
+      "title": "我们在此为您服务，用您熟悉的语言。",
+      "subtitle": "如遇丧亲事宜，请拨打我们的24/7热线。其他事宜，请给我们留言——我们会在一个工作日内回复您。",
       "line24": "24/7丧亲关怀热线",
       "generalEnq": "一般咨询",
       "office": "办公室",
@@ -315,9 +315,9 @@
       "namePh": "您的姓名",
       "email": "邮箱",
       "message": "留言",
-      "messagePh": "我们能为您做什么？",
-      "send": "发送",
-      "thanks": "感谢您 — 我们将尽快联系。"
+      "messagePh": "我们能为您提供什么帮助？",
+      "send": "发送消息",
+      "thanks": "感谢您——我们将尽快与您联系。"
     }
   },
   "funeralCover": {
@@ -332,18 +332,18 @@
     "ctaTalk": "与案件经理交谈",
     "introducer": "BeistandPlus作为介绍人（Tippgeber / 适用时为§34d GewO经纪人）。保费直接支付给保障提供商；BeistandPlus从不承保。订阅费和保障保费分开计费。",
     "tabs": {
-      "individual": "Einzelperson",
-      "individualNote": "1 Erwachsener · 20.000 € Leistung",
+      "individual": "个人",
+      "individualNote": "1位成人 · 2万欧元赔付",
       "family": "家庭",
-      "familyNote": "2位成人+最多3位18岁以下儿童·每位成人2万欧元",
+      "familyNote": "2位成人 + 最多3位18岁以下儿童 · 每位成人2万欧元",
       "extended": "大家庭",
-      "extendedNote": "最多4位成人+3位18岁以下儿童·每位成人2万欧元"
+      "extendedNote": "最多4位成人 + 3位18岁以下儿童 · 每位成人2万欧元"
     },
     "rows": {
       "individualLabel": "年龄 {{age}}",
-      "individualDetail": "1 位成人 · 20,000 欧元赔付",
+      "individualDetail": "1位成人 · 2万欧元赔付",
       "familyLabel": "两位成人年龄 {{age}}",
-      "familyDetail": "2 位成人 + 最多 3 位儿童 · 每位成人 2 万欧元",
+      "familyDetail": "2位成人 + 最多3位儿童 · 每位成人2万欧元",
       "extendedLabel": "所有4位成人，年龄{{age}}",
       "extendedDetail": "4位成人 + 最多3位儿童 · 每位成人2万欧元"
     },
@@ -366,19 +366,19 @@
   "directory": {
     "badge": "会员名录",
     "heroTitle": "寻找会说您语言的人。",
-    "heroBody": "德国境内的多语言律师、医生、伊玛目、税务顾问、福利专家、教师和翻译 — 可按城市和语言搜索。提供者免费列出，家庭和客户可访问。",
-    "listCta": "列出您的商家 — 免费",
+    "heroBody": "德国境内的多语种律师、医生、伊玛目、税务顾问、福利专家、教师和翻译——可按城市和语言搜索。服务提供者可免费发布信息，家庭和客户可获得会员访问权限。",
+    "listCta": "免费发布您的商家信息",
     "seePlans": "查看会员计划",
-    "cityPlaceholder": "按城市筛选（柏林、慕尼黑……）",
+    "cityPlaceholder": "按城市筛选（柏林、慕尼黑等）",
     "featured": "特色",
     "website": "网站",
     "addressHidden": "完整地址已隐藏",
     "mapTitle": "{{name}} 的地图",
     "openInMaps": "在 Google 地图中打开 →",
-    "lockedNote": "会员联系方式、地址和地图",
+    "lockedNote": "会员可查看联系方式、地址和地图",
     "unlock": "解锁 →",
-    "emptyPrefix": "暂无符合您筛选条件的商家。成为第一批商家 —",
-    "emptyCta": "免费刊登您的商家",
+    "emptyPrefix": "暂无符合您筛选条件的商家。成为第一批商家——",
+    "emptyCta": "免费发布您的商家信息",
     "categories": {
       "all": "全部",
       "lawyer": "律师",
