@@ -258,3 +258,125 @@ function Card({
 function Empty({ children }: { children: React.ReactNode }) {
   return <div className="py-6 text-center text-sm text-muted-foreground">{children}</div>;
 }
+
+type QuoteInput = { title: string; description: string; amountEur: number; model: "wholesale" | "direct_bill" | "referral_fee" };
+
+function QuoteDrawer({ onSubmit, pending }: { onSubmit: (v: QuoteInput) => void; pending: boolean }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [model, setModel] = useState<"wholesale" | "direct_bill" | "referral_fee">("direct_bill");
+
+  const submit = () => {
+    const amt = Number(amount);
+    if (!title || !amt || amt <= 0) {
+      toast.error(t("expert.case.quoteInvalid", { defaultValue: "Enter a title and amount." }));
+      return;
+    }
+    onSubmit({ title, description, amountEur: amt, model });
+    setOpen(false);
+    setTitle(""); setDescription(""); setAmount("");
+  };
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button size="sm" className="gap-1.5">
+          <Plus className="h-4 w-4" /> {t("expert.case.sendQuote", { defaultValue: "Send quote" })}
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="w-full sm:max-w-md">
+        <SheetHeader>
+          <SheetTitle>{t("expert.case.sendQuote", { defaultValue: "Send quote" })}</SheetTitle>
+        </SheetHeader>
+        <div className="mt-6 space-y-4">
+          <div>
+            <Label className="mb-1.5 block">{t("expert.case.quoteTitle", { defaultValue: "Title" })}</Label>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Legal representation retainer" />
+          </div>
+          <div>
+            <Label className="mb-1.5 block">{t("expert.case.quoteDesc", { defaultValue: "Description" })}</Label>
+            <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label className="mb-1.5 block">{t("expert.case.quoteAmount", { defaultValue: "Amount (€)" })}</Label>
+              <Input type="number" min={1} value={amount} onChange={(e) => setAmount(e.target.value)} />
+            </div>
+            <div>
+              <Label className="mb-1.5 block">{t("expert.case.quoteModel", { defaultValue: "Model" })}</Label>
+              <Select value={model} onValueChange={(v) => setModel(v as any)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="direct_bill">Direct bill</SelectItem>
+                  <SelectItem value="wholesale">Wholesale</SelectItem>
+                  <SelectItem value="referral_fee">Referral fee</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="outline" onClick={() => setOpen(false)}>{t("common.cancel", { defaultValue: "Cancel" })}</Button>
+            <Button onClick={submit} disabled={pending}>
+              {pending ? t("common.sending", { defaultValue: "Sending…" }) : t("expert.case.send", { defaultValue: "Send" })}
+            </Button>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+function InvoiceDrawer({ onSubmit, pending }: { onSubmit: (v: { amountEur: number }) => void; pending: boolean }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [amount, setAmount] = useState("");
+
+  const submit = () => {
+    const amt = Number(amount);
+    if (!amt || amt <= 0) {
+      toast.error(t("expert.case.invoiceInvalid", { defaultValue: "Enter an amount." }));
+      return;
+    }
+    onSubmit({ amountEur: amt });
+    setOpen(false);
+    setAmount("");
+  };
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button size="sm" variant="outline" className="gap-1.5">
+          <Receipt className="h-4 w-4" /> {t("expert.case.issueInvoice", { defaultValue: "Issue invoice" })}
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="w-full sm:max-w-md">
+        <SheetHeader>
+          <SheetTitle>{t("expert.case.issueInvoice", { defaultValue: "Issue invoice" })}</SheetTitle>
+        </SheetHeader>
+        <div className="mt-6 space-y-4">
+          <p className="text-sm text-muted-foreground">
+            {t("expert.case.invoiceNote", { defaultValue: "Platform fee of 15% is deducted; the balance is your payout after escrow release." })}
+          </p>
+          <div>
+            <Label className="mb-1.5 block">{t("expert.case.invoiceAmount", { defaultValue: "Amount (€)" })}</Label>
+            <Input type="number" min={1} value={amount} onChange={(e) => setAmount(e.target.value)} />
+            {amount && Number(amount) > 0 && (
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t("expert.case.invoicePayout", { defaultValue: "Your payout: €{{eur}}", eur: (Number(amount) * 0.85).toFixed(2) })}
+              </p>
+            )}
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="outline" onClick={() => setOpen(false)}>{t("common.cancel", { defaultValue: "Cancel" })}</Button>
+            <Button onClick={submit} disabled={pending}>
+              {pending ? t("common.issuing", { defaultValue: "Issuing…" }) : t("expert.case.issue", { defaultValue: "Issue" })}
+            </Button>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
