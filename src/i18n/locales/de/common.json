@@ -3,7 +3,7 @@
     "badge": "Sterbegeld · Nach deutschem Recht regulierte Absicherung",
     "headline": "Absicherung genehmigter und regulierter Kosten ab rund 24 €/Monat",
     "subhead": "20.000 € Leistung pro versicherter erwachsener Person — genug, um die vollen Kosten für Bestattung, Beerdigung oder letzte Riten sowie ggf. die Überführung zu decken. Ein verbleibender Betrag geht an Ihre benannte begünstigte Person. Die Familie muss im schwersten Moment nie das Geld auftreiben.",
-    "disclaimer": "Die Bandbreiten spiegeln veröffentlichte 2024–2025-Tariftabellen unseres Panels an in Deutschland regulierten Sterbegeld-Anbietern wider — für Nichtraucher ohne Wartezeit bei einer Leistung von 20.000 €. Der tatsächliche Beitrag hängt von Alter, Gesundheitsangaben, Raucherstatus und gewählter Wartezeit ab; Kinder unter 20 Jahren sind in den Familien- und Großfamilien-Tarifen ohne Zusatzbeitrag mitversichert. Kein verbindliches Angebot — der zugelassene Partneranbieter erstellt das Angebot.",
+    "disclaimer": "Die Bandbreiten spiegeln veröffentlichte 2024–2025-Tariftabellen unseres Panels an in Deutschland regulierten Sterbegeld-Anbietern wider — für Nichtraucher ohne Wartezeit bei einer Leistung von 20.000 €. Der tatsächliche Beitrag hängt von Alter, Gesundheitsangaben, Raucherstatus und gewählter Wartezeit ab; Kinder unter 18 Jahren sind in den Familien- und Großfamilien-Tarifen ohne Zusatzbeitrag mitversichert. Kein verbindliches Angebot — der zugelassene Partneranbieter erstellt das Angebot.",
     "coverageTitle": "Was die 20.000 € abdecken — über BeistandPlus",
     "howLabel": "So funktioniert es:",
     "howBody": "der Anbieter begleicht jede genehmigte und regulierte Rechnung in voller Höhe — Bestattung, Beerdigung oder letzte Riten und ggf. Überführung — und ein etwaiger Restbetrag wird innerhalb von 14 Tagen an die benannte begünstigte Person ausgezahlt.",
@@ -14,9 +14,9 @@
       "individual": "Einzelperson",
       "individualNote": "1 Erwachsene:r · 20 000 € Leistung",
       "family": "Familie",
-      "familyNote": "2 Erwachsene + bis zu 3 Kinder unter 20 · 20 000 € pro Erwachsener",
+      "familyNote": "2 Erwachsene + bis zu 3 Kinder unter 18 · 20 000 € pro Erwachsener",
       "extended": "Großfamilie",
-      "extendedNote": "Bis zu 4 Erwachsene + 3 Kinder unter 20 · 20 000 € pro Erwachsener"
+      "extendedNote": "Bis zu 4 Erwachsene + 3 Kinder unter 18 · 20 000 € pro Erwachsener"
     },
     "rows": {
       "individualLabel": "Alter {{age}}",

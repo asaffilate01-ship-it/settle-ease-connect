@@ -3,7 +3,7 @@
     "badge": "Sterbegeld · Cover regulated under German law",
     "headline": "Approved & regulated expenses cover from about €24/month",
     "subhead": "A €20,000 benefit per insured adult — enough to cover the full costs of the funeral and burial or last rites, plus repatriation if required, with any balance going to your nominated beneficiary. The family never has to find the money at the hardest moment.",
-    "disclaimer": "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 20 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
+    "disclaimer": "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 18 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
     "coverageTitle": "What the €20,000 covers — via BeistandPlus",
     "howLabel": "How it works:",
     "howBody": "the provider settles every approved and regulated invoice in full — funeral, burial or last rites, and repatriation if required — and any balance is paid to the nominated beneficiary within 14 days.",
@@ -14,9 +14,9 @@
       "individual": "Individual",
       "individualNote": "1 adult · €20k benefit",
       "family": "Family",
-      "familyNote": "2 adults + up to 3 children under 20 · €20k per adult",
+      "familyNote": "2 adults + up to 3 children under 18 · €20k per adult",
       "extended": "Extended family",
-      "extendedNote": "Up to 4 adults + 3 children under 20 · €20k per adult"
+      "extendedNote": "Up to 4 adults + 3 children under 18 · €20k per adult"
     },
     "rows": {
       "individualLabel": "Age {{age}}",

@@ -54,8 +54,8 @@ const tiers = [
   {
     title: "Tier 3 · Family",
     icon: <Building2 className="h-5 w-5" />,
-    detail: "2 adults + up to 3 children under 20 — children co-insured on the family tarif.",
-    note: "Children under 20 co-insured at no extra premium.",
+    detail: "2 adults + up to 3 children under 18 — children co-insured on the family tarif.",
+    note: "Children under 18 co-insured at no extra premium.",
   },
 ];
 
@@ -122,7 +122,7 @@ function GroupCoverPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Stat icon={ShieldCheck} label="100% acceptance" value="All ages 18–75" note="No health questions asked" />
           <Stat icon={Clock} label="Waiting period" value="0 months" note="Cover starts on day one" />
-          <Stat icon={Users} label="Free child cover" value="Under 20" note="Included on family tarif" />
+          <Stat icon={Users} label="Free child cover" value="Under 18" note="Included on family tarif" />
         </div>
       </section>
 
