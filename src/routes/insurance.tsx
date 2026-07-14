@@ -56,8 +56,8 @@ type Product = {
     | "household"
     | "legal_expenses"
     | "term_life"
-    | "bereavement"
     | "pet";
+
   name: string;
   tagline: string;
   from: string;
