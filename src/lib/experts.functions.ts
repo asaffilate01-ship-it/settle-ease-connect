@@ -10,7 +10,7 @@ async function assertInternal(context: { supabase: any; userId: string }) {
   if (!data) throw new Error("Forbidden: internal staff only");
 }
 
-const CompensationSchema = z.enum(["referral_fee", "wholesale_markup", "hybrid"]);
+const CompensationSchema = z.enum(["referral_fee", "wholesale", "direct_bill"]);
 
 // -------- Invitations --------
 
