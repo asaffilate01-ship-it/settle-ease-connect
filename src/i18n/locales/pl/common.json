@@ -80,7 +80,9 @@
     "agentLink": "Link polecający",
     "studentDiscount": "Zniżka studencka",
     "studentsOps": "Operacje studenckie",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "Obciążenie",
+    "directoryMod": "Moderacja katalogu"
   },
   "agent": {
     "defaultName": "Agent",

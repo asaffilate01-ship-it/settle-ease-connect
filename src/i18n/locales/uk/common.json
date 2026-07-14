@@ -80,7 +80,9 @@
     "agentLink": "Реферальне посилання",
     "studentsOps": "Робота зі студентами",
     "studentDiscount": "Знижка для студентів",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "Завантаження",
+    "directoryMod": "Модерація каталогу"
   },
   "language": {
     "label": "Мова",

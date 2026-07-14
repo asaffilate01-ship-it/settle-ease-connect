@@ -80,7 +80,9 @@
     "agentLink": "پیوند معرفی",
     "studentDiscount": "تخفیف دانشجویی",
     "studentsOps": "عملیات دانشجویی",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "ظرفیت",
+    "directoryMod": "مدیریت راهنما"
   },
   "agent": {
     "defaultName": "نماینده",

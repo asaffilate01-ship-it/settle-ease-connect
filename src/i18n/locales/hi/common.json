@@ -80,7 +80,9 @@
     "agentLink": "रेफ़रल लिंक",
     "studentsOps": "छात्र ऑप्स",
     "studentDiscount": "छात्र छूट",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "क्षमता",
+    "directoryMod": "निर्देशिका मॉडरेशन"
   },
   "language": {
     "label": "भाषा",

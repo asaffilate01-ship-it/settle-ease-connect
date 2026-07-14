@@ -80,7 +80,9 @@
     "agentLink": "推荐链接",
     "studentDiscount": "学生优惠",
     "studentsOps": "学生运营",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "工作负载",
+    "directoryMod": "目录审核"
   },
   "agent": {
     "defaultName": "代理",

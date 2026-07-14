@@ -123,7 +123,9 @@
     "agentLink": "Empfehlungslink",
     "studentsOps": "Studenten-Ops",
     "studentDiscount": "Studentenrabatt",
-    "account": "Mein Konto"
+    "account": "Mein Konto",
+    "capacity": "Kapazität",
+    "directoryMod": "Verzeichnis-Moderation"
   },
   "language": {
     "label": "Sprache",
