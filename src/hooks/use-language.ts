@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import appI18n from "@/i18n";
 import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
 
@@ -16,8 +16,20 @@ function changeLanguageSafely(next: LangCode) {
   if (!safeI18n) return false;
 
   try {
-    void Promise.resolve(safeI18n.changeLanguage(next)).catch((err) => {
-      console.warn("i18n.changeLanguage failed", err);
+    // Resources are statically bundled and already in memory, so
+    // changeLanguage resolves in the same microtask. We still wrap the
+    // resulting React re-render (which fans out across every
+    // useTranslation consumer) in startTransition so React can slice the
+    // work and keep the switcher responsive.
+    startTransition(() => {
+      const result = safeI18n.changeLanguage(next);
+      // The returned promise is already-resolved here; swallow any late
+      // rejection so it doesn't surface as an unhandled promise.
+      if (result && typeof (result as Promise<unknown>).catch === "function") {
+        (result as Promise<unknown>).catch((err) => {
+          console.warn("i18n.changeLanguage failed", err);
+        });
+      }
     });
     return true;
   } catch (err) {
@@ -61,16 +73,35 @@ export function useLanguage() {
 
 
 
-  // Sync <html lang> and <html dir> whenever language changes.
-  useEffect(() => {
+  // Sync <html lang> and <html dir> whenever language changes. Do this
+  // synchronously (not in useEffect) inside the same view transition as
+  // the i18n swap so LTR↔RTL flips paint in one frame, not two.
+  const applyHtmlAttrs = (l: LangCode) => {
     if (typeof document === "undefined") return;
-    document.documentElement.lang = lang;
-    document.documentElement.dir = isRTL(lang) ? "rtl" : "ltr";
+    document.documentElement.lang = l;
+    document.documentElement.dir = isRTL(l) ? "rtl" : "ltr";
+  };
+  useEffect(() => {
+    applyHtmlAttrs(lang);
   }, [lang]);
 
   const setLanguage = (next: LangCode) => {
-    if (!changeLanguageSafely(next)) {
-      setLangState(next);
+    const swap = () => {
+      applyHtmlAttrs(next);
+      if (!changeLanguageSafely(next)) {
+        setLangState(next);
+      }
+    };
+    // View Transitions API cross-fades the reflow (including the RTL flip)
+    // into a single animated frame, so the switch feels instant instead of
+    // flashing through an unstyled paint. Safe fallback when unsupported.
+    const doc = typeof document !== "undefined" ? (document as Document & {
+      startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+    }) : null;
+    if (doc?.startViewTransition) {
+      doc.startViewTransition(swap);
+    } else {
+      swap();
     }
     try {
       localStorage.setItem(STORAGE_KEY, next);
