@@ -6,7 +6,7 @@ import { listDirectoryListings } from "@/lib/directory.functions";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, Globe, Phone, Mail, MapPin, Star, Lock, Sparkles, Scale, Stamp, Calculator, HeartHandshake, Stethoscope, GraduationCap, HandHelping, Languages, Flower2, Building2, LayoutGrid, type LucideIcon } from "lucide-react";
+import { Search, Globe, Phone, Mail, MapPin, Star, Lock, Sparkles, Scale, Stamp, Calculator, HeartHandshake, Stethoscope, GraduationCap, HandHelping, Languages, Flower2, Building2, LayoutGrid, Plane, type LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSubscription, tierMeets } from "@/lib/subscription";
