@@ -47,22 +47,22 @@ const insurers = [
 
 const tiers = [
   {
-    title: "Tier 1 · Single member",
+    title: "Tier 1 · Single",
     icon: <Users className="h-5 w-5" />,
     detail: "One insured adult (18–75), €20,000 flat payout.",
-    note: "Structure only — the per-member rate is set by the broker tender for your pool.",
+    note: "Fixed monthly rate confirmed at enrolment — no health questions.",
   },
   {
     title: "Tier 2 · Couple",
     icon: <HeartHandshake className="h-5 w-5" />,
-    detail: "Both adults on the group frame, €20,000 payout each.",
-    note: "Structure only — the couple rate comes back with the tender bids.",
+    detail: "Both adults insured, €20,000 payout each.",
+    note: "Both adults covered on one policy — one direct debit.",
   },
   {
     title: "Tier 3 · Family",
     icon: <Building2 className="h-5 w-5" />,
     detail: "2 adults + up to 3 children under 20 — children co-insured on the family tarif.",
-    note: "Structure only — child payout level and the family rate are set in the tender.",
+    note: "Children under 20 co-insured at no extra premium.",
   },
 ];
 
@@ -71,12 +71,12 @@ const payoutFlow = [
   {
     step: 1,
     title: "Death registered",
-    body: "Family or the case manager uploads the Sterbeurkunde and the member's certificate copy in the BeistandPlus portal.",
+    body: "Family or the case manager uploads the Sterbeurkunde in the BeistandPlus portal.",
   },
   {
     step: 2,
     title: "Cover provider wires €20,000 to our fiduciary account",
-    body: "Because the association is the named primary beneficiary with a fiduciary clause, no Erbschein is required. Payout typically lands in 3–7 working days.",
+    body: "Because we are named as primary beneficiary with a fiduciary clause, no Erbschein is required. Payout typically lands in 3–7 working days.",
   },
   {
     step: 3,
@@ -85,17 +85,16 @@ const payoutFlow = [
   },
   {
     step: 4,
-    title: "Balance to the nominated beneficiary",
-    body: "Any remainder (frequently >€12,000) is transferred by SEPA to the member's chosen beneficiary within 14 days of the funeral settlement — in Germany or abroad.",
+    title: "Balance to your named beneficiary",
+    body: "Any remainder is transferred by SEPA to your chosen beneficiary within 14 days of the funeral settlement — in Germany or abroad.",
   },
 ];
 
 const legalNotes = [
-  "Obligatory model (recommended): coverage written into the association statutes — no §34d broker licence required by the association itself.",
-  "Facultative / opt-in model: triggers §34d GewO licence obligation for the association as an intermediary.",
-  "Premiums include the 19% German Versicherungssteuer — the association never adds VAT on top.",
-  "Fiduciary payouts sit in a ring-fenced Treuhandkonto, legally separate from the association's operating cash.",
-  "Non-profit (gemeinnützig) associations: premium portions are not tax-deductible donations for members.",
+  "Premiums include the 19% German Versicherungssteuer — never added on top.",
+  "Fiduciary payouts sit in a ring-fenced Treuhandkonto, legally separate from operating cash.",
+  "You can update your named beneficiary at any time from your BeistandPlus account.",
+  "Cover is portable — your policy continues if you move within Germany or the EU.",
 ];
 
 function GroupCoverPage() {
