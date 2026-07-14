@@ -47,14 +47,28 @@ function EscrowPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
-      <div>
-        <div className="flex items-center gap-2">
-          <Wallet className="h-5 w-5 text-primary" />
-          <h1 className="font-display text-2xl font-semibold">Escrow release</h1>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <Wallet className="h-5 w-5 text-primary" />
+            <h1 className="font-display text-2xl font-semibold">Escrow release</h1>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Client funds held on paid invoices. Release once expert work is delivered — creates a pending payout row.
+          </p>
         </div>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Client funds held on paid invoices. Release once expert work is delivered — creates a pending payout row.
-        </p>
+        {tab === "held_escrow" && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => autoMut.mutate()}
+            disabled={autoMut.isPending}
+            title="Release every held invoice older than 14 days"
+          >
+            <Clock className="mr-1.5 h-4 w-4" />
+            {autoMut.isPending ? "Releasing…" : "Auto-release >14d"}
+          </Button>
+        )}
       </div>
 
       <div className="flex gap-2 border-b border-border/60">
