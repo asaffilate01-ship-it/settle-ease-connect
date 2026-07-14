@@ -25,6 +25,7 @@ let scheduled = false;
 let mutating = false;
 let hydrated = false;
 let gateTimer: number | undefined;
+let rerunAfterInFlight = false;
 
 // Per text-node state: original source text + last language we applied.
 const textState = new WeakMap<Text, { src: string; srcLang: string; lang: string }>();
@@ -280,12 +281,17 @@ function schedule() {
       return;
     }
     if (inFlight) {
-      inFlight.finally(schedule);
+      rerunAfterInFlight = true;
       return;
     }
     const langAtRun = currentLang;
     inFlight = translatePage().finally(() => {
       inFlight = null;
+      if (rerunAfterInFlight) {
+        rerunAfterInFlight = false;
+        schedule();
+        return;
+      }
       clearLanguageGate(langAtRun);
     });
   };
