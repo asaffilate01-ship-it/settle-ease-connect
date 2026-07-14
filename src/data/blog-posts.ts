@@ -259,9 +259,12 @@ export function getPost(slug: string): BlogPost | undefined {
  * when a translation exists. Locales without a translation fall back to the default
  * English content — the post is never hidden.
  */
+import { withTranslations } from "./blog-translations";
+
 export function localizePost(post: BlogPost, locale: string): BlogPost {
   const key = locale?.split("-")[0];
-  const t = key ? post.translations?.[key] : undefined;
+  const merged = withTranslations(post.slug, post.translations);
+  const t = key ? merged?.[key] : undefined;
   if (!t) return post;
   return {
     ...post,
