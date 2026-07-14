@@ -107,7 +107,7 @@ function GroupCoverPage() {
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button asChild className="bg-gradient-primary">
-            <a href="#intake">Get funeral cover <ArrowRight className="ml-1 h-4 w-4" /></a>
+            <Link to="/contact">Get funeral cover <ArrowRight className="ml-1 h-4 w-4" /></Link>
           </Button>
           <Button asChild variant="outline">
             <Link to="/bereavement-cover">See individual cover</Link>
