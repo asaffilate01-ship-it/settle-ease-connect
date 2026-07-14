@@ -38,7 +38,7 @@ export const getMyAccountSummary = createServerFn({ method: "GET" })
           .limit(10),
         supabase
           .from("vault_deputies")
-          .select("id, deputy_email, deputy_name, access_rule, status, allowed_categories")
+          .select("id, invite_email, full_name, access_rule, status, allowed_categories")
           .eq("owner_user_id", userId),
         email
           ? supabase
