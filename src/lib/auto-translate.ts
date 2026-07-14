@@ -151,7 +151,14 @@ function collectAttrTargets(): AttrPending[] {
         continue;
       }
       const langKey = `data-i18n-attrlang-${attr}`;
-      if (el.getAttribute(langKey) === currentLang) continue;
+      const currentAttrLang = el.getAttribute(langKey);
+      // If we already stamped this attr for the current language, only skip
+      // when the DOM still holds the translated value; React can reset the
+      // attribute between passes.
+      if (currentAttrLang === currentLang) {
+        const cached = cacheGet(currentLang, src);
+        if (cached && el.getAttribute(attr) === cached) continue;
+      }
       out.push({ el, attr, src });
     }
   });
