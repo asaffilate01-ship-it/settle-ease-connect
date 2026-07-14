@@ -52,10 +52,10 @@ if (!i18n.isInitialized) {
       react: { useSuspense: false },
       // Init synchronously so t() returns translated strings on the very first
       // render (both SSR and hydration). Without this, react-i18next reports
-      // "not ready" on the client for a tick and t() falls back to the default
+      // "not ready" on the client briefly and t() falls back to the default
       // (English) value, causing hydration mismatches against the SSR HTML.
       initImmediate: false,
-    });
+    } as Parameters<typeof i18n.init>[0]);
 }
 
 
