@@ -1,5 +1,7 @@
 {
-  "brand": { "location": "آلمان" },
+  "brand": {
+    "location": "آلمان"
+  },
   "nav": {
     "howItWorks": "چگونه کار می‌کند",
     "services": "خدمات",
@@ -77,14 +79,20 @@
     "agentCommissions": "کمیسیون‌ها",
     "agentLink": "پیوند معرفی",
     "studentDiscount": "تخفیف دانشجویی",
-    "studentsOps": "عملیات دانشجویی"
+    "studentsOps": "عملیات دانشجویی",
+    "account": "My account"
   },
   "agent": {
     "defaultName": "نماینده",
     "shortLabel": "نماینده",
     "portalLabel": "پورتال نماینده",
     "recurringBadge": "نماینده · {{rate}}٪ تکرارشونده",
-    "nav": { "overview": "نمای کلی", "clients": "مشتریان من", "commissions": "کمیسیون‌ها", "link": "پیوند معرفی" },
+    "nav": {
+      "overview": "نمای کلی",
+      "clients": "مشتریان من",
+      "commissions": "کمیسیون‌ها",
+      "link": "پیوند معرفی"
+    },
     "home": {
       "welcome": "خوش آمدید",
       "welcomeNamed": "خوش آمدید، {{name}}",
@@ -92,8 +100,19 @@
       "recent": "معرفی‌های اخیر",
       "emptyReferrals": "هنوز معرفی‌ای نیست. پیوند خود را از تب «پیوند معرفی» به اشتراک بگذارید."
     },
-    "kpi": { "clients": "مشتریان", "thisMonth": "این ماه", "pending": "در انتظار", "paid": "تا امروز پرداختی" },
-    "table": { "when": "زمان", "email": "ایمیل", "product": "محصول", "source": "منبع", "status": "وضعیت" },
+    "kpi": {
+      "clients": "مشتریان",
+      "thisMonth": "این ماه",
+      "pending": "در انتظار",
+      "paid": "تا امروز پرداختی"
+    },
+    "table": {
+      "when": "زمان",
+      "email": "ایمیل",
+      "product": "محصول",
+      "source": "منبع",
+      "status": "وضعیت"
+    },
     "products": {
       "basic": "اشتراک — Basic €5/ماه",
       "plus": "اشتراک — Plus €10/ماه",
@@ -119,7 +138,11 @@
     "commissions": {
       "title": "کمیسیون‌ها",
       "subtitle": "ماهانه پرداخت می‌شود، محاسبه‌شده به‌عنوان {{rate}}٪ از هزینه ماهانه اشتراک هر مشتری معرفی‌شده. هزینه‌های شخص ثالث (بیمه، پوشش تشییع) از پایه کمیسیون حذف می‌شوند.",
-      "period": "دوره", "gross": "ناخالص", "rate": "نرخ", "commission": "کمیسیون", "paidAt": "زمان پرداخت",
+      "period": "دوره",
+      "gross": "ناخالص",
+      "rate": "نرخ",
+      "commission": "کمیسیون",
+      "paidAt": "زمان پرداخت",
       "empty": "هنوز کمیسیونی نیست — پس از اولین صدور صورت‌حساب مشتری شما ظاهر می‌شود."
     },
     "link": {
@@ -129,7 +152,9 @@
       "universal": "پیوند عمومی",
       "funeral": "پوشش تشییع",
       "group": "پوشش گروهی",
-      "copy": "کپی", "copied": "کپی شد", "copyFail": "کپی ناموفق بود",
+      "copy": "کپی",
+      "copied": "کپی شد",
+      "copyFail": "کپی ناموفق بود",
       "tips": "نکات فروش",
       "tip1": "همیشه بگویید پوشش تشییع — هرگز بیمه تشییع. این یک طرح پس‌انداز و برنامه‌ریزی است، نه محصول بیمه‌ای تنظیم‌شده.",
       "tip2": "سطوح اشتراک: Basic €5، Plus €10، Complete €25 در ماه (خانوار).",
@@ -186,11 +211,26 @@
     "noDescription": "توضیحی ارائه نشده.",
     "delete": "حذف گزارش",
     "confirmDelete": "این گزارش حذف شود؟ قابل بازگشت نیست.",
-    "filter": { "all": "همه وضعیت‌ها" },
-    "severity": { "low": "کم", "medium": "متوسط", "high": "زیاد", "critical": "بحرانی" },
-    "status": { "open": "باز", "in_progress": "در حال انجام", "resolved": "حل‌شده", "closed": "بسته" }
+    "filter": {
+      "all": "همه وضعیت‌ها"
+    },
+    "severity": {
+      "low": "کم",
+      "medium": "متوسط",
+      "high": "زیاد",
+      "critical": "بحرانی"
+    },
+    "status": {
+      "open": "باز",
+      "in_progress": "در حال انجام",
+      "resolved": "حل‌شده",
+      "closed": "بسته"
+    }
   },
-  "hero": { "headlinePrefix": "برای هر مسیری در", "headlineHighlight": "آلمان" },
+  "hero": {
+    "headlinePrefix": "برای هر مسیری در",
+    "headlineHighlight": "آلمان"
+  },
   "pages": {
     "pricing": {
       "eyebrow": "قیمت‌گذاری",

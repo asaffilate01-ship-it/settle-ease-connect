@@ -79,7 +79,8 @@
     "agentCommissions": "Commissions",
     "agentLink": "Referral link",
     "studentDiscount": "Student discount",
-    "studentsOps": "Student ops"
+    "studentsOps": "Student ops",
+    "account": "My account"
   },
   "agent": {
     "defaultName": "Agent",
