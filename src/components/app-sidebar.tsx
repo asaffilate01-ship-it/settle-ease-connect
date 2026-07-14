@@ -30,7 +30,7 @@ const nav: NavItem[] = [
   { to: "/app/benefits", labelKey: "sidebar.benefits", icon: "benefits", audience: "client", requiresTier: "basic" },
   { to: "/app/documents", labelKey: "sidebar.documents", icon: "documents", audience: "client", requiresTier: "basic" },
   { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers", audience: "client", requiresTier: "basic" },
-  { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client", requiresTier: "basic" },
+  { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client" },
   { to: "/app/insurance", labelKey: "sidebar.insurance", icon: "providers", audience: "client", requiresTier: "plus" },
   { to: "/app/immigration", labelKey: "sidebar.immigration", icon: "providers", audience: "client", requiresTier: "basic" },
   { to: "/app/cases", labelKey: "sidebar.cases", icon: "cases", audience: "client", requiresTier: "complete" },
