@@ -210,7 +210,7 @@ async function translatePage() {
 
   if (pending.length === 0 && attrPending.length === 0) return;
 
-  const CHUNK = 60;
+  const CHUNK = 80;
   const textChunks: { node: Text; src: string }[][] = [];
   for (let i = 0; i < pending.length; i += CHUNK) textChunks.push(pending.slice(i, i + CHUNK));
   const attrChunks: AttrPending[][] = [];
@@ -263,7 +263,15 @@ async function translatePage() {
     }
   };
 
-  await Promise.all([...textChunks.map(runTextChunk), ...attrChunks.map(runAttrChunk)]);
+  await Promise.all([
+    ...textChunks.slice(0, 4).map(runTextChunk),
+    ...attrChunks.slice(0, 2).map(runAttrChunk),
+  ]);
+  clearLanguageGate(currentLang);
+  await Promise.all([
+    ...textChunks.slice(4).map(runTextChunk),
+    ...attrChunks.slice(2).map(runAttrChunk),
+  ]);
 }
 
 function schedule() {
