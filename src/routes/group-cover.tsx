@@ -91,9 +91,12 @@ const legalNotes = [
 ];
 
 function GroupCoverPage() {
+  const { roles } = useCurrentUser();
+  const isAdmin = roles.includes("admin") || roles.includes("staff");
   return (
     <div className="min-h-screen">
       <SiteHeader />
+
 
       <section className="mx-auto max-w-6xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <Badge variant="secondary" className="uppercase tracking-wider">
