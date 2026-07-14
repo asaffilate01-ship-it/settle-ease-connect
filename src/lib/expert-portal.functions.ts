@@ -377,7 +377,7 @@ export const sendExpertQuote = createServerFn({ method: "POST" })
         title: z.string().min(2).max(200),
         description: z.string().max(4000).optional().nullable(),
         amountEur: z.number().min(1).max(1_000_000),
-        compensationModel: z.enum(["hourly", "flat_fee", "wholesale", "direct_bill", "referral_fee"]).default("flat_fee"),
+        compensationModel: z.enum(["wholesale", "direct_bill", "referral_fee"]).default("direct_bill"),
       })
       .parse(raw),
   )
