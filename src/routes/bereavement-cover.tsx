@@ -27,7 +27,7 @@ const includes = [
   "Full costs of burial or last rites in Germany, or repatriation abroad, covered",
   "Multilingual case manager assigned on day one of a claim",
   "Coordinates with mosque, church, temple or consulate",
-  "Children under 20 co-insured free on the family tarif",
+  "Children under 18 co-insured free on the family tarif",
 ];
 
 const insurers = [
@@ -81,7 +81,7 @@ function BereavementCover() {
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
                 {[
                   { icon: ShieldCheck, text: "100% acceptance, no health Qs" },
-                  { icon: Users, text: "Free child cover under 20" },
+                  { icon: Users, text: "Free child cover under 18" },
                   { icon: Wallet, text: "15–30% below retail rates" },
                   { icon: Building2, text: "3–7 day payout, fiduciary flow" },
                 ].map(({ icon: Icon, text }) => (

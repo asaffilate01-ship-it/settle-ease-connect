@@ -87,7 +87,7 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
               "Direct settlement of funeral invoices",
               "Sworn translations & estate paperwork",
               "24/7 multilingual case manager",
-              "Children under 20 included at no extra premium",
+              "Children under 18 included at no extra premium",
             ].map((f) => (
               <li key={f} className="flex items-start gap-2">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
@@ -148,7 +148,7 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
                 <Field label="Adults to insure">
                   <Input type="number" min={1} max={6} value={form.adults_count} onChange={(e) => setForm({ ...form, adults_count: Number(e.target.value) })} />
                 </Field>
-                <Field label="Children under 20">
+                <Field label="Children under 18">
                   <Input type="number" min={0} max={10} value={form.children_count} onChange={(e) => setForm({ ...form, children_count: Number(e.target.value) })} />
                 </Field>
                 <Field label="Target benefit per adult (€)">

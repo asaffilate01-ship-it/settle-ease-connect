@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
  * binding quotes.
  *
  * Coverage: €20,000 default benefit per insured adult — matches the DELA
- * cooperative €20k Sterbegeld tarif we broker into. Children under 20 are
+ * cooperative €20k Sterbegeld tarif we broker into. Children under 18 are
  * included at no additional premium on family / extended-family plans
  * (DELA free-child rider).
  */
@@ -43,8 +43,8 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
 
   const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
     { key: "individual", label: t("funeralCover.tabs.individual", "Individual"), icon: <User className="h-4 w-4" />, note: t("funeralCover.tabs.individualNote", "1 adult · €20k benefit") },
-    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 children under 20 · €20k per adult") },
-    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + 3 children under 20 · €20k per adult") },
+    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 children under 18 · €20k per adult") },
+    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + 3 children under 18 · €20k per adult") },
   ];
 
   const COVERAGE: string[] = t("funeralCover.coverage", {
@@ -163,7 +163,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
         {t(
           "funeralCover.disclaimer",
-          "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 20 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
+          "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 18 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
         )}
       </p>
 
