@@ -214,9 +214,13 @@ function MemberPaywall({ signedIn }: { signedIn: boolean }) {
 
 
 function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) {
+  const { t } = useTranslation();
   const key = String(l.category ?? "other").toLowerCase();
   const Icon = CATEGORY_ICONS[key] ?? LayoutGrid;
   const tone = CATEGORY_TONES[key] ?? "ocean";
+  const catLabel = t(`directory.categories.${key}`, {
+    defaultValue: key.charAt(0).toUpperCase() + key.slice(1),
+  });
   return (
     <PolishedCard glow className="flex flex-col p-5">
       <div className="flex items-start justify-between gap-3">
@@ -225,13 +229,13 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
           <div className="min-w-0">
             <div className="truncate font-display text-lg font-semibold">{l.business_name}</div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground">
-              {l.category}{l.subcategory ? ` · ${l.subcategory}` : ""}
+              {catLabel}{l.subcategory ? ` · ${l.subcategory}` : ""}
             </div>
           </div>
         </div>
         {l.featured && (
           <Badge className="shrink-0 gap-1 bg-accent text-accent-foreground">
-            <Star className="h-3 w-3" /> Featured
+            <Star className="h-3 w-3" /> {t("directory.featured", { defaultValue: "Featured" })}
           </Badge>
         )}
       </div>
@@ -266,7 +270,9 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
             )}
             <div className="flex items-center gap-2 select-none">
               <MapPin className="h-3.5 w-3.5" />
-              <span className="rounded bg-muted px-12 py-0.5 text-transparent blur-[3px]">Full address hidden</span>
+              <span className="rounded bg-muted px-12 py-0.5 text-transparent blur-[3px]">
+                {t("directory.addressHidden", { defaultValue: "Full address hidden" })}
+              </span>
             </div>
           </>
         ) : (
@@ -278,7 +284,7 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
               <div className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> <a href={`mailto:${l.email}`} className="hover:text-foreground">{l.email}</a></div>
             )}
             {l.website && (
-              <div className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> <a href={l.website} target="_blank" rel="noreferrer" className="hover:text-foreground">Website</a></div>
+              <div className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> <a href={l.website} target="_blank" rel="noreferrer" className="hover:text-foreground">{t("directory.website", { defaultValue: "Website" })}</a></div>
             )}
             {l.address && (
               <div className="flex items-start gap-2"><MapPin className="h-3.5 w-3.5 mt-0.5" /> <span>{l.address}</span></div>
@@ -290,7 +296,7 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
       {!locked && l.address && (
         <div className="mt-4 overflow-hidden rounded-xl border border-border/60">
           <iframe
-            title={`Map of ${l.business_name}`}
+            title={t("directory.mapTitle", { defaultValue: "Map of {{name}}", name: l.business_name })}
             src={`https://www.google.com/maps?q=${encodeURIComponent(`${l.business_name}, ${l.address}, ${l.city ?? ""}`)}&output=embed`}
             className="h-40 w-full"
             loading="lazy"
@@ -302,7 +308,7 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
             rel="noreferrer"
             className="block bg-muted/40 px-3 py-1.5 text-center text-xs text-primary hover:underline"
           >
-            Open in Google Maps →
+            {t("directory.openInMaps", { defaultValue: "Open in Google Maps →" })}
           </a>
         </div>
       )}
@@ -310,14 +316,15 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
       {locked && (
         <div className="mt-4 flex items-center justify-between gap-2 rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs">
           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
-            <Lock className="h-3.5 w-3.5" /> Contact, address & map for members
+            <Lock className="h-3.5 w-3.5" /> {t("directory.lockedNote", { defaultValue: "Contact, address & map for members" })}
           </span>
           <Link to="/pricing" className="font-medium text-primary hover:underline">
-            Unlock →
+            {t("directory.unlock", { defaultValue: "Unlock →" })}
           </Link>
         </div>
       )}
     </PolishedCard>
+
   );
 }
 
