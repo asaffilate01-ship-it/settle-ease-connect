@@ -77,7 +77,9 @@
     "agentOverview": "Acenta genel bakışı",
     "agentClients": "Müşterilerim",
     "agentCommissions": "Komisyonlar",
-    "agentLink": "Referans bağlantısı"
+    "agentLink": "Referans bağlantısı",
+    "studentsOps": "Öğrenci operasyonları",
+    "studentDiscount": "Öğrenci indirimi"
   },
   "language": {
     "label": "Dil",
@@ -226,6 +228,89 @@
       "tip1": "Her zaman cenaze sigortası deyin — asla cenaze sigortası demeyin. Bu düzenlenmiş bir sigorta ürünü değil, birikim ve düzenleme planıdır.",
       "tip2": "Abonelik katmanları: Temel 5€, Artı 10€, Tam 25€ aylık (hane).",
       "tip3": "Müşteri abone kaldığı sürece %{{rate}} tekrarlayan kazanırsınız."
+    }
+  },
+  "pages": {
+    "services": {
+      "eyebrow": "Almanya'daki hayatınız için uzman rehberliği",
+      "title1": "Her önemli adımda",
+      "title2": "yanınızda bir dost.",
+      "subtitle": "İlk Anmeldung'unuzdan ailenizin geleceğini güvence altına almaya kadar, BeistandPlus Alman bürokrasisini güvenle aşmanız için onurlu, uzman desteği sunar — on üç dilde, gerçek bir insanla.",
+      "openCase": "Dosya aç",
+      "howItWorks": "BeistandPlus nasıl çalışır",
+      "ninePillars": "Dokuz hizmet alanı",
+      "ribbon": "Sizinle kendi dilinizde çalışıyoruz",
+      "trustHuman": "Önce insan",
+      "trustHumanBody": "Berlin, Hamburg, Münih ve Köln'de gerçek dosya yöneticileri — her dosya bir bot değil, bir insan tarafından yanıtlanır.",
+      "trustGdpr": "GDPR uyumlu",
+      "trustGdprBody": "Belgeleriniz Almanya'da barındırılan şifreli bir kasada tutulur, hastalık veya vefat durumunda vekil erişimi ile.",
+      "trustBill": "Tek şeffaf fatura",
+      "trustBillBody": "Hizmetimiz için abonelik, üçüncü taraf ücretleri maliyetine, her Euro'nun tam görünürlüğü.",
+      "readyEyebrow": "Hazır olduğunuzda",
+      "readyTitle1": "Bir sonraki adımı",
+      "readyTitle2": "birlikte atalım.",
+      "readyBody": "Dakikalar içinde ücretsiz bir dosya açın. Bir dosya yöneticisi bir iş günü içinde inceler ve seçeneklerinizi belirler — hiçbir zorunluluk yok.",
+      "seePricing": "Fiyatları gör",
+      "learnMore": "Daha fazla bilgi",
+      "moreServices": "+{{count}} hizmet daha"
+    },
+    "pricing": {
+      "eyebrow": "Fiyatlandırma",
+      "title": "Tek abonelik. Tek güvenilir el.",
+      "subtitle": "Üyeler doğru talep edilen haklar, kaçırılmayan randevular ve önlenen streslerle aboneliklerinden çok daha fazlasını geri kazanır. Hane planları çiftler ve 4 yetişkin + 3 çocuğa kadar aileler için indirimlidir.",
+      "individual": "Bireysel",
+      "family": "Aile",
+      "extended": "Geniş aile",
+      "noteIndividual": "1 yetişkin",
+      "noteFamily": "2 yetişkin + 18 yaş altı en fazla 3 çocuk",
+      "noteExtended": "En fazla 4 yetişkin + 18 yaş altı 3 çocuk",
+      "communityBadge": "Ücretsiz · Topluluk",
+      "communityName": "Topluluk",
+      "communityDesc": "Almanya'daki herkes için bir güvenlik ağı — kart gerekmez.",
+      "forever": "/ sonsuza kadar",
+      "perMonth": "/ ay",
+      "startFree": "Ücretsiz başla",
+      "choose": "{{name}}'yi seç",
+      "mostPopular": "En popüler",
+      "save": "%{{percent}} tasarruf",
+      "loading": "Planlar yükleniyor…",
+      "trustSuffix": "yayınlanan SLA'lar, lisanslar ve iade sözleri →"
+    },
+    "howItWorks": {
+      "eyebrow": "Nasıl çalışır",
+      "title1": "Beş adım.",
+      "title2": "Evrak fırtınası yok.",
+      "readyTitle": "Hazır olduğunuzda.",
+      "readyBody": "Başlamak ücretsiz. Sadece insan yardımına ihtiyaç duyduğunuzda yükseltin.",
+      "openDashboard": "Panelinizi açın",
+      "steps": {
+        "s1Title": "BeistandPlus'a neye ihtiyacınız olduğunu söyleyin",
+        "s1Desc": "Yeni geldiniz, yardım başvurusu yapıyor, aile birleşimi planlıyor veya yas yaşıyorsanız — tek bir formla başlayın.",
+        "s2Title": "Bir plan dakikalar içinde ortaya çıkar",
+        "s2Desc": "AI'mız kişiselleştirilmiş kontrol listenizi derler — ihtiyacınız olan her randevu, belge, son tarih ve tedarikçi.",
+        "s3Title": "İnsan bir dosya yöneticisi telefonu açar",
+        "s3Desc": "Sizin dilinizde. Dosyanızı baştan sona sahiplenir ve ilgili tüm tarafları koordine eder.",
+        "s4Title": "Her şey tek bir dosyada gerçekleşir",
+        "s4Desc": "Belgeler, mektuplar, randevular, faturalar, sohbet, denetim izi — size ve yardım eden kişilere görünür.",
+        "s5Title": "Siz hayatınıza devam edin",
+        "s5Desc": "Son tarihlerden önce hatırlatırız, sizin adınıza makamları takip eder ve anlamadığınız her şeyi çeviririz."
+      }
+    },
+    "contact": {
+      "eyebrow": "İletişim",
+      "title": "Buradayız, sizin konuştuğunuz dilde.",
+      "subtitle": "Vefat için 7/24 hattımızı arayın. Diğer her şey için bize yazın — bir iş günü içinde yanıtlarız.",
+      "line24": "7/24 vefat hattı",
+      "generalEnq": "Genel sorular",
+      "office": "Ofis",
+      "officeValue": "Kreuzberg, Berlin · Randevu ile",
+      "name": "Ad",
+      "namePh": "Adınız",
+      "email": "E-posta",
+      "message": "Mesaj",
+      "messagePh": "Size nasıl yardımcı olabiliriz?",
+      "send": "Mesaj gönder",
+      "thanks": "Teşekkürler — en kısa sürede size döneceğiz."
     }
   }
 }
