@@ -643,7 +643,7 @@ function Trust() {
             </Link>
           </div>
           <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-elevated">
-            <div className="grid grid-cols-[1.1fr_1.4fr_1.4fr] items-stretch text-xs sm:text-sm">
+            <div className="grid items-stretch text-xs sm:text-sm" style={{ gridTemplateColumns: "1.1fr 1.4fr 1.4fr" }}>
               <div className="bg-muted/60 px-4 py-3 font-semibold uppercase tracking-[0.12em] text-foreground/60"> </div>
               <div className="bg-primary/10 px-4 py-3 font-display font-semibold text-ink">BeistandPlus</div>
               <div className="bg-muted/60 px-4 py-3 font-display font-semibold text-foreground/80">Check24 &amp; DIY comparison</div>
