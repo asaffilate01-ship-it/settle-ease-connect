@@ -117,12 +117,30 @@ function Overview() {
             current={sub.planGroup}
           />
           <FeatureTile
-            title="Case management"
-            body="Dedicated manager for bereavement, visa, benefits."
+            title="My case"
+            body="Track progress, chat with your case manager, upload documents."
             icon={Briefcase}
             tone="coral"
             href="/app/cases"
             requires="complete"
+            current={sub.planGroup}
+          />
+          <FeatureTile
+            title="Household vault"
+            body="Store IDs, contracts, medical & insurance papers securely."
+            icon={FileCheck2}
+            tone="teal"
+            href="/app/documents"
+            requires="basic"
+            current={sub.planGroup}
+          />
+          <FeatureTile
+            title="Community"
+            body="Mosques, churches, temples, halal food & women's groups near you."
+            icon={HeartHandshake}
+            tone="sun"
+            href="/app/community"
+            requires="none"
             current={sub.planGroup}
           />
         </div>

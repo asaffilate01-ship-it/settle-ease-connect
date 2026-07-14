@@ -12,6 +12,13 @@ import logoMark from "@/assets/brand/logo-mark.png";
 
 type Audience = "client" | "internal" | "agent" | "any";
 
+type SpecialistDomain =
+  | "insurance_admin"
+  | "tax_admin"
+  | "benefits_admin"
+  | "medical_admin"
+  | "new_arrival_admin";
+
 type NavItem = {
   to: string;
   labelKey: string;
@@ -19,6 +26,10 @@ type NavItem = {
   exact?: boolean;
   groupKey?: string;
   requiresRole?: "admin" | "internal" | "agent";
+  /** If set, the item is visible to broad internal (admin/staff/case_manager) AND to this specialist role. */
+  specialistDomain?: SpecialistDomain;
+  /** If set, this item is only visible to broad internal (admin/staff/case_manager). */
+  broadInternalOnly?: boolean;
   requiresTier?: PlanGroup;
   audience?: Audience;
 };
@@ -43,22 +54,22 @@ const nav: NavItem[] = [
   { to: "/app/upgrade", labelKey: "sidebar.upgrade", icon: "benefits", audience: "client" },
   { to: "/app/student-discount", labelKey: "sidebar.studentDiscount", icon: "benefits", audience: "client" },
   { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/capacity", labelKey: "sidebar.capacity", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/directory", labelKey: "sidebar.directoryMod", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/referrals", labelKey: "sidebar.referrals", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/immigration", labelKey: "sidebar.immigrationOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/tax", labelKey: "sidebar.taxOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/benefits", labelKey: "sidebar.benefitsOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/medical", labelKey: "sidebar.medicalOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/new-arrivals", labelKey: "sidebar.newArrivalsOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/capacity", labelKey: "sidebar.capacity", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/directory", labelKey: "sidebar.directoryMod", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
+  { to: "/portal/referrals", labelKey: "sidebar.referrals", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/immigration", labelKey: "sidebar.immigrationOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/tax", labelKey: "sidebar.taxOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "tax_admin" },
+  { to: "/portal/benefits", labelKey: "sidebar.benefitsOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "benefits_admin" },
+  { to: "/portal/medical", labelKey: "sidebar.medicalOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "medical_admin" },
+  { to: "/portal/new-arrivals", labelKey: "sidebar.newArrivalsOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "new_arrival_admin" },
   { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/escrow", labelKey: "sidebar.escrow", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/escrow", labelKey: "sidebar.escrow", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/financials", labelKey: "sidebar.financials", icon: "benefits", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/portal/funeral-cover", labelKey: "sidebar.funeralCover", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/students", labelKey: "sidebar.studentsOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/funeral-cover", labelKey: "sidebar.funeralCover", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/students", labelKey: "sidebar.studentsOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/audit", labelKey: "sidebar.audit", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
@@ -131,7 +142,17 @@ export function AppSidebar() {
   const sub = useSubscription();
   const qc = useQueryClient();
   const isAdmin = roles.includes("admin");
-  const isInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
+  const isBroadInternal = isAdmin || roles.includes("staff") || roles.includes("case_manager");
+  const SPECIALIST_ROLES: SpecialistDomain[] = [
+    "insurance_admin",
+    "tax_admin",
+    "benefits_admin",
+    "medical_admin",
+    "new_arrival_admin",
+  ];
+  const mySpecialistRoles = SPECIALIST_ROLES.filter((r) => roles.includes(r));
+  const isSpecialist = mySpecialistRoles.length > 0;
+  const isInternal = isBroadInternal || isSpecialist;
   const isAgent = roles.includes("agent");
   const audience: Audience = isInternal ? "internal" : isAgent ? "agent" : "client";
 
@@ -146,8 +167,14 @@ export function AppSidebar() {
   const visibleNav = nav.filter((n) => {
     if (n.requiresRole === "admin" && !isAdmin) return false;
     if (n.requiresRole === "internal" && !isInternal) return false;
-    if (n.requiresRole === "agent" && !isAgent && !isInternal) return false;
+    if (n.requiresRole === "agent" && !isAgent && !isBroadInternal) return false;
     if (n.audience && n.audience !== "any" && n.audience !== audience) return false;
+    // Specialist scoping: when the user is a specialist (and NOT broad internal or admin),
+    // filter portal items down to their domain + shared items.
+    if (isSpecialist && !isBroadInternal) {
+      if (n.broadInternalOnly) return false;
+      if (n.specialistDomain && !mySpecialistRoles.includes(n.specialistDomain)) return false;
+    }
     return true;
   });
 

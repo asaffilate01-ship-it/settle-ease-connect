@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, Link, useNavigate, redirect } from "@tanstack/
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { LogOut, Home, Briefcase, Wallet, UserCircle } from "lucide-react";
+import { LogOut, Home, Briefcase, Wallet, UserCircle, FileText, Receipt, CalendarClock } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
 import logoMark from "@/assets/brand/logo-mark.png";
@@ -52,7 +52,10 @@ function ExpertLayout() {
   const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
     { to: "/expert", label: t("expert.nav.overview", { defaultValue: "Overview" }), icon: Home, exact: true },
     { to: "/expert/cases", label: t("expert.nav.cases", { defaultValue: "My cases" }), icon: Briefcase },
+    { to: "/expert/quotes", label: t("expert.nav.quotes", { defaultValue: "Quotes" }), icon: FileText },
+    { to: "/expert/invoices", label: t("expert.nav.invoices", { defaultValue: "Invoices" }), icon: Receipt },
     { to: "/expert/payouts", label: t("expert.nav.payouts", { defaultValue: "Earnings" }), icon: Wallet },
+    { to: "/expert/availability", label: t("expert.nav.availability", { defaultValue: "Availability" }), icon: CalendarClock },
     { to: "/expert/profile", label: t("expert.nav.profile", { defaultValue: "Profile" }), icon: UserCircle },
   ];
 

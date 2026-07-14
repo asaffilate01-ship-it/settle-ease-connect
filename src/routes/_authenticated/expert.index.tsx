@@ -2,12 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { BadgeCheck, AlertCircle, Briefcase, Wallet, Clock } from "lucide-react";
+import { BadgeCheck, AlertCircle, Briefcase, Wallet, Clock, Scale, Package, HeartHandshake } from "lucide-react";
 import {
   getMyExpertProfile,
   getMyExpertKpis,
   listMyExpertCases,
   listMyPayouts,
+  getMyProfessionActivity,
 } from "@/lib/expert-portal.functions";
 
 export const Route = createFileRoute("/_authenticated/expert/")({
@@ -21,11 +22,13 @@ function ExpertHome() {
   const kpiFn = useServerFn(getMyExpertKpis);
   const casesFn = useServerFn(listMyExpertCases);
   const payoutsFn = useServerFn(listMyPayouts);
+  const profFn = useServerFn(getMyProfessionActivity);
 
   const profile = useQuery({ queryKey: ["expert", "profile"], queryFn: () => profileFn() });
   const kpis = useQuery({ queryKey: ["expert", "kpis"], queryFn: () => kpiFn() });
   const cases = useQuery({ queryKey: ["expert", "cases"], queryFn: () => casesFn() });
   const payouts = useQuery({ queryKey: ["expert", "payouts"], queryFn: () => payoutsFn() });
+  const prof = useQuery({ queryKey: ["expert", "profession-activity"], queryFn: () => profFn() });
 
   const p = profile.data;
   const k = kpis.data;
@@ -108,6 +111,12 @@ function ExpertHome() {
           value={`€${(k?.paidYtdEur ?? 0).toFixed(2)}`}
         />
       </section>
+
+      {prof.data && prof.data.bucket !== "generic" && (
+        <ProfessionWidget bucket={prof.data.bucket} profession={prof.data.profession ?? ""} items={prof.data.items ?? []} />
+      )}
+
+
 
       <section>
         <div className="mb-3 flex items-center justify-between">
@@ -203,3 +212,82 @@ function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; val
     </div>
   );
 }
+
+function ProfessionWidget({ bucket, profession, items }: { bucket: "regulated" | "wholesale" | "community"; profession: string; items: any[] }) {
+  const { t } = useTranslation();
+  const meta =
+    bucket === "regulated"
+      ? {
+          Icon: Scale,
+          title: t("expert.widget.regulated.title", { defaultValue: "Regulated referral log" }),
+          desc: t("expert.widget.regulated.desc", { defaultValue: "Cases sent to you as a regulated professional — referral fees are shown on each quote." }),
+        }
+      : bucket === "wholesale"
+        ? {
+            Icon: Package,
+            title: t("expert.widget.wholesale.title", { defaultValue: "Wholesale jobs" }),
+            desc: t("expert.widget.wholesale.desc", { defaultValue: "Fixed-rate work the platform pays you for. Client is billed directly by BeistandPlus." }),
+          }
+        : {
+            Icon: HeartHandshake,
+            title: t("expert.widget.community.title", { defaultValue: "Community requests" }),
+            desc: t("expert.widget.community.desc", { defaultValue: "Cases where a family has asked for your congregation or facility." }),
+          };
+  const Icon = meta.Icon;
+  return (
+    <section className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
+      <div className="flex items-center gap-2">
+        <Icon className="h-4 w-4 text-primary" />
+        <h2 className="font-display text-lg font-semibold">{meta.title}</h2>
+        {profession && (
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+            {profession.replace(/_/g, " ")}
+          </span>
+        )}
+      </div>
+      <p className="mt-1 text-xs text-muted-foreground">{meta.desc}</p>
+      {items.length === 0 ? (
+        <p className="mt-4 text-sm text-muted-foreground">
+          {t("expert.widget.empty", { defaultValue: "Nothing yet in this stream." })}
+        </p>
+      ) : (
+        <ul className="mt-4 space-y-2">
+          {items.slice(0, 6).map((it: any) => {
+            const caseId = it.case_id ?? it.cases?.id;
+            const ref = it.cases?.reference ?? "";
+            const title = it.title || it.cases?.title || "—";
+            const amt = it.amount_eur != null ? `€${Number(it.amount_eur).toFixed(0)}` : null;
+            const fee = it.platform_fee_eur != null ? `fee €${Number(it.platform_fee_eur).toFixed(0)}` : null;
+            const status = it.status ?? it.assignment_status ?? "";
+            const key = it.id ?? `${caseId}-${title}`;
+            const body = (
+              <div className="flex items-center justify-between gap-3 rounded-lg border border-border/40 bg-background/60 px-3 py-2 text-sm">
+                <div className="min-w-0">
+                  <div className="truncate font-medium">{title}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {ref && <span className="font-mono me-2">{ref}</span>}
+                    {amt}
+                    {fee && <> · {fee}</>}
+                  </div>
+                </div>
+                {status && (
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] uppercase tracking-wide capitalize">{status}</span>
+                )}
+              </div>
+            );
+            return caseId ? (
+              <li key={key}>
+                <Link to="/expert/cases/$caseId" params={{ caseId }} className="block hover:opacity-80">
+                  {body}
+                </Link>
+              </li>
+            ) : (
+              <li key={key}>{body}</li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
