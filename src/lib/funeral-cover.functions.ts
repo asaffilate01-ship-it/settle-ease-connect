@@ -119,7 +119,9 @@ export const setFuneralLeadStatus = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertInternal(context);
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: { status: typeof data.status; internal_notes?: string | null } = {
+      status: data.status,
+    };
     if (data.internal_notes !== undefined)
       patch.internal_notes = data.internal_notes;
     const { error } = await context.supabase
