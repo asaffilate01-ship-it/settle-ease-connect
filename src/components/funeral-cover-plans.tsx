@@ -137,35 +137,6 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-xl border border-border/60">
-        <table className="w-full text-sm">
-          <thead className="bg-parchment/60 text-left">
-            <tr>
-              <th className="px-4 py-3 font-semibold">{t("funeralCover.table.composition", "Composition")}</th>
-              <th className="hidden px-4 py-3 font-semibold sm:table-cell">{t("funeralCover.table.cover", "Cover")}</th>
-              <th className="px-4 py-3 text-right font-semibold">{t("funeralCover.table.premium", "Estimated monthly premium")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.label} className="border-t border-border/60">
-                <td className="px-4 py-3 font-medium">{r.label}</td>
-                <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{r.detail}</td>
-                <td className="px-4 py-3 text-right font-display font-semibold">
-                  {fmt(r.min)}–{fmt(r.max)}
-                  <span className="ml-1 text-xs font-normal text-muted-foreground">{t("funeralCover.table.perMo", "/ mo")}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-        {t(
-          "funeralCover.disclaimer",
-          "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 18 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
-        )}
-      </p>
 
       {!compact && (
         <>
