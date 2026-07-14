@@ -115,10 +115,12 @@ function collectAttrTargets(): AttrPending[] {
       if (trimmed.length < 2) continue;
       if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
       const srcKey = `data-i18n-attr-${attr}`;
-      let src = el.getAttribute(srcKey);
+      const src = el.getAttribute(srcKey);
       if (!src) {
-        src = trimmed;
-        el.setAttribute(srcKey, src);
+        // No stashed source yet. Only capture when we're in the base
+        // language; otherwise the current value is already a translation
+        // and would poison future switches.
+        continue;
       }
       const langKey = `data-i18n-attrlang-${attr}`;
       if (el.getAttribute(langKey) === currentLang) continue;
@@ -126,6 +128,52 @@ function collectAttrTargets(): AttrPending[] {
     }
   });
   return out;
+}
+
+/**
+ * Called on every pass while currentLang === "en" (the base language).
+ * Stashes the current English text/attribute values onto data-i18n-src so
+ * subsequent language switches translate from the correct source, even for
+ * strings owned by react-i18next.
+ */
+function seedEnglishSources() {
+  // Text nodes
+  const nodes = collectTextNodes();
+  mutating = true;
+  for (const node of nodes) {
+    const parent = node.parentElement;
+    if (!parent) continue;
+    const existing = parent.getAttribute(SRC_ATTR);
+    const text = node.nodeValue?.trim();
+    if (!text) continue;
+    if (!existing) {
+      parent.setAttribute(SRC_ATTR, text);
+      parent.setAttribute(LANG_ATTR, "en");
+    } else if (existing !== text) {
+      // The English copy changed (e.g. a key updated). Refresh the source.
+      parent.setAttribute(SRC_ATTR, text);
+      parent.setAttribute(LANG_ATTR, "en");
+    }
+  }
+  // Attributes
+  const sel = ATTR_LIST.map((a) => `[${a}]`).join(",");
+  document.querySelectorAll<HTMLElement>(sel).forEach((el) => {
+    if (shouldSkip(el)) return;
+    for (const attr of ATTR_LIST) {
+      const val = el.getAttribute(attr);
+      if (!val) continue;
+      const trimmed = val.trim();
+      if (trimmed.length < 2) continue;
+      if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
+      const srcKey = `data-i18n-attr-${attr}`;
+      const existing = el.getAttribute(srcKey);
+      if (!existing || existing !== trimmed) {
+        el.setAttribute(srcKey, trimmed);
+        el.setAttribute(`data-i18n-attrlang-${attr}`, "en");
+      }
+    }
+  });
+  mutating = false;
 }
 
 async function translatePage() {
