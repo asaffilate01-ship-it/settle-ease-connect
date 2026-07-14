@@ -22,11 +22,13 @@ function ExpertHome() {
   const kpiFn = useServerFn(getMyExpertKpis);
   const casesFn = useServerFn(listMyExpertCases);
   const payoutsFn = useServerFn(listMyPayouts);
+  const profFn = useServerFn(getMyProfessionActivity);
 
   const profile = useQuery({ queryKey: ["expert", "profile"], queryFn: () => profileFn() });
   const kpis = useQuery({ queryKey: ["expert", "kpis"], queryFn: () => kpiFn() });
   const cases = useQuery({ queryKey: ["expert", "cases"], queryFn: () => casesFn() });
   const payouts = useQuery({ queryKey: ["expert", "payouts"], queryFn: () => payoutsFn() });
+  const prof = useQuery({ queryKey: ["expert", "profession-activity"], queryFn: () => profFn() });
 
   const p = profile.data;
   const k = kpis.data;
