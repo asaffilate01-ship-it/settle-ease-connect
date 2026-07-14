@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { HeartHandshake } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getBenefitsConsole } from "@/lib/portal.functions";
+import { SubConsoleTabs, EmptyTab, useSubConsoleTab } from "@/components/portal/sub-console-tabs";
 
 export const Route = createFileRoute("/_authenticated/portal/benefits")({
   head: () => ({ meta: [{ title: "Benefits console — Staff" }] }),
@@ -13,6 +14,7 @@ export const Route = createFileRoute("/_authenticated/portal/benefits")({
 function BenefitsConsole() {
   const fn = useServerFn(getBenefitsConsole);
   const { data, isLoading } = useQuery({ queryKey: ["portal", "benefits"], queryFn: () => fn() });
+  const [tab, setTab] = useSubConsoleTab();
 
   if (isLoading || !data) return <div className="p-6 text-sm text-muted-foreground">Loading…</div>;
 
@@ -26,17 +28,38 @@ function BenefitsConsole() {
         Benefit applications, referrals, and funeral-cover leads.
       </p>
 
-      <div className="grid gap-3 sm:grid-cols-4">
-        <Kpi label="Referral leads" value={data.referralTotal} />
-        <Kpi label="Open referrals" value={data.openReferrals} tone="primary" />
-        <Kpi label="Funeral leads" value={data.funeralTotal} />
-        <Kpi label="Open funeral" value={data.openFuneral} tone="primary" />
-      </div>
+      <SubConsoleTabs active={tab} onChange={setTab} />
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <List title="Recent referrals" rows={data.recentReferrals} labelKey="referred_email" subKey="product" />
-        <List title="Recent funeral leads" rows={data.recentFuneral} labelKey="full_name" subKey="plan_type" />
-      </div>
+      {tab === "leads" && (
+        <div className="space-y-6">
+          <div className="grid gap-3 sm:grid-cols-4">
+            <Kpi label="Referral leads" value={data.referralTotal} />
+            <Kpi label="Open referrals" value={data.openReferrals} tone="primary" />
+            <Kpi label="Funeral leads" value={data.funeralTotal} />
+            <Kpi label="Open funeral" value={data.openFuneral} tone="primary" />
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <List title="Recent referrals" rows={data.recentReferrals} labelKey="referred_email" subKey="product" />
+            <List title="Recent funeral leads" rows={data.recentFuneral} labelKey="full_name" subKey="plan_type" />
+          </div>
+        </div>
+      )}
+
+      {tab === "quotes" && (
+        <EmptyTab>Benefit-related quotes (funeral cover, group cover) are issued by carrier partners on approved leads.</EmptyTab>
+      )}
+      {tab === "callbacks" && (
+        <EmptyTab>Benefits leads are processed via referral partners — no in-app callback queue.</EmptyTab>
+      )}
+      {tab === "reconciliation" && (
+        <div className="grid gap-3 sm:grid-cols-4">
+          <Kpi label="Referral leads" value={data.referralTotal} />
+          <Kpi label="Open referrals" value={data.openReferrals} tone="primary" />
+          <Kpi label="Funeral leads" value={data.funeralTotal} />
+          <Kpi label="Open funeral" value={data.openFuneral} tone="primary" />
+        </div>
+      )}
     </div>
   );
 }
