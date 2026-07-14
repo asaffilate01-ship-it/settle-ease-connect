@@ -276,7 +276,7 @@ function TrustBar() {
   ];
   return (
     <div className="border-y border-border/60 bg-parchment/40">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 py-6 text-xs uppercase tracking-[0.14em] text-muted-foreground sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 py-6 text-xs uppercase tracking-[0.16em] text-muted-foreground sm:px-6 lg:px-8">
         {items.map((i) => (
           <span key={i}>{i}</span>
         ))}
