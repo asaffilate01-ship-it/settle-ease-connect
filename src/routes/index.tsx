@@ -728,7 +728,7 @@ function BenefitsShowcase() {
             <div key={b.name} className="rounded-xl border border-border/60 bg-card p-5 shadow-soft transition-transform hover:-translate-y-0.5">
               <div className="flex items-start justify-between">
                 <div className="font-display text-xl font-semibold">{b.name}</div>
-                <Badge variant="outline" className="border-accent/40 bg-accent/10 text-accent-foreground">{b.tag}</Badge>
+                <Badge className="border-transparent bg-primary/15 text-primary font-semibold">{b.tag}</Badge>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{b.desc}</p>
             </div>
