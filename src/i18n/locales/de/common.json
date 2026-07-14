@@ -1,4 +1,47 @@
 {
+  "funeralCover": {
+    "badge": "Sterbegeld · Nach deutschem Recht regulierte Absicherung",
+    "headline": "Absicherung genehmigter und regulierter Kosten ab rund 24 €/Monat",
+    "subhead": "20.000 € Leistung pro versicherter erwachsener Person — genug, um die vollen Kosten für Bestattung, Beerdigung oder letzte Riten sowie ggf. die Überführung zu decken. Ein verbleibender Betrag geht an Ihre benannte begünstigte Person. Die Familie muss im schwersten Moment nie das Geld auftreiben.",
+    "disclaimer": "Die Bandbreiten spiegeln veröffentlichte 2024–2025-Tariftabellen unseres Panels an in Deutschland regulierten Sterbegeld-Anbietern wider — für Nichtraucher ohne Wartezeit bei einer Leistung von 20.000 €. Der tatsächliche Beitrag hängt von Alter, Gesundheitsangaben, Raucherstatus und gewählter Wartezeit ab; Kinder unter 20 Jahren sind in den Familien- und Großfamilien-Tarifen ohne Zusatzbeitrag mitversichert. Kein verbindliches Angebot — der zugelassene Partneranbieter erstellt das Angebot.",
+    "coverageTitle": "Was die 20.000 € abdecken — über BeistandPlus",
+    "howLabel": "So funktioniert es:",
+    "howBody": "der Anbieter begleicht jede genehmigte und regulierte Rechnung in voller Höhe — Bestattung, Beerdigung oder letzte Riten und ggf. Überführung — und ein etwaiger Restbetrag wird innerhalb von 14 Tagen an die benannte begünstigte Person ausgezahlt.",
+    "ctaEstimate": "Beitrag schätzen",
+    "ctaTalk": "Mit einer Case-Managerin sprechen",
+    "introducer": "BeistandPlus tritt als Tippgeber (bzw. §34d GewO-Vermittler, wo einschlägig) auf. Die Beiträge werden direkt an den Anbieter gezahlt; BeistandPlus zeichnet keine Risiken. Abonnement und Sterbegeld-Beitrag werden getrennt abgerechnet.",
+    "tabs": {
+      "individual": "Einzelperson",
+      "individualNote": "1 Erwachsene:r · 20 000 € Leistung",
+      "family": "Familie",
+      "familyNote": "2 Erwachsene + bis zu 3 Kinder unter 20 · 20 000 € pro Erwachsener",
+      "extended": "Großfamilie",
+      "extendedNote": "Bis zu 4 Erwachsene + 3 Kinder unter 20 · 20 000 € pro Erwachsener"
+    },
+    "rows": {
+      "individualLabel": "Alter {{age}}",
+      "individualDetail": "1 Erwachsene:r · 20 000 € Auszahlung",
+      "familyLabel": "Beide Erwachsene Alter {{age}}",
+      "familyDetail": "2 Erwachsene + bis zu 3 Kinder · 20 000 € pro Erwachsener",
+      "extendedLabel": "Alle 4 Erwachsene Alter {{age}}",
+      "extendedDetail": "4 Erwachsene + bis zu 3 Kinder · 20 000 € pro Erwachsener"
+    },
+    "table": {
+      "composition": "Zusammensetzung",
+      "cover": "Leistung",
+      "premium": "Geschätzter Monatsbeitrag",
+      "perMo": "/ Monat"
+    },
+    "coverage": [
+      "20 000 € Leistung pro versicherter erwachsener Person — Auszahlung im Todesfall, für Standardtarife ohne Gesundheitsprüfung",
+      "Direkte Begleichung von Bestatter, Friedhof, Moschee / Kirche / Tempel, Kremation, Sarg, Blumen, Catering und Sterbeurkundengebühren gegen Originalrechnungen",
+      "Vollständige Überführung des Leichnams ins Ausland (Zinksarg, Einbalsamierung, konsularische Unbedenklichkeitsbescheinigung, Luftfracht, empfangender Bestatter im Herkunftsland)",
+      "Beglaubigte Übersetzungen, Nachlasspapiere, Standesamt, Botschafts-/Konsulatskoordination — alles über die Fallakte abgerechnet",
+      "Jeder Euro in Ihrer BeistandPlus-Fallakte einzeln aufgeführt, damit die Familie genau sieht, wohin das Geld fließt",
+      "Ein etwaiger Restbetrag nach Begleichung aller genehmigten und regulierten Ausgaben wird per SEPA an Ihre benannte begünstigte Person ausgezahlt — in Deutschland oder im Ausland, in deren Landeswährung",
+      "24/7 mehrsprachige Case-Managerin, im Schadenfall innerhalb von 1 Stunde zugewiesen"
+    ]
+  },
   "brand": {
     "location": "Deutschland"
   },
