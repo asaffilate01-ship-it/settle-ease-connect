@@ -87,25 +87,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#faf8f5" },
-      { title: "BeistandPlus — Für jeden Weg in Deutschland" },
+      { title: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
       {
         name: "description",
         content:
-          "BeistandPlus ist Deutschlands digitale Plattform für Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — ruhig, mehrsprachig und an der Seite von Familien und den Organisationen, die sie begleiten.",
+          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
       { name: "author", content: "BeistandPlus GmbH" },
       { property: "og:site_name", content: "BeistandPlus" },
-      { property: "og:title", content: "BeistandPlus — Für jeden Weg in Deutschland" },
+      { property: "og:title", content: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
       {
         property: "og:description",
         content:
-          "Eine ruhige Plattform für Ankommen, Sozialleistungen, Anträge und Vorsorge am Lebensende in Deutschland — für Familien, Moscheen, Kirchen, Bestatter und Case Manager.",
+          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://beistandplus.de/" },
       { property: "og:locale", content: "de_DE" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@beistandplus" },
+      { name: "twitter:title", content: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
+      { name: "twitter:description", content: "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

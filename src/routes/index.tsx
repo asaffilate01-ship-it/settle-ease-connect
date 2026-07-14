@@ -39,15 +39,15 @@ export const Route = createFileRoute("/")({
         content:
           "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
-      { property: "og:title", content: "BeistandPlus · Für jeden Weg in Deutschland" },
+      { property: "og:title", content: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
       {
         property: "og:description",
         content:
-          "Ankommen, Sozialleistungen, Dokumente, Gemeinschaft und Vorsorge am Lebensende — eine ruhige Plattform für Familien in Deutschland und die Organisationen, die sie begleiten.",
+          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
       { property: "og:url", content: "https://beistandplus.de/" },
       { property: "og:locale", content: "de_DE" },
-      { property: "og:image", content: "https://beistandplus.de/favicon.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/" }],
     scripts: [
