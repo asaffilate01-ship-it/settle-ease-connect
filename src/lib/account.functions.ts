@@ -26,7 +26,7 @@ export const getMyAccountSummary = createServerFn({ method: "GET" })
           .eq("active", true),
         supabase
           .from("cases")
-          .select("id, subject, status, created_at, service_slug, case_type")
+          .select("id, title, status, created_at, case_type, reference")
           .or(`client_user_id.eq.${userId},case_manager_user_id.eq.${userId}`)
           .order("created_at", { ascending: false })
           .limit(50),
