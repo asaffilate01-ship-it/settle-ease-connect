@@ -130,12 +130,10 @@ function Hero() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <p className="text-base leading-relaxed text-foreground/85 drop-cap">
-              Whether you're planning your move to Germany — for work, study or family — or already
-              here and building a life, BeistandPlus is the calm platform for every step.
+              {t("hero.introA")}
             </p>
             <p className="text-base leading-relaxed text-foreground/85">
-              Visas, Anmeldung, housing, benefits, mandatory health insurance, driving, births,
-              marriages, deaths — one human case manager, in your language, for the whole way.
+              {t("hero.introB")}
             </p>
           </div>
 
