@@ -24,6 +24,7 @@ let inFlight: Promise<void> | null = null;
 let scheduled = false;
 let mutating = false;
 let hydrated = false;
+let gateTimer: number | undefined;
 
 // Per text-node state: original source text + last language we applied.
 const textState = new WeakMap<Text, { src: string; srcLang: string; lang: string }>();
@@ -39,15 +40,13 @@ const langNames: Record<string, string> = {
 
 function looksLike(text: string, lang: string): boolean {
   const t = text.toLowerCase();
+  const enScore = (t.match(/\b(the|and|or|not|with|for|from|is|are|we|you|your|they|their|a|an|to|of|on|in|about|after|before|already|also|any|when|then|so|every|germany|english|open|report|active|soon|plan|case|manager|dashboard|booked|ready|sign|find|speaking|compliance|response|languages|trust|cover|group|partners|offline)\b/g) ?? []).length;
+  const deScore = (t.match(/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch|bereit|öffnen|melden|fallmanager|konto|entwurf|unterschrift)\b/g) ?? []).length + (/[äöüß]/.test(t) && enScore === 0 ? 2 : 0);
   if (lang === "de") {
-    if (/[äöüß]/.test(t)) return true;
-    if (/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch)\b/.test(t)) return true;
-    return false;
+    return deScore > enScore && deScore > 0;
   }
   if (lang === "en") {
-    if (/[äöüß]/.test(t)) return false;
-    if (/\b(the|and|or|not|with|for|from|is|are|we|you|they|their|a|an|to|of|on|in|about|after|before|already|also|any|when|then|so|every|germany|english)\b/.test(t)) return true;
-    return false;
+    return enScore >= deScore && enScore > 0;
   }
   return false;
 }
@@ -75,6 +74,30 @@ function hash(s: string): string {
 }
 
 const ATTR_LIST = ["alt", "title", "aria-label", "placeholder"] as const;
+
+function clearLanguageGate(expectedLang?: string) {
+  if (typeof document === "undefined") return;
+  if (expectedLang && currentLang !== expectedLang) return;
+  if (gateTimer) {
+    window.clearTimeout(gateTimer);
+    gateTimer = undefined;
+  }
+  document.documentElement.removeAttribute("data-lang-pending");
+  document.documentElement.removeAttribute("data-lang-switching");
+  document.querySelector("style[data-lang-gate]")?.remove();
+}
+
+function ensureLanguageGate() {
+  if (typeof document === "undefined") return;
+  document.documentElement.setAttribute("data-lang-switching", currentLang);
+  if (document.querySelector("style[data-lang-gate]")) return;
+  const style = document.createElement("style");
+  style.setAttribute("data-lang-gate", "");
+  style.textContent =
+    "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
+  document.head.appendChild(style);
+  gateTimer = window.setTimeout(() => clearLanguageGate(currentLang), 4500);
+}
 
 function collectTextNodes(): Text[] {
   const out: Text[] = [];
@@ -245,6 +268,7 @@ async function translatePage() {
 
 function schedule() {
   if (scheduled) return;
+  ensureLanguageGate();
   scheduled = true;
   const run = () => {
     scheduled = false;
@@ -255,12 +279,14 @@ function schedule() {
       setTimeout(() => { scheduled = false; schedule(); }, 50);
       return;
     }
-    if (inFlight) return;
+    if (inFlight) {
+      inFlight.finally(schedule);
+      return;
+    }
+    const langAtRun = currentLang;
     inFlight = translatePage().finally(() => {
       inFlight = null;
-      if (typeof document !== "undefined") {
-        document.documentElement.removeAttribute("data-lang-switching");
-      }
+      clearLanguageGate(langAtRun);
     });
   };
   if ("requestIdleCallback" in window) {
