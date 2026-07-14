@@ -74,6 +74,7 @@ import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenti
 import { Route as AuthenticatedExpertQuotesRouteImport } from './routes/_authenticated/expert.quotes'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
 import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
+import { Route as AuthenticatedExpertInvoicesRouteImport } from './routes/_authenticated/expert.invoices'
 import { Route as AuthenticatedExpertCasesRouteImport } from './routes/_authenticated/expert.cases'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppStudentDiscountRouteImport } from './routes/_authenticated/app.student-discount'
@@ -455,6 +456,12 @@ const AuthenticatedExpertPayoutsRoute =
     path: '/payouts',
     getParentRoute: () => AuthenticatedExpertRoute,
   } as any)
+const AuthenticatedExpertInvoicesRoute =
+  AuthenticatedExpertInvoicesRouteImport.update({
+    id: '/invoices',
+    path: '/invoices',
+    getParentRoute: () => AuthenticatedExpertRoute,
+  } as any)
 const AuthenticatedExpertCasesRoute =
   AuthenticatedExpertCasesRouteImport.update({
     id: '/cases',
@@ -704,6 +711,7 @@ export interface FileRoutesByFullPath {
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
@@ -798,6 +806,7 @@ export interface FileRoutesByTo {
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
@@ -898,6 +907,7 @@ export interface FileRoutesById {
   '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/_authenticated/expert/cases': typeof AuthenticatedExpertCasesRoute
+  '/_authenticated/expert/invoices': typeof AuthenticatedExpertInvoicesRoute
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/expert/quotes': typeof AuthenticatedExpertQuotesRoute
@@ -998,6 +1008,7 @@ export interface FileRouteTypes {
     | '/app/student-discount'
     | '/app/upgrade'
     | '/expert/cases'
+    | '/expert/invoices'
     | '/expert/payouts'
     | '/expert/profile'
     | '/expert/quotes'
@@ -1092,6 +1103,7 @@ export interface FileRouteTypes {
     | '/app/student-discount'
     | '/app/upgrade'
     | '/expert/cases'
+    | '/expert/invoices'
     | '/expert/payouts'
     | '/expert/profile'
     | '/expert/quotes'
@@ -1191,6 +1203,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/student-discount'
     | '/_authenticated/app/upgrade'
     | '/_authenticated/expert/cases'
+    | '/_authenticated/expert/invoices'
     | '/_authenticated/expert/payouts'
     | '/_authenticated/expert/profile'
     | '/_authenticated/expert/quotes'
@@ -1714,6 +1727,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExpertPayoutsRouteImport
       parentRoute: typeof AuthenticatedExpertRoute
     }
+    '/_authenticated/expert/invoices': {
+      id: '/_authenticated/expert/invoices'
+      path: '/invoices'
+      fullPath: '/expert/invoices'
+      preLoaderRoute: typeof AuthenticatedExpertInvoicesRouteImport
+      parentRoute: typeof AuthenticatedExpertRoute
+    }
     '/_authenticated/expert/cases': {
       id: '/_authenticated/expert/cases'
       path: '/cases'
@@ -2041,6 +2061,7 @@ const AuthenticatedAppRouteWithChildren =
 
 interface AuthenticatedExpertRouteChildren {
   AuthenticatedExpertCasesRoute: typeof AuthenticatedExpertCasesRoute
+  AuthenticatedExpertInvoicesRoute: typeof AuthenticatedExpertInvoicesRoute
   AuthenticatedExpertPayoutsRoute: typeof AuthenticatedExpertPayoutsRoute
   AuthenticatedExpertProfileRoute: typeof AuthenticatedExpertProfileRoute
   AuthenticatedExpertQuotesRoute: typeof AuthenticatedExpertQuotesRoute
@@ -2049,6 +2070,7 @@ interface AuthenticatedExpertRouteChildren {
 
 const AuthenticatedExpertRouteChildren: AuthenticatedExpertRouteChildren = {
   AuthenticatedExpertCasesRoute: AuthenticatedExpertCasesRoute,
+  AuthenticatedExpertInvoicesRoute: AuthenticatedExpertInvoicesRoute,
   AuthenticatedExpertPayoutsRoute: AuthenticatedExpertPayoutsRoute,
   AuthenticatedExpertProfileRoute: AuthenticatedExpertProfileRoute,
   AuthenticatedExpertQuotesRoute: AuthenticatedExpertQuotesRoute,
