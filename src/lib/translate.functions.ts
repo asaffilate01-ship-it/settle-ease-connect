@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const InputSchema = z.object({
   targetLang: z.string().min(2).max(8),
@@ -11,12 +10,12 @@ const InputSchema = z.object({
 /**
  * Batch-translate short UI strings via the Lovable AI Gateway.
  *
- * Returns an array of translated strings the same length as `texts`
- * (matched by index). The server fn is intentionally stateless — the
- * client is responsible for caching results in localStorage.
+ * Public by design — the site is translated for signed-out visitors too,
+ * so this endpoint MUST NOT require a Supabase bearer token. Input is
+ * strictly validated (max 80 short strings) and the handler only forwards
+ * to the Lovable AI Gateway using a server-side key.
  */
 export const translateBatch = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data) => InputSchema.parse(data))
   .handler(async ({ data }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
