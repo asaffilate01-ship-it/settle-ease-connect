@@ -77,6 +77,7 @@ import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
+import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app.account'
 import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authenticated/agent.link'
 import { Route as AuthenticatedAgentCommissionsRouteImport } from './routes/_authenticated/agent.commissions'
 import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
@@ -453,6 +454,11 @@ const AuthenticatedAppAlertRoute = AuthenticatedAppAlertRouteImport.update({
   path: '/alert',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppAccountRoute = AuthenticatedAppAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAgentLinkRoute = AuthenticatedAgentLinkRouteImport.update({
   id: '/link',
   path: '/link',
@@ -560,6 +566,7 @@ export interface FileRoutesByFullPath {
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
+  '/app/account': typeof AuthenticatedAppAccountRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -637,6 +644,7 @@ export interface FileRoutesByTo {
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
+  '/app/account': typeof AuthenticatedAppAccountRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -719,6 +727,7 @@ export interface FileRoutesById {
   '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/_authenticated/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
   '/_authenticated/agent/link': typeof AuthenticatedAgentLinkRoute
+  '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -801,6 +810,7 @@ export interface FileRouteTypes {
     | '/agent/clients'
     | '/agent/commissions'
     | '/agent/link'
+    | '/app/account'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -878,6 +888,7 @@ export interface FileRouteTypes {
     | '/agent/clients'
     | '/agent/commissions'
     | '/agent/link'
+    | '/app/account'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -959,6 +970,7 @@ export interface FileRouteTypes {
     | '/_authenticated/agent/clients'
     | '/_authenticated/agent/commissions'
     | '/_authenticated/agent/link'
+    | '/_authenticated/app/account'
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -1507,6 +1519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppAlertRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/account': {
+      id: '/_authenticated/app/account'
+      path: '/account'
+      fullPath: '/app/account'
+      preLoaderRoute: typeof AuthenticatedAppAccountRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/agent/link': {
       id: '/_authenticated/agent/link'
       path: '/link'
@@ -1635,6 +1654,7 @@ const AuthenticatedAppMessagesRouteWithChildren =
   )
 
 interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppAccountRoute: typeof AuthenticatedAppAccountRoute
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
   AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
@@ -1657,6 +1677,7 @@ interface AuthenticatedAppRouteChildren {
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppAccountRoute: AuthenticatedAppAccountRoute,
   AuthenticatedAppAlertRoute: AuthenticatedAppAlertRoute,
   AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
   AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
