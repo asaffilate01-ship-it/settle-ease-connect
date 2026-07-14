@@ -187,10 +187,13 @@ export function SiteHeader() {
             <SheetTrigger asChild>
               <button
                 type="button"
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-none border border-ink bg-ink text-parchment transition active:scale-95 md:hidden"
+                className="inline-flex h-11 shrink-0 items-center gap-2 rounded-none border border-ink bg-ink px-3 text-parchment shadow-sm transition active:scale-95 md:hidden"
                 aria-label={t("nav.menu")}
               >
                 <Menu className="h-5 w-5" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                  {t("nav.menu", "Menu")}
+                </span>
               </button>
             </SheetTrigger>
             <SheetContent
@@ -380,9 +383,8 @@ export function SiteFooter() {
         />
       </div>
       <div className="border-t border-border/60">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-6 text-xs text-muted-foreground sm:px-6 lg:px-8">
           <div>{t("footer.copyright", { year: new Date().getFullYear() })}</div>
-          <div>{t("footer.madeWithCare")}</div>
         </div>
       </div>
     </footer>
