@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { CheckCircle2, Wallet, Clock } from "lucide-react";
-import { listEscrowInvoices, releaseEscrow } from "@/lib/payments.functions";
+import { listEscrowInvoices, releaseEscrow, autoReleaseEligibleEscrow } from "@/lib/payments.functions";
 
 export const Route = createFileRoute("/_authenticated/portal/escrow")({
   head: () => ({ meta: [{ title: "Escrow release — Staff" }] }),
