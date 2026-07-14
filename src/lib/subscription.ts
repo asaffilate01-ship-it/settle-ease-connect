@@ -79,11 +79,13 @@ export function useSubscription(): SubscriptionInfo {
         if (!cancelled) setInfo({ planCode: null, planGroup: "none", planName: null, status: null, monthlyPrice: null, currentPeriodEnd: null, loading: false });
         return;
       }
-      const { data: plan } = await supabase
-        .from("subscription_plans")
-        .select("plan_group, name, monthly_price_eur")
-        .eq("code", sub.plan_code)
-        .maybeSingle();
+      const { data: plan } = sub.plan_code
+        ? await supabase
+            .from("subscription_plans")
+            .select("plan_group, name, monthly_price_eur")
+            .eq("code", sub.plan_code)
+            .maybeSingle()
+        : { data: null };
       if (cancelled) return;
       setInfo({
         planCode: sub.plan_code,
