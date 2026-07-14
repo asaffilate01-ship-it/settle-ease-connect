@@ -37,8 +37,8 @@ export const listMyClaimedBenefits = createServerFn({ method: "GET" })
     return {
       insurance: (insurance.data ?? []).map((r: any) => ({
         id: r.id,
-        product: r.product,
-        provider: r.provider_key,
+        product: r.product_line,
+        provider: r.carrier_partner,
         status: r.status,
         monthly_eur: r.benefit_amount ?? null,
         updated_at: r.updated_at,
