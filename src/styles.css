@@ -633,3 +633,18 @@ html[lang="ru"] body, html[lang="uk"] body { letter-spacing: 0.005em; }
 [dir="rtl"] nav[aria-label] { text-align: right; }
 [dir="rtl"] svg[data-flip-in-rtl="true"] { transform: scaleX(-1); }
 
+
+/* Language switch cross-fade — keep it fast (120ms) so it feels instant,
+   not animated. Without this the browser default is 250ms + a big
+   perceived flash on the RTL flip. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 120ms;
+  animation-timing-function: ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
