@@ -174,7 +174,7 @@
   },
   "cookies": {
     "title": "Używamy plików cookie",
-    "body": "BeistandPlus używa niezbędnych plików cookie do działania strony i utrzymywania Cię w sesji. Za Twoją zgodą używamy również cookies analitycznych, aby ulepszać platformę. Zgodę możesz zmienić lub wycofać w każdej chwili.",
+    "body": "BeistandPlus używa niezbędnych plików cookie do działania strony i utrzymania Cię w stanie zalogowania. Za Twoją zgodą używamy również analitycznych plików cookie, aby zrozumieć, jak platforma jest używana, abyśmy mogli ją ulepszyć. Możesz zmienić lub wycofać swoją zgodę w dowolnym momencie.",
     "acceptAll": "Zaakceptuj wszystkie",
     "essentialOnly": "Tylko niezbędne",
     "preferences": "Preferencje",
@@ -240,7 +240,7 @@
   "pages": {
     "pricing": {
       "eyebrow": "Cennik",
-      "title": "Jedna subskrypcja. Jedna zaufana ręka.",
+      "title": "Jeden abonament. Jedna zaufana ręka.",
       "subtitle": "Członkowie odzyskują znacznie więcej niż wartość subskrypcji dzięki poprawnie złożonym wnioskom, dotrzymanym terminom i uniknięciu stresu. Plany dla gospodarstw domowych zniżkowane dla par i rodzin do 4 dorosłych + 3 dzieci.",
       "individual": "Indywidualny",
       "family": "Rodzinny",
@@ -250,7 +250,7 @@
       "noteExtended": "Do 4 dorosłych + 3 dzieci poniżej 18 lat",
       "communityBadge": "Bezpłatnie · Społeczność",
       "communityName": "Społeczność",
-      "communityDesc": "Sieć bezpieczeństwa dla każdego w Niemczech — bez karty.",
+      "communityDesc": "Sieć bezpieczeństwa dla każdego w Niemczech – bez karty.",
       "forever": "/ na zawsze",
       "perMonth": "/ miesiąc",
       "startFree": "Zacznij bezpłatnie",
@@ -264,11 +264,11 @@
       "eyebrow": "Ekspercka pomoc w życiu w Niemczech",
       "title1": "Towarzysz na każdym",
       "title2": "ważnym kroku.",
-      "subtitle": "Od pierwszego Anmeldung po zabezpieczenie przyszłości rodziny — BeistandPlus oferuje godne, eksperckie wsparcie w niemieckiej administracji — w trzynastu językach, z człowiekiem u Twojego boku.",
+      "subtitle": "Od pierwszej Anmeldung po zabezpieczenie przyszłości Twojej rodziny, BeistandPlus oferuje godne i fachowe wsparcie w poruszaniu się po niemieckiej administracji z pewnością siebie – w trzynastu językach, z człowiekiem u Twojego boku.",
       "openCase": "Otwórz sprawę",
       "howItWorks": "Jak działa BeistandPlus",
       "ninePillars": "Dziewięć obszarów opieki",
-      "ribbon": "Pracujemy z Tobą w Twoim języku",
+      "ribbon": "Wspieramy Cię w Twoim języku",
       "trustHuman": "Człowiek najpierw",
       "trustHumanBody": "Prawdziwi opiekunowie spraw w Berlinie, Hamburgu, Monachium i Kolonii — każdą sprawę prowadzi człowiek, nie bot.",
       "trustGdpr": "Zgodne z RODO",
@@ -286,7 +286,7 @@
     "howItWorks": {
       "eyebrow": "Jak to działa",
       "title1": "Pięć kroków.",
-      "title2": "Bez papierkowej burzy.",
+      "title2": "Żadnej biurokratycznej udręki.",
       "readyTitle": "Gotowi, kiedy Ty.",
       "readyBody": "Bezpłatny start. Ulepsz tylko gdy potrzebujesz pomocy człowieka.",
       "openDashboard": "Otwórz panel",
@@ -295,19 +295,19 @@
         "s1Desc": "Świeżo przyjechany, składasz wniosek o świadczenia, planujesz połączenie rodziny czy stoisz w obliczu żałoby — zacznij od jednego formularza.",
         "s2Title": "Plan pojawi się w kilka minut",
         "s2Desc": "Nasza AI tworzy Twoją spersonalizowaną listę — każde spotkanie, dokument, termin i dostawca którego potrzebujesz.",
-        "s3Title": "Ludzki opiekun sprawy odbiera telefon",
+        "s3Title": "Osobisty opiekun sprawy odbiera telefon",
         "s3Desc": "W Twoim języku. Prowadzi Twoją sprawę od początku do końca i koordynuje wszystkie strony.",
         "s4Title": "Wszystko dzieje się w jednym pliku sprawy",
         "s4Desc": "Dokumenty, pisma, spotkania, faktury, czat, ślad audytowy — widoczne dla Ciebie i osób pomagających.",
-        "s5Title": "Ty żyjesz swoim życiem",
+        "s5Title": "Ty zajmujesz się swoim życiem",
         "s5Desc": "Przypominamy przed terminami, ścigamy urzędy w Twoim imieniu i tłumaczymy wszystko czego nie rozumiesz."
       }
     },
     "contact": {
       "eyebrow": "Kontakt",
       "title": "Jesteśmy tu — w Twoim języku.",
-      "subtitle": "W sprawach żałoby zadzwoń na naszą linię 24/7. We wszystkim innym napisz — odpowiadamy w ciągu jednego dnia roboczego.",
-      "line24": "Linia żałoby 24/7",
+      "subtitle": "W przypadku żałoby zadzwoń na naszą całodobową infolinię. W każdej innej sprawie napisz do nas – odpowiemy w ciągu jednego dnia roboczego.",
+      "line24": "Całodobowa infolinia w przypadku żałoby",
       "generalEnq": "Zapytania ogólne",
       "office": "Biuro",
       "officeValue": "Kreuzberg, Berlin · Po umówieniu",
@@ -396,7 +396,7 @@
     "paywall": {
       "eyebrow": "Tylko dla członków",
       "title": "Odblokuj wszystkich zweryfikowanych dostawców.",
-      "body": "Członkowie BeistandPlus otrzymują pełne dane kontaktowe, telefon, e-mail i stronę internetową dla każdego wpisu — plus osobistego opiekuna, który może ich przedstawić. Wpisy w katalogu są bezpłatne dla dostawców; dostęp jest wliczony w każdy plan BeistandPlus.",
+      "body": "Członkowie BeistandPlus otrzymują pełne dane kontaktowe, telefon, e-mail i stronę internetową dla każdego wpisu – plus osobistego opiekuna sprawy, który może Cię przedstawić. Wpisy do katalogu są bezpłatne dla dostawców; dostęp jest wliczony w każdy plan BeistandPlus.",
       "cta": "Zobacz plany od 5 €",
       "signIn": "Zaloguj się"
     }
