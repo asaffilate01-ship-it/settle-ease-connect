@@ -2,12 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { BadgeCheck, AlertCircle, Briefcase, Wallet, Clock } from "lucide-react";
+import { BadgeCheck, AlertCircle, Briefcase, Wallet, Clock, Scale, Package, HeartHandshake } from "lucide-react";
 import {
   getMyExpertProfile,
   getMyExpertKpis,
   listMyExpertCases,
   listMyPayouts,
+  getMyProfessionActivity,
 } from "@/lib/expert-portal.functions";
 
 export const Route = createFileRoute("/_authenticated/expert/")({
