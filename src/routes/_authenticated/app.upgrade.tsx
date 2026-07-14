@@ -34,6 +34,7 @@ function UpgradePage() {
   const [household, setHousehold] = useState<"single" | "family">("single");
   const [loading, setLoading] = useState(true);
   const sub = useSubscription();
+  const { user, profile } = useCurrentUser();
   const { openCheckout, checkoutElement } = useStripeCheckout();
 
   useEffect(() => {
