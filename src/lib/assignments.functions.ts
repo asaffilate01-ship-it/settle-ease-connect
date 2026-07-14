@@ -104,6 +104,32 @@ export const listCaseTasks = createServerFn({ method: "GET" })
     return rows ?? [];
   });
 
+/**
+ * Cross-case capacity view for the signed-in case manager: every open case
+ * they own, plus its dated tasks, plotted on a shared timeline.
+ */
+export const listMyCapacity = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: cases, error: casesErr } = await context.supabase
+      .from("cases")
+      .select("id, reference, title, case_type, status, urgent, opened_at, updated_at")
+      .eq("case_manager_user_id", context.userId)
+      .not("status", "in", "(closed,cancelled,completed)")
+      .order("urgent", { ascending: false })
+      .order("opened_at", { ascending: false });
+    if (casesErr) throw new Error(casesErr.message);
+    const ids = (cases ?? []).map((c: any) => c.id);
+    if (ids.length === 0) return { cases: [], tasks: [] };
+    const { data: tasks, error: taskErr } = await context.supabase
+      .from("case_tasks")
+      .select("id, case_id, title, status, start_at, due_at, progress_pct, assignee_user_id")
+      .in("case_id", ids)
+      .order("start_at", { ascending: true, nullsFirst: false });
+    if (taskErr) throw new Error(taskErr.message);
+    return { cases: cases ?? [], tasks: tasks ?? [] };
+  });
+
 export const upsertCaseTask = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((raw: unknown) =>
