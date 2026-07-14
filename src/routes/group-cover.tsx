@@ -36,14 +36,6 @@ export const Route = createFileRoute("/group-cover")({
   component: GroupCoverPage,
 });
 
-const insurers = [
-  { name: "DELA", note: "Cooperative · free child co-cover under 20 · migrant-family focus" },
-  { name: "Solidar VVaG", note: "Originated as a corporate group fund · deep group experience" },
-  { name: "Münchener Verein", note: "Flexible group terms · senior-friendly bands" },
-  { name: "ERGO", note: "Large-scale institutional tenders · repatriation add-ons" },
-  { name: "Allianz", note: "For very large mandates (25k+ lives) · corporate-grade SLAs" },
-  { name: "HanseMerkur", note: "Vorsorge Plus bolt-ons available on the group frame" },
-];
 
 const tiers = [
   {
