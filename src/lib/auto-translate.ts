@@ -140,9 +140,14 @@ function collectAttrTargets(): AttrPending[] {
       const srcKey = `data-i18n-attr-${attr}`;
       const src = el.getAttribute(srcKey);
       if (!src) {
-        // No stashed source yet. Only capture when we're in the base
-        // language; otherwise the current value is already a translation
-        // and would poison future switches.
+        // No stashed source yet — capture the current value as the source
+        // and mark its language via a cheap heuristic. This lets us fix
+        // author-time mixing (e.g. English strings on a German page).
+        const detected = looksLike(trimmed, "de") ? "de" : looksLike(trimmed, "en") ? "en" : "en";
+        el.setAttribute(srcKey, trimmed);
+        el.setAttribute(`data-i18n-attrlang-${attr}`, detected);
+        if (detected === currentLang) continue;
+        out.push({ el, attr, src: trimmed });
         continue;
       }
       const langKey = `data-i18n-attrlang-${attr}`;
