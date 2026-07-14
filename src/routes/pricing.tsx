@@ -563,7 +563,7 @@ function BereavementAddOn() {
       {enabled && (
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/30 bg-accent/10 p-4 text-sm">
           <div>
-            <span className="font-semibold text-foreground">Selected:</span> {active.label} · +€
+            <span className="font-semibold text-foreground">Selected:</span> {active.label} · from €
             {active.addOnEur}/mo · {active.household}
           </div>
           <Button onClick={handleAddCover} className="bg-gradient-primary">
