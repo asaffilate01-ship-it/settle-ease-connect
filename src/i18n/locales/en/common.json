@@ -126,7 +126,8 @@
     "studentsOps": "Student ops",
     "account": "My account",
     "capacity": "Capacity",
-    "directoryMod": "Directory moderation"
+    "directoryMod": "Directory moderation",
+    "funeralCover": "Funeral cover"
   },
   "agent": {
     "defaultName": "Agent",
