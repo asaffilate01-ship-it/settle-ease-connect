@@ -319,5 +319,89 @@
       "send": "Отправить",
       "thanks": "Спасибо — мы скоро свяжемся с вами."
     }
+  },
+  "funeralCover": {
+    "badge": "Sterbegeld · Покрытие регулируется законодательством Германии",
+    "headline": "Одобренное и регулируемое покрытие расходов от ~24 евро/месяц",
+    "subhead": "Выплата в размере 20 000 евро на каждого застрахованного взрослого — достаточно для покрытия всех расходов на похороны и погребение или последние обряды, а также репатриацию, если требуется, с любым остатком, переходящим к вашему назначенному бенефициару. Семье никогда не придется искать деньги в самый трудный момент.",
+    "disclaimer": "Диапазоны отражают опубликованные таблицы тарифов на 2024–2025 годы от нашей группы поставщиков Sterbegeld, регулируемых законодательством Германии, для некурящих без периода ожидания на выплату в размере 20 000 евро. Фактическая премия зависит от возраста, заявления о состоянии здоровья, статуса курильщика и выбранного периода ожидания; дети до 18 лет включаются без дополнительной премии в тарифы для семьи и расширенной семьи. Не является обязывающим предложением — лицензированный партнер-поставщик выдает предложение.",
+    "coverageTitle": "Что покрывает 20 000 евро — через BeistandPlus",
+    "howLabel": "Как это работает:",
+    "howBody": "поставщик полностью оплачивает каждый одобренный и регулируемый счет — похороны, погребение или последние обряды, а также репатриацию, если требуется — и любой остаток выплачивается назначенному бенефициару в течение 14 дней.",
+    "ctaEstimate": "Рассчитать мою премию",
+    "ctaTalk": "Поговорить с менеджером по делам",
+    "introducer": "BeistandPlus выступает в качестве посредника (Tippgeber / §34d GewO брокер, где применимо). Премии выплачиваются непосредственно поставщику покрытия; BeistandPlus никогда не андеррайтит. Подписка и премия за покрытие выставляются отдельно.",
+    "tabs": {
+      "individual": "Individual",
+      "individualNote": "1 adult · €20k benefit",
+      "family": "Family",
+      "familyNote": "2 adults + up to 3 children under 18 · €20k per adult",
+      "extended": "Extended family",
+      "extendedNote": "Up to 4 adults + 3 children under 18 · €20k per adult"
+    },
+    "rows": {
+      "individualLabel": "Age {{age}}",
+      "individualDetail": "1 adult · €20,000 payout",
+      "familyLabel": "Both adults age {{age}}",
+      "familyDetail": "2 adults + up to 3 children · €20k per adult",
+      "extendedLabel": "Все 4 взрослых в возрасте {{age}}",
+      "extendedDetail": "4 взрослых + до 3 детей · 20 тыс. евро на каждого взрослого"
+    },
+    "table": {
+      "composition": "Состав",
+      "cover": "Покрытие",
+      "premium": "Ориентировочная ежемесячная премия",
+      "perMo": "/ мес."
+    },
+    "coverage": [
+      "Выплата в размере 20 000 евро на каждого застрахованного взрослого — выплачивается в случае смерти, медицинский осмотр не требуется для стандартных тарифов",
+      "Прямая оплата услуг похоронного бюро, кладбища, мечети / церкви / храма, кремации, гроба, цветов, кейтеринга и сборов за свидетельство о смерти по оригинальным счетам",
+      "Полная репатриация тела за границу (цинковый гроб, бальзамирование, консульское разрешение, авиаперевозка, принимающий директор в родной стране)",
+      "Присяжные переводы, оформление документов на наследство (Erbschein), Standesamt, координация с посольством / консульством — все счета выставляются через дело",
+      "Каждый евро детализирован в вашем деле BeistandPlus, чтобы семья точно видела, куда пошли деньги",
+      "Любой остаток после урегулирования всех утвержденных и регулируемых расходов выплачивается вашему назначенному бенефициару через SEPA, в Германии или за границей, в их местной валюте",
+      "Круглосуточный многоязычный менеджер по делам назначается в течение 1 часа после открытия заявки"
+    ]
+  },
+  "directory": {
+    "badge": "Каталог участников",
+    "heroTitle": "Найдите того, кто говорит на вашем языке.",
+    "heroBody": "Многоязычные юристы, врачи, имамы, налоговые консультанты, эксперты по социальному обеспечению, учителя и переводчики по всей Германии — поиск по городу и языку. Бесплатно для поставщиков услуг, доступ для семей и клиентов.",
+    "listCta": "List your business — free",
+    "seePlans": "See member plans",
+    "cityPlaceholder": "Filter by city (Berlin, Munich…)",
+    "featured": "Featured",
+    "website": "Website",
+    "addressHidden": "Full address hidden",
+    "mapTitle": "Map of {{name}}",
+    "openInMaps": "Open in Google Maps →",
+    "lockedNote": "Contact, address & map for members",
+    "unlock": "Unlock →",
+    "emptyPrefix": "No listings match your filters yet. Be one of the first —",
+    "emptyCta": "list your business for free",
+    "categories": {
+      "all": "All",
+      "lawyer": "Lawyers",
+      "immigration": "Immigration",
+      "tax": "Tax advisors",
+      "welfare": "Welfare / benefits / pensions",
+      "doctor": "Doctors",
+      "medical": "Medical specialists",
+      "education": "Education",
+      "religious": "Religious",
+      "translator": "Translators",
+      "funeral": "Funeral",
+      "other": "Other"
+    },
+    "paywall": {
+      "eyebrow": "Members only",
+      "title": "Unlock all verified providers.",
+      "body": "BeistandPlus members get full contact details, phone, email and website for every listing — plus a human case manager who can introduce you. Directory listings are free for providers; access is included with every BeistandPlus plan.",
+      "cta": "See plans from €5",
+      "signIn": "Sign in"
+    }
+  },
+  "common": {
+    "loading": "Loading…"
   }
 }

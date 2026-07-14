@@ -319,5 +319,89 @@
       "send": "发送",
       "thanks": "感谢您 — 我们将尽快联系。"
     }
+  },
+  "funeralCover": {
+    "badge": "Sterbegeld · 德国法律规范的保障",
+    "headline": "经批准和受监管的费用保障，每月约24欧元起",
+    "subhead": "每位受保成人可获得20,000欧元的赔付 — 足以支付葬礼、土葬或临终仪式的全部费用，如果需要，还包括遗体遣返费用，任何余额将支付给您指定的受益人。家人在最困难的时刻无需为钱发愁。",
+    "disclaimer": "范围反映了我们根据德国法律监管的Sterbegeld提供商小组发布的2024-2025年费率表，适用于非吸烟者，20,000欧元赔付无等待期。实际保费取决于年龄、健康声明、吸烟状况和选择的等待期；18岁以下的儿童在家庭和大家庭费率下无需额外保费。这不是具有约束力的报价 — 持牌合作提供商会发出要约。",
+    "coverageTitle": "20,000欧元涵盖什么 — 通过BeistandPlus",
+    "howLabel": "运作方式：",
+    "howBody": "提供商全额结算所有经批准和受监管的账单 — 葬礼、土葬或临终仪式，如果需要，还包括遗体遣返 — 任何余额将在14天内支付给指定受益人。",
+    "ctaEstimate": "估算我的保费",
+    "ctaTalk": "与案件经理交谈",
+    "introducer": "BeistandPlus作为介绍人（Tippgeber / 适用时为§34d GewO经纪人）。保费直接支付给保障提供商；BeistandPlus从不承保。订阅费和保障保费分开计费。",
+    "tabs": {
+      "individual": "Individual",
+      "individualNote": "1 adult · €20k benefit",
+      "family": "Family",
+      "familyNote": "2 adults + up to 3 children under 18 · €20k per adult",
+      "extended": "Extended family",
+      "extendedNote": "Up to 4 adults + 3 children under 18 · €20k per adult"
+    },
+    "rows": {
+      "individualLabel": "Age {{age}}",
+      "individualDetail": "1 adult · €20,000 payout",
+      "familyLabel": "Both adults age {{age}}",
+      "familyDetail": "2 adults + up to 3 children · €20k per adult",
+      "extendedLabel": "所有4位成人，年龄{{age}}",
+      "extendedDetail": "4位成人 + 最多3位儿童 · 每位成人2万欧元"
+    },
+    "table": {
+      "composition": "构成",
+      "cover": "保障",
+      "premium": "预计每月保费",
+      "perMo": "/ 月"
+    },
+    "coverage": [
+      "每位受保成人2万欧元赔付 — 死亡时支付，标准费率无需体检",
+      "直接结算殡仪馆、墓地、清真寺/教堂/寺庙、火葬、棺材、鲜花、餐饮和死亡证明费用，凭原始发票",
+      "遗体完整遣返国外（锌棺、防腐、领事馆无异议函、航空公司货运、接收国殡仪馆）",
+      "宣誓翻译、遗产文书、Standesamt、使馆/领事馆协调 — 所有费用均通过案件档案开具发票",
+      "BeistandPlus案件档案中每笔欧元支出均列明细，以便家人清楚了解资金去向",
+      "在所有经批准和受监管的费用结算后，任何剩余余额将通过SEPA支付给您指定的受益人，无论是在德国还是国外，以其当地货币支付",
+      "索赔开启后1小时内指派24/7多语言案件经理"
+    ]
+  },
+  "directory": {
+    "badge": "会员名录",
+    "heroTitle": "寻找会说您语言的人。",
+    "heroBody": "德国境内的多语言律师、医生、伊玛目、税务顾问、福利专家、教师和翻译 — 可按城市和语言搜索。提供者免费列出，家庭和客户可访问。",
+    "listCta": "List your business — free",
+    "seePlans": "See member plans",
+    "cityPlaceholder": "Filter by city (Berlin, Munich…)",
+    "featured": "Featured",
+    "website": "Website",
+    "addressHidden": "Full address hidden",
+    "mapTitle": "Map of {{name}}",
+    "openInMaps": "Open in Google Maps →",
+    "lockedNote": "Contact, address & map for members",
+    "unlock": "Unlock →",
+    "emptyPrefix": "No listings match your filters yet. Be one of the first —",
+    "emptyCta": "list your business for free",
+    "categories": {
+      "all": "All",
+      "lawyer": "Lawyers",
+      "immigration": "Immigration",
+      "tax": "Tax advisors",
+      "welfare": "Welfare / benefits / pensions",
+      "doctor": "Doctors",
+      "medical": "Medical specialists",
+      "education": "Education",
+      "religious": "Religious",
+      "translator": "Translators",
+      "funeral": "Funeral",
+      "other": "Other"
+    },
+    "paywall": {
+      "eyebrow": "Members only",
+      "title": "Unlock all verified providers.",
+      "body": "BeistandPlus members get full contact details, phone, email and website for every listing — plus a human case manager who can introduce you. Directory listings are free for providers; access is included with every BeistandPlus plan.",
+      "cta": "See plans from €5",
+      "signIn": "Sign in"
+    }
+  },
+  "common": {
+    "loading": "Loading…"
   }
 }
