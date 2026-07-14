@@ -782,21 +782,20 @@ export const getInsuranceConsole = createServerFn({ method: "GET" })
     const supa = context.supabase;
     const [leadsRes, callbacksRes, healthRes, funeralRes] = await Promise.all([
       supa.from("insurance_leads")
-        .select("id, full_name, email, product, insurer, monthly_eur, status, source, created_at, assigned_to_user_id")
+        .select("id, full_name, email, product_line, carrier_partner, estimated_premium_min, estimated_premium_max, benefit_amount, status, source, created_at, assigned_to")
         .order("created_at", { ascending: false })
         .limit(200),
-      // insurance-related callbacks live inside insurance_leads via status='callback'
       supa.from("insurance_leads")
-        .select("id, full_name, email, product, status, created_at")
+        .select("id, full_name, email, product_line, status, created_at")
         .eq("status", "callback")
         .order("created_at", { ascending: false })
         .limit(50),
       supa.from("health_insurance")
-        .select("id, user_id, insurer, plan_type, monthly_eur, status, updated_at")
+        .select("id, client_user_id, kasse, kind, tariff, monthly_premium_cents, updated_at")
         .order("updated_at", { ascending: false })
         .limit(50),
       supa.from("funeral_policies")
-        .select("id, user_id, insurer, sum_insured_eur, monthly_eur, status, updated_at")
+        .select("id, user_id, insurer_name, benefit_eur, premium_eur, status, updated_at")
         .order("updated_at", { ascending: false })
         .limit(50),
     ]);
@@ -812,13 +811,16 @@ export const getInsuranceConsole = createServerFn({ method: "GET" })
     });
     const byProduct: Record<string, number> = {};
     leads.forEach((l: any) => {
-      const p = l.product ?? "unknown";
+      const p = l.product_line ?? "unknown";
       byProduct[p] = (byProduct[p] ?? 0) + 1;
     });
-    const monthlyPipeline = leads.reduce(
-      (s: number, l: any) => s + Number(l.monthly_eur ?? 0),
-      0,
-    );
+    // Rough monthly pipeline value = mid-point of estimated premium range
+    const monthlyPipeline = leads.reduce((s: number, l: any) => {
+      const lo = Number(l.estimated_premium_min ?? 0);
+      const hi = Number(l.estimated_premium_max ?? 0);
+      const mid = hi > 0 ? (lo + hi) / 2 : lo;
+      return s + mid;
+    }, 0);
     const converted = leads.filter(
       (l: any) => l.status === "converted" || l.status === "policy_active",
     ).length;
