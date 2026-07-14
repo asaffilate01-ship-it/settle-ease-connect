@@ -492,7 +492,7 @@ function HouseholdPanel({ summary, loading }: { summary: any; loading: boolean }
               {summary.deputies.map((d: any) => (
                 <li key={d.id} className="rounded-md border border-border/60 px-3 py-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium">{d.deputy_name ?? d.deputy_email}</span>
+                    <span className="font-medium">{d.full_name ?? d.invite_email}</span>
                     <Badge variant={d.status === "accepted" ? "default" : "secondary"}>
                       {d.status}
                     </Badge>
@@ -524,10 +524,10 @@ function HouseholdPanel({ summary, loading }: { summary: any; loading: boolean }
                 <li key={c.id} className="flex items-center justify-between py-2 text-sm">
                   <span>
                     <Link to={`/app/cases/${c.id}` as any} className="font-medium hover:underline">
-                      {c.subject ?? "Untitled case"}
+                      {c.title ?? c.reference ?? "Untitled case"}
                     </Link>{" "}
                     <span className="text-muted-foreground">
-                      · {c.service_slug ?? c.case_type ?? "case"}
+                      · {c.case_type ?? "case"}
                     </span>
                   </span>
                   <span className="flex items-center gap-3 text-muted-foreground">
