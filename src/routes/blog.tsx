@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
-import { BLOG_POSTS } from "@/data/blog-posts";
+import { BLOG_POSTS, localizePost } from "@/data/blog-posts";
 import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/blog")({
@@ -23,7 +23,8 @@ export const Route = createFileRoute("/blog")({
 function BlogIndex() {
   const { t, i18n } = useTranslation();
   const dateFmt = new Intl.DateTimeFormat(i18n.language, { year: "numeric", month: "long", day: "numeric" });
-  const [featured, ...rest] = BLOG_POSTS;
+  const localized = BLOG_POSTS.map((p) => localizePost(p, i18n.language));
+  const [featured, ...rest] = localized;
 
   return (
     <div className="min-h-screen">

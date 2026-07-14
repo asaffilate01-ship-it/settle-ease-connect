@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
 import { ShareButtons } from "@/components/share-buttons";
-import { getPost, BLOG_POSTS, type BlogBlock } from "@/data/blog-posts";
+import { getPost, BLOG_POSTS, localizePost, type BlogBlock } from "@/data/blog-posts";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -60,11 +60,12 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPost() {
-  const { post } = Route.useLoaderData();
+  const { post: rawPost } = Route.useLoaderData();
   const { slug } = Route.useParams();
   const { t, i18n } = useTranslation();
+  const post = localizePost(rawPost, i18n.language);
   const dateFmt = new Intl.DateTimeFormat(i18n.language, { year: "numeric", month: "long", day: "numeric" });
-  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3).map((p) => localizePost(p, i18n.language));
   const path = `/blog/${slug}`;
 
   return (
