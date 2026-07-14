@@ -6,7 +6,7 @@ import { listDirectoryListings } from "@/lib/directory.functions";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, Globe, Phone, Mail, MapPin, Star, Lock, Sparkles, Scale, Stamp, Calculator, HeartHandshake, Stethoscope, GraduationCap, HandHelping, Languages, Flower2, Building2, LayoutGrid, type LucideIcon } from "lucide-react";
+import { Search, Globe, Phone, Mail, MapPin, Star, Lock, Sparkles, Scale, Stamp, Calculator, HeartHandshake, Stethoscope, GraduationCap, HandHelping, Languages, Flower2, Building2, LayoutGrid, Plane, type LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSubscription, tierMeets } from "@/lib/subscription";
@@ -24,6 +24,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   education: GraduationCap,
   religious: Building2,
   translator: Languages,
+  travel: Plane,
   funeral: Flower2,
   other: LayoutGrid,
 };
@@ -31,12 +32,12 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
 const CATEGORY_TONES: Record<string, "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink"> = {
   lawyer: "ocean", immigration: "aurora", tax: "mint", welfare: "sun",
   doctor: "teal", medical: "coral", education: "aurora", religious: "ink",
-  translator: "teal", funeral: "coral", other: "ocean",
+  translator: "teal", travel: "aurora", funeral: "coral", other: "ocean",
 };
 
 const CATEGORY_KEYS = [
   "", "lawyer", "immigration", "tax", "welfare", "doctor", "medical",
-  "education", "religious", "translator", "funeral", "other",
+  "education", "religious", "translator", "travel", "funeral", "other",
 ] as const;
 
 

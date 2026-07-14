@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
-import { Building2, Church, Landmark, Hospital, Plane, Scale, Car, Baby, Heart, GraduationCap, Home } from "lucide-react";
+import { Building2, Church, Landmark, Hospital, Plane, Scale, Car, Baby, Heart, GraduationCap, Home, Compass } from "lucide-react";
 
 export const Route = createFileRoute("/for-providers")({
   head: () => ({
@@ -167,6 +167,18 @@ const portals: Array<{
       "Furnished short-stay while flat-hunting",
     ],
     serves: "New arrivals and internal movers",
+  },
+  {
+    icon: Compass,
+    title: "Travel agents",
+    desc: "Home visits, family reunification trips and consular travel booked without the language barrier.",
+    features: [
+      "Multilingual booking for flights, trains and accommodation",
+      "Visa-aware itineraries (Schengen return dates, transit rules)",
+      "Family reunification, funeral & compassionate travel desks",
+      "Group Hajj / Umrah, pilgrimage and heritage-visit coordination",
+    ],
+    serves: "Migrant families, students and diaspora travellers",
   },
 ];
 
