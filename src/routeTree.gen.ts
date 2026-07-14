@@ -53,8 +53,11 @@ import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
+import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
+import { Route as AuthenticatedPortalNewArrivalsRouteImport } from './routes/_authenticated/portal.new-arrivals'
+import { Route as AuthenticatedPortalMedicalRouteImport } from './routes/_authenticated/portal.medical'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
 import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_authenticated/portal.insurance'
@@ -66,6 +69,7 @@ import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authen
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
+import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
 import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
@@ -325,6 +329,11 @@ const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAgentRoute,
 } as any)
+const AuthenticatedPortalTaxRoute = AuthenticatedPortalTaxRouteImport.update({
+  id: '/tax',
+  path: '/tax',
+  getParentRoute: () => AuthenticatedPortalRoute,
+} as any)
 const AuthenticatedPortalStudentsRoute =
   AuthenticatedPortalStudentsRouteImport.update({
     id: '/students',
@@ -335,6 +344,18 @@ const AuthenticatedPortalReferralsRoute =
   AuthenticatedPortalReferralsRouteImport.update({
     id: '/referrals',
     path: '/referrals',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalNewArrivalsRoute =
+  AuthenticatedPortalNewArrivalsRouteImport.update({
+    id: '/new-arrivals',
+    path: '/new-arrivals',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalMedicalRoute =
+  AuthenticatedPortalMedicalRouteImport.update({
+    id: '/medical',
+    path: '/medical',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalLeadsRoute =
@@ -401,6 +422,12 @@ const AuthenticatedPortalCapacityRoute =
   AuthenticatedPortalCapacityRouteImport.update({
     id: '/capacity',
     path: '/capacity',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalBenefitsRoute =
+  AuthenticatedPortalBenefitsRouteImport.update({
+    id: '/benefits',
+    path: '/benefits',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalAuditRoute =
@@ -673,6 +700,7 @@ export interface FileRoutesByFullPath {
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
+  '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
@@ -684,8 +712,11 @@ export interface FileRoutesByFullPath {
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
+  '/portal/medical': typeof AuthenticatedPortalMedicalRoute
+  '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
@@ -762,6 +793,7 @@ export interface FileRoutesByTo {
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
+  '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
@@ -773,8 +805,11 @@ export interface FileRoutesByTo {
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
+  '/portal/medical': typeof AuthenticatedPortalMedicalRoute
+  '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
@@ -857,6 +892,7 @@ export interface FileRoutesById {
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
+  '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
@@ -868,8 +904,11 @@ export interface FileRoutesById {
   '/_authenticated/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
+  '/_authenticated/portal/medical': typeof AuthenticatedPortalMedicalRoute
+  '/_authenticated/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
+  '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
@@ -952,6 +991,7 @@ export interface FileRouteTypes {
     | '/expert/payouts'
     | '/expert/profile'
     | '/portal/audit'
+    | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/directory'
     | '/portal/escrow'
@@ -963,8 +1003,11 @@ export interface FileRouteTypes {
     | '/portal/insurance'
     | '/portal/knowledge'
     | '/portal/leads'
+    | '/portal/medical'
+    | '/portal/new-arrivals'
     | '/portal/referrals'
     | '/portal/students'
+    | '/portal/tax'
     | '/agent/'
     | '/app/'
     | '/expert/'
@@ -1041,6 +1084,7 @@ export interface FileRouteTypes {
     | '/expert/payouts'
     | '/expert/profile'
     | '/portal/audit'
+    | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/directory'
     | '/portal/escrow'
@@ -1052,8 +1096,11 @@ export interface FileRouteTypes {
     | '/portal/insurance'
     | '/portal/knowledge'
     | '/portal/leads'
+    | '/portal/medical'
+    | '/portal/new-arrivals'
     | '/portal/referrals'
     | '/portal/students'
+    | '/portal/tax'
     | '/agent'
     | '/app'
     | '/expert'
@@ -1135,6 +1182,7 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/payouts'
     | '/_authenticated/expert/profile'
     | '/_authenticated/portal/audit'
+    | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/directory'
     | '/_authenticated/portal/escrow'
@@ -1146,8 +1194,11 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/insurance'
     | '/_authenticated/portal/knowledge'
     | '/_authenticated/portal/leads'
+    | '/_authenticated/portal/medical'
+    | '/_authenticated/portal/new-arrivals'
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
+    | '/_authenticated/portal/tax'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
@@ -1503,6 +1554,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
     }
+    '/_authenticated/portal/tax': {
+      id: '/_authenticated/portal/tax'
+      path: '/tax'
+      fullPath: '/portal/tax'
+      preLoaderRoute: typeof AuthenticatedPortalTaxRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/students': {
       id: '/_authenticated/portal/students'
       path: '/students'
@@ -1515,6 +1573,20 @@ declare module '@tanstack/react-router' {
       path: '/referrals'
       fullPath: '/portal/referrals'
       preLoaderRoute: typeof AuthenticatedPortalReferralsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/new-arrivals': {
+      id: '/_authenticated/portal/new-arrivals'
+      path: '/new-arrivals'
+      fullPath: '/portal/new-arrivals'
+      preLoaderRoute: typeof AuthenticatedPortalNewArrivalsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/medical': {
+      id: '/_authenticated/portal/medical'
+      path: '/medical'
+      fullPath: '/portal/medical'
+      preLoaderRoute: typeof AuthenticatedPortalMedicalRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/leads': {
@@ -1592,6 +1664,13 @@ declare module '@tanstack/react-router' {
       path: '/capacity'
       fullPath: '/portal/capacity'
       preLoaderRoute: typeof AuthenticatedPortalCapacityRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/benefits': {
+      id: '/_authenticated/portal/benefits'
+      path: '/benefits'
+      fullPath: '/portal/benefits'
+      preLoaderRoute: typeof AuthenticatedPortalBenefitsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/audit': {
@@ -1974,6 +2053,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
 
 interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
+  AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
@@ -1985,8 +2065,11 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalInsuranceRoute: typeof AuthenticatedPortalInsuranceRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
+  AuthenticatedPortalMedicalRoute: typeof AuthenticatedPortalMedicalRoute
+  AuthenticatedPortalNewArrivalsRoute: typeof AuthenticatedPortalNewArrivalsRoute
   AuthenticatedPortalReferralsRoute: typeof AuthenticatedPortalReferralsRoute
   AuthenticatedPortalStudentsRoute: typeof AuthenticatedPortalStudentsRoute
+  AuthenticatedPortalTaxRoute: typeof AuthenticatedPortalTaxRoute
   AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
   AuthenticatedPortalAdminInviteRoute: typeof AuthenticatedPortalAdminInviteRoute
   AuthenticatedPortalAdminUsersRoute: typeof AuthenticatedPortalAdminUsersRoute
@@ -1995,6 +2078,7 @@ interface AuthenticatedPortalRouteChildren {
 
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
+  AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
@@ -2007,8 +2091,11 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalKnowledgeRoute:
     AuthenticatedPortalKnowledgeRouteWithChildren,
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,
+  AuthenticatedPortalMedicalRoute: AuthenticatedPortalMedicalRoute,
+  AuthenticatedPortalNewArrivalsRoute: AuthenticatedPortalNewArrivalsRoute,
   AuthenticatedPortalReferralsRoute: AuthenticatedPortalReferralsRoute,
   AuthenticatedPortalStudentsRoute: AuthenticatedPortalStudentsRoute,
+  AuthenticatedPortalTaxRoute: AuthenticatedPortalTaxRoute,
   AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
   AuthenticatedPortalAdminInviteRoute: AuthenticatedPortalAdminInviteRoute,
   AuthenticatedPortalAdminUsersRoute: AuthenticatedPortalAdminUsersRoute,

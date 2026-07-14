@@ -86,7 +86,11 @@
     "capacity": "صلاحیت",
     "directoryMod": "ڈائریکٹری اعتدال",
     "agentLeads": "میرے کلائنٹس — funnel",
-    "financials": "Financials"
+    "financials": "Financials",
+    "taxOps": "Tax ops",
+    "benefitsOps": "Benefits ops",
+    "medicalOps": "Medical ops",
+    "newArrivalsOps": "New arrivals"
   },
   "language": {
     "label": "زبان",

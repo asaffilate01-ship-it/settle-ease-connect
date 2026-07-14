@@ -662,3 +662,115 @@ export const listRecentExpenses = createServerFn({ method: "GET" })
   });
 
 function round2(n: number) { return Math.round(n * 100) / 100; }
+
+// ---------- Domain consoles (tax / benefits / medical / new-arrivals) ----------
+
+export const getTaxConsole = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    const { data: leads } = await supa
+      .from("tax_leads")
+      .select("id, full_name, email, tax_year, gross_income_eur, estimated_refund_eur, status, source, created_at")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    const rows = leads ?? [];
+    const byStatus: Record<string, number> = {};
+    rows.forEach((r: any) => { byStatus[r.status ?? "new"] = (byStatus[r.status ?? "new"] ?? 0) + 1; });
+    const totalRefund = rows.reduce((s: number, r: any) => s + Number(r.estimated_refund_eur ?? 0), 0);
+    const won = rows.filter((r: any) => r.status === "filed" || r.status === "won").length;
+    return {
+      total: rows.length,
+      byStatus,
+      estRefundTotal: Math.round(totalRefund),
+      won,
+      conversion: rows.length ? Math.round((won / rows.length) * 100) : 0,
+      leads: rows.slice(0, 50),
+    };
+  });
+
+export const getBenefitsConsole = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    const [refRes, funRes] = await Promise.all([
+      supa.from("referral_leads")
+        .select("id, referred_email, product, status, created_at")
+        .order("created_at", { ascending: false })
+        .limit(100),
+      supa.from("funeral_leads")
+        .select("id, full_name, email, status, created_at, plan_type")
+        .order("created_at", { ascending: false })
+        .limit(100),
+    ]);
+    const referrals = refRes.data ?? [];
+    const funeral = funRes.data ?? [];
+    return {
+      referralTotal: referrals.length,
+      funeralTotal: funeral.length,
+      openReferrals: referrals.filter((r: any) => r.status === "pending" || r.status === "new").length,
+      openFuneral: funeral.filter((r: any) => r.status !== "closed" && r.status !== "converted").length,
+      recentReferrals: referrals.slice(0, 25),
+      recentFuneral: funeral.slice(0, 25),
+    };
+  });
+
+export const getMedicalConsole = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    const [expertsRes, casesRes] = await Promise.all([
+      supa.from("experts")
+        .select("id, full_name, profession, city, status, verified")
+        .in("profession", ["doctor", "translator", "medical_translator", "nurse", "therapist"])
+        .limit(100),
+      supa.from("cases")
+        .select("id, title, status, priority, updated_at, client_user_id")
+        .ilike("title", "%medical%")
+        .order("updated_at", { ascending: false })
+        .limit(50),
+    ]);
+    const experts = expertsRes.data ?? [];
+    const cases = casesRes.data ?? [];
+    return {
+      totalExperts: experts.length,
+      verifiedExperts: experts.filter((e: any) => e.verified).length,
+      activeCases: cases.filter((c: any) => c.status !== "closed" && c.status !== "cancelled").length,
+      experts: experts.slice(0, 20),
+      cases,
+    };
+  });
+
+export const getNewArrivalsConsole = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInternal(context);
+    const supa = context.supabase;
+    // Reuse immigration leads / cases proxy
+    const [casesRes, embRes] = await Promise.all([
+      supa.from("cases")
+        .select("id, title, status, priority, updated_at, created_at")
+        .order("created_at", { ascending: false })
+        .limit(100),
+      supa.from("embassies")
+        .select("id, country, city, phone, updated_at")
+        .order("updated_at", { ascending: false })
+        .limit(20),
+    ]);
+    const cases = casesRes.data ?? [];
+    const embassies = embRes.data ?? [];
+    return {
+      totalCases: cases.length,
+      newThisMonth: cases.filter((c: any) => {
+        const d = new Date(c.created_at);
+        const now = new Date();
+        return d.getUTCFullYear() === now.getUTCFullYear() && d.getUTCMonth() === now.getUTCMonth();
+      }).length,
+      openCases: cases.filter((c: any) => c.status !== "closed").length,
+      cases: cases.slice(0, 30),
+      embassies,
+    };
+  });
