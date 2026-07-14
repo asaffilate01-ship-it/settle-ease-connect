@@ -77,7 +77,9 @@
     "agentOverview": "Pêşnêrîna nûner",
     "agentClients": "Mişteriyên min",
     "agentCommissions": "Komîsyon",
-    "agentLink": "Girêdana referansê"
+    "agentLink": "Girêdana referansê",
+    "studentsOps": "Karên xwendekaran",
+    "studentDiscount": "Daxistina xwendekaran"
   },
   "language": {
     "label": "Ziman",

@@ -77,7 +77,9 @@
     "agentOverview": "Огляд агента",
     "agentClients": "Мої клієнти",
     "agentCommissions": "Комісійні",
-    "agentLink": "Реферальне посилання"
+    "agentLink": "Реферальне посилання",
+    "studentsOps": "Робота зі студентами",
+    "studentDiscount": "Знижка для студентів"
   },
   "language": {
     "label": "Мова",

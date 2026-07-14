@@ -77,7 +77,9 @@
     "agentOverview": "ਏਜੰਟ ਸੰਖੇਪ ਜਾਣਕਾਰੀ",
     "agentClients": "ਮੇਰੇ ਗਾਹਕ",
     "agentCommissions": "ਕਮਿਸ਼ਨ",
-    "agentLink": "ਰੈਫਰਲ ਲਿੰਕ"
+    "agentLink": "ਰੈਫਰਲ ਲਿੰਕ",
+    "studentsOps": "ਵਿਦਿਆਰਥੀ ਓਪਸ",
+    "studentDiscount": "ਵਿਦਿਆਰਥੀ ਛੋਟ"
   },
   "language": {
     "label": "ਭਾਸ਼ਾ",

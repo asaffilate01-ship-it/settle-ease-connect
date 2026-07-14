@@ -77,7 +77,9 @@
     "agentOverview": "एजेंट अवलोकन",
     "agentClients": "मेरे क्लाइंट",
     "agentCommissions": "कमीशन",
-    "agentLink": "रेफ़रल लिंक"
+    "agentLink": "रेफ़रल लिंक",
+    "studentsOps": "छात्र ऑप्स",
+    "studentDiscount": "छात्र छूट"
   },
   "language": {
     "label": "भाषा",
