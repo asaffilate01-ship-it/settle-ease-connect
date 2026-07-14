@@ -535,7 +535,7 @@ function BereavementAddOn() {
             <button
               key={b.key}
               type="button"
-              onClick={() => setBand(b.key)}
+              onClick={() => { setBand(b.key); setEnabled(true); }}
               className={`flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition ${
                 isActive
                   ? "border-primary bg-accent/20 shadow-soft"
