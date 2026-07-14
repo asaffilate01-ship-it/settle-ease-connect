@@ -25,10 +25,29 @@ export const Route = createFileRoute("/_authenticated/expert/cases/$caseId")({
 function ExpertCaseDetail() {
   const { caseId } = Route.useParams();
   const { t } = useTranslation();
+  const qc = useQueryClient();
   const fn = useServerFn(getMyExpertCase);
+  const sendQuoteFn = useServerFn(sendExpertQuote);
+  const issueInvoiceFn = useServerFn(issueExpertInvoice);
   const q = useQuery({
     queryKey: ["expert", "case", caseId],
     queryFn: () => fn({ data: { caseId } }),
+  });
+
+  const refresh = () => qc.invalidateQueries({ queryKey: ["expert", "case", caseId] });
+
+  const sendQuote = useMutation({
+    mutationFn: (input: { title: string; description: string; amountEur: number; model: "wholesale" | "direct_bill" | "referral_fee" }) =>
+      sendQuoteFn({ data: { caseId, title: input.title, description: input.description, amountEur: input.amountEur, compensationModel: input.model } }),
+    onSuccess: () => { toast.success(t("expert.case.quoteSent", { defaultValue: "Quote sent" })); refresh(); },
+    onError: (e: any) => toast.error(e.message),
+  });
+
+  const issueInvoice = useMutation({
+    mutationFn: (input: { amountEur: number; quoteId?: string }) =>
+      issueInvoiceFn({ data: { caseId, amountEur: input.amountEur, quoteId: input.quoteId ?? null } }),
+    onSuccess: () => { toast.success(t("expert.case.invoiceIssued", { defaultValue: "Invoice issued" })); refresh(); },
+    onError: (e: any) => toast.error(e.message),
   });
 
   if (q.isLoading) return <div className="p-6 text-sm text-muted-foreground">Loading…</div>;
