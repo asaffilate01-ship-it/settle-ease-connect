@@ -1,5 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +22,7 @@ import {
   type BenefitInputs,
   type BenefitVerdict,
 } from "@/lib/benefits-eligibility";
+import { listMyClaimedBenefits } from "@/lib/my-benefits.functions";
 import {
   AlertCircle,
   CheckCircle2,
@@ -29,6 +32,9 @@ import {
   ShieldCheck,
   Sparkles,
   ExternalLink,
+  Wallet,
+  Receipt,
+  Briefcase,
 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/app/benefits")({

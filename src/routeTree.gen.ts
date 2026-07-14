@@ -58,6 +58,7 @@ import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalImmigrationRouteImport } from './routes/_authenticated/portal.immigration'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
+import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
@@ -346,6 +347,12 @@ const AuthenticatedPortalExpertsRoute =
     path: '/experts',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalDirectoryRoute =
+  AuthenticatedPortalDirectoryRouteImport.update({
+    id: '/directory',
+    path: '/directory',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalCapacityRoute =
   AuthenticatedPortalCapacityRouteImport.update({
     id: '/capacity',
@@ -594,6 +601,7 @@ export interface FileRoutesByFullPath {
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -673,6 +681,7 @@ export interface FileRoutesByTo {
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -757,6 +766,7 @@ export interface FileRoutesById {
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/_authenticated/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -841,6 +851,7 @@ export interface FileRouteTypes {
     | '/app/upgrade'
     | '/portal/audit'
     | '/portal/capacity'
+    | '/portal/directory'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/immigration'
@@ -920,6 +931,7 @@ export interface FileRouteTypes {
     | '/app/upgrade'
     | '/portal/audit'
     | '/portal/capacity'
+    | '/portal/directory'
     | '/portal/experts'
     | '/portal/funeral'
     | '/portal/immigration'
@@ -1003,6 +1015,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/upgrade'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/capacity'
+    | '/_authenticated/portal/directory'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
     | '/_authenticated/portal/immigration'
@@ -1399,6 +1412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/directory': {
+      id: '/_authenticated/portal/directory'
+      path: '/directory'
+      fullPath: '/portal/directory'
+      preLoaderRoute: typeof AuthenticatedPortalDirectoryRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/capacity': {
       id: '/_authenticated/portal/capacity'
       path: '/capacity'
@@ -1740,6 +1760,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
 interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
+  AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
   AuthenticatedPortalImmigrationRoute: typeof AuthenticatedPortalImmigrationRoute
@@ -1757,6 +1778,7 @@ interface AuthenticatedPortalRouteChildren {
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
+  AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
   AuthenticatedPortalImmigrationRoute: AuthenticatedPortalImmigrationRoute,
