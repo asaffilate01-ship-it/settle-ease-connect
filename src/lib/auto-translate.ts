@@ -290,12 +290,8 @@ function markHydratedSoon() {
  */
 export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
-  const changed = currentLang !== lang;
   currentLang = lang;
   markHydratedSoon();
-  if (changed && hydrated) {
-    document.documentElement.setAttribute("data-lang-switching", "1");
-  }
   schedule();
 
   if (observer) return;
