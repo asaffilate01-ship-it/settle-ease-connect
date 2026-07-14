@@ -1,39 +1,17 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, User, Users, HeartHandshake, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { estimatePremium } from "@/lib/premium-estimator";
 import { Button } from "@/components/ui/button";
 
 /**
- * Funeral / bereavement cover — premium matrix.
- *
- * Individual and family plans built on top of `estimatePremium` (which
- * interpolates published rate tables from DELA, Monuta, Nürnberger, IDEAL,
- * HanseMerkur 2024–2025). Ranges are Tippgeber-safe indications, never
- * binding quotes.
+ * Funeral / bereavement cover — product overview.
  *
  * Coverage: €20,000 default benefit per insured adult — matches the DELA
  * cooperative €20k Sterbegeld tarif we broker into. Children under 18 are
  * included at no additional premium on family / extended-family plans
  * (DELA free-child rider).
  */
-
-const ADULT_AGE_BANDS = [30, 40, 50, 60, 70] as const;
-const BENEFIT_EUR = 20_000;
-
-function bandFor(age: number) {
-  return estimatePremium({
-    age,
-    benefitAmount: BENEFIT_EUR,
-    tobacco: false,
-    waitingPeriodMonths: 0,
-  });
-}
-
-function fmt(n: number) {
-  return `€${n.toFixed(0)}`;
-}
 
 type Household = "individual" | "family" | "extended";
 
@@ -59,40 +37,6 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       "24/7 multilingual case manager assigned within 1 hour of a claim being opened",
     ],
   }) as unknown as string[];
-
-  const rows = useMemo(() => {
-    if (tab === "individual") {
-      return ADULT_AGE_BANDS.map((age) => {
-        const b = bandFor(age);
-        return {
-          label: t("funeralCover.rows.individualLabel", "Age {{age}}", { age }),
-          detail: t("funeralCover.rows.individualDetail", "1 adult · €20,000 payout"),
-          min: b.min,
-          max: b.max,
-        };
-      });
-    }
-    if (tab === "family") {
-      return ADULT_AGE_BANDS.slice(0, 4).map((age) => {
-        const b = bandFor(age);
-        return {
-          label: t("funeralCover.rows.familyLabel", "Both adults age {{age}}", { age }),
-          detail: t("funeralCover.rows.familyDetail", "2 adults + up to 3 children · €20k per adult"),
-          min: b.min * 2,
-          max: b.max * 2,
-        };
-      });
-    }
-    return ADULT_AGE_BANDS.slice(0, 4).map((age) => {
-      const b = bandFor(age);
-      return {
-        label: t("funeralCover.rows.extendedLabel", "All 4 adults age {{age}}", { age }),
-        detail: t("funeralCover.rows.extendedDetail", "4 adults + up to 3 children · €20k per adult"),
-        min: b.min * 4,
-        max: b.max * 4,
-      };
-    });
-  }, [tab, t]);
 
   return (
     <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft sm:p-8">
@@ -137,35 +81,6 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-xl border border-border/60">
-        <table className="w-full text-sm">
-          <thead className="bg-parchment/60 text-left">
-            <tr>
-              <th className="px-4 py-3 font-semibold">{t("funeralCover.table.composition", "Composition")}</th>
-              <th className="hidden px-4 py-3 font-semibold sm:table-cell">{t("funeralCover.table.cover", "Cover")}</th>
-              <th className="px-4 py-3 text-right font-semibold">{t("funeralCover.table.premium", "Estimated monthly premium")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.label} className="border-t border-border/60">
-                <td className="px-4 py-3 font-medium">{r.label}</td>
-                <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{r.detail}</td>
-                <td className="px-4 py-3 text-right font-display font-semibold">
-                  {fmt(r.min)}–{fmt(r.max)}
-                  <span className="ml-1 text-xs font-normal text-muted-foreground">{t("funeralCover.table.perMo", "/ mo")}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-        {t(
-          "funeralCover.disclaimer",
-          "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 18 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
-        )}
-      </p>
 
       {!compact && (
         <>
