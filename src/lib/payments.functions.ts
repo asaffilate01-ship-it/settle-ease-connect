@@ -80,6 +80,57 @@ export const releaseEscrow = createServerFn({ method: "POST" })
     return { ok: true, released_at: releasedAt };
   });
 
+/**
+ * Auto-release all `held_escrow` invoices whose `paid_at` is older than N days
+ * (default 14). Staff-only v1 SLA — a case manager clicks the button.
+ */
+export const autoReleaseEligibleEscrow = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({ olderThanDays: z.number().int().min(1).max(90).default(14) }).parse(d ?? {}),
+  )
+  .handler(async ({ data, context }) => {
+    await assertInternal(context);
+    const cutoff = new Date(Date.now() - data.olderThanDays * 86_400_000).toISOString();
+    const { data: eligible, error } = await context.supabase
+      .from("case_invoices")
+      .select("id, case_id, expert_id, amount_eur, payout_to_expert_eur")
+      .eq("status", "held_escrow")
+      .not("expert_id", "is", null)
+      .lt("paid_at", cutoff);
+    if (error) throw new Error(error.message);
+
+    const released: string[] = [];
+    const failed: { id: string; reason: string }[] = [];
+    const releasedAt = new Date().toISOString();
+
+    for (const inv of eligible ?? []) {
+      const { error: updErr } = await context.supabase
+        .from("case_invoices")
+        .update({ status: "released", released_at: releasedAt })
+        .eq("id", inv.id)
+        .eq("status", "held_escrow");
+      if (updErr) { failed.push({ id: inv.id, reason: updErr.message }); continue; }
+
+      const { error: payErr } = await context.supabase.from("expert_payouts").insert({
+        expert_id: inv.expert_id,
+        case_id: inv.case_id,
+        invoice_id: inv.id,
+        period_month: releasedAt.slice(0, 7) + "-01",
+        kind: "escrow_release",
+        description: `Auto-released after ${data.olderThanDays}d SLA`,
+        gross_eur: inv.amount_eur,
+        amount_eur: inv.payout_to_expert_eur ?? inv.amount_eur,
+        currency: "EUR",
+        status: "pending",
+        created_by: context.userId,
+      });
+      if (payErr) { failed.push({ id: inv.id, reason: payErr.message }); continue; }
+      released.push(inv.id);
+    }
+    return { released_count: released.length, failed_count: failed.length, failed };
+  });
+
 const STUDENT_COUPON_ID = "STUDENT20";
 const TIER_PRICE_PREFIXES = ["basic", "plus", "complete"] as const;
 
