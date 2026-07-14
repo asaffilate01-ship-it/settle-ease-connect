@@ -651,7 +651,7 @@ export const listRecentExpenses = createServerFn({ method: "GET" })
         .order("created_at", { ascending: false })
         .limit(50),
       supa.from("agent_commissions")
-        .select("id, commission_eur, gross_eur, status, product, period_month, paid_at, created_at, agents(code)")
+        .select("id, commission_eur, gross_eur, status, product, period_month, paid_at, created_at, agent_user_id")
         .order("created_at", { ascending: false })
         .limit(50),
     ]);
