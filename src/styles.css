@@ -275,6 +275,19 @@
   .safe-top    { padding-top: env(safe-area-inset-top); }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
+  /* Reserve room below marketing content so the mobile CTA bar doesn't
+     obscure the footer on small screens. Marketing pages set `data-marketing`
+     on the root so we can scope this to those views. */
+  @media (max-width: 767px) {
+    [data-marketing] footer { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
+  }
+
+  /* Better mobile hero rhythm — the fluid clamp on `display-hero` can still
+     feel oversized in narrow viewports for long German words. */
+  @media (max-width: 480px) {
+    .display-hero { font-size: clamp(2rem, 8vw, 2.5rem); line-height: 1.05; }
+  }
+
   /* Script-specific font stacks */
   html:lang(ar), html:lang(ar) body { font-family: "Noto Sans Arabic", var(--font-sans); }
   html:lang(ur), html:lang(ur) body { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", var(--font-sans); }
