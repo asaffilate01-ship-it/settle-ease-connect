@@ -17,17 +17,17 @@ import {
 export const Route = createFileRoute("/group-cover")({
   head: () => ({
       meta: [
-        { title: "Bereavement Cover — €20,000 Sterbegeld for Associations | BeistandPlus" },
+        { title: "Funeral Cover — €20,000 Sterbegeld | BeistandPlus" },
         {
           name: "description",
           content:
-            "Sterbegeld cover for associations, employers and communities — regulated under German law. €20,000 per member, no health questions, 3–7 day payout, fiduciary funeral flow. Broker-tendered to our panel of regulated cover providers.",
+            "Funeral cover regulated under German law. €20,000 per insured, no health questions, 3–7 day payout, direct funeral settlement, balance to your beneficiary.",
         },
-        { property: "og:title", content: "Bereavement Cover — BeistandPlus" },
+        { property: "og:title", content: "Funeral Cover — BeistandPlus" },
       {
         property: "og:description",
         content:
-          "€20,000 collective bereavement benefit per member. Waived health questions, waived waiting period, direct funeral settlement, balance to beneficiary.",
+          "€20,000 funeral benefit. Waived health questions, waived waiting period, direct funeral settlement, balance to beneficiary.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
