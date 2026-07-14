@@ -80,7 +80,9 @@
     "agentLink": "پیوند معرفی",
     "studentDiscount": "تخفیف دانشجویی",
     "studentsOps": "عملیات دانشجویی",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "ظرفیت",
+    "directoryMod": "مدیریت راهنما"
   },
   "agent": {
     "defaultName": "نماینده",
@@ -229,7 +231,9 @@
   },
   "hero": {
     "headlinePrefix": "برای هر مسیری در",
-    "headlineHighlight": "آلمان"
+    "headlineHighlight": "آلمان",
+    "introA": "چه در حال برنامه‌ریزی برای مهاجرت به آلمان باشید — برای کار، تحصیل یا خانواده — و چه از قبل اینجا هستید و در حال ساختن زندگی: BeistandPlus بستری آرام برای هر گام است.",
+    "introB": "ویزا، Anmeldung، مسکن، مزایا، بیمه درمانی اجباری، رانندگی، تولد، ازدواج و درگذشت — یک مدیر پرونده انسانی، به زبان شما، در تمام مسیر."
   },
   "pages": {
     "pricing": {

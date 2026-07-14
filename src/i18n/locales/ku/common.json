@@ -80,7 +80,9 @@
     "agentLink": "Girêdana referansê",
     "studentsOps": "Karên xwendekaran",
     "studentDiscount": "Daxistina xwendekaran",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "Kapasîte",
+    "directoryMod": "Moderasyona Rêbernameyê"
   },
   "language": {
     "label": "Ziman",
@@ -150,7 +152,9 @@
   },
   "hero": {
     "headlinePrefix": "Ji bo her rêyekê li",
-    "headlineHighlight": "Almanyayê"
+    "headlineHighlight": "Almanyayê",
+    "introA": "Ka hûn plana koçkirina xwe ya Almanyayê dikin — ji bo kar, xwendin an malbatê — an jî berê li vir in û jiyanekê ava dikin: BeistandPlus ji bo her gavê platformek aramî ye.",
+    "introB": "Vîze, Anmeldung, xanî, alîkarî, sîgorteya tenduristiyê ya mecbûrî, ajotin, jidayikbûn, dawet û mirin — rêveberekî dozê yê mirovî, bi zimanê we, ji destpêkê heta dawiyê."
   },
   "agent": {
     "defaultName": "Nûner",

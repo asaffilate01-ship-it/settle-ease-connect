@@ -80,7 +80,9 @@
     "agentLink": "رابط الإحالة",
     "studentsOps": "عمليات الطلاب",
     "studentDiscount": "خصم الطلاب",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "السعة",
+    "directoryMod": "إشراف الدليل"
   },
   "language": {
     "label": "اللغة",
@@ -150,7 +152,9 @@
   },
   "hero": {
     "headlinePrefix": "لكل طريق في",
-    "headlineHighlight": "ألمانيا"
+    "headlineHighlight": "ألمانيا",
+    "introA": "سواء كنت تخطط للانتقال إلى ألمانيا — للعمل أو الدراسة أو الأسرة — أو كنت هنا بالفعل وتبني حياتك، فإن BeistandPlus هي المنصة الهادئة لكل خطوة.",
+    "introB": "التأشيرات، Anmeldung، السكن، الإعانات، التأمين الصحي الإلزامي، القيادة، الولادات، الزيجات، الوفيات — مدير حالة إنساني واحد، بلغتك، طوال الطريق."
   },
   "agent": {
     "defaultName": "Agent",

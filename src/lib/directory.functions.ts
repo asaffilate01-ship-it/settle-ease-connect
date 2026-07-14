@@ -61,12 +61,58 @@ export const createDirectoryListing = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => listingSchema.parse(d))
   .handler(async ({ data, context }) => {
+    // Free listings go through staff moderation before appearing publicly.
     const { data: row, error } = await context.supabase
       .from("directory_listings")
-      .insert({ ...data, owner_user_id: context.userId, status: "active" })
+      .insert({ ...data, owner_user_id: context.userId, status: "pending" })
       .select().single();
     if (error) throw new Error(error.message);
     return row;
+  });
+
+/* -------- Staff moderation queue -------- */
+
+async function assertAdmin(context: { supabase: any; userId: string }) {
+  const { data } = await context.supabase.rpc("has_role", {
+    _user_id: context.userId, _role: "admin",
+  });
+  if (!data) {
+    const { data: staff } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    if (!staff) throw new Error("Forbidden: staff only");
+  }
+}
+
+export const listDirectoryModerationQueue = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { status?: "pending" | "active" | "rejected" | "suspended" } | undefined) => d ?? {})
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    const { data: rows, error } = await context.supabase
+      .from("directory_listings")
+      .select("*")
+      .eq("status", data.status ?? "pending")
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return rows ?? [];
+  });
+
+export const setDirectoryListingStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      id: z.string().uuid(),
+      status: z.enum(["pending", "active", "rejected", "suspended"]),
+      note: z.string().max(1000).optional(),
+    }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    const { error } = await context.supabase
+      .from("directory_listings")
+      .update({ status: data.status })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
   });
 
 export const updateDirectoryListing = createServerFn({ method: "POST" })

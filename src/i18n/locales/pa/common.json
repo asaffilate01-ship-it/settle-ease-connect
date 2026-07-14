@@ -80,7 +80,9 @@
     "agentLink": "ਰੈਫਰਲ ਲਿੰਕ",
     "studentsOps": "ਵਿਦਿਆਰਥੀ ਓਪਸ",
     "studentDiscount": "ਵਿਦਿਆਰਥੀ ਛੋਟ",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "ਸਮਰੱਥਾ",
+    "directoryMod": "ਡਾਇਰੈਕਟਰੀ ਮੌਡਰੇਸ਼ਨ"
   },
   "language": {
     "label": "ਭਾਸ਼ਾ",
@@ -150,7 +152,9 @@
   },
   "hero": {
     "headlinePrefix": "ਹਰ ਰਾਹ ਲਈ",
-    "headlineHighlight": "ਜਰਮਨੀ"
+    "headlineHighlight": "ਜਰਮਨੀ",
+    "introA": "ਭਾਵੇਂ ਤੁਸੀਂ ਜਰਮਨੀ ਜਾਣ ਦੀ ਯੋਜਨਾ ਬਣਾ ਰਹੇ ਹੋ — ਕੰਮ, ਪੜ੍ਹਾਈ ਜਾਂ ਪਰਿਵਾਰ ਲਈ — ਜਾਂ ਪਹਿਲਾਂ ਤੋਂ ਇੱਥੇ ਹੋ ਅਤੇ ਜ਼ਿੰਦਗੀ ਬਣਾ ਰਹੇ ਹੋ, BeistandPlus ਹਰ ਕਦਮ ਲਈ ਇੱਕ ਸ਼ਾਂਤ ਪਲੇਟਫਾਰਮ ਹੈ।",
+    "introB": "ਵੀਜ਼ਾ, Anmeldung, ਰਿਹਾਇਸ਼, ਲਾਭ, ਲਾਜ਼ਮੀ ਸਿਹਤ ਬੀਮਾ, ਡਰਾਈਵਿੰਗ, ਜਨਮ, ਵਿਆਹ, ਮੌਤਾਂ — ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ, ਪੂਰੇ ਸਫ਼ਰ ਲਈ ਇੱਕ ਮਨੁੱਖੀ ਕੇਸ ਮੈਨੇਜਰ।"
   },
   "agent": {
     "defaultName": "ਏਜੰਟ",

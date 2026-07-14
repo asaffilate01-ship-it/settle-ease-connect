@@ -80,7 +80,9 @@
     "agentLink": "ریفرل لنک",
     "studentsOps": "طلبہ آپس",
     "studentDiscount": "طلبہ رعایت",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "صلاحیت",
+    "directoryMod": "ڈائریکٹری اعتدال"
   },
   "language": {
     "label": "زبان",
@@ -150,7 +152,9 @@
   },
   "hero": {
     "headlinePrefix": "ہر راستے پر",
-    "headlineHighlight": "جرمنی"
+    "headlineHighlight": "جرمنی",
+    "introA": "چاہے آپ جرمنی منتقلی کی منصوبہ بندی کر رہے ہوں — کام، تعلیم یا خاندان کے لیے — یا پہلے سے یہاں موجود ہوں اور زندگی بنا رہے ہوں، BeistandPlus ہر قدم کے لیے ایک پرسکون پلیٹ فارم ہے۔",
+    "introB": "ویزا، Anmeldung، رہائش، سماجی فوائد، لازمی صحت انشورنس، ڈرائیونگ، پیدائش، شادی، اموات — آپ کی زبان میں، پورے سفر کے لیے ایک انسانی کیس مینیجر۔"
   },
   "agent": {
     "defaultName": "ایجنٹ",

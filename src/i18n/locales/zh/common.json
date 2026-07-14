@@ -80,7 +80,9 @@
     "agentLink": "推荐链接",
     "studentDiscount": "学生优惠",
     "studentsOps": "学生运营",
-    "account": "My account"
+    "account": "My account",
+    "capacity": "工作负载",
+    "directoryMod": "目录审核"
   },
   "agent": {
     "defaultName": "代理",
@@ -229,7 +231,9 @@
   },
   "hero": {
     "headlinePrefix": "陪伴您在",
-    "headlineHighlight": "德国"
+    "headlineHighlight": "德国",
+    "introA": "无论您正计划前往德国 — 为了工作、学习或家庭 — 还是已在此建立生活，BeistandPlus 都是每一步都陪伴您的沉稳平台。",
+    "introB": "签证、Anmeldung、住房、福利、法定医疗保险、驾照、出生、婚姻、丧事 — 一位人类案例管理员，用您的语言，全程陪伴。"
   },
   "pages": {
     "pricing": {
