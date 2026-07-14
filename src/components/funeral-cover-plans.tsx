@@ -1,39 +1,17 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, User, Users, HeartHandshake, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { estimatePremium } from "@/lib/premium-estimator";
 import { Button } from "@/components/ui/button";
 
 /**
- * Funeral / bereavement cover — premium matrix.
- *
- * Individual and family plans built on top of `estimatePremium` (which
- * interpolates published rate tables from DELA, Monuta, Nürnberger, IDEAL,
- * HanseMerkur 2024–2025). Ranges are Tippgeber-safe indications, never
- * binding quotes.
+ * Funeral / bereavement cover — product overview.
  *
  * Coverage: €20,000 default benefit per insured adult — matches the DELA
  * cooperative €20k Sterbegeld tarif we broker into. Children under 18 are
  * included at no additional premium on family / extended-family plans
  * (DELA free-child rider).
  */
-
-const ADULT_AGE_BANDS = [30, 40, 50, 60, 70] as const;
-const BENEFIT_EUR = 20_000;
-
-function bandFor(age: number) {
-  return estimatePremium({
-    age,
-    benefitAmount: BENEFIT_EUR,
-    tobacco: false,
-    waitingPeriodMonths: 0,
-  });
-}
-
-function fmt(n: number) {
-  return `€${n.toFixed(0)}`;
-}
 
 type Household = "individual" | "family" | "extended";
 
