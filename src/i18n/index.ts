@@ -58,5 +58,15 @@ if (!i18n.isInitialized) {
     } as Parameters<typeof i18n.init>[0]);
 }
 
+// Guarantee SSR ("de") and first client render match. The i18n singleton
+// survives HMR / client-module-reloads with its last-set language, so on
+// a hard reload with a saved non-DE language the client would hydrate in
+// that language while the SSR HTML is in DE. Force it back to DEFAULT_LANG
+// synchronously here — useLanguage() re-applies the saved language after
+// the first commit, inside a view transition.
+if (i18n.language !== DEFAULT_LANG) {
+  i18n.changeLanguage(DEFAULT_LANG);
+}
+
 
 export default i18n;
