@@ -132,11 +132,10 @@ function GroupCoverPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
 
-        <h2 className="display-lg font-semibold">Three-tier member structure</h2>
+        <h2 className="display-lg font-semibold">Three cover tiers</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          A clean pricing spine that maps onto how households actually look. The final per-member
-          rate is confirmed by the broker tender for your pool — we don't quote premium estimates
-          up front.
+          A clean pricing spine that maps onto how households actually look. Choose the tier that
+          fits your family — the rate is fixed at enrolment.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {tiers.map((t) => (
