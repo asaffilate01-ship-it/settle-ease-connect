@@ -10,14 +10,17 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 export const listMyClaimedBenefits = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { supabase, userId } = context;
+    const { supabase, userId, claims } = context;
+    const email = (claims as { email?: string } | null)?.email ?? "";
 
     const [insurance, tax, cases] = await Promise.all([
-      supabase
-        .from("insurance_leads")
-        .select("id, product, status, benefit_amount, updated_at, provider_key")
-        .eq("user_id", userId)
-        .order("updated_at", { ascending: false }),
+      email
+        ? supabase
+            .from("insurance_leads")
+            .select("id, product_line, status, benefit_amount, updated_at, carrier_partner")
+            .eq("email", email)
+            .order("updated_at", { ascending: false })
+        : Promise.resolve({ data: [] as any[] }),
       supabase
         .from("tax_leads")
         .select("id, tax_year, status, estimated_refund_eur, updated_at")
