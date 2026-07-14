@@ -2972,54 +2972,7 @@ export type Database = {
       }
     }
     Views: {
-      directory_public: {
-        Row: {
-          bundesland: string | null
-          business_name: string | null
-          category: string | null
-          city: string | null
-          created_at: string | null
-          description: string | null
-          featured: boolean | null
-          id: string | null
-          languages: string[] | null
-          logo_url: string | null
-          subcategory: string | null
-          updated_at: string | null
-          website: string | null
-        }
-        Insert: {
-          bundesland?: string | null
-          business_name?: string | null
-          category?: string | null
-          city?: string | null
-          created_at?: string | null
-          description?: string | null
-          featured?: boolean | null
-          id?: string | null
-          languages?: string[] | null
-          logo_url?: string | null
-          subcategory?: string | null
-          updated_at?: string | null
-          website?: string | null
-        }
-        Update: {
-          bundesland?: string | null
-          business_name?: string | null
-          category?: string | null
-          city?: string | null
-          created_at?: string | null
-          description?: string | null
-          featured?: boolean | null
-          id?: string | null
-          languages?: string[] | null
-          logo_url?: string | null
-          subcategory?: string | null
-          updated_at?: string | null
-          website?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       accept_expert_invitation: { Args: { _token: string }; Returns: string }
