@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useTranslation } from "react-i18next";
 import { listDirectoryListings } from "@/lib/directory.functions";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSubscription, tierMeets } from "@/lib/subscription";
 import { ClayIcon } from "@/components/clay-icon";
 import { PolishedCard } from "@/components/polished-card";
+
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   lawyer: Scale,
