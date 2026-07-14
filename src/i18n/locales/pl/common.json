@@ -319,5 +319,89 @@
       "send": "Wyślij wiadomość",
       "thanks": "Dziękujemy — wkrótce się skontaktujemy."
     }
+  },
+  "funeralCover": {
+    "badge": "Sterbegeld · Ubezpieczenie regulowane prawem niemieckim",
+    "headline": "Zatwierdzone i regulowane pokrycie kosztów od około 24 €/miesiąc",
+    "subhead": "Świadczenie w wysokości 20 000 € na ubezpieczoną osobę dorosłą — wystarczające na pokrycie pełnych kosztów pogrzebu i pochówku lub ostatniego pożegnania, a także repatriacji w razie potrzeby, z ewentualną resztą przekazaną wskazanemu beneficjentowi. Rodzina nigdy nie musi szukać pieniędzy w najtrudniejszym momencie.",
+    "disclaimer": "Zakresy odzwierciedlają opublikowane tabele stawek na lata 2024–2025 od naszych dostawców Sterbegeld regulowanych prawem niemieckim, dla osób niepalących bez okresu karencji, ze świadczeniem w wysokości 20 000 €. Rzeczywista wysokość składki zależy od wieku, deklaracji zdrowotnej, statusu palacza i wybranego okresu karencji; dzieci poniüej 18 roku życia są objęte bez dodatkowej składki w ramach taryf rodzinnych i rozszerzonych taryf rodzinnych. Nie jest to wiążąca oferta — ofertę wystawia licencjonowany partner.",
+    "coverageTitle": "Co obejmuje 20 000 € — za pośrednictwem BeistandPlus",
+    "howLabel": "Jak to działa:",
+    "howBody": "dostawca reguluje w całości każdą zatwierdzoną i uregulowaną fakturę — pogrzeb, pochówek lub ostatnie pożegnanie, a także repatriację w razie potrzeby — a wszelka pozostała kwota jest wypłacana wskazanemu beneficjentowi w ciągu 14 dni.",
+    "ctaEstimate": "Oszacuj moją składkę",
+    "ctaTalk": "Porozmawiaj z menedżerem sprawy",
+    "introducer": "BeistandPlus działa jako podmiot wprowadzający (Tippgeber / §34d GewO broker, jeśli ma zastosowanie). Składki są płacone bezpośrednio dostawcy ubezpieczenia; BeistandPlus nigdy nie jest ubezpieczycielem. Subskrypcja i składka ubezpieczeniowa są fakturowane oddzielnie.",
+    "tabs": {
+      "individual": "Indywidualny",
+      "individualNote": "1 dorosły · 20 tys. € świadczenia",
+      "family": "Rodzinny",
+      "familyNote": "2 dorosłych + do 3 dzieci poniżej 18 lat · 20 tys. € na dorosłego",
+      "extended": "Rodzina wielopokoleniowa",
+      "extendedNote": "Do 4 dorosłych + 3 dzieci poniżej 18 lat · 20 tys. € na dorosłego"
+    },
+    "rows": {
+      "individualLabel": "Wiek {{age}}",
+      "individualDetail": "1 dorosły · 20 000 € wypłaty",
+      "familyLabel": "Oboje dorośli w wieku {{age}}",
+      "familyDetail": "2 dorosłych + do 3 dzieci · 20 tys. € na dorosłego",
+      "extendedLabel": "Wszyscy 4 dorośli w wieku {{age}}",
+      "extendedDetail": "4 dorosłych + do 3 dzieci · 20 tys. € na dorosłego"
+    },
+    "table": {
+      "composition": "Skład",
+      "cover": "Zakres",
+      "premium": "Szacowana miesięczna składka",
+      "perMo": "/ mies."
+    },
+    "coverage": [
+      "20 000 € świadczenia na ubezpieczonego dorosłego — wypłacane w przypadku śmierci, bez wymaganego badania lekarskiego dla standardowych taryf",
+      "Bezpośrednie rozliczenie kosztów zakładu pogrzebowego, cmentarza, meczetu / kościoła / świątyni, kremacji, trumny, kwiatów, cateringu i opłat za akt zgonu na podstawie oryginalnych faktur",
+      "Pełna repatriacja ciała za granicę (cynkowa trumna, balsamowanie, zgoda konsularna, transport lotniczy, odbierający dyrektor w kraju ojczystym)",
+      "Tłumaczenia przysięgłe, dokumenty spadkowe, Standesamt, koordynacja ambasady / konsulatu — wszystko fakturowane przez akta sprawy",
+      "Każde euro wyszczególnione w aktach sprawy BeistandPlus, aby rodzina dokładnie widziała, na co poszły pieniądze",
+      "Wszelkie pozostałe saldo po uregulowaniu wszystkich zatwierdzonych i regulowanych wydatków jest wypłacane wskazanemu beneficjentowi za pośrednictwem SEPA, w Niemczech lub za granicą, w jego lokalnej walucie",
+      "Wielojęzyczny menedżer sprawy przypisany w ciągu 1 godziny od otwarcia roszczenia, dostępny 24/7"
+    ]
+  },
+  "directory": {
+    "badge": "Katalog członków",
+    "heroTitle": "Znajdź kogoś, kto mówi w Twoim języku.",
+    "heroBody": "Wielojęzyczni prawnicy, lekarze, imamowie, doradcy podatkowi, eksperci ds. opieki społecznej, nauczyciele i tłumacze w całych Niemczech — z możliwością wyszukiwania według miasta i języka. Bezpłatne dla dostawców, dostęp dla członków dla rodzin i klientów.",
+    "listCta": "Wymień swoją firmę — za darmo",
+    "seePlans": "Zobacz plany członkowskie",
+    "cityPlaceholder": "Filtruj według miasta (Berlin, Monachium…)",
+    "featured": "Wyróżnione",
+    "website": "Strona internetowa",
+    "addressHidden": "Pełny adres ukryty",
+    "mapTitle": "Mapa {{name}}",
+    "openInMaps": "Otwórz w Google Maps →",
+    "lockedNote": "Kontakt, adres i mapa dla członków",
+    "unlock": "Odblokuj →",
+    "emptyPrefix": "Żadne oferty nie pasują jeszcze do Twoich filtrów. Bądź jednym z pierwszych —",
+    "emptyCta": "dodaj swoją firmę za darmo",
+    "categories": {
+      "all": "Wszystkie",
+      "lawyer": "Prawnicy",
+      "immigration": "Imigracja",
+      "tax": "Doradcy podatkowi",
+      "welfare": "Pomoc społeczna / świadczenia / emerytury",
+      "doctor": "Lekarze",
+      "medical": "Specjaliści medyczni",
+      "education": "Edukacja",
+      "religious": "Religijne",
+      "translator": "Tłumacze",
+      "funeral": "Pogrzeb",
+      "other": "Inne"
+    },
+    "paywall": {
+      "eyebrow": "Tylko dla członków",
+      "title": "Odblokuj wszystkich zweryfikowanych dostawców.",
+      "body": "Członkowie BeistandPlus otrzymują pełne dane kontaktowe, telefon, e-mail i stronę internetową dla każdego wpisu — plus osobistego opiekuna, który może ich przedstawić. Wpisy w katalogu są bezpłatne dla dostawców; dostęp jest wliczony w każdy plan BeistandPlus.",
+      "cta": "Zobacz plany od 5 €",
+      "signIn": "Zaloguj się"
+    }
+  },
+  "common": {
+    "loading": "Wczytywanie…"
   }
 }

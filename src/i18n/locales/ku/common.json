@@ -51,7 +51,7 @@
     "community": "Civak",
     "knowledge": "Bingeha zanînê",
     "experts": "Lîsteya pisporan",
-    "escrow": "Escrow release",
+    "escrow": "Serbestberdana emanetê",
     "funeralCover": "Sîgorteya cenazeyê",
     "settings": "Mîheng",
     "internal": "Hundirîn",
@@ -82,7 +82,7 @@
     "agentLink": "Girêdana referansê",
     "studentsOps": "Karên xwendekaran",
     "studentDiscount": "Daxistina xwendekaran",
-    "account": "My account",
+    "account": "Hesabê min",
     "capacity": "Kapasîte",
     "directoryMod": "Moderasyona Rêbernameyê"
   },
@@ -319,5 +319,89 @@
       "send": "Peyamê bişîne",
       "thanks": "Spas — em zû têkilî datînin."
     }
+  },
+  "funeralCover": {
+    "badge": "Sterbegeld · Bînerênkirina di bin qanûna Alman de",
+    "headline": "Bînerênkirina mesrefên pejirandî û birêker ji nêzîk €24/meh",
+    "subhead": "Feydeyek €20,000 ji bo her mezinê bînerênkirî — têne ku hemû mesrefên cenaze û veşartinê an merasîma dawî, plus vegerandina welat heke hewce be, bi her balansa ku diçe berjewendiya weya destnîşankirî. Malbat qet ne hewce ye ku di dema herî dijwar de drav bibîne.",
+    "disclaimer": "Rêjeyên tabloyên rêteyên weşandî yên 2024–2025 ji panela me ya pêkarên Sterbegeld ku di bin qanûna Alman de hatine birêkerkirin, ji bo kesên cixare nekêne ku dema bendewariyê tune ye li ser feydeyek €20,000. Prêmêta rastî bi temen, daxuyaniya tenduristî, rewşa cixarekêne û dema bendewariyê ya hilbijartî ve girêde ye; zarokên di bin 18 salî de bê prêmêta zêde li ser tarîfeyên malbatî û malbata berfireh tên de. Ne gotarek girêde ye — pêkarê hevkarê lîsanskirî pêkanî dide.",
+    "coverageTitle": "Tişta ku €20,000 vedigire — bi riya BeistandPlus",
+    "howLabel": "Ew çawa dixebite:",
+    "howBody": "pêkar her fatûreya pejirandî û birêker bi tevahî dide — cenaze, veşartin an merasîma dawî, û vegerandina welat heke hewce be — û her balansa ku diçe berjewendiya destnîşankirî di nav 14 rojan de tê dayîn.",
+    "ctaEstimate": "Prêmêta min texmîn bike",
+    "ctaTalk": "Bi rêveberê dozê re bipeyive",
+    "introducer": "BeistandPlus wekî danasîner (Tippgeber / §34d GewO broker heke hewce be) tevdigere. Prêmêta rasterast ji pêkarê bînerênkirinê re tên dayîn; BeistandPlus qet bînerênkirinê nake. Abonetî û prêmêta bînerênkirinê cuda tên fatûrekirin.",
+    "tabs": {
+      "individual": "Kesane",
+      "individualNote": "1 mezin · 20 hezar euro feyde",
+      "family": "Malbat",
+      "familyNote": "2 mezin + heta 3 zarokên di bin 18 salî de · 20 hezar euro ji bo her mezinî",
+      "extended": "Malbata berfireh",
+      "extendedNote": "Heta 4 mezin + 3 zarokên di bin 18 salî de · 20 hezar euro ji bo her mezinî"
+    },
+    "rows": {
+      "individualLabel": "Temen {{age}}",
+      "individualDetail": "1 mezin · 20.000 € dravdan",
+      "familyLabel": "Herdu mezin temen {{age}}",
+      "familyDetail": "2 mezin + heta 3 zarokan · 20.000 € ji bo her mezin",
+      "extendedLabel": "Hemî 4 mezinên temenê {{age}}",
+      "extendedDetail": "4 mezin + heya 3 zarokan · 20 hezar € ji bo her mezinan"
+    },
+    "table": {
+      "composition": "Pêkhatî",
+      "cover": "Girtin",
+      "premium": "Pêreya mehane ya texmînkirî",
+      "perMo": "/ meh"
+    },
+    "coverage": [
+      "20.000 € feyde ji bo her mezinê bîmeser — di dema mirinê de tê dayîn, ji bo tarifên standard muayeneya bijîşkî ne hewce ye",
+      "Danûstandina rasterast a rêveberê cenaze, goristan, mizgeft / dêr / perestgeh, şewitandin, tabût, kulîlk, xwarin û xercên belgeya mirinê li hember fatûreyên orîjînal",
+      "Vegera tevahî ya laşê bo derveyî welat (tabûta zinc, embalmkirin, NOC konsolosî, kargoya balafirgehê, rêveberê wergir li welatê malê)",
+      "Wergerênên sondxwarî, kaxezên mîratê, Standesamt, hevrêkeriya balyozxane / konsolosxaneyê — hemû di pelê dozê de tên fatûrekirin",
+      "Her euro di pelê doza we ya BeistandPlus de bi hûrgîlî tê nîşandan da ku malbat tam bibîne ka pere çû ku derê",
+      "Her balansa ku piştî hemû mesrefên pejirandî û rêkxistî hatine dayîn, bi riya SEPA, li Almanya an derveyî welat, bi diravê wan ê herêmî ji wergirê we yê destnîşankirî re tê dayîn",
+      "Rêveberê dozê ya pirzimanî ya 24/7 di nav 1 saetê de piştî vekirina daxwazekê tê tayînkirin"
+    ]
+  },
+  "directory": {
+    "badge": "Pêrgala endaman",
+    "heroTitle": "Kesekî ku bi zimanê we diaxive bibînin.",
+    "heroBody": "Parêzvan, bijîşk, îmam, şêrwirmendên bacê, pisporên refahê, mamoste û wergêrên pirzimanî li seranserê Almanya — bi bajar û ziman tên gerandin. Ji bo pêkarên belaş e ku navnîş bikin, gihîştina endaman ji bo malbat û mişterîyan.",
+    "listCta": "Karsaziya xwe navnîş bikin — belaş",
+    "seePlans": "Plansaziyên endamtiyê bibînin",
+    "cityPlaceholder": "Li gorî bajêr fîltre bike (Berlîn, Munîh…)",
+    "featured": "Taybetmendî",
+    "website": "Malper",
+    "addressHidden": "Navnîşana tevahî veşartî ye",
+    "mapTitle": "Nexşeya {{name}}",
+    "openInMaps": "Di Google Maps de veke →",
+    "lockedNote": "Têkilî, navnîşan & nexşe ji bo endaman",
+    "unlock": "Veke →",
+    "emptyPrefix": "Hîn tiştek li gorî fîlterên we tune. Yek ji yên pêşîn bin —",
+    "emptyCta": "karsaziya xwe belaş tomar bikin",
+    "categories": {
+      "all": "Hemî",
+      "lawyer": "Parêzer",
+      "immigration": "Koçberî",
+      "tax": "Şêwirmendên bacê",
+      "welfare": "Refah / feydeyên / teqawidî",
+      "doctor": "Doktor",
+      "medical": "Pisporên bijîşkî",
+      "education": "Perwerde",
+      "religious": "Olî",
+      "translator": "Wergêr",
+      "funeral": "Cenaze",
+      "other": "Yên din"
+    },
+    "paywall": {
+      "eyebrow": "Tenê ji bo endaman",
+      "title": "Hemî pêşkêşkerên verastkirî vekin.",
+      "body": "Endamên BeistandPlus ji bo her navnîşek hûrguliyên têkiliyê yên tevahî, têlefon, e-name û malperê digirin — digel rêveberek doza mirovî ku dikare we bide nasîn. Navnîşên pelrêçê ji bo pêşkêşkeran belaş in; gihîştin bi her plana BeistandPlus re tê de ye.",
+      "cta": "Planên ji €5 bibînin",
+      "signIn": "Têkeve"
+    }
+  },
+  "common": {
+    "loading": "Tê barkirin…"
   }
 }

@@ -319,5 +319,89 @@
       "send": "Mesaj gönder",
       "thanks": "Teşekkürler — en kısa sürede size döneceğiz."
     }
+  },
+  "funeralCover": {
+    "badge": "Sterbegeld · Alman hukukuna göre düzenlenmiş teminat",
+    "headline": "Ayda yaklaşık 24 €'dan başlayan onaylı ve düzenlenmiş gider teminatı",
+    "subhead": "Sigortalı yetişkin başına 20.000 € fayda — cenaze ve defin veya son ayinlerin tüm masraflarını karşılamaya yeterli, ayrıca gerekirse ülkeye iade masrafları da dahil olmak üzere, kalan bakiye belirlediğiniz hak sahibine gider. Aile, en zor anda para bulmak zorunda kalmaz.",
+    "disclaimer": "Fiyat aralıkları, Alman hukukuna göre düzenlenmiş Sterbegeld sağlayıcılarımızın 2024–2025 yılları için yayınladığı fiyat tablolarını yansıtmaktadır. Bu fiyatlar, 20.000 €'lık bir fayda için bekleme süresi olmayan sigara içmeyenler içindir. Gerçek prim, yaşa, sağlık beyanına, sigara kullanım durumuna ve seçilen bekleme süresine bağlıdır; 18 yaşın altındaki çocuklar, aile ve geniş aile tarifelerinde ek prim ödemeden dahildir. Bu bağlayıcı bir teklif değildir — teklifi lisanslı iş ortağı sağlayıcı sunar.",
+    "coverageTitle": "20.000 € neleri kapsar — BeistandPlus aracılığıyla",
+    "howLabel": "Nasıl çalışır:",
+    "howBody": "sağlayıcı, onaylanmış ve düzenlenmiş her faturayı tam olarak öder — cenaze, defin veya son ayinler ve gerekirse ülkeye iade — ve kalan bakiye 14 gün içinde belirlenen hak sahibine ödenir.",
+    "ctaEstimate": "Primimi tahmin et",
+    "ctaTalk": "Bir vaka yöneticisiyle konuş",
+    "introducer": "BeistandPlus, tanıtıcı (Tippgeber / uygun olduğu durumlarda §34d GewO aracı) olarak hareket eder. Primler doğrudan teminat sağlayıcıya ödenir; BeistandPlus asla sigorta etmez. Abonelik ve teminat primi ayrı ayrı faturalandırılır.",
+    "tabs": {
+      "individual": "Bireysel",
+      "individualNote": "1 yetişkin · 20 bin € fayda",
+      "family": "Aile",
+      "familyNote": "2 yetişkin + 18 yaş altı 3 çocuğa kadar · yetişkin başına 20 bin €",
+      "extended": "Geniş aile",
+      "extendedNote": "4 yetişkine kadar + 18 yaş altı 3 çocuk · yetişkin başına 20 bin €"
+    },
+    "rows": {
+      "individualLabel": "Yaş {{age}}",
+      "individualDetail": "1 yetişkin · 20.000 € ödeme",
+      "familyLabel": "İki yetişkin de {{age}} yaşında",
+      "familyDetail": "2 yetişkin + 3 çocuğa kadar · yetişkin başına 20 bin €",
+      "extendedLabel": "Dört yetişkin de {{age}} yaşında",
+      "extendedDetail": "4 yetişkin + 3 çocuğa kadar · yetişkin başına 20 bin €"
+    },
+    "table": {
+      "composition": "Kompozisyon",
+      "cover": "Kapsam",
+      "premium": "Tahmini aylık prim",
+      "perMo": "/ ay"
+    },
+    "coverage": [
+      "Sigortalı yetişkin başına 20.000 € fayda — ölüm halinde ödenir, standart tarifeler için sağlık muayenesi gerekmez",
+      "Cenaze levazımatçısı, mezarlık, cami / kilise / tapınak, kremasyon, tabut, çiçekler, ikram ve ölüm belgesi ücretlerinin orijinal faturalara karşı doğrudan ödenmesi",
+      "Cenazenin yurt dışına tam olarak iadesi (çinko tabut, mumyalama, konsolosluk NOC, havayolu kargosu, ev sahibi ülkedeki alıcı müdür)",
+      "Yeminli tercümeler, miras evrakları, Standesamt, elçilik / konsolosluk koordinasyonu — hepsi vaka dosyası üzerinden faturalandırılır",
+      "BeistandPlus vaka dosyanızda her euro kalem kalem belirtilir, böylece aile paranın nereye gittiğini tam olarak görür",
+      "Tüm onaylanmış ve düzenlenmiş giderler ödendikten sonra kalan bakiye, Almanya'da veya yurt dışında, yerel para biriminde SEPA aracılığıyla belirlediğiniz hak sahibine ödenir",
+      "Bir talep açıldıktan sonra 1 saat içinde atanan 7/24 çok dilli vaka yöneticisi"
+    ]
+  },
+  "directory": {
+    "badge": "Üyeler dizini",
+    "heroTitle": "Dilinizi konuşan birini bulun.",
+    "heroBody": "Almanya genelinde çok dilli avukatlar, doktorlar, imamlar, vergi danışmanları, refah uzmanları, öğretmenler ve çevirmenler — şehir ve dile göre aranabilir. Sağlayıcılar için listeleme ücretsizdir, aileler ve müşteriler için üyelik erişimi mevcuttur.",
+    "listCta": "İşletmenizi listeleyin — ücretsiz",
+    "seePlans": "Üye planlarını görün",
+    "cityPlaceholder": "Şehre göre filtrele (Berlin, Münih…)",
+    "featured": "Öne çıkanlar",
+    "website": "Web sitesi",
+    "addressHidden": "Tam adres gizli",
+    "mapTitle": "{{name}} Haritası",
+    "openInMaps": "Google Haritalar'da aç →",
+    "lockedNote": "Üyeler için iletişim, adres ve harita",
+    "unlock": "Kilidi aç →",
+    "emptyPrefix": "Henüz filtrelerinize uyan hiçbir liste yok. İlklerden biri olun —",
+    "emptyCta": "işletmenizi ücretsiz listeleyin",
+    "categories": {
+      "all": "Tümü",
+      "lawyer": "Avukatlar",
+      "immigration": "Göçmenlik",
+      "tax": "Vergi danışmanları",
+      "welfare": "Refah / yardımlar / emekli maaşları",
+      "doctor": "Doktorlar",
+      "medical": "Tıp uzmanları",
+      "education": "Eğitim",
+      "religious": "Dini",
+      "translator": "Çevirmenler",
+      "funeral": "Cenaze",
+      "other": "Diğer"
+    },
+    "paywall": {
+      "eyebrow": "Sadece üyeler",
+      "title": "Tüm doğrulanmış sağlayıcıların kilidini açın.",
+      "body": "BeistandPlus üyeleri, her liste için tam iletişim bilgilerine, telefona, e-postaya ve web sitesine — ayrıca sizi tanıtabilecek bir insan vaka yöneticisine sahip olur. Dizin listelemeleri sağlayıcılar için ücretsizdir; erişim her BeistandPlus planına dahildir.",
+      "cta": "5 €'dan başlayan planları görün",
+      "signIn": "Giriş yap"
+    }
+  },
+  "common": {
+    "loading": "Yükleniyor…"
   }
 }
