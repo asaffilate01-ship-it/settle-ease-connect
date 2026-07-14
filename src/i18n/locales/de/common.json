@@ -356,5 +356,46 @@
       "tip2": "Abonnementstufen: Basic €5, Plus €10, Complete €25 pro Monat (Haushalt).",
       "tip3": "Sie verdienen {{rate}}% wiederkehrend, solange der Kunde abonniert bleibt."
     }
+  },
+  "directory": {
+    "badge": "Mitglieder-Verzeichnis",
+    "heroTitle": "Finden Sie jemanden, der Ihre Sprache spricht.",
+    "heroBody": "Mehrsprachige Anwälte, Ärzte, Imame, Steuerberater, Sozialexperten, Lehrer und Übersetzer in ganz Deutschland — durchsuchbar nach Stadt und Sprache. Kostenlose Einträge für Anbieter, Mitgliederzugang für Familien und Klienten.",
+    "listCta": "Ihr Unternehmen kostenlos eintragen",
+    "seePlans": "Mitgliedstarife ansehen",
+    "cityPlaceholder": "Nach Stadt filtern (Berlin, München…)",
+    "featured": "Empfohlen",
+    "website": "Webseite",
+    "addressHidden": "Vollständige Adresse verborgen",
+    "mapTitle": "Karte von {{name}}",
+    "openInMaps": "In Google Maps öffnen →",
+    "lockedNote": "Kontakt, Adresse & Karte für Mitglieder",
+    "unlock": "Freischalten →",
+    "emptyPrefix": "Noch keine passenden Einträge. Seien Sie eine/r der Ersten —",
+    "emptyCta": "kostenlos eintragen",
+    "categories": {
+      "all": "Alle",
+      "lawyer": "Anwälte",
+      "immigration": "Einwanderung",
+      "tax": "Steuerberater",
+      "welfare": "Sozialhilfe / Leistungen / Renten",
+      "doctor": "Ärzte",
+      "medical": "Fachärzte",
+      "education": "Bildung",
+      "religious": "Religiös",
+      "translator": "Übersetzer",
+      "funeral": "Bestattung",
+      "other": "Sonstige"
+    },
+    "paywall": {
+      "eyebrow": "Nur für Mitglieder",
+      "title": "Alle verifizierten Anbieter freischalten.",
+      "body": "BeistandPlus-Mitglieder erhalten vollständige Kontaktdaten — Telefon, E-Mail und Webseite — zu jedem Eintrag, plus einen menschlichen Fallmanager, der vermitteln kann. Verzeichniseinträge sind für Anbieter kostenlos; der Zugang ist in jedem BeistandPlus-Tarif enthalten.",
+      "cta": "Tarife ab 5 € ansehen",
+      "signIn": "Anmelden"
+    }
+  },
+  "common": {
+    "loading": "Wird geladen…"
   }
 }

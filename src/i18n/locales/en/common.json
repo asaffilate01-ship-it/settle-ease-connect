@@ -356,5 +356,46 @@
       "send": "Send message",
       "thanks": "Thank you — we'll be in touch soon."
     }
+  },
+  "directory": {
+    "badge": "Members directory",
+    "heroTitle": "Find someone who speaks your language.",
+    "heroBody": "Multilingual lawyers, doctors, imams, tax advisors, welfare experts, teachers and translators across Germany — searchable by city and language. Free for providers to list, member access for families and clients.",
+    "listCta": "List your business — free",
+    "seePlans": "See member plans",
+    "cityPlaceholder": "Filter by city (Berlin, Munich…)",
+    "featured": "Featured",
+    "website": "Website",
+    "addressHidden": "Full address hidden",
+    "mapTitle": "Map of {{name}}",
+    "openInMaps": "Open in Google Maps →",
+    "lockedNote": "Contact, address & map for members",
+    "unlock": "Unlock →",
+    "emptyPrefix": "No listings match your filters yet. Be one of the first —",
+    "emptyCta": "list your business for free",
+    "categories": {
+      "all": "All",
+      "lawyer": "Lawyers",
+      "immigration": "Immigration",
+      "tax": "Tax advisors",
+      "welfare": "Welfare / benefits / pensions",
+      "doctor": "Doctors",
+      "medical": "Medical specialists",
+      "education": "Education",
+      "religious": "Religious",
+      "translator": "Translators",
+      "funeral": "Funeral",
+      "other": "Other"
+    },
+    "paywall": {
+      "eyebrow": "Members only",
+      "title": "Unlock all verified providers.",
+      "body": "BeistandPlus members get full contact details, phone, email and website for every listing — plus a human case manager who can introduce you. Directory listings are free for providers; access is included with every BeistandPlus plan.",
+      "cta": "See plans from €5",
+      "signIn": "Sign in"
+    }
+  },
+  "common": {
+    "loading": "Loading…"
   }
 }
