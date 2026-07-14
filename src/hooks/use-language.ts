@@ -39,9 +39,9 @@ export function useLanguage() {
     };
   }, []);
 
-  // After hydration, apply the user's saved language preference. Doing this
-  // in useEffect (not during init) ensures the first client render matches
-  // the SSR HTML (always DEFAULT_LANG) and prevents hydration mismatches.
+  // After hydration, apply the user's saved language preference. We do NOT
+  // auto-detect from navigator.language — that caused the page to flip to
+  // another language on load. The onboarding sheet is where visitors pick.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const safeI18n = getSafeI18n();
@@ -51,11 +51,6 @@ export function useLanguage() {
       saved = localStorage.getItem(STORAGE_KEY);
     } catch {
       // ignore
-    }
-    if (!saved) {
-      const nav = navigator.language?.split("-")[0];
-      const match = LANGUAGES.find((l) => l.code === nav || l.code.startsWith(nav ?? ""));
-      saved = match?.code ?? null;
     }
     if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
       changeLanguageSafely(saved as LangCode);
