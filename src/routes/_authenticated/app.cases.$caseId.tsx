@@ -100,15 +100,28 @@ function CaseDetail() {
         </div>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-6">
-          <MessagesPanel caseId={c.id} messages={data.messages} nameOf={nameOf} />
-        </div>
-        <div className="space-y-6">
-          <TasksPanel caseId={c.id} tasks={data.tasks} nameOf={nameOf} />
-          <EventsPanel events={data.events} nameOf={nameOf} />
-        </div>
-      </div>
+      <Tabs defaultValue="conversation" className="w-full">
+        <TabsList className="w-full sm:w-auto">
+          <TabsTrigger value="conversation" className="gap-1.5"><MessageSquare className="h-3.5 w-3.5" />Conversation</TabsTrigger>
+          <TabsTrigger value="timeline" className="gap-1.5"><Sparkles className="h-3.5 w-3.5" />Timeline</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="conversation" className="mt-4">
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2 space-y-6">
+              <MessagesPanel caseId={c.id} messages={data.messages} nameOf={nameOf} />
+            </div>
+            <div className="space-y-6">
+              <TasksPanel caseId={c.id} tasks={data.tasks} nameOf={nameOf} />
+              <EventsPanel events={data.events} nameOf={nameOf} />
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="timeline" className="mt-4">
+          <UnifiedTimeline data={data} nameOf={nameOf} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
