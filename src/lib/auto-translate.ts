@@ -131,8 +131,12 @@ function collectAttrTargets(): AttrPending[] {
 async function translatePage() {
   if (typeof window === "undefined") return;
   if (currentLang === "en") {
-    // Restore any translated text back to source.
+    // We are in the base language. First, restore anything previously
+    // translated back to its stashed English source. Then seed the source
+    // attribute on every currently-visible node so that a later switch to
+    // another language has the correct English source to translate from.
     restoreEnglish();
+    seedEnglishSources();
     return;
   }
   const nodes = collectTextNodes();
@@ -146,8 +150,15 @@ async function translatePage() {
     let src = parent.getAttribute(SRC_ATTR);
     const nodeText = node.nodeValue!.trim();
     if (!src) {
-      src = nodeText;
-      parent.setAttribute(SRC_ATTR, src);
+      // No stashed source. We only trust the current DOM as the source if
+      // it is currently rendered in the base language. Otherwise the text
+      // is already translated by react-i18next (or a previous run) and
+      // stashing it now would poison future language switches with the
+      // wrong "source" string.
+      //
+      // Since currentLang !== "en" here, skip stashing and skip translating
+      // this node — the seed pass on the next EN visit will capture it.
+      continue;
     }
     const targetLang = parent.getAttribute(LANG_ATTR);
     if (targetLang === currentLang) continue;
