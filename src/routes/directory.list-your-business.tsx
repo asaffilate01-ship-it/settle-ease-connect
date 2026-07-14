@@ -172,7 +172,7 @@ function ListingRow({ listing, onEdit }: { listing: Listing; onEdit: () => void 
   );
 }
 
-const CATEGORIES = ["Legal","Medical","Tax","Insurance","Translation","Trades","Education","Faith","Funeral","Food","Beauty","Other"];
+const CATEGORIES = ["Legal","Medical","Tax","Insurance","Translation","Travel","Trades","Education","Faith","Funeral","Food","Beauty","Other"];
 
 function ListingForm({ initial, onDone }: { initial?: Listing; onDone: () => void }) {
   const qc = useQueryClient();
