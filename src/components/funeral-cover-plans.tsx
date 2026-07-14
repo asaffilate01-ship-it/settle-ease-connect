@@ -38,40 +38,6 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
     ],
   }) as unknown as string[];
 
-  const rows = useMemo(() => {
-    if (tab === "individual") {
-      return ADULT_AGE_BANDS.map((age) => {
-        const b = bandFor(age);
-        return {
-          label: t("funeralCover.rows.individualLabel", "Age {{age}}", { age }),
-          detail: t("funeralCover.rows.individualDetail", "1 adult · €20,000 payout"),
-          min: b.min,
-          max: b.max,
-        };
-      });
-    }
-    if (tab === "family") {
-      return ADULT_AGE_BANDS.slice(0, 4).map((age) => {
-        const b = bandFor(age);
-        return {
-          label: t("funeralCover.rows.familyLabel", "Both adults age {{age}}", { age }),
-          detail: t("funeralCover.rows.familyDetail", "2 adults + up to 3 children · €20k per adult"),
-          min: b.min * 2,
-          max: b.max * 2,
-        };
-      });
-    }
-    return ADULT_AGE_BANDS.slice(0, 4).map((age) => {
-      const b = bandFor(age);
-      return {
-        label: t("funeralCover.rows.extendedLabel", "All 4 adults age {{age}}", { age }),
-        detail: t("funeralCover.rows.extendedDetail", "4 adults + up to 3 children · €20k per adult"),
-        min: b.min * 4,
-        max: b.max * 4,
-      };
-    });
-  }, [tab, t]);
-
   return (
     <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft sm:p-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
