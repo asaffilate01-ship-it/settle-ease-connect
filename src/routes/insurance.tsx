@@ -33,8 +33,9 @@ export const Route = createFileRoute("/insurance")({
       {
         name: "description",
         content:
-          "Expat health, liability, household, legal expenses, term life and bereavement cover — placed through our §34d GewO broker partner with BaFin-supervised carriers. Explained in your language, disclosed transparently.",
+          "Expat health, liability, household, legal expenses and term life cover — placed through our §34d GewO broker partner with BaFin-supervised carriers. Explained in your language, disclosed transparently.",
       },
+
       { property: "og:title", content: "Insurance in Germany, without the paperwork" },
       {
         property: "og:description",
