@@ -193,14 +193,14 @@ function InsuranceLanding() {
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">
               Why go through us instead of Check24?
             </div>
-            <ul className="mt-4 space-y-3 text-sm text-white/85">
+            <ul className="mt-4 space-y-3 text-sm">
               {[
                 "We speak your language and complete the German forms with you — not just show a comparison table.",
                 "We disclose every euro of commission on every quote. Our income does not change your premium.",
                 "We are one signature away — we place, service and cancel policies for you across insurers.",
                 "If you also have a BeistandPlus subscription, every policy sits in your household vault with renewal alerts.",
               ].map((t) => (
-                <li key={t} className="flex items-start gap-2">
+                <li key={t} className="flex items-start gap-2 text-white/85">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-teal" /> <span>{t}</span>
                 </li>
               ))}
