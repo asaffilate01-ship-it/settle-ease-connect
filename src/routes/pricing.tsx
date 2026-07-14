@@ -542,9 +542,12 @@ function BereavementAddOn() {
                   : "border-border/60 bg-card hover:border-primary/40"
               }`}
             >
-              <div className="flex items-center gap-2 text-primary">
-                {b.icon}
-                <span className="text-xs font-semibold uppercase tracking-widest">{b.label}</span>
+              <div className="flex w-full items-center justify-between gap-2 text-primary">
+                <div className="flex items-center gap-2">
+                  {b.icon}
+                  <span className="text-xs font-semibold uppercase tracking-widest">{b.label}</span>
+                </div>
+                {isActive && <Check className="h-4 w-4 text-primary" aria-label="Selected" />}
               </div>
               <div className="font-display text-2xl font-semibold">
                 +€{b.addOnEur}
