@@ -61,6 +61,7 @@ import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalImmigrationRouteImport } from './routes/_authenticated/portal.immigration'
 import { Route as AuthenticatedPortalFuneralCoverRouteImport } from './routes/_authenticated/portal.funeral-cover'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
+import { Route as AuthenticatedPortalFinancialsRouteImport } from './routes/_authenticated/portal.financials'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
@@ -89,6 +90,7 @@ import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authent
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
 import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app.account'
 import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authenticated/agent.link'
+import { Route as AuthenticatedAgentLeadsRouteImport } from './routes/_authenticated/agent.leads'
 import { Route as AuthenticatedAgentCommissionsRouteImport } from './routes/_authenticated/agent.commissions'
 import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -371,6 +373,12 @@ const AuthenticatedPortalFuneralRoute =
     path: '/funeral',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalFinancialsRoute =
+  AuthenticatedPortalFinancialsRouteImport.update({
+    id: '/financials',
+    path: '/financials',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalExpertsRoute =
   AuthenticatedPortalExpertsRouteImport.update({
     id: '/experts',
@@ -532,6 +540,11 @@ const AuthenticatedAgentLinkRoute = AuthenticatedAgentLinkRouteImport.update({
   path: '/link',
   getParentRoute: () => AuthenticatedAgentRoute,
 } as any)
+const AuthenticatedAgentLeadsRoute = AuthenticatedAgentLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AuthenticatedAgentRoute,
+} as any)
 const AuthenticatedAgentCommissionsRoute =
   AuthenticatedAgentCommissionsRouteImport.update({
     id: '/commissions',
@@ -635,6 +648,7 @@ export interface FileRoutesByFullPath {
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
+  '/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
@@ -663,6 +677,7 @@ export interface FileRoutesByFullPath {
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
+  '/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -722,6 +737,7 @@ export interface FileRoutesByTo {
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
+  '/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
@@ -750,6 +766,7 @@ export interface FileRoutesByTo {
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
+  '/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -815,6 +832,7 @@ export interface FileRoutesById {
   '/partners/insurers': typeof PartnersInsurersRoute
   '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/_authenticated/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
+  '/_authenticated/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/_authenticated/agent/link': typeof AuthenticatedAgentLinkRoute
   '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
@@ -843,6 +861,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
+  '/_authenticated/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
   '/_authenticated/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/_authenticated/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
@@ -908,6 +927,7 @@ export interface FileRouteTypes {
     | '/partners/insurers'
     | '/agent/clients'
     | '/agent/commissions'
+    | '/agent/leads'
     | '/agent/link'
     | '/app/account'
     | '/app/alert'
@@ -936,6 +956,7 @@ export interface FileRouteTypes {
     | '/portal/directory'
     | '/portal/escrow'
     | '/portal/experts'
+    | '/portal/financials'
     | '/portal/funeral'
     | '/portal/funeral-cover'
     | '/portal/immigration'
@@ -995,6 +1016,7 @@ export interface FileRouteTypes {
     | '/partners/insurers'
     | '/agent/clients'
     | '/agent/commissions'
+    | '/agent/leads'
     | '/agent/link'
     | '/app/account'
     | '/app/alert'
@@ -1023,6 +1045,7 @@ export interface FileRouteTypes {
     | '/portal/directory'
     | '/portal/escrow'
     | '/portal/experts'
+    | '/portal/financials'
     | '/portal/funeral'
     | '/portal/funeral-cover'
     | '/portal/immigration'
@@ -1087,6 +1110,7 @@ export interface FileRouteTypes {
     | '/partners/insurers'
     | '/_authenticated/agent/clients'
     | '/_authenticated/agent/commissions'
+    | '/_authenticated/agent/leads'
     | '/_authenticated/agent/link'
     | '/_authenticated/app/account'
     | '/_authenticated/app/alert'
@@ -1115,6 +1139,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/directory'
     | '/_authenticated/portal/escrow'
     | '/_authenticated/portal/experts'
+    | '/_authenticated/portal/financials'
     | '/_authenticated/portal/funeral'
     | '/_authenticated/portal/funeral-cover'
     | '/_authenticated/portal/immigration'
@@ -1534,6 +1559,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalFuneralRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/financials': {
+      id: '/_authenticated/portal/financials'
+      path: '/financials'
+      fullPath: '/portal/financials'
+      preLoaderRoute: typeof AuthenticatedPortalFinancialsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/experts': {
       id: '/_authenticated/portal/experts'
       path: '/experts'
@@ -1730,6 +1762,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAgentLinkRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
     }
+    '/_authenticated/agent/leads': {
+      id: '/_authenticated/agent/leads'
+      path: '/leads'
+      fullPath: '/agent/leads'
+      preLoaderRoute: typeof AuthenticatedAgentLeadsRouteImport
+      parentRoute: typeof AuthenticatedAgentRoute
+    }
     '/_authenticated/agent/commissions': {
       id: '/_authenticated/agent/commissions'
       path: '/commissions'
@@ -1806,6 +1845,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAgentRouteChildren {
   AuthenticatedAgentClientsRoute: typeof AuthenticatedAgentClientsRoute
   AuthenticatedAgentCommissionsRoute: typeof AuthenticatedAgentCommissionsRoute
+  AuthenticatedAgentLeadsRoute: typeof AuthenticatedAgentLeadsRoute
   AuthenticatedAgentLinkRoute: typeof AuthenticatedAgentLinkRoute
   AuthenticatedAgentIndexRoute: typeof AuthenticatedAgentIndexRoute
 }
@@ -1813,6 +1853,7 @@ interface AuthenticatedAgentRouteChildren {
 const AuthenticatedAgentRouteChildren: AuthenticatedAgentRouteChildren = {
   AuthenticatedAgentClientsRoute: AuthenticatedAgentClientsRoute,
   AuthenticatedAgentCommissionsRoute: AuthenticatedAgentCommissionsRoute,
+  AuthenticatedAgentLeadsRoute: AuthenticatedAgentLeadsRoute,
   AuthenticatedAgentLinkRoute: AuthenticatedAgentLinkRoute,
   AuthenticatedAgentIndexRoute: AuthenticatedAgentIndexRoute,
 }
@@ -1937,6 +1978,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
+  AuthenticatedPortalFinancialsRoute: typeof AuthenticatedPortalFinancialsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
   AuthenticatedPortalFuneralCoverRoute: typeof AuthenticatedPortalFuneralCoverRoute
   AuthenticatedPortalImmigrationRoute: typeof AuthenticatedPortalImmigrationRoute
@@ -1957,6 +1999,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
+  AuthenticatedPortalFinancialsRoute: AuthenticatedPortalFinancialsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
   AuthenticatedPortalFuneralCoverRoute: AuthenticatedPortalFuneralCoverRoute,
   AuthenticatedPortalImmigrationRoute: AuthenticatedPortalImmigrationRoute,

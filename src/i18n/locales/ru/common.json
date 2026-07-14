@@ -84,7 +84,9 @@
     "studentDiscount": "Скидка для студентов",
     "account": "Мой аккаунт",
     "capacity": "Загрузка",
-    "directoryMod": "Модерация каталога"
+    "directoryMod": "Модерация каталога",
+    "agentLeads": "Мои клиенты — funnel",
+    "financials": "Financials"
   },
   "language": {
     "label": "Язык",

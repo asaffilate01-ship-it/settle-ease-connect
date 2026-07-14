@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
-import { LogOut, Users, TrendingUp, LinkIcon, Home } from "lucide-react";
+import { LogOut, Users, TrendingUp, LinkIcon, Home, Filter } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyAgentProfile } from "@/lib/agents.functions";
@@ -37,6 +37,7 @@ function AgentLayout() {
 
   const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
     { to: "/agent", label: t("agent.nav.overview", { defaultValue: "Overview" }), icon: Home, exact: true },
+    { to: "/agent/leads", label: t("agent.nav.leads", { defaultValue: "Leads & funnel" }), icon: Filter },
     { to: "/agent/clients", label: t("agent.nav.clients", { defaultValue: "My clients" }), icon: Users },
     { to: "/agent/commissions", label: t("agent.nav.commissions", { defaultValue: "Commissions" }), icon: TrendingUp },
     { to: "/agent/link", label: t("agent.nav.link", { defaultValue: "Referral link" }), icon: LinkIcon },

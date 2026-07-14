@@ -127,7 +127,9 @@
     "account": "Mein Konto",
     "capacity": "Kapazität",
     "directoryMod": "Verzeichnis-Moderation",
-    "funeralCover": "Bestattungsvorsorge"
+    "funeralCover": "Bestattungsvorsorge",
+    "agentLeads": "Meine Kunden — funnel",
+    "financials": "Financials"
   },
   "language": {
     "label": "Sprache",

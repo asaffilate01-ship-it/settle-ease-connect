@@ -84,7 +84,9 @@
     "studentDiscount": "छात्र छूट",
     "account": "मेरा खाता",
     "capacity": "क्षमता",
-    "directoryMod": "निर्देशिका मॉडरेशन"
+    "directoryMod": "निर्देशिका मॉडरेशन",
+    "agentLeads": "मेरे क्लाइंट — funnel",
+    "financials": "Financials"
   },
   "language": {
     "label": "भाषा",
