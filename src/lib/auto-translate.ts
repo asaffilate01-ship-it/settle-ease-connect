@@ -34,8 +34,31 @@ let mutating = false;
 const langNames: Record<string, string> = {
   en: "English", de: "German", tr: "Turkish", ur: "Urdu", hi: "Hindi",
   pa: "Punjabi", ps: "Pashto", ar: "Arabic", ku: "Kurdish (Kurmanji)",
-  ru: "Russian", uk: "Ukrainian",
+  ru: "Russian", uk: "Ukrainian", fa: "Persian (Farsi)", pl: "Polish",
+  zh: "Simplified Chinese",
 };
+
+/**
+ * Cheap heuristic: does this text look like it's already in `lang`?
+ * We only need to distinguish German from English source text — the two
+ * languages the codebase actually mixes at author-time. Everything else
+ * routes through the AI translator.
+ */
+function looksLike(text: string, lang: string): boolean {
+  const t = text.toLowerCase();
+  if (lang === "de") {
+    if (/[äöüß]/.test(t)) return true;
+    // Common German stopwords / connective words.
+    if (/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch)\b/.test(t)) return true;
+    return false;
+  }
+  if (lang === "en") {
+    if (/[äöüß]/.test(t)) return false;
+    if (/\b(the|and|or|not|with|for|from|is|are|we|you|they|their|a|an|to|of|on|in|about|after|before|already|also|any|when|then|so|every|germany|english)\b/.test(t)) return true;
+    return false;
+  }
+  return false;
+}
 
 function shouldSkip(el: Element | null): boolean {
   while (el) {
