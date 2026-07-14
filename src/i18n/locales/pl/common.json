@@ -84,7 +84,9 @@
     "studentsOps": "Operacje studenckie",
     "account": "Moje konto",
     "capacity": "Obciążenie",
-    "directoryMod": "Moderacja katalogu"
+    "directoryMod": "Moderacja katalogu",
+    "agentLeads": "Moi klienci — funnel",
+    "financials": "Financials"
   },
   "agent": {
     "defaultName": "Agent",

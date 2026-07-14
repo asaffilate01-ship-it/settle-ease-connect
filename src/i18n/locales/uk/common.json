@@ -84,7 +84,9 @@
     "studentDiscount": "Знижка для студентів",
     "account": "Мій обліковий запис",
     "capacity": "Завантаженість",
-    "directoryMod": "Модерація довідника"
+    "directoryMod": "Модерація довідника",
+    "agentLeads": "Мої клієнти — funnel",
+    "financials": "Financials"
   },
   "language": {
     "label": "Мова",

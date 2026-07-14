@@ -84,7 +84,9 @@
     "studentDiscount": "Öğrenci indirimi",
     "account": "Hesabım",
     "capacity": "Kapasite",
-    "directoryMod": "Rehber Moderasyonu"
+    "directoryMod": "Rehber Moderasyonu",
+    "agentLeads": "Müşterilerim — funnel",
+    "financials": "Financials"
   },
   "language": {
     "label": "Dil",

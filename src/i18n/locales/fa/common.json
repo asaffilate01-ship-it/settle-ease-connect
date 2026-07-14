@@ -84,7 +84,9 @@
     "studentsOps": "عملیات دانشجویی",
     "account": "حساب من",
     "capacity": "ظرفیت",
-    "directoryMod": "مدیریت راهنما"
+    "directoryMod": "مدیریت راهنما",
+    "agentLeads": "مشتریان من — funnel",
+    "financials": "Financials"
   },
   "agent": {
     "defaultName": "نماینده",

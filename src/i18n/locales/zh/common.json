@@ -84,7 +84,9 @@
     "studentsOps": "学生运营",
     "account": "我的账户",
     "capacity": "工作负载",
-    "directoryMod": "目录审核"
+    "directoryMod": "目录审核",
+    "agentLeads": "我的客户 — funnel",
+    "financials": "Financials"
   },
   "agent": {
     "defaultName": "代理",

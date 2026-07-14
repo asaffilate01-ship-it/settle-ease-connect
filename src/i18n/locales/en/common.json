@@ -127,7 +127,9 @@
     "account": "My account",
     "capacity": "Capacity",
     "directoryMod": "Directory moderation",
-    "funeralCover": "Funeral cover"
+    "funeralCover": "Funeral cover",
+    "agentLeads": "Leads & funnel",
+    "financials": "Financials"
   },
   "agent": {
     "defaultName": "Agent",
