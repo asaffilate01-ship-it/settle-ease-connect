@@ -617,30 +617,44 @@ function BookingForm({
 }
 
 function Trust() {
+  const rows: { label: string; us: string; them: string }[] = [
+    { label: "Language of service", us: "13 languages incl. TR · UR · HI · PA · AR · KU · FA · UK", them: "German only — English partial, no minority languages" },
+    { label: "Who does the filing", us: "You pick DIY (Taxfix / Wundertax) or a licensed Steuerberater — we translate & orchestrate", them: "Redirects you to a partner site, no human in the loop" },
+    { label: "Refund-or-free promise", us: "If the filed refund is >20% below our estimate, we waive our guided fee", them: "No refund guarantee — you pay the partner regardless" },
+    { label: "Handles complex cases", us: "Self-employed, rentals, crypto and cross-border routed to a vetted Steuerberater", them: "Complex cases bounce back to you to figure out" },
+    { label: "Follow-up support", us: "A case manager stays with you through Finanzamt questions, in your language", them: "Support ends once you leave the comparison funnel" },
+  ];
   return (
     <section className="bg-parchment/50">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
           <div>
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
-              Why partner instead of file
+              Why us vs Check24
             </div>
-            <h2 className="display-lg text-balance mt-3 font-semibold">We're not a Steuerberater — the pros we work with are.</h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              The German Tax Consultancy Act (StBerG) reserves paid filing advice for licensed
-              Steuerberater and BaFin-approved software providers. BeistandPlus is your language-
-              side translator, form-filler and orchestrator — never a substitute for regulated
-              advice.
+            <h2 className="display-lg text-balance mt-3 font-semibold text-ink">
+              Why go through us instead of Check24?
+            </h2>
+            <p className="mt-3 text-sm text-foreground/80">
+              Check24 is a great comparison engine — but the moment you land on a partner site, you're back to German-only forms with no one to walk you through the Finanzamt's follow-up letter. BeistandPlus is your language-side co-pilot on top of the same licensed partners, StBerG-compliant end to end.
             </p>
             <Link to="/trust" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">
               Full compliance page <ArrowRight className="h-3.5 w-3.5 rtl-flip" />
             </Link>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <FactCard title="Taxfix &amp; Wundertax" body="BaFin-approved DIY apps. Best for employees with straightforward tax profiles." />
-            <FactCard title="Local Steuerberater" body="Licensed advisors handle self-employed, rental, crypto and expat cross-border cases." />
-            <FactCard title="Refund-or-free" body="If your filed refund is smaller than our estimate by more than 20%, the guided fee is waived." />
-            <FactCard title="StBerG-compliant" body="We handle language and forms — the tax opinion always comes from a licensed party." />
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-elevated">
+            <div className="grid grid-cols-[1.1fr_1.4fr_1.4fr] items-stretch text-xs sm:text-sm">
+              <div className="bg-muted/60 px-4 py-3 font-semibold uppercase tracking-[0.12em] text-foreground/60"> </div>
+              <div className="bg-primary/10 px-4 py-3 font-display font-semibold text-ink">BeistandPlus</div>
+              <div className="bg-muted/60 px-4 py-3 font-display font-semibold text-foreground/80">Check24 &amp; DIY comparison</div>
+              {rows.flatMap((r, i) => [
+                <div key={`l-${i}`} className={`px-4 py-3 font-medium text-ink ${i % 2 ? "bg-background" : "bg-muted/30"}`}>{r.label}</div>,
+                <div key={`u-${i}`} className={`px-4 py-3 text-ink ${i % 2 ? "bg-primary/[0.06]" : "bg-primary/10"}`}>
+                  <span className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{r.us}</span>
+                </div>,
+                <div key={`t-${i}`} className={`px-4 py-3 text-foreground/70 ${i % 2 ? "bg-background" : "bg-muted/30"}`}>{r.them}</div>,
+              ])}
+            </div>
           </div>
         </div>
       </div>
@@ -648,16 +662,6 @@ function Trust() {
   );
 }
 
-function FactCard({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="rounded-xl border border-border/60 bg-card p-5 shadow-soft">
-      <div className="flex items-center gap-2 font-display text-sm font-semibold">
-        <Check className="h-4 w-4 text-primary" /> <span dangerouslySetInnerHTML={{ __html: title }} />
-      </div>
-      <p className="mt-2 text-sm text-muted-foreground">{body}</p>
-    </div>
-  );
-}
 
 function Faq() {
   const faqs: [string, string][] = [
