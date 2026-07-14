@@ -178,7 +178,7 @@ function GroupCoverPage() {
 
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Legal &amp; tax notes for the association</h2>
+        <h2 className="display-lg font-semibold">Legal &amp; tax notes</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {legalNotes.map((n) => (
             <div key={n} className="flex items-start gap-2">
@@ -190,8 +190,8 @@ function GroupCoverPage() {
         <div className="mt-6 rounded-xl border border-border/60 bg-parchment/40 p-5 text-sm">
           <div className="font-semibold">Sample fiduciary clause (Treuhandvereinbarung)</div>
           <p className="mt-1 text-muted-foreground">
-            A print-ready template members sign at enrolment — designating the association
-            as revocable beneficiary with a fiduciary mandate, and naming the family
+            A print-ready template you sign at enrolment — designating BeistandPlus
+            as revocable beneficiary with a fiduciary mandate, and naming your family
             beneficiary for the surplus.
           </p>
           <Button asChild variant="outline" size="sm" className="mt-3">
