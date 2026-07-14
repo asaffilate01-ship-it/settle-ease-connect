@@ -51,7 +51,11 @@ const listingSchema = z.object({
 export const listMyDirectoryListings = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data, error } = await context.supabase
+    // Owner PII (email/phone/address) is no longer granted to the authenticated
+    // role at the column level. Use the admin client (RLS/grants bypassed)
+    // scoped strictly to this user's own rows.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
       .from("directory_listings")
       .select("*")
       .eq("owner_user_id", context.userId)
