@@ -11,6 +11,13 @@ const ONBOARDING_KEY = "beistand.lang.chosen";
 // useTranslation consumers can't hydration-mismatch on nav labels.
 let savedLangApplied = false;
 
+function revealBody() {
+  if (typeof document === "undefined") return;
+  document.documentElement.removeAttribute("data-lang-pending");
+  document.querySelector("style[data-lang-gate]")?.remove();
+}
+
+
 function getSafeI18n() {
   return appI18n && typeof appI18n.changeLanguage === "function" ? appI18n : null;
 }
@@ -54,7 +61,10 @@ export function useLanguage() {
     savedLangApplied = true;
     if (typeof window === "undefined") return;
     const safeI18n = getSafeI18n();
-    if (!safeI18n) return;
+    if (!safeI18n) {
+      revealBody();
+      return;
+    }
     let saved: string | null = null;
     try {
       saved = localStorage.getItem(STORAGE_KEY);
@@ -64,7 +74,10 @@ export function useLanguage() {
     if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
       changeLanguageSafely(saved as LangCode);
     }
+    // Reveal body on the next frame so React has committed the swapped text.
+    requestAnimationFrame(revealBody);
   }, []);
+
 
   const applyHtmlAttrs = (l: LangCode) => {
     if (typeof document === "undefined") return;
