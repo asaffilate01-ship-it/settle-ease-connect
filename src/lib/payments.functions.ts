@@ -51,6 +51,7 @@ export const releaseEscrow = createServerFn({ method: "POST" })
       .eq("id", data.invoiceId)
       .single();
     if (invErr || !inv) throw new Error("Invoice not found");
+    if (!inv.expert_id) throw new Error("Invoice has no expert assigned");
     if (inv.status !== "held_escrow" && inv.status !== "paid") {
       throw new Error(`Cannot release from status "${inv.status}"`);
     }
