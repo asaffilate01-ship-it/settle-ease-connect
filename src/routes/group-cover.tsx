@@ -184,21 +184,6 @@ function GroupCoverPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <h2 className="display-lg font-semibold">Cover providers we tender to</h2>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Your brief goes to a licensed commercial §34d GewO broker who runs a formal tender with
-          these regulated German cover providers. You review the bids; nothing is binding until you sign.
-        </p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {insurers.map((i) => (
-            <Card key={i.name} className="p-5">
-              <div className="font-semibold">{i.name}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{i.note}</div>
-            </Card>
-          ))}
-        </div>
-      </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <h2 className="display-lg font-semibold">Legal &amp; tax notes for the association</h2>
