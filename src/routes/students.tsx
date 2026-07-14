@@ -142,7 +142,7 @@ function StudentsPage() {
       {/* How it works */}
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <div className="rounded-3xl border border-border/60 bg-parchment/50 p-8">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Claim the discount
           </div>
           <h2 className="display-lg text-balance mt-2 font-semibold">Four steps, about five minutes.</h2>

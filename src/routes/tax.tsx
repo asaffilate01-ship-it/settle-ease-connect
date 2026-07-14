@@ -174,7 +174,7 @@ function Wizard() {
   return (
     <section id="estimator" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
       <div className="text-center">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Refund estimator
         </div>
         <h2 className="display-lg text-balance mt-3 font-semibold">Answer 5 short questions.</h2>
@@ -538,7 +538,7 @@ function BookingForm({
       className="mt-14 grid gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft sm:grid-cols-2 sm:p-8"
     >
       <div className="sm:col-span-2">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Book my filing
         </div>
         <h3 className="mt-2 font-display text-2xl font-semibold">Send my estimate to a tax specialist</h3>
@@ -622,7 +622,7 @@ function Trust() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
               Why partner instead of file
             </div>
             <h2 className="display-lg text-balance mt-3 font-semibold">We're not a Steuerberater — the pros we work with are.</h2>
@@ -669,7 +669,7 @@ function Faq() {
   ];
   return (
     <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
-      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
         FAQ
       </div>
       <h2 className="display-lg text-balance mt-3 font-semibold">Common questions</h2>

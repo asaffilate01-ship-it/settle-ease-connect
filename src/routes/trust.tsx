@@ -279,7 +279,7 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
       {children}
     </div>
   );

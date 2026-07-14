@@ -154,7 +154,7 @@ function Bereavement() {
       <section className="bg-parchment/50">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Repatriation</div>
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Repatriation</div>
             <h2 className="display-lg text-balance mt-3 font-semibold">
               Bringing your loved one home.
             </h2>
@@ -180,7 +180,7 @@ function Bereavement() {
       <section className="border-t border-border/60 bg-card">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
               Burials & last rites in Germany
             </div>
             <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -229,7 +229,7 @@ function Bereavement() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Every faith</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Every faith</div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
           Ceremonies handled with respect.
         </h2>
@@ -260,7 +260,7 @@ function Bereavement() {
       <section className="border-t border-border/60 bg-parchment/50">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
               Formal partnerships
             </div>
             <h2 className="display-lg text-balance mt-3 font-semibold">

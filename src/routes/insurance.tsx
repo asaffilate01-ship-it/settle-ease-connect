@@ -223,7 +223,7 @@ function InsuranceLanding() {
       {/* Products */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Product lines
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -288,7 +288,7 @@ function InsuranceLanding() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
             <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
                 How we get paid
               </div>
               <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -329,7 +329,7 @@ function InsuranceLanding() {
       {/* Callback form */}
       <section id="callback" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Request a callback
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">

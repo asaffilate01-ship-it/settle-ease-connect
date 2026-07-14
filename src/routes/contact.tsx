@@ -27,7 +27,7 @@ function Contact() {
       <SiteHeader />
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">{t("pages.contact.eyebrow")}</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">{t("pages.contact.eyebrow")}</div>
           <h1 className="display-hero text-balance mt-3 font-semibold">
             {t("pages.contact.title")}
           </h1>

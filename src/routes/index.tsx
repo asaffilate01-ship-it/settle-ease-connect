@@ -428,7 +428,7 @@ function Journeys() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Two journeys, one companion
         </div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -477,7 +477,7 @@ function LifeInGermany() {
     <section className="bg-parchment/40">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Every chapter of life in Germany
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -546,7 +546,7 @@ function Pillars() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Was BeistandPlus macht
         </div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
@@ -672,7 +672,7 @@ function RolesGrid() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Roles</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Roles</div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
           Every stakeholder, their own portal.
         </h2>
@@ -711,7 +711,7 @@ function BenefitsShowcase() {
     <section className="bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Benefits Checker</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Benefits Checker</div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             Know exactly what you're entitled to.
           </h2>
@@ -755,7 +755,7 @@ function NetworkMap() {
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Provider Network</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Provider Network</div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             A verified partner in every city.
           </h2>
@@ -807,7 +807,7 @@ function AiAssistant() {
     <section className="bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">AI Assistant</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">AI Assistant</div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             Ask anything, in any language.
           </h2>

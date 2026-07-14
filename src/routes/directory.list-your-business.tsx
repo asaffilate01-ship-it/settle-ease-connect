@@ -52,7 +52,7 @@ function ListYourBusiness() {
     <div className="min-h-screen">
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-foreground/70">Community directory</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Community directory</div>
         <h1 className="display-hero text-balance mt-3 font-semibold">
           Free to list. Seen by every BeistandPlus member.
         </h1>
