@@ -1400,6 +1400,137 @@ export type Database = {
           },
         ]
       }
+      funeral_leads: {
+        Row: {
+          adults_count: number
+          assigned_to: string | null
+          bundesland: string | null
+          children_count: number
+          city: string | null
+          contact_name: string
+          created_at: string
+          email: string
+          household_kind: string
+          id: string
+          internal_notes: string | null
+          notes: string | null
+          phone: string | null
+          status: string
+          target_benefit_eur: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          adults_count?: number
+          assigned_to?: string | null
+          bundesland?: string | null
+          children_count?: number
+          city?: string | null
+          contact_name: string
+          created_at?: string
+          email: string
+          household_kind?: string
+          id?: string
+          internal_notes?: string | null
+          notes?: string | null
+          phone?: string | null
+          status?: string
+          target_benefit_eur?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          adults_count?: number
+          assigned_to?: string | null
+          bundesland?: string | null
+          children_count?: number
+          city?: string | null
+          contact_name?: string
+          created_at?: string
+          email?: string
+          household_kind?: string
+          id?: string
+          internal_notes?: string | null
+          notes?: string | null
+          phone?: string | null
+          status?: string
+          target_benefit_eur?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      funeral_policies: {
+        Row: {
+          adults_covered: number
+          benefit_eur: number
+          children_covered: number
+          created_at: string
+          end_date: string | null
+          household_kind: string
+          id: string
+          insurer_name: string
+          lead_id: string | null
+          notes: string | null
+          policy_number: string | null
+          premium_cadence: string
+          premium_eur: number
+          renewal_date: string | null
+          start_date: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          adults_covered?: number
+          benefit_eur: number
+          children_covered?: number
+          created_at?: string
+          end_date?: string | null
+          household_kind?: string
+          id?: string
+          insurer_name: string
+          lead_id?: string | null
+          notes?: string | null
+          policy_number?: string | null
+          premium_cadence?: string
+          premium_eur: number
+          renewal_date?: string | null
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          adults_covered?: number
+          benefit_eur?: number
+          children_covered?: number
+          created_at?: string
+          end_date?: string | null
+          household_kind?: string
+          id?: string
+          insurer_name?: string
+          lead_id?: string | null
+          notes?: string | null
+          policy_number?: string | null
+          premium_cadence?: string
+          premium_eur?: number
+          renewal_date?: string | null
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funeral_policies_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "funeral_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       health_insurance: {
         Row: {
           addons: Json | null

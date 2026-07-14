@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import { useSubscription } from "@/lib/subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
+import { FuneralCoverUpsell } from "@/components/funeral-cover-upsell";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 type Plan = {
   code: string;
@@ -32,6 +34,7 @@ function UpgradePage() {
   const [household, setHousehold] = useState<"single" | "family">("single");
   const [loading, setLoading] = useState(true);
   const sub = useSubscription();
+  const { user, profile } = useCurrentUser();
   const { openCheckout, checkoutElement } = useStripeCheckout();
 
   useEffect(() => {
@@ -149,6 +152,8 @@ function UpgradePage() {
           })}
         </div>
       )}
+
+      <FuneralCoverUpsell defaultEmail={user?.email ?? undefined} defaultName={profile?.full_name ?? undefined} />
 
       <PaymentTestModeBanner />
       <div className="rounded-2xl border bg-muted/30 p-4 text-xs text-muted-foreground">

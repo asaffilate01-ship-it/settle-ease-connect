@@ -56,6 +56,7 @@ import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
 import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_authenticated/portal.insurance'
 import { Route as AuthenticatedPortalImmigrationRouteImport } from './routes/_authenticated/portal.immigration'
+import { Route as AuthenticatedPortalFuneralCoverRouteImport } from './routes/_authenticated/portal.funeral-cover'
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
@@ -336,6 +337,12 @@ const AuthenticatedPortalImmigrationRoute =
     path: '/immigration',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalFuneralCoverRoute =
+  AuthenticatedPortalFuneralCoverRouteImport.update({
+    id: '/funeral-cover',
+    path: '/funeral-cover',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalFuneralRoute =
   AuthenticatedPortalFuneralRouteImport.update({
     id: '/funeral',
@@ -612,6 +619,7 @@ export interface FileRoutesByFullPath {
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
@@ -693,6 +701,7 @@ export interface FileRoutesByTo {
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
@@ -779,6 +788,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
+  '/_authenticated/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/_authenticated/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
   '/_authenticated/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
   '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
@@ -865,6 +875,7 @@ export interface FileRouteTypes {
     | '/portal/escrow'
     | '/portal/experts'
     | '/portal/funeral'
+    | '/portal/funeral-cover'
     | '/portal/immigration'
     | '/portal/insurance'
     | '/portal/knowledge'
@@ -946,6 +957,7 @@ export interface FileRouteTypes {
     | '/portal/escrow'
     | '/portal/experts'
     | '/portal/funeral'
+    | '/portal/funeral-cover'
     | '/portal/immigration'
     | '/portal/insurance'
     | '/portal/knowledge'
@@ -1031,6 +1043,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/escrow'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/funeral'
+    | '/_authenticated/portal/funeral-cover'
     | '/_authenticated/portal/immigration'
     | '/_authenticated/portal/insurance'
     | '/_authenticated/portal/knowledge'
@@ -1411,6 +1424,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalImmigrationRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/funeral-cover': {
+      id: '/_authenticated/portal/funeral-cover'
+      path: '/funeral-cover'
+      fullPath: '/portal/funeral-cover'
+      preLoaderRoute: typeof AuthenticatedPortalFuneralCoverRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/funeral': {
       id: '/_authenticated/portal/funeral'
       path: '/funeral'
@@ -1784,6 +1804,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
+  AuthenticatedPortalFuneralCoverRoute: typeof AuthenticatedPortalFuneralCoverRoute
   AuthenticatedPortalImmigrationRoute: typeof AuthenticatedPortalImmigrationRoute
   AuthenticatedPortalInsuranceRoute: typeof AuthenticatedPortalInsuranceRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
@@ -1803,6 +1824,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
+  AuthenticatedPortalFuneralCoverRoute: AuthenticatedPortalFuneralCoverRoute,
   AuthenticatedPortalImmigrationRoute: AuthenticatedPortalImmigrationRoute,
   AuthenticatedPortalInsuranceRoute: AuthenticatedPortalInsuranceRoute,
   AuthenticatedPortalKnowledgeRoute:
@@ -1930,13 +1952,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
