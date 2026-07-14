@@ -49,12 +49,12 @@ function ExpertLayout() {
   const qc = useQueryClient();
   const name = profile?.full_name || user?.email?.split("@")[0] || "Expert";
 
-  const NAV = [
+  const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
     { to: "/expert", label: t("expert.nav.overview", { defaultValue: "Overview" }), icon: Home, exact: true },
     { to: "/expert/cases", label: t("expert.nav.cases", { defaultValue: "My cases" }), icon: Briefcase },
     { to: "/expert/payouts", label: t("expert.nav.payouts", { defaultValue: "Earnings" }), icon: Wallet },
     { to: "/expert/profile", label: t("expert.nav.profile", { defaultValue: "Profile" }), icon: UserCircle },
-  ] as const;
+  ];
 
   async function handleSignOut() {
     await qc.cancelQueries();
