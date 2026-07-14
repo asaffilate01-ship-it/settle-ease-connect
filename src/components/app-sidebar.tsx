@@ -12,6 +12,13 @@ import logoMark from "@/assets/brand/logo-mark.png";
 
 type Audience = "client" | "internal" | "agent" | "any";
 
+type SpecialistDomain =
+  | "insurance_admin"
+  | "tax_admin"
+  | "benefits_admin"
+  | "medical_admin"
+  | "new_arrival_admin";
+
 type NavItem = {
   to: string;
   labelKey: string;
@@ -19,6 +26,10 @@ type NavItem = {
   exact?: boolean;
   groupKey?: string;
   requiresRole?: "admin" | "internal" | "agent";
+  /** If set, the item is visible to broad internal (admin/staff/case_manager) AND to this specialist role. */
+  specialistDomain?: SpecialistDomain;
+  /** If set, this item is only visible to broad internal (admin/staff/case_manager). */
+  broadInternalOnly?: boolean;
   requiresTier?: PlanGroup;
   audience?: Audience;
 };
