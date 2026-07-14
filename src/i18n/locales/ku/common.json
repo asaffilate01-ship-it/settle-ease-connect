@@ -51,7 +51,7 @@
     "community": "Civak",
     "knowledge": "Bingeha zanînê",
     "experts": "Lîsteya pisporan",
-    "escrow": "Escrow release",
+    "escrow": "Serbestberdana emanetê",
     "funeralCover": "Sîgorteya cenazeyê",
     "settings": "Mîheng",
     "internal": "Hundirîn",
@@ -82,7 +82,7 @@
     "agentLink": "Girêdana referansê",
     "studentsOps": "Karên xwendekaran",
     "studentDiscount": "Daxistina xwendekaran",
-    "account": "My account",
+    "account": "Hesabê min",
     "capacity": "Kapasîte",
     "directoryMod": "Moderasyona Rêbernameyê"
   },
@@ -332,18 +332,18 @@
     "ctaTalk": "Bi rêveberê dozê re bipeyive",
     "introducer": "BeistandPlus wekî danasîner (Tippgeber / §34d GewO broker heke hewce be) tevdigere. Prêmêta rasterast ji pêkarê bînerênkirinê re tên dayîn; BeistandPlus qet bînerênkirinê nake. Abonetî û prêmêta bînerênkirinê cuda tên fatûrekirin.",
     "tabs": {
-      "individual": "Individual",
-      "individualNote": "1 adult · €20k benefit",
-      "family": "Family",
-      "familyNote": "2 adults + up to 3 children under 18 · €20k per adult",
-      "extended": "Extended family",
-      "extendedNote": "Up to 4 adults + 3 children under 18 · €20k per adult"
+      "individual": "Kesane",
+      "individualNote": "1 mezin · 20 hezar euro feyde",
+      "family": "Malbat",
+      "familyNote": "2 mezin + heta 3 zarokên di bin 18 salî de · 20 hezar euro ji bo her mezinî",
+      "extended": "Malbata berfireh",
+      "extendedNote": "Heta 4 mezin + 3 zarokên di bin 18 salî de · 20 hezar euro ji bo her mezinî"
     },
     "rows": {
-      "individualLabel": "Age {{age}}",
-      "individualDetail": "1 adult · €20,000 payout",
-      "familyLabel": "Both adults age {{age}}",
-      "familyDetail": "2 adults + up to 3 children · €20k per adult",
+      "individualLabel": "Temen {{age}}",
+      "individualDetail": "1 mezin · 20.000 € dravdan",
+      "familyLabel": "Herdu mezin temen {{age}}",
+      "familyDetail": "2 mezin + heta 3 zarokan · 20.000 € ji bo her mezin",
       "extendedLabel": "Hemî 4 mezinên temenê {{age}}",
       "extendedDetail": "4 mezin + heya 3 zarokan · 20 hezar € ji bo her mezinan"
     },
