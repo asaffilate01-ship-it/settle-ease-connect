@@ -19,6 +19,7 @@ function EscrowPage() {
   const [tab, setTab] = useState<Tab>("held_escrow");
   const listFn = useServerFn(listEscrowInvoices);
   const releaseFn = useServerFn(releaseEscrow);
+  const autoFn = useServerFn(autoReleaseEligibleEscrow);
   const qc = useQueryClient();
 
   const { data = [], isLoading } = useQuery({
@@ -30,6 +31,15 @@ function EscrowPage() {
     mutationFn: (invoiceId: string) => releaseFn({ data: { invoiceId } }),
     onSuccess: () => {
       toast.success("Escrow released — payout queued");
+      qc.invalidateQueries({ queryKey: ["portal", "escrow"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const autoMut = useMutation({
+    mutationFn: () => autoFn({ data: { olderThanDays: 14 } }),
+    onSuccess: (r: any) => {
+      toast.success(`Auto-released ${r.released_count} invoice(s)${r.failed_count ? ` · ${r.failed_count} failed` : ""}`);
       qc.invalidateQueries({ queryKey: ["portal", "escrow"] });
     },
     onError: (e: Error) => toast.error(e.message),
