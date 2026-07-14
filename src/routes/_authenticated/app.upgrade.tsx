@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import { useSubscription } from "@/lib/subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
+import { FuneralCoverUpsell } from "@/components/funeral-cover-upsell";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 type Plan = {
   code: string;
