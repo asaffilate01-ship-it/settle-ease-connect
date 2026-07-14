@@ -14,5 +14,5 @@ Secure vault: private `vault` bucket, MFA required for sensitive categories, dep
 ## Memories
 - [Business model](mem://features/business-model.md) — Tiers, hybrid expert comp, escrow, family funeral insurance, launch scope
 - [Knowledge base](mem://features/knowledge-base.md) — Internal service SOPs, German regulations, expert roster
-- [Provider tiers](mem://features/provider-tiers.md) — Vetted experts vs €10/yr public directory
+- [Provider tiers](mem://features/provider-tiers.md) — Vetted experts vs free public directory (members-only contact)
 - [Languages](mem://design/languages.md) — Canonical language list and short codes
