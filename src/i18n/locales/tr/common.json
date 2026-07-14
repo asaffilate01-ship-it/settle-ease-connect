@@ -95,7 +95,7 @@
   },
   "cookies": {
     "title": "Çerez kullanıyoruz",
-    "body": "BeistandPlus, siteyi çalıştırmak ve oturumunuzu açık tutmak için temel çerezler kullanır. İzninizle, platformun nasıl kullanıldığını anlamak ve geliştirmek için analitik çerezler de kullanırız. İzninizi istediğiniz zaman değiştirebilir veya geri çekebilirsiniz.",
+    "body": "BeistandPlus, siteyi çalıştırmak ve oturumunuzu açık tutmak için temel çerezler kullanır. Onayınızla, platformun nasıl kullanıldığını anlamak ve iyileştirmek için analitik çerezleri de kullanırız. Onayınızı istediğiniz zaman değiştirebilir veya geri çekebilirsiniz.",
     "acceptAll": "Tümünü kabul et",
     "essentialOnly": "Sadece gerekli olanlar",
     "preferences": "Tercihler",
@@ -242,11 +242,11 @@
       "eyebrow": "Almanya'daki hayatınız için uzman rehberliği",
       "title1": "Her önemli adımda",
       "title2": "yanınızda bir dost.",
-      "subtitle": "İlk Anmeldung'unuzdan ailenizin geleceğini güvence altına almaya kadar, BeistandPlus Alman bürokrasisini güvenle aşmanız için onurlu, uzman desteği sunar — on üç dilde, gerçek bir insanla.",
+      "subtitle": "İlk Anmeldung'unuzdan ailenizin geleceğini güvence altına almaya kadar, BeistandPlus, Alman idaresinde güvenle yol almanız için on üç dilde, yanınızda bir insanla, saygın ve uzman destek sunar.",
       "openCase": "Dosya aç",
       "howItWorks": "BeistandPlus nasıl çalışır",
       "ninePillars": "Dokuz hizmet alanı",
-      "ribbon": "Sizinle kendi dilinizde çalışıyoruz",
+      "ribbon": "Sizin dilinizde yanınızdayız",
       "trustHuman": "Önce insan",
       "trustHumanBody": "Berlin, Hamburg, Münih ve Köln'de gerçek dosya yöneticileri — her dosya bir bot değil, bir insan tarafından yanıtlanır.",
       "trustGdpr": "GDPR uyumlu",
@@ -273,7 +273,7 @@
       "noteExtended": "En fazla 4 yetişkin + 18 yaş altı 3 çocuk",
       "communityBadge": "Ücretsiz · Topluluk",
       "communityName": "Topluluk",
-      "communityDesc": "Almanya'daki herkes için bir güvenlik ağı — kart gerekmez.",
+      "communityDesc": "Almanya'daki herkes için bir güvence ağı — kart gerekmez.",
       "forever": "/ sonsuza kadar",
       "perMonth": "/ ay",
       "startFree": "Ücretsiz başla",
@@ -286,7 +286,7 @@
     "howItWorks": {
       "eyebrow": "Nasıl çalışır",
       "title1": "Beş adım.",
-      "title2": "Evrak fırtınası yok.",
+      "title2": "Bürokratik karmaşaya son.",
       "readyTitle": "Hazır olduğunuzda.",
       "readyBody": "Başlamak ücretsiz. Sadece insan yardımına ihtiyaç duyduğunuzda yükseltin.",
       "openDashboard": "Panelinizi açın",
@@ -295,7 +295,7 @@
         "s1Desc": "Yeni geldiniz, yardım başvurusu yapıyor, aile birleşimi planlıyor veya yas yaşıyorsanız — tek bir formla başlayın.",
         "s2Title": "Bir plan dakikalar içinde ortaya çıkar",
         "s2Desc": "AI'mız kişiselleştirilmiş kontrol listenizi derler — ihtiyacınız olan her randevu, belge, son tarih ve tedarikçi.",
-        "s3Title": "İnsan bir dosya yöneticisi telefonu açar",
+        "s3Title": "İnsan bir vaka yöneticisi telefonun diğer ucunda",
         "s3Desc": "Sizin dilinizde. Dosyanızı baştan sona sahiplenir ve ilgili tüm tarafları koordine eder.",
         "s4Title": "Her şey tek bir dosyada gerçekleşir",
         "s4Desc": "Belgeler, mektuplar, randevular, faturalar, sohbet, denetim izi — size ve yardım eden kişilere görünür.",
@@ -306,7 +306,7 @@
     "contact": {
       "eyebrow": "İletişim",
       "title": "Buradayız, sizin konuştuğunuz dilde.",
-      "subtitle": "Vefat için 7/24 hattımızı arayın. Diğer her şey için bize yazın — bir iş günü içinde yanıtlarız.",
+      "subtitle": "Vefat durumunda, 7/24 hattımızı arayın. Diğer her şey için bize bir not bırakın — bir iş günü içinde yanıt veririz.",
       "line24": "7/24 vefat hattı",
       "generalEnq": "Genel sorular",
       "office": "Ofis",
@@ -396,7 +396,7 @@
     "paywall": {
       "eyebrow": "Sadece üyeler",
       "title": "Tüm doğrulanmış sağlayıcıların kilidini açın.",
-      "body": "BeistandPlus üyeleri, her liste için tam iletişim bilgilerine, telefona, e-postaya ve web sitesine — ayrıca sizi tanıtabilecek bir insan vaka yöneticisine sahip olur. Dizin listelemeleri sağlayıcılar için ücretsizdir; erişim her BeistandPlus planına dahildir.",
+      "body": "BeistandPlus üyeleri, her liste için tam iletişim bilgilerine, telefon, e-posta ve web sitesine erişir — ayrıca sizi tanıştırabilecek bir insan vaka yöneticisi de bulunur. Dizin listelemeleri sağlayıcılar için ücretsizdir; erişim her BeistandPlus planına dahildir.",
       "cta": "5 €'dan başlayan planları görün",
       "signIn": "Giriş yap"
     }

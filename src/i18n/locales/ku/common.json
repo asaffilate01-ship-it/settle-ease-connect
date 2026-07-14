@@ -95,7 +95,7 @@
   },
   "cookies": {
     "title": "Em cookies bikar tînin",
-    "body": "BeistandPlus ji bo xebitandina malperê û hiştina we di nav têketinê de cookie-ên bingehîn bikar tîne. Bi destûra we, em cookie-ên analîtîk jî bikar tînin da ku fam bikin ka platform çawa tê bikar anîn da ku em wê baştir bikin. Hûn dikarin destûra xwe her dem biguherînin an vekişînin.",
+    "body": "BeistandPlus çerezên bingehîn bikar tîne da ku malperê bixebitîne û we têketî bihêle. Bi razîbûna we em çerezên analîtîk jî bikar tînin da ku fêm bikin ka platform çawa tê bikar anîn da ku em karibin wê baştir bikin. Hûn dikarin razîbûna xwe her dem biguherînin an vekişînin.",
     "acceptAll": "Hemî qebûl bike",
     "essentialOnly": "Tenê bingehîn",
     "preferences": "Tercîh",
@@ -242,11 +242,11 @@
       "eyebrow": "Rêberiya pispor bo jiyana we li Almanyayê",
       "title1": "Hevalek ji bo her",
       "title2": "gavên girîng.",
-      "subtitle": "Ji Anmeldunga we ya yekem heta ewlekariya paşeroja malbata we, BeistandPlus bi sêzdeh zimanan piştgirîya pispor a bi rûmet pêşkêş dike — bi mirovekî li kêleka we.",
+      "subtitle": "Ji yekem Anmeldung a we heya ewlekirina paşeroja malbata we, BeistandPlus piştgiriyek bi rûmet û pispor pêşkêşî dike da ku hûn bi pêbawerî di rêveberiya Almanî de bigerin – bi sêzdeh zimanan, bi mirovekî li kêleka we.",
       "openCase": "Dosyayekê veke",
       "howItWorks": "BeistandPlus çawa dixebite",
       "ninePillars": "Neh warên xizmetê",
-      "ribbon": "Em bi zimanê we bi we re dixebitin",
+      "ribbon": "Em bi we re bi zimanê we dixebitin",
       "trustHuman": "Berî her tiştî mirov",
       "trustHumanBody": "Rêveberên dosyeyên rastîn li Berlin, Hamburg, München û Köln — bersiv ji mirovekî tê, ne bot.",
       "trustGdpr": "Li gorî GDPR",
@@ -263,7 +263,7 @@
     },
     "pricing": {
       "eyebrow": "Nirx",
-      "title": "Yek aboneyî. Yek destê ewlekar.",
+      "title": "Yek abonetî. Yek destê pêbawer.",
       "subtitle": "Endam ji aboneya xwe pir zêdetir vedigirin — di mafên rast standî de, hevdîtinên nefetisandî û stresa dûrxistî. Planên malbatê ji bo cotan û malbatên heta 4 mezin + 3 zarok bi erzanî.",
       "individual": "Kesane",
       "family": "Malbat",
@@ -273,7 +273,7 @@
       "noteExtended": "Heta 4 mezin + 3 zarok di bin 18 salî de",
       "communityBadge": "Belaş · Civak",
       "communityName": "Civak",
-      "communityDesc": "Torgilokek ewlehiyê ji her kesê li Almanyayê re — bêyî qartê.",
+      "communityDesc": "Toreke ewlehiyê ji bo her kesê li Almanyayê – bêyî qertê.",
       "forever": "/ her tim",
       "perMonth": "/ meh",
       "startFree": "Belaş dest pê bike",
@@ -286,7 +286,7 @@
     "howItWorks": {
       "eyebrow": "Çawa dixebite",
       "title1": "Pênc gav.",
-      "title2": "Bê bahoza kaxez.",
+      "title2": "Bê tevliheviya kaxezan.",
       "readyTitle": "Kengî hûn amade bin.",
       "readyBody": "Destpêk belaş e. Tenê dema alîkariya mirov lazim bike, dest bi abonebûnê bikin.",
       "openDashboard": "Panela xwe veke",
@@ -295,19 +295,19 @@
         "s1Desc": "Nû hatî, ji bo alîkariyan serî lê didî, plansaziya yekbûna malbatê an di matemê de yî — bi yek formê dest pê bike.",
         "s2Title": "Di deqîqeyan de plansaziyek derdikeve",
         "s2Desc": "AI-ya me lîsteya te ya kesane amade dike — her hevdîtin, belge, dawî û pêşkêşkar.",
-        "s3Title": "Rêveberê mirov telefonê hildide",
+        "s3Title": "Rêveberek doza mirovî têlefonê hildide",
         "s3Desc": "Bi zimanê we. Dosyeya we ji destpêkê heta dawîyê rêve dibe.",
         "s4Title": "Her tişt di yek dosyeyê de",
         "s4Desc": "Belge, name, hevdîtin, fatûre, chat, dîroka çalakî — ji we û ji alîkaran re xuya ne.",
-        "s5Title": "Hûn jiyana xwe berdewam dikin",
+        "s5Title": "Hûn bi jiyana xwe re mijûl dibin",
         "s5Desc": "Em berî dawiyê bîr dixin, ji navê we bi saziyên re dişopînin û her tiştê nefêmkirî werdigerînin."
       }
     },
     "contact": {
       "eyebrow": "Têkilî",
       "title": "Em li vir in — bi zimanê we.",
-      "subtitle": "Ji bo matemê, xetta me ya 24/7 bang bikin. Ji her tiştê din re peyamekê bihêlin — em di rojekê xebatê de bersiv didin.",
-      "line24": "Xetta matemê 24/7",
+      "subtitle": "Ji bo şînê, li xeta me ya 24/7 bigerin. Ji bo her tiştê din, peyamekê ji me re bişînin – em di nav rojek karsaziyê de bersiv didin.",
+      "line24": "Xeta şînê ya 24/7",
       "generalEnq": "Pirsên giştî",
       "office": "Nivîsgeh",
       "officeValue": "Kreuzberg, Berlin · Bi randevûyê",
@@ -396,7 +396,7 @@
     "paywall": {
       "eyebrow": "Tenê ji bo endaman",
       "title": "Hemî pêşkêşkerên verastkirî vekin.",
-      "body": "Endamên BeistandPlus ji bo her navnîşek hûrguliyên têkiliyê yên tevahî, têlefon, e-name û malperê digirin — digel rêveberek doza mirovî ku dikare we bide nasîn. Navnîşên pelrêçê ji bo pêşkêşkeran belaş in; gihîştin bi her plana BeistandPlus re tê de ye.",
+      "body": "Endamên BeistandPlus ji bo her navnîşekê agahdariya têkiliyê ya tevahî, têlefon, e-name û malperê digirin – plus rêveberek doza mirovî ku dikare we bide nasîn. Navnîşên navnîşan ji bo pêşkêşkeran belaş in; gihîştin bi her plana BeistandPlus re tê de ye.",
       "cta": "Planên ji €5 bibînin",
       "signIn": "Têkeve"
     }

@@ -174,7 +174,7 @@
   },
   "cookies": {
     "title": "我们使用 Cookie",
-    "body": "BeistandPlus 使用必要的 Cookie 来运行网站并保持您的登录状态。经您同意，我们还使用分析 Cookie 来了解平台使用情况以便改进。您可以随时更改或撤回同意。",
+    "body": "BeistandPlus使用必要的Cookie来运行网站并保持您的登录状态。在您同意的情况下，我们还会使用分析Cookie来了解平台的使用情况，以便我们改进服务。您可以随时更改或撤回您的同意。",
     "acceptAll": "全部接受",
     "essentialOnly": "仅必要",
     "preferences": "偏好设置",
@@ -240,7 +240,7 @@
   "pages": {
     "pricing": {
       "eyebrow": "价格",
-      "title": "一份订阅，一位可靠伙伴。",
+      "title": "一份订阅，一份安心。",
       "subtitle": "会员通过正确申请福利、准时赴约和减少压力，收回远超订阅费的价值。家庭套餐为最多 4 位成人 + 3 位子女的伴侣与家庭提供折扣。",
       "individual": "个人",
       "family": "家庭",
@@ -250,7 +250,7 @@
       "noteExtended": "最多 4 位成人 + 3 位 18 岁以下儿童",
       "communityBadge": "免费 · 社区",
       "communityName": "社区",
-      "communityDesc": "为德国的每一个人提供安全网 — 无需信用卡。",
+      "communityDesc": "在德国，人人都能拥有的保障——无需银行卡。",
       "forever": "/ 永久",
       "perMonth": "/ 月",
       "startFree": "免费开始",
@@ -264,11 +264,11 @@
       "eyebrow": "在德生活的专业指导",
       "title1": "陪伴每一个",
       "title2": "关键节点。",
-      "subtitle": "从您的第一次 Anmeldung 到守护家庭未来，BeistandPlus 用十三种语言提供有尊严、专业的支持 — 有人陪您。",
+      "subtitle": "从初次Anmeldung到为家人规划未来，BeistandPlus提供有尊严的专业支持，助您自信应对德国行政事务——我们提供13种语言服务，并有专人全程陪伴。",
       "openCase": "创建案件",
       "howItWorks": "BeistandPlus 如何运作",
       "ninePillars": "九大关怀领域",
-      "ribbon": "我们用您的语言与您合作",
+      "ribbon": "我们用您的语言与您沟通",
       "trustHuman": "以人为先",
       "trustHumanBody": "柏林、汉堡、慕尼黑和科隆的真人案件经理 — 每个案件都由真人接待，不是机器人。",
       "trustGdpr": "GDPR 原生",
@@ -286,7 +286,7 @@
     "howItWorks": {
       "eyebrow": "如何运作",
       "title1": "五个步骤。",
-      "title2": "没有文书风暴。",
+      "title2": "告别繁琐文书。",
       "readyTitle": "随时准备好。",
       "readyBody": "免费开始。只在需要人工帮助时升级。",
       "openDashboard": "打开控制台",
@@ -295,19 +295,19 @@
         "s1Desc": "新到德国、申请福利、家庭团聚，或面对丧亲 — 从一个表单开始。",
         "s2Title": "几分钟内生成方案",
         "s2Desc": "AI 编制您的个性化清单 — 每次预约、每份文件、每个截止日期和您需要的服务方。",
-        "s3Title": "真人案件经理接手",
+        "s3Title": "专属人工客服随时待命",
         "s3Desc": "用您的语言。从开始到结束负责您的案件，协调所有相关方。",
         "s4Title": "一切都在一个案件档案中",
         "s4Desc": "文档、信件、预约、发票、聊天、审计轨迹 — 您和帮助您的人都可见。",
-        "s5Title": "您继续您的生活",
+        "s5Title": "您尽享生活，我们打理一切",
         "s5Desc": "我们在截止日前提醒、代您跟进当局、翻译您不理解的一切。"
       }
     },
     "contact": {
       "eyebrow": "联系我们",
       "title": "我们在这里 — 用您的语言。",
-      "subtitle": "丧亲事宜请拨打 24/7 热线。其他事宜请留言 — 我们将在一个工作日内回复。",
-      "line24": "24/7 丧亲热线",
+      "subtitle": "如遇丧亲，请拨打我们的24/7热线。其他事宜，请给我们留言——我们会在一个工作日内回复。",
+      "line24": "24/7丧亲关怀热线",
       "generalEnq": "一般咨询",
       "office": "办公室",
       "officeValue": "柏林 Kreuzberg · 预约制",
@@ -396,7 +396,7 @@
     "paywall": {
       "eyebrow": "仅限会员",
       "title": "解锁所有已验证的提供商。",
-      "body": "BeistandPlus 会员可以获得每个列表的完整联系方式、电话、电子邮件和网站 — 此外还有一名人工案例经理可以为您介绍。提供商的目录列表是免费的；每次 BeistandPlus 计划都包含访问权限。",
+      "body": "BeistandPlus会员可获得每个列表的完整联系方式，包括电话、邮箱和网站——更有专属人工客服为您引荐。服务商可免费发布目录信息；所有BeistandPlus套餐均包含访问权限。",
       "cta": "查看5欧元起的计划",
       "signIn": "登录"
     }
