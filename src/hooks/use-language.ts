@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import appI18n from "@/i18n";
 import { isRTL, LANGUAGES, type LangCode } from "@/i18n/config";
-import { bootAutoTranslate } from "@/lib/auto-translate";
+
 
 
 const STORAGE_KEY = "beistand.lang";
