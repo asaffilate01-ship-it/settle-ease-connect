@@ -147,7 +147,7 @@ function GroupCoverPage() {
               <div className="mt-2 font-display text-lg font-semibold">{t.title.split("·")[1]?.trim()}</div>
               <p className="mt-2 text-sm text-muted-foreground">{t.detail}</p>
               <div className="mt-3 rounded-md border border-primary/20 bg-accent/20 p-3 text-xs">
-                <div className="font-semibold text-foreground">How pricing is set</div>
+                <div className="font-semibold text-foreground">Included</div>
                 <div className="mt-1 text-muted-foreground">{t.note}</div>
               </div>
             </Card>
