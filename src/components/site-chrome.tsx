@@ -273,8 +273,9 @@ export function SiteHeader() {
             </SheetContent>
           </Sheet>
       </div>
-      <MobileCtaBar />
     </div>
+    <MobileCtaBar hidden={isSignedIn} />
+    </>
   );
 }
 
