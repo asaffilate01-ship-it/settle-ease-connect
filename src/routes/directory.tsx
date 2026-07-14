@@ -271,6 +271,10 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
                 <span className="rounded bg-muted px-6 py-0.5 text-transparent blur-[3px]">website</span>
               </div>
             )}
+            <div className="flex items-center gap-2 select-none">
+              <MapPin className="h-3.5 w-3.5" />
+              <span className="rounded bg-muted px-12 py-0.5 text-transparent blur-[3px]">Full address hidden</span>
+            </div>
           </>
         ) : (
           <>
@@ -283,14 +287,37 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
             {l.website && (
               <div className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> <a href={l.website} target="_blank" rel="noreferrer" className="hover:text-foreground">Website</a></div>
             )}
+            {l.address && (
+              <div className="flex items-start gap-2"><MapPin className="h-3.5 w-3.5 mt-0.5" /> <span>{l.address}</span></div>
+            )}
           </>
         )}
       </div>
 
+      {!locked && l.address && (
+        <div className="mt-4 overflow-hidden rounded-xl border border-border/60">
+          <iframe
+            title={`Map of ${l.business_name}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(`${l.business_name}, ${l.address}, ${l.city ?? ""}`)}&output=embed`}
+            className="h-40 w-full"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${l.business_name}, ${l.address}, ${l.city ?? ""}`)}`}
+            target="_blank"
+            rel="noreferrer"
+            className="block bg-muted/40 px-3 py-1.5 text-center text-xs text-primary hover:underline"
+          >
+            Open in Google Maps →
+          </a>
+        </div>
+      )}
+
       {locked && (
         <div className="mt-4 flex items-center justify-between gap-2 rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs">
           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
-            <Lock className="h-3.5 w-3.5" /> Contact details for members
+            <Lock className="h-3.5 w-3.5" /> Contact, address & map for members
           </span>
           <Link to="/pricing" className="font-medium text-primary hover:underline">
             Unlock →
@@ -300,3 +327,4 @@ function ListingCard({ listing: l, locked }: { listing: any; locked: boolean }) 
     </PolishedCard>
   );
 }
+
