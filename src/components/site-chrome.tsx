@@ -97,6 +97,8 @@ export function SiteHeader() {
       [t("nav.students", "Students"), "/students"],
       ["Insurance", "/insurance"],
       ["Group cover", "/group-cover"],
+      ["Tax refund", "/tax"],
+      ["Leaving Germany", "/leaving-germany"],
       [t("nav.forProviders"), "/for-providers"],
       [t("nav.pricing"), "/pricing"],
       [t("nav.blog"), "/blog"],
