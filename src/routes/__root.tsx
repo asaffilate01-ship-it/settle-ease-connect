@@ -207,8 +207,10 @@ function RootComponent() {
       <CookieConsent />
       <OfflineIndicator />
       <BackToTop />
+      <WhatsAppChat />
       <AppSplash />
       <Toaster />
+
     </QueryClientProvider>
   );
 }
