@@ -126,7 +126,7 @@ export const caseTasksByStage: Record<string, CaseTask[]> = {
     { id: "t6", title: "Register death at Standesamt Mitte", owner: "Funeral Director", done: false, due: "Tomorrow" },
     { id: "t7", title: "Ghusl & Kafan at Şehitlik mosque", owner: "Mosque", done: false },
     { id: "t8", title: "Janazah prayer", owner: "Imam Yusuf", done: false },
-    { id: "t9", title: "Zinc-lined coffin arrangement", owner: "Furkan Bestattungen", done: false, due: "In 2 days" },
+    { id: "t9", title: "Approved transport casket arrangement", owner: "Furkan Bestattungen", done: false, due: "In 2 days" },
     { id: "t10", title: "Pakistani consulate — repatriation NOC", owner: "AI Assistant", done: false, due: "In 2 days" },
     { id: "t11", title: "Airline cargo booking (Qatar Airways BER→LHE)", owner: "Case Manager", done: false, due: "In 3 days" },
     { id: "t12", title: "Receiving funeral director in Lahore", owner: "Partner network", done: false },

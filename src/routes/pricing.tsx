@@ -100,7 +100,7 @@ const PLAN_FEATURES: Record<string, string[]> = {
     "Everything in Plus, plus:",
     "24/7 human bereavement & emergency line — case manager on the phone within 1 hour",
     "End-to-end death admin: Standesamt, funeral director, mosque / church / temple, cemetery, embassy, airline, insurer, employer, banks",
-    "Repatriation coordination (zinc coffin, embalming, consular NOC, airline cargo, receiving director abroad)",
+    "Repatriation coordination (approved transport casket, embalming, consular NOC, airline cargo, receiving director abroad)",
     "Immigration desk: visas, residence permits, naturalisation, repatriation, embassy & consulate contacts across Germany",
     "Lawyer, notary, tax adviser and doctor concierge — vetted, quoted, paid through platform escrow",
     "Funeral cover advisory (optional add-on up to €20,000 payout — underwritten separately)",
