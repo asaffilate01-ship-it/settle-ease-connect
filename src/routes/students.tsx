@@ -77,8 +77,8 @@ function StudentsPage() {
               Visa, Anmeldung, health insurance, Sperrkonto, Werkstudent rules, tax ID, WG search — all sorted in your language,
               with a real case manager if you need one.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-2xl border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent-foreground">
-              <BadgePercent className="h-4 w-4" /> 30% off any plan with a valid student ID
+            <div className="mt-4 inline-flex items-center gap-2 rounded-2xl border border-accent/50 bg-accent/15 px-4 py-2 text-sm font-semibold text-foreground">
+              <BadgePercent className="h-4 w-4 text-accent" /> 30% off any plan with a valid student ID
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
