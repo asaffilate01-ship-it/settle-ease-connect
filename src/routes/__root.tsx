@@ -204,10 +204,13 @@ function RootComponent() {
       <LanguageOnboarding />
       <CookieConsent />
       <OfflineIndicator />
+      <BackToTop />
+      <AppSplash />
       <Toaster />
     </QueryClientProvider>
   );
 }
+
 
 /** Keeps <html lang> and <html dir> in sync with the active i18next language. */
 function LanguageBridge() {
