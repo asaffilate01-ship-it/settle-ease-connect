@@ -40,7 +40,7 @@ const hospitalStages = [
 ];
 
 const repatSteps = [
-  "Zinc-lined coffin or approved transport casket",
+  "Approved transport casket",
   "Embalming if required by destination country / airline",
   "International transport documentation",
   "Embassy / consulate — repatriation NOC",

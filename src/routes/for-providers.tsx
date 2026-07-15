@@ -90,7 +90,7 @@ const portals: Array<{
     desc: "Repatriation bookings with documentation done right the first time.",
     features: [
       "Route and price quoting for human remains cargo",
-      "Consular, embassy and zinc-liner document checklist",
+      "Consular, embassy and transport-casket document checklist",
       "Live status updates shared with the family",
       "Standing corridor agreements for common destinations",
     ],
