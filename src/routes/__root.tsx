@@ -21,6 +21,8 @@ import { OfflineIndicator } from "@/components/offline-indicator";
 import { installOfflineQueue } from "@/lib/offline-queue";
 import { BackToTop } from "@/components/back-to-top";
 import { AppSplash } from "@/components/app-splash";
+import { WhatsAppChat } from "@/components/whatsapp-chat";
+
 
 
 function NotFoundComponent() {
