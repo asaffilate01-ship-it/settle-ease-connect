@@ -19,6 +19,9 @@ import { useLanguage } from "@/hooks/use-language";
 import { initNative } from "@/lib/native";
 import { OfflineIndicator } from "@/components/offline-indicator";
 import { installOfflineQueue } from "@/lib/offline-queue";
+import { BackToTop } from "@/components/back-to-top";
+import { AppSplash } from "@/components/app-splash";
+
 
 function NotFoundComponent() {
   return (
@@ -201,10 +204,13 @@ function RootComponent() {
       <LanguageOnboarding />
       <CookieConsent />
       <OfflineIndicator />
+      <BackToTop />
+      <AppSplash />
       <Toaster />
     </QueryClientProvider>
   );
 }
+
 
 /** Keeps <html lang> and <html dir> in sync with the active i18next language. */
 function LanguageBridge() {
