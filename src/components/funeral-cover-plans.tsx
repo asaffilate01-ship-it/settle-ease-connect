@@ -107,9 +107,6 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       )}
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <Button asChild className="bg-gradient-primary">
-          <Link to="/bereavement-cover">{t("funeralCover.ctaEstimate", "Estimate my premium")}</Link>
-        </Button>
         <Button asChild variant="outline">
           <Link to="/contact">{t("funeralCover.ctaTalk", "Talk to a case manager")}</Link>
         </Button>
