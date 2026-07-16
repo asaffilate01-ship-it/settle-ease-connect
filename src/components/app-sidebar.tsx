@@ -72,6 +72,7 @@ const nav: NavItem[] = [
   { to: "/portal/analytics", labelKey: "sidebar.analytics", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/dela", labelKey: "sidebar.dela", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/partners", labelKey: "sidebar.partners", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/escrow", labelKey: "sidebar.escrow", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/financials", labelKey: "sidebar.financials", icon: "benefits", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/funeral-cover", labelKey: "sidebar.funeralCover", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
@@ -113,6 +114,8 @@ const ROLE_LABEL: Record<AppRole, string> = {
   beneficiary: "Beneficiary",
   family: "Family",
   agent: "Agent",
+  partner_admin: "Partner Admin",
+  partner_user: "Partner User",
 };
 
 const ROLE_TONE: Record<AppRole, string> = {
@@ -139,6 +142,8 @@ const ROLE_TONE: Record<AppRole, string> = {
   beneficiary: "bg-primary/15 text-primary",
   family: "bg-primary/15 text-primary",
   agent: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+  partner_admin: "bg-blue-500/15 text-blue-600 dark:text-blue-300",
+  partner_user: "bg-blue-500/15 text-blue-600 dark:text-blue-300",
 };
 
 export function AppSidebar() {
