@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
+import { MfaEnrollmentGate } from "@/components/security/mfa-enrollment-gate";
 
 export const Route = createFileRoute("/_authenticated/portal")({
   ssr: false,
