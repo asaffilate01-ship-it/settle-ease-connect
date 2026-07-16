@@ -16,8 +16,13 @@ export function MfaEnrollmentGate({ children }: { children: ReactNode }) {
     (async () => {
       const { data: userData } = await supabase.auth.getUser();
       const email = userData?.user?.email?.toLowerCase() ?? "";
-      // Bypass MFA enforcement for internal "vel" test/dev logins.
-      if (email.includes("vel")) return setState("ok");
+      // Bypass MFA enforcement for dev / test logins.
+      const isDevLogin =
+        import.meta.env.DEV ||
+        /(^|[+._-])(dev|test|qa|staging|preview|lovable)([+._-]|@)/.test(email) ||
+        email.endsWith("@lovable.dev") ||
+        email.endsWith("@example.com");
+      if (isDevLogin) return setState("ok");
       const { data } = await supabase.auth.mfa.listFactors();
       const verified = (data?.totp ?? []).some((f) => f.status === "verified");
       setState(verified ? "ok" : "needs-enroll");
