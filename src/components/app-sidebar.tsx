@@ -113,6 +113,8 @@ const ROLE_LABEL: Record<AppRole, string> = {
   beneficiary: "Beneficiary",
   family: "Family",
   agent: "Agent",
+  partner_admin: "Partner Admin",
+  partner_user: "Partner User",
 };
 
 const ROLE_TONE: Record<AppRole, string> = {
