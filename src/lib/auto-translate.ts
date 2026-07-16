@@ -19,7 +19,8 @@ const SKIP_TAGS = new Set([
 ]);
 const SKIP_ATTR = "data-no-translate";
 
-let currentLang = "en";
+let currentLang: string = "en";
+let bootedOnce = false;
 let inFlight: Promise<void> | null = null;
 let scheduled = false;
 let mutating = false;
