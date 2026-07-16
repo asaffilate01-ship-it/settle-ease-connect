@@ -675,6 +675,139 @@ export type Database = {
           },
         ]
       }
+      case_template_stages: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          position: number
+          required_consent: string | null
+          requires_role: string | null
+          sla_hours: number | null
+          template_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          position: number
+          required_consent?: string | null
+          requires_role?: string | null
+          sla_hours?: number | null
+          template_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          position?: number
+          required_consent?: string | null
+          requires_role?: string | null
+          sla_hours?: number | null
+          template_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_template_stages_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "case_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_template_tasks: {
+        Row: {
+          assignee_role: string | null
+          created_at: string
+          description: string | null
+          id: string
+          offset_hours: number | null
+          position: number
+          required: boolean
+          requires_document: boolean
+          stage_id: string
+          title: string
+        }
+        Insert: {
+          assignee_role?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          offset_hours?: number | null
+          position: number
+          required?: boolean
+          requires_document?: boolean
+          stage_id: string
+          title: string
+        }
+        Update: {
+          assignee_role?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          offset_hours?: number | null
+          position?: number
+          required?: boolean
+          requires_document?: boolean
+          stage_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_template_tasks_stage_id_fkey"
+            columns: ["stage_id"]
+            isOneToOne: false
+            referencedRelation: "case_template_stages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_templates: {
+        Row: {
+          active: boolean
+          case_type: Database["public"]["Enums"]["case_type"]
+          created_at: string
+          description: string | null
+          expected_duration_days: number | null
+          id: string
+          name: string
+          risk_level: string | null
+          template_code: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          case_type: Database["public"]["Enums"]["case_type"]
+          created_at?: string
+          description?: string | null
+          expected_duration_days?: number | null
+          id?: string
+          name: string
+          risk_level?: string | null
+          template_code: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          case_type?: Database["public"]["Enums"]["case_type"]
+          created_at?: string
+          description?: string | null
+          expected_duration_days?: number | null
+          id?: string
+          name?: string
+          risk_level?: string | null
+          template_code?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cases: {
         Row: {
           bundesland: string | null
@@ -683,14 +816,20 @@ export type Database = {
           city: string | null
           client_user_id: string
           closed_at: string | null
+          closure_report: string | null
           created_at: string
+          current_stage: string | null
           id: string
           language: string
           opened_at: string
           primary_expert_id: string | null
+          priority: string | null
           reference: string
+          risk_level: string | null
+          sla_due_at: string | null
           status: Database["public"]["Enums"]["case_status"]
           summary: string | null
+          template_code: string | null
           title: string
           updated_at: string
           urgent: boolean
@@ -702,14 +841,20 @@ export type Database = {
           city?: string | null
           client_user_id: string
           closed_at?: string | null
+          closure_report?: string | null
           created_at?: string
+          current_stage?: string | null
           id?: string
           language?: string
           opened_at?: string
           primary_expert_id?: string | null
+          priority?: string | null
           reference?: string
+          risk_level?: string | null
+          sla_due_at?: string | null
           status?: Database["public"]["Enums"]["case_status"]
           summary?: string | null
+          template_code?: string | null
           title: string
           updated_at?: string
           urgent?: boolean
@@ -721,14 +866,20 @@ export type Database = {
           city?: string | null
           client_user_id?: string
           closed_at?: string | null
+          closure_report?: string | null
           created_at?: string
+          current_stage?: string | null
           id?: string
           language?: string
           opened_at?: string
           primary_expert_id?: string | null
+          priority?: string | null
           reference?: string
+          risk_level?: string | null
+          sla_due_at?: string | null
           status?: Database["public"]["Enums"]["case_status"]
           summary?: string | null
+          template_code?: string | null
           title?: string
           updated_at?: string
           urgent?: boolean
@@ -3542,6 +3693,10 @@ export type Database = {
     }
     Functions: {
       accept_expert_invitation: { Args: { _token: string }; Returns: string }
+      apply_case_template: {
+        Args: { _case_id: string; _template_code: string }
+        Returns: number
+      }
       can_access_case: {
         Args: { _case_id: string; _user_id: string }
         Returns: boolean
