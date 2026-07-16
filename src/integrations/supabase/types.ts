@@ -826,6 +826,543 @@ export type Database = {
           },
         ]
       }
+      crm_activities: {
+        Row: {
+          actor_user_id: string | null
+          body: string | null
+          case_id: string | null
+          contact_id: string | null
+          created_at: string
+          direction: string | null
+          duration_seconds: number | null
+          id: string
+          kind: Database["public"]["Enums"]["crm_activity_kind"]
+          lead_id: string | null
+          metadata: Json
+          occurred_at: string
+          outcome: string | null
+          subject: string | null
+          user_id: string | null
+        }
+        Insert: {
+          actor_user_id?: string | null
+          body?: string | null
+          case_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          direction?: string | null
+          duration_seconds?: number | null
+          id?: string
+          kind: Database["public"]["Enums"]["crm_activity_kind"]
+          lead_id?: string | null
+          metadata?: Json
+          occurred_at?: string
+          outcome?: string | null
+          subject?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          actor_user_id?: string | null
+          body?: string | null
+          case_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          direction?: string | null
+          duration_seconds?: number | null
+          id?: string
+          kind?: Database["public"]["Enums"]["crm_activity_kind"]
+          lead_id?: string | null
+          metadata?: Json
+          occurred_at?: string
+          outcome?: string | null
+          subject?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_activities_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_campaigns: {
+        Row: {
+          active: boolean
+          budget_eur: number | null
+          channel: string | null
+          created_at: string
+          created_by: string | null
+          ends_at: string | null
+          id: string
+          name: string
+          notes: string | null
+          starts_at: string | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          active?: boolean
+          budget_eur?: number | null
+          channel?: string | null
+          created_at?: string
+          created_by?: string | null
+          ends_at?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          starts_at?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          active?: boolean
+          budget_eur?: number | null
+          channel?: string | null
+          created_at?: string
+          created_by?: string | null
+          ends_at?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          starts_at?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
+      crm_complaints: {
+        Row: {
+          assignee_user_id: string | null
+          case_id: string | null
+          closed_at: string | null
+          contact_id: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          opened_at: string
+          reference: string
+          resolution: string | null
+          satisfaction_score: number | null
+          severity: string
+          status: Database["public"]["Enums"]["crm_complaint_status"]
+          subject: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          assignee_user_id?: string | null
+          case_id?: string | null
+          closed_at?: string | null
+          contact_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          opened_at?: string
+          reference?: string
+          resolution?: string | null
+          satisfaction_score?: number | null
+          severity?: string
+          status?: Database["public"]["Enums"]["crm_complaint_status"]
+          subject: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          assignee_user_id?: string | null
+          case_id?: string | null
+          closed_at?: string | null
+          contact_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          opened_at?: string
+          reference?: string
+          resolution?: string | null
+          satisfaction_score?: number | null
+          severity?: string
+          status?: Database["public"]["Enums"]["crm_complaint_status"]
+          subject?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_complaints_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_complaints_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_consents: {
+        Row: {
+          actor_user_id: string | null
+          contact_id: string | null
+          created_at: string
+          evidence: string | null
+          granted: boolean
+          granted_at: string
+          id: string
+          language: string | null
+          method: string | null
+          purpose: Database["public"]["Enums"]["crm_consent_purpose"]
+          revoked_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          actor_user_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          evidence?: string | null
+          granted?: boolean
+          granted_at?: string
+          id?: string
+          language?: string | null
+          method?: string | null
+          purpose: Database["public"]["Enums"]["crm_consent_purpose"]
+          revoked_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          actor_user_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          evidence?: string | null
+          granted?: boolean
+          granted_at?: string
+          id?: string
+          language?: string | null
+          method?: string | null
+          purpose?: Database["public"]["Enums"]["crm_consent_purpose"]
+          revoked_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_consents_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_contacts: {
+        Row: {
+          bundesland: string | null
+          campaign: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          created_by: string | null
+          email: string | null
+          full_name: string
+          id: string
+          merged_into_user_id: string | null
+          notes: string | null
+          phone: string | null
+          preferred_language: string
+          source: string | null
+          tags: string[]
+          updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+        }
+        Insert: {
+          bundesland?: string | null
+          campaign?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          full_name: string
+          id?: string
+          merged_into_user_id?: string | null
+          notes?: string | null
+          phone?: string | null
+          preferred_language?: string
+          source?: string | null
+          tags?: string[]
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Update: {
+          bundesland?: string | null
+          campaign?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          merged_into_user_id?: string | null
+          notes?: string | null
+          phone?: string | null
+          preferred_language?: string
+          source?: string | null
+          tags?: string[]
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Relationships: []
+      }
+      crm_follow_ups: {
+        Row: {
+          assignee_user_id: string | null
+          case_id: string | null
+          channel: string | null
+          contact_id: string | null
+          created_at: string
+          created_by: string | null
+          done: boolean
+          done_at: string | null
+          due_at: string
+          id: string
+          lead_id: string | null
+          notes: string | null
+          reminded_at: string | null
+          snoozed_until: string | null
+          title: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          assignee_user_id?: string | null
+          case_id?: string | null
+          channel?: string | null
+          contact_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          done?: boolean
+          done_at?: string | null
+          due_at: string
+          id?: string
+          lead_id?: string | null
+          notes?: string | null
+          reminded_at?: string | null
+          snoozed_until?: string | null
+          title: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          assignee_user_id?: string | null
+          case_id?: string | null
+          channel?: string | null
+          contact_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          done?: boolean
+          done_at?: string | null
+          due_at?: string
+          id?: string
+          lead_id?: string | null
+          notes?: string | null
+          reminded_at?: string | null
+          snoozed_until?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_follow_ups_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_follow_ups_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_follow_ups_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_leads: {
+        Row: {
+          campaign_id: string | null
+          contact_id: string | null
+          converted_case_id: string | null
+          converted_insurance_lead_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          language: string | null
+          lead_type: Database["public"]["Enums"]["crm_lead_type"]
+          lost_reason: string | null
+          next_action_at: string | null
+          notes: string | null
+          owner_user_id: string | null
+          priority: string
+          reference: string
+          service_interest: string[]
+          sla_due_at: string | null
+          source: string | null
+          stage: Database["public"]["Enums"]["crm_lead_stage"]
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          campaign_id?: string | null
+          contact_id?: string | null
+          converted_case_id?: string | null
+          converted_insurance_lead_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          language?: string | null
+          lead_type?: Database["public"]["Enums"]["crm_lead_type"]
+          lost_reason?: string | null
+          next_action_at?: string | null
+          notes?: string | null
+          owner_user_id?: string | null
+          priority?: string
+          reference?: string
+          service_interest?: string[]
+          sla_due_at?: string | null
+          source?: string | null
+          stage?: Database["public"]["Enums"]["crm_lead_stage"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          campaign_id?: string | null
+          contact_id?: string | null
+          converted_case_id?: string | null
+          converted_insurance_lead_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          language?: string | null
+          lead_type?: Database["public"]["Enums"]["crm_lead_type"]
+          lost_reason?: string | null
+          next_action_at?: string | null
+          notes?: string | null
+          owner_user_id?: string | null
+          priority?: string
+          reference?: string
+          service_interest?: string[]
+          sla_due_at?: string | null
+          source?: string | null
+          stage?: Database["public"]["Enums"]["crm_lead_stage"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_leads_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "crm_campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_leads_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_satisfaction: {
+        Row: {
+          case_id: string | null
+          comments: string | null
+          created_at: string
+          id: string
+          nps_category: string | null
+          score: number
+          submitted_at: string
+          user_id: string | null
+        }
+        Insert: {
+          case_id?: string | null
+          comments?: string | null
+          created_at?: string
+          id?: string
+          nps_category?: string | null
+          score: number
+          submitted_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          case_id?: string | null
+          comments?: string | null
+          created_at?: string
+          id?: string
+          nps_category?: string | null
+          score?: number
+          submitted_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_satisfaction_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       directory_listings: {
         Row: {
           address: string | null
@@ -1586,20 +2123,27 @@ export type Database = {
           benefit_amount: number | null
           call_log: Json
           carrier_partner: string | null
+          commission_amount: number | null
           commission_pct: number | null
+          commission_status: string | null
           created_at: string
+          crm_lead_id: string | null
           email: string
           estimated_premium_max: number | null
           estimated_premium_min: number | null
           full_name: string
           id: string
           notes: string | null
+          partner_id: string | null
           phone: string | null
+          policy_reference: string | null
           preferred_contact: string | null
           preferred_language: string | null
           product_line: string | null
           referring_agent_user_id: string | null
+          regulated_advisor_user_id: string | null
           source: string | null
+          stage: Database["public"]["Enums"]["insurance_lead_stage"]
           status: string
           tobacco: boolean | null
           updated_at: string
@@ -1611,20 +2155,27 @@ export type Database = {
           benefit_amount?: number | null
           call_log?: Json
           carrier_partner?: string | null
+          commission_amount?: number | null
           commission_pct?: number | null
+          commission_status?: string | null
           created_at?: string
+          crm_lead_id?: string | null
           email: string
           estimated_premium_max?: number | null
           estimated_premium_min?: number | null
           full_name: string
           id?: string
           notes?: string | null
+          partner_id?: string | null
           phone?: string | null
+          policy_reference?: string | null
           preferred_contact?: string | null
           preferred_language?: string | null
           product_line?: string | null
           referring_agent_user_id?: string | null
+          regulated_advisor_user_id?: string | null
           source?: string | null
+          stage?: Database["public"]["Enums"]["insurance_lead_stage"]
           status?: string
           tobacco?: boolean | null
           updated_at?: string
@@ -1636,26 +2187,41 @@ export type Database = {
           benefit_amount?: number | null
           call_log?: Json
           carrier_partner?: string | null
+          commission_amount?: number | null
           commission_pct?: number | null
+          commission_status?: string | null
           created_at?: string
+          crm_lead_id?: string | null
           email?: string
           estimated_premium_max?: number | null
           estimated_premium_min?: number | null
           full_name?: string
           id?: string
           notes?: string | null
+          partner_id?: string | null
           phone?: string | null
+          policy_reference?: string | null
           preferred_contact?: string | null
           preferred_language?: string | null
           product_line?: string | null
           referring_agent_user_id?: string | null
+          regulated_advisor_user_id?: string | null
           source?: string | null
+          stage?: Database["public"]["Enums"]["insurance_lead_stage"]
           status?: string
           tobacco?: boolean | null
           updated_at?: string
           waiting_period_months?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "insurance_leads_crm_lead_id_fkey"
+            columns: ["crm_lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       knowledge_categories: {
         Row: {
@@ -3061,6 +3627,63 @@ export type Database = {
         | "business"
         | "other"
       compensation_model: "referral_fee" | "wholesale" | "direct_bill"
+      crm_activity_kind:
+        | "call"
+        | "email"
+        | "whatsapp"
+        | "sms"
+        | "meeting"
+        | "note"
+        | "system"
+      crm_complaint_status:
+        | "open"
+        | "in_review"
+        | "resolved"
+        | "rejected"
+        | "withdrawn"
+      crm_consent_purpose:
+        | "marketing"
+        | "contact"
+        | "insurance_referral"
+        | "data_share_partner"
+        | "regulated_advice"
+      crm_lead_stage:
+        | "new"
+        | "contact_attempted"
+        | "assessed"
+        | "consented"
+        | "service_identified"
+        | "membership_proposed"
+        | "insurance_referral_offered"
+        | "referred_to_partner"
+        | "partner_outcome"
+        | "onboarded"
+        | "ongoing"
+        | "lost"
+      crm_lead_type:
+        | "general"
+        | "membership"
+        | "insurance"
+        | "funeral"
+        | "legal"
+        | "tax"
+        | "benefits"
+        | "immigration"
+        | "translation"
+        | "healthcare"
+        | "other"
+      insurance_lead_stage:
+        | "enquiry"
+        | "marketing_lead"
+        | "consent_to_contact"
+        | "referral"
+        | "regulated_advice"
+        | "application"
+        | "policy_accepted"
+        | "commission_due"
+        | "commission_paid"
+        | "declined"
+        | "lost"
       invoice_status:
         | "pending"
         | "paid"
@@ -3263,6 +3886,69 @@ export const Constants = {
         "other",
       ],
       compensation_model: ["referral_fee", "wholesale", "direct_bill"],
+      crm_activity_kind: [
+        "call",
+        "email",
+        "whatsapp",
+        "sms",
+        "meeting",
+        "note",
+        "system",
+      ],
+      crm_complaint_status: [
+        "open",
+        "in_review",
+        "resolved",
+        "rejected",
+        "withdrawn",
+      ],
+      crm_consent_purpose: [
+        "marketing",
+        "contact",
+        "insurance_referral",
+        "data_share_partner",
+        "regulated_advice",
+      ],
+      crm_lead_stage: [
+        "new",
+        "contact_attempted",
+        "assessed",
+        "consented",
+        "service_identified",
+        "membership_proposed",
+        "insurance_referral_offered",
+        "referred_to_partner",
+        "partner_outcome",
+        "onboarded",
+        "ongoing",
+        "lost",
+      ],
+      crm_lead_type: [
+        "general",
+        "membership",
+        "insurance",
+        "funeral",
+        "legal",
+        "tax",
+        "benefits",
+        "immigration",
+        "translation",
+        "healthcare",
+        "other",
+      ],
+      insurance_lead_stage: [
+        "enquiry",
+        "marketing_lead",
+        "consent_to_contact",
+        "referral",
+        "regulated_advice",
+        "application",
+        "policy_accepted",
+        "commission_due",
+        "commission_paid",
+        "declined",
+        "lost",
+      ],
       invoice_status: [
         "pending",
         "paid",
