@@ -27,12 +27,10 @@
 
 ## Not yet built — sequenced for follow-up turns
 
-### Stage 1 remnants — Auth & permissions hardening
-- Expand `app_role` enum: `family_deputy`, `senior_case_manager`, `team_leader`, `partner_user`, `partner_admin`, `finance`, `compliance`, `dpo`, `auditor`. (Some already exist: admin, staff, case_manager, insurance_admin, tax_admin, benefits_admin, medical_admin, new_arrival_admin, expert, agent, family.)
-- MFA policy: mandatory for staff/partner/admin (Supabase Auth MFA + enforcement on sign-in guard).
-- Session policy: expiry, device history table, suspicious-login alerts (`auth_events` with pg_cron sweep to `notifications`).
-- Password policy: HIBP check via `configure_auth`; strong password validator on client.
-- Optional passkeys (WebAuthn) — deferred.
+### Stage 1 remnants — Auth & permissions hardening (partial ✅)
+- `app_role` enum expanded: added `family_deputy`, `senior_case_manager`, `team_leader`, `finance`, `compliance`, `dpo`, `auditor` alongside existing roles.
+- HIBP password check enabled via `configure_auth` (leaked-password protection now active on sign-up + password change).
+- MFA enforcement, session/device history, and passkeys still deferred (Supabase Auth MFA UI required).
 
 ### Stage 2 — Case operations polish ✅
 - Table: `case_appointments` (RLS via `can_access_case`).
