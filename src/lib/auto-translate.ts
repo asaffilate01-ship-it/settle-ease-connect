@@ -19,13 +19,18 @@ const SKIP_TAGS = new Set([
 ]);
 const SKIP_ATTR = "data-no-translate";
 
-let currentLang = "en";
+let currentLang: string = "en";
+let bootedOnce = false;
 let inFlight: Promise<void> | null = null;
 let scheduled = false;
 let mutating = false;
 let hydrated = false;
 let gateTimer: number | undefined;
 let rerunAfterInFlight = false;
+// True only while an explicit language switch is in progress. Silent
+// background reruns (route changes, dropdowns, popovers) must not gate
+// the body — that caused a "half-translated flash" on every mutation.
+let gateActive = false;
 
 // Per text-node state: original source text + last language we applied.
 const textState = new WeakMap<Text, { src: string; srcLang: string; lang: string }>();
@@ -83,6 +88,7 @@ function clearLanguageGate(expectedLang?: string) {
     window.clearTimeout(gateTimer);
     gateTimer = undefined;
   }
+  gateActive = false;
   document.documentElement.removeAttribute("data-lang-pending");
   document.documentElement.removeAttribute("data-lang-switching");
   document.querySelector("style[data-lang-gate]")?.remove();
@@ -90,13 +96,16 @@ function clearLanguageGate(expectedLang?: string) {
 
 function ensureLanguageGate() {
   if (typeof document === "undefined") return;
+  gateActive = true;
   document.documentElement.setAttribute("data-lang-switching", currentLang);
-  if (document.querySelector("style[data-lang-gate]")) return;
-  const style = document.createElement("style");
-  style.setAttribute("data-lang-gate", "");
-  style.textContent =
-    "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
-  document.head.appendChild(style);
+  if (!document.querySelector("style[data-lang-gate]")) {
+    const style = document.createElement("style");
+    style.setAttribute("data-lang-gate", "");
+    style.textContent =
+      "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
+    document.head.appendChild(style);
+  }
+  if (gateTimer) window.clearTimeout(gateTimer);
   gateTimer = window.setTimeout(() => clearLanguageGate(currentLang), 4500);
 }
 
@@ -269,7 +278,10 @@ async function translatePage() {
 
 function schedule() {
   if (scheduled) return;
-  ensureLanguageGate();
+  // NOTE: do NOT call ensureLanguageGate() here. schedule() also fires on
+  // every route change and DOM mutation via MutationObserver — gating the
+  // body on those was the "half-translated flash" users saw. The gate is
+  // set explicitly by bootAutoTranslate() only when the language changes.
   scheduled = true;
   const run = () => {
     scheduled = false;
@@ -285,6 +297,7 @@ function schedule() {
       return;
     }
     const langAtRun = currentLang;
+    const wasGated = gateActive;
     inFlight = translatePage().finally(() => {
       inFlight = null;
       if (rerunAfterInFlight) {
@@ -292,7 +305,7 @@ function schedule() {
         schedule();
         return;
       }
-      clearLanguageGate(langAtRun);
+      if (wasGated) clearLanguageGate(langAtRun);
     });
   };
   if ("requestIdleCallback" in window) {
@@ -322,8 +335,19 @@ function markHydratedSoon() {
  */
 export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
+  const prevLang = currentLang;
+  const isFirstBoot = !bootedOnce;
+  bootedOnce = true;
   currentLang = lang;
   markHydratedSoon();
+  // Gate only when there is real work: an explicit switch (prev !== new)
+  // OR the pre-hydration script flagged a non-default saved language
+  // (data-lang-pending is present on <html>).
+  const alreadyPending =
+    document.documentElement.hasAttribute("data-lang-pending") ||
+    document.documentElement.hasAttribute("data-lang-switching");
+  const isLangSwitch = !isFirstBoot && prevLang !== lang;
+  if (isLangSwitch || alreadyPending) ensureLanguageGate();
   schedule();
 
   if (observer) return;
