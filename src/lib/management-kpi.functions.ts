@@ -55,7 +55,7 @@ export const getManagementKpis = createServerFn({ method: "GET" })
       sb.from("crm_complaints").select("id,status"),
       sb.from("crm_satisfaction").select("score,created_at").not("score", "is", null),
       sb.from("case_assignments").select("partner_org_id,accepted_at,declined_at,invited_at"),
-      sb.from("partner_organisations").select("id,name"),
+      sb.from("partner_organisations").select("id,legal_name,trading_name"),
     ]);
 
     const leads = leadsAll.data ?? [];
