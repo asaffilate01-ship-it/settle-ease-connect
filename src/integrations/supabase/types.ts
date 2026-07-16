@@ -386,6 +386,7 @@ export type Database = {
         Row: {
           case_id: string
           created_at: string
+          doc_type: string
           file_name: string
           file_path: string
           id: string
@@ -398,6 +399,7 @@ export type Database = {
         Insert: {
           case_id: string
           created_at?: string
+          doc_type?: string
           file_name: string
           file_path: string
           id?: string
@@ -410,6 +412,7 @@ export type Database = {
         Update: {
           case_id?: string
           created_at?: string
+          doc_type?: string
           file_name?: string
           file_path?: string
           id?: string
@@ -4511,6 +4514,7 @@ export type Database = {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
       }
+      sla_breach_sweep: { Args: never; Returns: number }
       vault_deputy_can_read: {
         Args: { _category: string; _deputy_user: string; _owner_user: string }
         Returns: boolean
@@ -4543,6 +4547,13 @@ export type Database = {
         | "agent"
         | "partner_admin"
         | "partner_user"
+        | "family_deputy"
+        | "senior_case_manager"
+        | "team_leader"
+        | "finance"
+        | "compliance"
+        | "dpo"
+        | "auditor"
       case_participant_role:
         | "client"
         | "case_manager"
@@ -4842,6 +4853,13 @@ export const Constants = {
         "agent",
         "partner_admin",
         "partner_user",
+        "family_deputy",
+        "senior_case_manager",
+        "team_leader",
+        "finance",
+        "compliance",
+        "dpo",
+        "auditor",
       ],
       case_participant_role: [
         "client",
