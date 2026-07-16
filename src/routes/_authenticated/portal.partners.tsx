@@ -71,6 +71,8 @@ function PartnersAdmin() {
         <NewOrgDialog />
       </header>
 
+      <VerificationQueue />
+
       <Card>
         <CardContent className="p-0">
           {orgs.length === 0 ? (
@@ -85,6 +87,71 @@ function PartnersAdmin() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+function VerificationQueue() {
+  const qc = useQueryClient();
+  const q = useQuery({
+    queryKey: ["portal", "partners", "doc-queue"],
+    queryFn: () => listPartnerDocsPendingReview(),
+  });
+  const review = useServerFn(reviewPartnerDocument);
+  const mut = useMutation({
+    mutationFn: (v: { id: string; decision: "approved" | "rejected"; notes?: string }) =>
+      review({ data: v }),
+    onSuccess: () => {
+      toast.success("Reviewed");
+      qc.invalidateQueries({ queryKey: ["portal", "partners", "doc-queue"] });
+    },
+    onError: (e: any) => toast.error(e?.message ?? "Failed"),
+  });
+
+  const rows = q.data ?? [];
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4 text-primary" /> Compliance documents awaiting review
+          <Badge variant="outline">{rows.length}</Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        {q.isLoading ? (
+          <p className="text-sm text-muted-foreground">Loading…</p>
+        ) : rows.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Nothing pending.</p>
+        ) : (
+          rows.map((d: any) => (
+            <div key={d.id} className="flex items-center justify-between rounded-md border p-3 gap-3">
+              <div className="min-w-0">
+                <div className="font-medium text-sm truncate">{d.title}</div>
+                <div className="text-xs text-muted-foreground">
+                  {d.partner_organisations?.trading_name ?? d.partner_organisations?.legal_name ?? d.org_id}
+                  {" · "}{d.category}{d.valid_until ? ` · valid to ${d.valid_until}` : ""}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Badge variant="outline">{d.status}</Badge>
+                <Button size="sm" onClick={() => mut.mutate({ id: d.id, decision: "approved" })}>
+                  <CheckCircle2 className="h-4 w-4 mr-1" /> Approve
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    const reason = window.prompt("Reason for rejection (optional):") ?? undefined;
+                    mut.mutate({ id: d.id, decision: "rejected", notes: reason || undefined });
+                  }}
+                >
+                  <XCircle className="h-4 w-4 mr-1" /> Reject
+                </Button>
+              </div>
+            </div>
+          ))
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
