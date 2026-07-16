@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
+import { MfaEnrollmentGate } from "@/components/security/mfa-enrollment-gate";
 
 export const Route = createFileRoute("/_authenticated/portal")({
   ssr: false,
@@ -114,7 +115,9 @@ function PortalLayout() {
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          <Outlet />
+          <MfaEnrollmentGate>
+            <Outlet />
+          </MfaEnrollmentGate>
         </main>
       </div>
     </div>
