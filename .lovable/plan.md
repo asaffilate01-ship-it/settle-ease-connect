@@ -42,7 +42,7 @@
 
 ### Stage 2 remnants ✅
 - `sla_breach_sweep()` SECURITY DEFINER function + hourly `pg_cron` job (`sla-breach-sweep` at `0 * * * *`) writes `sla_breach` notifications to the case manager when a case passes its `sla_due_at`, deduped by `entity_id` + created_at.
-- Document-request task type auto-linking to vault upload — still deferred.
+- Document-request task auto-linking ✅ — `case_tasks.document_category` + `linked_vault_document_id` columns; `vault_autolink_case_tasks` trigger on `vault_documents` INSERT auto-completes matching open tasks on the same client's cases and notifies the case manager.
 
 ### Stage 3 — Health-insurance referral flow ✅ (triage)
 - `/portal/insurance-triage` — 7-bucket triage (statutory/private/student/employee/self_employed/family/needs_regulated_assessment), "Not advice" banner, factual-notes only, per-route hint on where to hand off.
