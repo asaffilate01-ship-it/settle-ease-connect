@@ -40,9 +40,9 @@
 - Portal: `/portal/operations` with SLA dashboard, appointment scheduler, and closure workflow.
 - Server fns: `src/lib/case-operations.functions.ts`.
 
-### Stage 2 remnants
-- Nightly pg_cron sweep of `cases.sla_due_at` → notifications on breach.
-- Document-request task type auto-linking to vault upload.
+### Stage 2 remnants ✅
+- `sla_breach_sweep()` SECURITY DEFINER function + hourly `pg_cron` job (`sla-breach-sweep` at `0 * * * *`) writes `sla_breach` notifications to the case manager when a case passes its `sla_due_at`, deduped by `entity_id` + created_at.
+- Document-request task type auto-linking to vault upload — still deferred.
 
 ### Stage 3 — Health-insurance referral flow ✅ (triage)
 - `/portal/insurance-triage` — 7-bucket triage (statutory/private/student/employee/self_employed/family/needs_regulated_assessment), "Not advice" banner, factual-notes only, per-route hint on where to hand off.
