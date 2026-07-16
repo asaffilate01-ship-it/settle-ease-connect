@@ -171,7 +171,22 @@ export const updateDelaOutcome = createServerFn({ method: "POST" })
     cancellationReason: z.string().max(500).optional(),
   }).parse(d))
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = {};
+    const patch: Partial<{
+      status: typeof data.status;
+      partner_acknowledged_at: string;
+      application_submitted_at: string;
+      policy_accepted_at: string;
+      policy_declined_at: string;
+      commission_paid_at: string;
+      cancelled_at: string;
+      renewed_at: string;
+      partner_case_reference: string;
+      policy_reference: string;
+      monthly_premium_eur: number;
+      benefit_amount_eur: number;
+      commission_amount_eur: number;
+      cancellation_reason: string;
+    }> = {};
     const now = new Date().toISOString();
     if (data.status) patch.status = data.status;
     if (data.status === "partner_acknowledged") patch.partner_acknowledged_at = now;
