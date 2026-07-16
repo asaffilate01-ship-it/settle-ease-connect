@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "AI 工具",
+    "sessions": "会话与设备",
+    "staffAssistant": "知识库助手",
+    "partnerPush": "合作方 API",
+    "copyAudit": "文案审核"
   },
   "agent": {
     "defaultName": "代理",

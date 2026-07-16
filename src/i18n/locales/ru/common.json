@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "AI-инструменты",
+    "sessions": "Сеансы",
+    "staffAssistant": "KB-ассистент",
+    "partnerPush": "Партнёр API",
+    "copyAudit": "Аудит текста"
   },
   "language": {
     "label": "Язык",

@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "AI ٹولز",
+    "sessions": "سیشنز",
+    "staffAssistant": "KB اسسٹنٹ",
+    "partnerPush": "پارٹنر API",
+    "copyAudit": "کاپی آڈٹ"
   },
   "language": {
     "label": "زبان",

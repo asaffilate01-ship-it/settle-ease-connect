@@ -166,7 +166,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "AI tools",
+    "sessions": "Sessions & devices",
+    "staffAssistant": "KB assistant",
+    "partnerPush": "Partner API push",
+    "copyAudit": "Copy audit"
   },
   "agent": {
     "defaultName": "Agent",
