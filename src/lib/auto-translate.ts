@@ -87,6 +87,7 @@ function clearLanguageGate(expectedLang?: string) {
     window.clearTimeout(gateTimer);
     gateTimer = undefined;
   }
+  gateActive = false;
   document.documentElement.removeAttribute("data-lang-pending");
   document.documentElement.removeAttribute("data-lang-switching");
   document.querySelector("style[data-lang-gate]")?.remove();
@@ -94,13 +95,16 @@ function clearLanguageGate(expectedLang?: string) {
 
 function ensureLanguageGate() {
   if (typeof document === "undefined") return;
+  gateActive = true;
   document.documentElement.setAttribute("data-lang-switching", currentLang);
-  if (document.querySelector("style[data-lang-gate]")) return;
-  const style = document.createElement("style");
-  style.setAttribute("data-lang-gate", "");
-  style.textContent =
-    "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
-  document.head.appendChild(style);
+  if (!document.querySelector("style[data-lang-gate]")) {
+    const style = document.createElement("style");
+    style.setAttribute("data-lang-gate", "");
+    style.textContent =
+      "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
+    document.head.appendChild(style);
+  }
+  if (gateTimer) window.clearTimeout(gateTimer);
   gateTimer = window.setTimeout(() => clearLanguageGate(currentLang), 4500);
 }
 
