@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Sparkles, FileCheck2, HeartHandshake, Lock, MessageSquare, Shield, Receipt, Briefcase, AlertTriangle, CalendarClock, FileWarning, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -235,18 +236,19 @@ function Overview() {
 }
 
 function NoPlanBanner() {
+  const { t } = useTranslation();
   return (
     <PolishedCard glow className="border-primary/40 p-6">
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
         <ClayIcon icon={Sparkles} tone="aurora" size="md" />
         <div className="flex-1">
-          <div className="font-display text-lg font-semibold">Activate your plan to unlock the dashboard</div>
+          <div className="font-display text-lg font-semibold">{t("upgradeGate.title")}</div>
           <p className="mt-1 text-sm text-muted-foreground">
-            Basic €5/mo · Plus €10/mo · Complete €25/mo. Third-party costs always separate — nothing hidden.
+            {t("upgradeGate.body")}
           </p>
         </div>
         <Link to="/app/upgrade" className="inline-flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
-          View plans <ArrowRight className="h-4 w-4" />
+          {t("upgradeGate.cta")} <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
     </PolishedCard>

@@ -433,5 +433,10 @@
   },
   "common": {
     "loading": "Yükleniyor…"
+  },
+  "upgradeGate": {
+    "title": "Panoyu açmak için planınızı etkinleştirin",
+    "body": "Basic 5€/ay · Plus 10€/ay · Complete 25€/ay. Üçüncü taraf maliyetleri her zaman ayrıdır — hiçbir şey gizli değildir.",
+    "cta": "Planları gör"
   }
 }

@@ -433,5 +433,10 @@
   },
   "common": {
     "loading": "Wird geladen…"
+  },
+  "upgradeGate": {
+    "title": "Aktivieren Sie Ihren Plan, um das Dashboard freizuschalten",
+    "body": "Basic 5 €/Monat · Plus 10 €/Monat · Complete 25 €/Monat. Kosten Dritter werden immer separat ausgewiesen — nichts versteckt.",
+    "cta": "Pläne ansehen"
   }
 }
