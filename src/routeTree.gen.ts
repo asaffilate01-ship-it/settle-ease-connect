@@ -50,6 +50,7 @@ import { Route as AuthenticatedExpertRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAgentRouteImport } from './routes/_authenticated/agent'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
+import { Route as AuthenticatedPartnerIndexRouteImport } from './routes/_authenticated/partner.index'
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
@@ -330,6 +331,12 @@ const AuthenticatedPortalIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPartnerIndexRoute =
+  AuthenticatedPartnerIndexRouteImport.update({
+    id: '/partner/',
+    path: '/partner/',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedExpertIndexRoute =
   AuthenticatedExpertIndexRouteImport.update({
@@ -853,6 +860,7 @@ export interface FileRoutesByFullPath {
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
+  '/partner/': typeof AuthenticatedPartnerIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
@@ -963,6 +971,7 @@ export interface FileRoutesByTo {
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
+  '/partner': typeof AuthenticatedPartnerIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/app/cases/new': typeof AuthenticatedAppCasesNewRoute
@@ -1078,6 +1087,7 @@ export interface FileRoutesById {
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
+  '/_authenticated/partner/': typeof AuthenticatedPartnerIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/app/cases/$caseId': typeof AuthenticatedAppCasesCaseIdRoute
   '/_authenticated/app/cases/new': typeof AuthenticatedAppCasesNewRoute
@@ -1195,6 +1205,7 @@ export interface FileRouteTypes {
     | '/agent/'
     | '/app/'
     | '/expert/'
+    | '/partner/'
     | '/portal/'
     | '/app/cases/$caseId'
     | '/app/cases/new'
@@ -1305,6 +1316,7 @@ export interface FileRouteTypes {
     | '/agent'
     | '/app'
     | '/expert'
+    | '/partner'
     | '/portal'
     | '/app/cases/$caseId'
     | '/app/cases/new'
@@ -1419,6 +1431,7 @@ export interface FileRouteTypes {
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
+    | '/_authenticated/partner/'
     | '/_authenticated/portal/'
     | '/_authenticated/app/cases/$caseId'
     | '/_authenticated/app/cases/new'
@@ -1758,6 +1771,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/'
       preLoaderRoute: typeof AuthenticatedPortalIndexRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/partner/': {
+      id: '/_authenticated/partner/'
+      path: '/partner'
+      fullPath: '/partner/'
+      preLoaderRoute: typeof AuthenticatedPartnerIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/expert/': {
       id: '/_authenticated/expert/'
@@ -2554,6 +2574,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
   AuthenticatedExpertRoute: typeof AuthenticatedExpertRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
+  AuthenticatedPartnerIndexRoute: typeof AuthenticatedPartnerIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -2561,6 +2582,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
   AuthenticatedExpertRoute: AuthenticatedExpertRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
+  AuthenticatedPartnerIndexRoute: AuthenticatedPartnerIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
