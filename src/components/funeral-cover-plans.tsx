@@ -21,8 +21,8 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
 
   const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
     { key: "individual", label: t("funeralCover.tabs.individual", "Individual"), icon: <User className="h-4 w-4" />, note: t("funeralCover.tabs.individualNote", "1 adult · €20k benefit") },
-    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 children under 18 · €20k per adult · children included free") },
-    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + up to 3 children under 18 · €20k per adult · children included free") },
+    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 kids under 18 · €20k per adult · kids included free") },
+    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + up to 3 kids under 18 · €20k per adult · kids included free") },
   ];
 
   const COVERAGE: string[] = t("funeralCover.coverage", {

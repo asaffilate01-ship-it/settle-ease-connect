@@ -54,7 +54,7 @@ const tiers = [
   {
     title: "Tier 3 · Family",
     icon: <Building2 className="h-5 w-5" />,
-    detail: "2 adults + up to 3 children under 18 — children co-insured on the family tarif.",
+    detail: "2 adults + up to 3 kids under 18 — kids co-insured on the family tarif.",
     note: "Children under 18 co-insured at no extra premium.",
   },
 ];
