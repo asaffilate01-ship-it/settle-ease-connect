@@ -317,6 +317,81 @@
       "messagePh": "Wie können wir helfen?",
       "send": "Nachricht senden",
       "thanks": "Vielen Dank – wir melden uns bald."
+    },
+    "aiTools": {
+      "title": "KI-Dokumenten-Werkzeuge",
+      "subtitle": "Dokument zusammenfassen oder Anspruchs-Felder für Antragsformulare extrahieren. Läuft auf Lovable AI.",
+      "tabSummary": "Zusammenfassen",
+      "tabEligibility": "Anspruch vorausfüllen",
+      "filenamePh": "Dateiname (z. B. bescheid_2024.pdf)",
+      "textPh": "Extrahierten Dokumenttext hier einfügen…",
+      "working": "Läuft…",
+      "generateSummary": "Zusammenfassung erstellen",
+      "extractFields": "Felder extrahieren",
+      "summaryLabel": "Zusammenfassung",
+      "fieldsLabel": "Extrahierte Felder"
+    },
+    "referrals": {
+      "title": "Freunde einladen, Prämien sammeln",
+      "subtitle": "Erhalten Sie 5 € Guthaben für jede Freundin oder jeden Freund, die abonnieren. Sie erhalten den ersten Monat gratis.",
+      "pending": "Ausstehende Einladungen",
+      "subscribed": "Abonniert",
+      "rewards": "Erhaltene Prämien",
+      "inviteByEmail": "Per E-Mail einladen",
+      "sending": "Senden…",
+      "createInvite": "Einladung erstellen",
+      "yourInvites": "Ihre Einladungen",
+      "noInvites": "Noch keine Einladungen.",
+      "linkCopied": "Link kopiert",
+      "inviteCreated": "Einladung erstellt — Code {{code}} teilen",
+      "failed": "Fehlgeschlagen"
+    },
+    "sessions": {
+      "title": "Sicherheit & Geräte",
+      "subtitle": "Sehen Sie kürzliche Anmeldungen und registrierte Sicherheitsschlüssel ein.",
+      "passkeys": "Passkeys & zweite Faktoren",
+      "noneEnrolled": "Keine Sicherheitsschlüssel registriert.",
+      "addPasskey": "Passkey / zweiten Faktor hinzufügen",
+      "enrolling": "Registrierung läuft…",
+      "enrolled": "Zweiter Faktor registriert",
+      "enrollFailed": "Registrierung fehlgeschlagen",
+      "recent": "Letzte Aktivität",
+      "noEvents": "Noch keine erfassten Ereignisse.",
+      "unknownDevice": "Unbekanntes Gerät"
+    },
+    "staffAssistant": {
+      "title": "Interner Wissens-Assistent",
+      "subtitle": "Nur intern · Lovable AI · Nicht wortwörtlich an Mandanten weitergeben",
+      "greeting": "Hallo — ich bin Ihr interner Wissens-Assistent. Fragen Sie mich zu deutscher Sozialhilfe, Leistungen, Aufenthaltsrecht, Steuern oder Bestattungsprozessen.",
+      "inputPh": "Fragen Sie zu einer Leistung, Frist oder Regelung…",
+      "thinking": "Denkt nach…"
+    },
+    "partnerPush": {
+      "title": "Versicherungs-Triage → Partner-API-Push",
+      "subtitle": "Übermitteln Sie einen triagierten Lead an einen Partner-Endpunkt. Testlauf erfasst die Nutzdaten ohne Aufruf.",
+      "leadIdPh": "Versicherungs-Lead-UUID",
+      "partnerCodePh": "Partnercode (z. B. dela)",
+      "endpointPh": "Endpunkt-URL",
+      "liveSend": "Live senden (abwählen für Testlauf)",
+      "pushing": "Übertragung…",
+      "pushLive": "Live übertragen",
+      "dryRun": "Testlauf-Übertragung",
+      "recent": "Letzte Übertragungen",
+      "pushedLive": "Live übertragen",
+      "recordedDryRun": "Testlauf erfasst"
+    },
+    "copyAudit": {
+      "title": "Prüfung regulierter Texte",
+      "subtitle": "Prüfen Sie Hinweise, „keine Beratung“-Banner und Einwilligungstexte auf regulierten Oberflächen.",
+      "reviewerNotesPh": "Prüfer-Notizen (fehlende Hinweise, Tonalität, Übersetzungen…)",
+      "reviewedOn": "Geprüft am {{date}}",
+      "saved": "Gespeichert",
+      "status": {
+        "pending": "ausstehend",
+        "approved": "genehmigt",
+        "needsRevision": "Überarbeitung nötig",
+        "blocked": "blockiert"
+      }
     }
   },
   "agent": {
