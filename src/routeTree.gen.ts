@@ -69,6 +69,7 @@ import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authen
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalCrmRouteImport } from './routes/_authenticated/portal.crm'
+import { Route as AuthenticatedPortalCaseTemplatesRouteImport } from './routes/_authenticated/portal.case-templates'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
@@ -436,6 +437,12 @@ const AuthenticatedPortalCrmRoute = AuthenticatedPortalCrmRouteImport.update({
   path: '/crm',
   getParentRoute: () => AuthenticatedPortalRoute,
 } as any)
+const AuthenticatedPortalCaseTemplatesRoute =
+  AuthenticatedPortalCaseTemplatesRouteImport.update({
+    id: '/case-templates',
+    path: '/case-templates',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalCapacityRoute =
   AuthenticatedPortalCapacityRouteImport.update({
     id: '/capacity',
@@ -795,6 +802,7 @@ export interface FileRoutesByFullPath {
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
@@ -901,6 +909,7 @@ export interface FileRoutesByTo {
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -1010,6 +1019,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/_authenticated/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/_authenticated/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
@@ -1122,6 +1132,7 @@ export interface FileRouteTypes {
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
+    | '/portal/case-templates'
     | '/portal/crm'
     | '/portal/directory'
     | '/portal/escrow'
@@ -1228,6 +1239,7 @@ export interface FileRouteTypes {
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
+    | '/portal/case-templates'
     | '/portal/directory'
     | '/portal/escrow'
     | '/portal/experts'
@@ -1336,6 +1348,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
+    | '/_authenticated/portal/case-templates'
     | '/_authenticated/portal/crm'
     | '/_authenticated/portal/directory'
     | '/_authenticated/portal/escrow'
@@ -1826,6 +1839,13 @@ declare module '@tanstack/react-router' {
       path: '/crm'
       fullPath: '/portal/crm'
       preLoaderRoute: typeof AuthenticatedPortalCrmRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/case-templates': {
+      id: '/_authenticated/portal/case-templates'
+      path: '/case-templates'
+      fullPath: '/portal/case-templates'
+      preLoaderRoute: typeof AuthenticatedPortalCaseTemplatesRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/capacity': {
@@ -2387,6 +2407,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
+  AuthenticatedPortalCaseTemplatesRoute: typeof AuthenticatedPortalCaseTemplatesRoute
   AuthenticatedPortalCrmRoute: typeof AuthenticatedPortalCrmRouteWithChildren
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
@@ -2413,6 +2434,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
+  AuthenticatedPortalCaseTemplatesRoute: AuthenticatedPortalCaseTemplatesRoute,
   AuthenticatedPortalCrmRoute: AuthenticatedPortalCrmRouteWithChildren,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
