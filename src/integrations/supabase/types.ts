@@ -179,6 +179,63 @@ export type Database = {
         }
         Relationships: []
       }
+      benefits_catalogue: {
+        Row: {
+          active: boolean
+          apply_url: string | null
+          authority: string
+          category: string
+          created_at: string
+          eligible_if: string[]
+          german: string
+          id: string
+          key: string
+          monthly: string | null
+          name: string
+          notes: string | null
+          payload: Json
+          sort_order: number
+          summary: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          apply_url?: string | null
+          authority: string
+          category: string
+          created_at?: string
+          eligible_if?: string[]
+          german: string
+          id?: string
+          key: string
+          monthly?: string | null
+          name: string
+          notes?: string | null
+          payload?: Json
+          sort_order?: number
+          summary: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          apply_url?: string | null
+          authority?: string
+          category?: string
+          created_at?: string
+          eligible_if?: string[]
+          german?: string
+          id?: string
+          key?: string
+          monthly?: string | null
+          name?: string
+          notes?: string | null
+          payload?: Json
+          sort_order?: number
+          summary?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       bug_reports: {
         Row: {
           assigned_to: string | null
