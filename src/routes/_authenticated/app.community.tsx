@@ -1,66 +1,120 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Users, Send } from "lucide-react";
+import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Users, MapPin, Calendar } from "lucide-react";
+import { toast } from "sonner";
+import {
+  listCommunityPosts,
+  createCommunityPost,
+  listPostReplies,
+  replyToPost,
+} from "@/lib/community.functions";
 
 export const Route = createFileRoute("/_authenticated/app/community")({
   component: CommunityPage,
 });
 
-const events = [
-  { title: "Freitagsgebet & community lunch", where: "Şehitlik-Moschee, Berlin", when: "Fr · 13:15", tag: "Mosque" },
-  { title: "Urdu-speaking women's circle", where: "Neukölln community centre", when: "Sa · 10:00", tag: "Community" },
-  { title: "Newcomer orientation (EN)", where: "BeistandPlus HQ, Kreuzberg", when: "Sa · 15:00", tag: "BeistandPlus" },
-  { title: "German conversation cafe", where: "Café Kotti", when: "So · 11:00", tag: "Language" },
-  { title: "Kids Quran class", where: "Şehitlik-Moschee", when: "Sa · 09:00", tag: "Family" },
-  { title: "Diwali celebration", where: "Sri Ganesha Tempel", when: "Nov 4 · 18:00", tag: "Temple" },
-];
-
 function CommunityPage() {
+  const list = useServerFn(listCommunityPosts);
+  const create = useServerFn(createCommunityPost);
+  const qc = useQueryClient();
+  const { data: posts = [] } = useQuery({ queryKey: ["community-posts"], queryFn: () => list() });
+  const [selected, setSelected] = useState<string | null>(null);
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const createMutation = useMutation({
+    mutationFn: async () => create({ data: { title, body, category: "general" } }),
+    onSuccess: () => {
+      setTitle(""); setBody("");
+      qc.invalidateQueries({ queryKey: ["community-posts"] });
+      toast.success("Post shared with the community");
+    },
+    onError: (e: any) => toast.error(e?.message ?? "Failed"),
+  });
+
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="display-lg font-semibold">Community</h1>
-        <p className="text-sm text-muted-foreground">Find your people. Prayer times, events, groups, and gatherings near you.</p>
+        <h1 className="display-lg font-semibold">Community help board</h1>
+        <p className="text-sm text-muted-foreground">Ask questions, share tips. Staff replies are marked.</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card icon={Users} title="Nearby groups" value="14" sub="Berlin, within 5 km" />
-        <Card icon={MapPin} title="Mosques & temples" value="9" sub="Verified in your area" />
-        <Card icon={Calendar} title="Events this week" value="12" sub="From your saved groups" />
-      </div>
-
-      <div>
-        <h2 className="font-display text-xl font-semibold">This week</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((e) => (
-            <div key={e.title} className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
-              <div className="flex items-start justify-between">
-                <div className="font-medium">{e.title}</div>
-                <Badge variant="outline" className="border-accent/40 bg-accent/10">{e.tag}</Badge>
-              </div>
-              <div className="mt-3 text-xs text-muted-foreground">
-                <div>{e.where}</div>
-                <div>{e.when}</div>
-              </div>
-            </div>
-          ))}
+      <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
+        <div className="flex items-center gap-2 text-sm font-medium"><Users className="h-4 w-4" /> Start a new post</div>
+        <div className="mt-3 grid gap-3">
+          <Input placeholder="Short title" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={160} />
+          <Textarea placeholder="Describe what you're stuck on. Include city if relevant." value={body} onChange={(e) => setBody(e.target.value)} maxLength={4000} rows={4} />
+          <div>
+            <Button disabled={createMutation.isPending || title.length < 3 || body.length < 5} onClick={() => createMutation.mutate()}>
+              {createMutation.isPending ? "Posting…" : "Post"}
+            </Button>
+          </div>
         </div>
+      </div>
+
+      <div className="space-y-3">
+        {posts.length === 0 && <p className="text-sm text-muted-foreground">No posts yet — be the first to ask.</p>}
+        {posts.map((p) => (
+          <div key={p.id} className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="font-medium">{p.title}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{new Date(p.created_at).toLocaleString()} · {p.reply_count} replies</div>
+              </div>
+              <Badge variant="outline">{p.category}</Badge>
+            </div>
+            <p className="mt-3 whitespace-pre-wrap text-sm">{p.body}</p>
+            <div className="mt-3">
+              <button className="text-xs text-primary underline" onClick={() => setSelected(selected === p.id ? null : p.id)}>
+                {selected === p.id ? "Hide" : "View"} replies
+              </button>
+            </div>
+            {selected === p.id && <RepliesPanel postId={p.id} />}
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function Card({ icon: Icon, title, value, sub }: { icon: React.ComponentType<{ className?: string }>; title: string; value: string; sub: string }) {
+function RepliesPanel({ postId }: { postId: string }) {
+  const list = useServerFn(listPostReplies);
+  const reply = useServerFn(replyToPost);
+  const qc = useQueryClient();
+  const { data: replies = [] } = useQuery({
+    queryKey: ["community-replies", postId],
+    queryFn: () => list({ data: { postId } }),
+  });
+  const [text, setText] = useState("");
+  const send = useMutation({
+    mutationFn: async () => reply({ data: { postId, body: text } }),
+    onSuccess: () => {
+      setText("");
+      qc.invalidateQueries({ queryKey: ["community-replies", postId] });
+      qc.invalidateQueries({ queryKey: ["community-posts"] });
+    },
+  });
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
-      <div className="flex items-center gap-3">
-        <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary">
-          <Icon className="h-4 w-4" />
+    <div className="mt-4 space-y-3 border-t border-border/60 pt-3">
+      {replies.map((r) => (
+        <div key={r.id} className="rounded-lg bg-muted/30 p-3 text-sm">
+          {r.is_staff && <Badge className="mr-2 bg-primary text-primary-foreground">Staff</Badge>}
+          <span className="whitespace-pre-wrap">{r.body}</span>
+          <div className="mt-1 text-xs text-muted-foreground">{new Date(r.created_at).toLocaleString()}</div>
         </div>
-        <div className="text-xs uppercase tracking-widest text-muted-foreground">{title}</div>
+      ))}
+      <div className="flex gap-2">
+        <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Reply…" />
+        <Button size="icon" disabled={!text.trim() || send.isPending} onClick={() => send.mutate()}>
+          <Send className="h-4 w-4" />
+        </Button>
       </div>
-      <div className="mt-3 font-display text-3xl font-semibold">{value}</div>
-      <div className="text-xs text-muted-foreground">{sub}</div>
     </div>
   );
 }
