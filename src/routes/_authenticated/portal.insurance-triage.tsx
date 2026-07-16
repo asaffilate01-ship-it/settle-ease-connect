@@ -83,16 +83,38 @@ const ROUTE_META: Record<string, { label: string; hint: string; tone: string }> 
 function TriagePage() {
   const { data: leads } = useSuspenseQuery(leadsQ);
   const { data: stats } = useSuspenseQuery(statsQ);
+  const exportCsv = useServerFn(exportInsuranceLeadsCsv);
+
+  async function handleExport() {
+    try {
+      const res = await exportCsv({});
+      const blob = new Blob([res.csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `insurance-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success(`Exported ${res.count} leads`);
+    } catch (e: any) {
+      toast.error(e?.message ?? "Export failed");
+    }
+  }
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="display-lg font-semibold flex items-center gap-2">
-          <Stethoscope className="h-6 w-6 text-primary" /> Health insurance triage
-        </h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Route customers to the correct path. BeistandPlus is an introducer — not a regulated advisor.
-        </p>
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="display-lg font-semibold flex items-center gap-2">
+            <Stethoscope className="h-6 w-6 text-primary" /> Health insurance triage
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Route customers to the correct path. BeistandPlus is an introducer — not a regulated advisor.
+          </p>
+        </div>
+        <Button variant="outline" size="sm" onClick={handleExport}>
+          <Download className="h-4 w-4 mr-1" /> Export CSV
+        </Button>
       </header>
 
       <Alert>
