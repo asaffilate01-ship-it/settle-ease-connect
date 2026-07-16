@@ -295,42 +295,57 @@ export type Database = {
       }
       case_assignments: {
         Row: {
+          accepted_at: string | null
           assigned_at: string
           assigned_by: string | null
           assignee_expert_id: string | null
           assignee_user_id: string | null
           case_id: string
           completed_at: string | null
+          decline_reason: string | null
+          declined_at: string | null
           id: string
+          invited_at: string | null
           notes: string | null
+          partner_org_id: string | null
           responded_at: string | null
           role: string
           scope: string | null
           status: string
         }
         Insert: {
+          accepted_at?: string | null
           assigned_at?: string
           assigned_by?: string | null
           assignee_expert_id?: string | null
           assignee_user_id?: string | null
           case_id: string
           completed_at?: string | null
+          decline_reason?: string | null
+          declined_at?: string | null
           id?: string
+          invited_at?: string | null
           notes?: string | null
+          partner_org_id?: string | null
           responded_at?: string | null
           role: string
           scope?: string | null
           status?: string
         }
         Update: {
+          accepted_at?: string | null
           assigned_at?: string
           assigned_by?: string | null
           assignee_expert_id?: string | null
           assignee_user_id?: string | null
           case_id?: string
           completed_at?: string | null
+          decline_reason?: string | null
+          declined_at?: string | null
           id?: string
+          invited_at?: string | null
           notes?: string | null
+          partner_org_id?: string | null
           responded_at?: string | null
           role?: string
           scope?: string | null
@@ -356,6 +371,13 @@ export type Database = {
             columns: ["case_id"]
             isOneToOne: false
             referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_assignments_partner_org_id_fkey"
+            columns: ["partner_org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
             referencedColumns: ["id"]
           },
         ]
@@ -3183,6 +3205,316 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_availability: {
+        Row: {
+          accepts_urgent: boolean
+          created_at: string
+          end_time: string
+          id: string
+          org_id: string
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          accepts_urgent?: boolean
+          created_at?: string
+          end_time: string
+          id?: string
+          org_id: string
+          start_time: string
+          weekday: number
+        }
+        Update: {
+          accepts_urgent?: boolean
+          created_at?: string
+          end_time?: string
+          id?: string
+          org_id?: string
+          start_time?: string
+          weekday?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_availability_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_documents: {
+        Row: {
+          category: string
+          created_at: string
+          file_url: string | null
+          id: string
+          notes: string | null
+          org_id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          storage_path: string | null
+          title: string
+          updated_at: string
+          valid_from: string | null
+          valid_until: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          file_url?: string | null
+          id?: string
+          notes?: string | null
+          org_id: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          file_url?: string | null
+          id?: string
+          notes?: string | null
+          org_id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_documents_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_organisations: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          bank_bic: string | null
+          bank_holder: string | null
+          bank_iban: string | null
+          bundesland: string | null
+          city: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          country: string
+          created_at: string
+          created_by: string | null
+          id: string
+          legal_name: string
+          notes: string | null
+          postal_code: string | null
+          primary_category: Database["public"]["Enums"]["partner_category"]
+          registration_no: string | null
+          status: string
+          trading_name: string | null
+          updated_at: string
+          vat_no: string | null
+          verified: boolean
+          website: string | null
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          bank_bic?: string | null
+          bank_holder?: string | null
+          bank_iban?: string | null
+          bundesland?: string | null
+          city?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          country?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          legal_name: string
+          notes?: string | null
+          postal_code?: string | null
+          primary_category: Database["public"]["Enums"]["partner_category"]
+          registration_no?: string | null
+          status?: string
+          trading_name?: string | null
+          updated_at?: string
+          vat_no?: string | null
+          verified?: boolean
+          website?: string | null
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          bank_bic?: string | null
+          bank_holder?: string | null
+          bank_iban?: string | null
+          bundesland?: string | null
+          city?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          country?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          legal_name?: string
+          notes?: string | null
+          postal_code?: string | null
+          primary_category?: Database["public"]["Enums"]["partner_category"]
+          registration_no?: string | null
+          status?: string
+          trading_name?: string | null
+          updated_at?: string
+          vat_no?: string | null
+          verified?: boolean
+          website?: string | null
+        }
+        Relationships: []
+      }
+      partner_service_categories: {
+        Row: {
+          active: boolean
+          category: Database["public"]["Enums"]["partner_category"]
+          created_at: string
+          id: string
+          org_id: string
+          sworn_courts: string[]
+          translator_service_type:
+            | Database["public"]["Enums"]["translator_service_type"]
+            | null
+        }
+        Insert: {
+          active?: boolean
+          category: Database["public"]["Enums"]["partner_category"]
+          created_at?: string
+          id?: string
+          org_id: string
+          sworn_courts?: string[]
+          translator_service_type?:
+            | Database["public"]["Enums"]["translator_service_type"]
+            | null
+        }
+        Update: {
+          active?: boolean
+          category?: Database["public"]["Enums"]["partner_category"]
+          created_at?: string
+          id?: string
+          org_id?: string
+          sworn_courts?: string[]
+          translator_service_type?:
+            | Database["public"]["Enums"]["translator_service_type"]
+            | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_service_categories_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_service_regions: {
+        Row: {
+          bundesland: string | null
+          city: string | null
+          created_at: string
+          id: string
+          org_id: string
+          postal_prefix: string | null
+          radius_km: number | null
+        }
+        Insert: {
+          bundesland?: string | null
+          city?: string | null
+          created_at?: string
+          id?: string
+          org_id: string
+          postal_prefix?: string | null
+          radius_km?: number | null
+        }
+        Update: {
+          bundesland?: string | null
+          city?: string | null
+          created_at?: string
+          id?: string
+          org_id?: string
+          postal_prefix?: string | null
+          radius_km?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_service_regions_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_users: {
+        Row: {
+          accepted_at: string | null
+          created_at: string
+          id: string
+          invited_at: string | null
+          invited_email: string | null
+          is_admin: boolean
+          org_id: string
+          role_title: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string
+          id?: string
+          invited_at?: string | null
+          invited_email?: string | null
+          is_admin?: boolean
+          org_id: string
+          role_title?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string
+          id?: string
+          invited_at?: string | null
+          invited_email?: string | null
+          is_admin?: boolean
+          org_id?: string
+          role_title?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_users_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pensions: {
         Row: {
           beneficiary_name: string | null
@@ -4150,6 +4482,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      current_partner_org: { Args: { _user_id: string }; Returns: string }
       generate_agent_code: { Args: never; Returns: string }
       generate_monthly_agent_commissions: {
         Args: { _period?: string }
@@ -4170,6 +4503,14 @@ export type Database = {
       }
       is_internal: { Args: { _user_id: string }; Returns: boolean }
       is_licensed_advisor: { Args: { _user_id: string }; Returns: boolean }
+      is_partner_admin: {
+        Args: { _org_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_partner_member: {
+        Args: { _org_id: string; _user_id: string }
+        Returns: boolean
+      }
       vault_deputy_can_read: {
         Args: { _category: string; _deputy_user: string; _owner_user: string }
         Returns: boolean
@@ -4200,6 +4541,8 @@ export type Database = {
         | "social_worker"
         | "beneficiary"
         | "agent"
+        | "partner_admin"
+        | "partner_user"
       case_participant_role:
         | "client"
         | "case_manager"
@@ -4320,6 +4663,17 @@ export type Database = {
         | "refunded"
         | "failed"
         | "cancelled"
+      partner_category:
+        | "funeral_director"
+        | "lawyer"
+        | "translator"
+        | "religious_org"
+        | "hospital"
+        | "airline"
+        | "driving_school"
+        | "childcare"
+        | "relocation"
+        | "other"
       quote_status:
         | "draft"
         | "sent"
@@ -4327,6 +4681,14 @@ export type Database = {
         | "declined"
         | "expired"
         | "superseded"
+      translator_service_type:
+        | "general"
+        | "interpreting"
+        | "certified"
+        | "sworn"
+        | "medical"
+        | "authority_appointment"
+        | "urgent_phone"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -4478,6 +4840,8 @@ export const Constants = {
         "social_worker",
         "beneficiary",
         "agent",
+        "partner_admin",
+        "partner_user",
       ],
       case_participant_role: [
         "client",
@@ -4611,6 +4975,18 @@ export const Constants = {
         "failed",
         "cancelled",
       ],
+      partner_category: [
+        "funeral_director",
+        "lawyer",
+        "translator",
+        "religious_org",
+        "hospital",
+        "airline",
+        "driving_school",
+        "childcare",
+        "relocation",
+        "other",
+      ],
       quote_status: [
         "draft",
         "sent",
@@ -4618,6 +4994,15 @@ export const Constants = {
         "declined",
         "expired",
         "superseded",
+      ],
+      translator_service_type: [
+        "general",
+        "interpreting",
+        "certified",
+        "sworn",
+        "medical",
+        "authority_appointment",
+        "urgent_phone",
       ],
     },
   },
