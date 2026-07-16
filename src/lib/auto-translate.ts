@@ -26,6 +26,10 @@ let mutating = false;
 let hydrated = false;
 let gateTimer: number | undefined;
 let rerunAfterInFlight = false;
+// True only while an explicit language switch is in progress. Silent
+// background reruns (route changes, dropdowns, popovers) must not gate
+// the body — that caused a "half-translated flash" on every mutation.
+let gateActive = false;
 
 // Per text-node state: original source text + last language we applied.
 const textState = new WeakMap<Text, { src: string; srcLang: string; lang: string }>();
