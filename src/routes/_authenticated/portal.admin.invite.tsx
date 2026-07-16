@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, Mail, Trash2, Check, Shield } from "lucide-react";
 import { toast } from "sonner";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 const ALL_ROLES = [
   "admin","staff","case_manager",
@@ -62,6 +63,7 @@ function AdminInvitePage() {
   });
 
   return (
+    <Aal2Gate reason="Issuing role invitations requires two-factor verification.">
     <div className="space-y-8 max-w-4xl">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
@@ -161,5 +163,6 @@ function AdminInvitePage() {
         </div>
       )}
     </div>
+    </Aal2Gate>
   );
 }

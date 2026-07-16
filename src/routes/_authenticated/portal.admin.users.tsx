@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Loader2, Plus, X, Shield } from "lucide-react";
 import { toast } from "sonner";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 const ALL_ROLES = [
   "admin","staff","case_manager",
@@ -64,6 +65,7 @@ function AdminUsersPage() {
   });
 
   return (
+    <Aal2Gate reason="Managing user roles requires two-factor verification.">
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
@@ -133,5 +135,6 @@ function AdminUsersPage() {
         )}
       </div>
     </div>
+    </Aal2Gate>
   );
 }
