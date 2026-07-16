@@ -72,6 +72,7 @@ const nav: NavItem[] = [
   { to: "/portal/analytics", labelKey: "sidebar.analytics", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/dela", labelKey: "sidebar.dela", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
+  { to: "/portal/partners", labelKey: "sidebar.partners", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/escrow", labelKey: "sidebar.escrow", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/financials", labelKey: "sidebar.financials", icon: "benefits", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/funeral-cover", labelKey: "sidebar.funeralCover", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
