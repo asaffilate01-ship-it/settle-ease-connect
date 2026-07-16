@@ -19,10 +19,9 @@ export const pushInsuranceLeadToPartner = createServerFn({ method: "POST" })
     const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
     if (!internal) throw new Error("Staff only.");
 
-    // Load lead (RLS: only staff can access via triage policy)
     const { data: lead, error } = await context.supabase
       .from("insurance_leads")
-      .select("id, contact_name, contact_email, contact_phone, triage_route, product_interest, city, bundesland, notes, stage, created_at")
+      .select("id, full_name, email, phone, triage_route, product_line, notes, stage, created_at")
       .eq("id", data.leadId)
       .maybeSingle();
     if (error || !lead) throw new Error("Lead not found");
@@ -31,12 +30,11 @@ export const pushInsuranceLeadToPartner = createServerFn({ method: "POST" })
       partner: data.partnerCode,
       submitted_at: new Date().toISOString(),
       lead: {
-        name: lead.contact_name,
-        email: lead.contact_email,
-        phone: lead.contact_phone,
-        interest: lead.product_interest,
+        name: lead.full_name,
+        email: lead.email,
+        phone: lead.phone,
+        interest: lead.product_line,
         route: lead.triage_route,
-        location: [lead.city, lead.bundesland].filter(Boolean).join(", "),
         notes: lead.notes,
       },
     };
