@@ -85,8 +85,10 @@ function Landing() {
     <div className="min-h-screen">
       <SiteHeader />
       <Hero />
+      <FivePaths />
       <UrgencyTriage />
       <TrustBar />
+
       <Journeys />
       <LifeInGermany />
       <Pillars />
@@ -100,6 +102,97 @@ function Landing() {
     </div>
   );
 }
+function FivePaths() {
+  const paths = [
+    {
+      icon: Heart,
+      tag: "Bereavement",
+      title: "A death in the family",
+      copy: "Registration, funeral, repatriation, pensions and paperwork — one team, in your language.",
+      to: "/bereavement" as const,
+      tone: "bg-destructive/5 border-destructive/20 hover:border-destructive/40",
+    },
+    {
+      icon: HeartPulse,
+      tag: "Insurance",
+      title: "Health & life insurance",
+      copy: "Statutory or private, student, employee, self-employed or family — we triage and hand off.",
+      to: "/insurance" as const,
+      tone: "bg-accent/5 border-accent/20 hover:border-accent/40",
+    },
+    {
+      icon: MapPin,
+      tag: "Life in Germany",
+      title: "Help settling in Germany",
+      copy: "Anmeldung, visas, Kindergeld, housing, Bürgeramt, tax — a case manager for every step.",
+      to: "/services" as const,
+      tone: "bg-primary/5 border-primary/20 hover:border-primary/40",
+    },
+    {
+      icon: Briefcase,
+      tag: "Employer",
+      title: "Support your workforce",
+      copy: "Onboard international hires and support families — visas, relocation, benefits, bereavement.",
+      to: "/partnerships" as const,
+      tone: "bg-muted/40 border-border hover:border-primary/30",
+    },
+    {
+      icon: Handshake,
+      tag: "Provider",
+      title: "Join our expert network",
+      copy: "Lawyers, notaries, tax advisors, translators, funeral directors, doctors — vetted & referred.",
+      to: "/for-providers" as const,
+      tone: "bg-parchment/60 border-border hover:border-accent/40",
+    },
+  ];
+  return (
+    <section className="border-y border-border/60 bg-background">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <div className="max-w-2xl">
+          <div className="eyebrow">Choose your path</div>
+          <h2 className="display-md mt-3 font-semibold">
+            Five doors into <span className="headline-stamp italic">BeistandPlus</span>.
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-foreground/75">
+            Whatever brought you here today — a loss, a form, a move, an employee, or your own practice —
+            we start from where you actually are.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {paths.map((p) => {
+            const Icon = p.icon;
+            return (
+              <Link
+                key={p.tag}
+                to={p.to}
+                className={`group flex flex-col rounded-2xl border p-6 shadow-soft transition ${p.tone}`}
+              >
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-background text-ink ring-1 ring-ink/10">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  {p.tag}
+                </div>
+                <div className="mt-2 text-lg font-semibold leading-snug text-ink">
+                  {p.title}
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {p.copy}
+                </p>
+                <div className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                  Continue
+                  <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-0.5" />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 function Hero() {
   const { t } = useTranslation();

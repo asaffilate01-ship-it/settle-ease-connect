@@ -84,8 +84,9 @@
 - New "Needs your attention" section: SLA alerts (breached + at_risk), next appointments (30-day window), cases missing documents. Refetches every 60 s.
 - Server fn: `src/lib/customer-overview.functions.ts`.
 
-Still to build:
-- Homepage five-path IA (bereavement / insurance / help in Germany / employer / provider).
+Homepage five-path IA ✅
+- `FivePaths` section on `/` (bereavement / insurance / help in Germany / employer / provider) linking to `/bereavement`, `/insurance`, `/services`, `/partnerships`, `/for-providers`.
+
 
 ### Stage 7 — AI (advisory only, human-approval required for regulated domains)
 Deferred until core records reliable.
