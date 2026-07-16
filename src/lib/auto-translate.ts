@@ -277,7 +277,10 @@ async function translatePage() {
 
 function schedule() {
   if (scheduled) return;
-  ensureLanguageGate();
+  // NOTE: do NOT call ensureLanguageGate() here. schedule() also fires on
+  // every route change and DOM mutation via MutationObserver — gating the
+  // body on those was the "half-translated flash" users saw. The gate is
+  // set explicitly by bootAutoTranslate() only when the language changes.
   scheduled = true;
   const run = () => {
     scheduled = false;
@@ -293,6 +296,7 @@ function schedule() {
       return;
     }
     const langAtRun = currentLang;
+    const wasGated = gateActive;
     inFlight = translatePage().finally(() => {
       inFlight = null;
       if (rerunAfterInFlight) {
@@ -300,7 +304,7 @@ function schedule() {
         schedule();
         return;
       }
-      clearLanguageGate(langAtRun);
+      if (wasGated) clearLanguageGate(langAtRun);
     });
   };
   if ("requestIdleCallback" in window) {
