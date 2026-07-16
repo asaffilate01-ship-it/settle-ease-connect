@@ -76,7 +76,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
             </button>
           ))}
         </div>
-        <div className="text-xs text-muted-foreground">
+        <div className="rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs font-medium text-foreground">
           {TABS.find((t_) => t_.key === tab)?.note}
         </div>
       </div>
