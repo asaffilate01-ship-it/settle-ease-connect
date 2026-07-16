@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PortalHeader } from "@/components/portal/portal-header";
-import { mockCases, stageLabels } from "@/lib/mock-data";
+import { listCases } from "@/lib/cases.functions";
 import { Building2, DollarSign, Star, ClipboardCheck } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/portal/funeral")({
@@ -19,14 +20,23 @@ export const Route = createFileRoute("/_authenticated/portal/funeral")({
   component: FuneralPortal,
 });
 
+const casesQuery = queryOptions({
+  queryKey: ["cases", "portal-funeral"],
+  queryFn: () => listCases(),
+});
+
 function FuneralPortal() {
-  const referrals = mockCases.filter((c) => c.stage !== "closed");
+  const { data: cases = [], isLoading } = useQuery(casesQuery);
+  const referrals = cases.filter(
+    (c) => c.case_type === "bereavement" && !["closed", "cancelled", "completed"].includes(c.status),
+  );
+
   return (
     <div className="space-y-6">
       <PortalHeader
         crumbs={[{ label: "Partners" }, { label: "Funeral" }]}
-        title="Furkan Bestattungen · Berlin"
-        subtitle="Preview surface — real referrals wire in during the next portal-rebuild step."
+        title="Funeral network"
+        subtitle="Live referrals from bereavement cases across the network."
         actions={
           <>
             <Button variant="outline">Availability</Button>
@@ -37,9 +47,9 @@ function FuneralPortal() {
 
       <div className="grid gap-4 md:grid-cols-4">
         <Stat icon={ClipboardCheck} label="Active referrals" value={referrals.length.toString()} />
-        <Stat icon={DollarSign} label="Invoiced this month" value="€18,420" />
-        <Stat icon={Building2} label="Avg. response" value="12 min" />
-        <Stat icon={Star} label="Family rating" value="4.9" />
+        <Stat icon={DollarSign} label="Invoiced this month" value="—" />
+        <Stat icon={Building2} label="Avg. response" value="—" />
+        <Stat icon={Star} label="Family rating" value="—" />
       </div>
 
       <div className="rounded-2xl border border-border/60 bg-card shadow-soft">
@@ -48,52 +58,62 @@ function FuneralPortal() {
           <Badge variant="outline">Auto-assigned by BeistandPlus</Badge>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-parchment/50 text-xs uppercase tracking-widest text-muted-foreground">
-              <tr>
-                <th className="px-6 py-3 text-left">Case</th>
-                <th className="px-6 py-3 text-left">Faith / disposition</th>
-                <th className="px-6 py-3 text-left">Stage</th>
-                <th className="px-6 py-3 text-left">Family</th>
-                <th className="px-6 py-3 text-right"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/60">
-              {referrals.map((c) => (
-                <tr key={c.id} className="hover:bg-parchment/40">
-                  <td className="px-6 py-4">
-                    <div className="font-medium">{c.deceasedName}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {c.id} · {c.city}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div>{c.religion}</div>
-                    <div className="text-xs capitalize text-muted-foreground">
-                      {c.disposition}
-                      {c.destination ? ` → ${c.destination}` : ""}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <Badge variant="secondary">{stageLabels[c.stage]}</Badge>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div>{c.familyContact}</div>
-                    <div className="text-xs text-muted-foreground">{c.phone}</div>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <Link
-                      to="/app/cases/$caseId"
-                      params={{ caseId: c.id }}
-                      className="text-sm text-primary hover:underline"
-                    >
-                      Open →
-                    </Link>
-                  </td>
+          {isLoading ? (
+            <div className="p-8 text-center text-sm text-muted-foreground">Loading…</div>
+          ) : referrals.length === 0 ? (
+            <div className="p-10 text-center text-sm text-muted-foreground">
+              No active bereavement referrals right now.
+            </div>
+          ) : (
+            <table className="w-full text-sm">
+              <thead className="bg-parchment/50 text-xs uppercase tracking-widest text-muted-foreground">
+                <tr>
+                  <th className="px-6 py-3 text-left">Case</th>
+                  <th className="px-6 py-3 text-left">City / language</th>
+                  <th className="px-6 py-3 text-left">Status</th>
+                  <th className="px-6 py-3 text-left">Opened</th>
+                  <th className="px-6 py-3 text-right"></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-border/60">
+                {referrals.map((c) => (
+                  <tr key={c.id} className="hover:bg-parchment/40">
+                    <td className="px-6 py-4">
+                      <div className="font-medium">{c.title}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {c.reference}
+                        {c.urgent ? " · Urgent" : ""}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div>{c.city ?? "—"}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {c.bundesland ?? ""}
+                        {c.language ? ` · ${c.language}` : ""}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <Badge variant="secondary" className="capitalize">
+                        {c.status.replace(/_/g, " ")}
+                      </Badge>
+                    </td>
+                    <td className="px-6 py-4 text-xs text-muted-foreground">
+                      {c.opened_at ? new Date(c.opened_at).toLocaleDateString() : "—"}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <Link
+                        to="/app/cases/$caseId"
+                        params={{ caseId: c.id }}
+                        className="text-sm text-primary hover:underline"
+                      >
+                        Open →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>
