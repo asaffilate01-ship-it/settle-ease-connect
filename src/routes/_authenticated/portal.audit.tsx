@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { ShieldCheck } from "lucide-react";
 import { listAudit } from "@/lib/audit.functions";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/portal/audit")({
   head: () => ({ meta: [{ title: "Audit log — Staff" }] }),
