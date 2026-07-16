@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { queryOptions, useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery, useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { AlertTriangle, Building2, Plus } from "lucide-react";
+import { AlertTriangle, Building2, CheckCircle2, Plus, ShieldCheck, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +25,7 @@ import {
   createPartnerOrg,
   setPartnerOrgStatus,
 } from "@/lib/partner.functions";
+import { listPartnerDocsPendingReview, reviewPartnerDocument } from "@/lib/partner-editors.functions";
 
 const CATEGORIES = [
   "funeral_director",
