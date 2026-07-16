@@ -306,3 +306,113 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
     </div>
   );
 }
+
+type OverviewData = {
+  openCases: Array<{ case_id: string; title: string; sla_state: string; sla_due_at: string | null; current_stage: string | null; status: string }>;
+  upcomingAppointments: Array<{ id: string; case_id: string; title: string; starts_at: string; location: string | null; meeting_url: string | null }>;
+  missingDocsCases: Array<{ case_id: string; title: string }>;
+  nextAppointment: { id: string; case_id: string; title: string; starts_at: string; location: string | null; meeting_url: string | null } | null;
+  breachedCount: number;
+  atRiskCount: number;
+};
+
+function UrgentActions({ data }: { data: OverviewData }) {
+  const breached = data.openCases.filter((c) => c.sla_state === "breached").slice(0, 3);
+  const atRisk = data.openCases.filter((c) => c.sla_state === "at_risk").slice(0, 3);
+  const nextAppts = data.upcomingAppointments.slice(0, 3);
+  const missingDocs = data.missingDocsCases.slice(0, 3);
+
+  const nothing =
+    breached.length === 0 && atRisk.length === 0 && nextAppts.length === 0 && missingDocs.length === 0;
+  if (nothing) return null;
+
+  const fmt = (v: string | null) =>
+    v ? new Date(v).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "—";
+
+  return (
+    <section>
+      <h2 className="mb-3 font-display text-lg font-semibold">Needs your attention</h2>
+      <div className="grid gap-4 md:grid-cols-3">
+        <PolishedCard className="p-5">
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <AlertTriangle className="h-4 w-4 text-destructive" /> SLA alerts
+          </div>
+          {breached.length === 0 && atRisk.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">All your cases are on track.</p>
+          ) : (
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {[...breached, ...atRisk].map((c) => (
+                <li key={c.case_id}>
+                  <Link
+                    to="/app/cases/$caseId"
+                    params={{ caseId: c.case_id }}
+                    className="flex items-center justify-between gap-2 hover:underline"
+                  >
+                    <span className="truncate">{c.title}</span>
+                    <span
+                      className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${
+                        c.sla_state === "breached"
+                          ? "bg-destructive/15 text-destructive"
+                          : "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      }`}
+                    >
+                      {c.sla_state}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </PolishedCard>
+
+        <PolishedCard className="p-5">
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <CalendarClock className="h-4 w-4 text-primary" /> Next appointments
+          </div>
+          {nextAppts.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">No appointments in the next 30 days.</p>
+          ) : (
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {nextAppts.map((a) => (
+                <li key={a.id}>
+                  <Link
+                    to="/app/cases/$caseId"
+                    params={{ caseId: a.case_id }}
+                    className="block hover:underline"
+                  >
+                    <div className="truncate">{a.title}</div>
+                    <div className="text-xs text-muted-foreground">{fmt(a.starts_at)}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </PolishedCard>
+
+        <PolishedCard className="p-5">
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <FileWarning className="h-4 w-4 text-amber-600" /> Missing documents
+          </div>
+          {missingDocs.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">All your cases have documents uploaded.</p>
+          ) : (
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {missingDocs.map((c) => (
+                <li key={c.case_id}>
+                  <Link
+                    to="/app/cases/$caseId"
+                    params={{ caseId: c.case_id }}
+                    className="flex items-center justify-between gap-2 hover:underline"
+                  >
+                    <span className="truncate">{c.title}</span>
+                    <span className="shrink-0 text-xs text-primary">Upload →</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </PolishedCard>
+      </div>
+    </section>
+  );
+}
