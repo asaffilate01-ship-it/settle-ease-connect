@@ -83,6 +83,8 @@ function BenefitsPage() {
   const [filter, setFilter] = useState<BenefitCategory | "all">("all");
   const [showMore, setShowMore] = useState(false);
 
+  const { data: benefits = [], isLoading: benefitsLoading } = useQuery(benefitsQuery);
+
   const verdictByKey = useMemo(() => {
     const map = new Map<string, BenefitVerdict>();
     (verdicts ?? []).forEach((v) => map.set(v.key, v));
@@ -93,8 +95,8 @@ function BenefitsPage() {
   const eligibleCount = verdicts ? verdicts.filter((v) => v.eligible).length : 0;
 
   const visible = useMemo(
-    () => (filter === "all" ? benefits : benefits.filter((b) => b.category === filter)),
-    [filter],
+    () => (filter === "all" ? benefits : benefits.filter((b: Benefit) => b.category === filter)),
+    [filter, benefits],
   );
 
   function runCheck() {
