@@ -232,8 +232,10 @@ function FinancialsPage() {
         </>
       )}
     </div>
+    </Aal2Gate>
   );
 }
+
 
 function KpiCard({
   label,
