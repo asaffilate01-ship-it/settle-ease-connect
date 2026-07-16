@@ -34,11 +34,17 @@
 - Password policy: HIBP check via `configure_auth`; strong password validator on client.
 - Optional passkeys (WebAuthn) — deferred.
 
-### Stage 2 — Case operations polish
-- Case-stage timers (SLA breach flag via nightly pg_cron sweep of `cases.sla_due_at`).
-- Appointments table + calendar view.
+### Stage 2 — Case operations polish ✅
+- Table: `case_appointments` (RLS via `can_access_case`).
+- View: `case_sla_status` (breached / at_risk / on_track / closed / none) with `security_invoker`.
+- RPC: `close_case(_case_id, _reason, _report, _request_csat)` — writes closure report, sets `closed_at`, optional CSAT trigger.
+- New columns on `cases`: `closed_at`, `closure_reason`, `closure_csat_requested`.
+- Portal: `/portal/operations` with SLA dashboard, appointment scheduler, and closure workflow.
+- Server fns: `src/lib/case-operations.functions.ts`.
+
+### Stage 2 remnants
+- Nightly pg_cron sweep of `cases.sla_due_at` → notifications on breach.
 - Document-request task type auto-linking to vault upload.
-- Case closure flow with mandatory closure report + CSAT trigger.
 
 ### Stage 3 — Health-insurance referral flow
 - Triage screen `/portal/insurance/triage` (7 buckets, "not advice" banner, notes).

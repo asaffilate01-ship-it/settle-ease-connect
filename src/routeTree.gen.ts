@@ -56,6 +56,7 @@ import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
+import { Route as AuthenticatedPortalOperationsRouteImport } from './routes/_authenticated/portal.operations'
 import { Route as AuthenticatedPortalNewArrivalsRouteImport } from './routes/_authenticated/portal.new-arrivals'
 import { Route as AuthenticatedPortalMedicalRouteImport } from './routes/_authenticated/portal.medical'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
@@ -360,6 +361,12 @@ const AuthenticatedPortalReferralsRoute =
   AuthenticatedPortalReferralsRouteImport.update({
     id: '/referrals',
     path: '/referrals',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalOperationsRoute =
+  AuthenticatedPortalOperationsRouteImport.update({
+    id: '/operations',
+    path: '/operations',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalNewArrivalsRoute =
@@ -831,6 +838,7 @@ export interface FileRoutesByFullPath {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/medical': typeof AuthenticatedPortalMedicalRoute
   '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
+  '/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
@@ -939,6 +947,7 @@ export interface FileRoutesByTo {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/medical': typeof AuthenticatedPortalMedicalRoute
   '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
+  '/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
@@ -1052,6 +1061,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/portal/medical': typeof AuthenticatedPortalMedicalRoute
   '/_authenticated/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
+  '/_authenticated/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
@@ -1167,6 +1177,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/medical'
     | '/portal/new-arrivals'
+    | '/portal/operations'
     | '/portal/referrals'
     | '/portal/students'
     | '/portal/tax'
@@ -1275,6 +1286,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/medical'
     | '/portal/new-arrivals'
+    | '/portal/operations'
     | '/portal/referrals'
     | '/portal/students'
     | '/portal/tax'
@@ -1387,6 +1399,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/leads'
     | '/_authenticated/portal/medical'
     | '/_authenticated/portal/new-arrivals'
+    | '/_authenticated/portal/operations'
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
     | '/_authenticated/portal/tax'
@@ -1773,6 +1786,13 @@ declare module '@tanstack/react-router' {
       path: '/referrals'
       fullPath: '/portal/referrals'
       preLoaderRoute: typeof AuthenticatedPortalReferralsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/operations': {
+      id: '/_authenticated/portal/operations'
+      path: '/operations'
+      fullPath: '/portal/operations'
+      preLoaderRoute: typeof AuthenticatedPortalOperationsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/new-arrivals': {
@@ -2462,6 +2482,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
   AuthenticatedPortalMedicalRoute: typeof AuthenticatedPortalMedicalRoute
   AuthenticatedPortalNewArrivalsRoute: typeof AuthenticatedPortalNewArrivalsRoute
+  AuthenticatedPortalOperationsRoute: typeof AuthenticatedPortalOperationsRoute
   AuthenticatedPortalReferralsRoute: typeof AuthenticatedPortalReferralsRoute
   AuthenticatedPortalStudentsRoute: typeof AuthenticatedPortalStudentsRoute
   AuthenticatedPortalTaxRoute: typeof AuthenticatedPortalTaxRoute
@@ -2492,6 +2513,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,
   AuthenticatedPortalMedicalRoute: AuthenticatedPortalMedicalRoute,
   AuthenticatedPortalNewArrivalsRoute: AuthenticatedPortalNewArrivalsRoute,
+  AuthenticatedPortalOperationsRoute: AuthenticatedPortalOperationsRoute,
   AuthenticatedPortalReferralsRoute: AuthenticatedPortalReferralsRoute,
   AuthenticatedPortalStudentsRoute: AuthenticatedPortalStudentsRoute,
   AuthenticatedPortalTaxRoute: AuthenticatedPortalTaxRoute,
