@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { benefits, CATEGORY_LABEL, type Benefit, type BenefitCategory } from "@/lib/mock-data";
+import { CATEGORY_LABEL, type Benefit, type BenefitCategory } from "@/data/german-benefits";
+import { listBenefitsCatalogue } from "@/lib/benefits-catalogue.functions";
 import {
   evaluateBenefits,
   totalMonthly,
@@ -39,6 +40,11 @@ import {
 
 export const Route = createFileRoute("/_authenticated/app/benefits")({
   component: BenefitsPage,
+});
+
+const benefitsQuery = queryOptions({
+  queryKey: ["benefits-catalogue"],
+  queryFn: () => listBenefitsCatalogue(),
 });
 
 const DEFAULT_INPUTS: BenefitInputs = {
