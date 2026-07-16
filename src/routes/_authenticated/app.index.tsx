@@ -1,11 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, Sparkles, FileCheck2, HeartHandshake, Lock, MessageSquare, Shield, Receipt, Briefcase, type LucideIcon } from "lucide-react";
+import { ArrowRight, Sparkles, FileCheck2, HeartHandshake, Lock, MessageSquare, Shield, Receipt, Briefcase, AlertTriangle, CalendarClock, FileWarning, type LucideIcon } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { PlanChip } from "@/components/paywall";
 import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
 import { ClayIcon } from "@/components/clay-icon";
 import { PolishedCard } from "@/components/polished-card";
+import { getCustomerOverview } from "@/lib/customer-overview.functions";
 
 export const Route = createFileRoute("/_authenticated/app/")({
   component: Overview,
