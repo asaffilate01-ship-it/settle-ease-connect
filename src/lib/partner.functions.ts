@@ -143,7 +143,7 @@ export const setPartnerOrgStatus = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: { status: typeof data.status; verified?: boolean } = { status: data.status };
     if (data.verified !== undefined) patch.verified = data.verified;
     const { error } = await context.supabase.from("partner_organisations").update(patch).eq("id", data.id);
     if (error) throw error;
