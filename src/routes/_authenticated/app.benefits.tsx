@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { benefits, CATEGORY_LABEL, type Benefit, type BenefitCategory } from "@/lib/mock-data";
+import { CATEGORY_LABEL, type Benefit, type BenefitCategory } from "@/data/german-benefits";
+import { listBenefitsCatalogue } from "@/lib/benefits-catalogue.functions";
 import {
   evaluateBenefits,
   totalMonthly,
@@ -39,6 +40,11 @@ import {
 
 export const Route = createFileRoute("/_authenticated/app/benefits")({
   component: BenefitsPage,
+});
+
+const benefitsQuery = queryOptions({
+  queryKey: ["benefits-catalogue"],
+  queryFn: () => listBenefitsCatalogue(),
 });
 
 const DEFAULT_INPUTS: BenefitInputs = {
@@ -77,6 +83,8 @@ function BenefitsPage() {
   const [filter, setFilter] = useState<BenefitCategory | "all">("all");
   const [showMore, setShowMore] = useState(false);
 
+  const { data: benefits = [], isLoading: benefitsLoading } = useQuery(benefitsQuery);
+
   const verdictByKey = useMemo(() => {
     const map = new Map<string, BenefitVerdict>();
     (verdicts ?? []).forEach((v) => map.set(v.key, v));
@@ -87,8 +95,8 @@ function BenefitsPage() {
   const eligibleCount = verdicts ? verdicts.filter((v) => v.eligible).length : 0;
 
   const visible = useMemo(
-    () => (filter === "all" ? benefits : benefits.filter((b) => b.category === filter)),
-    [filter],
+    () => (filter === "all" ? benefits : benefits.filter((b: Benefit) => b.category === filter)),
+    [filter, benefits],
   );
 
   function runCheck() {
@@ -303,9 +311,15 @@ function BenefitsPage() {
 
       {/* All benefits */}
       <div className="space-y-3">
-        {visible.map((b) => (
-          <BenefitCard key={b.key} b={b} v={verdictByKey.get(b.key)} />
-        ))}
+        {benefitsLoading && visible.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border/60 bg-card p-10 text-center text-sm text-muted-foreground">
+            Loading benefits catalogue…
+          </div>
+        ) : (
+          visible.map((b: Benefit) => (
+            <BenefitCard key={b.key} b={b} v={verdictByKey.get(b.key)} />
+          ))
+        )}
       </div>
     </div>
   );
