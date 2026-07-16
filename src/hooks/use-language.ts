@@ -127,6 +127,8 @@ export function useLanguage() {
   const setLanguage = (next: LangCode) => {
     // Synchronous swap — no View Transitions cross-fade (that animated
     // frame added ~200-300ms of perceived lag, especially on RTL flips).
+    // The gate is applied by bootAutoTranslate (invoked by the [lang]
+    // effect) so hardcoded DOM copy translates before the body is revealed.
     applyHtmlAttrs(next);
     if (typeof document !== "undefined") {
       ensureLanguageGate();
