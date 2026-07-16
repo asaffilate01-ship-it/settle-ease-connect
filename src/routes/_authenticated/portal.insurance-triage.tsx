@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { AlertTriangle, Download, Info, ShieldAlert, Stethoscope } from "lucide-react";
 import { toast } from "sonner";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -102,6 +103,7 @@ function TriagePage() {
   }
 
   return (
+    <Aal2Gate reason="Insurance triage handles regulated health data. Confirm your authenticator code to continue.">
     <div className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -150,6 +152,7 @@ function TriagePage() {
         </CardContent>
       </Card>
     </div>
+    </Aal2Gate>
   );
 }
 
