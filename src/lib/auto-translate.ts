@@ -334,8 +334,15 @@ function markHydratedSoon() {
  */
 export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
+  const langChanged = currentLang !== lang;
   currentLang = lang;
   markHydratedSoon();
+  // Only gate the body on an actual language change. Idempotent re-boots
+  // (route changes, effect re-runs at same lang) translate silently.
+  const alreadyPending =
+    document.documentElement.hasAttribute("data-lang-pending") ||
+    document.documentElement.hasAttribute("data-lang-switching");
+  if (langChanged || alreadyPending) ensureLanguageGate();
   schedule();
 
   if (observer) return;
