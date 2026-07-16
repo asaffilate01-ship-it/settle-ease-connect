@@ -27,10 +27,12 @@
 
 ## Not yet built — sequenced for follow-up turns
 
-### Stage 1 remnants — Auth & permissions hardening (partial ✅)
-- `app_role` enum expanded: added `family_deputy`, `senior_case_manager`, `team_leader`, `finance`, `compliance`, `dpo`, `auditor` alongside existing roles.
-- HIBP password check enabled via `configure_auth` (leaked-password protection now active on sign-up + password change).
-- MFA enforcement, session/device history, and passkeys still deferred (Supabase Auth MFA UI required).
+### Stage 1 remnants — Auth & permissions hardening ✅ (MFA)
+- `app_role` enum expanded: added `family_deputy`, `senior_case_manager`, `team_leader`, `finance`, `compliance`, `dpo`, `auditor`.
+- HIBP leaked-password protection enabled.
+- **TOTP MFA**: `mfa-section.tsx` in `/app/settings` for enrol/unenrol.
+- **AAL2 step-up gate** (`src/components/security/aal2-gate.tsx`) wrapping sensitive surfaces: `/portal/admin/users`, `/portal/admin/invite`, vault unlock (`/app/documents`), `/portal/escrow`, `/portal/dela`, `/portal/insurance-triage`, `/portal/audit`, `/portal/financials`.
+- Session/device history and passkeys still deferred.
 
 ### Stage 2 — Case operations polish ✅
 - Table: `case_appointments` (RLS via `can_access_case`).
