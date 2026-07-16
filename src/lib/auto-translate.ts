@@ -335,15 +335,19 @@ function markHydratedSoon() {
  */
 export function bootAutoTranslate(lang: string) {
   if (typeof window === "undefined") return;
-  const langChanged = currentLang !== lang;
+  const prevLang = currentLang;
+  const isFirstBoot = !bootedOnce;
+  bootedOnce = true;
   currentLang = lang;
   markHydratedSoon();
-  // Only gate the body on an actual language change. Idempotent re-boots
-  // (route changes, effect re-runs at same lang) translate silently.
+  // Gate only when there is real work: an explicit switch (prev !== new)
+  // OR the pre-hydration script flagged a non-default saved language
+  // (data-lang-pending is present on <html>).
   const alreadyPending =
     document.documentElement.hasAttribute("data-lang-pending") ||
     document.documentElement.hasAttribute("data-lang-switching");
-  if (langChanged || alreadyPending) ensureLanguageGate();
+  const isLangSwitch = !isFirstBoot && prevLang !== lang;
+  if (isLangSwitch || alreadyPending) ensureLanguageGate();
   schedule();
 
   if (observer) return;
