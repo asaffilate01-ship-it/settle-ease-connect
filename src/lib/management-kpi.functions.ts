@@ -125,7 +125,7 @@ export const getManagementKpis = createServerFn({ method: "GET" })
 
     // Provider performance
     const partnerName = new Map<string, string>();
-    for (const p of partners.data ?? []) partnerName.set(p.id, p.name);
+    for (const p of partners.data ?? []) partnerName.set(p.id, p.trading_name ?? p.legal_name);
     const perfMap = new Map<string, { accepted: number; declined: number; pending: number }>();
     for (const a of assignments.data ?? []) {
       if (!a.partner_org_id) continue;
