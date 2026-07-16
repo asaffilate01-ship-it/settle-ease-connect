@@ -14,17 +14,17 @@
       "individual": "Individual",
       "individualNote": "1 adult · €20k benefit",
       "family": "Family",
-      "familyNote": "2 adults + up to 3 children under 18 · €20k per adult",
+      "familyNote": "2 adults + up to 3 kids under 18 · €20k per adult",
       "extended": "Extended family",
-      "extendedNote": "Up to 4 adults + 3 children under 18 · €20k per adult"
+      "extendedNote": "Up to 4 adults + up to 3 kids under 18 · €20k per adult"
     },
     "rows": {
       "individualLabel": "Age {{age}}",
       "individualDetail": "1 adult · €20,000 payout",
       "familyLabel": "Both adults age {{age}}",
-      "familyDetail": "2 adults + up to 3 children · €20k per adult",
+      "familyDetail": "2 adults + up to 3 kids under 18 · €20k per adult",
       "extendedLabel": "All 4 adults age {{age}}",
-      "extendedDetail": "4 adults + up to 3 children · €20k per adult"
+      "extendedDetail": "Up to 4 adults + 3 kids under 18 · €20k per adult"
     },
     "table": {
       "composition": "Composition",

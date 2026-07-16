@@ -277,7 +277,7 @@ function Pricing() {
                 </div>
                 <div className={`mt-1 text-xs ${highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   Covers up to {plan.max_adults} adult{plan.max_adults > 1 ? "s" : ""}
-                  {plan.max_children > 0 ? ` + ${plan.max_children} children under 18` : ""}
+                  {plan.max_children > 0 ? ` + ${plan.max_children} kids under 18` : ""}
                 </div>
                 <ul className="mt-6 flex-1 space-y-3">
                   {(PLAN_FEATURES[group] ?? plan.features ?? []).map((f) => {
@@ -468,7 +468,7 @@ const COVER_BANDS: {
   {
     key: "small_family",
     label: "Family",
-    household: "Up to 2 adults + 3 children · €20,000 per adult · children co-covered",
+    household: "Up to 2 adults + 3 kids under 18 · €20,000 per adult · kids co-covered",
     addOnEur: 48,
     priceId: "funeral_cover_family_monthly",
     icon: <Users className="h-4 w-4" />,
@@ -476,7 +476,7 @@ const COVER_BANDS: {
   {
     key: "large_family",
     label: "Extended family",
-    household: "Up to 4 adults + 3 children · €20,000 per adult · children co-covered",
+    household: "Up to 4 adults + 3 kids under 18 · €20,000 per adult · kids co-covered",
     addOnEur: 96,
     priceId: "funeral_cover_family_plus_monthly",
     icon: <HeartHandshake className="h-4 w-4" />,

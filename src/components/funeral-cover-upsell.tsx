@@ -141,7 +141,7 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
                     className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                   >
                     <option value="individual">Individual (1 adult)</option>
-                    <option value="family">Family (up to 2 adults + 3 children)</option>
+                    <option value="family">Family (2 adults + up to 3 kids under 18)</option>
                     <option value="extended">Extended family (up to 4 adults + 3 children)</option>
                   </select>
                 </Field>
