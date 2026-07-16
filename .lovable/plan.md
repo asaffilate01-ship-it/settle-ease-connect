@@ -1,82 +1,76 @@
-# CRM + Case Management — Native BeistandPlus Module
+# BeistandPlus — Native CRM + Compliance Roadmap
 
-This is a large build. Proposing scope, phasing, and schema so we can ship in reviewable chunks rather than one mega-change. Please approve or edit before I start.
+## Shipped
 
-## Principles
+### Phase 1 — CRM Foundation
+- Tables: `crm_contacts`, `crm_consents`, `crm_leads`, `crm_activities`, `crm_follow_ups`, `crm_complaints`, `crm_satisfaction`, `crm_campaigns`. `insurance_leads` extended with regulated pipeline stages.
+- Portal: `/portal/crm` (inbox, contacts, leads kanban, complaints).
+- Server fns: `src/lib/crm.functions.ts`.
 
-- Not a bolted-on CRM. Extends the existing `profiles` / `cases` / `subscriptions` / `insurance_leads` / `funeral_leads` tables already in the DB.
-- One master **customer record** = `profiles.id` (auth user). Non-auth prospects get a lightweight `crm_contacts` row that later merges into a profile on signup.
-- Strict regulated/unregulated separation: introductory support (Beistand) and regulated insurance advice live in different tables, different roles, different UI, with a hard consent gate between them.
-- Internal only. Lives under `/portal/*`, gated by `is_internal()`. Families never see the CRM surface.
+### Phase 2 — Case Templates (Journeys)
+- Tables: `case_templates`, `case_template_stages`, `case_template_tasks`. `cases` extended with `template_code`, `current_stage`, `sla_due_at`, `risk_level`, `priority`, `closure_report`.
+- 8 templates seeded (Funeral-DE and Repatriation with full stages+tasks; 6 others stage-only).
+- `apply_case_template(case_id, template_code)` RPC.
+- Portal: `/portal/case-templates`.
 
-## Phase 1 — Foundation (this plan)
+### Phase 3 — Reconciliation & Analytics
+- `/portal/analytics` — attribution by UTM, CSAT/NPS, commission reconciliation (CSV import + mark-paid).
 
-**Schema (new tables, all with RLS + GRANTs):**
+### DELA Referral Flow (Regulated Introducer)
+- Table: `dela_referrals` with full lifecycle (disclosure → consent → info → contact method → send → partner ack → application → policy → commission → renewal/cancellation).
+- Table: `regulated_action_log` (append-only, insert-only via Data API).
+- Health-insurance triage enum (`health_triage_route`) with 7 buckets; triage columns on `insurance_leads`.
+- **Regulated firewall trigger** on `insurance_leads` and `dela_referrals`: DB-enforced that only `insurance_admin`/`admin` can advance past consent or write `advice_notes`/`recommendation_text`/`suitability_notes`. Attempts logged whether blocked or allowed.
+- Portal: `/portal/dela` — stage-by-stage compliance UI with disclosure/consent versioning, advisor-only outcome panel.
 
-- `crm_contacts` — prospect record for people not yet signed up (name, lang, phone, email, city, source, campaign, utm_*, consent flags, merged_into_profile_id).
-- `crm_consents` — append-only consent log (contact_id or user_id, purpose enum: `marketing`, `contact`, `insurance_referral`, `data_share_partner`, `regulated_advice`, method, evidence, granted_at, revoked_at, language).
-- `crm_leads` — enquiry pipeline row (contact_id/user_id, lead_type enum, source, campaign, stage enum, owner_staff_id, priority, next_action_at, sla_due_at, service_interest[], notes).
-  - Stages: `new` → `contact_attempted` → `assessed` → `consented` → `service_identified` → `membership_proposed` → `insurance_referral_offered` → `referred_to_partner` → `partner_outcome` → `onboarded` → `ongoing` / `lost`.
-- `crm_activities` — every touchpoint (call, email, WhatsApp, SMS, meeting, note, system_event). Powers the "complete activity history".
-- `crm_follow_ups` — scheduled follow-ups + reminders (due_at, channel, assignee, done, snoozed_until). pg_cron nightly sweep creates `notifications` rows.
-- `crm_complaints` — complaint intake + status + resolution + satisfaction score.
-- `crm_satisfaction` — CSAT/NPS after case closure.
-- `crm_campaigns` — campaign registry (name, channel, utm, budget, active).
-- Extend `insurance_leads`: add `stage` enum matching the regulated pipeline (`enquiry` → `marketing_lead` → `consent_to_contact` → `referral` → `regulated_advice` → `application` → `policy_accepted` → `commission_due` → `commission_paid`), `partner_id`, `commission_amount`, `commission_status`.
-- Extend `agent_commissions` link → `crm_leads.id` for reconciliation.
+---
 
-**Views on the customer record** (no new tables — read joins on `profiles.id`):
-Personal · Language · Household (existing `family_members`) · Immigration (existing `cases` where type immigration) · Comms prefs (existing `notification_preferences`) · Consents (`crm_consents`) · Plan (`subscriptions`) · Insurance referrals (`insurance_leads`) · Welfare cases (`cases`) · Legal referrals (subset of `cases`) · Funerals (`funeral_leads` + `funeral_policies`) · Documents (`vault_documents` staff-shared subset + `case_documents`) · Payments (`case_invoices` + Stripe records) · Complaints (`crm_complaints`) · Activity (`crm_activities` + `case_events`).
+## Not yet built — sequenced for follow-up turns
 
-**Portal UI (Phase 1):**
+### Stage 1 remnants — Auth & permissions hardening
+- Expand `app_role` enum: `family_deputy`, `senior_case_manager`, `team_leader`, `partner_user`, `partner_admin`, `finance`, `compliance`, `dpo`, `auditor`. (Some already exist: admin, staff, case_manager, insurance_admin, tax_admin, benefits_admin, medical_admin, new_arrival_admin, expert, agent, family.)
+- MFA policy: mandatory for staff/partner/admin (Supabase Auth MFA + enforcement on sign-in guard).
+- Session policy: expiry, device history table, suspicious-login alerts (`auth_events` with pg_cron sweep to `notifications`).
+- Password policy: HIBP check via `configure_auth`; strong password validator on client.
+- Optional passkeys (WebAuthn) — deferred.
 
-- `/portal/crm` — global inbox: leads, follow-ups due today, unassigned enquiries, SLA breaches.
-- `/portal/crm/contacts` — searchable list of contacts + profiles unified.
-- `/portal/crm/contacts/$id` — the master customer record with all the sections above as tabs.
-- `/portal/crm/leads` — kanban across the 11 pipeline stages, filter by type/owner/language.
-- `/portal/crm/leads/$id` — lead detail: activity timeline, next action, convert-to-case button, consent panel.
-- `/portal/crm/complaints` — list + detail.
-- Widgets on existing `/portal` index: today's follow-ups, new enquiries, SLA at risk.
+### Stage 2 — Case operations polish
+- Case-stage timers (SLA breach flag via nightly pg_cron sweep of `cases.sla_due_at`).
+- Appointments table + calendar view.
+- Document-request task type auto-linking to vault upload.
+- Case closure flow with mandatory closure report + CSAT trigger.
 
-**Regulated / unregulated firewall:**
+### Stage 3 — Health-insurance referral flow
+- Triage screen `/portal/insurance/triage` (7 buckets, "not advice" banner, notes).
+- Referral record view showing partner, consent, data transferred, privacy notice version, partner-contacted flag, application status, policy status, commission, cancellation.
+- Partner API stub / secure CSV export.
 
-- New role `insurance_advisor` (regulated). Only they can move an `insurance_leads` row past `consent_to_contact`.
-- Case managers and general staff see a locked banner + no edit controls after `referral` stage.
-- Every stage advance writes a `crm_consents` requirement check; the UI blocks progression without the matching consent row.
+### Stage 4 — Provider (Partner) Portal Engine
+Single engine, category-typed profiles. Categories: funeral director, lawyer, translator, religious org, hospital, airline, driving school, childcare, relocation.
 
-## Phase 2 — Case journeys (separate plan/turn)
+- Tables: `partner_organisations`, `partner_users`, `partner_documents` (licence, insurance, bank), `partner_service_regions`, `partner_service_categories`, `partner_availability`.
+- For translators: `sworn_court` array + `translator_service_type` enum (general, interpreting, certified, sworn, medical, authority-appointment, urgent-phone).
+- Case invitations: extend `case_assignments` with `invited_at`, `accepted_at`, `declined_at`, `decline_reason`.
+- Partner routes at `/partner/*` behind `_authenticated` + `partner_admin`/`partner_user` roles.
+- Partner sees only cases assigned to their org (RLS: `EXISTS assignment WHERE partner_org_id = my_org_id`).
+- Translators see only documents `released_for_translation = true`.
+- Insurance partners see only their referral rows.
 
-Build the eight structured journeys as **case templates** — a template = ordered list of stages + required tasks + required documents + required consents, applied to a `cases` row on creation. Highest-value first:
+### Stage 4b — Lawyer structure
+- Retainer stays customer↔lawyer. Platform records "administrative case summary" as a `case_documents` row of type `admin_summary`, sent to lawyer with accept/decline. Never presents BeistandPlus as legal advisor. Marketing copy audit needed.
 
-1. Funeral in Germany (full workflow you listed — death reported → aftercare).
-2. International repatriation.
-3. Funeral-expense insurance referral.
-4. Statutory health-insurance referral.
-5. Private health-insurance referral.
-6. Welfare / benefits assistance.
-7. Immigration-law referral.
-8. Translation / document support.
+### Stage 5 — Audit expansion
+- `audit_log` already exists — add insert triggers on: `profiles`, `cases`, `case_documents`, `crm_consents`, `dela_referrals`, `insurance_leads`, `vault_documents` (view/download), `user_roles` (grant/revoke).
+- Ensure append-only: revoke UPDATE/DELETE on `audit_log` from all roles except migrations.
 
-New tables: `case_templates`, `case_template_stages`, `case_template_tasks`, and columns on `cases` for `template_code`, `stage`, `sla_due_at`, `risk_level`, `priority`, `closure_report`. `case_tasks` already exists and gets auto-populated from the template.
+### Stage 6 — UI simplification
+Homepage: five clear paths only —
+1. I have had a bereavement · 2. I need insurance information · 3. I need help in Germany · 4. I am an organisation / employer · 5. I am a service provider.
 
-Aftercare = a scheduled `crm_follow_ups` row 14/30/90 days post-closure.
+Dashboards to build:
+- **Customer**: urgent action, active cases, next appointments, missing documents, messages, insurance referrals, benefits applications, case manager, household, payments, vault.
+- **Case manager**: urgent cases, SLA breaches, unassigned, tasks due, customer messages, partner responses, missing consent, pending docs, awaiting approval, open complaints.
+- **Management**: new leads, conversion rate, active members, MRR, DELA referrals, health referrals, referral acceptance rate, revenue by partner, case volumes, resolution times, CSAT, complaints, staff workload, provider performance.
 
-## Phase 3 — Reconciliation & analytics
-
-- Partner commission reconciliation screen (`/portal/financials` extension): match `insurance_leads.commission_*` against partner CSV imports.
-- Campaign attribution report (leads → members → LTV) by `utm_*`.
-- CSAT dashboard.
-
-## What I'll ship in the first turn if you approve
-
-1. One migration for all Phase 1 tables + RLS + GRANTs + the `insurance_leads` extension.
-2. Server functions in `src/lib/crm.functions.ts` (list/get/create/update for contacts, leads, activities, follow-ups, complaints; stage transitions with consent gating).
-3. Portal routes: `/portal/crm` (inbox), `/portal/crm/contacts`, `/portal/crm/contacts/$id` (master record with tabbed sections wired to existing tables), `/portal/crm/leads` (kanban), `/portal/crm/leads/$id`, `/portal/crm/complaints`.
-4. Sidebar entry under the internal portal, gated by `is_internal()`.
-
-## Questions before I build
-
-1. **Non-auth prospects**: OK to introduce `crm_contacts` for people who haven't signed up, and auto-merge into `profiles` when they later create an account (by email/phone match)? Or should every lead require a profile up-front?
-2. **Regulated role**: create a new `insurance_advisor` app_role, or reuse existing `insurance_admin`?
-3. **Phase 1 scope**: ship CRM foundation only this turn, and do the 8 case-journey templates in a follow-up? Or do you want funeral-in-Germany + repatriation templates included in Phase 1?
-4. **Data import**: any existing lead/contact list to import, or start empty?
+### Stage 7 — AI (advisory only, human-approval required for regulated domains)
+Deferred until core records reliable.
