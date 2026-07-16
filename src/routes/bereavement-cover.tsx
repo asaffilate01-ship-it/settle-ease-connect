@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
-import { BereavementQuoteWidget } from "@/components/bereavement-quote-widget";
 import { FuneralCoverPlans } from "@/components/funeral-cover-plans";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -50,12 +49,8 @@ function BereavementCover() {
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
           €20,000 cover — enough to meet the full costs of the funeral and burial or last rites,
           plus repatriation if required, with any balance paid to your nominated beneficiary in
-          Germany or abroad within 14 days. Estimate your premium below — a case manager takes it from there.
+          Germany or abroad within 14 days. Choose the household that fits — a case manager takes it from there.
         </p>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
-        <BereavementQuoteWidget />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">

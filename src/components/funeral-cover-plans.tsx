@@ -21,8 +21,8 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
 
   const TABS: { key: Household; label: string; icon: React.ReactNode; note: string }[] = [
     { key: "individual", label: t("funeralCover.tabs.individual", "Individual"), icon: <User className="h-4 w-4" />, note: t("funeralCover.tabs.individualNote", "1 adult · €20k benefit") },
-    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 children under 18 · €20k per adult") },
-    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + 3 children under 18 · €20k per adult") },
+    { key: "family", label: t("funeralCover.tabs.family", "Family"), icon: <Users className="h-4 w-4" />, note: t("funeralCover.tabs.familyNote", "2 adults + up to 3 children under 18 · €20k per adult · children included free") },
+    { key: "extended", label: t("funeralCover.tabs.extended", "Extended family"), icon: <HeartHandshake className="h-4 w-4" />, note: t("funeralCover.tabs.extendedNote", "Up to 4 adults + up to 3 children under 18 · €20k per adult · children included free") },
   ];
 
   const COVERAGE: string[] = t("funeralCover.coverage", {
@@ -76,7 +76,7 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
             </button>
           ))}
         </div>
-        <div className="text-xs text-muted-foreground">
+        <div className="rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs font-medium text-foreground">
           {TABS.find((t_) => t_.key === tab)?.note}
         </div>
       </div>
@@ -107,9 +107,6 @@ export function FuneralCoverPlans({ compact = false }: { compact?: boolean }) {
       )}
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <Button asChild className="bg-gradient-primary">
-          <Link to="/bereavement-cover">{t("funeralCover.ctaEstimate", "Estimate my premium")}</Link>
-        </Button>
         <Button asChild variant="outline">
           <Link to="/contact">{t("funeralCover.ctaTalk", "Talk to a case manager")}</Link>
         </Button>
