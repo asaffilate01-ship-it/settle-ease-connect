@@ -141,6 +141,8 @@ const ROLE_TONE: Record<AppRole, string> = {
   beneficiary: "bg-primary/15 text-primary",
   family: "bg-primary/15 text-primary",
   agent: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+  partner_admin: "bg-blue-500/15 text-blue-600 dark:text-blue-300",
+  partner_user: "bg-blue-500/15 text-blue-600 dark:text-blue-300",
 };
 
 export function AppSidebar() {
