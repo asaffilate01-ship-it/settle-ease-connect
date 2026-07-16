@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { queryOptions, useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery, useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState } from "react";
-import { AlertTriangle, Building2, CheckCircle2, FileText, Trash2, Upload, XCircle } from "lucide-react";
+import { AlertTriangle, Building2, CheckCircle2, Clock, FileText, MapPin, Plus, Trash2, Upload, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 
 import {
@@ -22,6 +23,18 @@ import {
   respondToCaseInvitation,
 } from "@/lib/partner.functions";
 import { recordPartnerDocument, deletePartnerDocument } from "@/lib/partner-docs.functions";
+import {
+  listPartnerCategories,
+  addPartnerCategory,
+  updatePartnerCategory,
+  removePartnerCategory,
+  listPartnerRegions,
+  addPartnerRegion,
+  removePartnerRegion,
+  listPartnerAvailability,
+  addPartnerAvailability,
+  removePartnerAvailability,
+} from "@/lib/partner-editors.functions";
 
 const orgQ = queryOptions({ queryKey: ["partner", "me"], queryFn: () => getMyPartnerOrg() });
 
