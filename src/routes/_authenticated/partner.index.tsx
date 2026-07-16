@@ -89,13 +89,25 @@ function PartnerHome() {
       </header>
 
       <Tabs defaultValue="cases">
-        <TabsList>
+        <TabsList className="flex flex-wrap">
           <TabsTrigger value="cases">Assigned cases</TabsTrigger>
+          <TabsTrigger value="services">Services</TabsTrigger>
+          <TabsTrigger value="coverage">Coverage</TabsTrigger>
+          <TabsTrigger value="availability">Availability</TabsTrigger>
           <TabsTrigger value="documents">Documents</TabsTrigger>
           <TabsTrigger value="profile">Organisation profile</TabsTrigger>
         </TabsList>
         <TabsContent value="cases" className="mt-4">
           <PartnerCases orgId={org.id} />
+        </TabsContent>
+        <TabsContent value="services" className="mt-4">
+          <PartnerServices orgId={org.id} isAdmin={!!link?.is_admin} />
+        </TabsContent>
+        <TabsContent value="coverage" className="mt-4">
+          <PartnerCoverage orgId={org.id} isAdmin={!!link?.is_admin} />
+        </TabsContent>
+        <TabsContent value="availability" className="mt-4">
+          <PartnerAvailability orgId={org.id} isAdmin={!!link?.is_admin} />
         </TabsContent>
         <TabsContent value="documents" className="mt-4">
           <PartnerDocs orgId={org.id} isAdmin={!!link?.is_admin} />
