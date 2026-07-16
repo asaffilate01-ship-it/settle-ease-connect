@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { CheckCircle2, Wallet, Clock } from "lucide-react";
 import { listEscrowInvoices, releaseEscrow, autoReleaseEligibleEscrow } from "@/lib/payments.functions";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/portal/escrow")({
   head: () => ({ meta: [{ title: "Escrow release — Staff" }] }),
@@ -46,6 +47,7 @@ function EscrowPage() {
   });
 
   return (
+    <Aal2Gate reason="Releasing escrow moves client funds. Confirm your authenticator code to continue.">
     <div className="mx-auto max-w-5xl space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -144,5 +146,6 @@ function EscrowPage() {
         </div>
       )}
     </div>
+    </Aal2Gate>
   );
 }

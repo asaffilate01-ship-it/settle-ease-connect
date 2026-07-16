@@ -28,6 +28,7 @@ import {
   listVaultUnlockRequests, listVaultAccessLog,
 } from "@/lib/vault.functions";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/app/documents")({
   head: () => ({
