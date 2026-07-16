@@ -311,9 +311,15 @@ function BenefitsPage() {
 
       {/* All benefits */}
       <div className="space-y-3">
-        {visible.map((b) => (
-          <BenefitCard key={b.key} b={b} v={verdictByKey.get(b.key)} />
-        ))}
+        {benefitsLoading && visible.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border/60 bg-card p-10 text-center text-sm text-muted-foreground">
+            Loading benefits catalogue…
+          </div>
+        ) : (
+          visible.map((b: Benefit) => (
+            <BenefitCard key={b.key} b={b} v={verdictByKey.get(b.key)} />
+          ))
+        )}
       </div>
     </div>
   );
