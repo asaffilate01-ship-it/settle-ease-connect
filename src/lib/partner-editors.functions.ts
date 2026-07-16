@@ -76,7 +76,11 @@ export const updatePartnerCategory = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = {};
+    const patch: {
+      active?: boolean;
+      sworn_courts?: string[];
+      translator_service_type?: z.infer<typeof TRANSLATOR_TYPE> | null;
+    } = {};
     if (data.active !== undefined) patch.active = data.active;
     if (data.swornCourts !== undefined) patch.sworn_courts = data.swornCourts;
     if (data.translatorServiceType !== undefined) patch.translator_service_type = data.translatorServiceType;
