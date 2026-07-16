@@ -28,6 +28,7 @@ import {
   listVaultUnlockRequests, listVaultAccessLog,
 } from "@/lib/vault.functions";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/app/documents")({
   head: () => ({
@@ -115,7 +116,9 @@ function VaultPage() {
         </TabsContent>
 
         <TabsContent value="unlock" className="mt-6">
-          <UnlockRequestsTab rows={reqsQ.data ?? []} loading={reqsQ.isLoading} />
+          <Aal2Gate reason="Vault unlock requests handle end-of-life records. Confirm your authenticator code to continue.">
+            <UnlockRequestsTab rows={reqsQ.data ?? []} loading={reqsQ.isLoading} />
+          </Aal2Gate>
         </TabsContent>
 
         <TabsContent value="log" className="mt-6">
