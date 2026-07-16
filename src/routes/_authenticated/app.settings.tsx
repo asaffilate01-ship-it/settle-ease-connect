@@ -8,6 +8,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { MfaSection } from "@/components/settings/mfa-section";
 
 export const Route = createFileRoute("/_authenticated/app/settings")({
   component: SettingsPage,
@@ -126,6 +127,8 @@ function SettingsPage() {
           )}
         </div>
       </div>
+
+      <MfaSection />
     </div>
   );
 }
