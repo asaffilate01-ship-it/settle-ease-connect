@@ -60,6 +60,7 @@ import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalPartnersRouteImport } from './routes/_authenticated/portal.partners'
 import { Route as AuthenticatedPortalOperationsRouteImport } from './routes/_authenticated/portal.operations'
 import { Route as AuthenticatedPortalNewArrivalsRouteImport } from './routes/_authenticated/portal.new-arrivals'
+import { Route as AuthenticatedPortalMyDeskRouteImport } from './routes/_authenticated/portal.my-desk'
 import { Route as AuthenticatedPortalMedicalRouteImport } from './routes/_authenticated/portal.medical'
 import { Route as AuthenticatedPortalManagementRouteImport } from './routes/_authenticated/portal.management'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
@@ -389,6 +390,12 @@ const AuthenticatedPortalNewArrivalsRoute =
   AuthenticatedPortalNewArrivalsRouteImport.update({
     id: '/new-arrivals',
     path: '/new-arrivals',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalMyDeskRoute =
+  AuthenticatedPortalMyDeskRouteImport.update({
+    id: '/my-desk',
+    path: '/my-desk',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalMedicalRoute =
@@ -867,6 +874,7 @@ export interface FileRoutesByFullPath {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/management': typeof AuthenticatedPortalManagementRoute
   '/portal/medical': typeof AuthenticatedPortalMedicalRoute
+  '/portal/my-desk': typeof AuthenticatedPortalMyDeskRoute
   '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/portal/partners': typeof AuthenticatedPortalPartnersRoute
@@ -980,6 +988,7 @@ export interface FileRoutesByTo {
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/management': typeof AuthenticatedPortalManagementRoute
   '/portal/medical': typeof AuthenticatedPortalMedicalRoute
+  '/portal/my-desk': typeof AuthenticatedPortalMyDeskRoute
   '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/portal/partners': typeof AuthenticatedPortalPartnersRoute
@@ -1098,6 +1107,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/portal/management': typeof AuthenticatedPortalManagementRoute
   '/_authenticated/portal/medical': typeof AuthenticatedPortalMedicalRoute
+  '/_authenticated/portal/my-desk': typeof AuthenticatedPortalMyDeskRoute
   '/_authenticated/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/_authenticated/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/_authenticated/portal/partners': typeof AuthenticatedPortalPartnersRoute
@@ -1218,6 +1228,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/management'
     | '/portal/medical'
+    | '/portal/my-desk'
     | '/portal/new-arrivals'
     | '/portal/operations'
     | '/portal/partners'
@@ -1331,6 +1342,7 @@ export interface FileRouteTypes {
     | '/portal/leads'
     | '/portal/management'
     | '/portal/medical'
+    | '/portal/my-desk'
     | '/portal/new-arrivals'
     | '/portal/operations'
     | '/portal/partners'
@@ -1448,6 +1460,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/leads'
     | '/_authenticated/portal/management'
     | '/_authenticated/portal/medical'
+    | '/_authenticated/portal/my-desk'
     | '/_authenticated/portal/new-arrivals'
     | '/_authenticated/portal/operations'
     | '/_authenticated/portal/partners'
@@ -1866,6 +1879,13 @@ declare module '@tanstack/react-router' {
       path: '/new-arrivals'
       fullPath: '/portal/new-arrivals'
       preLoaderRoute: typeof AuthenticatedPortalNewArrivalsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/my-desk': {
+      id: '/_authenticated/portal/my-desk'
+      path: '/my-desk'
+      fullPath: '/portal/my-desk'
+      preLoaderRoute: typeof AuthenticatedPortalMyDeskRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/medical': {
@@ -2563,6 +2583,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
   AuthenticatedPortalManagementRoute: typeof AuthenticatedPortalManagementRoute
   AuthenticatedPortalMedicalRoute: typeof AuthenticatedPortalMedicalRoute
+  AuthenticatedPortalMyDeskRoute: typeof AuthenticatedPortalMyDeskRoute
   AuthenticatedPortalNewArrivalsRoute: typeof AuthenticatedPortalNewArrivalsRoute
   AuthenticatedPortalOperationsRoute: typeof AuthenticatedPortalOperationsRoute
   AuthenticatedPortalPartnersRoute: typeof AuthenticatedPortalPartnersRoute
@@ -2598,6 +2619,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,
   AuthenticatedPortalManagementRoute: AuthenticatedPortalManagementRoute,
   AuthenticatedPortalMedicalRoute: AuthenticatedPortalMedicalRoute,
+  AuthenticatedPortalMyDeskRoute: AuthenticatedPortalMyDeskRoute,
   AuthenticatedPortalNewArrivalsRoute: AuthenticatedPortalNewArrivalsRoute,
   AuthenticatedPortalOperationsRoute: AuthenticatedPortalOperationsRoute,
   AuthenticatedPortalPartnersRoute: AuthenticatedPortalPartnersRoute,

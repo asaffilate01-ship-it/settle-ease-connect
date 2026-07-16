@@ -75,10 +75,13 @@
 - `/portal/management` — executive KPI dashboard: growth (new leads, conversion, active members, MRR), referrals (DELA / insurance / triage backlog), operations (active/breached/closed cases, avg resolution), quality (CSAT, complaints), staff workload top 10, provider performance top 10. Live refresh every 60 s. Admin-only.
 - Server fn: `src/lib/management-kpi.functions.ts`.
 
+### Stage 6b — Case-manager focused dashboard ✅
+- `/portal/my-desk` — per-user view: open cases (with SLA state), tasks due within 7 days (overdue flagged), pending partner invitations on my cases, breach & overdue counters. Refetch every 60 s.
+- Server fn: `src/lib/case-manager-desk.functions.ts` (`getMyDesk`).
+
 Still to build:
 - Homepage five-path IA (bereavement / insurance / help in Germany / employer / provider).
 - Customer overview polish (urgent actions, next appointments, missing docs).
-- Case-manager focused dashboard (SLA breaches, tasks due, missing consent, partner responses).
 
 ### Stage 7 — AI (advisory only, human-approval required for regulated domains)
 Deferred until core records reliable.
