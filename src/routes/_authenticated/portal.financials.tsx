@@ -39,6 +39,7 @@ function FinancialsPage() {
     : 0;
 
   return (
+    <Aal2Gate reason="Financial data is sensitive. Confirm your authenticator code to continue.">
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
