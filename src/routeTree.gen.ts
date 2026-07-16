@@ -110,6 +110,7 @@ import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
+import { Route as AuthenticatedAppAiToolsRouteImport } from './routes/_authenticated/app.ai-tools'
 import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app.account'
 import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authenticated/agent.link'
 import { Route as AuthenticatedAgentLeadsRouteImport } from './routes/_authenticated/agent.leads'
@@ -690,6 +691,11 @@ const AuthenticatedAppAlertRoute = AuthenticatedAppAlertRouteImport.update({
   path: '/alert',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppAiToolsRoute = AuthenticatedAppAiToolsRouteImport.update({
+  id: '/ai-tools',
+  path: '/ai-tools',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppAccountRoute = AuthenticatedAppAccountRouteImport.update({
   id: '/account',
   path: '/account',
@@ -865,6 +871,7 @@ export interface FileRoutesByFullPath {
   '/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/ai-tools': typeof AuthenticatedAppAiToolsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -985,6 +992,7 @@ export interface FileRoutesByTo {
   '/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/ai-tools': typeof AuthenticatedAppAiToolsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -1108,6 +1116,7 @@ export interface FileRoutesById {
   '/_authenticated/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/_authenticated/agent/link': typeof AuthenticatedAgentLinkRoute
   '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
+  '/_authenticated/app/ai-tools': typeof AuthenticatedAppAiToolsRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -1234,6 +1243,7 @@ export interface FileRouteTypes {
     | '/agent/leads'
     | '/agent/link'
     | '/app/account'
+    | '/app/ai-tools'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -1354,6 +1364,7 @@ export interface FileRouteTypes {
     | '/agent/leads'
     | '/agent/link'
     | '/app/account'
+    | '/app/ai-tools'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -1476,6 +1487,7 @@ export interface FileRouteTypes {
     | '/_authenticated/agent/leads'
     | '/_authenticated/agent/link'
     | '/_authenticated/app/account'
+    | '/_authenticated/app/ai-tools'
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -2296,6 +2308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppAlertRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/ai-tools': {
+      id: '/_authenticated/app/ai-tools'
+      path: '/ai-tools'
+      fullPath: '/app/ai-tools'
+      preLoaderRoute: typeof AuthenticatedAppAiToolsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/account': {
       id: '/_authenticated/app/account'
       path: '/account'
@@ -2504,6 +2523,7 @@ const AuthenticatedAppMessagesRouteWithChildren =
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAccountRoute: typeof AuthenticatedAppAccountRoute
+  AuthenticatedAppAiToolsRoute: typeof AuthenticatedAppAiToolsRoute
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
   AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
@@ -2529,6 +2549,7 @@ interface AuthenticatedAppRouteChildren {
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppAccountRoute: AuthenticatedAppAccountRoute,
+  AuthenticatedAppAiToolsRoute: AuthenticatedAppAiToolsRoute,
   AuthenticatedAppAlertRoute: AuthenticatedAppAlertRoute,
   AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
   AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
