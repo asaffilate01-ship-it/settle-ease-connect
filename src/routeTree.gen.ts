@@ -68,6 +68,7 @@ import { Route as AuthenticatedPortalFinancialsRouteImport } from './routes/_aut
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
+import { Route as AuthenticatedPortalDelaRouteImport } from './routes/_authenticated/portal.dela'
 import { Route as AuthenticatedPortalCrmRouteImport } from './routes/_authenticated/portal.crm'
 import { Route as AuthenticatedPortalCaseTemplatesRouteImport } from './routes/_authenticated/portal.case-templates'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
@@ -433,6 +434,11 @@ const AuthenticatedPortalDirectoryRoute =
     path: '/directory',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalDelaRoute = AuthenticatedPortalDelaRouteImport.update({
+  id: '/dela',
+  path: '/dela',
+  getParentRoute: () => AuthenticatedPortalRoute,
+} as any)
 const AuthenticatedPortalCrmRoute = AuthenticatedPortalCrmRouteImport.update({
   id: '/crm',
   path: '/crm',
@@ -812,6 +818,7 @@ export interface FileRoutesByFullPath {
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
+  '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -919,6 +926,7 @@ export interface FileRoutesByTo {
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -1031,6 +1039,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/_authenticated/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
+  '/_authenticated/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -1145,6 +1154,7 @@ export interface FileRouteTypes {
     | '/portal/capacity'
     | '/portal/case-templates'
     | '/portal/crm'
+    | '/portal/dela'
     | '/portal/directory'
     | '/portal/escrow'
     | '/portal/experts'
@@ -1252,6 +1262,7 @@ export interface FileRouteTypes {
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
+    | '/portal/dela'
     | '/portal/directory'
     | '/portal/escrow'
     | '/portal/experts'
@@ -1363,6 +1374,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/case-templates'
     | '/_authenticated/portal/crm'
+    | '/_authenticated/portal/dela'
     | '/_authenticated/portal/directory'
     | '/_authenticated/portal/escrow'
     | '/_authenticated/portal/experts'
@@ -1845,6 +1857,13 @@ declare module '@tanstack/react-router' {
       path: '/directory'
       fullPath: '/portal/directory'
       preLoaderRoute: typeof AuthenticatedPortalDirectoryRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/dela': {
+      id: '/_authenticated/portal/dela'
+      path: '/dela'
+      fullPath: '/portal/dela'
+      preLoaderRoute: typeof AuthenticatedPortalDelaRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/crm': {
@@ -2430,6 +2449,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
   AuthenticatedPortalCaseTemplatesRoute: typeof AuthenticatedPortalCaseTemplatesRoute
   AuthenticatedPortalCrmRoute: typeof AuthenticatedPortalCrmRouteWithChildren
+  AuthenticatedPortalDelaRoute: typeof AuthenticatedPortalDelaRoute
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
@@ -2458,6 +2478,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
   AuthenticatedPortalCaseTemplatesRoute: AuthenticatedPortalCaseTemplatesRoute,
   AuthenticatedPortalCrmRoute: AuthenticatedPortalCrmRouteWithChildren,
+  AuthenticatedPortalDelaRoute: AuthenticatedPortalDelaRoute,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,

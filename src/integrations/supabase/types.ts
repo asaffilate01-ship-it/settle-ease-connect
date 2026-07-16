@@ -1514,6 +1514,163 @@ export type Database = {
           },
         ]
       }
+      dela_referrals: {
+        Row: {
+          advisor_user_id: string | null
+          age: number | null
+          application_submitted_at: string | null
+          benefit_amount_eur: number | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          commission_amount_eur: number | null
+          commission_paid_at: string | null
+          commission_status: string | null
+          contact_id: string | null
+          contact_method: string | null
+          contact_time_preference: string | null
+          created_at: string
+          created_by: string | null
+          crm_lead_id: string | null
+          disclosure_shown_at: string | null
+          disclosure_version: string | null
+          email: string | null
+          full_name: string | null
+          household_kind: string | null
+          id: string
+          marketing_consent_at: string | null
+          marketing_consent_evidence: string | null
+          monthly_premium_eur: number | null
+          notes: string | null
+          partner_acknowledged_at: string | null
+          partner_case_reference: string | null
+          partner_id: string | null
+          phone: string | null
+          policy_accepted_at: string | null
+          policy_declined_at: string | null
+          policy_reference: string | null
+          postcode: string | null
+          preferred_language: string | null
+          privacy_notice_shown_at: string | null
+          privacy_notice_version: string | null
+          reference: string
+          renewed_at: string | null
+          sent_to_partner_at: string | null
+          status: Database["public"]["Enums"]["dela_referral_status"]
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          advisor_user_id?: string | null
+          age?: number | null
+          application_submitted_at?: string | null
+          benefit_amount_eur?: number | null
+          cancellation_reason?: string | null
+          cancelled_at?: string | null
+          commission_amount_eur?: number | null
+          commission_paid_at?: string | null
+          commission_status?: string | null
+          contact_id?: string | null
+          contact_method?: string | null
+          contact_time_preference?: string | null
+          created_at?: string
+          created_by?: string | null
+          crm_lead_id?: string | null
+          disclosure_shown_at?: string | null
+          disclosure_version?: string | null
+          email?: string | null
+          full_name?: string | null
+          household_kind?: string | null
+          id?: string
+          marketing_consent_at?: string | null
+          marketing_consent_evidence?: string | null
+          monthly_premium_eur?: number | null
+          notes?: string | null
+          partner_acknowledged_at?: string | null
+          partner_case_reference?: string | null
+          partner_id?: string | null
+          phone?: string | null
+          policy_accepted_at?: string | null
+          policy_declined_at?: string | null
+          policy_reference?: string | null
+          postcode?: string | null
+          preferred_language?: string | null
+          privacy_notice_shown_at?: string | null
+          privacy_notice_version?: string | null
+          reference?: string
+          renewed_at?: string | null
+          sent_to_partner_at?: string | null
+          status?: Database["public"]["Enums"]["dela_referral_status"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          advisor_user_id?: string | null
+          age?: number | null
+          application_submitted_at?: string | null
+          benefit_amount_eur?: number | null
+          cancellation_reason?: string | null
+          cancelled_at?: string | null
+          commission_amount_eur?: number | null
+          commission_paid_at?: string | null
+          commission_status?: string | null
+          contact_id?: string | null
+          contact_method?: string | null
+          contact_time_preference?: string | null
+          created_at?: string
+          created_by?: string | null
+          crm_lead_id?: string | null
+          disclosure_shown_at?: string | null
+          disclosure_version?: string | null
+          email?: string | null
+          full_name?: string | null
+          household_kind?: string | null
+          id?: string
+          marketing_consent_at?: string | null
+          marketing_consent_evidence?: string | null
+          monthly_premium_eur?: number | null
+          notes?: string | null
+          partner_acknowledged_at?: string | null
+          partner_case_reference?: string | null
+          partner_id?: string | null
+          phone?: string | null
+          policy_accepted_at?: string | null
+          policy_declined_at?: string | null
+          policy_reference?: string | null
+          postcode?: string | null
+          preferred_language?: string | null
+          privacy_notice_shown_at?: string | null
+          privacy_notice_version?: string | null
+          reference?: string
+          renewed_at?: string | null
+          sent_to_partner_at?: string | null
+          status?: Database["public"]["Enums"]["dela_referral_status"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dela_referrals_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dela_referrals_crm_lead_id_fkey"
+            columns: ["crm_lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dela_referrals_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "referral_partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       directory_listings: {
         Row: {
           address: string | null
@@ -2269,6 +2426,7 @@ export type Database = {
       }
       insurance_leads: {
         Row: {
+          advice_notes: string | null
           age: number | null
           assigned_to: string | null
           benefit_amount: number | null
@@ -2291,16 +2449,25 @@ export type Database = {
           preferred_contact: string | null
           preferred_language: string | null
           product_line: string | null
+          recommendation_text: string | null
           referring_agent_user_id: string | null
           regulated_advisor_user_id: string | null
           source: string | null
           stage: Database["public"]["Enums"]["insurance_lead_stage"]
           status: string
+          suitability_notes: string | null
           tobacco: boolean | null
+          triage_at: string | null
+          triage_by: string | null
+          triage_notes: string | null
+          triage_route:
+            | Database["public"]["Enums"]["health_triage_route"]
+            | null
           updated_at: string
           waiting_period_months: number | null
         }
         Insert: {
+          advice_notes?: string | null
           age?: number | null
           assigned_to?: string | null
           benefit_amount?: number | null
@@ -2323,16 +2490,25 @@ export type Database = {
           preferred_contact?: string | null
           preferred_language?: string | null
           product_line?: string | null
+          recommendation_text?: string | null
           referring_agent_user_id?: string | null
           regulated_advisor_user_id?: string | null
           source?: string | null
           stage?: Database["public"]["Enums"]["insurance_lead_stage"]
           status?: string
+          suitability_notes?: string | null
           tobacco?: boolean | null
+          triage_at?: string | null
+          triage_by?: string | null
+          triage_notes?: string | null
+          triage_route?:
+            | Database["public"]["Enums"]["health_triage_route"]
+            | null
           updated_at?: string
           waiting_period_months?: number | null
         }
         Update: {
+          advice_notes?: string | null
           age?: number | null
           assigned_to?: string | null
           benefit_amount?: number | null
@@ -2355,12 +2531,20 @@ export type Database = {
           preferred_contact?: string | null
           preferred_language?: string | null
           product_line?: string | null
+          recommendation_text?: string | null
           referring_agent_user_id?: string | null
           regulated_advisor_user_id?: string | null
           source?: string | null
           stage?: Database["public"]["Enums"]["insurance_lead_stage"]
           status?: string
+          suitability_notes?: string | null
           tobacco?: boolean | null
+          triage_at?: string | null
+          triage_by?: string | null
+          triage_notes?: string | null
+          triage_route?:
+            | Database["public"]["Enums"]["health_triage_route"]
+            | null
           updated_at?: string
           waiting_period_months?: number | null
         }
@@ -3077,6 +3261,45 @@ export type Database = {
         }
         Relationships: []
       }
+      regulated_action_log: {
+        Row: {
+          action: string
+          actor_role: string | null
+          actor_user_id: string | null
+          allowed: boolean
+          block_reason: string | null
+          created_at: string
+          id: string
+          payload: Json | null
+          target_id: string | null
+          target_table: string | null
+        }
+        Insert: {
+          action: string
+          actor_role?: string | null
+          actor_user_id?: string | null
+          allowed: boolean
+          block_reason?: string | null
+          created_at?: string
+          id?: string
+          payload?: Json | null
+          target_id?: string | null
+          target_table?: string | null
+        }
+        Update: {
+          action?: string
+          actor_role?: string | null
+          actor_user_id?: string | null
+          allowed?: boolean
+          block_reason?: string | null
+          created_at?: string
+          id?: string
+          payload?: Json | null
+          target_id?: string | null
+          target_table?: string | null
+        }
+        Relationships: []
+      }
       role_invitations: {
         Row: {
           accepted_at: string | null
@@ -3720,6 +3943,7 @@ export type Database = {
         Returns: boolean
       }
       is_internal: { Args: { _user_id: string }; Returns: boolean }
+      is_licensed_advisor: { Args: { _user_id: string }; Returns: boolean }
       vault_deputy_can_read: {
         Args: { _category: string; _deputy_user: string; _owner_user: string }
         Returns: boolean
@@ -3827,6 +4051,29 @@ export type Database = {
         | "translation"
         | "healthcare"
         | "other"
+      dela_referral_status:
+        | "draft"
+        | "disclosure_shown"
+        | "marketing_consent"
+        | "info_collected"
+        | "contact_method_selected"
+        | "sent_to_partner"
+        | "partner_acknowledged"
+        | "application_submitted"
+        | "policy_accepted"
+        | "policy_declined"
+        | "commission_due"
+        | "commission_paid"
+        | "cancelled"
+        | "renewed"
+      health_triage_route:
+        | "statutory"
+        | "private"
+        | "student"
+        | "employee"
+        | "self_employed"
+        | "family"
+        | "needs_regulated_assessment"
       insurance_lead_stage:
         | "enquiry"
         | "marketing_lead"
@@ -4090,6 +4337,31 @@ export const Constants = {
         "translation",
         "healthcare",
         "other",
+      ],
+      dela_referral_status: [
+        "draft",
+        "disclosure_shown",
+        "marketing_consent",
+        "info_collected",
+        "contact_method_selected",
+        "sent_to_partner",
+        "partner_acknowledged",
+        "application_submitted",
+        "policy_accepted",
+        "policy_declined",
+        "commission_due",
+        "commission_paid",
+        "cancelled",
+        "renewed",
+      ],
+      health_triage_route: [
+        "statutory",
+        "private",
+        "student",
+        "employee",
+        "self_employed",
+        "family",
+        "needs_regulated_assessment",
       ],
       insurance_lead_stage: [
         "enquiry",
