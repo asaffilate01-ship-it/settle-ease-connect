@@ -71,14 +71,14 @@
 - Attached to: `profiles`, `cases`, `case_documents`, `crm_consents`, `dela_referrals`, `insurance_leads`, `user_roles`, `partner_organisations`, `partner_users`.
 - `/portal/audit` (existing) already surfaces the log.
 
-### Stage 6 — UI simplification
-Homepage: five clear paths only —
-1. I have had a bereavement · 2. I need insurance information · 3. I need help in Germany · 4. I am an organisation / employer · 5. I am a service provider.
+### Stage 6 — UI simplification (management dashboard ✅)
+- `/portal/management` — executive KPI dashboard: growth (new leads, conversion, active members, MRR), referrals (DELA / insurance / triage backlog), operations (active/breached/closed cases, avg resolution), quality (CSAT, complaints), staff workload top 10, provider performance top 10. Live refresh every 60 s. Admin-only.
+- Server fn: `src/lib/management-kpi.functions.ts`.
 
-Dashboards to build:
-- **Customer**: urgent action, active cases, next appointments, missing documents, messages, insurance referrals, benefits applications, case manager, household, payments, vault.
-- **Case manager**: urgent cases, SLA breaches, unassigned, tasks due, customer messages, partner responses, missing consent, pending docs, awaiting approval, open complaints.
-- **Management**: new leads, conversion rate, active members, MRR, DELA referrals, health referrals, referral acceptance rate, revenue by partner, case volumes, resolution times, CSAT, complaints, staff workload, provider performance.
+Still to build:
+- Homepage five-path IA (bereavement / insurance / help in Germany / employer / provider).
+- Customer overview polish (urgent actions, next appointments, missing docs).
+- Case-manager focused dashboard (SLA breaches, tasks due, missing consent, partner responses).
 
 ### Stage 7 — AI (advisory only, human-approval required for regulated domains)
 Deferred until core records reliable.
