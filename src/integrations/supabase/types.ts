@@ -137,6 +137,70 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_document_analyses: {
+        Row: {
+          case_id: string | null
+          created_at: string
+          document_id: string | null
+          id: string
+          input_excerpt: string | null
+          kind: string
+          model: string | null
+          output_json: Json | null
+          output_text: string | null
+          owner_user_id: string
+          vault_document_id: string | null
+        }
+        Insert: {
+          case_id?: string | null
+          created_at?: string
+          document_id?: string | null
+          id?: string
+          input_excerpt?: string | null
+          kind: string
+          model?: string | null
+          output_json?: Json | null
+          output_text?: string | null
+          owner_user_id: string
+          vault_document_id?: string | null
+        }
+        Update: {
+          case_id?: string | null
+          created_at?: string
+          document_id?: string | null
+          id?: string
+          input_excerpt?: string | null
+          kind?: string
+          model?: string | null
+          output_json?: Json | null
+          output_text?: string | null
+          owner_user_id?: string
+          vault_document_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_document_analyses_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "ai_document_analyses_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_document_analyses_vault_document_id_fkey"
+            columns: ["vault_document_id"]
+            isOneToOne: false
+            referencedRelation: "vault_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_log: {
         Row: {
           action: string
@@ -1199,6 +1263,83 @@ export type Database = {
             columns: ["reply_to_id"]
             isOneToOne: false
             referencedRelation: "channel_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_posts: {
+        Row: {
+          author_user_id: string
+          body: string
+          category: string
+          city: string | null
+          created_at: string
+          id: string
+          language: string | null
+          reply_count: number
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_user_id: string
+          body: string
+          category?: string
+          city?: string | null
+          created_at?: string
+          id?: string
+          language?: string | null
+          reply_count?: number
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_user_id?: string
+          body?: string
+          category?: string
+          city?: string | null
+          created_at?: string
+          id?: string
+          language?: string | null
+          reply_count?: number
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      community_replies: {
+        Row: {
+          author_user_id: string
+          body: string
+          created_at: string
+          id: string
+          is_staff: boolean
+          post_id: string
+        }
+        Insert: {
+          author_user_id: string
+          body: string
+          created_at?: string
+          id?: string
+          is_staff?: boolean
+          post_id: string
+        }
+        Update: {
+          author_user_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          is_staff?: boolean
+          post_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_replies_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
             referencedColumns: ["id"]
           },
         ]
@@ -3114,6 +3255,48 @@ export type Database = {
         }
         Relationships: []
       }
+      member_referrals: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          referred_email: string | null
+          referred_user_id: string | null
+          referrer_user_id: string
+          reward_type: string
+          reward_value_eur: number | null
+          rewarded_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          referred_email?: string | null
+          referred_user_id?: string | null
+          referrer_user_id: string
+          reward_type?: string
+          reward_value_eur?: number | null
+          rewarded_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          referred_email?: string | null
+          referred_user_id?: string | null
+          referrer_user_id?: string
+          reward_type?: string
+          reward_value_eur?: number | null
+          rewarded_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       message_attachments: {
         Row: {
           created_at: string
@@ -3277,6 +3460,56 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      partner_api_pushes: {
+        Row: {
+          acknowledged_at: string | null
+          created_at: string
+          endpoint: string
+          id: string
+          lead_id: string | null
+          partner_code: string
+          request_payload: Json | null
+          response_body: Json | null
+          response_status: number | null
+          sent_by: string | null
+          status: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          created_at?: string
+          endpoint: string
+          id?: string
+          lead_id?: string | null
+          partner_code: string
+          request_payload?: Json | null
+          response_body?: Json | null
+          response_status?: number | null
+          sent_by?: string | null
+          status?: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          created_at?: string
+          endpoint?: string
+          id?: string
+          lead_id?: string | null
+          partner_code?: string
+          request_payload?: Json | null
+          response_body?: Json | null
+          response_status?: number | null
+          sent_by?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_api_pushes_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_leads"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       partner_availability: {
         Row: {
@@ -3878,6 +4111,48 @@ export type Database = {
         }
         Relationships: []
       }
+      regulated_copy_audit: {
+        Row: {
+          created_at: string
+          domain: string
+          findings: Json
+          id: string
+          notes: string | null
+          reviewed_at: string | null
+          reviewer_user_id: string | null
+          route_path: string
+          status: string
+          surface: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+          findings?: Json
+          id?: string
+          notes?: string | null
+          reviewed_at?: string | null
+          reviewer_user_id?: string | null
+          route_path: string
+          status?: string
+          surface: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+          findings?: Json
+          id?: string
+          notes?: string | null
+          reviewed_at?: string | null
+          reviewer_user_id?: string | null
+          route_path?: string
+          status?: string
+          surface?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       role_invitations: {
         Row: {
           accepted_at: string | null
@@ -3914,6 +4189,39 @@ export type Database = {
           note?: string | null
           role?: Database["public"]["Enums"]["app_role"]
           updated_at?: string
+        }
+        Relationships: []
+      }
+      session_activity: {
+        Row: {
+          created_at: string
+          device_label: string | null
+          event: string
+          id: string
+          ip: string | null
+          location_hint: string | null
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          device_label?: string | null
+          event: string
+          id?: string
+          ip?: string | null
+          location_hint?: string | null
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          device_label?: string | null
+          event?: string
+          id?: string
+          ip?: string | null
+          location_hint?: string | null
+          user_agent?: string | null
+          user_id?: string
         }
         Relationships: []
       }
