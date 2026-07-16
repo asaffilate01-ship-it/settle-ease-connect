@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getFinancials, listRecentExpenses } from "@/lib/portal.functions";
 import { TrendingUp, TrendingDown, Wallet, Receipt, Users, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/portal/financials")({
   head: () => ({ meta: [{ title: "Financials — Staff" }] }),
@@ -38,6 +39,7 @@ function FinancialsPage() {
     : 0;
 
   return (
+    <Aal2Gate reason="Financial data is sensitive. Confirm your authenticator code to continue.">
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -230,8 +232,10 @@ function FinancialsPage() {
         </>
       )}
     </div>
+    </Aal2Gate>
   );
 }
+
 
 function KpiCard({
   label,

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { ShieldCheck } from "lucide-react";
 import { listAudit } from "@/lib/audit.functions";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/portal/audit")({
   head: () => ({ meta: [{ title: "Audit log — Staff" }] }),
@@ -38,6 +39,7 @@ function AuditPage() {
   }
 
   return (
+    <Aal2Gate reason="The audit log exposes sensitive compliance data. Confirm your authenticator code to continue.">
     <div className="mx-auto max-w-6xl space-y-5">
       <header>
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
@@ -98,5 +100,6 @@ function AuditPage() {
         </table>
       </div>
     </div>
+    </Aal2Gate>
   );
 }
