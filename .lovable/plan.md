@@ -79,9 +79,13 @@
 - `/portal/my-desk` — per-user view: open cases (with SLA state), tasks due within 7 days (overdue flagged), pending partner invitations on my cases, breach & overdue counters. Refetch every 60 s.
 - Server fn: `src/lib/case-manager-desk.functions.ts` (`getMyDesk`).
 
+### Stage 6c — Customer overview polish ✅
+- `/app` dashboard now pulls real data via `getCustomerOverview`: open cases count with breached/at-risk state, real vault document count, "cases needing docs" callout.
+- New "Needs your attention" section: SLA alerts (breached + at_risk), next appointments (30-day window), cases missing documents. Refetches every 60 s.
+- Server fn: `src/lib/customer-overview.functions.ts`.
+
 Still to build:
 - Homepage five-path IA (bereavement / insurance / help in Germany / employer / provider).
-- Customer overview polish (urgent actions, next appointments, missing docs).
 
 ### Stage 7 — AI (advisory only, human-approval required for regulated domains)
 Deferred until core records reliable.
