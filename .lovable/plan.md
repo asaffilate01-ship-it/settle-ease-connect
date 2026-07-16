@@ -27,12 +27,10 @@
 
 ## Not yet built — sequenced for follow-up turns
 
-### Stage 1 remnants — Auth & permissions hardening
-- Expand `app_role` enum: `family_deputy`, `senior_case_manager`, `team_leader`, `partner_user`, `partner_admin`, `finance`, `compliance`, `dpo`, `auditor`. (Some already exist: admin, staff, case_manager, insurance_admin, tax_admin, benefits_admin, medical_admin, new_arrival_admin, expert, agent, family.)
-- MFA policy: mandatory for staff/partner/admin (Supabase Auth MFA + enforcement on sign-in guard).
-- Session policy: expiry, device history table, suspicious-login alerts (`auth_events` with pg_cron sweep to `notifications`).
-- Password policy: HIBP check via `configure_auth`; strong password validator on client.
-- Optional passkeys (WebAuthn) — deferred.
+### Stage 1 remnants — Auth & permissions hardening (partial ✅)
+- `app_role` enum expanded: added `family_deputy`, `senior_case_manager`, `team_leader`, `finance`, `compliance`, `dpo`, `auditor` alongside existing roles.
+- HIBP password check enabled via `configure_auth` (leaked-password protection now active on sign-up + password change).
+- MFA enforcement, session/device history, and passkeys still deferred (Supabase Auth MFA UI required).
 
 ### Stage 2 — Case operations polish ✅
 - Table: `case_appointments` (RLS via `can_access_case`).
@@ -42,19 +40,19 @@
 - Portal: `/portal/operations` with SLA dashboard, appointment scheduler, and closure workflow.
 - Server fns: `src/lib/case-operations.functions.ts`.
 
-### Stage 2 remnants
-- Nightly pg_cron sweep of `cases.sla_due_at` → notifications on breach.
-- Document-request task type auto-linking to vault upload.
+### Stage 2 remnants ✅
+- `sla_breach_sweep()` SECURITY DEFINER function + hourly `pg_cron` job (`sla-breach-sweep` at `0 * * * *`) writes `sla_breach` notifications to the case manager when a case passes its `sla_due_at`, deduped by `entity_id` + created_at.
+- Document-request task type auto-linking to vault upload — still deferred.
 
 ### Stage 3 — Health-insurance referral flow ✅ (triage)
 - `/portal/insurance-triage` — 7-bucket triage (statutory/private/student/employee/self_employed/family/needs_regulated_assessment), "Not advice" banner, factual-notes only, per-route hint on where to hand off.
 - Server fns: `src/lib/insurance-triage.functions.ts`.
-- Referral record view + partner API/CSV export still to build.
+- CSV export ✅ — `exportInsuranceLeadsCsv` server fn + "Export CSV" button on `/portal/insurance-triage` (admin/insurance_admin only, up to 5000 rows). Partner API push still deferred.
 
-### Stage 4b — Lawyer structure (not built)
-- Retainer stays customer↔lawyer. Platform records "administrative case summary" as a `case_documents` row of type `admin_summary`, sent to lawyer with accept/decline. Never presents BeistandPlus as legal advisor. Marketing copy audit needed.
+### Stage 4b — Lawyer structure ✅ (foundation)
+- `case_documents.doc_type` column added (default `general`). Lawyer/admin flows can now attach an `admin_summary` doc to a case for lawyer accept/decline (retainer stays customer↔lawyer). Marketing copy audit still to do.
 
-### Stage 4 — Provider (Partner) Portal Engine ✅ (foundation)
+### Stage 4 — Provider (Partner) Portal Engine ✅
 - Enums: `partner_category` (10 categories), `translator_service_type` (7 types).
 - Tables: `partner_organisations`, `partner_users`, `partner_documents`, `partner_service_categories` (with sworn_courts[]), `partner_service_regions`, `partner_availability`.
 - Roles: `partner_admin`, `partner_user`.
@@ -63,7 +61,9 @@
 - `can_access_case` extended so accepted partner org members can see their cases.
 - Portal admin: `/portal/partners` — list, create, activate/suspend orgs.
 - Partner portal: `/partner` — org profile, assigned cases (accept/decline invitations), documents.
-- Still to build: document upload UI, category/region editors, availability editor, translator sworn-court UI, partner document verification workflow.
+- Document upload UI ✅ — new private `partner-docs` storage bucket with folder-scoped RLS (org admins upload/delete, org members read, staff read all). Upload card on `/partner` supports 7 categories, valid-until date, 25 MB PDF/image.
+- Server fns: `src/lib/partner-docs.functions.ts` (`recordPartnerDocument`, `deletePartnerDocument`).
+- Still to build: category/region editors, availability editor, translator sworn-court UI, internal partner-document verification workflow.
 
 ### Stage 5 — Audit expansion ✅
 - `audit_log` is now append-only: UPDATE/DELETE revoked and blocked by trigger.

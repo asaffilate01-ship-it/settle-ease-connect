@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
-import { AlertTriangle, Building2, CheckCircle2, FileText, XCircle } from "lucide-react";
+import { useRef, useState } from "react";
+import { AlertTriangle, Building2, CheckCircle2, FileText, Trash2, Upload, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -12,6 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
 
 import {
   getMyPartnerOrg,
@@ -19,6 +21,7 @@ import {
   listMyPartnerDocuments,
   respondToCaseInvitation,
 } from "@/lib/partner.functions";
+import { recordPartnerDocument, deletePartnerDocument } from "@/lib/partner-docs.functions";
 
 const orgQ = queryOptions({ queryKey: ["partner", "me"], queryFn: () => getMyPartnerOrg() });
 
@@ -82,7 +85,7 @@ function PartnerHome() {
           <PartnerCases orgId={org.id} />
         </TabsContent>
         <TabsContent value="documents" className="mt-4">
-          <PartnerDocs orgId={org.id} />
+          <PartnerDocs orgId={org.id} isAdmin={!!link?.is_admin} />
         </TabsContent>
         <TabsContent value="profile" className="mt-4">
           <ProfileCard org={org} />
@@ -151,39 +154,154 @@ function PartnerCases({ orgId }: { orgId: string }) {
   );
 }
 
-function PartnerDocs({ orgId }: { orgId: string }) {
+function PartnerDocs({ orgId, isAdmin }: { orgId: string; isAdmin: boolean }) {
   const docsQ = queryOptions({
     queryKey: ["partner", "docs", orgId],
     queryFn: () => listMyPartnerDocuments({ data: { orgId } }),
   });
   const { data } = useSuspenseQuery(docsQ);
+  const qc = useQueryClient();
+  const record = useServerFn(recordPartnerDocument);
+  const remove = useServerFn(deletePartnerDocument);
+
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [category, setCategory] = useState<
+    "licence" | "insurance" | "registration" | "bank_details" | "vat" | "gdpr" | "other"
+  >("licence");
+  const [title, setTitle] = useState("");
+  const [validUntil, setValidUntil] = useState("");
+
+  const deleteMut = useMutation({
+    mutationFn: (id: string) => remove({ data: { id } }),
+    onSuccess: () => {
+      toast.success("Document removed");
+      qc.invalidateQueries({ queryKey: ["partner", "docs", orgId] });
+    },
+    onError: (e: any) => toast.error(e?.message ?? "Delete failed"),
+  });
+
+  async function handleUpload() {
+    const file = fileRef.current?.files?.[0];
+    if (!file) return toast.error("Choose a file");
+    if (!title.trim()) return toast.error("Enter a title");
+    if (file.size > 25 * 1024 * 1024) return toast.error("File too large (max 25 MB)");
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop() ?? "bin";
+      const path = `${orgId}/${category}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from("partner-docs").upload(path, file, {
+        cacheControl: "3600",
+        contentType: file.type || "application/octet-stream",
+      });
+      if (upErr) throw upErr;
+      await record({
+        data: {
+          orgId,
+          category,
+          title: title.trim(),
+          storagePath: path,
+          validUntil: validUntil || undefined,
+        },
+      });
+      toast.success("Uploaded — awaiting review");
+      setTitle("");
+      setValidUntil("");
+      if (fileRef.current) fileRef.current.value = "";
+      qc.invalidateQueries({ queryKey: ["partner", "docs", orgId] });
+    } catch (e: any) {
+      toast.error(e?.message ?? "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base flex items-center gap-2">
-          <FileText className="h-4 w-4" /> Compliance documents
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        {data.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            No documents yet. Upload licence, insurance certificate, bank details, and registration.
-          </p>
-        ) : (
-          data.map((d: any) => (
-            <div key={d.id} className="flex items-center justify-between rounded-md border p-3">
-              <div>
-                <div className="font-medium text-sm">{d.title}</div>
-                <div className="text-xs text-muted-foreground">
-                  {d.category} · {d.valid_from ?? "—"} → {d.valid_until ?? "—"}
+    <div className="space-y-4">
+      {isAdmin && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Upload className="h-4 w-4" /> Upload compliance document
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-3 md:grid-cols-2">
+            <div>
+              <Label className="text-xs">Category</Label>
+              <Select value={category} onValueChange={(v) => setCategory(v as typeof category)}>
+                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="licence">Licence</SelectItem>
+                  <SelectItem value="insurance">Insurance certificate</SelectItem>
+                  <SelectItem value="registration">Business registration</SelectItem>
+                  <SelectItem value="bank_details">Bank details</SelectItem>
+                  <SelectItem value="vat">VAT / tax</SelectItem>
+                  <SelectItem value="gdpr">GDPR / DPA</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-xs">Title</Label>
+              <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Berufshaftpflicht 2026" className="mt-1" />
+            </div>
+            <div>
+              <Label className="text-xs">Valid until (optional)</Label>
+              <Input type="date" value={validUntil} onChange={(e) => setValidUntil(e.target.value)} className="mt-1" />
+            </div>
+            <div>
+              <Label className="text-xs">File (PDF/image, max 25 MB)</Label>
+              <Input ref={fileRef} type="file" accept="application/pdf,image/*" className="mt-1" />
+            </div>
+            <div className="md:col-span-2">
+              <Button onClick={handleUpload} disabled={uploading} size="sm">
+                <Upload className="h-4 w-4 mr-1" /> {uploading ? "Uploading…" : "Upload document"}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2">
+            <FileText className="h-4 w-4" /> Compliance documents
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          {data.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              No documents yet. Upload licence, insurance certificate, bank details, and registration.
+            </p>
+          ) : (
+            data.map((d: any) => (
+              <div key={d.id} className="flex items-center justify-between rounded-md border p-3">
+                <div className="min-w-0">
+                  <div className="font-medium text-sm truncate">{d.title}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {d.category} · {d.valid_from ?? "—"} → {d.valid_until ?? "—"}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Badge variant="outline">{d.status}</Badge>
+                  {isAdmin && (
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => deleteMut.mutate(d.id)}
+                      disabled={deleteMut.isPending}
+                      aria-label="Delete document"
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  )}
                 </div>
               </div>
-              <Badge variant="outline">{d.status}</Badge>
-            </div>
-          ))
-        )}
-      </CardContent>
-    </Card>
+            ))
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
