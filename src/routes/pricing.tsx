@@ -127,7 +127,7 @@ function Pricing() {
     { key: "family", label: t("pages.pricing.family"), note: t("pages.pricing.noteFamily") },
     { key: "family_plus", label: t("pages.pricing.extended"), note: t("pages.pricing.noteExtended") },
   ];
-  const [household, setHousehold] = useState<HouseholdKey>("family");
+  const [household, setHousehold] = useState<HouseholdKey>("individual");
 
   const { data: plans = [], isLoading } = useQuery({
     queryKey: ["subscription_plans"],
