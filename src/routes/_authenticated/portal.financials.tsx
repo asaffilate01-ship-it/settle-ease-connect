@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getFinancials, listRecentExpenses } from "@/lib/portal.functions";
 import { TrendingUp, TrendingDown, Wallet, Receipt, Users, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/portal/financials")({
   head: () => ({ meta: [{ title: "Financials — Staff" }] }),
