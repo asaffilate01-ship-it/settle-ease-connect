@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
-import { AlertTriangle, Building2, CheckCircle2, FileText, XCircle } from "lucide-react";
+import { useRef, useState } from "react";
+import { AlertTriangle, Building2, CheckCircle2, FileText, Trash2, Upload, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -12,6 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
 
 import {
   getMyPartnerOrg,
@@ -19,6 +21,7 @@ import {
   listMyPartnerDocuments,
   respondToCaseInvitation,
 } from "@/lib/partner.functions";
+import { recordPartnerDocument, deletePartnerDocument } from "@/lib/partner-docs.functions";
 
 const orgQ = queryOptions({ queryKey: ["partner", "me"], queryFn: () => getMyPartnerOrg() });
 
