@@ -58,6 +58,7 @@ import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authentica
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
 import { Route as AuthenticatedPortalPartnersRouteImport } from './routes/_authenticated/portal.partners'
+import { Route as AuthenticatedPortalPartnerPushRouteImport } from './routes/_authenticated/portal.partner-push'
 import { Route as AuthenticatedPortalOperationsRouteImport } from './routes/_authenticated/portal.operations'
 import { Route as AuthenticatedPortalNewArrivalsRouteImport } from './routes/_authenticated/portal.new-arrivals'
 import { Route as AuthenticatedPortalMyDeskRouteImport } from './routes/_authenticated/portal.my-desk'
@@ -76,10 +77,12 @@ import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authent
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalDelaRouteImport } from './routes/_authenticated/portal.dela'
 import { Route as AuthenticatedPortalCrmRouteImport } from './routes/_authenticated/portal.crm'
+import { Route as AuthenticatedPortalCopyAuditRouteImport } from './routes/_authenticated/portal.copy-audit'
 import { Route as AuthenticatedPortalCaseTemplatesRouteImport } from './routes/_authenticated/portal.case-templates'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
+import { Route as AuthenticatedPortalAssistantRouteImport } from './routes/_authenticated/portal.assistant'
 import { Route as AuthenticatedPortalAnalyticsRouteImport } from './routes/_authenticated/portal.analytics'
 import { Route as AuthenticatedExpertQuotesRouteImport } from './routes/_authenticated/expert.quotes'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
@@ -90,6 +93,8 @@ import { Route as AuthenticatedExpertAvailabilityRouteImport } from './routes/_a
 import { Route as AuthenticatedAppUpgradeRouteImport } from './routes/_authenticated/app.upgrade'
 import { Route as AuthenticatedAppStudentDiscountRouteImport } from './routes/_authenticated/app.student-discount'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
+import { Route as AuthenticatedAppSessionsRouteImport } from './routes/_authenticated/app.sessions'
+import { Route as AuthenticatedAppReferralsRouteImport } from './routes/_authenticated/app.referrals'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
 import { Route as AuthenticatedAppNotificationsRouteImport } from './routes/_authenticated/app.notifications'
@@ -105,6 +110,7 @@ import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
+import { Route as AuthenticatedAppAiToolsRouteImport } from './routes/_authenticated/app.ai-tools'
 import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app.account'
 import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authenticated/agent.link'
 import { Route as AuthenticatedAgentLeadsRouteImport } from './routes/_authenticated/agent.leads'
@@ -380,6 +386,12 @@ const AuthenticatedPortalPartnersRoute =
     path: '/partners',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalPartnerPushRoute =
+  AuthenticatedPortalPartnerPushRouteImport.update({
+    id: '/partner-push',
+    path: '/partner-push',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalOperationsRoute =
   AuthenticatedPortalOperationsRouteImport.update({
     id: '/operations',
@@ -486,6 +498,12 @@ const AuthenticatedPortalCrmRoute = AuthenticatedPortalCrmRouteImport.update({
   path: '/crm',
   getParentRoute: () => AuthenticatedPortalRoute,
 } as any)
+const AuthenticatedPortalCopyAuditRoute =
+  AuthenticatedPortalCopyAuditRouteImport.update({
+    id: '/copy-audit',
+    path: '/copy-audit',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalCaseTemplatesRoute =
   AuthenticatedPortalCaseTemplatesRouteImport.update({
     id: '/case-templates',
@@ -508,6 +526,12 @@ const AuthenticatedPortalAuditRoute =
   AuthenticatedPortalAuditRouteImport.update({
     id: '/audit',
     path: '/audit',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalAssistantRoute =
+  AuthenticatedPortalAssistantRouteImport.update({
+    id: '/assistant',
+    path: '/assistant',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalAnalyticsRoute =
@@ -567,6 +591,18 @@ const AuthenticatedAppSettingsRoute =
   AuthenticatedAppSettingsRouteImport.update({
     id: '/settings',
     path: '/settings',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppSessionsRoute =
+  AuthenticatedAppSessionsRouteImport.update({
+    id: '/sessions',
+    path: '/sessions',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppReferralsRoute =
+  AuthenticatedAppReferralsRouteImport.update({
+    id: '/referrals',
+    path: '/referrals',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
 const AuthenticatedAppProvidersRoute =
@@ -653,6 +689,11 @@ const AuthenticatedAppAssistantRoute =
 const AuthenticatedAppAlertRoute = AuthenticatedAppAlertRouteImport.update({
   id: '/alert',
   path: '/alert',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppAiToolsRoute = AuthenticatedAppAiToolsRouteImport.update({
+  id: '/ai-tools',
+  path: '/ai-tools',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
 const AuthenticatedAppAccountRoute = AuthenticatedAppAccountRouteImport.update({
@@ -830,6 +871,7 @@ export interface FileRoutesByFullPath {
   '/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/ai-tools': typeof AuthenticatedAppAiToolsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -845,6 +887,8 @@ export interface FileRoutesByFullPath {
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
+  '/app/referrals': typeof AuthenticatedAppReferralsRoute
+  '/app/sessions': typeof AuthenticatedAppSessionsRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
@@ -855,10 +899,12 @@ export interface FileRoutesByFullPath {
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
+  '/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
@@ -877,6 +923,7 @@ export interface FileRoutesByFullPath {
   '/portal/my-desk': typeof AuthenticatedPortalMyDeskRoute
   '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/portal/operations': typeof AuthenticatedPortalOperationsRoute
+  '/portal/partner-push': typeof AuthenticatedPortalPartnerPushRoute
   '/portal/partners': typeof AuthenticatedPortalPartnersRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
@@ -945,6 +992,7 @@ export interface FileRoutesByTo {
   '/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/agent/link': typeof AuthenticatedAgentLinkRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/ai-tools': typeof AuthenticatedAppAiToolsRoute
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -960,6 +1008,8 @@ export interface FileRoutesByTo {
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
+  '/app/referrals': typeof AuthenticatedAppReferralsRoute
+  '/app/sessions': typeof AuthenticatedAppSessionsRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/app/upgrade': typeof AuthenticatedAppUpgradeRoute
@@ -970,10 +1020,12 @@ export interface FileRoutesByTo {
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
+  '/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
@@ -991,6 +1043,7 @@ export interface FileRoutesByTo {
   '/portal/my-desk': typeof AuthenticatedPortalMyDeskRoute
   '/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/portal/operations': typeof AuthenticatedPortalOperationsRoute
+  '/portal/partner-push': typeof AuthenticatedPortalPartnerPushRoute
   '/portal/partners': typeof AuthenticatedPortalPartnersRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
@@ -1063,6 +1116,7 @@ export interface FileRoutesById {
   '/_authenticated/agent/leads': typeof AuthenticatedAgentLeadsRoute
   '/_authenticated/agent/link': typeof AuthenticatedAgentLinkRoute
   '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
+  '/_authenticated/app/ai-tools': typeof AuthenticatedAppAiToolsRoute
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
@@ -1078,6 +1132,8 @@ export interface FileRoutesById {
   '/_authenticated/app/notifications': typeof AuthenticatedAppNotificationsRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
+  '/_authenticated/app/referrals': typeof AuthenticatedAppReferralsRoute
+  '/_authenticated/app/sessions': typeof AuthenticatedAppSessionsRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/student-discount': typeof AuthenticatedAppStudentDiscountRoute
   '/_authenticated/app/upgrade': typeof AuthenticatedAppUpgradeRoute
@@ -1088,10 +1144,12 @@ export interface FileRoutesById {
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/_authenticated/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
+  '/_authenticated/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/_authenticated/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/_authenticated/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/_authenticated/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
@@ -1110,6 +1168,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/my-desk': typeof AuthenticatedPortalMyDeskRoute
   '/_authenticated/portal/new-arrivals': typeof AuthenticatedPortalNewArrivalsRoute
   '/_authenticated/portal/operations': typeof AuthenticatedPortalOperationsRoute
+  '/_authenticated/portal/partner-push': typeof AuthenticatedPortalPartnerPushRoute
   '/_authenticated/portal/partners': typeof AuthenticatedPortalPartnersRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
@@ -1184,6 +1243,7 @@ export interface FileRouteTypes {
     | '/agent/leads'
     | '/agent/link'
     | '/app/account'
+    | '/app/ai-tools'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -1199,6 +1259,8 @@ export interface FileRouteTypes {
     | '/app/notifications'
     | '/app/profile'
     | '/app/providers'
+    | '/app/referrals'
+    | '/app/sessions'
     | '/app/settings'
     | '/app/student-discount'
     | '/app/upgrade'
@@ -1209,10 +1271,12 @@ export interface FileRouteTypes {
     | '/expert/profile'
     | '/expert/quotes'
     | '/portal/analytics'
+    | '/portal/assistant'
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
+    | '/portal/copy-audit'
     | '/portal/crm'
     | '/portal/dela'
     | '/portal/directory'
@@ -1231,6 +1295,7 @@ export interface FileRouteTypes {
     | '/portal/my-desk'
     | '/portal/new-arrivals'
     | '/portal/operations'
+    | '/portal/partner-push'
     | '/portal/partners'
     | '/portal/referrals'
     | '/portal/students'
@@ -1299,6 +1364,7 @@ export interface FileRouteTypes {
     | '/agent/leads'
     | '/agent/link'
     | '/app/account'
+    | '/app/ai-tools'
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
@@ -1314,6 +1380,8 @@ export interface FileRouteTypes {
     | '/app/notifications'
     | '/app/profile'
     | '/app/providers'
+    | '/app/referrals'
+    | '/app/sessions'
     | '/app/settings'
     | '/app/student-discount'
     | '/app/upgrade'
@@ -1324,10 +1392,12 @@ export interface FileRouteTypes {
     | '/expert/profile'
     | '/expert/quotes'
     | '/portal/analytics'
+    | '/portal/assistant'
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
+    | '/portal/copy-audit'
     | '/portal/dela'
     | '/portal/directory'
     | '/portal/escrow'
@@ -1345,6 +1415,7 @@ export interface FileRouteTypes {
     | '/portal/my-desk'
     | '/portal/new-arrivals'
     | '/portal/operations'
+    | '/portal/partner-push'
     | '/portal/partners'
     | '/portal/referrals'
     | '/portal/students'
@@ -1416,6 +1487,7 @@ export interface FileRouteTypes {
     | '/_authenticated/agent/leads'
     | '/_authenticated/agent/link'
     | '/_authenticated/app/account'
+    | '/_authenticated/app/ai-tools'
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
@@ -1431,6 +1503,8 @@ export interface FileRouteTypes {
     | '/_authenticated/app/notifications'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
+    | '/_authenticated/app/referrals'
+    | '/_authenticated/app/sessions'
     | '/_authenticated/app/settings'
     | '/_authenticated/app/student-discount'
     | '/_authenticated/app/upgrade'
@@ -1441,10 +1515,12 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/profile'
     | '/_authenticated/expert/quotes'
     | '/_authenticated/portal/analytics'
+    | '/_authenticated/portal/assistant'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/case-templates'
+    | '/_authenticated/portal/copy-audit'
     | '/_authenticated/portal/crm'
     | '/_authenticated/portal/dela'
     | '/_authenticated/portal/directory'
@@ -1463,6 +1539,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/my-desk'
     | '/_authenticated/portal/new-arrivals'
     | '/_authenticated/portal/operations'
+    | '/_authenticated/portal/partner-push'
     | '/_authenticated/portal/partners'
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
@@ -1867,6 +1944,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalPartnersRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/partner-push': {
+      id: '/_authenticated/portal/partner-push'
+      path: '/partner-push'
+      fullPath: '/portal/partner-push'
+      preLoaderRoute: typeof AuthenticatedPortalPartnerPushRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/operations': {
       id: '/_authenticated/portal/operations'
       path: '/operations'
@@ -1993,6 +2077,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalCrmRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/copy-audit': {
+      id: '/_authenticated/portal/copy-audit'
+      path: '/copy-audit'
+      fullPath: '/portal/copy-audit'
+      preLoaderRoute: typeof AuthenticatedPortalCopyAuditRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/case-templates': {
       id: '/_authenticated/portal/case-templates'
       path: '/case-templates'
@@ -2019,6 +2110,13 @@ declare module '@tanstack/react-router' {
       path: '/audit'
       fullPath: '/portal/audit'
       preLoaderRoute: typeof AuthenticatedPortalAuditRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/assistant': {
+      id: '/_authenticated/portal/assistant'
+      path: '/assistant'
+      fullPath: '/portal/assistant'
+      preLoaderRoute: typeof AuthenticatedPortalAssistantRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/analytics': {
@@ -2089,6 +2187,20 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/sessions': {
+      id: '/_authenticated/app/sessions'
+      path: '/sessions'
+      fullPath: '/app/sessions'
+      preLoaderRoute: typeof AuthenticatedAppSessionsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/referrals': {
+      id: '/_authenticated/app/referrals'
+      path: '/referrals'
+      fullPath: '/app/referrals'
+      preLoaderRoute: typeof AuthenticatedAppReferralsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/providers': {
@@ -2194,6 +2306,13 @@ declare module '@tanstack/react-router' {
       path: '/alert'
       fullPath: '/app/alert'
       preLoaderRoute: typeof AuthenticatedAppAlertRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/ai-tools': {
+      id: '/_authenticated/app/ai-tools'
+      path: '/ai-tools'
+      fullPath: '/app/ai-tools'
+      preLoaderRoute: typeof AuthenticatedAppAiToolsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/account': {
@@ -2404,6 +2523,7 @@ const AuthenticatedAppMessagesRouteWithChildren =
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAccountRoute: typeof AuthenticatedAppAccountRoute
+  AuthenticatedAppAiToolsRoute: typeof AuthenticatedAppAiToolsRoute
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
   AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
@@ -2419,6 +2539,8 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppNotificationsRoute: typeof AuthenticatedAppNotificationsRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
+  AuthenticatedAppReferralsRoute: typeof AuthenticatedAppReferralsRoute
+  AuthenticatedAppSessionsRoute: typeof AuthenticatedAppSessionsRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
   AuthenticatedAppStudentDiscountRoute: typeof AuthenticatedAppStudentDiscountRoute
   AuthenticatedAppUpgradeRoute: typeof AuthenticatedAppUpgradeRoute
@@ -2427,6 +2549,7 @@ interface AuthenticatedAppRouteChildren {
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppAccountRoute: AuthenticatedAppAccountRoute,
+  AuthenticatedAppAiToolsRoute: AuthenticatedAppAiToolsRoute,
   AuthenticatedAppAlertRoute: AuthenticatedAppAlertRoute,
   AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
   AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
@@ -2442,6 +2565,8 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppNotificationsRoute: AuthenticatedAppNotificationsRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
+  AuthenticatedAppReferralsRoute: AuthenticatedAppReferralsRoute,
+  AuthenticatedAppSessionsRoute: AuthenticatedAppSessionsRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
   AuthenticatedAppStudentDiscountRoute: AuthenticatedAppStudentDiscountRoute,
   AuthenticatedAppUpgradeRoute: AuthenticatedAppUpgradeRoute,
@@ -2564,10 +2689,12 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
 
 interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAnalyticsRoute: typeof AuthenticatedPortalAnalyticsRoute
+  AuthenticatedPortalAssistantRoute: typeof AuthenticatedPortalAssistantRoute
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
   AuthenticatedPortalCaseTemplatesRoute: typeof AuthenticatedPortalCaseTemplatesRoute
+  AuthenticatedPortalCopyAuditRoute: typeof AuthenticatedPortalCopyAuditRoute
   AuthenticatedPortalCrmRoute: typeof AuthenticatedPortalCrmRouteWithChildren
   AuthenticatedPortalDelaRoute: typeof AuthenticatedPortalDelaRoute
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
@@ -2586,6 +2713,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalMyDeskRoute: typeof AuthenticatedPortalMyDeskRoute
   AuthenticatedPortalNewArrivalsRoute: typeof AuthenticatedPortalNewArrivalsRoute
   AuthenticatedPortalOperationsRoute: typeof AuthenticatedPortalOperationsRoute
+  AuthenticatedPortalPartnerPushRoute: typeof AuthenticatedPortalPartnerPushRoute
   AuthenticatedPortalPartnersRoute: typeof AuthenticatedPortalPartnersRoute
   AuthenticatedPortalReferralsRoute: typeof AuthenticatedPortalReferralsRoute
   AuthenticatedPortalStudentsRoute: typeof AuthenticatedPortalStudentsRoute
@@ -2598,10 +2726,12 @@ interface AuthenticatedPortalRouteChildren {
 
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAnalyticsRoute: AuthenticatedPortalAnalyticsRoute,
+  AuthenticatedPortalAssistantRoute: AuthenticatedPortalAssistantRoute,
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
   AuthenticatedPortalCaseTemplatesRoute: AuthenticatedPortalCaseTemplatesRoute,
+  AuthenticatedPortalCopyAuditRoute: AuthenticatedPortalCopyAuditRoute,
   AuthenticatedPortalCrmRoute: AuthenticatedPortalCrmRouteWithChildren,
   AuthenticatedPortalDelaRoute: AuthenticatedPortalDelaRoute,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
@@ -2622,6 +2752,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalMyDeskRoute: AuthenticatedPortalMyDeskRoute,
   AuthenticatedPortalNewArrivalsRoute: AuthenticatedPortalNewArrivalsRoute,
   AuthenticatedPortalOperationsRoute: AuthenticatedPortalOperationsRoute,
+  AuthenticatedPortalPartnerPushRoute: AuthenticatedPortalPartnerPushRoute,
   AuthenticatedPortalPartnersRoute: AuthenticatedPortalPartnersRoute,
   AuthenticatedPortalReferralsRoute: AuthenticatedPortalReferralsRoute,
   AuthenticatedPortalStudentsRoute: AuthenticatedPortalStudentsRoute,
@@ -2751,13 +2882,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
