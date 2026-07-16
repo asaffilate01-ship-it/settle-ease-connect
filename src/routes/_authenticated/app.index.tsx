@@ -71,11 +71,41 @@ function Overview() {
 
       {!noPlan && (
         <div className="grid gap-4 md:grid-cols-3">
-          <QuickStat label="Your plan" value={sub.planName ?? "—"} sub={sub.monthlyPrice ? `€${sub.monthlyPrice}/mo · ${sub.status}` : sub.status ?? ""} />
-          <QuickStat label="Tasks due this week" value="4" sub="1 needs signature" />
-          <QuickStat label="Documents in vault" value="6" sub="2 expire this year" tone="accent" />
+          <QuickStat
+            label="Your plan"
+            value={sub.planName ?? "—"}
+            sub={sub.monthlyPrice ? `€${sub.monthlyPrice}/mo · ${sub.status}` : sub.status ?? ""}
+          />
+          <QuickStat
+            label="Open cases"
+            value={overview.data ? String(overview.data.openCasesCount) : "—"}
+            sub={
+              overview.data
+                ? overview.data.breachedCount > 0
+                  ? `${overview.data.breachedCount} SLA breached`
+                  : overview.data.atRiskCount > 0
+                    ? `${overview.data.atRiskCount} at risk`
+                    : "All on track"
+                : ""
+            }
+          />
+          <QuickStat
+            label="Documents in vault"
+            value={overview.data ? String(overview.data.vaultCount) : "—"}
+            sub={
+              overview.data && overview.data.missingDocsCases.length > 0
+                ? `${overview.data.missingDocsCases.length} case${overview.data.missingDocsCases.length === 1 ? "" : "s"} need docs`
+                : "All cases have documents"
+            }
+            tone="accent"
+          />
         </div>
       )}
+
+      {!noPlan && overview.data && (
+        <UrgentActions data={overview.data} />
+      )}
+
 
       <section>
         <h2 className="mb-3 font-display text-lg font-semibold">What you can do today</h2>
