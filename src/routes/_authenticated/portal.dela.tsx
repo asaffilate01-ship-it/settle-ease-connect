@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ShieldCheck, AlertTriangle, CheckCircle2, ArrowRight, Lock } from "lucide-react";
 import { toast } from "sonner";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 import {
   listDelaReferrals, getDelaReferral, startDelaReferral, recordDelaConsent,
   updateDelaBasicInfo, sendDelaToPartner, updateDelaOutcome,
@@ -43,6 +44,7 @@ function DelaPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
+    <Aal2Gate reason="DELA referrals contain regulated insurance advice. Confirm your authenticator code to continue.">
     <div className="space-y-6">
       <header>
         <h1 className="display-lg font-semibold flex items-center gap-2">
@@ -84,6 +86,7 @@ function DelaPage() {
         <div>{selectedId ? <ReferralDetail id={selectedId} /> : <EmptyState />}</div>
       </div>
     </div>
+    </Aal2Gate>
   );
 }
 
