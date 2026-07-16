@@ -46,10 +46,10 @@
 - Nightly pg_cron sweep of `cases.sla_due_at` → notifications on breach.
 - Document-request task type auto-linking to vault upload.
 
-### Stage 3 — Health-insurance referral flow
-- Triage screen `/portal/insurance/triage` (7 buckets, "not advice" banner, notes).
-- Referral record view showing partner, consent, data transferred, privacy notice version, partner-contacted flag, application status, policy status, commission, cancellation.
-- Partner API stub / secure CSV export.
+### Stage 3 — Health-insurance referral flow ✅ (triage)
+- `/portal/insurance-triage` — 7-bucket triage (statutory/private/student/employee/self_employed/family/needs_regulated_assessment), "Not advice" banner, factual-notes only, per-route hint on where to hand off.
+- Server fns: `src/lib/insurance-triage.functions.ts`.
+- Referral record view + partner API/CSV export still to build.
 
 ### Stage 4 — Provider (Partner) Portal Engine
 Single engine, category-typed profiles. Categories: funeral director, lawyer, translator, religious org, hospital, airline, driving school, childcare, relocation.
