@@ -59,11 +59,10 @@
 - Helpers: `is_partner_member`, `is_partner_admin`, `current_partner_org`.
 - `case_assignments` extended with `partner_org_id`, `invited_at`, `accepted_at`, `declined_at`, `decline_reason`.
 - `can_access_case` extended so accepted partner org members can see their cases.
-- Portal admin: `/portal/partners` — list, create, activate/suspend orgs.
-- Partner portal: `/partner` — org profile, assigned cases (accept/decline invitations), documents.
-- Document upload UI ✅ — new private `partner-docs` storage bucket with folder-scoped RLS (org admins upload/delete, org members read, staff read all). Upload card on `/partner` supports 7 categories, valid-until date, 25 MB PDF/image.
-- Server fns: `src/lib/partner-docs.functions.ts` (`recordPartnerDocument`, `deletePartnerDocument`).
-- Still to build: category/region editors, availability editor, translator sworn-court UI, internal partner-document verification workflow.
+- Portal admin: `/portal/partners` — list, create, activate/suspend orgs, **document verification queue** (approve/reject with notes; staff-only via `is_internal`).
+- Partner portal: `/partner` — org profile, assigned cases (accept/decline), documents, **services editor** (categories + translator sworn-court chips), **coverage editor** (city/Bundesland/PLZ prefix/radius), **weekly availability editor** (weekday + start/end + accepts_urgent).
+- Document upload UI ✅ — `partner-docs` bucket with folder-scoped RLS. Upload card supports 7 categories, valid-until date, 25 MB PDF/image.
+- Server fns: `src/lib/partner-docs.functions.ts`, `src/lib/partner-editors.functions.ts` (categories, regions, availability, doc verification queue).
 
 ### Stage 5 — Audit expansion ✅
 - `audit_log` is now append-only: UPDATE/DELETE revoked and blocked by trigger.
