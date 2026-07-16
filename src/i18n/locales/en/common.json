@@ -405,6 +405,81 @@
       "messagePh": "How can we help?",
       "send": "Send message",
       "thanks": "Thank you — we'll be in touch soon."
+    },
+    "aiTools": {
+      "title": "AI document tools",
+      "subtitle": "Summarise a document or extract eligibility fields for benefit forms. Runs on Lovable AI.",
+      "tabSummary": "Summarise",
+      "tabEligibility": "Pre-fill eligibility",
+      "filenamePh": "Filename (e.g. bescheid_2024.pdf)",
+      "textPh": "Paste extracted document text here…",
+      "working": "Working…",
+      "generateSummary": "Generate summary",
+      "extractFields": "Extract fields",
+      "summaryLabel": "Summary",
+      "fieldsLabel": "Extracted fields"
+    },
+    "referrals": {
+      "title": "Invite friends, earn rewards",
+      "subtitle": "Get €5 credit for every friend who subscribes. They get a free first month.",
+      "pending": "Pending invites",
+      "subscribed": "Subscribed",
+      "rewards": "Rewards earned",
+      "inviteByEmail": "Invite by email",
+      "sending": "Sending…",
+      "createInvite": "Create invite",
+      "yourInvites": "Your invites",
+      "noInvites": "No invites yet.",
+      "linkCopied": "Link copied",
+      "inviteCreated": "Invite created — share code {{code}}",
+      "failed": "Failed"
+    },
+    "sessions": {
+      "title": "Security & devices",
+      "subtitle": "Review recent sign-ins and enrolled security keys.",
+      "passkeys": "Passkeys & second factors",
+      "noneEnrolled": "No security keys enrolled.",
+      "addPasskey": "Add passkey / second factor",
+      "enrolling": "Enrolling…",
+      "enrolled": "Second factor enrolled",
+      "enrollFailed": "Enrollment failed",
+      "recent": "Recent activity",
+      "noEvents": "No recorded events yet.",
+      "unknownDevice": "unknown device"
+    },
+    "staffAssistant": {
+      "title": "Internal KB assistant",
+      "subtitle": "Staff only · Lovable AI · Do not share verbatim with clients",
+      "greeting": "Hi — I'm your internal KB assistant. Ask me about German welfare, benefits, immigration, tax, or funeral processes.",
+      "inputPh": "Ask about a service, deadline, or regulation…",
+      "thinking": "Thinking…"
+    },
+    "partnerPush": {
+      "title": "Insurance triage → partner API push",
+      "subtitle": "Send a triaged lead to a partner endpoint. Dry-run records payload without calling out.",
+      "leadIdPh": "Insurance lead UUID",
+      "partnerCodePh": "Partner code (e.g. dela)",
+      "endpointPh": "Endpoint URL",
+      "liveSend": "Live send (uncheck for dry-run)",
+      "pushing": "Pushing…",
+      "pushLive": "Push live",
+      "dryRun": "Dry-run push",
+      "recent": "Recent pushes",
+      "pushedLive": "Pushed live",
+      "recordedDryRun": "Recorded dry-run"
+    },
+    "copyAudit": {
+      "title": "Regulated copy audit",
+      "subtitle": "Review disclaimers, \"not advice\" banners, and consent language on regulated surfaces.",
+      "reviewerNotesPh": "Reviewer notes (missing disclaimers, tone, translations…)",
+      "reviewedOn": "Reviewed {{date}}",
+      "saved": "Saved",
+      "status": {
+        "pending": "pending",
+        "approved": "approved",
+        "needsRevision": "needs revision",
+        "blocked": "blocked"
+      }
     }
   },
   "directory": {
