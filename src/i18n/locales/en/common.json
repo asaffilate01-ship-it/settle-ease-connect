@@ -442,5 +442,10 @@
   },
   "common": {
     "loading": "Loading…"
+  },
+  "upgradeGate": {
+    "title": "Activate your plan to unlock the dashboard",
+    "body": "Basic €5/mo · Plus €10/mo · Complete €25/mo. Third-party costs always separate — nothing hidden.",
+    "cta": "View plans"
   }
 }

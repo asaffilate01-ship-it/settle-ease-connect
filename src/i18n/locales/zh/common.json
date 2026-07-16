@@ -433,5 +433,10 @@
   },
   "common": {
     "loading": "正在加载…"
+  },
+  "upgradeGate": {
+    "title": "激活您的方案以解锁控制面板",
+    "body": "Basic €5/月 · Plus €10/月 · Complete €25/月。第三方费用始终单独列出 — 无隐藏费用。",
+    "cta": "查看方案"
   }
 }

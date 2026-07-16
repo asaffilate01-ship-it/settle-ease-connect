@@ -433,5 +433,10 @@
   },
   "common": {
     "loading": "Tê barkirin…"
+  },
+  "upgradeGate": {
+    "title": "Ji bo vekirina dashboardê plana xwe çalak bike",
+    "body": "Basic 5€/meh · Plus 10€/meh · Complete 25€/meh. Mesrefên aliyên sêyem her dem cuda ne — tiştek veşartî nîne.",
+    "cta": "Planên bibîne"
   }
 }

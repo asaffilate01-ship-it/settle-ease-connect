@@ -433,5 +433,10 @@
   },
   "common": {
     "loading": "Wczytywanie…"
+  },
+  "upgradeGate": {
+    "title": "Aktywuj plan, aby odblokować panel",
+    "body": "Basic 5€/mies · Plus 10€/mies · Complete 25€/mies. Koszty osób trzecich zawsze osobno — nic ukrytego.",
+    "cta": "Zobacz plany"
   }
 }
