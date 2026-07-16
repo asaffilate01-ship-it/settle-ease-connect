@@ -85,8 +85,10 @@ function Landing() {
     <div className="min-h-screen">
       <SiteHeader />
       <Hero />
+      <FivePaths />
       <UrgencyTriage />
       <TrustBar />
+
       <Journeys />
       <LifeInGermany />
       <Pillars />
