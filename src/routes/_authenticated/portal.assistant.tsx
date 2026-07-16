@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Sparkles, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,9 +15,10 @@ export const Route = createFileRoute("/_authenticated/portal/assistant")({
 type Msg = { role: "user" | "assistant"; content: string };
 
 function KBAssistant() {
+  const { t } = useTranslation();
   const ask = useServerFn(askKnowledgeBase);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", content: "Hi — I'm your internal KB assistant. Ask me about German welfare, benefits, immigration, tax, or funeral processes." },
+    { role: "assistant", content: t("pages.staffAssistant.greeting") },
   ]);
   const [input, setInput] = useState("");
 
@@ -42,8 +44,8 @@ function KBAssistant() {
           <Sparkles className="h-5 w-5" />
         </div>
         <div>
-          <div className="font-display text-xl font-semibold">Internal KB assistant</div>
-          <div className="text-xs text-muted-foreground">Staff only · Lovable AI · Do not share verbatim with clients</div>
+          <div className="font-display text-xl font-semibold">{t("pages.staffAssistant.title")}</div>
+          <div className="text-xs text-muted-foreground">{t("pages.staffAssistant.subtitle")}</div>
         </div>
       </div>
       <div className="flex-1 space-y-4 overflow-y-auto py-6">
@@ -54,10 +56,10 @@ function KBAssistant() {
             </div>
           </div>
         ))}
-        {send.isPending && <div className="text-xs text-muted-foreground">Thinking…</div>}
+        {send.isPending && <div className="text-xs text-muted-foreground">{t("pages.staffAssistant.thinking")}</div>}
       </div>
       <form onSubmit={submit} className="flex gap-2 border-t border-border/60 pt-4">
-        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask about a service, deadline, or regulation…" />
+        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t("pages.staffAssistant.inputPh")} />
         <Button type="submit" disabled={!input.trim() || send.isPending}><Send className="h-4 w-4" /></Button>
       </form>
     </div>
