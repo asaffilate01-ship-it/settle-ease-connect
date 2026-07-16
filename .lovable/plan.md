@@ -47,12 +47,12 @@
 ### Stage 3 — Health-insurance referral flow ✅ (triage)
 - `/portal/insurance-triage` — 7-bucket triage (statutory/private/student/employee/self_employed/family/needs_regulated_assessment), "Not advice" banner, factual-notes only, per-route hint on where to hand off.
 - Server fns: `src/lib/insurance-triage.functions.ts`.
-- Referral record view + partner API/CSV export still to build.
+- CSV export ✅ — `exportInsuranceLeadsCsv` server fn + "Export CSV" button on `/portal/insurance-triage` (admin/insurance_admin only, up to 5000 rows). Partner API push still deferred.
 
-### Stage 4b — Lawyer structure (not built)
-- Retainer stays customer↔lawyer. Platform records "administrative case summary" as a `case_documents` row of type `admin_summary`, sent to lawyer with accept/decline. Never presents BeistandPlus as legal advisor. Marketing copy audit needed.
+### Stage 4b — Lawyer structure ✅ (foundation)
+- `case_documents.doc_type` column added (default `general`). Lawyer/admin flows can now attach an `admin_summary` doc to a case for lawyer accept/decline (retainer stays customer↔lawyer). Marketing copy audit still to do.
 
-### Stage 4 — Provider (Partner) Portal Engine ✅ (foundation)
+### Stage 4 — Provider (Partner) Portal Engine ✅
 - Enums: `partner_category` (10 categories), `translator_service_type` (7 types).
 - Tables: `partner_organisations`, `partner_users`, `partner_documents`, `partner_service_categories` (with sworn_courts[]), `partner_service_regions`, `partner_availability`.
 - Roles: `partner_admin`, `partner_user`.
@@ -61,7 +61,9 @@
 - `can_access_case` extended so accepted partner org members can see their cases.
 - Portal admin: `/portal/partners` — list, create, activate/suspend orgs.
 - Partner portal: `/partner` — org profile, assigned cases (accept/decline invitations), documents.
-- Still to build: document upload UI, category/region editors, availability editor, translator sworn-court UI, partner document verification workflow.
+- Document upload UI ✅ — new private `partner-docs` storage bucket with folder-scoped RLS (org admins upload/delete, org members read, staff read all). Upload card on `/partner` supports 7 categories, valid-until date, 25 MB PDF/image.
+- Server fns: `src/lib/partner-docs.functions.ts` (`recordPartnerDocument`, `deletePartnerDocument`).
+- Still to build: category/region editors, availability editor, translator sworn-court UI, internal partner-document verification workflow.
 
 ### Stage 5 — Audit expansion ✅
 - `audit_log` is now append-only: UPDATE/DELETE revoked and blocked by trigger.
