@@ -87,6 +87,9 @@ function PartnerHome() {
         <TabsContent value="documents" className="mt-4">
           <PartnerDocs orgId={org.id} isAdmin={!!link?.is_admin} />
         </TabsContent>
+        <TabsContent value="profile" className="mt-4">
+          <ProfileCard org={org} />
+        </TabsContent>
       </Tabs>
     </div>
   );
