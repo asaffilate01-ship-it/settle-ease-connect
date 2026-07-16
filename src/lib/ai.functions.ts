@@ -72,10 +72,10 @@ export const extractEligibilityFromDocument = createServerFn({ method: "POST" })
       owner_user_id: context.userId,
       kind: "eligibility_extract",
       input_excerpt: data.text.slice(0, 500),
-      output_json: parsed,
+      output_json: parsed as any,
       model: MODEL,
     });
-    return { fields: parsed };
+    return { fields: parsed as Record<string, string | number | null> };
   });
 
 /** Staff-only internal knowledge base assistant. Streams a plain answer. */
