@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "AI ਟੂਲ",
+    "sessions": "ਸੈਸ਼ਨ",
+    "staffAssistant": "KB ਸਹਾਇਕ",
+    "partnerPush": "ਭਾਈਵਾਲ API",
+    "copyAudit": "ਕਾਪੀ ਆਡਿਟ"
   },
   "language": {
     "label": "ਭਾਸ਼ਾ",

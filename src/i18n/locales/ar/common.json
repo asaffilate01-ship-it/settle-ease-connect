@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "أدوات الذكاء",
+    "sessions": "الجلسات",
+    "staffAssistant": "مساعد المعرفة",
+    "partnerPush": "دفع API الشريك",
+    "copyAudit": "تدقيق النص"
   },
   "language": {
     "label": "اللغة",

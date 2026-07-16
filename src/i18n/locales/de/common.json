@@ -157,7 +157,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "KI-Tools",
+    "sessions": "Sitzungen & Geräte",
+    "staffAssistant": "Wissens-Assistent",
+    "partnerPush": "Partner-API",
+    "copyAudit": "Text-Audit"
   },
   "language": {
     "label": "Sprache",

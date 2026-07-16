@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "Amûrên AI",
+    "sessions": "Danişîn",
+    "staffAssistant": "Alîkarê zanînê",
+    "partnerPush": "API-ya Hevkar",
+    "copyAudit": "Kontrola nivîsê"
   },
   "language": {
     "label": "Ziman",

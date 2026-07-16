@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "AI araçları",
+    "sessions": "Oturumlar",
+    "staffAssistant": "Bilgi asistanı",
+    "partnerPush": "Partner API",
+    "copyAudit": "Metin denetimi"
   },
   "language": {
     "label": "Dil",

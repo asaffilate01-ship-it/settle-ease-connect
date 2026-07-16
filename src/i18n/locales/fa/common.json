@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "ابزارهای هوش مصنوعی",
+    "sessions": "نشست‌ها",
+    "staffAssistant": "دستیار دانش",
+    "partnerPush": "API شریک",
+    "copyAudit": "ممیزی متن"
   },
   "agent": {
     "defaultName": "نماینده",

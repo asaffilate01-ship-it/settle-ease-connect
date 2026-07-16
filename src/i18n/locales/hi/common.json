@@ -114,7 +114,12 @@
     "taxOps": "Tax ops",
     "benefitsOps": "Benefits ops",
     "medicalOps": "Medical ops",
-    "newArrivalsOps": "New arrivals"
+    "newArrivalsOps": "New arrivals",
+    "aiTools": "एआई टूल्स",
+    "sessions": "सत्र",
+    "staffAssistant": "केबी सहायक",
+    "partnerPush": "साझेदार एपीआई",
+    "copyAudit": "कॉपी ऑडिट"
   },
   "language": {
     "label": "भाषा",
