@@ -224,6 +224,75 @@ export type Database = {
         }
         Relationships: []
       }
+      case_appointments: {
+        Row: {
+          attendee_emails: string[]
+          attendee_user_ids: string[]
+          case_id: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string
+          id: string
+          location: string | null
+          meeting_url: string | null
+          reminder_minutes: number | null
+          starts_at: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          attendee_emails?: string[]
+          attendee_user_ids?: string[]
+          case_id: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at: string
+          id?: string
+          location?: string | null
+          meeting_url?: string | null
+          reminder_minutes?: number | null
+          starts_at: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          attendee_emails?: string[]
+          attendee_user_ids?: string[]
+          case_id?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string
+          id?: string
+          location?: string | null
+          meeting_url?: string | null
+          reminder_minutes?: number | null
+          starts_at?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_appointments_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_appointments_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       case_assignments: {
         Row: {
           assigned_at: string
@@ -279,6 +348,13 @@ export type Database = {
             foreignKeyName: "case_assignments_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_assignments_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
             referencedRelation: "cases"
             referencedColumns: ["id"]
           },
@@ -326,6 +402,13 @@ export type Database = {
             foreignKeyName: "case_documents_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_documents_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
             referencedRelation: "cases"
             referencedColumns: ["id"]
           },
@@ -357,6 +440,13 @@ export type Database = {
           payload?: Json
         }
         Relationships: [
+          {
+            foreignKeyName: "case_events_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "case_events_case_id_fkey"
             columns: ["case_id"]
@@ -423,6 +513,13 @@ export type Database = {
             foreignKeyName: "case_invoices_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_invoices_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
             referencedRelation: "cases"
             referencedColumns: ["id"]
           },
@@ -472,6 +569,13 @@ export type Database = {
             foreignKeyName: "case_messages_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_messages_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
             referencedRelation: "cases"
             referencedColumns: ["id"]
           },
@@ -503,6 +607,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "case_participants_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "case_participants_case_id_fkey"
             columns: ["case_id"]
@@ -578,6 +689,13 @@ export type Database = {
           vat_pct?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "case_quotes_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "case_quotes_case_id_fkey"
             columns: ["case_id"]
@@ -659,6 +777,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "case_tasks_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "case_tasks_case_id_fkey"
             columns: ["case_id"]
@@ -816,6 +941,8 @@ export type Database = {
           city: string | null
           client_user_id: string
           closed_at: string | null
+          closure_csat_requested: boolean
+          closure_reason: string | null
           closure_report: string | null
           created_at: string
           current_stage: string | null
@@ -841,6 +968,8 @@ export type Database = {
           city?: string | null
           client_user_id: string
           closed_at?: string | null
+          closure_csat_requested?: boolean
+          closure_reason?: string | null
           closure_report?: string | null
           created_at?: string
           current_stage?: string | null
@@ -866,6 +995,8 @@ export type Database = {
           city?: string | null
           client_user_id?: string
           closed_at?: string | null
+          closure_csat_requested?: boolean
+          closure_reason?: string | null
           closure_report?: string | null
           created_at?: string
           current_stage?: string | null
@@ -1034,6 +1165,13 @@ export type Database = {
             foreignKeyName: "crm_activities_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "crm_activities_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
             referencedRelation: "cases"
             referencedColumns: ["id"]
           },
@@ -1163,6 +1301,13 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "crm_complaints_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "crm_complaints_case_id_fkey"
             columns: ["case_id"]
@@ -1367,6 +1512,13 @@ export type Database = {
             foreignKeyName: "crm_follow_ups_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "crm_follow_ups_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
             referencedRelation: "cases"
             referencedColumns: ["id"]
           },
@@ -1505,6 +1657,13 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "crm_satisfaction_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "crm_satisfaction_case_id_fkey"
             columns: ["case_id"]
@@ -2049,6 +2208,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "expert_payouts_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "expert_payouts_case_id_fkey"
             columns: ["case_id"]
@@ -2923,6 +3089,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "message_channels_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
           {
             foreignKeyName: "message_channels_case_id_fkey"
             columns: ["case_id"]
@@ -3912,7 +4085,51 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      case_sla_status: {
+        Row: {
+          case_id: string | null
+          case_manager_user_id: string | null
+          client_user_id: string | null
+          current_stage: string | null
+          hours_remaining: number | null
+          priority: string | null
+          risk_level: string | null
+          sla_due_at: string | null
+          sla_state: string | null
+          status: Database["public"]["Enums"]["case_status"] | null
+          template_code: string | null
+          title: string | null
+        }
+        Insert: {
+          case_id?: string | null
+          case_manager_user_id?: string | null
+          client_user_id?: string | null
+          current_stage?: string | null
+          hours_remaining?: never
+          priority?: string | null
+          risk_level?: string | null
+          sla_due_at?: string | null
+          sla_state?: never
+          status?: Database["public"]["Enums"]["case_status"] | null
+          template_code?: string | null
+          title?: string | null
+        }
+        Update: {
+          case_id?: string | null
+          case_manager_user_id?: string | null
+          client_user_id?: string | null
+          current_stage?: string | null
+          hours_remaining?: never
+          priority?: string | null
+          risk_level?: string | null
+          sla_due_at?: string | null
+          sla_state?: never
+          status?: Database["public"]["Enums"]["case_status"] | null
+          template_code?: string | null
+          title?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       accept_expert_invitation: { Args: { _token: string }; Returns: string }
@@ -3923,6 +4140,15 @@ export type Database = {
       can_access_case: {
         Args: { _case_id: string; _user_id: string }
         Returns: boolean
+      }
+      close_case: {
+        Args: {
+          _case_id: string
+          _closure_reason: string
+          _closure_report: Json
+          _request_csat?: boolean
+        }
+        Returns: undefined
       }
       generate_agent_code: { Args: never; Returns: string }
       generate_monthly_agent_commissions: {
