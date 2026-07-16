@@ -39,6 +39,7 @@ function AuditPage() {
   }
 
   return (
+    <Aal2Gate reason="The audit log exposes sensitive compliance data. Confirm your authenticator code to continue.">
     <div className="mx-auto max-w-6xl space-y-5">
       <header>
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
