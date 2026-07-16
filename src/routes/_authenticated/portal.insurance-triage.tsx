@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { AlertTriangle, Info, ShieldAlert, Stethoscope } from "lucide-react";
+import { AlertTriangle, Download, Info, ShieldAlert, Stethoscope } from "lucide-react";
 import { toast } from "sonner";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -18,6 +18,7 @@ import {
   triageStats,
   TRIAGE_ROUTES,
 } from "@/lib/insurance-triage.functions";
+import { exportInsuranceLeadsCsv } from "@/lib/insurance-export.functions";
 
 const leadsQ = queryOptions({
   queryKey: ["triage", "leads"],
