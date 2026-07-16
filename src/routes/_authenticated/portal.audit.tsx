@@ -100,5 +100,6 @@ function AuditPage() {
         </table>
       </div>
     </div>
+    </Aal2Gate>
   );
 }
