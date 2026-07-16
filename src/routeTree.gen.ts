@@ -61,6 +61,7 @@ import { Route as AuthenticatedPortalNewArrivalsRouteImport } from './routes/_au
 import { Route as AuthenticatedPortalMedicalRouteImport } from './routes/_authenticated/portal.medical'
 import { Route as AuthenticatedPortalLeadsRouteImport } from './routes/_authenticated/portal.leads'
 import { Route as AuthenticatedPortalKnowledgeRouteImport } from './routes/_authenticated/portal.knowledge'
+import { Route as AuthenticatedPortalInsuranceTriageRouteImport } from './routes/_authenticated/portal.insurance-triage'
 import { Route as AuthenticatedPortalInsuranceRouteImport } from './routes/_authenticated/portal.insurance'
 import { Route as AuthenticatedPortalImmigrationRouteImport } from './routes/_authenticated/portal.immigration'
 import { Route as AuthenticatedPortalFuneralCoverRouteImport } from './routes/_authenticated/portal.funeral-cover'
@@ -391,6 +392,12 @@ const AuthenticatedPortalKnowledgeRoute =
   AuthenticatedPortalKnowledgeRouteImport.update({
     id: '/knowledge',
     path: '/knowledge',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalInsuranceTriageRoute =
+  AuthenticatedPortalInsuranceTriageRouteImport.update({
+    id: '/insurance-triage',
+    path: '/insurance-triage',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalInsuranceRoute =
@@ -834,6 +841,7 @@ export interface FileRoutesByFullPath {
   '/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
+  '/portal/insurance-triage': typeof AuthenticatedPortalInsuranceTriageRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/medical': typeof AuthenticatedPortalMedicalRoute
@@ -943,6 +951,7 @@ export interface FileRoutesByTo {
   '/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
   '/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
+  '/portal/insurance-triage': typeof AuthenticatedPortalInsuranceTriageRoute
   '/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/portal/medical': typeof AuthenticatedPortalMedicalRoute
@@ -1057,6 +1066,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/funeral-cover': typeof AuthenticatedPortalFuneralCoverRoute
   '/_authenticated/portal/immigration': typeof AuthenticatedPortalImmigrationRoute
   '/_authenticated/portal/insurance': typeof AuthenticatedPortalInsuranceRoute
+  '/_authenticated/portal/insurance-triage': typeof AuthenticatedPortalInsuranceTriageRoute
   '/_authenticated/portal/knowledge': typeof AuthenticatedPortalKnowledgeRouteWithChildren
   '/_authenticated/portal/leads': typeof AuthenticatedPortalLeadsRoute
   '/_authenticated/portal/medical': typeof AuthenticatedPortalMedicalRoute
@@ -1173,6 +1183,7 @@ export interface FileRouteTypes {
     | '/portal/funeral-cover'
     | '/portal/immigration'
     | '/portal/insurance'
+    | '/portal/insurance-triage'
     | '/portal/knowledge'
     | '/portal/leads'
     | '/portal/medical'
@@ -1282,6 +1293,7 @@ export interface FileRouteTypes {
     | '/portal/funeral-cover'
     | '/portal/immigration'
     | '/portal/insurance'
+    | '/portal/insurance-triage'
     | '/portal/knowledge'
     | '/portal/leads'
     | '/portal/medical'
@@ -1395,6 +1407,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/funeral-cover'
     | '/_authenticated/portal/immigration'
     | '/_authenticated/portal/insurance'
+    | '/_authenticated/portal/insurance-triage'
     | '/_authenticated/portal/knowledge'
     | '/_authenticated/portal/leads'
     | '/_authenticated/portal/medical'
@@ -1821,6 +1834,13 @@ declare module '@tanstack/react-router' {
       path: '/knowledge'
       fullPath: '/portal/knowledge'
       preLoaderRoute: typeof AuthenticatedPortalKnowledgeRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/insurance-triage': {
+      id: '/_authenticated/portal/insurance-triage'
+      path: '/insurance-triage'
+      fullPath: '/portal/insurance-triage'
+      preLoaderRoute: typeof AuthenticatedPortalInsuranceTriageRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/insurance': {
@@ -2478,6 +2498,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalFuneralCoverRoute: typeof AuthenticatedPortalFuneralCoverRoute
   AuthenticatedPortalImmigrationRoute: typeof AuthenticatedPortalImmigrationRoute
   AuthenticatedPortalInsuranceRoute: typeof AuthenticatedPortalInsuranceRoute
+  AuthenticatedPortalInsuranceTriageRoute: typeof AuthenticatedPortalInsuranceTriageRoute
   AuthenticatedPortalKnowledgeRoute: typeof AuthenticatedPortalKnowledgeRouteWithChildren
   AuthenticatedPortalLeadsRoute: typeof AuthenticatedPortalLeadsRoute
   AuthenticatedPortalMedicalRoute: typeof AuthenticatedPortalMedicalRoute
@@ -2508,6 +2529,8 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalFuneralCoverRoute: AuthenticatedPortalFuneralCoverRoute,
   AuthenticatedPortalImmigrationRoute: AuthenticatedPortalImmigrationRoute,
   AuthenticatedPortalInsuranceRoute: AuthenticatedPortalInsuranceRoute,
+  AuthenticatedPortalInsuranceTriageRoute:
+    AuthenticatedPortalInsuranceTriageRoute,
   AuthenticatedPortalKnowledgeRoute:
     AuthenticatedPortalKnowledgeRouteWithChildren,
   AuthenticatedPortalLeadsRoute: AuthenticatedPortalLeadsRoute,

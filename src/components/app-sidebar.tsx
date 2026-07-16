@@ -59,6 +59,7 @@ const nav: NavItem[] = [
   { to: "/portal/directory", labelKey: "sidebar.directoryMod", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
+  { to: "/portal/insurance-triage", labelKey: "sidebar.insuranceTriage", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
   { to: "/portal/referrals", labelKey: "sidebar.referrals", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/immigration", labelKey: "sidebar.immigrationOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/tax", labelKey: "sidebar.taxOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "tax_admin" },
