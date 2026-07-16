@@ -69,6 +69,7 @@ const nav: NavItem[] = [
   { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/case-templates", labelKey: "sidebar.caseTemplates", icon: "checklists", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/operations", labelKey: "sidebar.operations", icon: "cases", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/my-desk", labelKey: "sidebar.myDesk", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/analytics", labelKey: "sidebar.analytics", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/management", labelKey: "sidebar.management", icon: "overview", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/dela", labelKey: "sidebar.dela", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
