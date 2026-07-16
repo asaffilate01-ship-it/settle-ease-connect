@@ -65,9 +65,11 @@
 - Partner portal: `/partner` — org profile, assigned cases (accept/decline invitations), documents.
 - Still to build: document upload UI, category/region editors, availability editor, translator sworn-court UI, partner document verification workflow.
 
-### Stage 5 — Audit expansion
-- `audit_log` already exists — add insert triggers on: `profiles`, `cases`, `case_documents`, `crm_consents`, `dela_referrals`, `insurance_leads`, `vault_documents` (view/download), `user_roles` (grant/revoke).
-- Ensure append-only: revoke UPDATE/DELETE on `audit_log` from all roles except migrations.
+### Stage 5 — Audit expansion ✅
+- `audit_log` is now append-only: UPDATE/DELETE revoked and blocked by trigger.
+- Generic `audit_row_change` trigger writes INSERT/UPDATE/DELETE events with per-column diffs (skips timestamp-only churn).
+- Attached to: `profiles`, `cases`, `case_documents`, `crm_consents`, `dela_referrals`, `insurance_leads`, `user_roles`, `partner_organisations`, `partner_users`.
+- `/portal/audit` (existing) already surfaces the log.
 
 ### Stage 6 — UI simplification
 Homepage: five clear paths only —
