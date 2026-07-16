@@ -54,6 +54,7 @@ const nav: NavItem[] = [
   { to: "/app/upgrade", labelKey: "sidebar.upgrade", icon: "benefits", audience: "client" },
   { to: "/app/student-discount", labelKey: "sidebar.studentDiscount", icon: "benefits", audience: "client" },
   { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/crm", labelKey: "sidebar.crm", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/capacity", labelKey: "sidebar.capacity", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/directory", labelKey: "sidebar.directoryMod", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },

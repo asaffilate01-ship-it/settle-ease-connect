@@ -68,6 +68,7 @@ import { Route as AuthenticatedPortalFinancialsRouteImport } from './routes/_aut
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
+import { Route as AuthenticatedPortalCrmRouteImport } from './routes/_authenticated/portal.crm'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
@@ -100,15 +101,23 @@ import { Route as AuthenticatedAgentLinkRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAgentLeadsRouteImport } from './routes/_authenticated/agent.leads'
 import { Route as AuthenticatedAgentCommissionsRouteImport } from './routes/_authenticated/agent.commissions'
 import { Route as AuthenticatedAgentClientsRouteImport } from './routes/_authenticated/agent.clients'
+import { Route as AuthenticatedPortalCrmIndexRouteImport } from './routes/_authenticated/portal.crm.index'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as AuthenticatedPortalKnowledgeSlugRouteImport } from './routes/_authenticated/portal.knowledge.$slug'
 import { Route as AuthenticatedPortalGanttCaseIdRouteImport } from './routes/_authenticated/portal.gantt.$caseId'
+import { Route as AuthenticatedPortalCrmLeadsRouteImport } from './routes/_authenticated/portal.crm.leads'
+import { Route as AuthenticatedPortalCrmContactsRouteImport } from './routes/_authenticated/portal.crm.contacts'
+import { Route as AuthenticatedPortalCrmComplaintsRouteImport } from './routes/_authenticated/portal.crm.complaints'
 import { Route as AuthenticatedPortalAdminUsersRouteImport } from './routes/_authenticated/portal.admin.users'
 import { Route as AuthenticatedPortalAdminInviteRouteImport } from './routes/_authenticated/portal.admin.invite'
 import { Route as AuthenticatedExpertCasesCaseIdRouteImport } from './routes/_authenticated/expert.cases.$caseId'
 import { Route as AuthenticatedAppMessagesChannelIdRouteImport } from './routes/_authenticated/app.messages.$channelId'
 import { Route as AuthenticatedAppCasesNewRouteImport } from './routes/_authenticated/app.cases.new'
 import { Route as AuthenticatedAppCasesCaseIdRouteImport } from './routes/_authenticated/app.cases.$caseId'
+import { Route as AuthenticatedPortalCrmLeadsIndexRouteImport } from './routes/_authenticated/portal.crm.leads.index'
+import { Route as AuthenticatedPortalCrmContactsIndexRouteImport } from './routes/_authenticated/portal.crm.contacts.index'
+import { Route as AuthenticatedPortalCrmLeadsLeadIdRouteImport } from './routes/_authenticated/portal.crm.leads.$leadId'
+import { Route as AuthenticatedPortalCrmContactsContactIdRouteImport } from './routes/_authenticated/portal.crm.contacts.$contactId'
 
 const TrustRoute = TrustRouteImport.update({
   id: '/trust',
@@ -422,6 +431,11 @@ const AuthenticatedPortalDirectoryRoute =
     path: '/directory',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalCrmRoute = AuthenticatedPortalCrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => AuthenticatedPortalRoute,
+} as any)
 const AuthenticatedPortalCapacityRoute =
   AuthenticatedPortalCapacityRouteImport.update({
     id: '/capacity',
@@ -606,6 +620,12 @@ const AuthenticatedAgentClientsRoute =
     path: '/clients',
     getParentRoute: () => AuthenticatedAgentRoute,
   } as any)
+const AuthenticatedPortalCrmIndexRoute =
+  AuthenticatedPortalCrmIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPortalCrmRoute,
+  } as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
@@ -623,6 +643,24 @@ const AuthenticatedPortalGanttCaseIdRoute =
     id: '/gantt/$caseId',
     path: '/gantt/$caseId',
     getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalCrmLeadsRoute =
+  AuthenticatedPortalCrmLeadsRouteImport.update({
+    id: '/leads',
+    path: '/leads',
+    getParentRoute: () => AuthenticatedPortalCrmRoute,
+  } as any)
+const AuthenticatedPortalCrmContactsRoute =
+  AuthenticatedPortalCrmContactsRouteImport.update({
+    id: '/contacts',
+    path: '/contacts',
+    getParentRoute: () => AuthenticatedPortalCrmRoute,
+  } as any)
+const AuthenticatedPortalCrmComplaintsRoute =
+  AuthenticatedPortalCrmComplaintsRouteImport.update({
+    id: '/complaints',
+    path: '/complaints',
+    getParentRoute: () => AuthenticatedPortalCrmRoute,
   } as any)
 const AuthenticatedPortalAdminUsersRoute =
   AuthenticatedPortalAdminUsersRouteImport.update({
@@ -659,6 +697,30 @@ const AuthenticatedAppCasesCaseIdRoute =
     id: '/$caseId',
     path: '/$caseId',
     getParentRoute: () => AuthenticatedAppCasesRoute,
+  } as any)
+const AuthenticatedPortalCrmLeadsIndexRoute =
+  AuthenticatedPortalCrmLeadsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPortalCrmLeadsRoute,
+  } as any)
+const AuthenticatedPortalCrmContactsIndexRoute =
+  AuthenticatedPortalCrmContactsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPortalCrmContactsRoute,
+  } as any)
+const AuthenticatedPortalCrmLeadsLeadIdRoute =
+  AuthenticatedPortalCrmLeadsLeadIdRouteImport.update({
+    id: '/$leadId',
+    path: '/$leadId',
+    getParentRoute: () => AuthenticatedPortalCrmLeadsRoute,
+  } as any)
+const AuthenticatedPortalCrmContactsContactIdRoute =
+  AuthenticatedPortalCrmContactsContactIdRouteImport.update({
+    id: '/$contactId',
+    path: '/$contactId',
+    getParentRoute: () => AuthenticatedPortalCrmContactsRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -733,6 +795,7 @@ export interface FileRoutesByFullPath {
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -758,9 +821,17 @@ export interface FileRoutesByFullPath {
   '/expert/cases/$caseId': typeof AuthenticatedExpertCasesCaseIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/portal/crm/complaints': typeof AuthenticatedPortalCrmComplaintsRoute
+  '/portal/crm/contacts': typeof AuthenticatedPortalCrmContactsRouteWithChildren
+  '/portal/crm/leads': typeof AuthenticatedPortalCrmLeadsRouteWithChildren
   '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/portal/crm/': typeof AuthenticatedPortalCrmIndexRoute
+  '/portal/crm/contacts/$contactId': typeof AuthenticatedPortalCrmContactsContactIdRoute
+  '/portal/crm/leads/$leadId': typeof AuthenticatedPortalCrmLeadsLeadIdRoute
+  '/portal/crm/contacts/': typeof AuthenticatedPortalCrmContactsIndexRoute
+  '/portal/crm/leads/': typeof AuthenticatedPortalCrmLeadsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -855,9 +926,15 @@ export interface FileRoutesByTo {
   '/expert/cases/$caseId': typeof AuthenticatedExpertCasesCaseIdRoute
   '/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/portal/crm/complaints': typeof AuthenticatedPortalCrmComplaintsRoute
   '/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/portal/crm': typeof AuthenticatedPortalCrmIndexRoute
+  '/portal/crm/contacts/$contactId': typeof AuthenticatedPortalCrmContactsContactIdRoute
+  '/portal/crm/leads/$leadId': typeof AuthenticatedPortalCrmLeadsLeadIdRoute
+  '/portal/crm/contacts': typeof AuthenticatedPortalCrmContactsIndexRoute
+  '/portal/crm/leads': typeof AuthenticatedPortalCrmLeadsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -933,6 +1010,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
+  '/_authenticated/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
@@ -958,9 +1036,17 @@ export interface FileRoutesById {
   '/_authenticated/expert/cases/$caseId': typeof AuthenticatedExpertCasesCaseIdRoute
   '/_authenticated/portal/admin/invite': typeof AuthenticatedPortalAdminInviteRoute
   '/_authenticated/portal/admin/users': typeof AuthenticatedPortalAdminUsersRoute
+  '/_authenticated/portal/crm/complaints': typeof AuthenticatedPortalCrmComplaintsRoute
+  '/_authenticated/portal/crm/contacts': typeof AuthenticatedPortalCrmContactsRouteWithChildren
+  '/_authenticated/portal/crm/leads': typeof AuthenticatedPortalCrmLeadsRouteWithChildren
   '/_authenticated/portal/gantt/$caseId': typeof AuthenticatedPortalGanttCaseIdRoute
   '/_authenticated/portal/knowledge/$slug': typeof AuthenticatedPortalKnowledgeSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/_authenticated/portal/crm/': typeof AuthenticatedPortalCrmIndexRoute
+  '/_authenticated/portal/crm/contacts/$contactId': typeof AuthenticatedPortalCrmContactsContactIdRoute
+  '/_authenticated/portal/crm/leads/$leadId': typeof AuthenticatedPortalCrmLeadsLeadIdRoute
+  '/_authenticated/portal/crm/contacts/': typeof AuthenticatedPortalCrmContactsIndexRoute
+  '/_authenticated/portal/crm/leads/': typeof AuthenticatedPortalCrmLeadsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1036,6 +1122,7 @@ export interface FileRouteTypes {
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
+    | '/portal/crm'
     | '/portal/directory'
     | '/portal/escrow'
     | '/portal/experts'
@@ -1061,9 +1148,17 @@ export interface FileRouteTypes {
     | '/expert/cases/$caseId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
+    | '/portal/crm/complaints'
+    | '/portal/crm/contacts'
+    | '/portal/crm/leads'
     | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
     | '/api/public/payments/webhook'
+    | '/portal/crm/'
+    | '/portal/crm/contacts/$contactId'
+    | '/portal/crm/leads/$leadId'
+    | '/portal/crm/contacts/'
+    | '/portal/crm/leads/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1158,9 +1253,15 @@ export interface FileRouteTypes {
     | '/expert/cases/$caseId'
     | '/portal/admin/invite'
     | '/portal/admin/users'
+    | '/portal/crm/complaints'
     | '/portal/gantt/$caseId'
     | '/portal/knowledge/$slug'
     | '/api/public/payments/webhook'
+    | '/portal/crm'
+    | '/portal/crm/contacts/$contactId'
+    | '/portal/crm/leads/$leadId'
+    | '/portal/crm/contacts'
+    | '/portal/crm/leads'
   id:
     | '__root__'
     | '/'
@@ -1235,6 +1336,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
+    | '/_authenticated/portal/crm'
     | '/_authenticated/portal/directory'
     | '/_authenticated/portal/escrow'
     | '/_authenticated/portal/experts'
@@ -1260,9 +1362,17 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/cases/$caseId'
     | '/_authenticated/portal/admin/invite'
     | '/_authenticated/portal/admin/users'
+    | '/_authenticated/portal/crm/complaints'
+    | '/_authenticated/portal/crm/contacts'
+    | '/_authenticated/portal/crm/leads'
     | '/_authenticated/portal/gantt/$caseId'
     | '/_authenticated/portal/knowledge/$slug'
     | '/api/public/payments/webhook'
+    | '/_authenticated/portal/crm/'
+    | '/_authenticated/portal/crm/contacts/$contactId'
+    | '/_authenticated/portal/crm/leads/$leadId'
+    | '/_authenticated/portal/crm/contacts/'
+    | '/_authenticated/portal/crm/leads/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1711,6 +1821,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalDirectoryRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/crm': {
+      id: '/_authenticated/portal/crm'
+      path: '/crm'
+      fullPath: '/portal/crm'
+      preLoaderRoute: typeof AuthenticatedPortalCrmRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/capacity': {
       id: '/_authenticated/portal/capacity'
       path: '/capacity'
@@ -1935,6 +2052,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAgentClientsRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
     }
+    '/_authenticated/portal/crm/': {
+      id: '/_authenticated/portal/crm/'
+      path: '/'
+      fullPath: '/portal/crm/'
+      preLoaderRoute: typeof AuthenticatedPortalCrmIndexRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmRoute
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -1955,6 +2079,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/gantt/$caseId'
       preLoaderRoute: typeof AuthenticatedPortalGanttCaseIdRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/crm/leads': {
+      id: '/_authenticated/portal/crm/leads'
+      path: '/leads'
+      fullPath: '/portal/crm/leads'
+      preLoaderRoute: typeof AuthenticatedPortalCrmLeadsRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmRoute
+    }
+    '/_authenticated/portal/crm/contacts': {
+      id: '/_authenticated/portal/crm/contacts'
+      path: '/contacts'
+      fullPath: '/portal/crm/contacts'
+      preLoaderRoute: typeof AuthenticatedPortalCrmContactsRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmRoute
+    }
+    '/_authenticated/portal/crm/complaints': {
+      id: '/_authenticated/portal/crm/complaints'
+      path: '/complaints'
+      fullPath: '/portal/crm/complaints'
+      preLoaderRoute: typeof AuthenticatedPortalCrmComplaintsRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmRoute
     }
     '/_authenticated/portal/admin/users': {
       id: '/_authenticated/portal/admin/users'
@@ -1997,6 +2142,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/cases/$caseId'
       preLoaderRoute: typeof AuthenticatedAppCasesCaseIdRouteImport
       parentRoute: typeof AuthenticatedAppCasesRoute
+    }
+    '/_authenticated/portal/crm/leads/': {
+      id: '/_authenticated/portal/crm/leads/'
+      path: '/'
+      fullPath: '/portal/crm/leads/'
+      preLoaderRoute: typeof AuthenticatedPortalCrmLeadsIndexRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmLeadsRoute
+    }
+    '/_authenticated/portal/crm/contacts/': {
+      id: '/_authenticated/portal/crm/contacts/'
+      path: '/'
+      fullPath: '/portal/crm/contacts/'
+      preLoaderRoute: typeof AuthenticatedPortalCrmContactsIndexRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmContactsRoute
+    }
+    '/_authenticated/portal/crm/leads/$leadId': {
+      id: '/_authenticated/portal/crm/leads/$leadId'
+      path: '/$leadId'
+      fullPath: '/portal/crm/leads/$leadId'
+      preLoaderRoute: typeof AuthenticatedPortalCrmLeadsLeadIdRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmLeadsRoute
+    }
+    '/_authenticated/portal/crm/contacts/$contactId': {
+      id: '/_authenticated/portal/crm/contacts/$contactId'
+      path: '/$contactId'
+      fullPath: '/portal/crm/contacts/$contactId'
+      preLoaderRoute: typeof AuthenticatedPortalCrmContactsContactIdRouteImport
+      parentRoute: typeof AuthenticatedPortalCrmContactsRoute
     }
   }
 }
@@ -2136,6 +2309,65 @@ const AuthenticatedExpertRouteChildren: AuthenticatedExpertRouteChildren = {
 const AuthenticatedExpertRouteWithChildren =
   AuthenticatedExpertRoute._addFileChildren(AuthenticatedExpertRouteChildren)
 
+interface AuthenticatedPortalCrmContactsRouteChildren {
+  AuthenticatedPortalCrmContactsContactIdRoute: typeof AuthenticatedPortalCrmContactsContactIdRoute
+  AuthenticatedPortalCrmContactsIndexRoute: typeof AuthenticatedPortalCrmContactsIndexRoute
+}
+
+const AuthenticatedPortalCrmContactsRouteChildren: AuthenticatedPortalCrmContactsRouteChildren =
+  {
+    AuthenticatedPortalCrmContactsContactIdRoute:
+      AuthenticatedPortalCrmContactsContactIdRoute,
+    AuthenticatedPortalCrmContactsIndexRoute:
+      AuthenticatedPortalCrmContactsIndexRoute,
+  }
+
+const AuthenticatedPortalCrmContactsRouteWithChildren =
+  AuthenticatedPortalCrmContactsRoute._addFileChildren(
+    AuthenticatedPortalCrmContactsRouteChildren,
+  )
+
+interface AuthenticatedPortalCrmLeadsRouteChildren {
+  AuthenticatedPortalCrmLeadsLeadIdRoute: typeof AuthenticatedPortalCrmLeadsLeadIdRoute
+  AuthenticatedPortalCrmLeadsIndexRoute: typeof AuthenticatedPortalCrmLeadsIndexRoute
+}
+
+const AuthenticatedPortalCrmLeadsRouteChildren: AuthenticatedPortalCrmLeadsRouteChildren =
+  {
+    AuthenticatedPortalCrmLeadsLeadIdRoute:
+      AuthenticatedPortalCrmLeadsLeadIdRoute,
+    AuthenticatedPortalCrmLeadsIndexRoute:
+      AuthenticatedPortalCrmLeadsIndexRoute,
+  }
+
+const AuthenticatedPortalCrmLeadsRouteWithChildren =
+  AuthenticatedPortalCrmLeadsRoute._addFileChildren(
+    AuthenticatedPortalCrmLeadsRouteChildren,
+  )
+
+interface AuthenticatedPortalCrmRouteChildren {
+  AuthenticatedPortalCrmComplaintsRoute: typeof AuthenticatedPortalCrmComplaintsRoute
+  AuthenticatedPortalCrmContactsRoute: typeof AuthenticatedPortalCrmContactsRouteWithChildren
+  AuthenticatedPortalCrmLeadsRoute: typeof AuthenticatedPortalCrmLeadsRouteWithChildren
+  AuthenticatedPortalCrmIndexRoute: typeof AuthenticatedPortalCrmIndexRoute
+}
+
+const AuthenticatedPortalCrmRouteChildren: AuthenticatedPortalCrmRouteChildren =
+  {
+    AuthenticatedPortalCrmComplaintsRoute:
+      AuthenticatedPortalCrmComplaintsRoute,
+    AuthenticatedPortalCrmContactsRoute:
+      AuthenticatedPortalCrmContactsRouteWithChildren,
+    AuthenticatedPortalCrmLeadsRoute:
+      AuthenticatedPortalCrmLeadsRouteWithChildren,
+    AuthenticatedPortalCrmIndexRoute: AuthenticatedPortalCrmIndexRoute,
+  }
+
+const AuthenticatedPortalCrmRouteWithChildren =
+  AuthenticatedPortalCrmRoute._addFileChildren(
+    AuthenticatedPortalCrmRouteChildren,
+  )
+
 interface AuthenticatedPortalKnowledgeRouteChildren {
   AuthenticatedPortalKnowledgeSlugRoute: typeof AuthenticatedPortalKnowledgeSlugRoute
 }
@@ -2155,6 +2387,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
+  AuthenticatedPortalCrmRoute: typeof AuthenticatedPortalCrmRouteWithChildren
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
@@ -2180,6 +2413,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
+  AuthenticatedPortalCrmRoute: AuthenticatedPortalCrmRouteWithChildren,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
@@ -2319,13 +2553,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
