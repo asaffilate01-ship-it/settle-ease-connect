@@ -353,6 +353,81 @@
       "messagePh": "W czym możemy pomóc?",
       "send": "Wyślij wiadomość",
       "thanks": "Dziękujemy — wkrótce się skontaktujemy."
+    },
+    "referrals": {
+      "title": "Zaproś znajomych, zdobywaj nagrody",
+      "subtitle": "Otrzymaj 5 € za każdego znajomego, który zasubskrybuje. Oni dostają pierwszy miesiąc za darmo.",
+      "pending": "Oczekujące zaproszenia",
+      "subscribed": "Subskrybowane",
+      "rewards": "Zdobyte nagrody",
+      "inviteByEmail": "Zaproś przez e-mail",
+      "sending": "Wysyłanie…",
+      "createInvite": "Utwórz zaproszenie",
+      "yourInvites": "Twoje zaproszenia",
+      "noInvites": "Brak zaproszeń.",
+      "linkCopied": "Link skopiowany",
+      "inviteCreated": "Zaproszenie utworzone — udostępnij kod {{code}}",
+      "failed": "Niepowodzenie"
+    },
+    "sessions": {
+      "title": "Bezpieczeństwo i urządzenia",
+      "subtitle": "Przejrzyj ostatnie logowania i zarejestrowane klucze bezpieczeństwa.",
+      "passkeys": "Klucze dostępu i czynniki drugiego stopnia",
+      "noneEnrolled": "Brak zarejestrowanych kluczy bezpieczeństwa.",
+      "addPasskey": "Dodaj klucz dostępu / czynnik drugiego stopnia",
+      "enrolling": "Rejestrowanie…",
+      "enrolled": "Czynnik drugiego stopnia zarejestrowany",
+      "enrollFailed": "Rejestracja nie powiodła się",
+      "recent": "Ostatnia aktywność",
+      "noEvents": "Brak zarejestrowanych zdarzeń.",
+      "unknownDevice": "nieznane urządzenie"
+    },
+    "copyAudit": {
+      "title": "Audyt regulowanych kopii",
+      "subtitle": "Przejrzyj zastrzeżenia, banery \"nie jest poradą\" i język zgody na regulowanych powierzchniach.",
+      "reviewerNotesPh": "Uwagi recenzenta (brakujące zastrzeżenia, ton, tłumaczenia…)",
+      "reviewedOn": "Przejrzano {{date}}",
+      "saved": "Zapisano",
+      "status": {
+        "pending": "oczekujący",
+        "approved": "zatwierdzony",
+        "needsRevision": "wymaga rewizji",
+        "blocked": "zablokowany"
+      }
+    },
+    "partnerPush": {
+      "title": "Triage ubezpieczeniowy → wysyłanie do API partnera",
+      "subtitle": "Wyślij wstępnie zakwalifikowanego leada do punktu końcowego partnera. Suchy przebieg rejestruje ładunek bez wywoływania.",
+      "leadIdPh": "UUID leada ubezpieczeniowego",
+      "partnerCodePh": "Kod partnera (np. dela)",
+      "endpointPh": "Adres URL punktu końcowego",
+      "liveSend": "Wysyłka na żywo (odznacz dla suchego przebiegu)",
+      "pushing": "Wysyłanie…",
+      "pushLive": "Wyślij na żywo",
+      "dryRun": "Suchy przebieg wysyłki",
+      "recent": "Ostatnie wysyłki",
+      "pushedLive": "Wysłano na żywo",
+      "recordedDryRun": "Zarejestrowany suchy przebieg"
+    },
+    "staffAssistant": {
+      "title": "Wewnętrzny asystent KB",
+      "subtitle": "Tylko dla personelu · Urocza AI · Nie udostępniaj dosłownie klientom",
+      "greeting": "Cześć — jestem Twoim wewnętrznym asystentem KB. Zapytaj mnie o niemieckie świadczenia socjalne, zasiłki, imigrację, podatki lub procedury pogrzebowe.",
+      "inputPh": "Zapytaj o usługę, termin lub regulację…",
+      "thinking": "Myślę…"
+    },
+    "aiTools": {
+      "title": "Narzędzia AI do dokumentów",
+      "subtitle": "Podsumuj dokument lub wyodrębnij pola kwalifikacyjne dla formularzy zasiłkowych. Działa na Lovable AI.",
+      "tabSummary": "Podsumuj",
+      "tabEligibility": "Wypełnij wstępnie kwalifikację",
+      "filenamePh": "Nazwa pliku (np. bescheid_2024.pdf)",
+      "textPh": "Wklej tutaj wyodrębniony tekst dokumentu…",
+      "working": "Pracuję…",
+      "generateSummary": "Generuj podsumowanie",
+      "extractFields": "Wyodrębnij pola",
+      "summaryLabel": "Podsumowanie",
+      "fieldsLabel": "Wyodrębnione pola"
     }
   },
   "funeralCover": {

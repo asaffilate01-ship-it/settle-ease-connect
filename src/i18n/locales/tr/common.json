@@ -353,6 +353,81 @@
       "messagePh": "Size nasıl yardımcı olabiliriz?",
       "send": "Mesaj gönder",
       "thanks": "Teşekkür ederiz — en kısa sürede sizinle iletişime geçeceğiz."
+    },
+    "referrals": {
+      "title": "Arkadaşlarını davet et, ödüller kazan",
+      "subtitle": "Abone olan her arkadaşın için 5 € kredi kazan. Onlar ilk ay ücretsiz alır.",
+      "pending": "Bekleyen davetler",
+      "subscribed": "Abone olundu",
+      "rewards": "Kazanılan ödüller",
+      "inviteByEmail": "E-posta ile davet et",
+      "sending": "Gönderiliyor…",
+      "createInvite": "Davet oluştur",
+      "yourInvites": "Davetlerin",
+      "noInvites": "Henüz davet yok.",
+      "linkCopied": "Bağlantı kopyalandı",
+      "inviteCreated": "Davet oluşturuldu — kodu paylaş {{code}}",
+      "failed": "Başarısız oldu"
+    },
+    "sessions": {
+      "title": "Güvenlik ve cihazlar",
+      "subtitle": "Son oturum açma işlemlerini ve kayıtlı güvenlik anahtarlarını incele.",
+      "passkeys": "Geçiş anahtarları ve ikinci faktörler",
+      "noneEnrolled": "Kayıtlı güvenlik anahtarı yok.",
+      "addPasskey": "Geçiş anahtarı / ikinci faktör ekle",
+      "enrolling": "Kaydediliyor…",
+      "enrolled": "İkinci faktör kaydedildi",
+      "enrollFailed": "Kayıt başarısız oldu",
+      "recent": "Son etkinlik",
+      "noEvents": "Henüz kaydedilmiş olay yok.",
+      "unknownDevice": "bilinmeyen cihaz"
+    },
+    "copyAudit": {
+      "title": "Düzenlenmiş kopya denetimi",
+      "subtitle": "Yasal yüzeylerdeki sorumluluk reddi beyanlarını, \"tavsiye değildir\" başlıklarını ve onay dilini inceleyin.",
+      "reviewerNotesPh": "İnceleyen notları (eksik sorumluluk reddi beyanları, ton, çeviriler…)",
+      "reviewedOn": "İncelendi {{date}}",
+      "saved": "Kaydedildi",
+      "status": {
+        "pending": "beklemede",
+        "approved": "onaylandı",
+        "needsRevision": "revizyon gerekli",
+        "blocked": "engellendi"
+      }
+    },
+    "partnerPush": {
+      "title": "Sigorta triyajı → ortak API itme",
+      "subtitle": "Triage edilmiş bir potansiyel müşteriyi bir ortak uç noktasına gönderin. Deneme çalıştırması, çağrı yapmadan yükü kaydeder.",
+      "leadIdPh": "Sigorta potansiyel müşteri UUID'si",
+      "partnerCodePh": "Ortak kodu (örn. dela)",
+      "endpointPh": "Uç nokta URL'si",
+      "liveSend": "Canlı gönderim (deneme çalıştırması için işareti kaldırın)",
+      "pushing": "Gönderiliyor…",
+      "pushLive": "Canlı gönder",
+      "dryRun": "Deneme çalıştırması gönder",
+      "recent": "Son gönderimler",
+      "pushedLive": "Canlı gönderildi",
+      "recordedDryRun": "Kaydedilen deneme çalıştırması"
+    },
+    "staffAssistant": {
+      "title": "Dahili KB asistanı",
+      "subtitle": "Yalnızca personel · Sevimli Yapay Zeka · Müşterilerle kelimesi kelimesine paylaşmayın",
+      "greeting": "Merhaba — Ben sizin dahili KB asistanınızım. Bana Alman refahı, yardımları, göçmenlik, vergi veya cenaze süreçleri hakkında sorular sorun.",
+      "inputPh": "Bir hizmet, son tarih veya düzenleme hakkında soru sorun…",
+      "thinking": "Düşünüyor…"
+    },
+    "aiTools": {
+      "title": "Yapay zeka belge araçları",
+      "subtitle": "Bir belgeyi özetleyin veya fayda formları için uygunluk alanlarını çıkarın. Sevimli Yapay Zeka üzerinde çalışır.",
+      "tabSummary": "Özetle",
+      "tabEligibility": "Uygunluğu önceden doldur",
+      "filenamePh": "Dosya adı (örn. bescheid_2024.pdf)",
+      "textPh": "Çıkarılan belge metnini buraya yapıştırın…",
+      "working": "Çalışıyor…",
+      "generateSummary": "Özet oluştur",
+      "extractFields": "Alanları çıkar",
+      "summaryLabel": "Özet",
+      "fieldsLabel": "Çıkarılan alanlar"
     }
   },
   "funeralCover": {

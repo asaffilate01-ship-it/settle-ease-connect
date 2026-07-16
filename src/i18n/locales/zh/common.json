@@ -353,6 +353,81 @@
       "messagePh": "我们能为您提供什么帮助？",
       "send": "发送消息",
       "thanks": "感谢您——我们将尽快与您联系。"
+    },
+    "referrals": {
+      "title": "邀请好友，赚取奖励",
+      "subtitle": "每成功邀请一位好友订阅，您将获得5欧元积分。您的好友将获得首月免费。",
+      "pending": "待处理邀请",
+      "subscribed": "已订阅",
+      "rewards": "已获得奖励",
+      "inviteByEmail": "通过电子邮件邀请",
+      "sending": "正在发送…",
+      "createInvite": "创建邀请",
+      "yourInvites": "您的邀请",
+      "noInvites": "暂无邀请。",
+      "linkCopied": "链接已复制",
+      "inviteCreated": "邀请已创建 — 分享代码 {{code}}",
+      "failed": "失败"
+    },
+    "sessions": {
+      "title": "安全与设备",
+      "subtitle": "查看近期登录和已注册的安全密钥。",
+      "passkeys": "通行密钥与二次验证",
+      "noneEnrolled": "未注册安全密钥。",
+      "addPasskey": "添加通行密钥/二次验证",
+      "enrolling": "正在注册…",
+      "enrolled": "二次验证已注册",
+      "enrollFailed": "注册失败",
+      "recent": "近期活动",
+      "noEvents": "暂无记录事件。",
+      "unknownDevice": "未知设备"
+    },
+    "copyAudit": {
+      "title": "受监管副本审计",
+      "subtitle": "审查受监管页面上的免责声明、“非建议”横幅和同意语言。",
+      "reviewerNotesPh": "审阅者备注（缺少免责声明、语气、翻译…）",
+      "reviewedOn": "已审阅 {{date}}",
+      "saved": "已保存",
+      "status": {
+        "pending": "待处理",
+        "approved": "已批准",
+        "needsRevision": "需要修订",
+        "blocked": "已阻止"
+      }
+    },
+    "partnerPush": {
+      "title": "保险分类 → 合作伙伴API推送",
+      "subtitle": "将分类后的潜在客户发送到合作伙伴端点。试运行记录有效负载而不实际调用。",
+      "leadIdPh": "保险潜在客户UUID",
+      "partnerCodePh": "合作伙伴代码（例如 dela）",
+      "endpointPh": "端点URL",
+      "liveSend": "实时发送（取消勾选以进行试运行）",
+      "pushing": "正在推送…",
+      "pushLive": "实时推送",
+      "dryRun": "试运行推送",
+      "recent": "近期推送",
+      "pushedLive": "已实时推送",
+      "recordedDryRun": "已记录试运行"
+    },
+    "staffAssistant": {
+      "title": "内部知识库助手",
+      "subtitle": "仅限员工 · 可爱AI · 请勿逐字分享给客户",
+      "greeting": "您好 — 我是您的内部知识库助手。您可以向我咨询有关德国福利、津贴、移民、税务或丧葬流程的问题。",
+      "inputPh": "询问服务、截止日期或法规…",
+      "thinking": "正在思考…"
+    },
+    "aiTools": {
+      "title": "AI文档工具",
+      "subtitle": "总结文档或提取福利表格的资格字段。由可爱AI驱动。",
+      "tabSummary": "总结",
+      "tabEligibility": "预填资格",
+      "filenamePh": "文件名（例如 bescheid_2024.pdf）",
+      "textPh": "在此处粘贴提取的文档文本…",
+      "working": "正在处理…",
+      "generateSummary": "生成摘要",
+      "extractFields": "提取字段",
+      "summaryLabel": "摘要",
+      "fieldsLabel": "已提取字段"
     }
   },
   "funeralCover": {

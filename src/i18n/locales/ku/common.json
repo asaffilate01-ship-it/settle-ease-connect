@@ -353,6 +353,81 @@
       "messagePh": "Em çawa dikarin alîkariya we bikin?",
       "send": "Peyamê bişîne",
       "thanks": "Spas — em ê di nêzîk de bi we re têkevin têkiliyê."
+    },
+    "referrals": {
+      "title": "Hevalan vexwînin, xelatan qezenc bikin",
+      "subtitle": "Ji bo her hevalekî ku qeyd dike 5 € kredî bistînin. Ew meha yekem belaş digirin.",
+      "pending": "Vexwendinên li bendê ne",
+      "subscribed": "Qeydkirî ye",
+      "rewards": "Xelatên qezenckirî",
+      "inviteByEmail": "Bi e-nameyê vexwînin",
+      "sending": "Dişîne…",
+      "createInvite": "Vexwendnameyê çêk bike",
+      "yourInvites": "Vexwendinên te",
+      "noInvites": "Hêj vexwendname tune ne.",
+      "linkCopied": "Girêk hat kopîkirin",
+      "inviteCreated": "Vexwendname hat çêkirin — koda {{code}} parve bike",
+      "failed": "Serneket"
+    },
+    "sessions": {
+      "title": "Ewlehî û cîraz",
+      "subtitle": "Têketinên dawî û kilîtên ewlehîyê yên qeydkirî binirxîne.",
+      "passkeys": "Passkeys û faktorên duyem",
+      "noneEnrolled": "Tu kilîtên ewlehîyê nehatine qeydkirin.",
+      "addPasskey": "Passkey / faktora duyem zêde bike",
+      "enrolling": "Têmarkirin…",
+      "enrolled": "Faktora duyem hat qeydkirin",
+      "enrollFailed": "Qeydkirin serneket",
+      "recent": "Çalakiya dawî",
+      "noEvents": "Hêj tu bûyer nehatine tomar kirin.",
+      "unknownDevice": "cîraza nenas"
+    },
+    "copyAudit": {
+      "title": "Kontrola kopîya birêkdar",
+      "subtitle": "Daxuyaniyên, pankartên \"ne şêret\" û zimanê razêmendiyê li ser rûberên birêkdar binirxîne.",
+      "reviewerNotesPh": "Têben nirxîner (daxuyaniyên winda, aheng, werger…)",
+      "reviewedOn": "Di {{date}} de hat nirxandin",
+      "saved": "Hat hilanîn",
+      "status": {
+        "pending": "li bendê ye",
+        "approved": "pejirandî",
+        "needsRevision": "pêvêjoyê hewce dike",
+        "blocked": "astengkirî"
+      }
+    },
+    "partnerPush": {
+      "title": "Sîgorta triage → API-ya hevkar bişîne",
+      "subtitle": "Rêberiyek triajkirî bişîne xalek dawî ya hevkar. Tomarên ceribandinê barê daneyê bêyî ku bang bike.",
+      "leadIdPh": "UUID-ya rêberê sîgortayê",
+      "partnerCodePh": "Koda hevkar (mîna dela)",
+      "endpointPh": "URL-ya xala dawî",
+      "liveSend": "Şandinîna zindî (ji bo ceribandinê neçalak bike)",
+      "pushing": "Dişîne…",
+      "pushLive": "Zindî bişîne",
+      "dryRun": "Ceribandinê bişîne",
+      "recent": "Şandinên dawî",
+      "pushedLive": "Zindî hat şandin",
+      "recordedDryRun": "Ceribandina tomar kirî"
+    },
+    "staffAssistant": {
+      "title": "Al0îkara KB ya navxweyî",
+      "subtitle": "Tenê ji bo karmendan · AI-ya delal · Bi muşterîyan re bi devkî parve nekin",
+      "greeting": "Silav — Ez alîkara we ya KB ya navxweyî me. Ji min li ser refaha Alman, feydeyên, koçberî, bac, an pêvêjoyên cenazeyê bipirsin.",
+      "inputPh": "Li ser xizmetek, demjimêr, an rêknameyek bipirsin…",
+      "thinking": "Difikire…"
+    },
+    "aiTools": {
+      "title": "Amêrên belgeyên AI",
+      "subtitle": "Belgeyek kurt bike an zeviyên mafdariyê ji bo formên feydeyên derxîne. Li ser Lovable AI dixebite.",
+      "tabSummary": "Kurt bike",
+      "tabEligibility": "Mafdariyê pêş-dagire",
+      "filenamePh": "Navê pelê (mîna bescheid_2024.pdf)",
+      "textPh": "Nivîsa belgeya derxistî li vir bixe…",
+      "working": "Dixebite…",
+      "generateSummary": "Kurteyek çêk bike",
+      "extractFields": "Zeviyan derxîne",
+      "summaryLabel": "Kurte",
+      "fieldsLabel": "Zeviyên derxistî"
     }
   },
   "funeralCover": {
