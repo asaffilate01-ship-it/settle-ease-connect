@@ -73,6 +73,7 @@ import { Route as AuthenticatedPortalCaseTemplatesRouteImport } from './routes/_
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
+import { Route as AuthenticatedPortalAnalyticsRouteImport } from './routes/_authenticated/portal.analytics'
 import { Route as AuthenticatedExpertQuotesRouteImport } from './routes/_authenticated/expert.quotes'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
 import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
@@ -461,6 +462,12 @@ const AuthenticatedPortalAuditRoute =
     path: '/audit',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalAnalyticsRoute =
+  AuthenticatedPortalAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedExpertQuotesRoute =
   AuthenticatedExpertQuotesRouteImport.update({
     id: '/quotes',
@@ -799,6 +806,7 @@ export interface FileRoutesByFullPath {
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
+  '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
@@ -906,6 +914,7 @@ export interface FileRoutesByTo {
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
+  '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
@@ -1016,6 +1025,7 @@ export interface FileRoutesById {
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/expert/quotes': typeof AuthenticatedExpertQuotesRoute
+  '/_authenticated/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
@@ -1129,6 +1139,7 @@ export interface FileRouteTypes {
     | '/expert/payouts'
     | '/expert/profile'
     | '/expert/quotes'
+    | '/portal/analytics'
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
@@ -1236,6 +1247,7 @@ export interface FileRouteTypes {
     | '/expert/payouts'
     | '/expert/profile'
     | '/expert/quotes'
+    | '/portal/analytics'
     | '/portal/audit'
     | '/portal/benefits'
     | '/portal/capacity'
@@ -1345,6 +1357,7 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/payouts'
     | '/_authenticated/expert/profile'
     | '/_authenticated/expert/quotes'
+    | '/_authenticated/portal/analytics'
     | '/_authenticated/portal/audit'
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
@@ -1867,6 +1880,13 @@ declare module '@tanstack/react-router' {
       path: '/audit'
       fullPath: '/portal/audit'
       preLoaderRoute: typeof AuthenticatedPortalAuditRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/analytics': {
+      id: '/_authenticated/portal/analytics'
+      path: '/analytics'
+      fullPath: '/portal/analytics'
+      preLoaderRoute: typeof AuthenticatedPortalAnalyticsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/expert/quotes': {
@@ -2404,6 +2424,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
   )
 
 interface AuthenticatedPortalRouteChildren {
+  AuthenticatedPortalAnalyticsRoute: typeof AuthenticatedPortalAnalyticsRoute
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
   AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
@@ -2431,6 +2452,7 @@ interface AuthenticatedPortalRouteChildren {
 }
 
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
+  AuthenticatedPortalAnalyticsRoute: AuthenticatedPortalAnalyticsRoute,
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
   AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
