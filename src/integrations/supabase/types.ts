@@ -748,11 +748,13 @@ export type Database = {
           created_by: string | null
           depends_on: string | null
           description: string | null
+          document_category: string | null
           done: boolean
           done_at: string | null
           due_at: string | null
           estimated_hours: number | null
           id: string
+          linked_vault_document_id: string | null
           progress_pct: number
           start_at: string | null
           status: string
@@ -769,11 +771,13 @@ export type Database = {
           created_by?: string | null
           depends_on?: string | null
           description?: string | null
+          document_category?: string | null
           done?: boolean
           done_at?: string | null
           due_at?: string | null
           estimated_hours?: number | null
           id?: string
+          linked_vault_document_id?: string | null
           progress_pct?: number
           start_at?: string | null
           status?: string
@@ -790,11 +794,13 @@ export type Database = {
           created_by?: string | null
           depends_on?: string | null
           description?: string | null
+          document_category?: string | null
           done?: boolean
           done_at?: string | null
           due_at?: string | null
           estimated_hours?: number | null
           id?: string
+          linked_vault_document_id?: string | null
           progress_pct?: number
           start_at?: string | null
           status?: string
@@ -821,6 +827,13 @@ export type Database = {
             columns: ["depends_on"]
             isOneToOne: false
             referencedRelation: "case_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_tasks_linked_vault_document_id_fkey"
+            columns: ["linked_vault_document_id"]
+            isOneToOne: false
+            referencedRelation: "vault_documents"
             referencedColumns: ["id"]
           },
         ]
