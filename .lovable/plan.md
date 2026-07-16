@@ -62,8 +62,16 @@ Single engine, category-typed profiles. Categories: funeral director, lawyer, tr
 - Translators see only documents `released_for_translation = true`.
 - Insurance partners see only their referral rows.
 
-### Stage 4b — Lawyer structure
-- Retainer stays customer↔lawyer. Platform records "administrative case summary" as a `case_documents` row of type `admin_summary`, sent to lawyer with accept/decline. Never presents BeistandPlus as legal advisor. Marketing copy audit needed.
+### Stage 4 — Provider (Partner) Portal Engine ✅ (foundation)
+- Enums: `partner_category` (10 categories), `translator_service_type` (7 types).
+- Tables: `partner_organisations`, `partner_users`, `partner_documents`, `partner_service_categories` (with sworn_courts[]), `partner_service_regions`, `partner_availability`.
+- Roles: `partner_admin`, `partner_user`.
+- Helpers: `is_partner_member`, `is_partner_admin`, `current_partner_org`.
+- `case_assignments` extended with `partner_org_id`, `invited_at`, `accepted_at`, `declined_at`, `decline_reason`.
+- `can_access_case` extended so accepted partner org members can see their cases.
+- Portal admin: `/portal/partners` — list, create, activate/suspend orgs.
+- Partner portal: `/partner` — org profile, assigned cases (accept/decline invitations), documents.
+- Still to build: document upload UI, category/region editors, availability editor, translator sworn-court UI, partner document verification workflow.
 
 ### Stage 5 — Audit expansion
 - `audit_log` already exists — add insert triggers on: `profiles`, `cases`, `case_documents`, `crm_consents`, `dela_referrals`, `insurance_leads`, `vault_documents` (view/download), `user_roles` (grant/revoke).
