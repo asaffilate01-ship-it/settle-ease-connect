@@ -17,6 +17,12 @@ export const Route = createFileRoute("/_authenticated/app/")({
 function Overview() {
   const [firstName, setFirstName] = useState<string>("");
   const sub = useSubscription();
+  const loadOverview = useServerFn(getCustomerOverview);
+  const overview = useQuery({
+    queryKey: ["customer-overview"],
+    queryFn: () => loadOverview({}),
+    refetchInterval: 60_000,
+  });
 
   useEffect(() => {
     (async () => {
