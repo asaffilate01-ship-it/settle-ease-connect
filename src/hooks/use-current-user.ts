@@ -33,7 +33,9 @@ export type AppRole =
   | "hospital"
   | "beneficiary"
   | "family"
-  | "agent";
+  | "agent"
+  | "partner_admin"
+  | "partner_user";
 
 export function useCurrentUser() {
   const [user, setUser] = useState<User | null>(null);
