@@ -78,6 +78,7 @@ import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_auth
 import { Route as AuthenticatedPortalDelaRouteImport } from './routes/_authenticated/portal.dela'
 import { Route as AuthenticatedPortalCrmRouteImport } from './routes/_authenticated/portal.crm'
 import { Route as AuthenticatedPortalCopyAuditRouteImport } from './routes/_authenticated/portal.copy-audit'
+import { Route as AuthenticatedPortalChecklistTemplatesRouteImport } from './routes/_authenticated/portal.checklist-templates'
 import { Route as AuthenticatedPortalCaseTemplatesRouteImport } from './routes/_authenticated/portal.case-templates'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
@@ -504,6 +505,12 @@ const AuthenticatedPortalCopyAuditRoute =
     path: '/copy-audit',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalChecklistTemplatesRoute =
+  AuthenticatedPortalChecklistTemplatesRouteImport.update({
+    id: '/checklist-templates',
+    path: '/checklist-templates',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalCaseTemplatesRoute =
   AuthenticatedPortalCaseTemplatesRouteImport.update({
     id: '/case-templates',
@@ -904,6 +911,7 @@ export interface FileRoutesByFullPath {
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/portal/checklist-templates': typeof AuthenticatedPortalChecklistTemplatesRoute
   '/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/portal/dela': typeof AuthenticatedPortalDelaRoute
@@ -1025,6 +1033,7 @@ export interface FileRoutesByTo {
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/portal/checklist-templates': typeof AuthenticatedPortalChecklistTemplatesRoute
   '/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
@@ -1149,6 +1158,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
+  '/_authenticated/portal/checklist-templates': typeof AuthenticatedPortalChecklistTemplatesRoute
   '/_authenticated/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/_authenticated/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/_authenticated/portal/dela': typeof AuthenticatedPortalDelaRoute
@@ -1276,6 +1286,7 @@ export interface FileRouteTypes {
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
+    | '/portal/checklist-templates'
     | '/portal/copy-audit'
     | '/portal/crm'
     | '/portal/dela'
@@ -1397,6 +1408,7 @@ export interface FileRouteTypes {
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
+    | '/portal/checklist-templates'
     | '/portal/copy-audit'
     | '/portal/dela'
     | '/portal/directory'
@@ -1520,6 +1532,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/case-templates'
+    | '/_authenticated/portal/checklist-templates'
     | '/_authenticated/portal/copy-audit'
     | '/_authenticated/portal/crm'
     | '/_authenticated/portal/dela'
@@ -2082,6 +2095,13 @@ declare module '@tanstack/react-router' {
       path: '/copy-audit'
       fullPath: '/portal/copy-audit'
       preLoaderRoute: typeof AuthenticatedPortalCopyAuditRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/checklist-templates': {
+      id: '/_authenticated/portal/checklist-templates'
+      path: '/checklist-templates'
+      fullPath: '/portal/checklist-templates'
+      preLoaderRoute: typeof AuthenticatedPortalChecklistTemplatesRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/case-templates': {
@@ -2694,6 +2714,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
   AuthenticatedPortalCaseTemplatesRoute: typeof AuthenticatedPortalCaseTemplatesRoute
+  AuthenticatedPortalChecklistTemplatesRoute: typeof AuthenticatedPortalChecklistTemplatesRoute
   AuthenticatedPortalCopyAuditRoute: typeof AuthenticatedPortalCopyAuditRoute
   AuthenticatedPortalCrmRoute: typeof AuthenticatedPortalCrmRouteWithChildren
   AuthenticatedPortalDelaRoute: typeof AuthenticatedPortalDelaRoute
@@ -2731,6 +2752,8 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
   AuthenticatedPortalCaseTemplatesRoute: AuthenticatedPortalCaseTemplatesRoute,
+  AuthenticatedPortalChecklistTemplatesRoute:
+    AuthenticatedPortalChecklistTemplatesRoute,
   AuthenticatedPortalCopyAuditRoute: AuthenticatedPortalCopyAuditRoute,
   AuthenticatedPortalCrmRoute: AuthenticatedPortalCrmRouteWithChildren,
   AuthenticatedPortalDelaRoute: AuthenticatedPortalDelaRoute,

@@ -59,8 +59,16 @@ function ChecklistTemplatesAdminPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  type ItemInput = {
+    id?: string;
+    template_key: string;
+    item_key: string;
+    title: string;
+    note: string | null;
+    position: number;
+  };
   const upsertItem = useMutation({
-    mutationFn: async (v: Parameters<typeof saveItem>[0]["data"]) => saveItem({ data: v }),
+    mutationFn: async (v: ItemInput) => saveItem({ data: v }),
     onSuccess: () => { toast.success("Item saved"); invalidate(); },
     onError: (e: Error) => toast.error(e.message),
   });
