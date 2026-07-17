@@ -382,13 +382,14 @@ function PartnershipsHub() {
           Institutional partnerships
         </Badge>
         <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
-          Five tracks.<br />
+          Ten tracks.<br />
           <span className="italic text-primary">One trusted intake for migrants in Germany.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          We formalise partnerships with the five institution types that shape a
-          migrant's first years in Germany. Every track has a written scope, a
-          legal basis, an integration path and a named contact.
+          We formalise partnerships across five institutional and five B2B
+          tracks that shape a migrant's first years in Germany. Every track has
+          a written scope, a legal basis, an integration path and a named
+          contact.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           {tracks.map((t) => (
