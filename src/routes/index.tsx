@@ -614,28 +614,32 @@ function LifeInGermany() {
 function Pillars() {
   const pillars = [
     {
-      icon: Home,
+      icon3d: "settlement" as const,
       title: "Settle",
       german: "Ankommen",
       desc: "Anmeldung, tax ID, bank account, health insurance, residence permit — checklists that actually get you through the first 30 days.",
+      glow: "from-primary/25 to-transparent",
     },
     {
-      icon: FileText,
+      icon3d: "plan" as const,
       title: "Claim",
       german: "Beantragen",
       desc: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, BAföG. An eligibility checker that speaks your language and knows the small print.",
+      glow: "from-accent/30 to-transparent",
     },
     {
-      icon: Users,
+      icon3d: "community" as const,
       title: "Belong",
       german: "Gemeinschaft",
       desc: "Find your mosque, church, temple or gurdwara. Halal food, prayer times, women's groups, youth clubs, community events.",
+      glow: "from-peach/40 to-transparent",
     },
     {
-      icon: Heart,
+      icon3d: "burials" as const,
       title: "Stand with",
       german: "Beistehen",
       desc: "End-of-life care from the first call to the final ceremony — burial in Germany or repatriation home, coordinated in one case file.",
+      glow: "from-destructive/20 to-transparent",
     },
   ];
   return (
@@ -656,12 +660,13 @@ function Pillars() {
         {pillars.map((p) => (
           <div
             key={p.title}
-            className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elevated"
+            className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-elevated"
           >
-            <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary">
-              <p.icon className="h-5 w-5" />
+            <div className={`pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br ${p.glow} blur-3xl opacity-70 transition-opacity group-hover:opacity-100`} aria-hidden />
+            <div className="relative h-20 w-20">
+              <Icon3D name={p.icon3d} clay alt="" />
             </div>
-            <div className="mt-5">
+            <div className="relative mt-6">
               <div className="text-xs uppercase tracking-widest text-muted-foreground">
                 {p.german}
               </div>
