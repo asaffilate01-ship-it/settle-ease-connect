@@ -558,19 +558,27 @@ function Journeys() {
 
 function LifeInGermany() {
   const areas = [
-    { icon: Briefcase, title: "Work & careers", copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union." },
-    { icon: GraduationCap, title: "Study & universities", copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules." },
-    { icon: Home, title: "Renting & buying", copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar." },
-    { icon: FileText, title: "Benefits & welfare", copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support." },
-    { icon: HeartPulse, title: "Health & insurance", copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions." },
-    { icon: Car, title: "Driving & mobility", copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system." },
-    { icon: Baby, title: "Births & family", copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care." },
-    { icon: Heart, title: "Marriage & partnership", copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies." },
-    { icon: Church, title: "Deaths & end-of-life", copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance." },
+    { icon3d: "employment" as const, title: "Work & careers", copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union." },
+    { icon3d: "knowledge" as const, title: "Study & universities", copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules." },
+    { icon3d: "housing" as const, title: "Renting & buying", copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar." },
+    { icon3d: "plan" as const, title: "Benefits & welfare", copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support." },
+    { icon3d: "healthcare" as const, title: "Health & insurance", copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions." },
+    { icon3d: "visas" as const, title: "Driving & mobility", copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system." },
+    { icon3d: "community" as const, title: "Births & family", copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care." },
+    { icon3d: "government" as const, title: "Marriage & partnership", copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies." },
+    { icon3d: "burials" as const, title: "Deaths & end-of-life", copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance." },
   ];
   return (
-    <section className="bg-parchment/40">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
+    <section className="relative overflow-hidden bg-parchment/40">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 right-[-10%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle_at_center,oklch(0.9_0.06_65/0.55),transparent_65%)] blur-2xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 left-[-10%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,oklch(0.88_0.04_240/0.4),transparent_65%)] blur-2xl"
+      />
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         <div className="max-w-2xl">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Every chapter of life in Germany
@@ -585,14 +593,18 @@ function LifeInGermany() {
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {areas.map((a) => (
-            <div key={a.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-elevated">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent/15 text-accent-foreground">
-                  <a.icon className="h-5 w-5" />
+            <div
+              key={a.title}
+              className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/95 p-6 shadow-soft backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+            >
+              <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="relative flex items-center gap-4">
+                <div className="h-14 w-14 shrink-0">
+                  <Icon3D name={a.icon3d} clay alt="" />
                 </div>
-                <div className="font-display text-lg font-semibold">{a.title}</div>
+                <div className="font-display text-lg font-semibold leading-tight">{a.title}</div>
               </div>
-              <p className="mt-3 text-sm text-muted-foreground">{a.copy}</p>
+              <p className="relative mt-4 text-sm leading-relaxed text-muted-foreground">{a.copy}</p>
             </div>
           ))}
         </div>
