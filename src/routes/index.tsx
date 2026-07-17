@@ -933,14 +933,19 @@ function AiAssistant() {
           </p>
         </div>
         <div className="lg:col-span-7">
-          <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-elevated">
-            <div className="grid gap-3 sm:grid-cols-2">
+          <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-elevated">
+            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/15 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
+            <div className="relative grid gap-3 sm:grid-cols-2">
               {asks.map((a) => (
                 <button
                   key={a}
-                  className="rounded-xl border border-border/60 bg-background/60 p-4 text-left text-sm transition-colors hover:border-primary/50 hover:bg-primary/5"
+                  className="group flex items-start gap-3 rounded-xl border border-border/60 bg-background/70 p-4 text-left text-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/5 hover:shadow-soft"
                 >
-                  <span className="text-muted-foreground">›</span> {a}
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[linear-gradient(140deg,oklch(0.985_0.008_78),oklch(0.9_0.03_65))] text-primary shadow-clay">
+                    <Sparkles className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="leading-snug">{a}</span>
                 </button>
               ))}
             </div>
