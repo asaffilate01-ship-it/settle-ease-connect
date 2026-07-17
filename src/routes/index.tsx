@@ -7,26 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
-  Heart,
-  Home,
-  FileText,
   Sparkles,
-  Users,
   ShieldCheck,
-  Building2,
   MapPin,
   Languages,
   ClipboardCheck,
-  Handshake,
   Phone,
-  Church,
-  Landmark,
   Plane,
-  GraduationCap,
-  Briefcase,
-  HeartPulse,
-  Car,
-  Baby,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -105,44 +92,49 @@ function Landing() {
 function FivePaths() {
   const paths = [
     {
-      icon: Heart,
+      icon3d: "burials" as const,
       tag: "Bereavement",
       title: "A death in the family",
       copy: "Registration, funeral, repatriation, pensions and paperwork — one team, in your language.",
       to: "/bereavement" as const,
-      tone: "bg-destructive/5 border-destructive/20 hover:border-destructive/40",
+      accent: "from-destructive/25 via-destructive/5 to-transparent",
+      ring: "hover:ring-destructive/40",
     },
     {
-      icon: HeartPulse,
+      icon3d: "healthcare" as const,
       tag: "Insurance",
       title: "Health & life insurance",
       copy: "Statutory or private, student, employee, self-employed or family — we triage and hand off.",
       to: "/insurance" as const,
-      tone: "bg-accent/5 border-accent/20 hover:border-accent/40",
+      accent: "from-accent/30 via-accent/5 to-transparent",
+      ring: "hover:ring-accent/40",
     },
     {
-      icon: MapPin,
+      icon3d: "settlement" as const,
       tag: "Life in Germany",
       title: "Help settling in Germany",
       copy: "Anmeldung, visas, Kindergeld, housing, Bürgeramt, tax — a case manager for every step.",
       to: "/services" as const,
-      tone: "bg-primary/5 border-primary/20 hover:border-primary/40",
+      accent: "from-primary/25 via-primary/5 to-transparent",
+      ring: "hover:ring-primary/40",
     },
     {
-      icon: Briefcase,
+      icon3d: "employment" as const,
       tag: "Employer",
       title: "Support your workforce",
       copy: "Onboard international hires and support families — visas, relocation, benefits, bereavement.",
       to: "/partnerships" as const,
-      tone: "bg-muted/40 border-border hover:border-primary/30",
+      accent: "from-ink/15 via-ink/5 to-transparent",
+      ring: "hover:ring-ink/30",
     },
     {
-      icon: Handshake,
+      icon3d: "experts" as const,
       tag: "Provider",
       title: "Join our expert network",
       copy: "Lawyers, notaries, tax advisors, translators, funeral directors, doctors — vetted & referred.",
       to: "/for-providers" as const,
-      tone: "bg-parchment/60 border-border hover:border-accent/40",
+      accent: "from-peach/40 via-peach/10 to-transparent",
+      ring: "hover:ring-accent/40",
     },
   ];
   return (
@@ -159,34 +151,32 @@ function FivePaths() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {paths.map((p) => {
-            const Icon = p.icon;
-            return (
-              <Link
-                key={p.tag}
-                to={p.to}
-                className={`group flex flex-col rounded-2xl border p-6 shadow-soft transition ${p.tone}`}
-              >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-background text-ink ring-1 ring-ink/10">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                  {p.tag}
-                </div>
-                <div className="mt-2 text-lg font-semibold leading-snug text-ink">
-                  {p.title}
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {p.copy}
-                </p>
-                <div className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  Continue
-                  <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-0.5" />
-                </div>
-              </Link>
-            );
-          })}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {paths.map((p) => (
+            <Link
+              key={p.tag}
+              to={p.to}
+              className={`group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${p.ring}`}
+            >
+              <div className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${p.accent} blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100`} aria-hidden />
+              <div className="relative h-16 w-16">
+                <Icon3D name={p.icon3d} clay alt="" />
+              </div>
+              <div className="relative mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                {p.tag}
+              </div>
+              <div className="relative mt-2 text-lg font-semibold leading-snug text-ink">
+                {p.title}
+              </div>
+              <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
+                {p.copy}
+              </p>
+              <div className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                Continue
+                <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-1" />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
@@ -555,19 +545,27 @@ function Journeys() {
 
 function LifeInGermany() {
   const areas = [
-    { icon: Briefcase, title: "Work & careers", copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union." },
-    { icon: GraduationCap, title: "Study & universities", copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules." },
-    { icon: Home, title: "Renting & buying", copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar." },
-    { icon: FileText, title: "Benefits & welfare", copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support." },
-    { icon: HeartPulse, title: "Health & insurance", copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions." },
-    { icon: Car, title: "Driving & mobility", copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system." },
-    { icon: Baby, title: "Births & family", copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care." },
-    { icon: Heart, title: "Marriage & partnership", copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies." },
-    { icon: Church, title: "Deaths & end-of-life", copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance." },
+    { icon3d: "employment" as const, title: "Work & careers", copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union." },
+    { icon3d: "knowledge" as const, title: "Study & universities", copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules." },
+    { icon3d: "housing" as const, title: "Renting & buying", copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar." },
+    { icon3d: "plan" as const, title: "Benefits & welfare", copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support." },
+    { icon3d: "healthcare" as const, title: "Health & insurance", copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions." },
+    { icon3d: "visas" as const, title: "Driving & mobility", copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system." },
+    { icon3d: "community" as const, title: "Births & family", copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care." },
+    { icon3d: "government" as const, title: "Marriage & partnership", copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies." },
+    { icon3d: "burials" as const, title: "Deaths & end-of-life", copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance." },
   ];
   return (
-    <section className="bg-parchment/40">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
+    <section className="relative overflow-hidden bg-parchment/40">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 right-[-10%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle_at_center,oklch(0.9_0.06_65/0.55),transparent_65%)] blur-2xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 left-[-10%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,oklch(0.88_0.04_240/0.4),transparent_65%)] blur-2xl"
+      />
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         <div className="max-w-2xl">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Every chapter of life in Germany
@@ -582,14 +580,18 @@ function LifeInGermany() {
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {areas.map((a) => (
-            <div key={a.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-elevated">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent/15 text-accent-foreground">
-                  <a.icon className="h-5 w-5" />
+            <div
+              key={a.title}
+              className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/95 p-6 shadow-soft backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+            >
+              <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="relative flex items-center gap-4">
+                <div className="h-14 w-14 shrink-0">
+                  <Icon3D name={a.icon3d} clay alt="" />
                 </div>
-                <div className="font-display text-lg font-semibold">{a.title}</div>
+                <div className="font-display text-lg font-semibold leading-tight">{a.title}</div>
               </div>
-              <p className="mt-3 text-sm text-muted-foreground">{a.copy}</p>
+              <p className="relative mt-4 text-sm leading-relaxed text-muted-foreground">{a.copy}</p>
             </div>
           ))}
         </div>
@@ -611,28 +613,32 @@ function LifeInGermany() {
 function Pillars() {
   const pillars = [
     {
-      icon: Home,
+      icon3d: "settlement" as const,
       title: "Settle",
       german: "Ankommen",
       desc: "Anmeldung, tax ID, bank account, health insurance, residence permit — checklists that actually get you through the first 30 days.",
+      glow: "from-primary/25 to-transparent",
     },
     {
-      icon: FileText,
+      icon3d: "plan" as const,
       title: "Claim",
       german: "Beantragen",
       desc: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, BAföG. An eligibility checker that speaks your language and knows the small print.",
+      glow: "from-accent/30 to-transparent",
     },
     {
-      icon: Users,
+      icon3d: "community" as const,
       title: "Belong",
       german: "Gemeinschaft",
       desc: "Find your mosque, church, temple or gurdwara. Halal food, prayer times, women's groups, youth clubs, community events.",
+      glow: "from-peach/40 to-transparent",
     },
     {
-      icon: Heart,
+      icon3d: "burials" as const,
       title: "Stand with",
       german: "Beistehen",
       desc: "End-of-life care from the first call to the final ceremony — burial in Germany or repatriation home, coordinated in one case file.",
+      glow: "from-destructive/20 to-transparent",
     },
   ];
   return (
@@ -653,12 +659,13 @@ function Pillars() {
         {pillars.map((p) => (
           <div
             key={p.title}
-            className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elevated"
+            className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-elevated"
           >
-            <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary">
-              <p.icon className="h-5 w-5" />
+            <div className={`pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br ${p.glow} blur-3xl opacity-70 transition-opacity group-hover:opacity-100`} aria-hidden />
+            <div className="relative h-20 w-20">
+              <Icon3D name={p.icon3d} clay alt="" />
             </div>
-            <div className="mt-5">
+            <div className="relative mt-6">
               <div className="text-xs uppercase tracking-widest text-muted-foreground">
                 {p.german}
               </div>
@@ -754,12 +761,12 @@ function Workflow() {
 
 function RolesGrid() {
   const roles = [
-    { icon: Users, title: "Families & members", copy: "Report cases, track benefits, store documents, ask anything." },
-    { icon: Handshake, title: "Case managers", copy: "One workspace for every case, every stage, every stakeholder." },
-    { icon: Building2, title: "Funeral directors", copy: "Referrals, quotes, invoices, documents — all in one portal." },
-    { icon: Church, title: "Mosques & churches", copy: "Janazah, funeral, ceremony bookings and imam/priest scheduling." },
-    { icon: Landmark, title: "Temples & Gurdwaras", copy: "Ceremony bookings and religious representative scheduling." },
-    { icon: ShieldCheck, title: "Hospitals & authorities", copy: "Secure handoff of certification and mortuary handover." },
+    { icon3d: "community" as const, title: "Families & members", copy: "Report cases, track benefits, store documents, ask anything." },
+    { icon3d: "cases" as const, title: "Case managers", copy: "One workspace for every case, every stage, every stakeholder." },
+    { icon3d: "burials" as const, title: "Funeral directors", copy: "Referrals, quotes, invoices, documents — all in one portal." },
+    { icon3d: "experts" as const, title: "Mosques & churches", copy: "Janazah, funeral, ceremony bookings and imam/priest scheduling." },
+    { icon3d: "knowledge" as const, title: "Temples & Gurdwaras", copy: "Ceremony bookings and religious representative scheduling." },
+    { icon3d: "healthcare" as const, title: "Hospitals & authorities", copy: "Secure handoff of certification and mortuary handover." },
   ];
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
@@ -775,17 +782,22 @@ function RolesGrid() {
       </div>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {roles.map((r) => (
-          <div key={r.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent/15 text-accent-foreground">
-                <r.icon className="h-5 w-5" />
+          <div
+            key={r.title}
+            className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+          >
+            <div aria-hidden className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="relative flex items-center gap-4">
+              <div className="h-14 w-14 shrink-0">
+                <Icon3D name={r.icon3d} clay alt="" />
               </div>
-              <div className="font-display text-lg font-semibold">{r.title}</div>
+              <div className="font-display text-lg font-semibold leading-tight">{r.title}</div>
             </div>
-            <p className="mt-3 text-sm text-muted-foreground">{r.copy}</p>
+            <p className="relative mt-4 text-sm leading-relaxed text-muted-foreground">{r.copy}</p>
           </div>
         ))}
       </div>
+
     </section>
   );
 }
