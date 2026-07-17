@@ -20,17 +20,17 @@ import {
 export const Route = createFileRoute("/partnerships")({
   head: () => ({
     meta: [
-      { title: "Institutional partnerships — BeistandPlus" },
+      { title: "Institutional & B2B partnerships — BeistandPlus" },
       {
         name: "description",
         content:
-          "Five formal partnership tracks for universities, NGOs, banks, Jobcenters and social housing offices — with clear deliverables, integration paths and legal frameworks.",
+          "Ten formal partnership tracks: universities, NGOs, banks, Jobcenters, housing offices, employers, language schools, recruitment agencies, relocation companies and training providers.",
       },
-      { property: "og:title", content: "Institutional partnership hub — BeistandPlus" },
+      { property: "og:title", content: "Institutional & B2B partnership hub — BeistandPlus" },
       {
         property: "og:description",
         content:
-          "Structured MOUs and API integrations for the German institutions that serve migrants: universities, NGOs, banks, Jobcenters, Wohnungsämter.",
+          "Structured MOUs and API integrations for the German institutions and B2B partners that serve migrants and international hires.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
