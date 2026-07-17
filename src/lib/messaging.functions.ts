@@ -161,7 +161,32 @@ export const addChannelMember = createServerFn({ method: "POST" })
     z.object({ channel_id: z.string().uuid(), user_id: z.string().uuid() }).parse(raw),
   )
   .handler(async ({ data, context }) => {
-    void context;
+    // Only channel owners, existing members, or internal staff may add anyone
+    // (including themselves). Prevents any signed-in user from silently
+    // joining a private case/DM channel just by knowing its UUID.
+    const { data: channel, error: chErr } = await context.supabase
+      .from("message_channels")
+      .select("id, created_by")
+      .eq("id", data.channel_id)
+      .maybeSingle();
+    if (chErr) throw new Error(chErr.message);
+    if (!channel) throw new Error("Channel not found");
+
+    const isCreator = channel.created_by === context.userId;
+    const { data: myMembership } = await context.supabase
+      .from("channel_members")
+      .select("user_id")
+      .eq("channel_id", data.channel_id)
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    const isMember = !!myMembership;
+    const { data: internalFlag } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const isInternal = internalFlag === true;
+
+    if (!isCreator && !isMember && !isInternal) {
+      throw new Error("Forbidden: only channel owners, members, or staff can add members");
+    }
+
     const { error } = await context.supabase.from("channel_members").insert({
       channel_id: data.channel_id,
       user_id: data.user_id,
