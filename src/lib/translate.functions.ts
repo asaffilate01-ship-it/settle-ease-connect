@@ -26,6 +26,38 @@ export const translateBatch = createServerFn({ method: "POST" })
       return { translations: data.texts };
     }
 
+    // Server-side dedupe cache to cap paid AI usage: any string we've ever
+    // translated to this target language is served from the DB, not the
+    // gateway. Repeated calls with the same UI strings cost nothing.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const enc = new TextEncoder();
+    async function sha256Hex(s: string): Promise<string> {
+      const buf = await crypto.subtle.digest("SHA-256", enc.encode(s));
+      return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+    const hashes = await Promise.all(data.texts.map((t) => sha256Hex(t)));
+    const { data: cached } = await supabaseAdmin
+      .from("translation_cache")
+      .select("source_hash, translated_text")
+      .eq("target_lang", data.targetLang)
+      .in("source_hash", hashes);
+    const cacheMap = new Map<string, string>((cached ?? []).map((r: any) => [r.source_hash, r.translated_text]));
+
+    // Build the list of items that still need to be translated.
+    const missingIdx: number[] = [];
+    data.texts.forEach((_, i) => { if (!cacheMap.has(hashes[i])) missingIdx.push(i); });
+
+    if (missingIdx.length === 0) {
+      return { translations: data.texts.map((src, i) => cacheMap.get(hashes[i]) ?? src) };
+    }
+
+    // Hard per-request cap on how many new strings will actually hit the paid
+    // gateway. Anything above this returns as source text; still cheaper than
+    // running up unbounded credits.
+    const MAX_NEW_PER_CALL = 80;
+    const toTranslateIdx = missingIdx.slice(0, MAX_NEW_PER_CALL);
+
+
     const sys =
       "You are a professional UI translator for BeistandPlus, a German welfare & settlement platform. " +
       "You will receive a JSON array of items, each with an integer `i` (id) and a string `s` (source text). " +
