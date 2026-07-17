@@ -105,44 +105,49 @@ function Landing() {
 function FivePaths() {
   const paths = [
     {
-      icon: Heart,
+      icon3d: "burials" as const,
       tag: "Bereavement",
       title: "A death in the family",
       copy: "Registration, funeral, repatriation, pensions and paperwork — one team, in your language.",
       to: "/bereavement" as const,
-      tone: "bg-destructive/5 border-destructive/20 hover:border-destructive/40",
+      accent: "from-destructive/25 via-destructive/5 to-transparent",
+      ring: "hover:ring-destructive/40",
     },
     {
-      icon: HeartPulse,
+      icon3d: "healthcare" as const,
       tag: "Insurance",
       title: "Health & life insurance",
       copy: "Statutory or private, student, employee, self-employed or family — we triage and hand off.",
       to: "/insurance" as const,
-      tone: "bg-accent/5 border-accent/20 hover:border-accent/40",
+      accent: "from-accent/30 via-accent/5 to-transparent",
+      ring: "hover:ring-accent/40",
     },
     {
-      icon: MapPin,
+      icon3d: "settlement" as const,
       tag: "Life in Germany",
       title: "Help settling in Germany",
       copy: "Anmeldung, visas, Kindergeld, housing, Bürgeramt, tax — a case manager for every step.",
       to: "/services" as const,
-      tone: "bg-primary/5 border-primary/20 hover:border-primary/40",
+      accent: "from-primary/25 via-primary/5 to-transparent",
+      ring: "hover:ring-primary/40",
     },
     {
-      icon: Briefcase,
+      icon3d: "employment" as const,
       tag: "Employer",
       title: "Support your workforce",
       copy: "Onboard international hires and support families — visas, relocation, benefits, bereavement.",
       to: "/partnerships" as const,
-      tone: "bg-muted/40 border-border hover:border-primary/30",
+      accent: "from-ink/15 via-ink/5 to-transparent",
+      ring: "hover:ring-ink/30",
     },
     {
-      icon: Handshake,
+      icon3d: "experts" as const,
       tag: "Provider",
       title: "Join our expert network",
       copy: "Lawyers, notaries, tax advisors, translators, funeral directors, doctors — vetted & referred.",
       to: "/for-providers" as const,
-      tone: "bg-parchment/60 border-border hover:border-accent/40",
+      accent: "from-peach/40 via-peach/10 to-transparent",
+      ring: "hover:ring-accent/40",
     },
   ];
   return (
@@ -159,34 +164,32 @@ function FivePaths() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {paths.map((p) => {
-            const Icon = p.icon;
-            return (
-              <Link
-                key={p.tag}
-                to={p.to}
-                className={`group flex flex-col rounded-2xl border p-6 shadow-soft transition ${p.tone}`}
-              >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-background text-ink ring-1 ring-ink/10">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                  {p.tag}
-                </div>
-                <div className="mt-2 text-lg font-semibold leading-snug text-ink">
-                  {p.title}
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {p.copy}
-                </p>
-                <div className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  Continue
-                  <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-0.5" />
-                </div>
-              </Link>
-            );
-          })}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {paths.map((p) => (
+            <Link
+              key={p.tag}
+              to={p.to}
+              className={`group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${p.ring}`}
+            >
+              <div className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${p.accent} blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100`} aria-hidden />
+              <div className="relative h-16 w-16">
+                <Icon3D name={p.icon3d} clay alt="" />
+              </div>
+              <div className="relative mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                {p.tag}
+              </div>
+              <div className="relative mt-2 text-lg font-semibold leading-snug text-ink">
+                {p.title}
+              </div>
+              <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
+                {p.copy}
+              </p>
+              <div className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                Continue
+                <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-1" />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
