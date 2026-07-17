@@ -1267,6 +1267,77 @@ export type Database = {
           },
         ]
       }
+      checklist_template_items: {
+        Row: {
+          created_at: string
+          id: string
+          item_key: string
+          note: string | null
+          position: number
+          template_key: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_key: string
+          note?: string | null
+          position?: number
+          template_key: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_key?: string
+          note?: string | null
+          position?: number
+          template_key?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checklist_template_items_template_key_fkey"
+            columns: ["template_key"]
+            isOneToOne: false
+            referencedRelation: "checklist_templates"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      checklist_templates: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          key: string
+          position: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          key: string
+          position?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          key?: string
+          position?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       community_posts: {
         Row: {
           author_user_id: string
