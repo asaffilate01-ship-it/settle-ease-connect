@@ -8,6 +8,11 @@ import {
   Landmark,
   Briefcase,
   Home,
+  Building2,
+  Languages,
+  Users,
+  Truck,
+  BookOpen,
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
