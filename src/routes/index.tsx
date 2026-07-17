@@ -882,17 +882,21 @@ function NetworkMap() {
         <div className="lg:col-span-7">
           <div className="grid gap-3 sm:grid-cols-2">
             {cities.map((c) => (
-              <div key={c.name} className="flex items-center justify-between rounded-xl border border-border/60 bg-card p-4 shadow-soft">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-9 w-9 place-items-center rounded-md bg-primary/10 text-primary">
+              <div
+                key={c.name}
+                className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border/60 bg-card p-4 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:shadow-elevated"
+              >
+                <div aria-hidden className="pointer-events-none absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-accent/20 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="relative flex items-center gap-3">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-[linear-gradient(140deg,oklch(0.985_0.008_78),oklch(0.9_0.03_65))] text-primary shadow-clay">
                     <MapPin className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="font-display text-lg font-semibold">{c.name}</div>
+                    <div className="font-display text-lg font-semibold leading-tight">{c.name}</div>
                     <div className="text-xs text-muted-foreground">{c.role}</div>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="relative text-right">
                   <div className="font-display text-2xl font-semibold">{c.partners}</div>
                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground">partners</div>
                 </div>
