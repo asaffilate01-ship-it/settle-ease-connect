@@ -828,14 +828,21 @@ function BenefitsShowcase() {
             <Link to="/app/benefits">Run the benefits checker</Link>
           </Button>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
-          {items.map((b) => (
-            <div key={b.name} className="rounded-xl border border-border/60 bg-card p-5 shadow-soft transition-transform hover:-translate-y-0.5">
-              <div className="flex items-start justify-between">
-                <div className="font-display text-xl font-semibold">{b.name}</div>
-                <Badge className="border-transparent bg-primary/15 text-primary font-semibold">{b.tag}</Badge>
+        <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+          {items.map((b, i) => (
+            <div
+              key={b.name}
+              className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+            >
+              <div aria-hidden className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full blur-2xl opacity-60 transition-opacity duration-500 group-hover:opacity-100 ${i % 3 === 0 ? "bg-primary/25" : i % 3 === 1 ? "bg-accent/30" : "bg-peach/40"}`} />
+              <div className="relative flex items-start justify-between gap-3">
+                <div>
+                  <div className="font-display text-xl font-semibold leading-tight">{b.name}</div>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{b.desc}</p>
+                </div>
+                <Badge className="shrink-0 border-transparent bg-primary/15 text-primary font-semibold">{b.tag}</Badge>
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">{b.desc}</p>
+              <div className="relative mt-4 h-1 w-10 rounded-full bg-gradient-to-r from-primary/70 to-accent/70 transition-all duration-500 group-hover:w-16" />
             </div>
           ))}
         </div>
