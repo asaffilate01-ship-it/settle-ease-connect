@@ -7,26 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
-  Heart,
-  Home,
-  FileText,
   Sparkles,
-  Users,
   ShieldCheck,
-  Building2,
   MapPin,
   Languages,
   ClipboardCheck,
-  Handshake,
   Phone,
-  Church,
-  Landmark,
   Plane,
-  GraduationCap,
-  Briefcase,
-  HeartPulse,
-  Car,
-  Baby,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
