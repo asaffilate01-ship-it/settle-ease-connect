@@ -223,6 +223,146 @@ const tracks: Track[] = [
     ],
     contactEmail: "housing@beistand.de",
   },
+  {
+    id: "employers",
+    name: "Employers Recruiting Internationally",
+    icon: Building2,
+    status: "Piloting",
+    intro:
+      "German employers hiring under §18a/§18b AufenthG and the EU Blue Card scheme need arrivals productive on day one. We handle the settlement wrap-around so HR can focus on the role.",
+    weBring: [
+      "White-labelled onboarding portal per employer (Anmeldung, ABH, banking, health insurance).",
+      "Blue Card / §18a fast-track document checklist with recognition (Anerkennung) tracking.",
+      "Family reunification workstream in parallel with the primary hire.",
+      "Case dashboard for HR: status per new joiner, blockers, ETA to Anmeldung.",
+    ],
+    theyBring: [
+      "Seat licences per new international hire, invoiced quarterly.",
+      "HRIS webhook on contract signed → auto-create case + assign case manager.",
+      "Introduction to the hire before landing (cold-country warm handoff).",
+    ],
+    integration: [
+      "SSO with employer IdP (Azure AD, Okta, Google Workspace).",
+      "SCIM provisioning of new joiners into cases.",
+      "Signed Auftragsverarbeitungsvertrag under Art. 28 GDPR.",
+    ],
+    legalBasis:
+      "B2B service contract + AVV Art. 28 GDPR. Employer is controller for its employee data; BeistandPlus is processor.",
+    targets: ["SAP", "Siemens Healthineers", "Bosch", "Deutsche Bahn HR", "Zalando", "Delivery Hero", "Mittelstand engineering firms"],
+    contactEmail: "employers@beistand.de",
+  },
+  {
+    id: "language-schools",
+    name: "Language Schools & Integrationskurs-Träger",
+    icon: Languages,
+    status: "MoU drafted",
+    intro:
+      "BAMF-accredited Integrationskurse and private academies (Goethe, Sprachcaffe, DeutschAkademie) share our audience. Students need settlement help; schools need retention.",
+    weBring: [
+      "Multilingual settlement companion bundled with course enrolment.",
+      "BAMF Kostenbefreiung / Zuschuss eligibility check (§44 AufenthG).",
+      "Automated reminders for course modules, exams (DTZ, telc B1/B2).",
+      "Referral into our translator network for supporting documents.",
+    ],
+    theyBring: [
+      "Course-catalogue API or CSV feed for cohort assignment.",
+      "Kostenträger (BAMF, Jobcenter, self-payer) intake shared with our tax / benefits screener.",
+      "Classroom access for periodic settlement office-hours.",
+    ],
+    integration: [
+      "Deep link from school portal into a preseeded BeistandPlus case.",
+      "Attendance webhook to flag dropout risk to the case manager.",
+      "Shared exam-result reminder feed.",
+    ],
+    legalBasis:
+      "Cooperation agreement + AVV Art. 28 GDPR. BAMF-Trägerzulassung of the school remains unaffected.",
+    targets: ["Goethe-Institut", "DeutschAkademie", "Sprachcaffe", "IIK Düsseldorf", "Volkshochschulen (VHS) Landesverbände"],
+    contactEmail: "schools@beistand.de",
+  },
+  {
+    id: "recruitment-agencies",
+    name: "International Recruitment Agencies",
+    icon: Users,
+    status: "Active",
+    intro:
+      "Personalvermittler placing candidates from India, Vietnam, the Balkans and MENA into Germany carry visa and integration risk. We de-risk the post-signing months.",
+    weBring: [
+      "Pre-arrival visa checklist per country + consulate (Berlin/Bonn/abroad).",
+      "Anerkennung support for regulated professions (nursing, IT, engineering).",
+      "Post-arrival settlement workspace so the candidate stays — reducing churn to your client.",
+      "Structured 30/60/90-day success reporting back to the agency.",
+    ],
+    theyBring: [
+      "Warm handover on offer accepted (candidate data with consent).",
+      "Commission share on successful long-term placement (>12 months).",
+      "Feedback loop on visa bottlenecks by consulate to improve intake.",
+    ],
+    integration: [
+      "ATS webhook (Bullhorn, Personio Recruiting, Greenhouse) on offer accepted.",
+      "Shared candidate portal (agency-branded) with our workspace embedded.",
+      "Anonymised placement analytics fed back monthly.",
+    ],
+    legalBasis:
+      "Vermittler-Kooperationsvertrag + candidate consent (Art. 6(1)(a) GDPR). No handover without explicit opt-in.",
+    targets: ["Hays", "Michael Page", "Adecco Medical", "Nurses to Germany specialists", "IT-Fachkräfte Osteuropa agencies"],
+    contactEmail: "recruiters@beistand.de",
+  },
+  {
+    id: "relocation-companies",
+    name: "Relocation Companies",
+    icon: Truck,
+    status: "Piloting",
+    intro:
+      "Traditional Relocation-Agenturen handle housing search and moving — but the family paperwork drags on for months after. We bolt on to your service so nothing is left open.",
+    weBring: [
+      "Post-handover checklist automation (Rundfunkbeitrag, taxes, driving licence, family reunification).",
+      "Client dashboard co-branded with your firm.",
+      "Escalation to our vetted lawyer/tax expert roster on demand.",
+      "Multilingual client comms (13 languages) reducing your consultant hours.",
+    ],
+    theyBring: [
+      "Referral flow from the physical move-in date.",
+      "Lease + Meldebescheinigung upload from your on-the-ground team.",
+      "Revenue share on our subscription upgrades.",
+    ],
+    integration: [
+      "Case creation webhook from your CRM (Salesforce, Zoho, HubSpot).",
+      "Milestone sync: handover complete → post-arrival checklist enabled.",
+      "Consolidated invoice to the corporate sponsor.",
+    ],
+    legalBasis:
+      "Sub-processor agreement under corporate client's AVV. Data minimisation to what the settlement work needs.",
+    targets: ["Cartus", "SIRVA BGRS", "Crown World Mobility", "Santa Fe Relocation", "Berlin/Munich boutique Relocation-Agenturen"],
+    contactEmail: "relocation@beistand.de",
+  },
+  {
+    id: "training-providers",
+    name: "Training Providers & Umschulung Institutes",
+    icon: BookOpen,
+    status: "Discovery",
+    intro:
+      "AZAV-certified Umschulung and further-education providers (IHK, HWK, private Bildungsträger) place cohorts from Jobcenter Bildungsgutscheine. Their learners need our settlement layer.",
+    weBring: [
+      "Bildungsgutschein / Aktivierungs- und Vermittlungsgutschein eligibility check.",
+      "Case coordination between Jobcenter, learner and training body.",
+      "Post-training placement handoff into employer partnerships.",
+      "Certificate storage + Anerkennung workflow for foreign qualifications.",
+    ],
+    theyBring: [
+      "Cohort roster on course start (with learner consent).",
+      "AZAV-compliant reporting inputs for §§81, 82 SGB III.",
+      "Employer network for placement after course completion.",
+    ],
+    integration: [
+      "LMS webhook on module completion.",
+      "Shared reporting dashboard for the Kostenträger (Jobcenter/BA).",
+      "ICS calendar feed of course + assessment dates into user calendars.",
+    ],
+    legalBasis:
+      "Kooperationsvereinbarung + AVV Art. 28 GDPR. AZAV certification of the provider retained.",
+    targets: ["IHK Weiterbildung", "HWK Bildungszentren", "WBS Training", "Grone Bildungszentren", "COMCAVE College"],
+    contactEmail: "training@beistand.de",
+  },
 ];
 
 const statusStyles: Record<Track["status"], string> = {
