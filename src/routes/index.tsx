@@ -774,12 +774,12 @@ function Workflow() {
 
 function RolesGrid() {
   const roles = [
-    { icon: Users, title: "Families & members", copy: "Report cases, track benefits, store documents, ask anything." },
-    { icon: Handshake, title: "Case managers", copy: "One workspace for every case, every stage, every stakeholder." },
-    { icon: Building2, title: "Funeral directors", copy: "Referrals, quotes, invoices, documents — all in one portal." },
-    { icon: Church, title: "Mosques & churches", copy: "Janazah, funeral, ceremony bookings and imam/priest scheduling." },
-    { icon: Landmark, title: "Temples & Gurdwaras", copy: "Ceremony bookings and religious representative scheduling." },
-    { icon: ShieldCheck, title: "Hospitals & authorities", copy: "Secure handoff of certification and mortuary handover." },
+    { icon3d: "community" as const, title: "Families & members", copy: "Report cases, track benefits, store documents, ask anything." },
+    { icon3d: "cases" as const, title: "Case managers", copy: "One workspace for every case, every stage, every stakeholder." },
+    { icon3d: "burials" as const, title: "Funeral directors", copy: "Referrals, quotes, invoices, documents — all in one portal." },
+    { icon3d: "experts" as const, title: "Mosques & churches", copy: "Janazah, funeral, ceremony bookings and imam/priest scheduling." },
+    { icon3d: "knowledge" as const, title: "Temples & Gurdwaras", copy: "Ceremony bookings and religious representative scheduling." },
+    { icon3d: "healthcare" as const, title: "Hospitals & authorities", copy: "Secure handoff of certification and mortuary handover." },
   ];
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
@@ -795,17 +795,22 @@ function RolesGrid() {
       </div>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {roles.map((r) => (
-          <div key={r.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent/15 text-accent-foreground">
-                <r.icon className="h-5 w-5" />
+          <div
+            key={r.title}
+            className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+          >
+            <div aria-hidden className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="relative flex items-center gap-4">
+              <div className="h-14 w-14 shrink-0">
+                <Icon3D name={r.icon3d} clay alt="" />
               </div>
-              <div className="font-display text-lg font-semibold">{r.title}</div>
+              <div className="font-display text-lg font-semibold leading-tight">{r.title}</div>
             </div>
-            <p className="mt-3 text-sm text-muted-foreground">{r.copy}</p>
+            <p className="relative mt-4 text-sm leading-relaxed text-muted-foreground">{r.copy}</p>
           </div>
         ))}
       </div>
+
     </section>
   );
 }
