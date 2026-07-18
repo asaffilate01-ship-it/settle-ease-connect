@@ -518,19 +518,28 @@ function Journeys() {
         </h2>
       </div>
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        {journeys.map((j) => (
-          <div key={j.title} className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 shadow-soft">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-primary text-primary-foreground">
-                <j.icon className="h-5 w-5" />
+        {journeys.map((j, i) => (
+          <div
+            key={j.title}
+            className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+          >
+            <div
+              aria-hidden
+              className={`pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full blur-3xl opacity-70 transition-opacity duration-500 group-hover:opacity-100 ${
+                i === 0 ? "bg-gradient-to-br from-primary/25 to-transparent" : "bg-gradient-to-br from-accent/25 to-transparent"
+              }`}
+            />
+            <div className="relative flex items-center gap-4">
+              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-[linear-gradient(140deg,oklch(0.985_0.008_78),oklch(0.9_0.03_65))] text-primary shadow-clay">
+                <j.icon className="h-6 w-6" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 {j.tag}
               </div>
             </div>
-            <h3 className="display-md mt-5 font-semibold">{j.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{j.copy}</p>
-            <Button asChild variant="outline" className="mt-6">
+            <h3 className="display-md relative mt-6 font-semibold">{j.title}</h3>
+            <p className="relative mt-3 text-sm leading-relaxed text-muted-foreground">{j.copy}</p>
+            <Button asChild variant="outline" className="relative mt-6">
               <Link to={j.cta.to}>
                 {j.cta.label}
                 <ArrowRight className="ml-1 h-4 w-4 rtl-flip" />
@@ -961,22 +970,49 @@ function CTA() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-primary p-12 text-primary-foreground shadow-elevated lg:p-20">
         <div className="absolute inset-0 opacity-30 bg-gradient-warm" />
-        <div className="relative max-w-2xl">
-          <h2 className="display-lg text-balance font-semibold">
-            Standing with you, from your first day to your last.
-          </h2>
-          <p className="mt-5 text-lg text-primary-foreground/80">
-            Join the BeistandPlus community. Members get 24/7 case management, an
-            AI assistant, digital document vault, benefits checker and full
-            end-of-life coordination — from €5/month.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/app">Get started free</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
-              <Link to="/pricing">See pricing</Link>
-            </Button>
+        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-peach/30 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-accent/25 blur-3xl" />
+        <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]">
+              <Sparkles className="h-3.5 w-3.5" /> Join BeistandPlus
+            </div>
+            <h2 className="display-lg text-balance mt-5 font-semibold">
+              Standing with you, from your first day to your last.
+            </h2>
+            <p className="mt-5 max-w-xl text-lg text-primary-foreground/85">
+              24/7 case management, an AI assistant, digital document vault,
+              benefits checker and full end-of-life coordination — from €5/month.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg" variant="secondary">
+                <Link to="/app">Get started free</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
+                <Link to="/pricing">See pricing</Link>
+              </Button>
+            </div>
+          </div>
+          <div className="lg:col-span-4">
+            <div className="rounded-3xl border border-primary-foreground/25 bg-primary-foreground/10 p-6 backdrop-blur">
+              <div className="grid h-16 w-16">
+                <Icon3D name="community" clay alt="" />
+              </div>
+              <div className="mt-5 space-y-3 text-sm">
+                <div className="flex items-baseline justify-between border-b border-primary-foreground/15 pb-2">
+                  <span className="opacity-85">Basic</span>
+                  <span className="font-display text-lg">€5<span className="text-xs opacity-70">/mo</span></span>
+                </div>
+                <div className="flex items-baseline justify-between border-b border-primary-foreground/15 pb-2">
+                  <span className="opacity-85">Plus</span>
+                  <span className="font-display text-lg">€10<span className="text-xs opacity-70">/mo</span></span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="opacity-85">Complete</span>
+                  <span className="font-display text-lg">€25<span className="text-xs opacity-70">/mo</span></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
