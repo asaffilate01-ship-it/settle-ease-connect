@@ -518,19 +518,28 @@ function Journeys() {
         </h2>
       </div>
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        {journeys.map((j) => (
-          <div key={j.title} className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 shadow-soft">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-primary text-primary-foreground">
-                <j.icon className="h-5 w-5" />
+        {journeys.map((j, i) => (
+          <div
+            key={j.title}
+            className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+          >
+            <div
+              aria-hidden
+              className={`pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full blur-3xl opacity-70 transition-opacity duration-500 group-hover:opacity-100 ${
+                i === 0 ? "bg-gradient-to-br from-primary/25 to-transparent" : "bg-gradient-to-br from-accent/25 to-transparent"
+              }`}
+            />
+            <div className="relative flex items-center gap-4">
+              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-[linear-gradient(140deg,oklch(0.985_0.008_78),oklch(0.9_0.03_65))] text-primary shadow-clay">
+                <j.icon className="h-6 w-6" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 {j.tag}
               </div>
             </div>
-            <h3 className="display-md mt-5 font-semibold">{j.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{j.copy}</p>
-            <Button asChild variant="outline" className="mt-6">
+            <h3 className="display-md relative mt-6 font-semibold">{j.title}</h3>
+            <p className="relative mt-3 text-sm leading-relaxed text-muted-foreground">{j.copy}</p>
+            <Button asChild variant="outline" className="relative mt-6">
               <Link to={j.cta.to}>
                 {j.cta.label}
                 <ArrowRight className="ml-1 h-4 w-4 rtl-flip" />
