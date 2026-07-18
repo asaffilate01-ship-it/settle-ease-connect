@@ -970,22 +970,49 @@ function CTA() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-primary p-12 text-primary-foreground shadow-elevated lg:p-20">
         <div className="absolute inset-0 opacity-30 bg-gradient-warm" />
-        <div className="relative max-w-2xl">
-          <h2 className="display-lg text-balance font-semibold">
-            Standing with you, from your first day to your last.
-          </h2>
-          <p className="mt-5 text-lg text-primary-foreground/80">
-            Join the BeistandPlus community. Members get 24/7 case management, an
-            AI assistant, digital document vault, benefits checker and full
-            end-of-life coordination — from €5/month.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/app">Get started free</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
-              <Link to="/pricing">See pricing</Link>
-            </Button>
+        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-peach/30 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-accent/25 blur-3xl" />
+        <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]">
+              <Sparkles className="h-3.5 w-3.5" /> Join BeistandPlus
+            </div>
+            <h2 className="display-lg text-balance mt-5 font-semibold">
+              Standing with you, from your first day to your last.
+            </h2>
+            <p className="mt-5 max-w-xl text-lg text-primary-foreground/85">
+              24/7 case management, an AI assistant, digital document vault,
+              benefits checker and full end-of-life coordination — from €5/month.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg" variant="secondary">
+                <Link to="/app">Get started free</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
+                <Link to="/pricing">See pricing</Link>
+              </Button>
+            </div>
+          </div>
+          <div className="lg:col-span-4">
+            <div className="rounded-3xl border border-primary-foreground/25 bg-primary-foreground/10 p-6 backdrop-blur">
+              <div className="grid h-16 w-16">
+                <Icon3D name="community" clay alt="" />
+              </div>
+              <div className="mt-5 space-y-3 text-sm">
+                <div className="flex items-baseline justify-between border-b border-primary-foreground/15 pb-2">
+                  <span className="opacity-85">Basic</span>
+                  <span className="font-display text-lg">€5<span className="text-xs opacity-70">/mo</span></span>
+                </div>
+                <div className="flex items-baseline justify-between border-b border-primary-foreground/15 pb-2">
+                  <span className="opacity-85">Plus</span>
+                  <span className="font-display text-lg">€10<span className="text-xs opacity-70">/mo</span></span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="opacity-85">Complete</span>
+                  <span className="font-display text-lg">€25<span className="text-xs opacity-70">/mo</span></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
