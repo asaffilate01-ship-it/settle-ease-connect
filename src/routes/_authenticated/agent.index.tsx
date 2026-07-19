@@ -88,26 +88,33 @@ function AgentHome() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
-      <header>
-        <h1 className="font-display text-3xl font-semibold">
-          {profile.data?.display_name
-            ? t("agent.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: profile.data.display_name })
-            : t("agent.home.welcome", { defaultValue: "Welcome" })}
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          {t("agent.home.tagline", {
-            defaultValue: "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
-            rate,
-          })}
-        </p>
+      <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-card to-card p-6 shadow-soft">
+        <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+            <TrendingUp className="h-3.5 w-3.5" /> {rate}% recurring
+          </div>
+          <h1 className="mt-3 font-display text-3xl font-semibold">
+            {profile.data?.display_name
+              ? t("agent.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: profile.data.display_name })
+              : t("agent.home.welcome", { defaultValue: "Welcome" })}
+          </h1>
+          <p className="mt-1 max-w-2xl text-muted-foreground">
+            {t("agent.home.tagline", {
+              defaultValue: "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
+              rate,
+            })}
+          </p>
+        </div>
       </header>
 
       {/* KPIs */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Kpi label={t("agent.kpi.clients", { defaultValue: "Clients" })} value={kpis.data?.totalClients ?? 0} />
-        <Kpi label={t("agent.kpi.thisMonth", { defaultValue: "This month" })} value={`€${(kpis.data?.mtdEur ?? 0).toFixed(2)}`} tone="primary" />
-        <Kpi label={t("agent.kpi.pending", { defaultValue: "Pending" })} value={`€${(kpis.data?.pendingEur ?? 0).toFixed(2)}`} />
-        <Kpi label={t("agent.kpi.paid", { defaultValue: "Paid to date" })} value={`€${(kpis.data?.totalEarnedEur ?? 0).toFixed(2)}`} tone="success" />
+        <Kpi icon={<Users className="h-4 w-4" />} label={t("agent.kpi.clients", { defaultValue: "Clients" })} value={kpis.data?.totalClients ?? 0} />
+        <Kpi icon={<TrendingUp className="h-4 w-4" />} label={t("agent.kpi.thisMonth", { defaultValue: "This month" })} value={`€${(kpis.data?.mtdEur ?? 0).toFixed(2)}`} tone="primary" />
+        <Kpi icon={<ArrowUpRight className="h-4 w-4" />} label={t("agent.kpi.pending", { defaultValue: "Pending" })} value={`€${(kpis.data?.pendingEur ?? 0).toFixed(2)}`} />
+        <Kpi icon={<Link2 className="h-4 w-4" />} label={t("agent.kpi.paid", { defaultValue: "Paid to date" })} value={`€${(kpis.data?.totalEarnedEur ?? 0).toFixed(2)}`} tone="success" />
       </section>
 
       {/* Sparkline + Share-link performance */}
@@ -237,17 +244,31 @@ function AgentHome() {
   );
 }
 
-function Kpi({ label, value, tone }: { label: string; value: string | number; tone?: "primary" | "success" }) {
+function Kpi({ label, value, tone, icon }: { label: string; value: string | number; tone?: "primary" | "success"; icon?: React.ReactNode }) {
   const toneCls =
     tone === "primary"
       ? "text-primary"
       : tone === "success"
         ? "text-emerald-600 dark:text-emerald-300"
         : "";
+  const badgeCls =
+    tone === "primary"
+      ? "bg-primary/10 text-primary ring-primary/20"
+      : tone === "success"
+        ? "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:text-emerald-300"
+        : "bg-muted text-muted-foreground ring-border/60";
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-4">
-      <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
-      <div className={`mt-1 font-display text-2xl font-semibold ${toneCls}`}>{value}</div>
+    <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-4 shadow-soft transition-all hover:shadow-elevated">
+      <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:opacity-80" />
+      <div className="relative flex items-start justify-between gap-3">
+        <div>
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
+          <div className={`mt-1 font-display text-2xl font-semibold ${toneCls}`}>{value}</div>
+        </div>
+        {icon && (
+          <div className={`grid h-9 w-9 place-items-center rounded-xl ring-1 ${badgeCls}`}>{icon}</div>
+        )}
+      </div>
     </div>
   );
 }
