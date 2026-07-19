@@ -351,16 +351,20 @@ function TaskRow({ text, done, urgent }: { text: string; done?: boolean; urgent?
 
 function TrustBar() {
   const items = [
-    "20M+ people in Germany with a migration background",
-    "Berlin · NRW · Hamburg · Frankfurt · München",
-    "Mosques · Churches · Temples · Gurdwaras",
-    "Funeral directors · Hospitals · Consulates",
+    { icon: "community" as const, label: "20M+ people in Germany with a migration background" },
+    { icon: "settlement" as const, label: "Berlin · NRW · Hamburg · Frankfurt · München" },
+    { icon: "experts" as const, label: "Mosques · Churches · Temples · Gurdwaras" },
+    { icon: "government" as const, label: "Funeral directors · Hospitals · Consulates" },
   ];
   return (
-    <div className="border-y border-border/60 bg-parchment/40">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 py-6 text-xs uppercase tracking-[0.16em] text-muted-foreground sm:px-6 lg:px-8">
+    <div className="relative overflow-hidden border-y border-border/60 bg-parchment/50">
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.03_65/0.6),transparent_70%)]" />
+      <div className="relative mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-4 px-4 py-7 sm:px-6 lg:px-8">
         {items.map((i) => (
-          <span key={i}>{i}</span>
+          <div key={i.label} className="flex items-center gap-2.5 rounded-full border border-border/60 bg-card/80 px-4 py-1.5 shadow-soft backdrop-blur">
+            <div className="h-6 w-6 shrink-0"><Icon3D name={i.icon} alt="" /></div>
+            <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-foreground/75">{i.label}</span>
+          </div>
         ))}
       </div>
     </div>
@@ -432,14 +436,9 @@ function UrgencyTriage() {
                 }`}
               />
               <div className="flex items-center gap-4">
-                <div
-                  className={`grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-1.5 ${
-                    isUrgent
-                      ? "bg-destructive/10"
-                      : "bg-accent/10"
-                  }`}
-                >
-                  <Icon3D name={p.icon} alt="" />
+                <div className="relative h-20 w-20 shrink-0">
+                  <div aria-hidden className={`pointer-events-none absolute -inset-3 rounded-full blur-2xl ${isUrgent ? "bg-destructive/20" : "bg-accent/25"}`} />
+                  <Icon3D name={p.icon} clay alt="" />
                 </div>
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   {p.tag}
