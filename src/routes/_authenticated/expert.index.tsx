@@ -53,39 +53,43 @@ function ExpertHome() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
-      <header>
-        <h1 className="font-display text-3xl font-semibold">
-          {p?.full_name
-            ? t("expert.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: p.full_name })
-            : t("expert.home.welcome", { defaultValue: "Welcome" })}
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          {p?.profession
-            ? t("expert.home.tagline", {
-                defaultValue: "Your {{profession}} workspace — cases, earnings, and profile.",
-                profession: p.profession,
-              })
-            : t("expert.home.taglineGeneric", { defaultValue: "Your workspace." })}
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {k?.verified ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300">
-              <BadgeCheck className="h-3.5 w-3.5" /> {t("expert.badge.verified", { defaultValue: "Verified" })}
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-700 dark:text-amber-300">
-              <AlertCircle className="h-3.5 w-3.5" /> {t("expert.badge.pending", { defaultValue: "Verification pending" })}
-            </span>
-          )}
-          {k?.compensation && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-              {k.compensation === "referral_fee"
-                ? t("expert.comp.referral", { defaultValue: "Referral fee" })
-                : k.compensation === "wholesale"
-                  ? t("expert.comp.wholesale", { defaultValue: "Wholesale" })
-                  : t("expert.comp.direct", { defaultValue: "Direct bill" })}
-            </span>
-          )}
+      <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-soft sm:p-8">
+        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative">
+          <h1 className="font-display text-3xl font-semibold">
+            {p?.full_name
+              ? t("expert.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: p.full_name })
+              : t("expert.home.welcome", { defaultValue: "Welcome" })}
+          </h1>
+          <p className="mt-1 text-muted-foreground">
+            {p?.profession
+              ? t("expert.home.tagline", {
+                  defaultValue: "Your {{profession}} workspace — cases, earnings, and profile.",
+                  profession: p.profession,
+                })
+              : t("expert.home.taglineGeneric", { defaultValue: "Your workspace." })}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {k?.verified ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-500/20 dark:text-emerald-300">
+                <BadgeCheck className="h-3.5 w-3.5" /> {t("expert.badge.verified", { defaultValue: "Verified" })}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-500/20 dark:text-amber-300">
+                <AlertCircle className="h-3.5 w-3.5" /> {t("expert.badge.pending", { defaultValue: "Verification pending" })}
+              </span>
+            )}
+            {k?.compensation && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ring-1 ring-primary/20">
+                {k.compensation === "referral_fee"
+                  ? t("expert.comp.referral", { defaultValue: "Referral fee" })
+                  : k.compensation === "wholesale"
+                    ? t("expert.comp.wholesale", { defaultValue: "Wholesale" })
+                    : t("expert.comp.direct", { defaultValue: "Direct bill" })}
+              </span>
+            )}
+          </div>
         </div>
       </header>
 
