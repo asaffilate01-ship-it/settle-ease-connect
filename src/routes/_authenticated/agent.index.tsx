@@ -88,26 +88,33 @@ function AgentHome() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
-      <header>
-        <h1 className="font-display text-3xl font-semibold">
-          {profile.data?.display_name
-            ? t("agent.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: profile.data.display_name })
-            : t("agent.home.welcome", { defaultValue: "Welcome" })}
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          {t("agent.home.tagline", {
-            defaultValue: "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
-            rate,
-          })}
-        </p>
+      <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-card to-card p-6 shadow-soft">
+        <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+            <TrendingUp className="h-3.5 w-3.5" /> {rate}% recurring
+          </div>
+          <h1 className="mt-3 font-display text-3xl font-semibold">
+            {profile.data?.display_name
+              ? t("agent.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: profile.data.display_name })
+              : t("agent.home.welcome", { defaultValue: "Welcome" })}
+          </h1>
+          <p className="mt-1 max-w-2xl text-muted-foreground">
+            {t("agent.home.tagline", {
+              defaultValue: "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
+              rate,
+            })}
+          </p>
+        </div>
       </header>
 
       {/* KPIs */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Kpi label={t("agent.kpi.clients", { defaultValue: "Clients" })} value={kpis.data?.totalClients ?? 0} />
-        <Kpi label={t("agent.kpi.thisMonth", { defaultValue: "This month" })} value={`€${(kpis.data?.mtdEur ?? 0).toFixed(2)}`} tone="primary" />
-        <Kpi label={t("agent.kpi.pending", { defaultValue: "Pending" })} value={`€${(kpis.data?.pendingEur ?? 0).toFixed(2)}`} />
-        <Kpi label={t("agent.kpi.paid", { defaultValue: "Paid to date" })} value={`€${(kpis.data?.totalEarnedEur ?? 0).toFixed(2)}`} tone="success" />
+        <Kpi icon={<Users className="h-4 w-4" />} label={t("agent.kpi.clients", { defaultValue: "Clients" })} value={kpis.data?.totalClients ?? 0} />
+        <Kpi icon={<TrendingUp className="h-4 w-4" />} label={t("agent.kpi.thisMonth", { defaultValue: "This month" })} value={`€${(kpis.data?.mtdEur ?? 0).toFixed(2)}`} tone="primary" />
+        <Kpi icon={<ArrowUpRight className="h-4 w-4" />} label={t("agent.kpi.pending", { defaultValue: "Pending" })} value={`€${(kpis.data?.pendingEur ?? 0).toFixed(2)}`} />
+        <Kpi icon={<Link2 className="h-4 w-4" />} label={t("agent.kpi.paid", { defaultValue: "Paid to date" })} value={`€${(kpis.data?.totalEarnedEur ?? 0).toFixed(2)}`} tone="success" />
       </section>
 
       {/* Sparkline + Share-link performance */}
