@@ -60,7 +60,7 @@ function Overview() {
               {greeting}{firstName ? `, ${firstName}` : ""} — <span className="text-muted-foreground">here's your day.</span>
             </h1>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              Your household hub for settlement in Germany — checklists, benefits, insurance, cases and support in 12 languages.
+              Your household hub for settlement in Germany — checklists, benefits, insurance, cases and support in 13 languages.
             </p>
           </div>
         </div>
