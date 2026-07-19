@@ -692,13 +692,20 @@ function Pillars() {
 function BereavementBand() {
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      <div className="absolute inset-0 opacity-20 bg-gradient-warm" />
+      <div className="absolute inset-0 opacity-20 bg-gradient-warm" aria-hidden />
+      <div aria-hidden className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-peach/25 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-6">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground/90">
-            End-of-Life Care
+          <div className="inline-flex items-center gap-3 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1.5 backdrop-blur">
+            <span className="grid h-7 w-7 place-items-center">
+              <Icon3D name="burials" clay alt="" />
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground/90">
+              End-of-Life Care
+            </span>
           </div>
-          <h2 className="display-lg text-balance mt-3 font-semibold">
+          <h2 className="display-lg text-balance mt-4 font-semibold">
             When the worst happens, one call is enough.
           </h2>
           <p className="mt-5 max-w-xl text-lg text-primary-foreground/80">
@@ -709,7 +716,7 @@ function BereavementBand() {
             Kurdish, Russian or Ukrainian.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary">
+            <Button asChild size="lg" variant="secondary" className="shadow-clay">
               <Link to="/bereavement">See the full workflow</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
@@ -736,24 +743,32 @@ function Workflow() {
     { t: "Insurance & admin", d: "Claims, pension, employer, utilities closed." },
   ];
   return (
-    <div className="rounded-3xl border border-primary-foreground/20 bg-primary-foreground/5 p-6 backdrop-blur">
-      <div className="text-xs uppercase tracking-widest text-primary-foreground/90">Case BST-2410-0042</div>
-      <div className="mt-1 font-display text-2xl">Repatriation · Berlin → Lahore</div>
-      <ol className="mt-6 space-y-3">
+    <div className="relative rounded-3xl border border-primary-foreground/20 bg-primary-foreground/5 p-6 shadow-elevated backdrop-blur">
+      <div aria-hidden className="pointer-events-none absolute -top-8 -right-8 h-32 w-32 rounded-full bg-accent/25 blur-2xl" />
+      <div className="relative flex items-center justify-between">
+        <div>
+          <div className="text-xs uppercase tracking-widest text-primary-foreground/90">Case BST-2410-0042</div>
+          <div className="mt-1 font-display text-2xl">Repatriation · Berlin → Lahore</div>
+        </div>
+        <span className="inline-flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-accent-foreground ring-1 ring-accent/30">
+          <Sparkles className="h-3 w-3" /> Live
+        </span>
+      </div>
+      <ol className="relative mt-6 space-y-3">
         {stages.map((s, i) => (
           <li key={s.t} className="flex gap-4">
             <div className="flex flex-col items-center">
               <div
-                className={`grid h-7 w-7 place-items-center rounded-full text-xs font-semibold ${
+                className={`grid h-8 w-8 place-items-center rounded-full text-xs font-semibold shadow-soft ${
                   i < 4
-                    ? "bg-accent text-accent-foreground"
-                    : "border border-primary-foreground/30 text-primary-foreground/70"
+                    ? "bg-accent text-accent-foreground ring-2 ring-accent/40"
+                    : "border border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground/70"
                 }`}
               >
                 {i + 1}
               </div>
               {i < stages.length - 1 && (
-                <div className="my-1 h-6 w-px bg-primary-foreground/20" />
+                <div className={`my-1 h-6 w-px ${i < 3 ? "bg-accent/50" : "bg-primary-foreground/20"}`} />
               )}
             </div>
             <div className="pb-2">
