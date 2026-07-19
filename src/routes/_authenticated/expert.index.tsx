@@ -203,12 +203,19 @@ function ExpertHome() {
 
 function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) {
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-4">
-      <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
-        {icon}
-        {label}
+    <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated">
+      <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
+      <div className="relative flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            {label}
+          </div>
+          <div className="mt-2 font-display text-2xl font-semibold tabular-nums">{value}</div>
+        </div>
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary shadow-clay ring-1 ring-primary/10">
+          {icon}
+        </span>
       </div>
-      <div className="mt-1 font-display text-2xl font-semibold">{value}</div>
     </div>
   );
 }
