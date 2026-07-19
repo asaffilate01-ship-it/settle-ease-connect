@@ -5017,7 +5017,9 @@ export type Database = {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
       }
+      partner_doc_expiry_sweep: { Args: never; Returns: number }
       sla_breach_sweep: { Args: never; Returns: number }
+      subscription_dunning_sweep: { Args: never; Returns: number }
       vault_deputy_can_read: {
         Args: { _category: string; _deputy_user: string; _owner_user: string }
         Returns: boolean
