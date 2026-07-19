@@ -692,13 +692,20 @@ function Pillars() {
 function BereavementBand() {
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      <div className="absolute inset-0 opacity-20 bg-gradient-warm" />
+      <div className="absolute inset-0 opacity-20 bg-gradient-warm" aria-hidden />
+      <div aria-hidden className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-peach/25 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-6">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground/90">
-            End-of-Life Care
+          <div className="inline-flex items-center gap-3 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1.5 backdrop-blur">
+            <span className="grid h-7 w-7 place-items-center">
+              <Icon3D name="burials" clay alt="" />
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground/90">
+              End-of-Life Care
+            </span>
           </div>
-          <h2 className="display-lg text-balance mt-3 font-semibold">
+          <h2 className="display-lg text-balance mt-4 font-semibold">
             When the worst happens, one call is enough.
           </h2>
           <p className="mt-5 max-w-xl text-lg text-primary-foreground/80">
@@ -709,7 +716,7 @@ function BereavementBand() {
             Kurdish, Russian or Ukrainian.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary">
+            <Button asChild size="lg" variant="secondary" className="shadow-clay">
               <Link to="/bereavement">See the full workflow</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
