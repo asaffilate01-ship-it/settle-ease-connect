@@ -72,21 +72,32 @@ function PartnerHome() {
 
   return (
     <div className="p-6 space-y-6 max-w-5xl mx-auto">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="display-lg font-semibold flex items-center gap-2">
-            <Building2 className="h-6 w-6 text-primary" /> {org.trading_name ?? org.legal_name}
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            {org.primary_category.replaceAll("_", " ")} · {org.city ?? "—"}
-          </p>
-        </div>
-        <div className="flex flex-col gap-1 items-end">
-          <Badge variant={org.verified ? "default" : "outline"}>{org.verified ? "Verified" : "Not verified"}</Badge>
-          <Badge variant="outline">{org.status}</Badge>
-          {link?.is_admin && <Badge variant="secondary">Admin</Badge>}
+      <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-card to-card p-6 shadow-soft">
+        <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
+        <div className="relative flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20 shadow-clay">
+              <Building2 className="h-6 w-6" />
+            </div>
+            <div>
+              <h1 className="font-display text-3xl font-semibold">{org.trading_name ?? org.legal_name}</h1>
+              <p className="mt-1 text-sm text-muted-foreground capitalize">
+                {org.primary_category.replaceAll("_", " ")} · {org.city ?? "—"}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-1 items-end">
+            <Badge variant={org.verified ? "default" : "outline"} className="gap-1">
+              {org.verified ? <CheckCircle2 className="h-3 w-3" /> : <Clock className="h-3 w-3" />}
+              {org.verified ? "Verified" : "Not verified"}
+            </Badge>
+            <Badge variant="outline" className="capitalize">{org.status}</Badge>
+            {link?.is_admin && <Badge variant="secondary">Admin</Badge>}
+          </div>
         </div>
       </header>
+
 
       <Tabs defaultValue="cases">
         <TabsList className="flex flex-wrap">
