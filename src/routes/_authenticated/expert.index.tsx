@@ -53,39 +53,43 @@ function ExpertHome() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
-      <header>
-        <h1 className="font-display text-3xl font-semibold">
-          {p?.full_name
-            ? t("expert.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: p.full_name })
-            : t("expert.home.welcome", { defaultValue: "Welcome" })}
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          {p?.profession
-            ? t("expert.home.tagline", {
-                defaultValue: "Your {{profession}} workspace — cases, earnings, and profile.",
-                profession: p.profession,
-              })
-            : t("expert.home.taglineGeneric", { defaultValue: "Your workspace." })}
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {k?.verified ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300">
-              <BadgeCheck className="h-3.5 w-3.5" /> {t("expert.badge.verified", { defaultValue: "Verified" })}
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-700 dark:text-amber-300">
-              <AlertCircle className="h-3.5 w-3.5" /> {t("expert.badge.pending", { defaultValue: "Verification pending" })}
-            </span>
-          )}
-          {k?.compensation && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-              {k.compensation === "referral_fee"
-                ? t("expert.comp.referral", { defaultValue: "Referral fee" })
-                : k.compensation === "wholesale"
-                  ? t("expert.comp.wholesale", { defaultValue: "Wholesale" })
-                  : t("expert.comp.direct", { defaultValue: "Direct bill" })}
-            </span>
-          )}
+      <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-soft sm:p-8">
+        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative">
+          <h1 className="font-display text-3xl font-semibold">
+            {p?.full_name
+              ? t("expert.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: p.full_name })
+              : t("expert.home.welcome", { defaultValue: "Welcome" })}
+          </h1>
+          <p className="mt-1 text-muted-foreground">
+            {p?.profession
+              ? t("expert.home.tagline", {
+                  defaultValue: "Your {{profession}} workspace — cases, earnings, and profile.",
+                  profession: p.profession,
+                })
+              : t("expert.home.taglineGeneric", { defaultValue: "Your workspace." })}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {k?.verified ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-500/20 dark:text-emerald-300">
+                <BadgeCheck className="h-3.5 w-3.5" /> {t("expert.badge.verified", { defaultValue: "Verified" })}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-500/20 dark:text-amber-300">
+                <AlertCircle className="h-3.5 w-3.5" /> {t("expert.badge.pending", { defaultValue: "Verification pending" })}
+              </span>
+            )}
+            {k?.compensation && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ring-1 ring-primary/20">
+                {k.compensation === "referral_fee"
+                  ? t("expert.comp.referral", { defaultValue: "Referral fee" })
+                  : k.compensation === "wholesale"
+                    ? t("expert.comp.wholesale", { defaultValue: "Wholesale" })
+                    : t("expert.comp.direct", { defaultValue: "Direct bill" })}
+              </span>
+            )}
+          </div>
         </div>
       </header>
 
@@ -203,12 +207,19 @@ function ExpertHome() {
 
 function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) {
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-4">
-      <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
-        {icon}
-        {label}
+    <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated">
+      <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
+      <div className="relative flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            {label}
+          </div>
+          <div className="mt-2 font-display text-2xl font-semibold tabular-nums">{value}</div>
+        </div>
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary shadow-clay ring-1 ring-primary/10">
+          {icon}
+        </span>
       </div>
-      <div className="mt-1 font-display text-2xl font-semibold">{value}</div>
     </div>
   );
 }
