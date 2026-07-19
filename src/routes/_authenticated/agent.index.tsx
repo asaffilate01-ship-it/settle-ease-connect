@@ -244,17 +244,31 @@ function AgentHome() {
   );
 }
 
-function Kpi({ label, value, tone }: { label: string; value: string | number; tone?: "primary" | "success" }) {
+function Kpi({ label, value, tone, icon }: { label: string; value: string | number; tone?: "primary" | "success"; icon?: React.ReactNode }) {
   const toneCls =
     tone === "primary"
       ? "text-primary"
       : tone === "success"
         ? "text-emerald-600 dark:text-emerald-300"
         : "";
+  const badgeCls =
+    tone === "primary"
+      ? "bg-primary/10 text-primary ring-primary/20"
+      : tone === "success"
+        ? "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:text-emerald-300"
+        : "bg-muted text-muted-foreground ring-border/60";
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-4">
-      <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
-      <div className={`mt-1 font-display text-2xl font-semibold ${toneCls}`}>{value}</div>
+    <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-4 shadow-soft transition-all hover:shadow-elevated">
+      <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:opacity-80" />
+      <div className="relative flex items-start justify-between gap-3">
+        <div>
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
+          <div className={`mt-1 font-display text-2xl font-semibold ${toneCls}`}>{value}</div>
+        </div>
+        {icon && (
+          <div className={`grid h-9 w-9 place-items-center rounded-xl ring-1 ${badgeCls}`}>{icon}</div>
+        )}
+      </div>
     </div>
   );
 }
