@@ -436,14 +436,9 @@ function UrgencyTriage() {
                 }`}
               />
               <div className="flex items-center gap-4">
-                <div
-                  className={`grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-1.5 ${
-                    isUrgent
-                      ? "bg-destructive/10"
-                      : "bg-accent/10"
-                  }`}
-                >
-                  <Icon3D name={p.icon} alt="" />
+                <div className="relative h-20 w-20 shrink-0">
+                  <div aria-hidden className={`pointer-events-none absolute -inset-3 rounded-full blur-2xl ${isUrgent ? "bg-destructive/20" : "bg-accent/25"}`} />
+                  <Icon3D name={p.icon} clay alt="" />
                 </div>
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   {p.tag}
