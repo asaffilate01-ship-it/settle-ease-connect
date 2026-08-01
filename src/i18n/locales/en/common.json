@@ -74,7 +74,8 @@
       "groupCover": "€20k Sterbegeld for associations & employers",
       "taxRefund": "Tax return, guided in your language",
       "leavingGermany": "Departure checklist, tax farewell & paperwork"
-    }
+    },
+    "events": "Events & clinics"
   },
   "footer": {
     "tagline": "For every path in Germany. Settlement, welfare, benefits, and end-of-life care — one calm platform for families and the organisations that stand with them.",
@@ -172,7 +173,10 @@
     "sessions": "Sessions & devices",
     "staffAssistant": "KB assistant",
     "partnerPush": "Partner API push",
-    "copyAudit": "Copy audit"
+    "copyAudit": "Copy audit",
+    "events": "Events & clinics",
+    "billing": "Billing & payments",
+    "eventsOps": "Events & notices"
   },
   "agent": {
     "defaultName": "Agent",

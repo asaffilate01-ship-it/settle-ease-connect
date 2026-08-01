@@ -74,7 +74,8 @@
       "groupCover": "20.000 € Sterbegeld für Vereine & Arbeitgeber",
       "taxRefund": "Steuererklärung in Ihrer Sprache begleitet",
       "leavingGermany": "Wegzug-Checkliste, Steuerabschluss & Papierkram"
-    }
+    },
+    "events": "Events & Beratung"
   },
   "footer": {
     "tagline": "Für jeden Weg in Deutschland. Integration, soziale Leistungen, Unterstützung und Fürsorge am Lebensende – eine verlässliche Plattform für Familien und die Organisationen, die sie begleiten.",
@@ -162,7 +163,10 @@
     "sessions": "Sitzungen & Geräte",
     "staffAssistant": "Wissens-Assistent",
     "partnerPush": "Partner-API",
-    "copyAudit": "Text-Audit"
+    "copyAudit": "Text-Audit",
+    "events": "Events & Beratung",
+    "billing": "Zahlungen & Rechnungen",
+    "eventsOps": "Events & Mitteilungen"
   },
   "language": {
     "label": "Sprache",
