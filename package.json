@@ -9,15 +9,19 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "verify:production": "node scripts/validate-production-env.mjs"
   },
   "dependencies": {
-    "@capacitor/android": "^8.4.1",
+    "@capacitor/android": "^8.5.0",
     "@capacitor/app": "^8.1.0",
-    "@capacitor/cli": "^8.4.1",
-    "@capacitor/core": "^8.4.1",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
     "@capacitor/haptics": "^8.0.2",
-    "@capacitor/ios": "^8.4.1",
+    "@capacitor/ios": "^8.5.0",
     "@capacitor/keyboard": "^8.0.5",
     "@capacitor/network": "^8.0.1",
     "@capacitor/preferences": "^8.0.1",
@@ -89,7 +93,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
-    "@lovable.dev/vite-tanstack-config": "2.8.5",
+    "@lovable.dev/vite-tanstack-config": "2.7.7",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
@@ -105,6 +109,14 @@
     "prettier": "^3.7.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.16"
+    "vite": "^8.2.0",
+    "vitest": "^4.1.10"
+  },
+  "overrides": {
+    "postcss": "8.5.25",
+    "tar": "7.5.22",
+    "minimatch@^10.0.0": {
+      "brace-expansion": "5.0.9"
+    }
   }
 }
