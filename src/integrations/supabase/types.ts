@@ -5680,6 +5680,57 @@ export type Database = {
         }
         Relationships: []
       }
+      public_directory_listings: {
+        Row: {
+          bundesland: string | null
+          business_name: string | null
+          category: string | null
+          city: string | null
+          created_at: string | null
+          description: string | null
+          featured: boolean | null
+          id: string | null
+          languages: string[] | null
+          logo_url: string | null
+          status: string | null
+          subcategory: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          bundesland?: string | null
+          business_name?: string | null
+          category?: string | null
+          city?: string | null
+          created_at?: string | null
+          description?: string | null
+          featured?: boolean | null
+          id?: string | null
+          languages?: string[] | null
+          logo_url?: string | null
+          status?: string | null
+          subcategory?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          bundesland?: string | null
+          business_name?: string | null
+          category?: string | null
+          city?: string | null
+          created_at?: string | null
+          description?: string | null
+          featured?: boolean | null
+          id?: string | null
+          languages?: string[] | null
+          logo_url?: string | null
+          status?: string | null
+          subcategory?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       accept_case_access_grant: {
@@ -5753,6 +5804,16 @@ export type Database = {
           _subject_user_id?: string
         }
         Returns: string
+      }
+      member_referrals_update_is_safe: {
+        Args: {
+          _id: string
+          _reward_type: string
+          _reward_value_eur: number
+          _rewarded_at: string
+          _status: string
+        }
+        Returns: boolean
       }
       partner_doc_expiry_sweep: { Args: never; Returns: number }
       sla_breach_sweep: { Args: never; Returns: number }
