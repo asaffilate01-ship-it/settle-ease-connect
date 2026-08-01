@@ -76,7 +76,9 @@ const nav: NavItem[] = [
   { to: "/portal/case-templates", labelKey: "sidebar.caseTemplates", icon: "checklists", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/checklist-templates", labelKey: "sidebar.checklistTemplates", icon: "checklists", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
   { to: "/portal/operations", labelKey: "sidebar.operations", icon: "cases", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  { to: "/portal/events", labelKey: "sidebar.eventsOps", icon: "community", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
   { to: "/portal/assistant", labelKey: "sidebar.staffAssistant", icon: "assistant", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+
   { to: "/portal/partner-push", labelKey: "sidebar.partnerPush", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
   { to: "/portal/copy-audit", labelKey: "sidebar.copyAudit", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
   { to: "/portal/my-desk", labelKey: "sidebar.myDesk", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
