@@ -7,6 +7,7 @@ import { LogOut, Users, TrendingUp, LinkIcon, Home, Filter } from "lucide-react"
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyAgentProfile } from "@/lib/agents.functions";
+import { MobileNavMenu } from "@/components/mobile-nav-sheet";
 import logoMark from "@/assets/brand/logo-mark.png";
 
 export const Route = createFileRoute("/_authenticated/agent")({
