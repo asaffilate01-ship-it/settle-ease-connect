@@ -9,7 +9,7 @@ export const Route = createFileRoute("/legal/privacy")({
       { property: "og:title", content: "Datenschutz (DSGVO / BDSG) — BeistandPlus" },
       { property: "og:url", content: "/legal/privacy" },
     ],
-    links: [{ rel: "canonical", href: "/legal/privacy" }],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/legal/privacy" }],
   }),
   component: Page,
 });

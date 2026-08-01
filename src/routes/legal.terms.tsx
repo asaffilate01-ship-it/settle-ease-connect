@@ -9,7 +9,7 @@ export const Route = createFileRoute("/legal/terms")({
       { property: "og:title", content: "AGB — BeistandPlus" },
       { property: "og:url", content: "/legal/terms" },
     ],
-    links: [{ rel: "canonical", href: "/legal/terms" }],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/legal/terms" }],
   }),
   component: Page,
 });

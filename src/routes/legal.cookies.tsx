@@ -12,7 +12,7 @@ export const Route = createFileRoute("/legal/cookies")({
       { property: "og:title", content: "Cookies — BeistandPlus" },
       { property: "og:url", content: "/legal/cookies" },
     ],
-    links: [{ rel: "canonical", href: "/legal/cookies" }],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/legal/cookies" }],
   }),
   component: Page,
 });

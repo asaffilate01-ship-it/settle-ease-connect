@@ -9,7 +9,7 @@ export const Route = createFileRoute("/legal/complaints")({
       { property: "og:title", content: "Beschwerdeverfahren — BeistandPlus" },
       { property: "og:url", content: "/legal/complaints" },
     ],
-    links: [{ rel: "canonical", href: "/legal/complaints" }],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/legal/complaints" }],
   }),
   component: Page,
 });

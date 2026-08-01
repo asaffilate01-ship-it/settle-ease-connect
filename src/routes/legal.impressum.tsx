@@ -9,7 +9,7 @@ export const Route = createFileRoute("/legal/impressum")({
       { property: "og:title", content: "Impressum — BeistandPlus" },
       { property: "og:url", content: "/legal/impressum" },
     ],
-    links: [{ rel: "canonical", href: "/legal/impressum" }],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/legal/impressum" }],
   }),
   component: Page,
 });
