@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { submitInsuranceCallback } from "@/lib/insurance-callback.functions";
 import { enqueue, registerReplayHandler } from "@/lib/offline-queue";
 import {
+import { RegulatedNotice } from "@/components/regulated-notice";
   ShieldCheck,
   Stethoscope,
   Home,
@@ -335,6 +336,7 @@ function InsuranceLanding() {
         <CallbackForm defaultProduct={selected ?? "expat_health"} />
       </section>
 
+      <RegulatedNotice domain="insurance" />
       <SiteFooter />
     </div>
   );

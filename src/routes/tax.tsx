@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { submitTaxLead } from "@/lib/tax-lead.functions";
 import { estimateTaxRefund, type TaxInput } from "@/lib/tax-estimator";
 import {
+import { RegulatedNotice } from "@/components/regulated-notice";
   Calculator,
   ArrowRight,
   ArrowLeft,
@@ -72,6 +73,7 @@ function TaxLanding() {
       <Wizard />
       <Trust />
       <Faq />
+      <RegulatedNotice domain="tax" />
       <SiteFooter />
     </div>
   );

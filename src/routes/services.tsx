@@ -4,6 +4,7 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { ArrowRight } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import heroServices from "@/assets/brand/hero-services.jpg";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 
 export const Route = createFileRoute("/services")({
@@ -331,6 +332,7 @@ function Services() {
         </div>
       </section>
 
+      <RegulatedNotice domain="legal" />
       <SiteFooter />
     </div>
   );

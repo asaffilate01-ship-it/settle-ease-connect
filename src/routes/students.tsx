@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import {
+import { RegulatedNotice } from "@/components/regulated-notice";
   GraduationCap,
   BadgePercent,
   ShieldCheck,
@@ -163,6 +164,7 @@ function StudentsPage() {
         </div>
       </section>
 
+      <RegulatedNotice domain="insurance" />
       <SiteFooter />
     </div>
   );

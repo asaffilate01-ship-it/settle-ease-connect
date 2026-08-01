@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { GroupCoverIntake } from "@/components/group-cover-intake";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import {
+import { RegulatedNotice } from "@/components/regulated-notice";
   Building2,
   Users,
   Clock,
@@ -215,6 +216,7 @@ function GroupCoverPage() {
       )}
 
 
+      <RegulatedNotice domain="funeral" />
       <SiteFooter />
     </div>
   );
