@@ -22,12 +22,18 @@ function ProvidersPage() {
   const [cat, setCat] = useState<string>("All");
 
   const categories = useMemo(
-    () => ["All", ...Array.from(new Set(listings.map((l) => l.category)))],
+    () => [
+      "All",
+      ...Array.from(
+        new Set(listings.map((l) => l.category).filter((c): c is string => !!c)),
+      ),
+    ],
     [listings],
   );
 
   const filtered = useMemo(() => {
     return listings.filter((l) => {
+      if (!l.business_name || !l.category) return false;
       if (cat !== "All" && l.category !== cat) return false;
       if (query) {
         const q = query.toLowerCase();
