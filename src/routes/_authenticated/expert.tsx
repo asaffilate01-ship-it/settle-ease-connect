@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Home, Briefcase, Wallet, UserCircle, FileText, Receipt, CalendarClock } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
+import { MobileNavMenu } from "@/components/mobile-nav-sheet";
 import logoMark from "@/assets/brand/logo-mark.png";
 
 const EXPERT_ROLES = [
