@@ -160,7 +160,7 @@ const ROLE_TONE: Record<AppRole, string> = {
   partner_user: "bg-blue-500/15 text-blue-600 dark:text-blue-300",
 };
 
-export function AppSidebar() {
+export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mobile" } = {}) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useTranslation();
   const { user, profile, roles, loading } = useCurrentUser();
