@@ -107,14 +107,25 @@ export function useLanguage() {
       }
     };
 
+    // Route components are lazily chunked, so their subtree hydrates a few
+    // frames after the shell. Give React time to finish hydrating every
+    // pending boundary in DEFAULT_LANG before switching.
+    const schedule = () => window.setTimeout(applySaved, 250);
     if (document.readyState === "complete") {
-      requestAnimationFrame(applySaved);
-      return;
+      const id = schedule();
+      return () => window.clearTimeout(id);
     }
-    const onLoad = () => requestAnimationFrame(applySaved);
+    let timer: number | undefined;
+    const onLoad = () => {
+      timer = schedule();
+    };
     window.addEventListener("load", onLoad, { once: true });
-    return () => window.removeEventListener("load", onLoad);
+    return () => {
+      window.removeEventListener("load", onLoad);
+      if (timer) window.clearTimeout(timer);
+    };
   }, []);
+
 
 
 
