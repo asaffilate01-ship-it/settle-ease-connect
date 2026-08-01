@@ -118,7 +118,7 @@ export const addEnquiryNote = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await requireStaff(context as any);
-    const { error } = await context.supabase.from("enquiry_notes").insert({
+    const { error } = await (context.supabase.from("enquiry_notes") as any).insert({
       enquiry_id: data.enquiryId,
       body: data.body,
       is_internal: data.isInternal,
