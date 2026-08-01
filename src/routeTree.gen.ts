@@ -55,6 +55,7 @@ import { Route as AuthenticatedPartnerIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
+import { Route as ApiInternalPartnerDeliveriesRouteImport } from './routes/api/internal/partner-deliveries'
 import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
@@ -373,6 +374,12 @@ const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAgentRoute,
 } as any)
+const ApiInternalPartnerDeliveriesRoute =
+  ApiInternalPartnerDeliveriesRouteImport.update({
+    id: '/api/internal/partner-deliveries',
+    path: '/api/internal/partner-deliveries',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedPortalTaxRoute = AuthenticatedPortalTaxRouteImport.update({
   id: '/tax',
   path: '/tax',
@@ -965,6 +972,7 @@ export interface FileRoutesByFullPath {
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
+  '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1090,6 +1098,7 @@ export interface FileRoutesByTo {
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
+  '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
@@ -1220,6 +1229,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
+  '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1352,6 +1362,7 @@ export interface FileRouteTypes {
     | '/portal/referrals'
     | '/portal/students'
     | '/portal/tax'
+    | '/api/internal/partner-deliveries'
     | '/agent/'
     | '/app/'
     | '/expert/'
@@ -1477,6 +1488,7 @@ export interface FileRouteTypes {
     | '/portal/referrals'
     | '/portal/students'
     | '/portal/tax'
+    | '/api/internal/partner-deliveries'
     | '/agent'
     | '/app'
     | '/expert'
@@ -1606,6 +1618,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
     | '/_authenticated/portal/tax'
+    | '/api/internal/partner-deliveries'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
@@ -1659,6 +1672,7 @@ export interface RootRouteChildren {
   TrustRoute: typeof TrustRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
+  ApiInternalPartnerDeliveriesRoute: typeof ApiInternalPartnerDeliveriesRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -1985,6 +1999,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/agent/'
       preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/api/internal/partner-deliveries': {
+      id: '/api/internal/partner-deliveries'
+      path: '/api/internal/partner-deliveries'
+      fullPath: '/api/internal/partner-deliveries'
+      preLoaderRoute: typeof ApiInternalPartnerDeliveriesRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/portal/tax': {
       id: '/_authenticated/portal/tax'
@@ -2985,6 +3006,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrustRoute: TrustRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ExpertInviteTokenRoute: ExpertInviteTokenRoute,
+  ApiInternalPartnerDeliveriesRoute: ApiInternalPartnerDeliveriesRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
