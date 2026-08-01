@@ -23,7 +23,9 @@ export const Route = createFileRoute("/directory/list-your-business")({
       { name: "description", content: "Get discovered by BeistandPlus member families across Germany. Free listing in the community directory — no per-lead fees, no commissions." },
       { property: "og:title", content: "List your business — free — BeistandPlus directory" },
       { property: "og:description", content: "Free listing in the BeistandPlus directory. Contact details are shown to BeistandPlus members only, so every enquiry is a serious one." },
+      { property: "og:url", content: "https://beistandplus.de/directory/list-your-business" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/directory/list-your-business" }],
   }),
   component: ListYourBusiness,
 });

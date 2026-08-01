@@ -13,7 +13,9 @@ export const Route = createFileRoute("/bereavement-cover")({
       { name: "description", content: "Bereavement cover from about €24/month. €20,000 benefit to cover the full costs of the funeral and burial/last rites and repatriation if required, with any balance paid to the nominated beneficiary." },
       { property: "og:title", content: "Bereavement Cover — €20,000 approved & regulated expenses cover | BeistandPlus" },
       { property: "og:description", content: "€20,000 cover — funeral, burial or last rites and repatriation settled directly, with any balance paid to your nominated beneficiary." },
+      { property: "og:url", content: "https://beistandplus.de/bereavement-cover" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/bereavement-cover" }],
   }),
   component: BereavementCover,
 });

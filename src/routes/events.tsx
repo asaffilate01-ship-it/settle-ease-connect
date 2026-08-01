@@ -26,7 +26,9 @@ export const Route = createFileRoute("/events")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://beistandplus.de/events" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/events" }],
   }),
   component: EventsPage,
 });
