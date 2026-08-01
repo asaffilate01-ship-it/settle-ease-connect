@@ -9,22 +9,30 @@ import type { CapacitorConfig } from "@capacitor/cli";
  * change `server.url` to your custom domain (or remove it and run
  * `bun run build && npx cap copy` to embed a static bundle in `webDir`).
  */
+const isDevShell = process.env["CAP_DEV_SERVER"] === "1";
+
 const config: CapacitorConfig = {
-  appId: "app.lovable.beistand",
-  appName: "Beistand",
+  appId: "de.beistandplus.app",
+  appName: "BeistandPlus",
   webDir: "dist/client",
-  server: {
-    url: "https://id-preview--3f46c97f-04a4-4979-bb65-a197320d0525.lovable.app",
-    cleartext: true,
-    androidScheme: "https",
-    allowNavigation: [
-      "*.lovable.app",
-      "*.lovableproject.com",
-      "*.supabase.co",
-      "fonts.googleapis.com",
-      "fonts.gstatic.com",
-    ],
-  },
+  // Production ships the bundled web build (`bun run build && npx cap copy`).
+  // Set CAP_DEV_SERVER=1 to live-reload from the hosted app instead.
+  ...(isDevShell
+    ? {
+        server: {
+          url: "https://beistandplus.313test.co.uk",
+          cleartext: false,
+          androidScheme: "https" as const,
+          allowNavigation: [
+            "beistandplus.313test.co.uk",
+            "*.lovable.app",
+            "*.supabase.co",
+            "fonts.googleapis.com",
+            "fonts.gstatic.com",
+          ],
+        },
+      }
+    : {}),
   ios: {
     contentInset: "always",
     limitsNavigationsToAppBoundDomains: false,
