@@ -52,20 +52,38 @@ export const Route = createFileRoute("/_authenticated/partner/")({
 
 function PartnerHome() {
   const { data } = useSuspenseQuery(orgQ);
+  const qc = useQueryClient();
+  const claimFn = useServerFn(acceptPartnerInvitations);
+  const claim = useMutation({
+    mutationFn: () => claimFn({}),
+    onSuccess: (res) => {
+      if (res.claimed > 0) {
+        toast.success("Invitation accepted — welcome aboard.");
+        qc.invalidateQueries({ queryKey: ["partner", "me"] });
+      } else {
+        toast.info("No pending invitation found for your email address.");
+      }
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   if (!data?.org) {
     return (
-      <div className="p-6 max-w-lg mx-auto">
+      <div className="p-6 max-w-lg mx-auto space-y-4">
         <Alert>
           <AlertTitle>No partner organisation linked</AlertTitle>
           <AlertDescription>
-            Your account is not linked to a partner organisation yet. Ask your BeistandPlus contact to send you an
-            invitation.
+            Your account is not linked to a partner organisation yet. If you were invited by email, accept the
+            invitation below — otherwise ask your BeistandPlus contact to send you one.
           </AlertDescription>
         </Alert>
+        <Button onClick={() => claim.mutate()} disabled={claim.isPending}>
+          {claim.isPending ? "Checking…" : "Accept my invitation"}
+        </Button>
       </div>
     );
   }
+
 
   const org = data.org;
   const link = data.link;
