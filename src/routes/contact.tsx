@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { submitContactMessage } from "@/lib/contact.functions";
+import { Mail, Phone, MapPin, Loader2, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
