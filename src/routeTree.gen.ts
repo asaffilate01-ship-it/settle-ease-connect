@@ -26,7 +26,6 @@ import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GroupCoverRouteImport } from './routes/group-cover'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
-import { Route as EventsRouteImport } from './routes/events'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -36,6 +35,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PartnersInsurersRouteImport } from './routes/partners.insurers'
+import { Route as PartnerInviteTokenRouteImport } from './routes/partner-invite.$token'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
@@ -55,9 +55,11 @@ import { Route as AuthenticatedPartnerIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
+import { Route as ApiInternalPartnerDeliveriesRouteImport } from './routes/api/internal/partner-deliveries'
 import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
 import { Route as AuthenticatedPortalReferralsRouteImport } from './routes/_authenticated/portal.referrals'
+import { Route as AuthenticatedPortalPrivacyRouteImport } from './routes/_authenticated/portal.privacy'
 import { Route as AuthenticatedPortalPartnersRouteImport } from './routes/_authenticated/portal.partners'
 import { Route as AuthenticatedPortalPartnerPushRouteImport } from './routes/_authenticated/portal.partner-push'
 import { Route as AuthenticatedPortalOperationsRouteImport } from './routes/_authenticated/portal.operations'
@@ -74,19 +76,22 @@ import { Route as AuthenticatedPortalFuneralCoverRouteImport } from './routes/_a
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalFinancialsRouteImport } from './routes/_authenticated/portal.financials'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
-import { Route as AuthenticatedPortalEventsRouteImport } from './routes/_authenticated/portal.events'
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
+import { Route as AuthenticatedPortalEnquiriesRouteImport } from './routes/_authenticated/portal.enquiries'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
 import { Route as AuthenticatedPortalDelaRouteImport } from './routes/_authenticated/portal.dela'
 import { Route as AuthenticatedPortalCrmRouteImport } from './routes/_authenticated/portal.crm'
 import { Route as AuthenticatedPortalCopyAuditRouteImport } from './routes/_authenticated/portal.copy-audit'
+import { Route as AuthenticatedPortalComplianceRouteImport } from './routes/_authenticated/portal.compliance'
 import { Route as AuthenticatedPortalChecklistTemplatesRouteImport } from './routes/_authenticated/portal.checklist-templates'
 import { Route as AuthenticatedPortalCaseTemplatesRouteImport } from './routes/_authenticated/portal.case-templates'
 import { Route as AuthenticatedPortalCapacityRouteImport } from './routes/_authenticated/portal.capacity'
 import { Route as AuthenticatedPortalBenefitsRouteImport } from './routes/_authenticated/portal.benefits'
+import { Route as AuthenticatedPortalAuditorRouteImport } from './routes/_authenticated/portal.auditor'
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedPortalAssistantRouteImport } from './routes/_authenticated/portal.assistant'
 import { Route as AuthenticatedPortalAnalyticsRouteImport } from './routes/_authenticated/portal.analytics'
+import { Route as AuthenticatedFamilyInviteTokenRouteImport } from './routes/_authenticated/family-invite.$token'
 import { Route as AuthenticatedExpertQuotesRouteImport } from './routes/_authenticated/expert.quotes'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
 import { Route as AuthenticatedExpertPayoutsRouteImport } from './routes/_authenticated/expert.payouts'
@@ -100,18 +105,18 @@ import { Route as AuthenticatedAppSessionsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppReferralsRouteImport } from './routes/_authenticated/app.referrals'
 import { Route as AuthenticatedAppProvidersRouteImport } from './routes/_authenticated/app.providers'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
+import { Route as AuthenticatedAppPrivacyRequestsRouteImport } from './routes/_authenticated/app.privacy-requests'
 import { Route as AuthenticatedAppNotificationsRouteImport } from './routes/_authenticated/app.notifications'
 import { Route as AuthenticatedAppMessagesRouteImport } from './routes/_authenticated/app.messages'
 import { Route as AuthenticatedAppLocationRouteImport } from './routes/_authenticated/app.location'
 import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
 import { Route as AuthenticatedAppImmigrationRouteImport } from './routes/_authenticated/app.immigration'
-import { Route as AuthenticatedAppEventsRouteImport } from './routes/_authenticated/app.events'
+import { Route as AuthenticatedAppFamilyAccessRouteImport } from './routes/_authenticated/app.family-access'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app.community'
 import { Route as AuthenticatedAppChecklistsRouteImport } from './routes/_authenticated/app.checklists'
 import { Route as AuthenticatedAppCasesRouteImport } from './routes/_authenticated/app.cases'
 import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticated/app.bugs'
-import { Route as AuthenticatedAppBillingRouteImport } from './routes/_authenticated/app.billing'
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
@@ -224,11 +229,6 @@ const ForProvidersRoute = ForProvidersRouteImport.update({
   path: '/for-providers',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DirectoryRoute = DirectoryRouteImport.update({
   id: '/directory',
   path: '/directory',
@@ -272,6 +272,11 @@ const PartnersInsurersRoute = PartnersInsurersRouteImport.update({
   id: '/insurers',
   path: '/insurers',
   getParentRoute: () => PartnersRoute,
+} as any)
+const PartnerInviteTokenRoute = PartnerInviteTokenRouteImport.update({
+  id: '/partner-invite/$token',
+  path: '/partner-invite/$token',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
   id: '/terms',
@@ -373,6 +378,12 @@ const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAgentRoute,
 } as any)
+const ApiInternalPartnerDeliveriesRoute =
+  ApiInternalPartnerDeliveriesRouteImport.update({
+    id: '/api/internal/partner-deliveries',
+    path: '/api/internal/partner-deliveries',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedPortalTaxRoute = AuthenticatedPortalTaxRouteImport.update({
   id: '/tax',
   path: '/tax',
@@ -388,6 +399,12 @@ const AuthenticatedPortalReferralsRoute =
   AuthenticatedPortalReferralsRouteImport.update({
     id: '/referrals',
     path: '/referrals',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalPrivacyRoute =
+  AuthenticatedPortalPrivacyRouteImport.update({
+    id: '/privacy',
+    path: '/privacy',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalPartnersRoute =
@@ -486,16 +503,16 @@ const AuthenticatedPortalExpertsRoute =
     path: '/experts',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
-const AuthenticatedPortalEventsRoute =
-  AuthenticatedPortalEventsRouteImport.update({
-    id: '/events',
-    path: '/events',
-    getParentRoute: () => AuthenticatedPortalRoute,
-  } as any)
 const AuthenticatedPortalEscrowRoute =
   AuthenticatedPortalEscrowRouteImport.update({
     id: '/escrow',
     path: '/escrow',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalEnquiriesRoute =
+  AuthenticatedPortalEnquiriesRouteImport.update({
+    id: '/enquiries',
+    path: '/enquiries',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalDirectoryRoute =
@@ -518,6 +535,12 @@ const AuthenticatedPortalCopyAuditRoute =
   AuthenticatedPortalCopyAuditRouteImport.update({
     id: '/copy-audit',
     path: '/copy-audit',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalComplianceRoute =
+  AuthenticatedPortalComplianceRouteImport.update({
+    id: '/compliance',
+    path: '/compliance',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
 const AuthenticatedPortalChecklistTemplatesRoute =
@@ -544,6 +567,12 @@ const AuthenticatedPortalBenefitsRoute =
     path: '/benefits',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalAuditorRoute =
+  AuthenticatedPortalAuditorRouteImport.update({
+    id: '/auditor',
+    path: '/auditor',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalAuditRoute =
   AuthenticatedPortalAuditRouteImport.update({
     id: '/audit',
@@ -561,6 +590,12 @@ const AuthenticatedPortalAnalyticsRoute =
     id: '/analytics',
     path: '/analytics',
     getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedFamilyInviteTokenRoute =
+  AuthenticatedFamilyInviteTokenRouteImport.update({
+    id: '/family-invite/$token',
+    path: '/family-invite/$token',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedExpertQuotesRoute =
   AuthenticatedExpertQuotesRouteImport.update({
@@ -638,6 +673,12 @@ const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppPrivacyRequestsRoute =
+  AuthenticatedAppPrivacyRequestsRouteImport.update({
+    id: '/privacy-requests',
+    path: '/privacy-requests',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppNotificationsRoute =
   AuthenticatedAppNotificationsRouteImport.update({
     id: '/notifications',
@@ -668,11 +709,12 @@ const AuthenticatedAppImmigrationRoute =
     path: '/immigration',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
-const AuthenticatedAppEventsRoute = AuthenticatedAppEventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => AuthenticatedAppRoute,
-} as any)
+const AuthenticatedAppFamilyAccessRoute =
+  AuthenticatedAppFamilyAccessRouteImport.update({
+    id: '/family-access',
+    path: '/family-access',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppDocumentsRoute =
   AuthenticatedAppDocumentsRouteImport.update({
     id: '/documents',
@@ -699,11 +741,6 @@ const AuthenticatedAppCasesRoute = AuthenticatedAppCasesRouteImport.update({
 const AuthenticatedAppBugsRoute = AuthenticatedAppBugsRouteImport.update({
   id: '/bugs',
   path: '/bugs',
-  getParentRoute: () => AuthenticatedAppRoute,
-} as any)
-const AuthenticatedAppBillingRoute = AuthenticatedAppBillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
 const AuthenticatedAppBenefitsRoute =
@@ -866,7 +903,6 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
-  '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
@@ -898,6 +934,7 @@ export interface FileRoutesByFullPath {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/partner-invite/$token': typeof PartnerInviteTokenRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
@@ -908,18 +945,18 @@ export interface FileRoutesByFullPath {
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
-  '/app/billing': typeof AuthenticatedAppBillingRoute
   '/app/bugs': typeof AuthenticatedAppBugsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
-  '/app/events': typeof AuthenticatedAppEventsRoute
+  '/app/family-access': typeof AuthenticatedAppFamilyAccessRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/location': typeof AuthenticatedAppLocationRoute
   '/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
+  '/app/privacy-requests': typeof AuthenticatedAppPrivacyRequestsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/referrals': typeof AuthenticatedAppReferralsRoute
@@ -933,19 +970,22 @@ export interface FileRoutesByFullPath {
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
+  '/family-invite/$token': typeof AuthenticatedFamilyInviteTokenRoute
   '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
+  '/portal/auditor': typeof AuthenticatedPortalAuditorRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/portal/checklist-templates': typeof AuthenticatedPortalChecklistTemplatesRoute
+  '/portal/compliance': typeof AuthenticatedPortalComplianceRoute
   '/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
+  '/portal/enquiries': typeof AuthenticatedPortalEnquiriesRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
-  '/portal/events': typeof AuthenticatedPortalEventsRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
@@ -962,9 +1002,11 @@ export interface FileRoutesByFullPath {
   '/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/portal/partner-push': typeof AuthenticatedPortalPartnerPushRoute
   '/portal/partners': typeof AuthenticatedPortalPartnersRoute
+  '/portal/privacy': typeof AuthenticatedPortalPrivacyRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
+  '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
@@ -996,7 +1038,6 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
-  '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
@@ -1024,6 +1065,7 @@ export interface FileRoutesByTo {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/partner-invite/$token': typeof PartnerInviteTokenRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
@@ -1034,18 +1076,18 @@ export interface FileRoutesByTo {
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
-  '/app/billing': typeof AuthenticatedAppBillingRoute
   '/app/bugs': typeof AuthenticatedAppBugsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
-  '/app/events': typeof AuthenticatedAppEventsRoute
+  '/app/family-access': typeof AuthenticatedAppFamilyAccessRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/app/location': typeof AuthenticatedAppLocationRoute
   '/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
   '/app/notifications': typeof AuthenticatedAppNotificationsRoute
+  '/app/privacy-requests': typeof AuthenticatedAppPrivacyRequestsRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/providers': typeof AuthenticatedAppProvidersRoute
   '/app/referrals': typeof AuthenticatedAppReferralsRoute
@@ -1059,18 +1101,21 @@ export interface FileRoutesByTo {
   '/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
+  '/family-invite/$token': typeof AuthenticatedFamilyInviteTokenRoute
   '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
+  '/portal/auditor': typeof AuthenticatedPortalAuditorRoute
   '/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/portal/checklist-templates': typeof AuthenticatedPortalChecklistTemplatesRoute
+  '/portal/compliance': typeof AuthenticatedPortalComplianceRoute
   '/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
+  '/portal/enquiries': typeof AuthenticatedPortalEnquiriesRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
-  '/portal/events': typeof AuthenticatedPortalEventsRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
@@ -1087,9 +1132,11 @@ export interface FileRoutesByTo {
   '/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/portal/partner-push': typeof AuthenticatedPortalPartnerPushRoute
   '/portal/partners': typeof AuthenticatedPortalPartnersRoute
+  '/portal/privacy': typeof AuthenticatedPortalPrivacyRoute
   '/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
+  '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
@@ -1121,7 +1168,6 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
-  '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
@@ -1153,6 +1199,7 @@ export interface FileRoutesById {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/partner-invite/$token': typeof PartnerInviteTokenRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/_authenticated/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
@@ -1163,18 +1210,18 @@ export interface FileRoutesById {
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
-  '/_authenticated/app/billing': typeof AuthenticatedAppBillingRoute
   '/_authenticated/app/bugs': typeof AuthenticatedAppBugsRoute
   '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/_authenticated/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
-  '/_authenticated/app/events': typeof AuthenticatedAppEventsRoute
+  '/_authenticated/app/family-access': typeof AuthenticatedAppFamilyAccessRoute
   '/_authenticated/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
   '/_authenticated/app/location': typeof AuthenticatedAppLocationRoute
   '/_authenticated/app/messages': typeof AuthenticatedAppMessagesRouteWithChildren
   '/_authenticated/app/notifications': typeof AuthenticatedAppNotificationsRoute
+  '/_authenticated/app/privacy-requests': typeof AuthenticatedAppPrivacyRequestsRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/providers': typeof AuthenticatedAppProvidersRoute
   '/_authenticated/app/referrals': typeof AuthenticatedAppReferralsRoute
@@ -1188,19 +1235,22 @@ export interface FileRoutesById {
   '/_authenticated/expert/payouts': typeof AuthenticatedExpertPayoutsRoute
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/expert/quotes': typeof AuthenticatedExpertQuotesRoute
+  '/_authenticated/family-invite/$token': typeof AuthenticatedFamilyInviteTokenRoute
   '/_authenticated/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/_authenticated/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
+  '/_authenticated/portal/auditor': typeof AuthenticatedPortalAuditorRoute
   '/_authenticated/portal/benefits': typeof AuthenticatedPortalBenefitsRoute
   '/_authenticated/portal/capacity': typeof AuthenticatedPortalCapacityRoute
   '/_authenticated/portal/case-templates': typeof AuthenticatedPortalCaseTemplatesRoute
   '/_authenticated/portal/checklist-templates': typeof AuthenticatedPortalChecklistTemplatesRoute
+  '/_authenticated/portal/compliance': typeof AuthenticatedPortalComplianceRoute
   '/_authenticated/portal/copy-audit': typeof AuthenticatedPortalCopyAuditRoute
   '/_authenticated/portal/crm': typeof AuthenticatedPortalCrmRouteWithChildren
   '/_authenticated/portal/dela': typeof AuthenticatedPortalDelaRoute
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
+  '/_authenticated/portal/enquiries': typeof AuthenticatedPortalEnquiriesRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
-  '/_authenticated/portal/events': typeof AuthenticatedPortalEventsRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
@@ -1217,9 +1267,11 @@ export interface FileRoutesById {
   '/_authenticated/portal/operations': typeof AuthenticatedPortalOperationsRoute
   '/_authenticated/portal/partner-push': typeof AuthenticatedPortalPartnerPushRoute
   '/_authenticated/portal/partners': typeof AuthenticatedPortalPartnersRoute
+  '/_authenticated/portal/privacy': typeof AuthenticatedPortalPrivacyRoute
   '/_authenticated/portal/referrals': typeof AuthenticatedPortalReferralsRoute
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
+  '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1253,7 +1305,6 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/directory'
-    | '/events'
     | '/for-providers'
     | '/group-cover'
     | '/how-it-works'
@@ -1285,6 +1336,7 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/partner-invite/$token'
     | '/partners/insurers'
     | '/agent/clients'
     | '/agent/commissions'
@@ -1295,18 +1347,18 @@ export interface FileRouteTypes {
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
-    | '/app/billing'
     | '/app/bugs'
     | '/app/cases'
     | '/app/checklists'
     | '/app/community'
     | '/app/documents'
-    | '/app/events'
+    | '/app/family-access'
     | '/app/immigration'
     | '/app/insurance'
     | '/app/location'
     | '/app/messages'
     | '/app/notifications'
+    | '/app/privacy-requests'
     | '/app/profile'
     | '/app/providers'
     | '/app/referrals'
@@ -1320,19 +1372,22 @@ export interface FileRouteTypes {
     | '/expert/payouts'
     | '/expert/profile'
     | '/expert/quotes'
+    | '/family-invite/$token'
     | '/portal/analytics'
     | '/portal/assistant'
     | '/portal/audit'
+    | '/portal/auditor'
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
     | '/portal/checklist-templates'
+    | '/portal/compliance'
     | '/portal/copy-audit'
     | '/portal/crm'
     | '/portal/dela'
     | '/portal/directory'
+    | '/portal/enquiries'
     | '/portal/escrow'
-    | '/portal/events'
     | '/portal/experts'
     | '/portal/financials'
     | '/portal/funeral'
@@ -1349,9 +1404,11 @@ export interface FileRouteTypes {
     | '/portal/operations'
     | '/portal/partner-push'
     | '/portal/partners'
+    | '/portal/privacy'
     | '/portal/referrals'
     | '/portal/students'
     | '/portal/tax'
+    | '/api/internal/partner-deliveries'
     | '/agent/'
     | '/app/'
     | '/expert/'
@@ -1383,7 +1440,6 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/directory'
-    | '/events'
     | '/for-providers'
     | '/group-cover'
     | '/how-it-works'
@@ -1411,6 +1467,7 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/partner-invite/$token'
     | '/partners/insurers'
     | '/agent/clients'
     | '/agent/commissions'
@@ -1421,18 +1478,18 @@ export interface FileRouteTypes {
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
-    | '/app/billing'
     | '/app/bugs'
     | '/app/cases'
     | '/app/checklists'
     | '/app/community'
     | '/app/documents'
-    | '/app/events'
+    | '/app/family-access'
     | '/app/immigration'
     | '/app/insurance'
     | '/app/location'
     | '/app/messages'
     | '/app/notifications'
+    | '/app/privacy-requests'
     | '/app/profile'
     | '/app/providers'
     | '/app/referrals'
@@ -1446,18 +1503,21 @@ export interface FileRouteTypes {
     | '/expert/payouts'
     | '/expert/profile'
     | '/expert/quotes'
+    | '/family-invite/$token'
     | '/portal/analytics'
     | '/portal/assistant'
     | '/portal/audit'
+    | '/portal/auditor'
     | '/portal/benefits'
     | '/portal/capacity'
     | '/portal/case-templates'
     | '/portal/checklist-templates'
+    | '/portal/compliance'
     | '/portal/copy-audit'
     | '/portal/dela'
     | '/portal/directory'
+    | '/portal/enquiries'
     | '/portal/escrow'
-    | '/portal/events'
     | '/portal/experts'
     | '/portal/financials'
     | '/portal/funeral'
@@ -1474,9 +1534,11 @@ export interface FileRouteTypes {
     | '/portal/operations'
     | '/portal/partner-push'
     | '/portal/partners'
+    | '/portal/privacy'
     | '/portal/referrals'
     | '/portal/students'
     | '/portal/tax'
+    | '/api/internal/partner-deliveries'
     | '/agent'
     | '/app'
     | '/expert'
@@ -1507,7 +1569,6 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/directory'
-    | '/events'
     | '/for-providers'
     | '/group-cover'
     | '/how-it-works'
@@ -1539,6 +1600,7 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/partner-invite/$token'
     | '/partners/insurers'
     | '/_authenticated/agent/clients'
     | '/_authenticated/agent/commissions'
@@ -1549,18 +1611,18 @@ export interface FileRouteTypes {
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
-    | '/_authenticated/app/billing'
     | '/_authenticated/app/bugs'
     | '/_authenticated/app/cases'
     | '/_authenticated/app/checklists'
     | '/_authenticated/app/community'
     | '/_authenticated/app/documents'
-    | '/_authenticated/app/events'
+    | '/_authenticated/app/family-access'
     | '/_authenticated/app/immigration'
     | '/_authenticated/app/insurance'
     | '/_authenticated/app/location'
     | '/_authenticated/app/messages'
     | '/_authenticated/app/notifications'
+    | '/_authenticated/app/privacy-requests'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/providers'
     | '/_authenticated/app/referrals'
@@ -1574,19 +1636,22 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/payouts'
     | '/_authenticated/expert/profile'
     | '/_authenticated/expert/quotes'
+    | '/_authenticated/family-invite/$token'
     | '/_authenticated/portal/analytics'
     | '/_authenticated/portal/assistant'
     | '/_authenticated/portal/audit'
+    | '/_authenticated/portal/auditor'
     | '/_authenticated/portal/benefits'
     | '/_authenticated/portal/capacity'
     | '/_authenticated/portal/case-templates'
     | '/_authenticated/portal/checklist-templates'
+    | '/_authenticated/portal/compliance'
     | '/_authenticated/portal/copy-audit'
     | '/_authenticated/portal/crm'
     | '/_authenticated/portal/dela'
     | '/_authenticated/portal/directory'
+    | '/_authenticated/portal/enquiries'
     | '/_authenticated/portal/escrow'
-    | '/_authenticated/portal/events'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/financials'
     | '/_authenticated/portal/funeral'
@@ -1603,9 +1668,11 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/operations'
     | '/_authenticated/portal/partner-push'
     | '/_authenticated/portal/partners'
+    | '/_authenticated/portal/privacy'
     | '/_authenticated/portal/referrals'
     | '/_authenticated/portal/students'
     | '/_authenticated/portal/tax'
+    | '/api/internal/partner-deliveries'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
@@ -1639,7 +1706,6 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   DirectoryRoute: typeof DirectoryRouteWithChildren
-  EventsRoute: typeof EventsRoute
   ForProvidersRoute: typeof ForProvidersRoute
   GroupCoverRoute: typeof GroupCoverRouteWithChildren
   HowItWorksRoute: typeof HowItWorksRoute
@@ -1659,6 +1725,8 @@ export interface RootRouteChildren {
   TrustRoute: typeof TrustRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
+  PartnerInviteTokenRoute: typeof PartnerInviteTokenRoute
+  ApiInternalPartnerDeliveriesRoute: typeof ApiInternalPartnerDeliveriesRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -1783,13 +1851,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForProvidersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/directory': {
       id: '/directory'
       path: '/directory'
@@ -1852,6 +1913,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/partners/insurers'
       preLoaderRoute: typeof PartnersInsurersRouteImport
       parentRoute: typeof PartnersRoute
+    }
+    '/partner-invite/$token': {
+      id: '/partner-invite/$token'
+      path: '/partner-invite/$token'
+      fullPath: '/partner-invite/$token'
+      preLoaderRoute: typeof PartnerInviteTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/legal/terms': {
       id: '/legal/terms'
@@ -1986,6 +2054,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
     }
+    '/api/internal/partner-deliveries': {
+      id: '/api/internal/partner-deliveries'
+      path: '/api/internal/partner-deliveries'
+      fullPath: '/api/internal/partner-deliveries'
+      preLoaderRoute: typeof ApiInternalPartnerDeliveriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/portal/tax': {
       id: '/_authenticated/portal/tax'
       path: '/tax'
@@ -2005,6 +2080,13 @@ declare module '@tanstack/react-router' {
       path: '/referrals'
       fullPath: '/portal/referrals'
       preLoaderRoute: typeof AuthenticatedPortalReferralsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/privacy': {
+      id: '/_authenticated/portal/privacy'
+      path: '/privacy'
+      fullPath: '/portal/privacy'
+      preLoaderRoute: typeof AuthenticatedPortalPrivacyRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/partners': {
@@ -2119,18 +2201,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
-    '/_authenticated/portal/events': {
-      id: '/_authenticated/portal/events'
-      path: '/events'
-      fullPath: '/portal/events'
-      preLoaderRoute: typeof AuthenticatedPortalEventsRouteImport
-      parentRoute: typeof AuthenticatedPortalRoute
-    }
     '/_authenticated/portal/escrow': {
       id: '/_authenticated/portal/escrow'
       path: '/escrow'
       fullPath: '/portal/escrow'
       preLoaderRoute: typeof AuthenticatedPortalEscrowRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/enquiries': {
+      id: '/_authenticated/portal/enquiries'
+      path: '/enquiries'
+      fullPath: '/portal/enquiries'
+      preLoaderRoute: typeof AuthenticatedPortalEnquiriesRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
     '/_authenticated/portal/directory': {
@@ -2161,6 +2243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalCopyAuditRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/compliance': {
+      id: '/_authenticated/portal/compliance'
+      path: '/compliance'
+      fullPath: '/portal/compliance'
+      preLoaderRoute: typeof AuthenticatedPortalComplianceRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/checklist-templates': {
       id: '/_authenticated/portal/checklist-templates'
       path: '/checklist-templates'
@@ -2189,6 +2278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalBenefitsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/auditor': {
+      id: '/_authenticated/portal/auditor'
+      path: '/auditor'
+      fullPath: '/portal/auditor'
+      preLoaderRoute: typeof AuthenticatedPortalAuditorRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/audit': {
       id: '/_authenticated/portal/audit'
       path: '/audit'
@@ -2209,6 +2305,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/analytics'
       preLoaderRoute: typeof AuthenticatedPortalAnalyticsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/family-invite/$token': {
+      id: '/_authenticated/family-invite/$token'
+      path: '/family-invite/$token'
+      fullPath: '/family-invite/$token'
+      preLoaderRoute: typeof AuthenticatedFamilyInviteTokenRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/expert/quotes': {
       id: '/_authenticated/expert/quotes'
@@ -2301,6 +2404,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/privacy-requests': {
+      id: '/_authenticated/app/privacy-requests'
+      path: '/privacy-requests'
+      fullPath: '/app/privacy-requests'
+      preLoaderRoute: typeof AuthenticatedAppPrivacyRequestsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/notifications': {
       id: '/_authenticated/app/notifications'
       path: '/notifications'
@@ -2336,11 +2446,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppImmigrationRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
-    '/_authenticated/app/events': {
-      id: '/_authenticated/app/events'
-      path: '/events'
-      fullPath: '/app/events'
-      preLoaderRoute: typeof AuthenticatedAppEventsRouteImport
+    '/_authenticated/app/family-access': {
+      id: '/_authenticated/app/family-access'
+      path: '/family-access'
+      fullPath: '/app/family-access'
+      preLoaderRoute: typeof AuthenticatedAppFamilyAccessRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/documents': {
@@ -2376,13 +2486,6 @@ declare module '@tanstack/react-router' {
       path: '/bugs'
       fullPath: '/app/bugs'
       preLoaderRoute: typeof AuthenticatedAppBugsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
-    }
-    '/_authenticated/app/billing': {
-      id: '/_authenticated/app/billing'
-      path: '/billing'
-      fullPath: '/app/billing'
-      preLoaderRoute: typeof AuthenticatedAppBillingRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/benefits': {
@@ -2625,18 +2728,18 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
   AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
-  AuthenticatedAppBillingRoute: typeof AuthenticatedAppBillingRoute
   AuthenticatedAppBugsRoute: typeof AuthenticatedAppBugsRoute
   AuthenticatedAppCasesRoute: typeof AuthenticatedAppCasesRouteWithChildren
   AuthenticatedAppChecklistsRoute: typeof AuthenticatedAppChecklistsRoute
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
-  AuthenticatedAppEventsRoute: typeof AuthenticatedAppEventsRoute
+  AuthenticatedAppFamilyAccessRoute: typeof AuthenticatedAppFamilyAccessRoute
   AuthenticatedAppImmigrationRoute: typeof AuthenticatedAppImmigrationRoute
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
   AuthenticatedAppLocationRoute: typeof AuthenticatedAppLocationRoute
   AuthenticatedAppMessagesRoute: typeof AuthenticatedAppMessagesRouteWithChildren
   AuthenticatedAppNotificationsRoute: typeof AuthenticatedAppNotificationsRoute
+  AuthenticatedAppPrivacyRequestsRoute: typeof AuthenticatedAppPrivacyRequestsRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppProvidersRoute: typeof AuthenticatedAppProvidersRoute
   AuthenticatedAppReferralsRoute: typeof AuthenticatedAppReferralsRoute
@@ -2653,18 +2756,18 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppAlertRoute: AuthenticatedAppAlertRoute,
   AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
   AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
-  AuthenticatedAppBillingRoute: AuthenticatedAppBillingRoute,
   AuthenticatedAppBugsRoute: AuthenticatedAppBugsRoute,
   AuthenticatedAppCasesRoute: AuthenticatedAppCasesRouteWithChildren,
   AuthenticatedAppChecklistsRoute: AuthenticatedAppChecklistsRoute,
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
-  AuthenticatedAppEventsRoute: AuthenticatedAppEventsRoute,
+  AuthenticatedAppFamilyAccessRoute: AuthenticatedAppFamilyAccessRoute,
   AuthenticatedAppImmigrationRoute: AuthenticatedAppImmigrationRoute,
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
   AuthenticatedAppLocationRoute: AuthenticatedAppLocationRoute,
   AuthenticatedAppMessagesRoute: AuthenticatedAppMessagesRouteWithChildren,
   AuthenticatedAppNotificationsRoute: AuthenticatedAppNotificationsRoute,
+  AuthenticatedAppPrivacyRequestsRoute: AuthenticatedAppPrivacyRequestsRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppProvidersRoute: AuthenticatedAppProvidersRoute,
   AuthenticatedAppReferralsRoute: AuthenticatedAppReferralsRoute,
@@ -2793,16 +2896,18 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalAnalyticsRoute: typeof AuthenticatedPortalAnalyticsRoute
   AuthenticatedPortalAssistantRoute: typeof AuthenticatedPortalAssistantRoute
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
+  AuthenticatedPortalAuditorRoute: typeof AuthenticatedPortalAuditorRoute
   AuthenticatedPortalBenefitsRoute: typeof AuthenticatedPortalBenefitsRoute
   AuthenticatedPortalCapacityRoute: typeof AuthenticatedPortalCapacityRoute
   AuthenticatedPortalCaseTemplatesRoute: typeof AuthenticatedPortalCaseTemplatesRoute
   AuthenticatedPortalChecklistTemplatesRoute: typeof AuthenticatedPortalChecklistTemplatesRoute
+  AuthenticatedPortalComplianceRoute: typeof AuthenticatedPortalComplianceRoute
   AuthenticatedPortalCopyAuditRoute: typeof AuthenticatedPortalCopyAuditRoute
   AuthenticatedPortalCrmRoute: typeof AuthenticatedPortalCrmRouteWithChildren
   AuthenticatedPortalDelaRoute: typeof AuthenticatedPortalDelaRoute
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
+  AuthenticatedPortalEnquiriesRoute: typeof AuthenticatedPortalEnquiriesRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
-  AuthenticatedPortalEventsRoute: typeof AuthenticatedPortalEventsRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFinancialsRoute: typeof AuthenticatedPortalFinancialsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
@@ -2819,6 +2924,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalOperationsRoute: typeof AuthenticatedPortalOperationsRoute
   AuthenticatedPortalPartnerPushRoute: typeof AuthenticatedPortalPartnerPushRoute
   AuthenticatedPortalPartnersRoute: typeof AuthenticatedPortalPartnersRoute
+  AuthenticatedPortalPrivacyRoute: typeof AuthenticatedPortalPrivacyRoute
   AuthenticatedPortalReferralsRoute: typeof AuthenticatedPortalReferralsRoute
   AuthenticatedPortalStudentsRoute: typeof AuthenticatedPortalStudentsRoute
   AuthenticatedPortalTaxRoute: typeof AuthenticatedPortalTaxRoute
@@ -2832,17 +2938,19 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalAnalyticsRoute: AuthenticatedPortalAnalyticsRoute,
   AuthenticatedPortalAssistantRoute: AuthenticatedPortalAssistantRoute,
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,
+  AuthenticatedPortalAuditorRoute: AuthenticatedPortalAuditorRoute,
   AuthenticatedPortalBenefitsRoute: AuthenticatedPortalBenefitsRoute,
   AuthenticatedPortalCapacityRoute: AuthenticatedPortalCapacityRoute,
   AuthenticatedPortalCaseTemplatesRoute: AuthenticatedPortalCaseTemplatesRoute,
   AuthenticatedPortalChecklistTemplatesRoute:
     AuthenticatedPortalChecklistTemplatesRoute,
+  AuthenticatedPortalComplianceRoute: AuthenticatedPortalComplianceRoute,
   AuthenticatedPortalCopyAuditRoute: AuthenticatedPortalCopyAuditRoute,
   AuthenticatedPortalCrmRoute: AuthenticatedPortalCrmRouteWithChildren,
   AuthenticatedPortalDelaRoute: AuthenticatedPortalDelaRoute,
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
+  AuthenticatedPortalEnquiriesRoute: AuthenticatedPortalEnquiriesRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
-  AuthenticatedPortalEventsRoute: AuthenticatedPortalEventsRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFinancialsRoute: AuthenticatedPortalFinancialsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
@@ -2861,6 +2969,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalOperationsRoute: AuthenticatedPortalOperationsRoute,
   AuthenticatedPortalPartnerPushRoute: AuthenticatedPortalPartnerPushRoute,
   AuthenticatedPortalPartnersRoute: AuthenticatedPortalPartnersRoute,
+  AuthenticatedPortalPrivacyRoute: AuthenticatedPortalPrivacyRoute,
   AuthenticatedPortalReferralsRoute: AuthenticatedPortalReferralsRoute,
   AuthenticatedPortalStudentsRoute: AuthenticatedPortalStudentsRoute,
   AuthenticatedPortalTaxRoute: AuthenticatedPortalTaxRoute,
@@ -2878,6 +2987,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
   AuthenticatedExpertRoute: typeof AuthenticatedExpertRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
+  AuthenticatedFamilyInviteTokenRoute: typeof AuthenticatedFamilyInviteTokenRoute
   AuthenticatedPartnerIndexRoute: typeof AuthenticatedPartnerIndexRoute
 }
 
@@ -2886,6 +2996,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
   AuthenticatedExpertRoute: AuthenticatedExpertRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
+  AuthenticatedFamilyInviteTokenRoute: AuthenticatedFamilyInviteTokenRoute,
   AuthenticatedPartnerIndexRoute: AuthenticatedPartnerIndexRoute,
 }
 
@@ -2965,7 +3076,6 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   DirectoryRoute: DirectoryRouteWithChildren,
-  EventsRoute: EventsRoute,
   ForProvidersRoute: ForProvidersRoute,
   GroupCoverRoute: GroupCoverRouteWithChildren,
   HowItWorksRoute: HowItWorksRoute,
@@ -2985,8 +3095,20 @@ const rootRouteChildren: RootRouteChildren = {
   TrustRoute: TrustRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ExpertInviteTokenRoute: ExpertInviteTokenRoute,
+  PartnerInviteTokenRoute: PartnerInviteTokenRoute,
+  ApiInternalPartnerDeliveriesRoute: ApiInternalPartnerDeliveriesRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
