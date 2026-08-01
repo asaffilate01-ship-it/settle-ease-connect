@@ -31,7 +31,8 @@
       "groupCover": "Sterbegeld €20k dla stowarzyszeń i pracodawców",
       "taxRefund": "Deklaracja podatkowa z pomocą w Twoim języku",
       "leavingGermany": "Lista wyjazdowa, zamknięcie podatków i dokumenty"
-    }
+    },
+    "events": "Wydarzenia i porady"
   },
   "footer": {
     "tagline": "Dla każdej drogi w Niemczech. Osiedlanie się, świadczenia socjalne, zasiłki i opieka u kresu życia — jedna spokojna platforma dla rodzin i organizacji, które im towarzyszą.",
@@ -119,7 +120,10 @@
     "sessions": "Sesje",
     "staffAssistant": "Asystent wiedzy",
     "partnerPush": "API partnera",
-    "copyAudit": "Audyt treści"
+    "copyAudit": "Audyt treści",
+    "events": "Wydarzenia i porady",
+    "billing": "Płatności i faktury",
+    "eventsOps": "Wydarzenia i ogłoszenia"
   },
   "agent": {
     "defaultName": "Agent",

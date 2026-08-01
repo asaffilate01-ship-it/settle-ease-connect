@@ -83,9 +83,11 @@ export function SiteHeader() {
       ],
     },
     { label: t("nav.howItWorks", "How it works"), href: "/how-it-works" },
+    { label: t("nav.events", "Events & clinics"), href: "/events" },
     { label: t("nav.forProviders", "For providers"), href: "/for-providers" },
     { label: t("nav.pricing", "Pricing"), href: "/pricing" },
     { label: t("nav.blog", "Blog"), href: "/blog" },
+
   ];
 
   // Flat list for the mobile sheet.
@@ -99,9 +101,11 @@ export function SiteHeader() {
       [t("nav.groupCover"), "/group-cover"],
       [t("nav.taxRefund"), "/tax"],
       [t("nav.leavingGermany"), "/leaving-germany"],
+      [t("nav.events", "Events & clinics"), "/events"],
       [t("nav.forProviders"), "/for-providers"],
       [t("nav.pricing"), "/pricing"],
       [t("nav.blog"), "/blog"],
+
     ];
 
   return (

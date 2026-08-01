@@ -74,7 +74,8 @@
       "groupCover": "€20k Sterbegeld for associations & employers",
       "taxRefund": "Tax return, guided in your language",
       "leavingGermany": "Departure checklist, tax farewell & paperwork"
-    }
+    },
+    "events": "Events & clinics"
   },
   "footer": {
     "tagline": "For every path in Germany. Settlement, welfare, benefits, and end-of-life care — one calm platform for families and the organisations that stand with them.",
@@ -172,7 +173,10 @@
     "sessions": "Sessions & devices",
     "staffAssistant": "KB assistant",
     "partnerPush": "Partner API push",
-    "copyAudit": "Copy audit"
+    "copyAudit": "Copy audit",
+    "events": "Events & clinics",
+    "billing": "Billing & payments",
+    "eventsOps": "Events & notices"
   },
   "agent": {
     "defaultName": "Agent",
@@ -528,5 +532,73 @@
     "title": "Activate your plan to unlock the dashboard",
     "body": "Basic €5/mo · Plus €10/mo · Complete €25/mo. Third-party costs always separate — nothing hidden.",
     "cta": "View plans"
+  },
+  "events": {
+    "title": "Free clinics & community events",
+    "subtitle": "Regular free advice sessions with qualified experts — basic health checks, tax, legal, benefits and general guidance — plus community gatherings, workshops and day trips. Most events are free to attend.",
+    "notices": "Notices",
+    "free": "Free",
+    "register": "Register",
+    "membersOnly": "Members only",
+    "empty": "No events scheduled right now — check back soon.",
+    "memberTitle": "Events & free clinics",
+    "memberSubtitle": "Book a free advice clinic with a qualified expert, or join a community gathering, workshop or trip.",
+    "yourBookings": "Your bookings",
+    "noBookings": "You have no bookings yet.",
+    "upcoming": "Upcoming events",
+    "booked": "Booked",
+    "onWaitlist": "On waiting list",
+    "waitlisted": "Added to the waiting list — we'll let you know if a place opens.",
+    "registered": "You're registered. See you there!",
+    "cancelled": "Registration cancelled",
+    "cancelAction": "Cancel",
+    "failed": "Could not register",
+    "capacity": "{{count}} places",
+    "filters": {
+      "all": "All",
+      "clinics": "Advice clinics",
+      "community": "Community",
+      "workshops": "Workshops",
+      "trips": "Trips & excursions"
+    },
+    "categories": {
+      "advice_clinic": "Advice clinic",
+      "community_gathering": "Community",
+      "workshop": "Workshop",
+      "trip": "Trip"
+    }
+  },
+  "billing": {
+    "title": "Billing & payments",
+    "subtitle": "Your plan, funeral cover, payments made and anything due — all in one place.",
+    "managePayment": "Manage payment method",
+    "portalFailed": "Could not open the billing portal",
+    "plan": "Plan",
+    "noPlan": "No plan",
+    "noPlanBody": "You don't have an active plan yet.",
+    "choosePlan": "Choose a plan",
+    "monthlyCommitment": "Monthly total",
+    "planPlusCover": "Plan + funeral cover",
+    "paidToDate": "Paid to date",
+    "outstanding": "Outstanding",
+    "subscription": "Subscription",
+    "status": "Status",
+    "price": "Price",
+    "currentPeriod": "Current period",
+    "renews": "Renews",
+    "endsAtPeriodEnd": "Ends at period end",
+    "funeralCover": "Funeral cover",
+    "premium": "Premium",
+    "benefit": "Cover amount",
+    "household": "Household",
+    "renewal": "Renewal",
+    "policyNumber": "Policy",
+    "due": "Payment due",
+    "history": "Payment history",
+    "noInvoices": "No payments recorded yet.",
+    "date": "Date",
+    "description": "Description",
+    "amount": "Amount",
+    "pdf": "PDF"
   }
 }

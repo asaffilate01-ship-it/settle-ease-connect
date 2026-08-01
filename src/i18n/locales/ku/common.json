@@ -31,7 +31,8 @@
       "groupCover": "€20k Sterbegeld ji bo komele û kardêran",
       "taxRefund": "Daxuyaniya bacê bi zimanê we",
       "leavingGermany": "Lîsteya derketinê, dawîkirina bacê û kaxezkarî"
-    }
+    },
+    "events": "Çalakî û şêwirmendî"
   },
   "footer": {
     "tagline": "Ji bo her riya li Almanya. Bicîbûn, refah, feydeyên, û lênêrîna dawiya-jiyanê — platformeke aram ji bo malbatan û rêxistinên ku piştgiriya wan dikin.",
@@ -119,7 +120,10 @@
     "sessions": "Danişîn",
     "staffAssistant": "Alîkarê zanînê",
     "partnerPush": "API-ya Hevkar",
-    "copyAudit": "Kontrola nivîsê"
+    "copyAudit": "Kontrola nivîsê",
+    "events": "Çalakî û şêwirmendî",
+    "billing": "Dayin û fatûre",
+    "eventsOps": "Çalakî û agahdarî"
   },
   "language": {
     "label": "Ziman",

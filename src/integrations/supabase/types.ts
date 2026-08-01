@@ -201,6 +201,48 @@ export type Database = {
           },
         ]
       }
+      announcements: {
+        Row: {
+          audience: string
+          body: string
+          created_at: string
+          created_by: string | null
+          id: string
+          link_url: string | null
+          severity: string
+          title: string
+          updated_at: string
+          visible_from: string
+          visible_until: string | null
+        }
+        Insert: {
+          audience?: string
+          body: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          link_url?: string | null
+          severity?: string
+          title: string
+          updated_at?: string
+          visible_from?: string
+          visible_until?: string | null
+        }
+        Update: {
+          audience?: string
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          link_url?: string | null
+          severity?: string
+          title?: string
+          updated_at?: string
+          visible_from?: string
+          visible_until?: string | null
+        }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           action: string
@@ -1338,6 +1380,72 @@ export type Database = {
         }
         Relationships: []
       }
+      community_events: {
+        Row: {
+          address: string | null
+          category: string
+          city: string | null
+          created_at: string
+          description: string | null
+          end_date: string | null
+          event_date: string
+          expert_user_id: string | null
+          fee_eur: number
+          id: string
+          image_url: string | null
+          is_members_only: boolean
+          location: string | null
+          max_attendees: number | null
+          organiser_user_id: string | null
+          status: string
+          sub_category: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          category?: string
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          event_date: string
+          expert_user_id?: string | null
+          fee_eur?: number
+          id?: string
+          image_url?: string | null
+          is_members_only?: boolean
+          location?: string | null
+          max_attendees?: number | null
+          organiser_user_id?: string | null
+          status?: string
+          sub_category?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          category?: string
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          event_date?: string
+          expert_user_id?: string | null
+          fee_eur?: number
+          id?: string
+          image_url?: string | null
+          is_members_only?: boolean
+          location?: string | null
+          max_attendees?: number | null
+          organiser_user_id?: string | null
+          status?: string
+          sub_category?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       community_posts: {
         Row: {
           author_user_id: string
@@ -2375,6 +2483,47 @@ export type Database = {
           works_council?: string | null
         }
         Relationships: []
+      }
+      event_registrations: {
+        Row: {
+          created_at: string
+          event_id: string
+          guests: number
+          id: string
+          notes: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_id: string
+          guests?: number
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          guests?: number
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "community_events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       expert_invitations: {
         Row: {
