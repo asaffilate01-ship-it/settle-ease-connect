@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { BLOG_POSTS } from "@/data/blog-posts";
 
 const BASE_URL = "https://beistandplus.de";
 
@@ -34,6 +35,11 @@ const ENTRIES: SitemapEntry[] = [
   { path: "/trust",                        changefreq: "monthly", priority: "0.6" },
   { path: "/blog",                         changefreq: "weekly",  priority: "0.7" },
   { path: "/contact",                      changefreq: "yearly",  priority: "0.5" },
+  ...BLOG_POSTS.map((post) => ({
+    path: `/blog/${post.slug}`,
+    changefreq: "yearly" as const,
+    priority: "0.6",
+  })),
   { path: "/legal",                        changefreq: "yearly",  priority: "0.3" },
   { path: "/legal/impressum",              changefreq: "yearly",  priority: "0.3" },
   { path: "/legal/privacy",                changefreq: "yearly",  priority: "0.3" },

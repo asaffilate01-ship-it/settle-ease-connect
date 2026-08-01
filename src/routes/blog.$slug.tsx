@@ -22,7 +22,7 @@ export const Route = createFileRoute("/blog/$slug")({
       };
     }
     const { post } = loaderData;
-    const path = `/blog/${params.slug}`;
+    const path = `https://beistandplus.de/blog/${params.slug}`;
     return {
       meta: [
         { title: `${post.title} — BeistandPlus blog` },

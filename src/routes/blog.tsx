@@ -13,9 +13,9 @@ export const Route = createFileRoute("/blog")({
       { property: "og:title", content: "Blog — BeistandPlus" },
       { property: "og:description", content: "Plain-language guides to life in Germany, from arrival to inheritance." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/blog" },
+      { property: "og:url", content: "https://beistandplus.de/blog" },
     ],
-    links: [{ rel: "canonical", href: "/blog" }],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/blog" }],
   }),
   component: BlogIndex,
 });
