@@ -39,5 +39,7 @@ export async function handoffToTaxfix(input: TaxHandoffInput): Promise<TaxHandof
     feeEur: input.needsHumanReview ? 79 : 39.99,
     refundOrFree: true,
     humanReviewIncluded: input.needsHumanReview ?? false,
+    // Refund figure is our own estimate until Taxfix's API returns a quote.
+    provisional: !process.env.TAXFIX_PARTNER_ID,
   };
 }

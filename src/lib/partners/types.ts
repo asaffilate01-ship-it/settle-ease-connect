@@ -33,6 +33,8 @@ export type InsuranceQuote = {
   commissionEur: number; // what BeistandPlus receives, shown transparently
   deepLink: string; // resume purchase on partner site with the pre-filled quote
   disclaimers: string[];
+  /** True when the partner API is not wired yet and the figures are our own estimate. */
+  provisional: boolean;
 };
 
 export type TaxHandoffInput = {
@@ -51,6 +53,8 @@ export type TaxHandoff = {
   feeEur: number;
   refundOrFree: boolean;
   humanReviewIncluded: boolean;
+  /** True when the partner API is not wired yet and the figures are our own estimate. */
+  provisional: boolean;
 };
 
 export type CareTranslationBooking = {
@@ -69,4 +73,6 @@ export type CareTranslationConfirmation = {
   costEur: number;
   meetingUrl?: string;
   cancellationPolicy: string;
+  /** False until a partner/roster coordinator confirms the slot. */
+  confirmed: boolean;
 };

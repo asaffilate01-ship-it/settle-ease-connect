@@ -162,11 +162,11 @@ export const invitePartnerUser = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
-    // Look up an existing user by email through public.profiles is not possible without admin.
-    // For now, just record the invitation email; when they sign up + accept, an admin links them.
+    // Pending invitations carry no user_id; the invitee is linked to the org by
+    // accept_partner_invitations() once they sign in with the invited address.
     const { error } = await context.supabase.from("partner_users").insert({
       org_id: data.orgId,
-      user_id: context.userId, // temp placeholder — real link done when the invitee accepts
+      user_id: null,
       is_admin: data.isAdmin,
       status: "invited",
       invited_email: data.email,
@@ -174,4 +174,16 @@ export const invitePartnerUser = createServerFn({ method: "POST" })
     });
     if (error) throw error;
     return { ok: true };
+  });
+
+/**
+ * Claims any pending partner-team invitations issued to the signed-in user's
+ * email address and links them to the organisation.
+ */
+export const acceptPartnerInvitations = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase.rpc("accept_partner_invitations");
+    if (error) throw new Error(error.message);
+    return { claimed: data ?? 0 };
   });

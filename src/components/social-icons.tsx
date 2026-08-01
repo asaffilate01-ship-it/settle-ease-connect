@@ -1,13 +1,19 @@
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
-/** Follow-us social icons for the site footer. Handles are placeholders — swap for real accounts. */
+/**
+ * Follow-us social icons for the site footer. Each profile URL is configured via
+ * env (VITE_PUBLIC_*_URL); channels without a configured URL are not rendered,
+ * so no placeholder link ever ships.
+ */
 export const SOCIALS = [
-  { name: "Facebook",  href: "https://facebook.com/beistand.de",  Icon: Facebook },
-  { name: "Instagram", href: "https://instagram.com/beistand.de", Icon: Instagram },
-  { name: "LinkedIn",  href: "https://linkedin.com/company/beistand-gmbh", Icon: Linkedin },
-  { name: "YouTube",   href: "https://youtube.com/@beistand",     Icon: Youtube },
-  { name: "X",         href: "https://x.com/beistand_de",         Icon: XIcon },
-] as const;
+  { name: "Facebook", href: import.meta.env.VITE_PUBLIC_FACEBOOK_URL, Icon: Facebook },
+  { name: "Instagram", href: import.meta.env.VITE_PUBLIC_INSTAGRAM_URL, Icon: Instagram },
+  { name: "LinkedIn", href: import.meta.env.VITE_PUBLIC_LINKEDIN_URL, Icon: Linkedin },
+  { name: "YouTube", href: import.meta.env.VITE_PUBLIC_YOUTUBE_URL, Icon: Youtube },
+  { name: "X", href: import.meta.env.VITE_PUBLIC_X_URL, Icon: XIcon },
+].filter((s): s is { name: string; href: string; Icon: typeof Facebook } =>
+  typeof s.href === "string" && s.href.startsWith("http"),
+);
 
 /** Lucide doesn't ship a mono "X" mark, so we render one inline to match the set. */
 function XIcon({ className }: { className?: string }) {
@@ -20,6 +26,7 @@ function XIcon({ className }: { className?: string }) {
 
 export function SocialIcons({ variant = "footer" }: { variant?: "footer" | "share" }) {
   const isFooter = variant === "footer";
+  if (SOCIALS.length === 0) return null;
   return (
     <ul className="flex flex-wrap items-center gap-2">
       {SOCIALS.map(({ name, href, Icon }) => (

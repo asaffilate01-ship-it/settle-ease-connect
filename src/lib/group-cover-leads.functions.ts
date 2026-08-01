@@ -51,12 +51,7 @@ export const submitGroupCoverLead = createServerFn({ method: "POST" })
       full_name: data.contact_name,
       email: data.email,
       phone: data.phone ?? null,
-      age: 40, // placeholder — group intake, per-member age captured in notes
       benefit_amount: data.target_benefit_eur,
-      tobacco: false,
-      waiting_period_months: 0,
-      estimated_premium_min: 0,
-      estimated_premium_max: 0,
       preferred_language: "de",
       notes: notesPayload,
       source: "group_cover",

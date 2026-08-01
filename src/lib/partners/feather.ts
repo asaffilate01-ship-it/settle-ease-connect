@@ -75,6 +75,7 @@ export async function quoteFromFeather(input: InsuranceQuoteInput): Promise<Insu
         commissionEur: data.commission_eur,
         deepLink: data.deep_link,
         disclaimers: data.disclaimers ?? [],
+        provisional: false,
       };
     }
     // Fall through to offline estimate on any 4xx/5xx so UX still works.
@@ -104,6 +105,7 @@ function offlineEstimate(input: InsuranceQuoteInput): InsuranceQuote {
       "Offline estimate — final premium confirmed on Feather's site.",
       "BeistandPlus is a tied agent under Feather's MGA licence (§34d GewO).",
     ],
+    provisional: true,
   };
 }
 

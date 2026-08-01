@@ -3,9 +3,12 @@ import { cn } from "@/lib/utils";
 /**
  * Floating WhatsApp chat button.
  * Mirrors the back-to-top styling and sits on the opposite (left) side.
- * Replace the number below with the support WhatsApp number.
+ * The number comes from VITE_PUBLIC_WHATSAPP_NUMBER; when unset the button is
+ * hidden rather than pointing at a placeholder line.
  */
-const WHATSAPP_NUMBER = "4917612345678"; // TODO: replace with real support number
+const WHATSAPP_NUMBER = (import.meta.env.VITE_PUBLIC_WHATSAPP_NUMBER ?? "")
+  .toString()
+  .replace(/[^0-9]/g, "");
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -16,6 +19,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function WhatsAppChat() {
+  if (!WHATSAPP_NUMBER) return null;
   return (
     <a
       href={`https://wa.me/${WHATSAPP_NUMBER}`}

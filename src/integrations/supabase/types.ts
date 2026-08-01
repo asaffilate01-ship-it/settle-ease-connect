@@ -4443,7 +4443,7 @@ export type Database = {
           role_title: string | null
           status: string
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           accepted_at?: string | null
@@ -4456,7 +4456,7 @@ export type Database = {
           role_title?: string | null
           status?: string
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           accepted_at?: string | null
@@ -4469,7 +4469,7 @@ export type Database = {
           role_title?: string | null
           status?: string
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -5621,6 +5621,7 @@ export type Database = {
         Returns: string
       }
       accept_expert_invitation: { Args: { _token: string }; Returns: string }
+      accept_partner_invitations: { Args: never; Returns: number }
       apply_case_template: {
         Args: { _case_id: string; _template_code: string }
         Returns: number
@@ -5676,6 +5677,16 @@ export type Database = {
       is_partner_member: {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
+      }
+      log_audit_event: {
+        Args: {
+          _action: string
+          _entity_id?: string
+          _entity_type?: string
+          _metadata?: Json
+          _subject_user_id?: string
+        }
+        Returns: string
       }
       partner_doc_expiry_sweep: { Args: never; Returns: number }
       sla_breach_sweep: { Args: never; Returns: number }
