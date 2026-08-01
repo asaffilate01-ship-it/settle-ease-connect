@@ -4,7 +4,7 @@ Assessment date: 1 August 2026
 
 ## Verdict
 
-The repository is now a **deployable release candidate**, but it is **not yet approved for a public production launch**. The code-level blockers found in the review have been corrected or made fail-closed. Launch still depends on applying and testing the database migration, verified legal/regulatory details, real partner/payment configuration, deployment operations, browser-level acceptance testing and an independent security review.
+The repository is now a **deployable operational release candidate**, but it is **not yet approved for a public production launch**. The code-level blockers found in the review have been corrected or made fail-closed. Launch still depends on applying and testing all database migrations, verified legal/regulatory details, real email/partner/payment configuration, deployment operations, browser-level acceptance testing and an independent security review.
 
 ## Corrected in this hardening pass
 
@@ -22,34 +22,44 @@ The repository is now a **deployable release candidate**, but it is **not yet ap
 - Added responsive off-canvas navigation, mobile expert/agent navigation, working command search, notification access and clearer loading/error/empty states.
 - Upgraded vulnerable build dependencies, added CI, unit tests, production configuration validation and deployment documentation.
 
+## Added in the operational workflow release
+
+- Staff enquiry inbox with search, assignment, priorities, SLA tracking, private notes, reply templates and email-delivery status.
+- Case milestones and a visible progress timeline, with changes restricted to staff who can manage the case.
+- Email-bound, expiring and revocable family access for updates, documents or collaboration.
+- Member privacy-request intake plus dedicated least-privilege DPO, compliance and read-only auditor consoles.
+- Registered HTTPS partner endpoints with exact host allowlisting, HMAC signatures, idempotency keys, timeouts, lease-safe claims, exponential retries, attempt evidence and dead-letter recovery.
+- Data-minimized operational auditing that avoids copying free-text enquiries, privacy narratives, family invitation hashes or partner payloads into the audit ledger.
+- Production validation for the partner worker, host allowlist and transactional-email gateway.
+
 ## Verification completed
 
-| Gate | Result |
-| --- | --- |
-| Clean dependency install (`npm ci`) | Pass |
-| TypeScript (`npm run typecheck`) | Pass |
-| ESLint (`npm run lint`) | Pass with 410 legacy warnings and no errors |
-| Unit tests (`npm test`) | 5 passed |
-| Production build (`npm run build`) | Pass |
+| Gate                                                 | Result                                                                      |
+| ---------------------------------------------------- | --------------------------------------------------------------------------- |
+| Clean dependency install (`npm ci`)                  | Pass                                                                        |
+| TypeScript (`npm run typecheck`)                     | Pass                                                                        |
+| ESLint (`npm run lint`)                              | Pass with 410 legacy warnings and no errors                                 |
+| Unit tests (`npm test`)                              | 11 passed                                                                   |
+| Production build (`npm run build`)                   | Pass                                                                        |
 | Production dependency audit, high severity threshold | Pass; 3 moderate transitive findings remain in Capacitor CLI → xcode → uuid |
 
 The remaining npm findings are in mobile build tooling, not the web runtime. The currently installed Capacitor CLI has no non-breaking upstream resolution for that chain; keep mobile builds isolated and update when Capacitor ships a fixed dependency.
 
 ## Launch blockers outside this patch
 
-1. Apply `supabase/migrations/20260801160000_production_hardening.sql` to a disposable/staging project and run role-by-role RLS acceptance tests before production.
+1. Apply every migration through `supabase/migrations/20260801180000_operational_workflows.sql` to a disposable/staging project and run role-by-role RLS acceptance tests before production.
 2. Rotate every credential that was present in the formerly tracked `.env` and `.env.development` files. Removing them from the current tree does not remove them from Git history or invalidate them.
 3. Supply verified company/register/director/VAT/editorial details and obtain German legal review of the Impressum, terms, privacy, cancellation and regulated-service wording.
-4. Contract and technically certify insurance, tax, legal and interpreting providers. Unconfigured adapters intentionally remain disabled.
+4. Configure and test the transactional-email gateway. Contract and technically certify insurance, tax, legal and interpreting providers; unconfigured adapters intentionally remain disabled.
 5. Keep real escrow/fund movement disabled until a regulated custody/payout provider, connected accounts, reconciliation, refunds and disputes are implemented.
-6. Add end-to-end browser tests for sign-up, MFA, checkout/webhooks, vault, partner invitations and every role. The current five tests cover only core policy helpers.
+6. Add end-to-end browser tests for sign-up, MFA, checkout/webhooks, vault, family/partner invitations, enquiry replies and every role. The current eleven tests cover policy helpers and migration safeguards, not deployed browser journeys.
 7. Complete a deployed accessibility review, responsive-device review, penetration test and GDPR/security review.
 8. Configure monitoring, error reporting, alerting, on-call ownership, backup restore drills, retention jobs and incident response.
 
 ## Remaining product gaps
 
-- Contact enquiries are persisted securely but do not yet have an in-app staff inbox or email notification workflow.
-- Partner API pushes are an auditable queue only; a signed delivery worker, retries, dead-letter handling and reconciliation are still required.
-- Governance roles (`compliance`, `dpo`, `auditor`) exist in the role enum but do not yet have dedicated least-privilege consoles.
 - The live expert payout/custody workflow is intentionally unavailable.
+- A deployment scheduler must invoke the partner worker, and each contracted partner still needs endpoint/signature certification and reconciliation ownership.
+- Transactional email is adapter-backed; a production provider, delivery-domain authentication, bounce/complaint handling and monitoring must be configured externally.
+- Database types should be regenerated from the staging Supabase project after the operational migration is applied.
 - The lint baseline still contains 410 warnings, largely legacy `any` types and hook dependency warnings; reduce this baseline before making warnings fatal in CI.

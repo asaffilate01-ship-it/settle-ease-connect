@@ -4,7 +4,7 @@ The repository now fails safe around entitlements, sensitive documents and the u
 
 ## Required before public launch
 
-- Apply every Supabase migration through `20260801160000_production_hardening.sql` in staging, then production.
+- Apply every Supabase migration through `20260801180000_operational_workflows.sql` in staging, then production; regenerate committed Supabase types from staging.
 - Rotate every credential formerly committed in `.env` and `.env.development`; deletion from the current tree is not credential revocation.
 - Populate all variables in `.env.example`; run `npm run verify:production` in the release environment.
 - Replace the pre-launch Impressum banner with verified company, director, register, VAT and editorial-responsibility details.
@@ -14,8 +14,11 @@ The repository now fails safe around entitlements, sensitive documents and the u
 - Keep `ENABLE_PARTNER_DEMOS=false` in production; missing or failed partner integrations must remain unavailable rather than returning illustrative data.
 - Keep live “escrow” or expert fund release disabled. Design the real flow with a regulated payment provider, connected accounts, reconciliation, refunds, disputes and legal review.
 - Configure Stripe webhook endpoints separately for sandbox and live and verify replay/idempotency behaviour.
+- Connect an HTTPS transactional-email gateway, authenticate the sending domain, test contact alerts/replies and monitor bounces and complaints.
+- Set `PARTNER_DELIVERY_ALLOWED_HOSTS` to exact contracted hosts, provision a unique signing secret per endpoint and certify signatures/idempotency with each partner.
+- Schedule an authenticated `POST /api/internal/partner-deliveries?batch=10` at least once per minute and alert on failed/dead-letter deliveries.
 - Configure monitoring, alerting, on-call ownership, backup restore testing, incident response, RTO/RPO and a migration rollback procedure.
-- Add browser-level tests for sign-up, MFA, checkout, webhook entitlement updates, vault upload/download, contact, assistant and every staff role.
+- Add browser-level tests for sign-up, MFA, checkout, webhook entitlement updates, vault upload/download, family access, enquiry replies, partner delivery, privacy requests and every staff role.
 - Run an independent penetration test and GDPR/security review against the deployed environment.
 
 ## Release commands
@@ -38,5 +41,8 @@ npm run verify:production
 - Public translation, contact, insurance, tax and group-cover submissions use database-backed rate limits.
 - Partner quotes, handoffs and bookings fail closed in production and local mock responses require an explicit development-only flag.
 - Stripe webhooks use a durable event ledger and return `500` on processing failure so Stripe retries.
+- Family invitations are email-bound, expire, can be revoked and never store the raw invite token.
+- Partner destinations are admin-registered, HTTPS-only and exact-host allowlisted; deliveries use HMAC signatures, idempotency, retry leases and a dead-letter state.
+- Operational audit records contain identifiers and state only, not message bodies, invitation hashes or delivery payloads.
 - The payout release screen is a sandbox ledger only and is blocked in live mode.
 - Unknown legal identity and social/contact details are hidden or clearly marked as pre-launch configuration.
