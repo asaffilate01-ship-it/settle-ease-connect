@@ -1523,6 +1523,45 @@ export type Database = {
           },
         ]
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          handled_at: string | null
+          handled_by: string | null
+          id: string
+          language: string
+          message: string
+          page: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          language?: string
+          message: string
+          page?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          language?: string
+          message?: string
+          page?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       crm_activities: {
         Row: {
           actor_user_id: string | null
@@ -4089,6 +4128,42 @@ export type Database = {
           provider?: string
           start_date?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      privacy_requests: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          processed_at: string | null
+          processed_by: string | null
+          reason: string | null
+          staff_notes: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          processed_at?: string | null
+          processed_by?: string | null
+          reason?: string | null
+          staff_notes?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          processed_at?: string | null
+          processed_by?: string | null
+          reason?: string | null
+          staff_notes?: string | null
+          status?: string
+          user_id?: string
         }
         Relationships: []
       }
