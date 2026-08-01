@@ -18,6 +18,12 @@ const required = [
   "VITE_PUBLIC_REGISTER_COURT",
   "VITE_PUBLIC_REGISTER_NUMBER",
   "VITE_PUBLIC_EDITORIAL_RESPONSIBLE",
+  "PARTNER_DELIVERY_WORKER_SECRET",
+  "PARTNER_DELIVERY_ALLOWED_HOSTS",
+  "EMAIL_DELIVERY_ENDPOINT",
+  "EMAIL_DELIVERY_BEARER_TOKEN",
+  "CONTACT_FROM_EMAIL",
+  "CONTACT_TEAM_EMAIL",
 ];
 
 const missing = required.filter((name) => !process.env[name]?.trim());
@@ -44,8 +50,8 @@ if (appUrl.protocol !== "https:") {
 }
 
 if (
-  process.env.VITE_SUPABASE_URL !== process.env.SUPABASE_URL
-  || process.env.VITE_SUPABASE_PUBLISHABLE_KEY !== process.env.SUPABASE_PUBLISHABLE_KEY
+  process.env.VITE_SUPABASE_URL !== process.env.SUPABASE_URL ||
+  process.env.VITE_SUPABASE_PUBLISHABLE_KEY !== process.env.SUPABASE_PUBLISHABLE_KEY
 ) {
   console.error("Client and server Supabase URL/publishable-key values must match.");
   process.exit(1);
@@ -58,6 +64,18 @@ if (process.env.ENABLE_SANDBOX_PAYOUT_LEDGER === "true") {
 
 if (process.env.ENABLE_PARTNER_DEMOS === "true") {
   console.error("ENABLE_PARTNER_DEMOS must not be enabled in production.");
+  process.exit(1);
+}
+
+if ((process.env.PARTNER_DELIVERY_WORKER_SECRET?.length ?? 0) < 32) {
+  console.error("PARTNER_DELIVERY_WORKER_SECRET must be at least 32 characters.");
+  process.exit(1);
+}
+
+try {
+  if (new URL(process.env.EMAIL_DELIVERY_ENDPOINT).protocol !== "https:") throw new Error();
+} catch {
+  console.error("EMAIL_DELIVERY_ENDPOINT must be an absolute HTTPS URL.");
   process.exit(1);
 }
 
