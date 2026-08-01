@@ -32,11 +32,11 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: post.excerpt },
         { property: "og:type", content: "article" },
         { property: "og:url", content: path },
-        { property: "og:image", content: post.cover },
+        { property: "og:image", content: `https://beistandplus.de${post.cover}` },
         { property: "article:published_time", content: post.publishedAt },
         { property: "article:section", content: post.category },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: post.cover },
+        { name: "twitter:image", content: `https://beistandplus.de${post.cover}` },
       ],
       links: [{ rel: "canonical", href: path }],
       scripts: [
