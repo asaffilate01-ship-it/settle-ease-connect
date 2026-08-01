@@ -123,7 +123,13 @@
     "copyAudit": "ممیزی متن",
     "events": "رویدادها و مشاوره",
     "billing": "پرداخت‌ها و صورت‌حساب",
-    "eventsOps": "رویدادها و اطلاعیه‌ها"
+    "eventsOps": "رویدادها و اطلاعیه‌ها",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "agent": {
     "defaultName": "نماینده",

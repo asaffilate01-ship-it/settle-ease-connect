@@ -166,7 +166,13 @@
     "copyAudit": "Text-Audit",
     "events": "Events & Beratung",
     "billing": "Zahlungen & Rechnungen",
-    "eventsOps": "Events & Mitteilungen"
+    "eventsOps": "Events & Mitteilungen",
+    "enquiries": "Anfragen-Eingang",
+    "compliance": "Compliance-Register",
+    "privacyConsole": "Datenschutzanfragen (DSB)",
+    "auditorConsole": "Prüfnachweise",
+    "familyAccess": "Familienzugang",
+    "privacyRequests": "Meine Datenschutzanfragen"
   },
   "language": {
     "label": "Sprache",

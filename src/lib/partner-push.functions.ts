@@ -4,20 +4,40 @@ import { z } from "zod";
 
 /**
  * Insurance triage → partner API push.
- * Staff records the handoff intent; for real delivery this would call the
- * partner's REST endpoint. For now we log the push and mark it 'queued'.
+ *
+ * Staff never call partner endpoints inline: the lead is queued on
+ * `partner_api_pushes` and the signed delivery worker
+ * (`/api/internal/partner-deliveries`) performs the HTTPS call with signature,
+ * timestamp, idempotency key, retries and dead-letter handling.
  */
 export const pushInsuranceLeadToPartner = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({
-    leadId: z.string().uuid(),
-    partnerCode: z.string().min(1).max(40),
-    endpoint: z.string().url().max(500),
-    dryRun: z.boolean().default(true),
-  }).parse(d))
+  .inputValidator((d) =>
+    z
+      .object({
+        leadId: z.string().uuid(),
+        partnerCode: z.string().min(1).max(40),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
-    const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     if (!internal) throw new Error("Staff only.");
+
+    const { data: endpoint, error: endpointError } = await context.supabase
+      .from("partner_endpoints")
+      .select("id, endpoint_url, active")
+      .eq("partner_code", data.partnerCode)
+      .maybeSingle();
+    if (endpointError) throw new Error(endpointError.message);
+    if (!endpoint) {
+      throw new Error(
+        "This partner has no registered delivery endpoint. Register it in the delivery centre first.",
+      );
+    }
+    if (!endpoint.active) throw new Error("This partner endpoint is currently disabled.");
 
     const { data: lead, error } = await context.supabase
       .from("insurance_leads")
@@ -30,6 +50,7 @@ export const pushInsuranceLeadToPartner = createServerFn({ method: "POST" })
       partner: data.partnerCode,
       submitted_at: new Date().toISOString(),
       lead: {
+        id: lead.id,
         name: lead.full_name,
         email: lead.email,
         phone: lead.phone,
@@ -39,37 +60,23 @@ export const pushInsuranceLeadToPartner = createServerFn({ method: "POST" })
       },
     };
 
-    let status: "queued" | "sent" | "failed" = "queued";
-    let responseStatus: number | null = null;
-    let responseBody: unknown = null;
-    if (!data.dryRun) {
-      try {
-        const res = await fetch(data.endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        responseStatus = res.status;
-        responseBody = await res.text().catch(() => null);
-        status = res.ok ? "sent" : "failed";
-      } catch (e: any) {
-        status = "failed";
-        responseBody = { error: String(e?.message ?? e) };
-      }
-    }
+    const { data: row, error: insertError } = await context.supabase
+      .from("partner_api_pushes")
+      .insert({
+        lead_id: data.leadId,
+        partner_code: data.partnerCode,
+        endpoint: endpoint.endpoint_url,
+        endpoint_id: endpoint.id,
+        idempotency_key: `lead-${data.leadId}-${Date.now()}`,
+        request_payload: payload,
+        status: "queued",
+        sent_by: context.userId,
+      })
+      .select("id, status, partner_code, created_at")
+      .single();
+    if (insertError) throw new Error(insertError.message);
 
-    const { data: row } = await context.supabase.from("partner_api_pushes").insert({
-      lead_id: data.leadId,
-      partner_code: data.partnerCode,
-      endpoint: data.endpoint,
-      request_payload: payload,
-      response_status: responseStatus,
-      response_body: responseBody as any,
-      status,
-      sent_by: context.userId,
-    }).select().single();
-
-    return { push: row, dryRun: data.dryRun };
+    return { push: row, queued: true };
   });
 
 export const listPartnerPushes = createServerFn({ method: "GET" })
@@ -77,7 +84,9 @@ export const listPartnerPushes = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data } = await context.supabase
       .from("partner_api_pushes")
-      .select("id, lead_id, partner_code, endpoint, status, response_status, created_at")
+      .select(
+        "id, lead_id, partner_code, endpoint, status, response_status, attempt_count, next_attempt_at, last_error, delivered_at, dead_lettered_at, created_at",
+      )
       .order("created_at", { ascending: false })
       .limit(50);
     return data ?? [];

@@ -14,6 +14,7 @@ import {
   MessageSquare, ListTodo, FileText, Receipt, Activity, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { CaseMilestones } from "@/components/cases/case-milestones";
 import {
   getCase, updateCaseStatus, sendCaseMessage, createCaseTask, toggleCaseTask,
 } from "@/lib/cases.functions";
@@ -112,6 +113,7 @@ function CaseDetail() {
               <MessagesPanel caseId={c.id} messages={data.messages} nameOf={nameOf} />
             </div>
             <div className="space-y-6">
+              <CaseMilestones caseId={c.id} />
               <TasksPanel caseId={c.id} tasks={data.tasks} nameOf={nameOf} />
               <EventsPanel events={data.events} nameOf={nameOf} />
             </div>

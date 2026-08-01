@@ -26,6 +26,7 @@ import { Route as InsuranceRouteImport } from './routes/insurance'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GroupCoverRouteImport } from './routes/group-cover'
 import { Route as ForProvidersRouteImport } from './routes/for-providers'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -35,7 +36,6 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PartnersInsurersRouteImport } from './routes/partners.insurers'
-import { Route as PartnerInviteTokenRouteImport } from './routes/partner-invite.$token'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
@@ -76,6 +76,7 @@ import { Route as AuthenticatedPortalFuneralCoverRouteImport } from './routes/_a
 import { Route as AuthenticatedPortalFuneralRouteImport } from './routes/_authenticated/portal.funeral'
 import { Route as AuthenticatedPortalFinancialsRouteImport } from './routes/_authenticated/portal.financials'
 import { Route as AuthenticatedPortalExpertsRouteImport } from './routes/_authenticated/portal.experts'
+import { Route as AuthenticatedPortalEventsRouteImport } from './routes/_authenticated/portal.events'
 import { Route as AuthenticatedPortalEscrowRouteImport } from './routes/_authenticated/portal.escrow'
 import { Route as AuthenticatedPortalEnquiriesRouteImport } from './routes/_authenticated/portal.enquiries'
 import { Route as AuthenticatedPortalDirectoryRouteImport } from './routes/_authenticated/portal.directory'
@@ -112,11 +113,13 @@ import { Route as AuthenticatedAppLocationRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppInsuranceRouteImport } from './routes/_authenticated/app.insurance'
 import { Route as AuthenticatedAppImmigrationRouteImport } from './routes/_authenticated/app.immigration'
 import { Route as AuthenticatedAppFamilyAccessRouteImport } from './routes/_authenticated/app.family-access'
+import { Route as AuthenticatedAppEventsRouteImport } from './routes/_authenticated/app.events'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app.community'
 import { Route as AuthenticatedAppChecklistsRouteImport } from './routes/_authenticated/app.checklists'
 import { Route as AuthenticatedAppCasesRouteImport } from './routes/_authenticated/app.cases'
 import { Route as AuthenticatedAppBugsRouteImport } from './routes/_authenticated/app.bugs'
+import { Route as AuthenticatedAppBillingRouteImport } from './routes/_authenticated/app.billing'
 import { Route as AuthenticatedAppBenefitsRouteImport } from './routes/_authenticated/app.benefits'
 import { Route as AuthenticatedAppAssistantRouteImport } from './routes/_authenticated/app.assistant'
 import { Route as AuthenticatedAppAlertRouteImport } from './routes/_authenticated/app.alert'
@@ -229,6 +232,11 @@ const ForProvidersRoute = ForProvidersRouteImport.update({
   path: '/for-providers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DirectoryRoute = DirectoryRouteImport.update({
   id: '/directory',
   path: '/directory',
@@ -272,11 +280,6 @@ const PartnersInsurersRoute = PartnersInsurersRouteImport.update({
   id: '/insurers',
   path: '/insurers',
   getParentRoute: () => PartnersRoute,
-} as any)
-const PartnerInviteTokenRoute = PartnerInviteTokenRouteImport.update({
-  id: '/partner-invite/$token',
-  path: '/partner-invite/$token',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
   id: '/terms',
@@ -503,6 +506,12 @@ const AuthenticatedPortalExpertsRoute =
     path: '/experts',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalEventsRoute =
+  AuthenticatedPortalEventsRouteImport.update({
+    id: '/events',
+    path: '/events',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedPortalEscrowRoute =
   AuthenticatedPortalEscrowRouteImport.update({
     id: '/escrow',
@@ -715,6 +724,11 @@ const AuthenticatedAppFamilyAccessRoute =
     path: '/family-access',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppEventsRoute = AuthenticatedAppEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppDocumentsRoute =
   AuthenticatedAppDocumentsRouteImport.update({
     id: '/documents',
@@ -741,6 +755,11 @@ const AuthenticatedAppCasesRoute = AuthenticatedAppCasesRouteImport.update({
 const AuthenticatedAppBugsRoute = AuthenticatedAppBugsRouteImport.update({
   id: '/bugs',
   path: '/bugs',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppBillingRoute = AuthenticatedAppBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
 const AuthenticatedAppBenefitsRoute =
@@ -903,6 +922,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
+  '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
@@ -934,7 +954,6 @@ export interface FileRoutesByFullPath {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
-  '/partner-invite/$token': typeof PartnerInviteTokenRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
@@ -945,11 +964,13 @@ export interface FileRoutesByFullPath {
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/app/billing': typeof AuthenticatedAppBillingRoute
   '/app/bugs': typeof AuthenticatedAppBugsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/app/events': typeof AuthenticatedAppEventsRoute
   '/app/family-access': typeof AuthenticatedAppFamilyAccessRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
@@ -986,6 +1007,7 @@ export interface FileRoutesByFullPath {
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/enquiries': typeof AuthenticatedPortalEnquiriesRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
+  '/portal/events': typeof AuthenticatedPortalEventsRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
@@ -1038,6 +1060,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
+  '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
@@ -1065,7 +1088,6 @@ export interface FileRoutesByTo {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
-  '/partner-invite/$token': typeof PartnerInviteTokenRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
@@ -1076,11 +1098,13 @@ export interface FileRoutesByTo {
   '/app/alert': typeof AuthenticatedAppAlertRoute
   '/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/app/billing': typeof AuthenticatedAppBillingRoute
   '/app/bugs': typeof AuthenticatedAppBugsRoute
   '/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/app/events': typeof AuthenticatedAppEventsRoute
   '/app/family-access': typeof AuthenticatedAppFamilyAccessRoute
   '/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/app/insurance': typeof AuthenticatedAppInsuranceRoute
@@ -1116,6 +1140,7 @@ export interface FileRoutesByTo {
   '/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/portal/enquiries': typeof AuthenticatedPortalEnquiriesRoute
   '/portal/escrow': typeof AuthenticatedPortalEscrowRoute
+  '/portal/events': typeof AuthenticatedPortalEventsRoute
   '/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/portal/funeral': typeof AuthenticatedPortalFuneralRoute
@@ -1168,6 +1193,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/directory': typeof DirectoryRouteWithChildren
+  '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
   '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
@@ -1199,7 +1225,6 @@ export interface FileRoutesById {
   '/legal/impressum': typeof LegalImpressumRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
-  '/partner-invite/$token': typeof PartnerInviteTokenRoute
   '/partners/insurers': typeof PartnersInsurersRoute
   '/_authenticated/agent/clients': typeof AuthenticatedAgentClientsRoute
   '/_authenticated/agent/commissions': typeof AuthenticatedAgentCommissionsRoute
@@ -1210,11 +1235,13 @@ export interface FileRoutesById {
   '/_authenticated/app/alert': typeof AuthenticatedAppAlertRoute
   '/_authenticated/app/assistant': typeof AuthenticatedAppAssistantRoute
   '/_authenticated/app/benefits': typeof AuthenticatedAppBenefitsRoute
+  '/_authenticated/app/billing': typeof AuthenticatedAppBillingRoute
   '/_authenticated/app/bugs': typeof AuthenticatedAppBugsRoute
   '/_authenticated/app/cases': typeof AuthenticatedAppCasesRouteWithChildren
   '/_authenticated/app/checklists': typeof AuthenticatedAppChecklistsRoute
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
+  '/_authenticated/app/events': typeof AuthenticatedAppEventsRoute
   '/_authenticated/app/family-access': typeof AuthenticatedAppFamilyAccessRoute
   '/_authenticated/app/immigration': typeof AuthenticatedAppImmigrationRoute
   '/_authenticated/app/insurance': typeof AuthenticatedAppInsuranceRoute
@@ -1251,6 +1278,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/directory': typeof AuthenticatedPortalDirectoryRoute
   '/_authenticated/portal/enquiries': typeof AuthenticatedPortalEnquiriesRoute
   '/_authenticated/portal/escrow': typeof AuthenticatedPortalEscrowRoute
+  '/_authenticated/portal/events': typeof AuthenticatedPortalEventsRoute
   '/_authenticated/portal/experts': typeof AuthenticatedPortalExpertsRoute
   '/_authenticated/portal/financials': typeof AuthenticatedPortalFinancialsRoute
   '/_authenticated/portal/funeral': typeof AuthenticatedPortalFuneralRoute
@@ -1305,6 +1333,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/directory'
+    | '/events'
     | '/for-providers'
     | '/group-cover'
     | '/how-it-works'
@@ -1336,7 +1365,6 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
-    | '/partner-invite/$token'
     | '/partners/insurers'
     | '/agent/clients'
     | '/agent/commissions'
@@ -1347,11 +1375,13 @@ export interface FileRouteTypes {
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
+    | '/app/billing'
     | '/app/bugs'
     | '/app/cases'
     | '/app/checklists'
     | '/app/community'
     | '/app/documents'
+    | '/app/events'
     | '/app/family-access'
     | '/app/immigration'
     | '/app/insurance'
@@ -1388,6 +1418,7 @@ export interface FileRouteTypes {
     | '/portal/directory'
     | '/portal/enquiries'
     | '/portal/escrow'
+    | '/portal/events'
     | '/portal/experts'
     | '/portal/financials'
     | '/portal/funeral'
@@ -1440,6 +1471,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/directory'
+    | '/events'
     | '/for-providers'
     | '/group-cover'
     | '/how-it-works'
@@ -1467,7 +1499,6 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
-    | '/partner-invite/$token'
     | '/partners/insurers'
     | '/agent/clients'
     | '/agent/commissions'
@@ -1478,11 +1509,13 @@ export interface FileRouteTypes {
     | '/app/alert'
     | '/app/assistant'
     | '/app/benefits'
+    | '/app/billing'
     | '/app/bugs'
     | '/app/cases'
     | '/app/checklists'
     | '/app/community'
     | '/app/documents'
+    | '/app/events'
     | '/app/family-access'
     | '/app/immigration'
     | '/app/insurance'
@@ -1518,6 +1551,7 @@ export interface FileRouteTypes {
     | '/portal/directory'
     | '/portal/enquiries'
     | '/portal/escrow'
+    | '/portal/events'
     | '/portal/experts'
     | '/portal/financials'
     | '/portal/funeral'
@@ -1569,6 +1603,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/directory'
+    | '/events'
     | '/for-providers'
     | '/group-cover'
     | '/how-it-works'
@@ -1600,7 +1635,6 @@ export interface FileRouteTypes {
     | '/legal/impressum'
     | '/legal/privacy'
     | '/legal/terms'
-    | '/partner-invite/$token'
     | '/partners/insurers'
     | '/_authenticated/agent/clients'
     | '/_authenticated/agent/commissions'
@@ -1611,11 +1645,13 @@ export interface FileRouteTypes {
     | '/_authenticated/app/alert'
     | '/_authenticated/app/assistant'
     | '/_authenticated/app/benefits'
+    | '/_authenticated/app/billing'
     | '/_authenticated/app/bugs'
     | '/_authenticated/app/cases'
     | '/_authenticated/app/checklists'
     | '/_authenticated/app/community'
     | '/_authenticated/app/documents'
+    | '/_authenticated/app/events'
     | '/_authenticated/app/family-access'
     | '/_authenticated/app/immigration'
     | '/_authenticated/app/insurance'
@@ -1652,6 +1688,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/directory'
     | '/_authenticated/portal/enquiries'
     | '/_authenticated/portal/escrow'
+    | '/_authenticated/portal/events'
     | '/_authenticated/portal/experts'
     | '/_authenticated/portal/financials'
     | '/_authenticated/portal/funeral'
@@ -1706,6 +1743,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   DirectoryRoute: typeof DirectoryRouteWithChildren
+  EventsRoute: typeof EventsRoute
   ForProvidersRoute: typeof ForProvidersRoute
   GroupCoverRoute: typeof GroupCoverRouteWithChildren
   HowItWorksRoute: typeof HowItWorksRoute
@@ -1725,7 +1763,6 @@ export interface RootRouteChildren {
   TrustRoute: typeof TrustRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
-  PartnerInviteTokenRoute: typeof PartnerInviteTokenRoute
   ApiInternalPartnerDeliveriesRoute: typeof ApiInternalPartnerDeliveriesRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
@@ -1851,6 +1888,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForProvidersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/directory': {
       id: '/directory'
       path: '/directory'
@@ -1913,13 +1957,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/partners/insurers'
       preLoaderRoute: typeof PartnersInsurersRouteImport
       parentRoute: typeof PartnersRoute
-    }
-    '/partner-invite/$token': {
-      id: '/partner-invite/$token'
-      path: '/partner-invite/$token'
-      fullPath: '/partner-invite/$token'
-      preLoaderRoute: typeof PartnerInviteTokenRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/legal/terms': {
       id: '/legal/terms'
@@ -2201,6 +2238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalExpertsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/events': {
+      id: '/_authenticated/portal/events'
+      path: '/events'
+      fullPath: '/portal/events'
+      preLoaderRoute: typeof AuthenticatedPortalEventsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/portal/escrow': {
       id: '/_authenticated/portal/escrow'
       path: '/escrow'
@@ -2453,6 +2497,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppFamilyAccessRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/events': {
+      id: '/_authenticated/app/events'
+      path: '/events'
+      fullPath: '/app/events'
+      preLoaderRoute: typeof AuthenticatedAppEventsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/documents': {
       id: '/_authenticated/app/documents'
       path: '/documents'
@@ -2486,6 +2537,13 @@ declare module '@tanstack/react-router' {
       path: '/bugs'
       fullPath: '/app/bugs'
       preLoaderRoute: typeof AuthenticatedAppBugsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/billing': {
+      id: '/_authenticated/app/billing'
+      path: '/billing'
+      fullPath: '/app/billing'
+      preLoaderRoute: typeof AuthenticatedAppBillingRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/benefits': {
@@ -2728,11 +2786,13 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAlertRoute: typeof AuthenticatedAppAlertRoute
   AuthenticatedAppAssistantRoute: typeof AuthenticatedAppAssistantRoute
   AuthenticatedAppBenefitsRoute: typeof AuthenticatedAppBenefitsRoute
+  AuthenticatedAppBillingRoute: typeof AuthenticatedAppBillingRoute
   AuthenticatedAppBugsRoute: typeof AuthenticatedAppBugsRoute
   AuthenticatedAppCasesRoute: typeof AuthenticatedAppCasesRouteWithChildren
   AuthenticatedAppChecklistsRoute: typeof AuthenticatedAppChecklistsRoute
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
+  AuthenticatedAppEventsRoute: typeof AuthenticatedAppEventsRoute
   AuthenticatedAppFamilyAccessRoute: typeof AuthenticatedAppFamilyAccessRoute
   AuthenticatedAppImmigrationRoute: typeof AuthenticatedAppImmigrationRoute
   AuthenticatedAppInsuranceRoute: typeof AuthenticatedAppInsuranceRoute
@@ -2756,11 +2816,13 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppAlertRoute: AuthenticatedAppAlertRoute,
   AuthenticatedAppAssistantRoute: AuthenticatedAppAssistantRoute,
   AuthenticatedAppBenefitsRoute: AuthenticatedAppBenefitsRoute,
+  AuthenticatedAppBillingRoute: AuthenticatedAppBillingRoute,
   AuthenticatedAppBugsRoute: AuthenticatedAppBugsRoute,
   AuthenticatedAppCasesRoute: AuthenticatedAppCasesRouteWithChildren,
   AuthenticatedAppChecklistsRoute: AuthenticatedAppChecklistsRoute,
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
+  AuthenticatedAppEventsRoute: AuthenticatedAppEventsRoute,
   AuthenticatedAppFamilyAccessRoute: AuthenticatedAppFamilyAccessRoute,
   AuthenticatedAppImmigrationRoute: AuthenticatedAppImmigrationRoute,
   AuthenticatedAppInsuranceRoute: AuthenticatedAppInsuranceRoute,
@@ -2908,6 +2970,7 @@ interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalDirectoryRoute: typeof AuthenticatedPortalDirectoryRoute
   AuthenticatedPortalEnquiriesRoute: typeof AuthenticatedPortalEnquiriesRoute
   AuthenticatedPortalEscrowRoute: typeof AuthenticatedPortalEscrowRoute
+  AuthenticatedPortalEventsRoute: typeof AuthenticatedPortalEventsRoute
   AuthenticatedPortalExpertsRoute: typeof AuthenticatedPortalExpertsRoute
   AuthenticatedPortalFinancialsRoute: typeof AuthenticatedPortalFinancialsRoute
   AuthenticatedPortalFuneralRoute: typeof AuthenticatedPortalFuneralRoute
@@ -2951,6 +3014,7 @@ const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
   AuthenticatedPortalDirectoryRoute: AuthenticatedPortalDirectoryRoute,
   AuthenticatedPortalEnquiriesRoute: AuthenticatedPortalEnquiriesRoute,
   AuthenticatedPortalEscrowRoute: AuthenticatedPortalEscrowRoute,
+  AuthenticatedPortalEventsRoute: AuthenticatedPortalEventsRoute,
   AuthenticatedPortalExpertsRoute: AuthenticatedPortalExpertsRoute,
   AuthenticatedPortalFinancialsRoute: AuthenticatedPortalFinancialsRoute,
   AuthenticatedPortalFuneralRoute: AuthenticatedPortalFuneralRoute,
@@ -3076,6 +3140,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   DirectoryRoute: DirectoryRouteWithChildren,
+  EventsRoute: EventsRoute,
   ForProvidersRoute: ForProvidersRoute,
   GroupCoverRoute: GroupCoverRouteWithChildren,
   HowItWorksRoute: HowItWorksRoute,
@@ -3095,20 +3160,9 @@ const rootRouteChildren: RootRouteChildren = {
   TrustRoute: TrustRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ExpertInviteTokenRoute: ExpertInviteTokenRoute,
-  PartnerInviteTokenRoute: PartnerInviteTokenRoute,
   ApiInternalPartnerDeliveriesRoute: ApiInternalPartnerDeliveriesRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -123,7 +123,13 @@
     "copyAudit": "कॉपी ऑडिट",
     "events": "कार्यक्रम और सलाह",
     "billing": "भुगतान और बिल",
-    "eventsOps": "कार्यक्रम और सूचनाएं"
+    "eventsOps": "कार्यक्रम और सूचनाएं",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "भाषा",

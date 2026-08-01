@@ -123,7 +123,13 @@
     "copyAudit": "کاپی آڈٹ",
     "events": "تقریبات و مشاورت",
     "billing": "ادائیگیاں و بل",
-    "eventsOps": "تقریبات و اطلاعات"
+    "eventsOps": "تقریبات و اطلاعات",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "زبان",

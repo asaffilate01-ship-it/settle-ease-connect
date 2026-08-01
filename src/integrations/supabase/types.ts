@@ -387,6 +387,78 @@ export type Database = {
         }
         Relationships: []
       }
+      case_access_grants: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          access_level: string
+          can_message: boolean
+          case_id: string
+          created_at: string
+          expires_at: string
+          id: string
+          invited_email: string
+          invited_name: string
+          owner_user_id: string
+          relationship: string | null
+          revoked_at: string | null
+          status: string
+          token_hash: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          access_level?: string
+          can_message?: boolean
+          case_id: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          invited_email: string
+          invited_name: string
+          owner_user_id: string
+          relationship?: string | null
+          revoked_at?: string | null
+          status?: string
+          token_hash: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          access_level?: string
+          can_message?: boolean
+          case_id?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          invited_email?: string
+          invited_name?: string
+          owner_user_id?: string
+          relationship?: string | null
+          revoked_at?: string | null
+          status?: string
+          token_hash?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_access_grants_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_access_grants_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       case_appointments: {
         Row: {
           attendee_emails: string[]
@@ -762,6 +834,66 @@ export type Database = {
           },
           {
             foreignKeyName: "case_messages_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_milestones: {
+        Row: {
+          case_id: string
+          code: string
+          completed_at: string | null
+          completed_by: string | null
+          created_at: string
+          description: string | null
+          id: string
+          position: number
+          status: string
+          target_at: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          case_id: string
+          code: string
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          position?: number
+          status?: string
+          target_at?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          case_id?: string
+          code?: string
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          position?: number
+          status?: string
+          target_at?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_milestones_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "case_milestones_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
             referencedRelation: "cases"
@@ -1522,6 +1654,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      compliance_actions: {
+        Row: {
+          category: string
+          closed_at: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_at: string | null
+          id: string
+          owner_user_id: string | null
+          resolution: string | null
+          severity: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          closed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          owner_user_id?: string | null
+          resolution?: string | null
+          severity?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          closed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          owner_user_id?: string | null
+          resolution?: string | null
+          severity?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       contact_messages: {
         Row: {
@@ -2522,6 +2702,107 @@ export type Database = {
           works_council?: string | null
         }
         Relationships: []
+      }
+      enquiries: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          created_by: string | null
+          email: string
+          first_response_at: string | null
+          full_name: string
+          id: string
+          language: string
+          message: string
+          phone: string | null
+          priority: string
+          resolved_at: string | null
+          sla_due_at: string
+          source_page: string | null
+          status: string
+          subject: string
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string | null
+          email: string
+          first_response_at?: string | null
+          full_name: string
+          id?: string
+          language?: string
+          message: string
+          phone?: string | null
+          priority?: string
+          resolved_at?: string | null
+          sla_due_at?: string
+          source_page?: string | null
+          status?: string
+          subject?: string
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string
+          first_response_at?: string | null
+          full_name?: string
+          id?: string
+          language?: string
+          message?: string
+          phone?: string | null
+          priority?: string
+          resolved_at?: string | null
+          sla_due_at?: string
+          source_page?: string | null
+          status?: string
+          subject?: string
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      enquiry_notes: {
+        Row: {
+          author_user_id: string
+          body: string
+          created_at: string
+          delivery_status: string | null
+          enquiry_id: string
+          id: string
+          note_type: string
+        }
+        Insert: {
+          author_user_id: string
+          body: string
+          created_at?: string
+          delivery_status?: string | null
+          enquiry_id: string
+          id?: string
+          note_type?: string
+        }
+        Update: {
+          author_user_id?: string
+          body?: string
+          created_at?: string
+          delivery_status?: string | null
+          enquiry_id?: string
+          id?: string
+          note_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enquiry_notes_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       event_registrations: {
         Row: {
@@ -3723,10 +4004,19 @@ export type Database = {
       partner_api_pushes: {
         Row: {
           acknowledged_at: string | null
+          attempt_count: number
           created_at: string
+          dead_lettered_at: string | null
+          delivered_at: string | null
           endpoint: string
+          endpoint_id: string | null
           id: string
+          idempotency_key: string
+          last_error: string | null
           lead_id: string | null
+          locked_at: string | null
+          locked_by: string | null
+          next_attempt_at: string
           partner_code: string
           request_payload: Json | null
           response_body: Json | null
@@ -3736,10 +4026,19 @@ export type Database = {
         }
         Insert: {
           acknowledged_at?: string | null
+          attempt_count?: number
           created_at?: string
+          dead_lettered_at?: string | null
+          delivered_at?: string | null
           endpoint: string
+          endpoint_id?: string | null
           id?: string
+          idempotency_key: string
+          last_error?: string | null
           lead_id?: string | null
+          locked_at?: string | null
+          locked_by?: string | null
+          next_attempt_at?: string
           partner_code: string
           request_payload?: Json | null
           response_body?: Json | null
@@ -3749,10 +4048,19 @@ export type Database = {
         }
         Update: {
           acknowledged_at?: string | null
+          attempt_count?: number
           created_at?: string
+          dead_lettered_at?: string | null
+          delivered_at?: string | null
           endpoint?: string
+          endpoint_id?: string | null
           id?: string
+          idempotency_key?: string
+          last_error?: string | null
           lead_id?: string | null
+          locked_at?: string | null
+          locked_by?: string | null
+          next_attempt_at?: string
           partner_code?: string
           request_payload?: Json | null
           response_body?: Json | null
@@ -3761,6 +4069,13 @@ export type Database = {
           status?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_api_pushes_endpoint_id_fkey"
+            columns: ["endpoint_id"]
+            isOneToOne: false
+            referencedRelation: "partner_endpoints"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "partner_api_pushes_lead_id_fkey"
             columns: ["lead_id"]
@@ -3804,6 +4119,47 @@ export type Database = {
             columns: ["org_id"]
             isOneToOne: false
             referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_delivery_attempts: {
+        Row: {
+          attempt_number: number
+          created_at: string
+          duration_ms: number | null
+          error_message: string | null
+          id: string
+          push_id: string
+          response_excerpt: string | null
+          response_status: number | null
+        }
+        Insert: {
+          attempt_number: number
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          id?: string
+          push_id: string
+          response_excerpt?: string | null
+          response_status?: number | null
+        }
+        Update: {
+          attempt_number?: number
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          id?: string
+          push_id?: string
+          response_excerpt?: string | null
+          response_status?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_delivery_attempts_push_id_fkey"
+            columns: ["push_id"]
+            isOneToOne: false
+            referencedRelation: "partner_api_pushes"
             referencedColumns: ["id"]
           },
         ]
@@ -3866,6 +4222,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      partner_endpoints: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string | null
+          endpoint_url: string
+          id: string
+          label: string
+          max_attempts: number
+          notes: string | null
+          partner_code: string
+          signing_secret_env: string
+          timeout_ms: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          endpoint_url: string
+          id?: string
+          label: string
+          max_attempts?: number
+          notes?: string | null
+          partner_code: string
+          signing_secret_env: string
+          timeout_ms?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          endpoint_url?: string
+          id?: string
+          label?: string
+          max_attempts?: number
+          notes?: string | null
+          partner_code?: string
+          signing_secret_env?: string
+          timeout_ms?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       partner_organisations: {
         Row: {
@@ -4133,34 +4534,55 @@ export type Database = {
       }
       privacy_requests: {
         Row: {
+          assigned_to: string | null
           created_at: string
+          description: string
+          due_at: string
           id: string
+          identity_verified: boolean
           kind: string
           processed_at: string | null
           processed_by: string | null
           reason: string | null
+          request_type: string
+          requester_email: string | null
+          resolution: string | null
           staff_notes: string | null
           status: string
           user_id: string
         }
         Insert: {
+          assigned_to?: string | null
           created_at?: string
+          description?: string
+          due_at?: string
           id?: string
-          kind: string
+          identity_verified?: boolean
+          kind?: string
           processed_at?: string | null
           processed_by?: string | null
           reason?: string | null
+          request_type?: string
+          requester_email?: string | null
+          resolution?: string | null
           staff_notes?: string | null
           status?: string
           user_id: string
         }
         Update: {
+          assigned_to?: string | null
           created_at?: string
+          description?: string
+          due_at?: string
           id?: string
+          identity_verified?: boolean
           kind?: string
           processed_at?: string | null
           processed_by?: string | null
           reason?: string | null
+          request_type?: string
+          requester_email?: string | null
+          resolution?: string | null
           staff_notes?: string | null
           status?: string
           user_id?: string
@@ -5194,6 +5616,10 @@ export type Database = {
       }
     }
     Functions: {
+      accept_case_access_grant: {
+        Args: { _token_hash: string }
+        Returns: string
+      }
       accept_expert_invitation: { Args: { _token: string }; Returns: string }
       apply_case_template: {
         Args: { _case_id: string; _template_code: string }
@@ -5202,6 +5628,16 @@ export type Database = {
       can_access_case: {
         Args: { _case_id: string; _user_id: string }
         Returns: boolean
+      }
+      claim_partner_deliveries: {
+        Args: { _batch_size?: number; _worker_id: string }
+        Returns: {
+          attempt_count: number
+          endpoint_id: string
+          id: string
+          idempotency_key: string
+          request_payload: Json
+        }[]
       }
       close_case: {
         Args: {
