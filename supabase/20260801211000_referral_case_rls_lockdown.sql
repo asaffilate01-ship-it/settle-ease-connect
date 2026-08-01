@@ -51,36 +51,7 @@ CREATE POLICY "Internal staff update cases"
   USING (is_internal(auth.uid()))
   WITH CHECK (is_internal(auth.uid()));
 
--- Clients can only update their own summary and a few contact/preferences fields.
-CREATE OR REPLACE FUNCTION public.cases_client_update_is_safe(
-  _id uuid,
-  _summary text,
-  _language text,
-  _city text,
-  _bundesland text,
-  _urgent boolean
-) RETURNS boolean
-LANGUAGE sql
-STABLE SECURITY DEFINER
-SET search_path TO 'public'
-AS $$
-  SELECT NOT EXISTS (
-    SELECT 1
-    FROM public.cases c
-    WHERE c.id = _id
-      AND (
-        c.summary IS DISTINCT FROM _summary
-        OR c.language IS DISTINCT FROM _language
-        OR c.city IS DISTINCT FROM _city
-        OR c.bundesland IS DISTINCT FROM _bundesland
-        OR c.urgent IS DISTINCT FROM _urgent
-      )
-      -- If we got here, the user is trying to change something other than the
-      -- allowed client fields. We must block this by returning false.
-  ) IS FALSE;
-$$;
-
--- Simpler: use a trigger to lock non-client fields for clients.
+-- Trigger enforces field-level restrictions for non-internal users.
 CREATE OR REPLACE FUNCTION public.cases_client_update_guard()
 RETURNS TRIGGER
 LANGUAGE plpgsql
