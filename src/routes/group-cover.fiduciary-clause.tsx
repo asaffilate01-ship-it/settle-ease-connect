@@ -13,7 +13,9 @@ export const Route = createFileRoute("/group-cover/fiduciary-clause")({
           "Sample Treuhandvereinbarung (fiduciary clause) for members enrolling in a group Sterbegeldversicherung. Print-ready template — for legal review before signing.",
       },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://beistandplus.de/group-cover/fiduciary-clause" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/group-cover/fiduciary-clause" }],
   }),
   component: FiduciaryClausePage,
 });

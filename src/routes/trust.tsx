@@ -34,7 +34,9 @@ export const Route = createFileRoute("/trust")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://beistandplus.de/trust" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/trust" }],
   }),
   component: Trust,
 });

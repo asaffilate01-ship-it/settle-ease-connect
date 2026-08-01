@@ -14,7 +14,9 @@ export const Route = createFileRoute("/partners")({
       { name: "description", content: "Live API integrations with Feather Insurance, Taxfix and SAVD interpreting — plus the partner tracks we're onboarding next." },
       { property: "og:title", content: "Partner API integrations — BeistandPlus" },
       { property: "og:description", content: "Every partner runs through a typed adapter with a graceful offline fallback so the customer flow never breaks." },
+      { property: "og:url", content: "https://beistandplus.de/partners" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/partners" }],
   }),
   component: Partners,
 });

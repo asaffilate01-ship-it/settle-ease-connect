@@ -45,7 +45,9 @@ export const Route = createFileRoute("/tax")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://beistandplus.de/tax" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/tax" }],
   }),
   component: TaxLanding,
 });

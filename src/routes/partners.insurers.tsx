@@ -11,7 +11,9 @@ export const Route = createFileRoute("/partners/insurers")({
       { property: "og:title", content: "Insurance Partnership — BeistandPlus" },
       { property: "og:description", content: "Distribute bereavement cover to Germany's migrant families through a licensed, multilingual case-managed super-app." },
       { name: "robots", content: "noindex" },
+      { property: "og:url", content: "https://beistandplus.de/partners/insurers" },
     ],
+    links: [{ rel: "canonical", href: "https://beistandplus.de/partners/insurers" }],
   }),
   component: PartnersInsurers,
 });
