@@ -83,9 +83,11 @@ export function SiteHeader() {
       ],
     },
     { label: t("nav.howItWorks", "How it works"), href: "/how-it-works" },
+    { label: t("nav.events", "Events & clinics"), href: "/events" },
     { label: t("nav.forProviders", "For providers"), href: "/for-providers" },
     { label: t("nav.pricing", "Pricing"), href: "/pricing" },
     { label: t("nav.blog", "Blog"), href: "/blog" },
+
   ];
 
   // Flat list for the mobile sheet.
