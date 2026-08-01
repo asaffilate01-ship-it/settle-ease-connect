@@ -1,0 +1,204 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getKnowledgeService } from "@/lib/knowledge.functions";
+import { PortalHeader } from "@/components/portal/portal-header";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Loader2, ExternalLink } from "lucide-react";
+
+export const Route = createFileRoute("/_authenticated/portal/knowledge/$slug")({
+  component: KnowledgeDetail,
+});
+
+function KnowledgeDetail() {
+  const { slug } = Route.useParams();
+  const fetchService = useServerFn(getKnowledgeService);
+  const { data: svc, isLoading, error } = useQuery({
+    queryKey: ["knowledge-service", slug],
+    queryFn: () => fetchService({ data: { slug } }),
+  });
+
+  return (
+    <div className="space-y-6">
+      <Link
+        to="/portal/knowledge"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" /> Back to knowledge base
+      </Link>
+
+      {isLoading && (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+        </div>
+      )}
+      {error && <div className="text-sm text-destructive">{(error as Error).message}</div>}
+
+      {svc && (
+        <div className="space-y-8">
+          <PortalHeader
+            crumbs={[{ label: "Knowledge base", to: "/portal/knowledge" }, { label: svc.name }]}
+            title={svc.name}
+            subtitle={svc.short_description ?? undefined}
+            actions={<Badge variant="secondary">{(svc as any).category?.name}</Badge>}
+          />
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Fact label="Typical timeline" value={svc.typical_timeline} />
+            <Fact label="Official fees" value={svc.official_fees} />
+            <Fact label="Where to apply" value={(svc as any).where_to_apply} />
+            <Fact label="Expert required" value={svc.requires_expert_role ?? "—"} />
+          </div>
+
+            <Section title="Eligibility">{svc.eligibility}</Section>
+            <Section title="Legal basis">{svc.legal_basis}</Section>
+            <Section title="Jurisdiction notes">{svc.jurisdiction_notes}</Section>
+            <Section title="Fees — breakdown">{(svc as any).fees_detail}</Section>
+
+            <List title="Delivery playbook" items={svc.delivery_playbook as string[]} ordered />
+            <List title="Required documents & proofs" items={svc.required_documents as string[]} />
+
+            <FormsList forms={(svc as any).forms as any[]} />
+            <PortalsList portals={(svc as any).online_portals as any[]} />
+
+            <List title="Common pitfalls" items={svc.common_pitfalls as string[]} />
+            <Section title="Appeals / Widerspruch">{(svc as any).appeals_process}</Section>
+            <Section title="Internal tips for case managers">{(svc as any).tips}</Section>
+            <Section title="Internal wholesale / margin notes">{svc.our_wholesale_notes}</Section>
+
+            <div>
+              <h3 className="font-display text-lg font-semibold">Governing regulations</h3>
+              <div className="mt-3 space-y-2">
+                {((svc as any).regulations ?? []).length === 0 && (
+                  <p className="text-sm text-muted-foreground">No regulations linked yet.</p>
+                )}
+                {((svc as any).regulations ?? []).map((r: any) => (
+                  <a
+                    key={r.regulation.code}
+                    href={r.regulation.official_url ?? "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-start justify-between gap-4 rounded-lg border border-border/60 bg-card p-4 hover:border-primary/60"
+                  >
+                    <div>
+                      <div className="font-mono text-xs text-primary">{r.regulation.code} · {r.regulation.jurisdiction}</div>
+                      <div className="font-medium">{r.regulation.title}</div>
+                      <div className="text-xs text-muted-foreground">{r.regulation.summary}</div>
+                    </div>
+                    {r.regulation.official_url && <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground" />}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-display text-lg font-semibold">Assigned experts</h3>
+              {((svc as any).experts ?? []).length === 0 ? (
+                <p className="mt-2 text-sm text-muted-foreground">
+                  No experts assigned yet. Add via the Experts roster.
+                </p>
+              ) : (
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {((svc as any).experts ?? []).map((e: any) => (
+                    <div key={e.expert.id} className="rounded-lg border border-border/60 bg-card p-4">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium">{e.expert.full_name}</span>
+                        {e.expert.verified && <Badge className="text-[10px]">Verified</Badge>}
+                        {e.is_lead && <Badge variant="secondary" className="text-[10px]">Lead</Badge>}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {e.expert.profession} · {e.expert.city ?? "—"}
+                      </div>
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        Languages: {(e.expert.languages ?? []).join(", ") || "—"}
+                      </div>
+                      {e.expert.wholesale_rate_eur != null && (
+                        <div className="mt-1 text-xs">Wholesale: €{e.expert.wholesale_rate_eur}/hr</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FormsList({ forms }: { forms?: any[] }) {
+  if (!forms || forms.length === 0) return null;
+  return (
+    <div>
+      <h3 className="font-display text-lg font-semibold">Forms to file</h3>
+      <div className="mt-3 grid gap-2 md:grid-cols-2">
+        {forms.map((f, i) => (
+          <div key={i} className="rounded-lg border border-border/60 bg-card p-4">
+            <div className="font-medium">{f.name}</div>
+            {f.who && <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">Filled by: {f.who}</div>}
+            {f.notes && <div className="mt-1 text-sm text-muted-foreground">{f.notes}</div>}
+            {f.url && (
+              <a href={f.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                Open form <ExternalLink className="h-3 w-3" />
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PortalsList({ portals }: { portals?: any[] }) {
+  if (!portals || portals.length === 0) return null;
+  return (
+    <div>
+      <h3 className="font-display text-lg font-semibold">Official portals & references</h3>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {portals.map((p, i) => (
+          <a
+            key={i}
+            href={p.url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1.5 text-xs hover:border-primary/60 hover:text-primary"
+          >
+            {p.label} <ExternalLink className="h-3 w-3" />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Fact({ label, value }: { label: string; value?: string | null }) {
+  return (
+    <div className="rounded-lg border border-border/60 bg-card p-4">
+      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
+      <div className="mt-1 text-sm font-medium">{value ?? "—"}</div>
+    </div>
+  );
+}
+
+function Section({ title, children }: { title: string; children?: React.ReactNode }) {
+  if (!children) return null;
+  return (
+    <div>
+      <h3 className="font-display text-lg font-semibold">{title}</h3>
+      <p className="mt-2 whitespace-pre-wrap text-sm text-muted-foreground">{children}</p>
+    </div>
+  );
+}
+
+function List({ title, items, ordered }: { title: string; items?: string[]; ordered?: boolean }) {
+  if (!items || items.length === 0) return null;
+  const Tag = ordered ? "ol" : "ul";
+  return (
+    <div>
+      <h3 className="font-display text-lg font-semibold">{title}</h3>
+      <Tag className={`mt-3 space-y-2 text-sm ${ordered ? "list-decimal pl-5" : "list-disc pl-5"}`}>
+        {items.map((i, idx) => <li key={idx}>{i}</li>)}
+      </Tag>
+    </div>
+  );
+}

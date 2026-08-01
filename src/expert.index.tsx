@@ -1,0 +1,304 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
+import { BadgeCheck, AlertCircle, Briefcase, Wallet, Clock, Scale, Package, HeartHandshake } from "lucide-react";
+import {
+  getMyExpertProfile,
+  getMyExpertKpis,
+  listMyExpertCases,
+  listMyPayouts,
+  getMyProfessionActivity,
+} from "@/lib/expert-portal.functions";
+
+export const Route = createFileRoute("/_authenticated/expert/")({
+  head: () => ({ meta: [{ title: "Expert — overview" }] }),
+  component: ExpertHome,
+});
+
+function ExpertHome() {
+  const { t } = useTranslation();
+  const profileFn = useServerFn(getMyExpertProfile);
+  const kpiFn = useServerFn(getMyExpertKpis);
+  const casesFn = useServerFn(listMyExpertCases);
+  const payoutsFn = useServerFn(listMyPayouts);
+  const profFn = useServerFn(getMyProfessionActivity);
+
+  const profile = useQuery({ queryKey: ["expert", "profile"], queryFn: () => profileFn() });
+  const kpis = useQuery({ queryKey: ["expert", "kpis"], queryFn: () => kpiFn() });
+  const cases = useQuery({ queryKey: ["expert", "cases"], queryFn: () => casesFn() });
+  const payouts = useQuery({ queryKey: ["expert", "payouts"], queryFn: () => payoutsFn() });
+  const prof = useQuery({ queryKey: ["expert", "profession-activity"], queryFn: () => profFn() });
+
+  const p = profile.data;
+  const k = kpis.data;
+
+  if (!profile.isLoading && !p) {
+    return (
+      <div className="mx-auto max-w-3xl">
+        <div className="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-6">
+          <h2 className="font-display text-lg font-semibold">
+            {t("expert.setup.title", { defaultValue: "Expert profile not set up yet" })}
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t("expert.setup.body", {
+              defaultValue:
+                "You have an expert role but no expert profile record. Please contact your case manager or accept a pending invitation.",
+            })}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-8">
+      <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-soft sm:p-8">
+        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative">
+          <h1 className="font-display text-3xl font-semibold">
+            {p?.full_name
+              ? t("expert.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: p.full_name })
+              : t("expert.home.welcome", { defaultValue: "Welcome" })}
+          </h1>
+          <p className="mt-1 text-muted-foreground">
+            {p?.profession
+              ? t("expert.home.tagline", {
+                  defaultValue: "Your {{profession}} workspace — cases, earnings, and profile.",
+                  profession: p.profession,
+                })
+              : t("expert.home.taglineGeneric", { defaultValue: "Your workspace." })}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {k?.verified ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-500/20 dark:text-emerald-300">
+                <BadgeCheck className="h-3.5 w-3.5" /> {t("expert.badge.verified", { defaultValue: "Verified" })}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-500/20 dark:text-amber-300">
+                <AlertCircle className="h-3.5 w-3.5" /> {t("expert.badge.pending", { defaultValue: "Verification pending" })}
+              </span>
+            )}
+            {k?.compensation && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ring-1 ring-primary/20">
+                {k.compensation === "referral_fee"
+                  ? t("expert.comp.referral", { defaultValue: "Referral fee" })
+                  : k.compensation === "wholesale"
+                    ? t("expert.comp.wholesale", { defaultValue: "Wholesale" })
+                    : t("expert.comp.direct", { defaultValue: "Direct bill" })}
+              </span>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Kpi
+          icon={<Briefcase className="h-4 w-4" />}
+          label={t("expert.kpi.activeCases", { defaultValue: "Active cases" })}
+          value={k?.activeCases ?? 0}
+        />
+        <Kpi
+          icon={<Clock className="h-4 w-4" />}
+          label={t("expert.kpi.openAssignments", { defaultValue: "Open assignments" })}
+          value={k?.openAssignments ?? 0}
+        />
+        <Kpi
+          icon={<Wallet className="h-4 w-4" />}
+          label={t("expert.kpi.pending", { defaultValue: "Pending earnings" })}
+          value={`€${(k?.pendingEur ?? 0).toFixed(2)}`}
+        />
+        <Kpi
+          icon={<Wallet className="h-4 w-4" />}
+          label={t("expert.kpi.paidYtd", { defaultValue: "Paid YTD" })}
+          value={`€${(k?.paidYtdEur ?? 0).toFixed(2)}`}
+        />
+      </section>
+
+      {prof.data && prof.data.bucket !== "generic" && (
+        <ProfessionWidget bucket={prof.data.bucket} profession={prof.data.profession ?? ""} items={prof.data.items ?? []} />
+      )}
+
+
+
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="font-display text-xl font-semibold">
+            {t("expert.home.cases", { defaultValue: "My cases" })}
+          </h2>
+          <Link to="/expert/cases" className="text-sm text-primary hover:underline">
+            {t("common.viewAll", { defaultValue: "View all" })} →
+          </Link>
+        </div>
+        <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
+          <table className="w-full min-w-[640px] text-sm">
+            <thead className="bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
+              <tr>
+                <th className="p-3">{t("expert.table.reference", { defaultValue: "Ref" })}</th>
+                <th className="p-3">{t("expert.table.title", { defaultValue: "Case" })}</th>
+                <th className="p-3">{t("expert.table.role", { defaultValue: "Role" })}</th>
+                <th className="p-3">{t("expert.table.status", { defaultValue: "Status" })}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(cases.data ?? []).slice(0, 8).map((c: any) => (
+                <tr key={c.id} className="border-t border-border/40">
+                  <td className="p-3 font-mono text-xs">{c.reference}</td>
+                  <td className="p-3">{c.title}</td>
+                  <td className="p-3 text-muted-foreground capitalize">{String(c.assignment_role).replace(/_/g, " ")}</td>
+                  <td className="p-3 capitalize">{c.status}</td>
+                </tr>
+              ))}
+              {(cases.data ?? []).length === 0 && (
+                <tr>
+                  <td colSpan={4} className="p-8 text-center text-muted-foreground">
+                    {t("expert.home.emptyCases", { defaultValue: "No cases assigned yet." })}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="font-display text-xl font-semibold">
+            {t("expert.home.recentPayouts", { defaultValue: "Recent earnings" })}
+          </h2>
+          <Link to="/expert/payouts" className="text-sm text-primary hover:underline">
+            {t("common.viewAll", { defaultValue: "View all" })} →
+          </Link>
+        </div>
+        <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
+          <table className="w-full min-w-[560px] text-sm">
+            <thead className="bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
+              <tr>
+                <th className="p-3">{t("expert.table.period", { defaultValue: "Period" })}</th>
+                <th className="p-3">{t("expert.table.kind", { defaultValue: "Kind" })}</th>
+                <th className="p-3">{t("expert.table.amount", { defaultValue: "Amount" })}</th>
+                <th className="p-3">{t("expert.table.status", { defaultValue: "Status" })}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(payouts.data ?? []).slice(0, 8).map((p: any) => (
+                <tr key={p.id} className="border-t border-border/40">
+                  <td className="p-3 text-muted-foreground">{p.period_month ? new Date(p.period_month).toLocaleDateString(undefined, { month: "short", year: "numeric" }) : "—"}</td>
+                  <td className="p-3 capitalize">{String(p.kind).replace(/_/g, " ")}</td>
+                  <td className="p-3 font-medium">€{Number(p.amount_eur ?? 0).toFixed(2)}</td>
+                  <td className="p-3 capitalize">{p.status}</td>
+                </tr>
+              ))}
+              {(payouts.data ?? []).length === 0 && (
+                <tr>
+                  <td colSpan={4} className="p-8 text-center text-muted-foreground">
+                    {t("expert.home.emptyPayouts", { defaultValue: "No earnings recorded yet." })}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated">
+      <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
+      <div className="relative flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            {label}
+          </div>
+          <div className="mt-2 font-display text-2xl font-semibold tabular-nums">{value}</div>
+        </div>
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 text-primary shadow-clay ring-1 ring-primary/10">
+          {icon}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function ProfessionWidget({ bucket, profession, items }: { bucket: "regulated" | "wholesale" | "community"; profession: string; items: any[] }) {
+  const { t } = useTranslation();
+  const meta =
+    bucket === "regulated"
+      ? {
+          Icon: Scale,
+          title: t("expert.widget.regulated.title", { defaultValue: "Regulated referral log" }),
+          desc: t("expert.widget.regulated.desc", { defaultValue: "Cases sent to you as a regulated professional — referral fees are shown on each quote." }),
+        }
+      : bucket === "wholesale"
+        ? {
+            Icon: Package,
+            title: t("expert.widget.wholesale.title", { defaultValue: "Wholesale jobs" }),
+            desc: t("expert.widget.wholesale.desc", { defaultValue: "Fixed-rate work the platform pays you for. Client is billed directly by BeistandPlus." }),
+          }
+        : {
+            Icon: HeartHandshake,
+            title: t("expert.widget.community.title", { defaultValue: "Community requests" }),
+            desc: t("expert.widget.community.desc", { defaultValue: "Cases where a family has asked for your congregation or facility." }),
+          };
+  const Icon = meta.Icon;
+  return (
+    <section className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
+      <div className="flex items-center gap-2">
+        <Icon className="h-4 w-4 text-primary" />
+        <h2 className="font-display text-lg font-semibold">{meta.title}</h2>
+        {profession && (
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+            {profession.replace(/_/g, " ")}
+          </span>
+        )}
+      </div>
+      <p className="mt-1 text-xs text-muted-foreground">{meta.desc}</p>
+      {items.length === 0 ? (
+        <p className="mt-4 text-sm text-muted-foreground">
+          {t("expert.widget.empty", { defaultValue: "Nothing yet in this stream." })}
+        </p>
+      ) : (
+        <ul className="mt-4 space-y-2">
+          {items.slice(0, 6).map((it: any) => {
+            const caseId = it.case_id ?? it.cases?.id;
+            const ref = it.cases?.reference ?? "";
+            const title = it.title || it.cases?.title || "—";
+            const amt = it.amount_eur != null ? `€${Number(it.amount_eur).toFixed(0)}` : null;
+            const fee = it.platform_fee_eur != null ? `fee €${Number(it.platform_fee_eur).toFixed(0)}` : null;
+            const status = it.status ?? it.assignment_status ?? "";
+            const key = it.id ?? `${caseId}-${title}`;
+            const body = (
+              <div className="flex items-center justify-between gap-3 rounded-lg border border-border/40 bg-background/60 px-3 py-2 text-sm">
+                <div className="min-w-0">
+                  <div className="truncate font-medium">{title}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {ref && <span className="font-mono me-2">{ref}</span>}
+                    {amt}
+                    {fee && <> · {fee}</>}
+                  </div>
+                </div>
+                {status && (
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] uppercase tracking-wide capitalize">{status}</span>
+                )}
+              </div>
+            );
+            return caseId ? (
+              <li key={key}>
+                <Link to="/expert/cases/$caseId" params={{ caseId }} className="block hover:opacity-80">
+                  {body}
+                </Link>
+              </li>
+            ) : (
+              <li key={key}>{body}</li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
