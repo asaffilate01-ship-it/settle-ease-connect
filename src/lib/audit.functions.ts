@@ -16,15 +16,14 @@ export const writeAudit = createServerFn({ method: "POST" })
       .parse(raw),
   )
   .handler(async ({ data, context }) => {
-    const { data: me } = await context.supabase.auth.getUser();
-    const { error } = await context.supabase.from("audit_log").insert({
-      actor_user_id: context.userId,
-      actor_email: me?.user?.email ?? null,
-      action: data.action,
-      entity_type: data.entity_type,
-      entity_id: data.entity_id,
-      subject_user_id: data.subject_user_id,
-      metadata: data.metadata ?? {},
+    // audit_log is append-only and not directly writable by users; the
+    // security-definer routine stamps the real signed-in actor server-side.
+    const { error } = await context.supabase.rpc("log_audit_event", {
+      _action: data.action,
+      _entity_type: data.entity_type ?? null,
+      _entity_id: data.entity_id ?? null,
+      _subject_user_id: data.subject_user_id ?? null,
+      _metadata: data.metadata ?? {},
     });
     if (error) throw new Error(error.message);
     return { ok: true };
