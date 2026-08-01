@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { submitInsuranceCallback } from "@/lib/insurance-callback.functions";
 import { enqueue, registerReplayHandler } from "@/lib/offline-queue";
 import {
-import { RegulatedNotice } from "@/components/regulated-notice";
   ShieldCheck,
   Stethoscope,
   Home,
@@ -26,6 +25,7 @@ import { RegulatedNotice } from "@/components/regulated-notice";
   Scale3d,
   Info,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/insurance")({
   head: () => ({

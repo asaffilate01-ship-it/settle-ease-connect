@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import {
-import { RegulatedNotice } from "@/components/regulated-notice";
   ArrowRight,
   PlaneTakeoff,
   FileCheck2,
@@ -23,6 +22,7 @@ import { RegulatedNotice } from "@/components/regulated-notice";
   AlertTriangle,
   CheckCircle2,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/leaving-germany")({
   head: () => ({

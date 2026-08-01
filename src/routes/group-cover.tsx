@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { GroupCoverIntake } from "@/components/group-cover-intake";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import {
-import { RegulatedNotice } from "@/components/regulated-notice";
   Building2,
   Users,
   Clock,
@@ -15,6 +14,7 @@ import { RegulatedNotice } from "@/components/regulated-notice";
   Check,
   ArrowRight,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/group-cover")({
   head: () => ({

@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import { submitTaxLead } from "@/lib/tax-lead.functions";
 import { estimateTaxRefund, type TaxInput } from "@/lib/tax-estimator";
 import {
-import { RegulatedNotice } from "@/components/regulated-notice";
   Calculator,
   ArrowRight,
   ArrowLeft,
@@ -28,6 +27,7 @@ import { RegulatedNotice } from "@/components/regulated-notice";
   Building2,
   Clock,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/tax")({
   head: () => ({

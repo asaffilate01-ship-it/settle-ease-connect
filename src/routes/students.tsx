@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import {
-import { RegulatedNotice } from "@/components/regulated-notice";
   GraduationCap,
   BadgePercent,
   ShieldCheck,
@@ -14,6 +13,7 @@ import { RegulatedNotice } from "@/components/regulated-notice";
   HeartPulse,
   Check,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/students")({
   head: () => ({
