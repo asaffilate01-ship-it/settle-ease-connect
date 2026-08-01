@@ -1,93 +1,113 @@
-# BeistandPlus — Native CRM + Compliance Roadmap
+# Plan: Member Financials, Events & Clinics + Full Audit
 
-## Shipped
-
-### Phase 1 — CRM Foundation
-- Tables: `crm_contacts`, `crm_consents`, `crm_leads`, `crm_activities`, `crm_follow_ups`, `crm_complaints`, `crm_satisfaction`, `crm_campaigns`. `insurance_leads` extended with regulated pipeline stages.
-- Portal: `/portal/crm` (inbox, contacts, leads kanban, complaints).
-- Server fns: `src/lib/crm.functions.ts`.
-
-### Phase 2 — Case Templates (Journeys)
-- Tables: `case_templates`, `case_template_stages`, `case_template_tasks`. `cases` extended with `template_code`, `current_stage`, `sla_due_at`, `risk_level`, `priority`, `closure_report`.
-- 8 templates seeded (Funeral-DE and Repatriation with full stages+tasks; 6 others stage-only).
-- `apply_case_template(case_id, template_code)` RPC.
-- Portal: `/portal/case-templates`.
-
-### Phase 3 — Reconciliation & Analytics
-- `/portal/analytics` — attribution by UTM, CSAT/NPS, commission reconciliation (CSV import + mark-paid).
-
-### DELA Referral Flow (Regulated Introducer)
-- Table: `dela_referrals` with full lifecycle (disclosure → consent → info → contact method → send → partner ack → application → policy → commission → renewal/cancellation).
-- Table: `regulated_action_log` (append-only, insert-only via Data API).
-- Health-insurance triage enum (`health_triage_route`) with 7 buckets; triage columns on `insurance_leads`.
-- **Regulated firewall trigger** on `insurance_leads` and `dela_referrals`: DB-enforced that only `insurance_admin`/`admin` can advance past consent or write `advice_notes`/`recommendation_text`/`suitability_notes`. Attempts logged whether blocked or allowed.
-- Portal: `/portal/dela` — stage-by-stage compliance UI with disclosure/consent versioning, advisor-only outcome panel.
+Three build tracks + one audit pass. All additive — the existing app (cases, CRM, portals, vault, DELA/insurance flows) is not touched except where a new sidebar link plugs in.
 
 ---
 
-## Not yet built — sequenced for follow-up turns
+## Track A — Member Financial Dashboard
 
-### Stage 1 remnants — Auth & permissions hardening ✅ (MFA)
-- `app_role` enum expanded: added `family_deputy`, `senior_case_manager`, `team_leader`, `finance`, `compliance`, `dpo`, `auditor`.
-- HIBP leaked-password protection enabled.
-- **TOTP MFA**: `mfa-section.tsx` in `/app/settings` for enrol/unenrol.
-- **AAL2 step-up gate** (`src/components/security/aal2-gate.tsx`) wrapping sensitive surfaces: `/portal/admin/users`, `/portal/admin/invite`, vault unlock (`/app/documents`), `/portal/escrow`, `/portal/dela`, `/portal/insurance-triage`, `/portal/audit`, `/portal/financials`.
-- Session/device history and passkeys still deferred.
+A single "My Finances" page at `/app/billing` for every signed-in user, showing:
 
-### Stage 2 — Case operations polish ✅
-- Table: `case_appointments` (RLS via `can_access_case`).
-- View: `case_sla_status` (breached / at_risk / on_track / closed / none) with `security_invoker`.
-- RPC: `close_case(_case_id, _reason, _report, _request_csat)` — writes closure report, sets `closed_at`, optional CSAT trigger.
-- New columns on `cases`: `closed_at`, `closure_reason`, `closure_csat_requested`.
-- Portal: `/portal/operations` with SLA dashboard, appointment scheduler, and closure workflow.
-- Server fns: `src/lib/case-operations.functions.ts`.
+- Current subscription (plan, price, status, renewal date, cancel-at-period-end flag)
+- Funeral cover policy (if any) — plan, monthly contribution, next debit, cover amount, waiting-period status
+- **Payments made** — chronological list from Stripe (invoices), with PDF receipt links
+- **Payments due** — upcoming invoices (subscription renewals + funeral cover contributions)
+- **Failed / past-due** — dunning state with "Update payment method" button (opens Stripe billing portal)
+- Lifetime totals (paid to date, active add-ons)
+- Download annual statement (CSV)
 
-### Stage 2 remnants ✅
-- `sla_breach_sweep()` SECURITY DEFINER function + hourly `pg_cron` job (`sla-breach-sweep` at `0 * * * *`) writes `sla_breach` notifications to the case manager when a case passes its `sla_due_at`, deduped by `entity_id` + created_at.
-- Document-request task auto-linking ✅ — `case_tasks.document_category` + `linked_vault_document_id` columns; `vault_autolink_case_tasks` trigger on `vault_documents` INSERT auto-completes matching open tasks on the same client's cases and notifies the case manager.
+Data sources — everything already exists:
+- `subscriptions` table (populated by Stripe webhook)
+- `funeral_policies` table (existing)
+- Stripe API for invoice history via a new `getBillingHistory` server fn (uses `createStripeClient` + `stripe.invoices.list`, `stripe.upcomingInvoices`)
+- Existing `createPortalSession` for payment-method updates
 
-### Stage 3 — Health-insurance referral flow ✅ (triage)
-- `/portal/insurance-triage` — 7-bucket triage (statutory/private/student/employee/self_employed/family/needs_regulated_assessment), "Not advice" banner, factual-notes only, per-route hint on where to hand off.
-- Server fns: `src/lib/insurance-triage.functions.ts`.
-- CSV export ✅ — `exportInsuranceLeadsCsv` server fn + "Export CSV" button on `/portal/insurance-triage` (admin/insurance_admin only, up to 5000 rows). Partner API push still deferred.
+Add sidebar entry "Billing" for all authenticated users; funeral cover section renders only when a `funeral_policies` row exists.
 
-### Stage 4b — Lawyer structure ✅ (foundation)
-- `case_documents.doc_type` column added (default `general`). Lawyer/admin flows can now attach an `admin_summary` doc to a case for lawyer accept/decline (retainer stays customer↔lawyer). Marketing copy audit still to do.
+## Track B — Community Events & Free Advice Clinics
 
-### Stage 4 — Provider (Partner) Portal Engine ✅
-- Enums: `partner_category` (10 categories), `translator_service_type` (7 types).
-- Tables: `partner_organisations`, `partner_users`, `partner_documents`, `partner_service_categories` (with sworn_courts[]), `partner_service_regions`, `partner_availability`.
-- Roles: `partner_admin`, `partner_user`.
-- Helpers: `is_partner_member`, `is_partner_admin`, `current_partner_org`.
-- `case_assignments` extended with `partner_org_id`, `invited_at`, `accepted_at`, `declined_at`, `decline_reason`.
-- `can_access_case` extended so accepted partner org members can see their cases.
-- Portal admin: `/portal/partners` — list, create, activate/suspend orgs, **document verification queue** (approve/reject with notes; staff-only via `is_internal`).
-- Partner portal: `/partner` — org profile, assigned cases (accept/decline), documents, **services editor** (categories + translator sworn-court chips), **coverage editor** (city/Bundesland/PLZ prefix/radius), **weekly availability editor** (weekday + start/end + accepts_urgent).
-- Document upload UI ✅ — `partner-docs` bucket with folder-scoped RLS. Upload card supports 7 categories, valid-until date, 25 MB PDF/image.
-- Server fns: `src/lib/partner-docs.functions.ts`, `src/lib/partner-editors.functions.ts` (categories, regions, availability, doc verification queue).
+One system, two event types differentiated by a `category` column.
 
-### Stage 5 — Audit expansion ✅
-- `audit_log` is now append-only: UPDATE/DELETE revoked and blocked by trigger.
-- Generic `audit_row_change` trigger writes INSERT/UPDATE/DELETE events with per-column diffs (skips timestamp-only churn).
-- Attached to: `profiles`, `cases`, `case_documents`, `crm_consents`, `dela_referrals`, `insurance_leads`, `user_roles`, `partner_organisations`, `partner_users`.
-- `/portal/audit` (existing) already surfaces the log.
+### New tables (single migration)
 
-### Stage 6 — UI simplification (management dashboard ✅)
-- `/portal/management` — executive KPI dashboard: growth (new leads, conversion, active members, MRR), referrals (DELA / insurance / triage backlog), operations (active/breached/closed cases, avg resolution), quality (CSAT, complaints), staff workload top 10, provider performance top 10. Live refresh every 60 s. Admin-only.
-- Server fn: `src/lib/management-kpi.functions.ts`.
+- `community_events` — id, title, description, category (`advice_clinic` | `community_gathering` | `trip` | `workshop`), sub_category (`health` | `tax` | `legal` | `benefits` | `general` | null), event_date, end_date, location, address, max_attendees, fee_eur (default 0), is_members_only, expert_user_id (nullable — links to advising expert), organiser_user_id, image_url, status (`draft` | `published` | `cancelled` | `completed`), created_at, updated_at
+- `event_registrations` — id, event_id, user_id, status (`registered` | `attended` | `cancelled` | `waitlist`), notes, created_at
+- RLS: public read of `published` events; users read/manage their own registrations; staff (`is_internal`) full write
 
-### Stage 6b — Case-manager focused dashboard ✅
-- `/portal/my-desk` — per-user view: open cases (with SLA state), tasks due within 7 days (overdue flagged), pending partner invitations on my cases, breach & overdue counters. Refetch every 60 s.
-- Server fn: `src/lib/case-manager-desk.functions.ts` (`getMyDesk`).
+### Server functions (`src/lib/events.functions.ts`)
 
-### Stage 6c — Customer overview polish ✅
-- `/app` dashboard now pulls real data via `getCustomerOverview`: open cases count with breached/at-risk state, real vault document count, "cases needing docs" callout.
-- New "Needs your attention" section: SLA alerts (breached + at_risk), next appointments (30-day window), cases missing documents. Refetches every 60 s.
-- Server fn: `src/lib/customer-overview.functions.ts`.
+- `listUpcomingEvents({ category? })` — public read via server publishable client
+- `getEvent({ id })` — public
+- `registerForEvent({ eventId })` — authenticated, capacity check, waitlist fallback
+- `cancelRegistration({ registrationId })` — authenticated
+- `myRegistrations()` — authenticated
+- Staff CRUD: `createEvent`, `updateEvent`, `deleteEvent`, `listRegistrations`, `markAttendance`
 
-Homepage five-path IA ✅
-- `FivePaths` section on `/` (bereavement / insurance / help in Germany / employer / provider) linking to `/bereavement`, `/insurance`, `/services`, `/partnerships`, `/for-providers`.
+### Public pages
 
+- `/events` — landing page with tabs "Free advice clinics" / "Community gatherings" / "Trips & excursions", grid of published upcoming events, filter by city/category
+- `/events/$eventId` — detail page with register CTA, expert bio (if `expert_user_id`), map, share buttons; head() metadata per event
 
-### Stage 7 — AI (advisory only, human-approval required for regulated domains)
-Deferred until core records reliable.
+### Authenticated pages
+
+- `/app/events` — my registrations + upcoming events I can register for
+- `/portal/events` — staff console: create/edit events, view registrations, mark attendance, export CSV, message all registrants (uses existing notifications)
+
+### Homepage & marketing
+
+- New "Free advice clinics" section on `/` and a mention on `/how-it-works`
+- Link "Events" in main site header and mobile tab bar
+
+## Track C — Take from SOCIETY APP (careful, additive only)
+
+Ideas worth porting into our German-market model:
+
+- **Payments page pattern** (SOCIETY APP `dashboard/PaymentsPage`) → shape/UX for Track A payments-made list
+- **Events page pattern** (SOCIETY APP `PublicEventsPage`) → visual reference for `/events` cards (date band, capacity, fee/free chip, members-only badge)
+- **Notices** (community-wide announcements from staff) — add small "Notices" surface on `/app` dashboard, backed by a new `announcements` table, staff-authored via `/portal/announcements`. Localised via existing translation cache.
+- **Membership card / QR** — a digital member card at `/app/card` showing name, tier, member number, QR (encodes user_id + plan) for check-in at physical events
+
+Ignored on purpose (out of scope for our product): donations/Zakat, Ghusl team dispatch, member application/approval workflow, tenant-landing multitenancy, admin-approves-members flow.
+
+## Track D — Full audit (translations, wiring, gaps)
+
+### Translation audit
+- Sweep all TSX under `src/routes/**` and `src/components/**` for hardcoded English strings introduced during recent iterations (upgrade gate, funeral cover, group cover, checklists, ai-tools, referrals, sessions, assistant, partner-push, copy-audit, portal.checklist-templates)
+- Add missing keys to `src/i18n/locales/*/common.json` for all 13 languages: DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · FA · PL · ZH
+- Replace hardcoded strings with `t()` calls
+- Verify RTL layout on AR / UR / FA / KU pages
+
+### Wiring / persistence audit
+- `payments.functions.ts` — confirm webhook writes `funeral_policies` events end-to-end
+- `partner_api_pushes` — currently log-only; keep as-is unless partners provide endpoints (documented gap)
+- WebAuthn passkey enrol/verify — decision needed: alongside TOTP or replace
+- Live chat / WhatsApp widget backend — currently outbound link only; documented gap
+- pg_cron sweeps live: SLA breach, monthly commissions, partner-doc expiry, dunning — confirm
+- Stripe live-mode + custom email domain — user-action items, documented not blockers
+
+### Gaps flagged for later (not built this pass)
+- Group cover self-serve invoice portal for employers
+- Expert calendar sync (Google/Outlook OAuth)
+- Case timeline PDF export for members
+- In-app language auto-detect based on browser locale on first visit
+
+---
+
+## Technical notes
+
+- **Payments listing**: Stripe API paginates; server fn returns latest 50 invoices, "load more" fetches next page via `starting_after`.
+- **Event registration**: single transaction with row-level lock on the `community_events` row to prevent overselling; waitlist rows get `status = 'waitlist'` and are auto-promoted on cancellation via a small trigger.
+- **`community_events` RLS**: public SELECT allowed on `status='published'` rows only, so `TO anon` grant is safe; owner/staff writes go via `is_internal(auth.uid())`.
+- **Announcements table**: `visible_from` / `visible_until` timestamps + `audience` enum (`all` | `basic` | `plus` | `complete` | `staff`) so we don't need extra join tables.
+- **Membership card QR** is signed with a short-lived JWT (server fn) so it can be verified at check-in without exposing the user id in plain text.
+- **i18n**: keys grouped per feature (`events.*`, `billing.*`, `announcements.*`, `card.*`) with the same shape across all 13 locales.
+- **No schema-owned data drift**: everything routes through migrations; seed data (event categories) goes in the same migration.
+
+## Order of work
+
+1. Track A (Billing dashboard) — smallest surface, all data exists
+2. Track B (Events & clinics) — one big migration + pages + portal
+3. Track C (Notices + membership card) — quick wins from SOCIETY APP
+4. Track D (translation sweep + audit report) — final polish
+
+Approve and I'll start on Track A.

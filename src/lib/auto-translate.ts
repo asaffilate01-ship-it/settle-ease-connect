@@ -320,14 +320,27 @@ let observer: MutationObserver | null = null;
 
 function markHydratedSoon() {
   if (hydrated) return;
-  // Wait two rAFs + a macrotask so React 19 concurrent hydration is done.
+  // React 19 hydrates concurrently and can span many frames. Mutating text
+  // nodes mid-hydration produces "server rendered text didn't match" errors,
+  // so wait for the document to finish loading AND a settle delay before the
+  // translator is allowed to touch the DOM.
   const done = () => { hydrated = true; };
-  if (typeof requestAnimationFrame === "function") {
-    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(done, 0)));
+  const settle = () => {
+    if (typeof requestAnimationFrame === "function") {
+      requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(done, 400)));
+    } else {
+      setTimeout(done, 500);
+    }
+  };
+  if (typeof document !== "undefined" && document.readyState !== "complete") {
+    window.addEventListener("load", settle, { once: true });
+    // Safety net in case `load` never fires (e.g. a stalled subresource).
+    setTimeout(done, 3000);
   } else {
-    setTimeout(done, 100);
+    settle();
   }
 }
+
 
 /**
  * Boot the auto-translator. Idempotent — subsequent calls just update the
