@@ -5,6 +5,7 @@ import { getMyAccountSummary, getMyAuditTrail } from "@/lib/account.functions";
 import { createPortalSession } from "@/lib/payments.functions";
 import { getStripeEnvironment, isPaymentsConfigured } from "@/lib/stripe";
 import { evaluateBenefits } from "@/lib/benefits-eligibility";
+import { PrivacyPanel } from "@/components/settings/privacy-panel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
