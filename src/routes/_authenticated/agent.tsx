@@ -95,6 +95,13 @@ function AgentLayout() {
 
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6">
+          <MobileNavMenu
+            title={t("agent.portalLabel", { defaultValue: "Agent portal" })}
+            items={NAV.map((n) => ({ to: n.to, label: n.label, icon: n.icon, exact: n.exact }))}
+            name={name}
+            email={user?.email}
+            onSignOut={handleSignOut}
+          />
           <Link to="/agent" className="flex items-center gap-2 lg:hidden">
             <span className="font-display text-lg font-semibold">{t("agent.shortLabel", { defaultValue: "Agent" })}</span>
           </Link>
