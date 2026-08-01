@@ -219,6 +219,10 @@ function AccountPage() {
         <TabsContent value="activity" className="space-y-4">
           <ActivityPanel rows={auditQ.data ?? []} loading={auditQ.isLoading} />
         </TabsContent>
+
+        <TabsContent value="privacy" className="space-y-4">
+          <PrivacyPanel />
+        </TabsContent>
       </Tabs>
     </div>
   );
