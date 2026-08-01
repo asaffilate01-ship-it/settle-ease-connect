@@ -112,19 +112,12 @@ export function useLanguage() {
     // pending boundary in DEFAULT_LANG before switching.
     const schedule = () => window.setTimeout(applySaved, 250);
     if (document.readyState === "complete") {
-      const id = schedule();
-      return () => window.clearTimeout(id);
+      schedule();
+      return;
     }
-    let timer: number | undefined;
-    const onLoad = () => {
-      timer = schedule();
-    };
-    window.addEventListener("load", onLoad, { once: true });
-    return () => {
-      window.removeEventListener("load", onLoad);
-      if (timer) window.clearTimeout(timer);
-    };
+    window.addEventListener("load", () => schedule(), { once: true });
   }, []);
+
 
 
 
