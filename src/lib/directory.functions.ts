@@ -20,9 +20,8 @@ export const listDirectoryListings = createServerFn({ method: "GET" })
     // details are visible only after opening a listing when signed-in, via a
     // separate owner-scoped path — not implemented here.
     let q = supabase
-      .from("directory_listings")
-      .select("id, business_name, category, subcategory, description, city, bundesland, languages, website, logo_url, featured")
-      .eq("status", "active")
+      .from("public_directory_listings")
+      .select("*")
       .order("featured", { ascending: false })
       .order("business_name");
     if (data.category) q = q.eq("category", data.category);
