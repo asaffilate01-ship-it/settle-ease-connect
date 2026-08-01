@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, Link, useNavigate, redirect } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
+import { PortalMobileNav } from "@/components/mobile-nav-sheet";
 import { Button } from "@/components/ui/button";
 import { Bell, Search, LogOut, ShieldCheck } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
