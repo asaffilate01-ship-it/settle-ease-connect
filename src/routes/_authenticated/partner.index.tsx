@@ -17,6 +17,7 @@ import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 
 import {
+  acceptPartnerInvitations,
   getMyPartnerOrg,
   listMyPartnerCases,
   listMyPartnerDocuments,
