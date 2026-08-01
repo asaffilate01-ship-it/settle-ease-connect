@@ -92,6 +92,7 @@ import { Route as AuthenticatedPortalAuditorRouteImport } from './routes/_authen
 import { Route as AuthenticatedPortalAuditRouteImport } from './routes/_authenticated/portal.audit'
 import { Route as AuthenticatedPortalAssistantRouteImport } from './routes/_authenticated/portal.assistant'
 import { Route as AuthenticatedPortalAnalyticsRouteImport } from './routes/_authenticated/portal.analytics'
+import { Route as AuthenticatedPortalAiAdvisoryRouteImport } from './routes/_authenticated/portal.ai-advisory'
 import { Route as AuthenticatedFamilyInviteTokenRouteImport } from './routes/_authenticated/family-invite.$token'
 import { Route as AuthenticatedExpertQuotesRouteImport } from './routes/_authenticated/expert.quotes'
 import { Route as AuthenticatedExpertProfileRouteImport } from './routes/_authenticated/expert.profile'
@@ -600,6 +601,12 @@ const AuthenticatedPortalAnalyticsRoute =
     path: '/analytics',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedPortalAiAdvisoryRoute =
+  AuthenticatedPortalAiAdvisoryRouteImport.update({
+    id: '/ai-advisory',
+    path: '/ai-advisory',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
 const AuthenticatedFamilyInviteTokenRoute =
   AuthenticatedFamilyInviteTokenRouteImport.update({
     id: '/family-invite/$token',
@@ -992,6 +999,7 @@ export interface FileRoutesByFullPath {
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/family-invite/$token': typeof AuthenticatedFamilyInviteTokenRoute
+  '/portal/ai-advisory': typeof AuthenticatedPortalAiAdvisoryRoute
   '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
@@ -1126,6 +1134,7 @@ export interface FileRoutesByTo {
   '/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/family-invite/$token': typeof AuthenticatedFamilyInviteTokenRoute
+  '/portal/ai-advisory': typeof AuthenticatedPortalAiAdvisoryRoute
   '/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/portal/audit': typeof AuthenticatedPortalAuditRoute
@@ -1263,6 +1272,7 @@ export interface FileRoutesById {
   '/_authenticated/expert/profile': typeof AuthenticatedExpertProfileRoute
   '/_authenticated/expert/quotes': typeof AuthenticatedExpertQuotesRoute
   '/_authenticated/family-invite/$token': typeof AuthenticatedFamilyInviteTokenRoute
+  '/_authenticated/portal/ai-advisory': typeof AuthenticatedPortalAiAdvisoryRoute
   '/_authenticated/portal/analytics': typeof AuthenticatedPortalAnalyticsRoute
   '/_authenticated/portal/assistant': typeof AuthenticatedPortalAssistantRoute
   '/_authenticated/portal/audit': typeof AuthenticatedPortalAuditRoute
@@ -1403,6 +1413,7 @@ export interface FileRouteTypes {
     | '/expert/profile'
     | '/expert/quotes'
     | '/family-invite/$token'
+    | '/portal/ai-advisory'
     | '/portal/analytics'
     | '/portal/assistant'
     | '/portal/audit'
@@ -1537,6 +1548,7 @@ export interface FileRouteTypes {
     | '/expert/profile'
     | '/expert/quotes'
     | '/family-invite/$token'
+    | '/portal/ai-advisory'
     | '/portal/analytics'
     | '/portal/assistant'
     | '/portal/audit'
@@ -1673,6 +1685,7 @@ export interface FileRouteTypes {
     | '/_authenticated/expert/profile'
     | '/_authenticated/expert/quotes'
     | '/_authenticated/family-invite/$token'
+    | '/_authenticated/portal/ai-advisory'
     | '/_authenticated/portal/analytics'
     | '/_authenticated/portal/assistant'
     | '/_authenticated/portal/audit'
@@ -2350,6 +2363,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalAnalyticsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/portal/ai-advisory': {
+      id: '/_authenticated/portal/ai-advisory'
+      path: '/ai-advisory'
+      fullPath: '/portal/ai-advisory'
+      preLoaderRoute: typeof AuthenticatedPortalAiAdvisoryRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
     '/_authenticated/family-invite/$token': {
       id: '/_authenticated/family-invite/$token'
       path: '/family-invite/$token'
@@ -2955,6 +2975,7 @@ const AuthenticatedPortalKnowledgeRouteWithChildren =
   )
 
 interface AuthenticatedPortalRouteChildren {
+  AuthenticatedPortalAiAdvisoryRoute: typeof AuthenticatedPortalAiAdvisoryRoute
   AuthenticatedPortalAnalyticsRoute: typeof AuthenticatedPortalAnalyticsRoute
   AuthenticatedPortalAssistantRoute: typeof AuthenticatedPortalAssistantRoute
   AuthenticatedPortalAuditRoute: typeof AuthenticatedPortalAuditRoute
@@ -2998,6 +3019,7 @@ interface AuthenticatedPortalRouteChildren {
 }
 
 const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
+  AuthenticatedPortalAiAdvisoryRoute: AuthenticatedPortalAiAdvisoryRoute,
   AuthenticatedPortalAnalyticsRoute: AuthenticatedPortalAnalyticsRoute,
   AuthenticatedPortalAssistantRoute: AuthenticatedPortalAssistantRoute,
   AuthenticatedPortalAuditRoute: AuthenticatedPortalAuditRoute,

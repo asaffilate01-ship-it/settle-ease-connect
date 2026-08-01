@@ -172,7 +172,8 @@
     "privacyConsole": "Datenschutzanfragen (DSB)",
     "auditorConsole": "Prüfnachweise",
     "familyAccess": "Familienzugang",
-    "privacyRequests": "Meine Datenschutzanfragen"
+    "privacyRequests": "Meine Datenschutzanfragen",
+    "aiAdvisory": "KI-Beratung"
   },
   "language": {
     "label": "Sprache",
@@ -401,6 +402,48 @@
         "approved": "genehmigt",
         "needsRevision": "Überarbeitung nötig",
         "blocked": "blockiert"
+      }
+    },
+    "aiAdvisory": {
+      "title": "KI-Beratungsentwürfe",
+      "subtitle": "KI-Entwürfe für Fallfragen — ein Mensch muss freigeben, bevor Kundinnen und Kunden sie sehen.",
+      "notice": "KI-Ausgaben sind keine Beratung. In regulierten Bereichen (Recht, Steuern, Aufenthalt, Versicherung, Medizin) enthält der Entwurf nur Fakten, Verfahren und offene Fragen; regulierte Beratung erfolgt ausschließlich durch zugelassene Fachpersonen. Nichts erreicht Kundinnen und Kunden ohne Ihre Freigabe.",
+      "newDraft": "Neuer Entwurf",
+      "generate": "Entwurf erstellen",
+      "generating": "Wird erstellt…",
+      "created": "Entwurf erstellt — Prüfung offen",
+      "reviewed": "Prüfung gespeichert",
+      "empty": "Noch keine Entwürfe.",
+      "approve": "Freigeben",
+      "reject": "Ablehnen",
+      "sendToCase": "Bei Freigabe in den Fall-Verlauf posten",
+      "reviewNote": "Prüfhinweis",
+      "notesPlaceholder": "Prüfhinweise (optional)",
+      "caseIdPlaceholder": "Fall-ID (optional)",
+      "questionPlaceholder": "Was soll entworfen werden? Bitte konkret.",
+      "contextPlaceholder": "Fallkontext (keine unnötigen personenbezogenen Daten)",
+      "domain": {
+        "legal": "Recht",
+        "tax": "Steuern",
+        "immigration": "Aufenthalt",
+        "insurance": "Versicherung",
+        "benefits": "Sozialleistungen",
+        "medical": "Medizin",
+        "funeral": "Sterbefallvorsorge",
+        "general": "Allgemein"
+      },
+      "status": {
+        "pending": "Prüfung offen",
+        "approved": "Freigegeben",
+        "rejected": "Abgelehnt",
+        "sent": "An Kundin/Kunden gesendet"
+      },
+      "filter": {
+        "pending": "Offen",
+        "approved": "Freigegeben",
+        "sent": "Gesendet",
+        "rejected": "Abgelehnt",
+        "all": "Alle"
       }
     }
   },
