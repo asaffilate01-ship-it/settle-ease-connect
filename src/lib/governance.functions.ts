@@ -85,8 +85,7 @@ export const updatePrivacyRequest = createServerFn({ method: "POST" })
       patch["processed_at"] = new Date().toISOString();
       patch["processed_by"] = context.userId;
     }
-    const { error } = await context.supabase
-      .from("privacy_requests")
+    const { error } = await (context.supabase.from("privacy_requests") as any)
       .update(patch)
       .eq("id", data.id);
     if (error) throw new Error(error.message);
