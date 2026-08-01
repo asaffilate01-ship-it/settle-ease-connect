@@ -90,16 +90,36 @@ export function useLanguage() {
     } catch {
       // ignore
     }
-    if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
-      changeLanguageSafely(saved as LangCode);
+    // Lazy route chunks hydrate after the shell, so switching the language
+    // during the first effect makes React compare DE server HTML against
+    // freshly-translated client output inside that boundary (hydration
+    // mismatch). Wait for the window load event — by then every lazy
+    // boundary has hydrated — then swap.
+    const applySaved = () => {
+      if (saved && saved !== safeI18n.language && LANGUAGES.some((l) => l.code === saved)) {
+        changeLanguageSafely(saved as LangCode);
+      }
+      // For non-default languages the DOM auto-translator clears the gate after
+      // hardcoded page copy has been translated too. Revealing here causes the
+      // half-English / half-German flash the live site was showing.
+      if (!shouldKeepGateForDomTranslation(saved)) {
+        requestAnimationFrame(revealBody);
+      }
+    };
+
+    // Route components are lazily chunked, so their subtree hydrates a few
+    // frames after the shell. Give React time to finish hydrating every
+    // pending boundary in DEFAULT_LANG before switching.
+    const schedule = () => window.setTimeout(applySaved, 250);
+    if (document.readyState === "complete") {
+      schedule();
+      return;
     }
-    // For non-default languages the DOM auto-translator clears the gate after
-    // hardcoded page copy has been translated too. Revealing here causes the
-    // half-English / half-German flash the live site was showing.
-    if (!shouldKeepGateForDomTranslation(saved)) {
-      requestAnimationFrame(revealBody);
-    }
+    window.addEventListener("load", () => schedule(), { once: true });
   }, []);
+
+
+
 
 
   const applyHtmlAttrs = (l: LangCode) => {
