@@ -20,9 +20,9 @@ export const writeAudit = createServerFn({ method: "POST" })
     // security-definer routine stamps the real signed-in actor server-side.
     const { error } = await context.supabase.rpc("log_audit_event", {
       _action: data.action,
-      _entity_type: data.entity_type ?? null,
-      _entity_id: data.entity_id ?? null,
-      _subject_user_id: data.subject_user_id ?? null,
+      _entity_type: data.entity_type,
+      _entity_id: data.entity_id,
+      _subject_user_id: data.subject_user_id,
       _metadata: data.metadata ?? {},
     });
     if (error) throw new Error(error.message);
