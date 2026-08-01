@@ -38,5 +38,19 @@ export const submitContactMessage = createServerFn({ method: "POST" })
     });
     if (error) throw new Error(error.message);
 
+    // Mirror into the staff enquiry inbox so it enters the SLA workflow.
+    const { error: enquiryError } = await (supabaseAdmin.from("enquiries") as any).insert({
+      full_name: data.fullName,
+      email: data.email,
+      subject: data.message.slice(0, 80),
+      message: data.message,
+      language: data.language,
+      source_page: data.page ?? null,
+      status: "new",
+      priority: "normal",
+    });
+    if (enquiryError) throw new Error(enquiryError.message);
+
     return { ok: true };
   });
+
