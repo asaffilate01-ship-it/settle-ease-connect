@@ -112,6 +112,7 @@ function CaseDetail() {
               <MessagesPanel caseId={c.id} messages={data.messages} nameOf={nameOf} />
             </div>
             <div className="space-y-6">
+              <CaseMilestones caseId={c.id} />
               <TasksPanel caseId={c.id} tasks={data.tasks} nameOf={nameOf} />
               <EventsPanel events={data.events} nameOf={nameOf} />
             </div>
