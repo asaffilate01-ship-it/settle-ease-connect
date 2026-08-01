@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { ArrowUpRight, GraduationCap, Languages, Wallet, MapPin, Users, ShieldCheck } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/integration-courses")({
   head: () => ({
@@ -285,6 +286,7 @@ export default function IntegrationCourses() {
         </div>
       </section>
 
+      <RegulatedNotice domain="education" />
       <SiteFooter />
     </div>
   );

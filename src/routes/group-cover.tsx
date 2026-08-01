@@ -14,6 +14,7 @@ import {
   Check,
   ArrowRight,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/group-cover")({
   head: () => ({
@@ -215,6 +216,7 @@ function GroupCoverPage() {
       )}
 
 
+      <RegulatedNotice domain="funeral" />
       <SiteFooter />
     </div>
   );

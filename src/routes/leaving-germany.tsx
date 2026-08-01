@@ -22,6 +22,7 @@ import {
   AlertTriangle,
   CheckCircle2,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/leaving-germany")({
   head: () => ({
@@ -55,6 +56,7 @@ function LeavingGermany() {
       <Sections />
       <Warnings />
       <CTA />
+      <RegulatedNotice domain="legal" />
       <SiteFooter />
     </div>
   );

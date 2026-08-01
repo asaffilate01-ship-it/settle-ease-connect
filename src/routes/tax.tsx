@@ -27,6 +27,7 @@ import {
   Building2,
   Clock,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/tax")({
   head: () => ({
@@ -72,6 +73,7 @@ function TaxLanding() {
       <Wizard />
       <Trust />
       <Faq />
+      <RegulatedNotice domain="tax" />
       <SiteFooter />
     </div>
   );

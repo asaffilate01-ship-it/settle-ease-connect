@@ -25,6 +25,7 @@ import {
   Scale3d,
   Info,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/insurance")({
   head: () => ({
@@ -335,6 +336,7 @@ function InsuranceLanding() {
         <CallbackForm defaultProduct={selected ?? "expat_health"} />
       </section>
 
+      <RegulatedNotice domain="insurance" />
       <SiteFooter />
     </div>
   );

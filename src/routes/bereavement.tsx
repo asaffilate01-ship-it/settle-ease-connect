@@ -3,6 +3,7 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import heroBereavement from "@/assets/brand/hero-bereavement.jpg";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/bereavement")({
   head: () => ({
@@ -320,6 +321,7 @@ function Bereavement() {
         </div>
       </section>
 
+      <RegulatedNotice domain="funeral" />
       <SiteFooter />
     </div>
   );

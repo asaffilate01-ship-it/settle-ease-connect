@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2, Check, ShieldCheck, Users, Wallet } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/bereavement-cover")({
   head: () => ({
@@ -168,6 +169,7 @@ function BereavementCover() {
         </div>
       </section>
 
+      <RegulatedNotice domain="funeral" />
       <SiteFooter />
     </div>
   );

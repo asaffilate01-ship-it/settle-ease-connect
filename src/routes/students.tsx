@@ -13,6 +13,7 @@ import {
   HeartPulse,
   Check,
 } from "lucide-react";
+import { RegulatedNotice } from "@/components/regulated-notice";
 
 export const Route = createFileRoute("/students")({
   head: () => ({
@@ -163,6 +164,7 @@ function StudentsPage() {
         </div>
       </section>
 
+      <RegulatedNotice domain="insurance" />
       <SiteFooter />
     </div>
   );

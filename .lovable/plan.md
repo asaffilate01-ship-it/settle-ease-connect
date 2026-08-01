@@ -100,3 +100,7 @@ Deferred until core records reliable.
 
 ### Remaining / not planned
 - Passkeys (WebAuthn) — not supported by the current auth provider (TOTP + phone factors only); session/device history and TOTP MFA are live instead.
+
+### Stage 4b — Marketing copy audit ✅
+- Shared `src/components/regulated-notice.tsx` with per-domain scope copy (insurance §34d GewO / funeral Tippgeber / tax §4 StBerG / legal §3 RDG / immigration / education funding) — states what BeistandPlus is not, who gives regulated advice, that pre-confirmation figures are non-binding estimates, and that third-party costs are separate.
+- Placed above the footer on `/insurance`, `/tax`, `/group-cover`, `/bereavement`, `/bereavement-cover`, `/services`, `/students`, `/leaving-germany`, `/integration-courses`.
