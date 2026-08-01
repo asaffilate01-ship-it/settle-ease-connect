@@ -31,7 +31,7 @@ export const exportMyData = createServerFn({ method: "POST" })
       await Promise.all([
         sb.from("profiles").select("*").eq("id", uid).maybeSingle(),
         sb.from("cases").select("*").eq("client_user_id", uid),
-        sb.from("vault_documents").select("id, title, category, created_at").eq("owner_user_id", uid),
+        sb.from("vault_documents").select("id, label, category, created_at").eq("owner_user_id", uid),
         sb.from("subscriptions").select("*").eq("user_id", uid),
         sb.from("case_tasks").select("id, case_id, title, status, due_date").limit(500),
         sb.from("user_checklist_progress").select("*").eq("user_id", uid),
