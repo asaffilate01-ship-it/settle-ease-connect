@@ -160,7 +160,7 @@ const ROLE_TONE: Record<AppRole, string> = {
   partner_user: "bg-blue-500/15 text-blue-600 dark:text-blue-300",
 };
 
-export function AppSidebar() {
+export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mobile" } = {}) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useTranslation();
   const { user, profile, roles, loading } = useCurrentUser();
@@ -214,7 +214,13 @@ export function AppSidebar() {
   const roleTone = role ? ROLE_TONE[role] : "bg-muted text-muted-foreground";
 
   return (
-    <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
+    <aside
+      className={
+        variant === "mobile"
+          ? "flex h-full w-full flex-col overflow-y-auto bg-sidebar text-sidebar-foreground"
+          : "hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex"
+      }
+    >
       <Link
         to="/app"
         className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5 transition-colors hover:bg-sidebar-accent/40"

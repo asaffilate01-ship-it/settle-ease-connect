@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Home, Briefcase, Wallet, UserCircle, FileText, Receipt, CalendarClock } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
+import { MobileNavMenu } from "@/components/mobile-nav-sheet";
 import logoMark from "@/assets/brand/logo-mark.png";
 
 const EXPERT_ROLES = [
@@ -110,6 +111,13 @@ function ExpertLayout() {
 
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6">
+          <MobileNavMenu
+            title={t("expert.portalLabel", { defaultValue: "Expert portal" })}
+            items={NAV.map((n) => ({ to: n.to, label: n.label, icon: n.icon, exact: n.exact }))}
+            name={name}
+            email={user?.email}
+            onSignOut={handleSignOut}
+          />
           <Link to="/expert" className="flex items-center gap-2 lg:hidden">
             <span className="font-display text-lg font-semibold">{t("expert.shortLabel", { defaultValue: "Expert" })}</span>
           </Link>

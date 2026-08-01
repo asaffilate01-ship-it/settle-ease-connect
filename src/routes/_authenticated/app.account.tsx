@@ -5,6 +5,7 @@ import { getMyAccountSummary, getMyAuditTrail } from "@/lib/account.functions";
 import { createPortalSession } from "@/lib/payments.functions";
 import { getStripeEnvironment, isPaymentsConfigured } from "@/lib/stripe";
 import { evaluateBenefits } from "@/lib/benefits-eligibility";
+import { PrivacyPanel } from "@/components/settings/privacy-panel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -104,6 +105,7 @@ function AccountPage() {
           <TabsTrigger value="benefits">Benefits</TabsTrigger>
           <TabsTrigger value="household">Household</TabsTrigger>
           <TabsTrigger value="activity">Activity log</TabsTrigger>
+          <TabsTrigger value="privacy">Privacy</TabsTrigger>
         </TabsList>
 
         {/* OVERVIEW */}
@@ -217,6 +219,10 @@ function AccountPage() {
         {/* ACTIVITY */}
         <TabsContent value="activity" className="space-y-4">
           <ActivityPanel rows={auditQ.data ?? []} loading={auditQ.isLoading} />
+        </TabsContent>
+
+        <TabsContent value="privacy" className="space-y-4">
+          <PrivacyPanel />
         </TabsContent>
       </Tabs>
     </div>

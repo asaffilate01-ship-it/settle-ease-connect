@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, Link, useNavigate, redirect } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
+import { PortalMobileNav } from "@/components/mobile-nav-sheet";
 import { Button } from "@/components/ui/button";
 import { Bell, Search, LogOut, ShieldCheck } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -56,6 +57,7 @@ function PortalLayout() {
       <AppSidebar />
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6 lg:px-8">
+          <PortalMobileNav />
           <Link to="/portal" className="flex items-center gap-2 lg:hidden">
             <ShieldCheck className="h-4 w-4 text-primary" />
             <span className="font-display text-lg font-semibold">Portal</span>
