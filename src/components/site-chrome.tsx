@@ -101,9 +101,11 @@ export function SiteHeader() {
       [t("nav.groupCover"), "/group-cover"],
       [t("nav.taxRefund"), "/tax"],
       [t("nav.leavingGermany"), "/leaving-germany"],
+      [t("nav.events", "Events & clinics"), "/events"],
       [t("nav.forProviders"), "/for-providers"],
       [t("nav.pricing"), "/pricing"],
       [t("nav.blog"), "/blog"],
+
     ];
 
   return (
