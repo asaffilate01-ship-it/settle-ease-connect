@@ -16,9 +16,13 @@ export function useSubConsoleTab(): [SubConsoleTab, (t: SubConsoleTab) => void] 
   const setTab = (t: SubConsoleTab) => {
     navigate({
       to: ".",
-      search: (prev: Record<string, unknown>) => ({ ...prev, tab: t === "leads" ? undefined : t }),
+      search: ((prev: Record<string, unknown>) => ({
+        ...prev,
+        tab: t === "leads" ? undefined : t,
+      })) as never,
       replace: true,
     });
+
   };
   return [active, setTab];
 }
