@@ -20,11 +20,11 @@ const config: CapacitorConfig = {
   ...(isDevShell
     ? {
         server: {
-          url: "https://beistandplus.313test.co.uk",
+          url: "https://beistandplus.de",
           cleartext: false,
           androidScheme: "https" as const,
           allowNavigation: [
-            "beistandplus.313test.co.uk",
+            "beistandplus.de",
             "*.lovable.app",
             "*.supabase.co",
             "fonts.googleapis.com",
