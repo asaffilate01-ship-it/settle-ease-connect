@@ -128,7 +128,7 @@ export const reviewAdvisoryDraft = createServerFn({ method: "POST" })
 
     if (shouldSend) {
       const { error: msgErr } = await context.supabase.from("case_messages").insert({
-        case_id: existing.case_id,
+        case_id: existing.case_id as string,
         sender_user_id: context.userId,
         body: finalText,
         internal_note: false,
@@ -140,7 +140,7 @@ export const reviewAdvisoryDraft = createServerFn({ method: "POST" })
       _action: shouldSend ? "ai_advisory_sent" : `ai_advisory_${data.decision}`,
       _entity_type: "ai_advisory_drafts",
       _entity_id: data.id,
-      _subject_user_id: null,
+      _subject_user_id: undefined,
       _metadata: { domain: existing.domain, case_id: existing.case_id },
     });
 
