@@ -3,19 +3,11 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 /**
- * Enquiry inbox with SLA workflow. Staff-only: triage, assignment,
- * status transitions and internal notes.
+ * Enquiry inbox with SLA workflow. Staff-only: triage, assignment, status
+ * transitions, internal notes and queued customer replies.
  */
 
-const STATUSES = [
-  "new",
-  "acknowledged",
-  "in_progress",
-  "waiting_client",
-  "resolved",
-  "closed",
-  "spam",
-] as const;
+const STATUSES = ["new", "in_progress", "waiting_customer", "resolved", "spam"] as const;
 const PRIORITIES = ["low", "normal", "high", "urgent"] as const;
 
 async function requireStaff(context: { supabase: any; userId: string }) {
@@ -25,29 +17,40 @@ async function requireStaff(context: { supabase: any; userId: string }) {
 
 export const listEnquiries = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((raw: unknown) =>
+    z
+      .object({
+        status: z.enum(STATUSES).optional(),
+        q: z.string().trim().max(200).optional(),
+      })
+      .default({})
+      .parse(raw ?? {}),
+  )
+  .handler(async ({ data, context }) => {
     await requireStaff(context as any);
-    const { data, error } = await context.supabase
+    let query = context.supabase
       .from("enquiries")
       .select(
-        "id, full_name, email, phone, topic, subject, message, language, source, status, priority, assigned_to, sla_due_at, first_response_at, resolved_at, created_at",
+        "id, full_name, email, phone, subject, message, language, source_page, status, priority, assigned_to, sla_due_at, first_response_at, resolved_at, tags, created_at",
       )
       .order("created_at", { ascending: false })
       .limit(300);
+    if (data.status) query = query.eq("status", data.status);
+    if (data.q) {
+      const term = `%${data.q}%`;
+      query = query.or(
+        `full_name.ilike.${term},email.ilike.${term},subject.ilike.${term},message.ilike.${term}`,
+      );
+    }
+    const { data: enquiries, error } = await query;
     if (error) throw new Error(error.message);
 
-    const assignees = Array.from(
-      new Set((data ?? []).map((row: any) => row.assigned_to).filter(Boolean)),
-    );
-    let staff: Array<{ id: string; full_name: string | null }> = [];
-    if (assignees.length > 0) {
-      const { data: profiles } = await context.supabase
-        .from("profiles")
-        .select("id, full_name")
-        .in("id", assignees);
-      staff = (profiles ?? []) as typeof staff;
-    }
-    return { rows: data ?? [], staff };
+    const { data: profiles } = await context.supabase
+      .from("profiles")
+      .select("id, full_name, avatar_url")
+      .limit(200);
+
+    return { enquiries: enquiries ?? [], profiles: profiles ?? [] };
   });
 
 export const getEnquiry = createServerFn({ method: "GET" })
@@ -64,7 +67,7 @@ export const getEnquiry = createServerFn({ method: "GET" })
     if (!enquiry) throw new Error("Enquiry not found.");
     const { data: notes } = await context.supabase
       .from("enquiry_notes")
-      .select("id, body, is_internal, author_user_id, created_at")
+      .select("id, body, note_type, delivery_status, author_user_id, created_at")
       .eq("enquiry_id", data.id)
       .order("created_at", { ascending: true });
     return { enquiry, notes: notes ?? [] };
@@ -78,8 +81,8 @@ export const updateEnquiry = createServerFn({ method: "POST" })
         id: z.string().uuid(),
         status: z.enum(STATUSES).optional(),
         priority: z.enum(PRIORITIES).optional(),
-        assignToMe: z.boolean().optional(),
-        unassign: z.boolean().optional(),
+        assignedTo: z.string().uuid().nullable().optional(),
+        tags: z.array(z.string().max(40)).max(12).optional(),
       })
       .parse(raw),
   )
@@ -88,14 +91,11 @@ export const updateEnquiry = createServerFn({ method: "POST" })
     const patch: Record<string, unknown> = {};
     if (data.status) {
       patch["status"] = data.status;
-      if (data.status !== "new") patch["first_response_at"] = new Date().toISOString();
-      if (data.status === "resolved" || data.status === "closed") {
-        patch["resolved_at"] = new Date().toISOString();
-      }
+      if (data.status === "resolved") patch["resolved_at"] = new Date().toISOString();
     }
     if (data.priority) patch["priority"] = data.priority;
-    if (data.assignToMe) patch["assigned_to"] = context.userId;
-    if (data.unassign) patch["assigned_to"] = null;
+    if (data.assignedTo !== undefined) patch["assigned_to"] = data.assignedTo;
+    if (data.tags) patch["tags"] = data.tags;
     if (Object.keys(patch).length === 0) return { ok: true };
 
     const { error } = await (context.supabase.from("enquiries") as any)
@@ -112,18 +112,50 @@ export const addEnquiryNote = createServerFn({ method: "POST" })
       .object({
         enquiryId: z.string().uuid(),
         body: z.string().trim().min(1).max(5000),
-        isInternal: z.boolean().default(true),
+        noteType: z.enum(["internal", "customer_reply", "status_change"]).default("internal"),
       })
       .parse(raw),
   )
   .handler(async ({ data, context }) => {
     await requireStaff(context as any);
+
+    let deliveryStatus: string | null = null;
+    if (data.noteType === "customer_reply") {
+      const { data: enquiry } = await context.supabase
+        .from("enquiries")
+        .select("email, subject, first_response_at")
+        .eq("id", data.enquiryId)
+        .maybeSingle();
+      if (!enquiry) throw new Error("Enquiry not found.");
+
+      const { sendTransactionalEmail } = await import("@/lib/email-delivery.server");
+      const result = await sendTransactionalEmail({
+        to: enquiry.email,
+        subject: `Re: ${enquiry.subject}`,
+        text: data.body,
+        metadata: { enquiryId: data.enquiryId },
+      });
+      deliveryStatus =
+        result.status === "sent"
+          ? "sent"
+          : result.status === "not_configured"
+            ? "queued"
+            : `failed: ${result.error}`.slice(0, 200);
+
+      if (!enquiry.first_response_at) {
+        await (context.supabase.from("enquiries") as any)
+          .update({ first_response_at: new Date().toISOString() })
+          .eq("id", data.enquiryId);
+      }
+    }
+
     const { error } = await (context.supabase.from("enquiry_notes") as any).insert({
       enquiry_id: data.enquiryId,
       body: data.body,
-      is_internal: data.isInternal,
+      note_type: data.noteType,
+      delivery_status: deliveryStatus,
       author_user_id: context.userId,
     });
     if (error) throw new Error(error.message);
-    return { ok: true };
+    return { ok: true, deliveryStatus };
   });
