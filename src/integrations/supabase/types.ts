@@ -137,6 +137,72 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_advisory_drafts: {
+        Row: {
+          case_id: string | null
+          created_at: string
+          created_by: string
+          domain: string
+          draft_text: string
+          id: string
+          model: string | null
+          question: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          case_id?: string | null
+          created_at?: string
+          created_by: string
+          domain?: string
+          draft_text: string
+          id?: string
+          model?: string | null
+          question: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          case_id?: string | null
+          created_at?: string
+          created_by?: string
+          domain?: string
+          draft_text?: string
+          id?: string
+          model?: string | null
+          question?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_advisory_drafts_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "case_sla_status"
+            referencedColumns: ["case_id"]
+          },
+          {
+            foreignKeyName: "ai_advisory_drafts_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_document_analyses: {
         Row: {
           case_id: string | null
