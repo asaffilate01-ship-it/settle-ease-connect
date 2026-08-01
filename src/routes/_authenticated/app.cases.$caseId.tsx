@@ -14,6 +14,7 @@ import {
   MessageSquare, ListTodo, FileText, Receipt, Activity, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { CaseMilestones } from "@/components/cases/case-milestones";
 import {
   getCase, updateCaseStatus, sendCaseMessage, createCaseTask, toggleCaseTask,
 } from "@/lib/cases.functions";
