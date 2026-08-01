@@ -53,17 +53,21 @@ export async function bookCareTranslation(input: CareTranslationBooking): Promis
         costEur: cost,
         meetingUrl: data.meeting_url,
         cancellationPolicy: "Free cancellation up to 2h before start; 50% fee thereafter.",
+        confirmed: true,
       };
     }
   }
 
-  // Mock confirmation — routes to internal roster
+  // Partner API not wired (or call failed) — this is a REQUEST routed to the
+  // internal roster, not a confirmed booking. `confirmed: false` must be
+  // surfaced to the user as "requested, awaiting confirmation".
   return {
     partner: "BeistandPlus roster",
     bookingId: `bp-${Date.now().toString(36)}`,
     interpreterInitials: pickInitials(input.language),
     costEur: cost,
     cancellationPolicy: "Free cancellation up to 4h before start (internal roster).",
+    confirmed: false,
   };
 }
 
