@@ -26,7 +26,28 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const send = useServerFn(submitContactMessage);
+  const [form, setForm] = useState({ fullName: "", email: "", message: "" });
+  const [sent, setSent] = useState(false);
+
+  const mutation = useMutation({
+    mutationFn: async () =>
+      send({
+        data: {
+          ...form,
+          language: i18n.language ?? "de",
+          page: typeof window === "undefined" ? undefined : window.location.pathname,
+        },
+      }),
+    onSuccess: () => {
+      setSent(true);
+      setForm({ fullName: "", email: "", message: "" });
+      toast.success(t("pages.contact.thanks"));
+    },
+    onError: (error: Error) => toast.error(error.message),
+  });
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -48,24 +69,54 @@ function Contact() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            alert(t("pages.contact.thanks"));
+            if (!mutation.isPending) mutation.mutate();
           }}
           className="rounded-2xl border border-border/60 bg-card p-8 shadow-soft"
         >
           <div className="grid gap-4">
             <div>
               <label htmlFor="contact-name" className="text-sm font-medium">{t("pages.contact.name")}</label>
-              <Input id="contact-name" required placeholder={t("pages.contact.namePh")} className="mt-1" />
+              <Input
+                id="contact-name"
+                required
+                value={form.fullName}
+                onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
+                placeholder={t("pages.contact.namePh")}
+                className="mt-1"
+              />
             </div>
             <div>
               <label htmlFor="contact-email" className="text-sm font-medium">{t("pages.contact.email")}</label>
-              <Input id="contact-email" required type="email" placeholder="you@example.com" className="mt-1" />
+              <Input
+                id="contact-email"
+                required
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                placeholder="you@example.com"
+                className="mt-1"
+              />
             </div>
             <div>
               <label htmlFor="contact-message" className="text-sm font-medium">{t("pages.contact.message")}</label>
-              <Textarea id="contact-message" required placeholder={t("pages.contact.messagePh")} className="mt-1 min-h-32" />
+              <Textarea
+                id="contact-message"
+                required
+                value={form.message}
+                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                placeholder={t("pages.contact.messagePh")}
+                className="mt-1 min-h-32"
+              />
             </div>
-            <Button type="submit" className="bg-gradient-primary">{t("pages.contact.send")}</Button>
+            <Button type="submit" disabled={mutation.isPending} className="bg-gradient-primary">
+              {mutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {t("pages.contact.send")}
+            </Button>
+            {sent && (
+              <p className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
+                <CheckCircle2 className="h-4 w-4" /> {t("pages.contact.thanks")}
+              </p>
+            )}
           </div>
         </form>
       </section>
