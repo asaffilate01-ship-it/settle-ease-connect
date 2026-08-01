@@ -5754,6 +5754,16 @@ export type Database = {
         }
         Returns: string
       }
+      member_referrals_update_is_safe: {
+        Args: {
+          _id: string
+          _reward_type: string
+          _reward_value_eur: number
+          _rewarded_at: string
+          _status: string
+        }
+        Returns: boolean
+      }
       partner_doc_expiry_sweep: { Args: never; Returns: number }
       sla_breach_sweep: { Args: never; Returns: number }
       subscription_dunning_sweep: { Args: never; Returns: number }
