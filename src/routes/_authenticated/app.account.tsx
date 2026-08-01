@@ -104,6 +104,7 @@ function AccountPage() {
           <TabsTrigger value="benefits">Benefits</TabsTrigger>
           <TabsTrigger value="household">Household</TabsTrigger>
           <TabsTrigger value="activity">Activity log</TabsTrigger>
+          <TabsTrigger value="privacy">Privacy</TabsTrigger>
         </TabsList>
 
         {/* OVERVIEW */}
