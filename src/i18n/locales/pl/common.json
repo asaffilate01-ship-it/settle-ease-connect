@@ -129,7 +129,8 @@
     "privacyConsole": "Privacy requests (DPO)",
     "auditorConsole": "Auditor evidence",
     "familyAccess": "Family access",
-    "privacyRequests": "My privacy requests"
+    "privacyRequests": "My privacy requests",
+    "aiAdvisory": "AI advisory"
   },
   "agent": {
     "defaultName": "Agent",
@@ -438,6 +439,48 @@
       "extractFields": "Wyodrębnij pola",
       "summaryLabel": "Podsumowanie",
       "fieldsLabel": "Wyodrębnione pola"
+    },
+    "aiAdvisory": {
+      "title": "AI advisory drafts",
+      "subtitle": "AI drafts for case questions — a human must approve before any client sees them.",
+      "notice": "AI output is never advice. For regulated domains (legal, tax, immigration, insurance, medical) the draft only lists facts, process and open questions; regulated advice must come from a licensed professional. Nothing reaches a client until you approve and send it.",
+      "newDraft": "New draft",
+      "generate": "Generate draft",
+      "generating": "Generating…",
+      "created": "Draft created — pending review",
+      "reviewed": "Review saved",
+      "empty": "No drafts here yet.",
+      "approve": "Approve",
+      "reject": "Reject",
+      "sendToCase": "Post to case thread on approval",
+      "reviewNote": "Reviewer note",
+      "notesPlaceholder": "Reviewer notes (optional)",
+      "caseIdPlaceholder": "Case ID (optional)",
+      "questionPlaceholder": "What do you need drafted? Be specific.",
+      "contextPlaceholder": "Case context you may share (no unnecessary personal data)",
+      "domain": {
+        "legal": "Legal",
+        "tax": "Tax",
+        "immigration": "Immigration",
+        "insurance": "Insurance",
+        "benefits": "Benefits",
+        "medical": "Medical",
+        "funeral": "Funeral cover",
+        "general": "General"
+      },
+      "status": {
+        "pending": "Pending review",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "sent": "Sent to client"
+      },
+      "filter": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "sent": "Sent",
+        "rejected": "Rejected",
+        "all": "All"
+      }
     }
   },
   "funeralCover": {

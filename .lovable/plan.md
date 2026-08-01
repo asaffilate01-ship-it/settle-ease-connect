@@ -91,3 +91,12 @@ Homepage five-path IA ✅
 
 ### Stage 7 — AI (advisory only, human-approval required for regulated domains)
 Deferred until core records reliable.
+
+### Stage 7 — AI advisory (human approval mandatory) ✅
+- Table `ai_advisory_drafts` (case, domain, question, draft, status pending/approved/rejected/sent, reviewer + notes, model). Staff-only RLS via `is_internal()`; admin-only delete; append-only audit trigger attached.
+- Server fns `src/lib/ai-advisory.functions.ts` (`generateAdvisoryDraft`, `listAdvisoryDrafts`, `reviewAdvisoryDraft`) + prompt/gateway helper `src/lib/ai-advisory.server.ts`.
+- Regulated domains (legal/tax/immigration/insurance/medical) are prompted to output facts, process and open questions only, with an explicit "licensed professional required" line. No draft can reach a client without a human approving and explicitly posting it to the case thread; every decision is written to `audit_log` via `log_audit_event`.
+- Staff UI `/portal/ai-advisory` — generate, edit, approve/reject, optional post-to-case, status filters. Sidebar entry `sidebar.aiAdvisory` (internal). i18n keys added to all 13 locales (DE fully translated).
+
+### Remaining / not planned
+- Passkeys (WebAuthn) — not supported by the current auth provider (TOTP + phone factors only); session/device history and TOTP MFA are live instead.
