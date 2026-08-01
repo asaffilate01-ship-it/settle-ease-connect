@@ -123,7 +123,13 @@
     "copyAudit": "Kontrola nivîsê",
     "events": "Çalakî û şêwirmendî",
     "billing": "Dayin û fatûre",
-    "eventsOps": "Çalakî û agahdarî"
+    "eventsOps": "Çalakî û agahdarî",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "Ziman",

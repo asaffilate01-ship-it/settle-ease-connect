@@ -123,7 +123,13 @@
     "copyAudit": "Аудит тексту",
     "events": "Події та консультації",
     "billing": "Платежі та рахунки",
-    "eventsOps": "Події та оголошення"
+    "eventsOps": "Події та оголошення",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "Мова",

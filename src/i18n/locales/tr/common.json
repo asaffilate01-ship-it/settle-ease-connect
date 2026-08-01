@@ -123,7 +123,13 @@
     "copyAudit": "Metin denetimi",
     "events": "Etkinlikler & danışmanlık",
     "billing": "Ödemeler & faturalar",
-    "eventsOps": "Etkinlikler & duyurular"
+    "eventsOps": "Etkinlikler & duyurular",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "Dil",

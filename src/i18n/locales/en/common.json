@@ -176,7 +176,13 @@
     "copyAudit": "Copy audit",
     "events": "Events & clinics",
     "billing": "Billing & payments",
-    "eventsOps": "Events & notices"
+    "eventsOps": "Events & notices",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "agent": {
     "defaultName": "Agent",

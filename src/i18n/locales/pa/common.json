@@ -123,7 +123,13 @@
     "copyAudit": "ਕਾਪੀ ਆਡਿਟ",
     "events": "ਸਮਾਗਮ ਤੇ ਸਲਾਹ",
     "billing": "ਭੁਗਤਾਨ ਤੇ ਬਿੱਲ",
-    "eventsOps": "ਸਮਾਗਮ ਤੇ ਸੂਚਨਾਵਾਂ"
+    "eventsOps": "ਸਮਾਗਮ ਤੇ ਸੂਚਨਾਵਾਂ",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "ਭਾਸ਼ਾ",

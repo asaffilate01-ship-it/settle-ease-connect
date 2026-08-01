@@ -123,7 +123,13 @@
     "copyAudit": "Аудит текста",
     "events": "События и консультации",
     "billing": "Платежи и счета",
-    "eventsOps": "События и объявления"
+    "eventsOps": "События и объявления",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "Язык",

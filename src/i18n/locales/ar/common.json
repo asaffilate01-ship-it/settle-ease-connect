@@ -123,7 +123,13 @@
     "copyAudit": "تدقيق النص",
     "events": "الأنشطة والاستشارات",
     "billing": "المدفوعات والفواتير",
-    "eventsOps": "الأنشطة والإشعارات"
+    "eventsOps": "الأنشطة والإشعارات",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "language": {
     "label": "اللغة",

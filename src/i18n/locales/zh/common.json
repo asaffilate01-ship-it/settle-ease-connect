@@ -123,7 +123,13 @@
     "copyAudit": "文案审核",
     "events": "活动与咨询",
     "billing": "付款与账单",
-    "eventsOps": "活动与公告"
+    "eventsOps": "活动与公告",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "agent": {
     "defaultName": "代理",

@@ -123,7 +123,13 @@
     "copyAudit": "Audyt treści",
     "events": "Wydarzenia i porady",
     "billing": "Płatności i faktury",
-    "eventsOps": "Wydarzenia i ogłoszenia"
+    "eventsOps": "Wydarzenia i ogłoszenia",
+    "enquiries": "Enquiry inbox",
+    "compliance": "Compliance register",
+    "privacyConsole": "Privacy requests (DPO)",
+    "auditorConsole": "Auditor evidence",
+    "familyAccess": "Family access",
+    "privacyRequests": "My privacy requests"
   },
   "agent": {
     "defaultName": "Agent",
