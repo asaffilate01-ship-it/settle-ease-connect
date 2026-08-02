@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAal2, requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 export const AI_NOTICE_VERSION = "2026-08-02";
 export const AI_PROVIDER = "lovable-ai-gateway";
