@@ -13,6 +13,7 @@ dist-ssr
 .output
 sbom.cdx.json
 release/evidence.resolved.json
+/release/staging-acceptance.evidence.json
 /playwright-report/
 /test-results/
 .vinxi

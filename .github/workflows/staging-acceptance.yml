@@ -31,19 +31,16 @@ jobs:
       E2E_EXPERT_PASSWORD: ${{ secrets.E2E_EXPERT_PASSWORD }}
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - uses: ./.github/actions/setup-node-project
       - run: npx playwright install --with-deps chromium
       - name: Run authenticated desktop and mobile journeys
         run: npm run test:e2e:staging
-      - name: Preserve failure screenshots only
-        if: failure()
+      - name: Create non-sensitive acceptance evidence
+        run: node scripts/write-staging-acceptance-evidence.mjs
+      - name: Preserve acceptance evidence
         uses: actions/upload-artifact@v7
         with:
-          name: staging-acceptance-screenshots-${{ github.sha }}
-          path: test-results/staging/**/*.png
-          if-no-files-found: ignore
-          retention-days: 7
+          name: staging-acceptance-evidence-${{ github.sha }}
+          path: release/staging-acceptance.evidence.json
+          if-no-files-found: error
+          retention-days: 365

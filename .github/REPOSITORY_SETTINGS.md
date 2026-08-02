@@ -24,6 +24,7 @@ Create a ruleset targeting `main`:
 - require these status checks after each has run once on the branch:
   - `verify`
   - `browser`
+  - `Repository policy`
   - `CodeQL`
   - `Dependency review`
   - `Software bill of materials`

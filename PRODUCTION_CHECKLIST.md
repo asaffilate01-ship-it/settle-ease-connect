@@ -5,8 +5,9 @@ Do not connect real users, documents or live payments until all applicable items
 ## Source and database
 
 - [x] `.env` and `.env.development` are absent from `git ls-files`; deployment values exist only in protected secrets.
-- [x] `npm ci`, `npm run verify`, `npm run test:e2e` and `npm audit --omit=dev --audit-level=high` pass on commit `955cac9`.
-- [x] The `Security analysis` workflow for `955cac9` uploads a valid `sbom-cyclonedx` artifact.
+- [ ] `Repository policy`, `Quality gates`, `Security analysis` and `Native compile gates` pass on the exact release commit. Commit `955cac9` is the last fully green baseline; repeat all gates after uploading the CI-recovery handoff.
+- [x] The lockfile is restored from the green public-registry baseline and rejects private hosting-mirror sources locally.
+- [ ] The release-commit `Security analysis` workflow uploads a valid `sbom-cyclonedx` artifact.
 - [ ] Every migration through `20260802202000_case_workflow_security.sql` is applied to staging first.
 - [ ] Supabase types are regenerated from migrated staging and committed.
 - [ ] Owner, family, assigned/unassigned worker, expert, agent, admin, insurance, compliance, DPO and auditor RLS tests pass.
@@ -57,7 +58,7 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Family invite/accept/expiry/revoke and each sharing permission pass.
 - [ ] Enquiry, email, case, message, privacy and partner-delivery journeys pass.
 - [ ] Playwright smoke and axe checks pass; keyboard-only, screen-reader, contrast, zoom and responsive-device manual review also pass.
-- [ ] `Authenticated staging acceptance` passes member, staff, agent and expert journeys on desktop and mobile for the release commit.
+- [ ] `Authenticated staging acceptance` passes member, staff, agent, expert and member/workforce-isolation journeys on desktop and mobile for the release commit, with its evidence artifact retained.
 - [ ] Independent penetration and GDPR/security reviews are closed.
 
 ## iOS and Android

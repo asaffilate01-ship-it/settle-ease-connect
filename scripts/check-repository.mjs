@@ -6,15 +6,21 @@ const failures = [];
 const mustExist = [
   ".env.example",
   ".github/workflows/quality.yml",
+  ".github/workflows/policy.yml",
   ".github/workflows/release.yml",
   ".github/workflows/rollback.yml",
   ".github/workflows/security.yml",
+  ".github/workflows/native.yml",
+  ".github/workflows/staging-acceptance.yml",
+  ".github/actions/setup-node-project/action.yml",
   ".github/CODEOWNERS",
   ".github/pull_request_template.md",
   "LICENSE.md",
   "README-FIRST.md",
   "SECURITY.md",
   "scripts/validate-production-env.mjs",
+  "scripts/validate-lockfile.mjs",
+  "scripts/write-staging-acceptance-evidence.mjs",
   "scripts/validate-release-evidence.mjs",
   "scripts/verify-deployment.mjs",
   "scripts/native-app-links.mjs",
@@ -34,6 +40,8 @@ const mustExist = [
   "playwright.config.ts",
   "src/routes/api/internal/retention.ts",
   "tests/e2e/public-smoke.spec.ts",
+  "tests/e2e-staging/authenticated.spec.ts",
+  "tests/release-automation.test.ts",
 ];
 for (const path of mustExist)
   if (!existsSync(path)) failures.push(`Missing required file: ${path}`);

@@ -14,7 +14,7 @@ export default defineConfig({
     baseURL: process.env.STAGING_URL,
     trace: "off",
     video: "off",
-    screenshot: "only-on-failure",
+    screenshot: "off",
   },
   projects: [
     { name: "staging-desktop-chromium", use: { ...devices["Desktop Chrome"] } },

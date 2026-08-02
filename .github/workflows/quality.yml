@@ -18,11 +18,7 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - uses: ./.github/actions/setup-node-project
       - run: npm run verify
       - run: npm audit --omit=dev --audit-level=high
 
@@ -31,11 +27,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - uses: ./.github/actions/setup-node-project
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - if: failure()

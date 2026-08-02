@@ -25,10 +25,6 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -38,7 +34,7 @@ jobs:
             android/*.gradle
             android/**/*.gradle
             android/gradle/wrapper/gradle-wrapper.properties
-      - run: npm ci
+      - uses: ./.github/actions/setup-node-project
       - run: npm run native:version:check
       - run: npm run mobile:sync:android
       - name: Compile and unit-test Android shell
@@ -57,11 +53,7 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - uses: ./.github/actions/setup-node-project
       - run: npm run native:version:check
       - run: npm run mobile:sync:ios
       - run: xcodebuild -version

@@ -7,6 +7,7 @@ This repository is now delivered as one complete source tree. It includes the ha
 ```bash
 git switch -c production-release-candidate
 npm ci
+npm run check:lockfile
 npm run verify
 npm run test:e2e
 npm audit --omit=dev --audit-level=high
@@ -18,9 +19,11 @@ git push -u origin production-release-candidate
 
 Review the complete diff and open a pull request. Keep `.env`, `.env.development`, `.env.local`, signing keys, keystores and provider credentials out of Git. The repository safety check rejects tracked development environment files.
 
+The committed lockfile must resolve only from `https://registry.npmjs.org/`. Do not accept a hosting-editor rewrite containing `pkg.dev`, `sandbox-npm-cache` or private registry URLs; `Repository policy` now rejects it before installation.
+
 ## After the pull request merges
 
-1. Apply `.github/REPOSITORY_SETTINGS.md`, enable Dependency Graph, protect `main`, and require the quality, security and native checks.
+1. Apply `.github/REPOSITORY_SETTINGS.md`, enable Dependency Graph, protect `main`, and require the policy, quality, security and native checks.
 2. Create protected `staging` and `production` GitHub Environments with required reviewers.
 3. Add Environment variables/secrets matching `.github/workflows/release.yml` and configure the equivalent runtime bindings at the deployment provider, including distinct staging/production Worker names, the observability endpoint/token and incident owner.
 4. Rotate every credential that ever existed in the removed environment files.

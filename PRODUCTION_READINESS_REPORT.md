@@ -1,13 +1,13 @@
 # Production readiness report
 
 Assessment date: 2 August 2026
-Repository baseline: `955cac9` plus the native compile and authenticated-staging phase in this handoff
+Repository baseline: `dce88ff` plus the lockfile recovery and evidence-hardening phase in this handoff
 
 ## Verdict
 
 The repository is a hardened release candidate. Its local code gates pass, and generated iOS/Android projects are included. It is not yet evidence of an approved public deployment or store release because credentials, legal identity, regulated-provider contracts, live infrastructure, signing and independent testing are external inputs.
 
-Current estimate: repository/code controls about 98%, public-web go-live about 84%, and native store release about 76%. These are readiness indicators, not guarantees; the open evidence in `PRODUCTION_CHECKLIST.md` determines whether a real release may proceed. The new native and staging workflows must pass on GitHub before these estimates can increase again.
+Current estimate after this local recovery: repository/code controls about 99%, public-web go-live about 84%, and native store release about 76%. These are readiness indicators, not guarantees; the open evidence in `PRODUCTION_CHECKLIST.md` determines whether a real release may proceed. The recovery, native and staging workflows must pass on the uploaded commit before these estimates can increase again.
 
 ## Corrected in this release
 
@@ -44,15 +44,18 @@ Current estimate: repository/code controls about 98%, public-web go-live about 8
 - Upgraded Recharts 2 to 3 and current resolver/Radix/Capacitor/ESLint patch lines, and moved checkout/setup-node workflows to v7.
 - Patched the Capacitor Xcode toolchain to UUID 11.1.1, removing the remaining development-only audit advisory while preserving a successful native sync.
 - Added CODEOWNERS, a security-aware pull-request template, a proprietary licence notice and grouped Dependabot updates.
+- Restored the last green npm lockfile after a hosting editor replaced it with an inconsistent private-mirror tree, and added a public-registry provenance gate plus a shared locked-install action across every workflow.
+- Added a fast dependency-independent `Repository policy` check so unsafe lockfiles, tracked environments and missing release controls fail before package installation.
+- Expanded authenticated staging acceptance with member/workforce denial checks and credential-free, commit-bound evidence retained for 365 days.
 
 ## Verification gates
 
 Verified locally on the upgrade tree on 2 August 2026; repeat on the final GitHub commit and retain the CI evidence:
 
 - Clean `npm ci`: passed
-- Repository check, native version/identity validation, TypeScript, ESLint, 63 unit/invariant tests and production build: passed
+- Repository check, lockfile provenance, native version/identity validation, TypeScript, ESLint, 68 unit/invariant tests and production build: passed locally on this handoff
 - CycloneDX SBOM generation: passed (591 components)
-- Desktop/mobile browser smoke and automated accessibility tests: commit `955cac9` passed 14 Playwright tests across Desktop Chrome and Pixel 7 in GitHub Actions; the new handoff commit must repeat the workflow after upload
+- Desktop/mobile browser smoke and automated accessibility tests: commit `955cac9` passed 14 Playwright tests across Desktop Chrome and Pixel 7 in GitHub Actions; the CI-recovery commit must repeat the workflow after upload
 - Native compilation: Android and iOS projects are now covered by Linux/macOS compile workflows; these remain unproven until `Native compile gates` passes on the uploaded commit
 - Authenticated staging acceptance: the member, staff, agent and expert desktop/mobile workflow is included and intentionally blocked until the protected staging Environment and test identities exist
 - Full dependency audit at moderate severity and production-only audit at high severity: passed with 0 vulnerabilities
