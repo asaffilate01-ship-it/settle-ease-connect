@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAal2 } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 // Regulatory version pins — update when disclosure or privacy notice text changes.
 export const DELA_DISCLOSURE_VERSION = "2026-07-v1";
