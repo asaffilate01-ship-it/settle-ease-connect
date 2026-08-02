@@ -12,14 +12,18 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Owner, family, assigned/unassigned worker, expert, agent, admin, insurance, compliance, DPO and auditor RLS tests pass.
 - [ ] Direct anonymous writes to lead/contact tables fail while the public server forms succeed and rate-limit correctly.
 - [ ] A rollback decision, migration owner and release evidence are recorded.
+- [x] A protected, confirmed Cloudflare Worker rollback workflow exists and performs post-rollback verification.
+- [ ] The rollback workflow is exercised in staging with recorded version and recovery evidence.
 - [ ] `release/evidence.production.json` passes the guarded workflow for the exact production commit.
 
 ## Secrets and infrastructure
 
 - [ ] Every credential formerly in Git history is revoked and replaced.
 - [ ] Production variables are stored in deployment secrets and `NODE_ENV=production npm run verify:production` passes.
+- [ ] Staging and production use distinct Cloudflare Worker names and approved credential/account boundaries.
 - [ ] The deployed custom domain has valid TLS, HSTS and correct DNS.
 - [ ] Liveness `/api/health` and token-protected `/api/internal/readiness` are monitored.
+- [x] Server failures emit sanitized, query-free events and all responses include correlation/timing headers.
 - [ ] Error reporting, latency, queue age, webhook failures, dead letters and suspicious rate-limit events alert named owners.
 - [ ] Database/storage backups are enabled and a restore drill meets approved RTO/RPO.
 - [ ] The authenticated `/api/internal/retention` job runs daily, is monitored, and expired AI output deletion is evidenced.
@@ -62,6 +66,7 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] APNs/FCM credentials and native delivery gateway are tested, or `VITE_NATIVE_PUSH_ENABLED=false`.
 - [ ] Custom-scheme links, camera, MFA, notifications, session expiry and reconnect work on physical iOS/Android devices.
 - [ ] Universal Links/App Links are configured with production-domain association files and verified signing fingerprints if HTTPS app links are required.
+- [x] iOS Associated Domains/privacy-manifest files and Android verified HTTPS intent filters are wired into the native projects.
 - [ ] Native digital subscription checkout remains disabled until the approved StoreKit/Play Billing or entitlement model is implemented.
 - [ ] TestFlight and Play closed testing pass; review notes explain native utility and test credentials.
 

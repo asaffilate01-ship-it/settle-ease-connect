@@ -26,6 +26,8 @@ The validator rejects HTTP and Lovable preview domains. Re-run the command whene
 - Optional HTTPS native-push delivery gateway
 - Cleartext traffic disabled and Android application backups disabled
 - Stripe subscription checkout and billing management blocked inside native apps
+- Android verified HTTPS intent filters for owned auth/member/portal routes
+- iOS Associated Domains entitlement and a bundled privacy-manifest baseline
 
 Native push remains hidden unless `VITE_NATIVE_PUSH_ENABLED=true`. When enabled, configure `NATIVE_PUSH_DELIVERY_ENDPOINT` and `NATIVE_PUSH_DELIVERY_BEARER_TOKEN`; the gateway receives a bounded JSON request containing platform, device token and notification payload.
 
@@ -43,15 +45,15 @@ npm run native:links:generate
 npm run native:links:check
 ```
 
-Commit the generated `public/.well-known/apple-app-site-association` and `public/.well-known/assetlinks.json` files, deploy them on the same origin as `CAPACITOR_SERVER_URL`, then enable Associated Domains on iOS and verified HTTPS intent filters on Android. The guarded release workflow checks the committed content against the protected release identities when a native target is selected.
+Commit the generated `public/.well-known/apple-app-site-association` and `public/.well-known/assetlinks.json` files and deploy them on the same origin as `CAPACITOR_SERVER_URL`. Associated Domains is already wired through `App.entitlements`, and Android verified HTTPS intent filters are committed for `beistandplus.de`. The guarded release workflow checks the website files against the protected release identities when a native target is selected.
 
 ## iOS completion
 
 1. Use macOS with the current stable Xcode supported by Capacitor 8.
 2. Open `ios/App/App.xcodeproj`, select the correct Apple Developer team and confirm bundle ID `de.beistandplus.app`.
-3. Add the Push Notifications capability and the appropriate APNs entitlement if push is enabled.
+3. Confirm the committed Associated Domains capability is present in the signed archive. Add Push Notifications and the appropriate APNs entitlement only if push is enabled.
 4. Configure APNs credentials in the deployment-owned native-push gateway.
-5. Confirm version/build numbers, privacy manifest/labels, support URL, privacy-policy URL and App Store screenshots.
+5. Review `PrivacyInfo.xcprivacy` against the final binary and all included SDKs. Complete accurate App Store privacy labels, support/privacy URLs, screenshots and version/build numbers; the baseline manifest is not a substitute for this review.
 6. Test camera selection, MFA, custom-scheme and universal links, session expiry, offline/reconnect, notification handling and account deletion on real iPhone/iPad devices.
 7. Archive, upload to TestFlight, complete external testing, then submit for review.
 

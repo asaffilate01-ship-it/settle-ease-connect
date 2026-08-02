@@ -1,13 +1,13 @@
 # Production readiness report
 
 Assessment date: 2 August 2026
-Repository baseline: `d3ac7f2` plus the release-engineering phase in this handoff
+Repository baseline: `019a0e4` plus the observability, rollback and native-readiness phase in this handoff
 
 ## Verdict
 
 The repository is a hardened release candidate. Its local code gates pass, and generated iOS/Android projects are included. It is not yet evidence of an approved public deployment or store release because credentials, legal identity, regulated-provider contracts, live infrastructure, signing and independent testing are external inputs.
 
-Current estimate: repository/code controls about 96%, public-web go-live about 80%, and native store release about 65%. These are readiness indicators, not guarantees; the open evidence in `PRODUCTION_CHECKLIST.md` determines whether a real release may proceed.
+Current estimate: repository/code controls about 98%, public-web go-live about 82%, and native store release about 72%. These are readiness indicators, not guarantees; the open evidence in `PRODUCTION_CHECKLIST.md` determines whether a real release may proceed.
 
 ## Corrected in this release
 
@@ -37,16 +37,23 @@ Current estimate: repository/code controls about 96%, public-web go-live about 8
 - Added a protected manual staging/production workflow with explicit deployment confirmation and 365-day evidence/SBOM retention.
 - Added retrying post-deployment verification for security headers, liveness version and token-protected database readiness.
 - Added deterministic Apple Universal Link and Android App Link generation/validation tied to final team, bundle, package and signing identities.
+- Added vendor-neutral, authenticated server-error delivery with request correlation, response timing and PII/credential redaction.
+- Added a protected Cloudflare version rollback workflow with exact confirmation, shared release locking and post-rollback health/readiness verification.
+- Bound deploys and rollbacks to distinct protected-Environment Worker names to prevent staging/production target confusion.
+- Wired iOS Associated Domains and a required-reason privacy manifest into the Xcode target, plus verified HTTPS routes in Android.
+- Upgraded Recharts 2 to 3 and current resolver/Radix/Capacitor/ESLint patch lines, and moved checkout/setup-node workflows to v7.
+- Patched the Capacitor Xcode toolchain to UUID 11.1.1, removing the remaining development-only audit advisory while preserving a successful native sync.
+- Added CODEOWNERS, a security-aware pull-request template, a proprietary licence notice and grouped Dependabot updates.
 
 ## Verification gates
 
 Verified locally on the upgrade tree on 2 August 2026; repeat on the final GitHub commit and retain the CI evidence:
 
 - Clean `npm ci`: passed
-- Repository check, TypeScript, ESLint, 49 unit/invariant tests and production build: passed
-- CycloneDX SBOM generation: passed (590 components)
+- Repository check, TypeScript, ESLint, 56 unit/invariant tests and production build: passed
+- CycloneDX SBOM generation: passed (591 components)
 - Desktop/mobile browser smoke and automated accessibility tests: the latest cleaned `main` GitHub workflow passed; this workspace could not download the updated Chromium binary because its restricted CDN response was empty, so the new handoff commit must repeat the workflow after upload
-- Production dependency audit at high severity: passed with 0 vulnerabilities
+- Full dependency audit at moderate severity and production-only audit at high severity: passed with 0 vulnerabilities
 - Capacitor production-domain sync for iOS and Android: passed
 - Capacitor Doctor: Android passed; iOS compilation was not attempted because Xcode is unavailable on Linux
 
@@ -85,7 +92,7 @@ The `Guarded release` workflow must pass in validation-only mode before deployme
 3. Supply and legally review company/register/VAT/management, privacy, terms, cancellation and complaints details.
 4. Contract and certify every enabled insurer, broker, tax professional, interpreter, email service and delivery endpoint. Keep unavailable adapters disabled.
 5. Configure separate live Stripe credentials/webhook, run real sandbox-to-live acceptance tests and keep expert payouts disabled.
-6. Schedule and monitor partner delivery and AI retention, operate the malware scanner/callback, configure error reporting/alerting/on-call, and complete incident-response and backup-restore drills.
+6. Configure the included error-event sink/runtime bindings and named alerts, schedule and monitor partner delivery and AI retention, operate the malware scanner/callback, and complete incident-response and backup-restore drills.
 7. Pass the included browser/accessibility CI suite in staging, then complete manual assistive-technology/device review, GDPR/security review and an independent penetration test.
 8. Complete Apple/Google signing, privacy/store disclosures, real-device testing and store review. Native push additionally needs APNs/FCM and a delivery gateway.
 9. Decide and implement the approved mobile subscription-billing/entitlement model before enabling native purchases.
@@ -95,4 +102,5 @@ The `Guarded release` workflow must pass in validation-only mode before deployme
 - Supabase types must be regenerated after staging migrations.
 - Automated public browser/accessibility coverage does not replace authenticated role-by-role staging journeys or manual assistive-technology review.
 - A signed Android bundle still needs an environment that can download the Gradle toolchain; this restricted build environment could not reach the Gradle distribution host.
+- The committed iOS privacy manifest is a baseline for the current app-owned UserDefaults use; the final archive and all SDK privacy manifests still require Xcode/App Store review.
 - Store acceptance cannot be guaranteed for a server-backed WebView. Native utility and review notes must demonstrate that the app is more than a repackaged website.

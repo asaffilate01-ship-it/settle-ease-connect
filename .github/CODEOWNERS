@@ -1,0 +1,11 @@
+# The repository owner reviews all production changes.
+* @asaffilate01-ship-it
+
+# Changes to release, security, native identity and database controls require
+# an explicit owner review even when broader ownership rules change later.
+/.github/workflows/ @asaffilate01-ship-it
+/supabase/migrations/ @asaffilate01-ship-it
+/scripts/validate-production-env.mjs @asaffilate01-ship-it
+/scripts/validate-release-evidence.mjs @asaffilate01-ship-it
+/ios/ @asaffilate01-ship-it
+/android/ @asaffilate01-ship-it
