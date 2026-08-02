@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { QueueItem } from "@/components/portal/queue-row";
 import type { ActivityEntry } from "@/components/portal/activity-item";
 
@@ -28,7 +28,7 @@ type WindowKey = keyof typeof WINDOWS;
 
 export const getOpsConsole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         window: z.enum(["today", "7d", "30d"]).default("today"),
@@ -207,7 +207,7 @@ export const getOpsConsole = createServerFn({ method: "POST" })
       profileNames.set(p.id, p.full_name ?? "Someone");
     });
     const nameOf = (id: string | null | undefined) =>
-      id ? profileNames.get(id) ?? "Staff" : null;
+      id ? (profileNames.get(id) ?? "Staff") : null;
 
     // ----- KPIs -----
     const leadsCount = (leadsWindow.data ?? []).length;
@@ -229,7 +229,10 @@ export const getOpsConsole = createServerFn({ method: "POST" })
 
     // avg time-to-first-contact (hours) among contacted-window leads
     const contactLatencies = (leadsForContact.data ?? [])
-      .map((l: any) => (new Date(l.updated_at).getTime() - new Date(l.created_at).getTime()) / 3_600_000)
+      .map(
+        (l: any) =>
+          (new Date(l.updated_at).getTime() - new Date(l.created_at).getTime()) / 3_600_000,
+      )
       .filter((h: number) => h >= 0 && h < 24 * 30);
     const avgFirstContactHours =
       contactLatencies.length > 0
@@ -368,9 +371,7 @@ export const getOpsConsole = createServerFn({ method: "POST" })
 
     // ----- My work -----
     const myWork: QueueItem[] = queue.filter(
-      (q) =>
-        q.ownerName ===
-        (profileNames.get(context.userId) ?? "___never___"),
+      (q) => q.ownerName === (profileNames.get(context.userId) ?? "___never___"),
     );
 
     // ----- Activity -----
@@ -471,19 +472,23 @@ export const listInsuranceLeads = createServerFn({ method: "GET" })
 
 export const updateLeadStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({
-      id: z.string().uuid(),
-      status: z.enum(["new", "contacted", "quoted", "won", "lost", "spam"]),
-      notes: z.string().max(2000).optional().nullable(),
-    }).parse(raw),
+  .validator((raw: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        status: z.enum(["new", "contacted", "quoted", "won", "lost", "spam"]),
+        notes: z.string().max(2000).optional().nullable(),
+      })
+      .parse(raw),
   )
   .handler(async ({ data, context }) => {
     await assertInternal(context);
     const patch: { status: string; notes?: string | null } = { status: data.status };
     if (data.notes !== undefined) patch.notes = data.notes;
     const { error } = await context.supabase
-      .from("insurance_leads").update(patch).eq("id", data.id);
+      .from("insurance_leads")
+      .update(patch)
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -499,26 +504,32 @@ void assertAdmin;
 
 export const getFinancials = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ months: z.number().int().min(1).max(24).default(6) }).parse(raw ?? {}),
   )
   .handler(async ({ data, context }) => {
     await assertInternal(context);
     const supa = context.supabase;
     const now = new Date();
-    const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (data.months - 1), 1));
+    const start = new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (data.months - 1), 1),
+    );
     const startIso = start.toISOString();
 
     const [invoicesRes, payoutsRes, commissionsRes, subsRes, plansRes] = await Promise.all([
-      supa.from("case_invoices")
-        .select("amount_eur, vat_eur, platform_fee_eur, payout_to_expert_eur, status, paid_at, released_at, created_at, expert_id")
+      supa
+        .from("case_invoices")
+        .select(
+          "amount_eur, vat_eur, platform_fee_eur, payout_to_expert_eur, status, paid_at, released_at, created_at, expert_id",
+        )
         .gte("created_at", startIso),
-      supa.from("expert_payouts")
+      supa
+        .from("expert_payouts")
         .select("amount_eur, status, period_month, paid_at, created_at, expert_id, kind"),
-      supa.from("agent_commissions")
+      supa
+        .from("agent_commissions")
         .select("commission_eur, gross_eur, status, period_month, paid_at, agent_user_id"),
-      supa.from("subscriptions")
-        .select("plan_code, status, created_at, canceled_at"),
+      supa.from("subscriptions").select("plan_code, status, created_at, canceled_at"),
       supa.from("subscription_plans").select("code, monthly_price_eur, name"),
     ]);
 
@@ -532,7 +543,9 @@ export const getFinancials = createServerFn({ method: "POST" })
     const subs = subsRes.data ?? [];
     const plans = plansRes.data ?? [];
     const planPrice: Record<string, number> = {};
-    plans.forEach((p: any) => { planPrice[p.code] = Number(p.monthly_price_eur ?? 0); });
+    plans.forEach((p: any) => {
+      planPrice[p.code] = Number(p.monthly_price_eur ?? 0);
+    });
 
     // Build month buckets
     const buckets: { key: string; label: string; start: Date; end: Date }[] = [];
@@ -549,7 +562,9 @@ export const getFinancials = createServerFn({ method: "POST" })
     }
 
     // MRR: sum of active subs at start of each month
-    const activeSubs = subs.filter((s: any) => s.status === "active" || s.status === "trialing" || s.status === "past_due");
+    const activeSubs = subs.filter(
+      (s: any) => s.status === "active" || s.status === "trialing" || s.status === "past_due",
+    );
 
     const rows = buckets.map((b) => {
       const inRange = (iso: string | null | undefined) => {
@@ -560,14 +575,25 @@ export const getFinancials = createServerFn({ method: "POST" })
       const inPeriod = (period: string | null | undefined) => period && period.startsWith(b.key);
 
       const paidInvoices = invoices.filter((i: any) => inRange(i.paid_at));
-      const invoiceRevenue = paidInvoices.reduce((s: number, i: any) => s + Number(i.amount_eur ?? 0), 0);
-      const platformFees = paidInvoices.reduce((s: number, i: any) => s + Number(i.platform_fee_eur ?? 0), 0);
-      const expertPayoutsForInvoices = paidInvoices.reduce((s: number, i: any) => s + Number(i.payout_to_expert_eur ?? 0), 0);
+      const invoiceRevenue = paidInvoices.reduce(
+        (s: number, i: any) => s + Number(i.amount_eur ?? 0),
+        0,
+      );
+      const platformFees = paidInvoices.reduce(
+        (s: number, i: any) => s + Number(i.platform_fee_eur ?? 0),
+        0,
+      );
+      const expertPayoutsForInvoices = paidInvoices.reduce(
+        (s: number, i: any) => s + Number(i.payout_to_expert_eur ?? 0),
+        0,
+      );
 
       // Subscription MRR: subs created before period end AND not canceled before period start
       const subMrr = activeSubs
         .filter((s: any) => new Date(s.created_at).getTime() < b.end.getTime())
-        .filter((s: any) => !s.canceled_at || new Date(s.canceled_at).getTime() >= b.start.getTime())
+        .filter(
+          (s: any) => !s.canceled_at || new Date(s.canceled_at).getTime() >= b.start.getTime(),
+        )
         .reduce((sum: number, s: any) => sum + (planPrice[s.plan_code] ?? 0), 0);
 
       const payoutExpense = payouts
@@ -606,7 +632,15 @@ export const getFinancials = createServerFn({ method: "POST" })
         platformFees: acc.platformFees + r.platformFees,
         grossProfit: acc.grossProfit + r.grossProfit,
       }),
-      { revenue: 0, subscriptionRevenue: 0, invoiceRevenue: 0, expertPayouts: 0, agentCommissions: 0, platformFees: 0, grossProfit: 0 },
+      {
+        revenue: 0,
+        subscriptionRevenue: 0,
+        invoiceRevenue: 0,
+        expertPayouts: 0,
+        agentCommissions: 0,
+        platformFees: 0,
+        grossProfit: 0,
+      },
     );
 
     // Outstanding expenses
@@ -646,12 +680,18 @@ export const listRecentExpenses = createServerFn({ method: "GET" })
     await assertInternal(context);
     const supa = context.supabase;
     const [payouts, comms] = await Promise.all([
-      supa.from("expert_payouts")
-        .select("id, amount_eur, status, kind, description, period_month, paid_at, created_at, experts(full_name, profession)")
+      supa
+        .from("expert_payouts")
+        .select(
+          "id, amount_eur, status, kind, description, period_month, paid_at, created_at, experts(full_name, profession)",
+        )
         .order("created_at", { ascending: false })
         .limit(50),
-      supa.from("agent_commissions")
-        .select("id, commission_eur, gross_eur, status, product, period_month, paid_at, created_at, agent_user_id")
+      supa
+        .from("agent_commissions")
+        .select(
+          "id, commission_eur, gross_eur, status, product, period_month, paid_at, created_at, agent_user_id",
+        )
         .order("created_at", { ascending: false })
         .limit(50),
     ]);
@@ -661,7 +701,9 @@ export const listRecentExpenses = createServerFn({ method: "GET" })
     };
   });
 
-function round2(n: number) { return Math.round(n * 100) / 100; }
+function round2(n: number) {
+  return Math.round(n * 100) / 100;
+}
 
 // ---------- Domain consoles (tax / benefits / medical / new-arrivals) ----------
 
@@ -672,13 +714,20 @@ export const getTaxConsole = createServerFn({ method: "GET" })
     const supa = context.supabase;
     const { data: leads } = await supa
       .from("tax_leads")
-      .select("id, full_name, email, tax_year, gross_income_eur, estimated_refund_eur, status, source, created_at")
+      .select(
+        "id, full_name, email, tax_year, gross_income_eur, estimated_refund_eur, status, source, created_at",
+      )
       .order("created_at", { ascending: false })
       .limit(200);
     const rows = leads ?? [];
     const byStatus: Record<string, number> = {};
-    rows.forEach((r: any) => { byStatus[r.status ?? "new"] = (byStatus[r.status ?? "new"] ?? 0) + 1; });
-    const totalRefund = rows.reduce((s: number, r: any) => s + Number(r.estimated_refund_eur ?? 0), 0);
+    rows.forEach((r: any) => {
+      byStatus[r.status ?? "new"] = (byStatus[r.status ?? "new"] ?? 0) + 1;
+    });
+    const totalRefund = rows.reduce(
+      (s: number, r: any) => s + Number(r.estimated_refund_eur ?? 0),
+      0,
+    );
     const won = rows.filter((r: any) => r.status === "filed" || r.status === "won").length;
     return {
       total: rows.length,
@@ -696,11 +745,13 @@ export const getBenefitsConsole = createServerFn({ method: "GET" })
     await assertInternal(context);
     const supa = context.supabase;
     const [refRes, funRes] = await Promise.all([
-      supa.from("referral_leads")
+      supa
+        .from("referral_leads")
         .select("id, referred_email, product, status, created_at")
         .order("created_at", { ascending: false })
         .limit(100),
-      supa.from("funeral_leads")
+      supa
+        .from("funeral_leads")
         .select("id, full_name, email, status, created_at, plan_type")
         .order("created_at", { ascending: false })
         .limit(100),
@@ -710,8 +761,10 @@ export const getBenefitsConsole = createServerFn({ method: "GET" })
     return {
       referralTotal: referrals.length,
       funeralTotal: funeral.length,
-      openReferrals: referrals.filter((r: any) => r.status === "pending" || r.status === "new").length,
-      openFuneral: funeral.filter((r: any) => r.status !== "closed" && r.status !== "converted").length,
+      openReferrals: referrals.filter((r: any) => r.status === "pending" || r.status === "new")
+        .length,
+      openFuneral: funeral.filter((r: any) => r.status !== "closed" && r.status !== "converted")
+        .length,
       recentReferrals: referrals.slice(0, 25),
       recentFuneral: funeral.slice(0, 25),
     };
@@ -723,11 +776,13 @@ export const getMedicalConsole = createServerFn({ method: "GET" })
     await assertInternal(context);
     const supa = context.supabase;
     const [expertsRes, casesRes] = await Promise.all([
-      supa.from("experts")
+      supa
+        .from("experts")
         .select("id, full_name, profession, city, status, verified")
         .in("profession", ["doctor", "translator", "medical_translator", "nurse", "therapist"])
         .limit(100),
-      supa.from("cases")
+      supa
+        .from("cases")
         .select("id, title, status, priority, updated_at, client_user_id")
         .ilike("title", "%medical%")
         .order("updated_at", { ascending: false })
@@ -738,7 +793,8 @@ export const getMedicalConsole = createServerFn({ method: "GET" })
     return {
       totalExperts: experts.length,
       verifiedExperts: experts.filter((e: any) => e.verified).length,
-      activeCases: cases.filter((c: any) => c.status !== "closed" && c.status !== "cancelled").length,
+      activeCases: cases.filter((c: any) => c.status !== "closed" && c.status !== "cancelled")
+        .length,
       experts: experts.slice(0, 20),
       cases,
     };
@@ -751,11 +807,13 @@ export const getNewArrivalsConsole = createServerFn({ method: "GET" })
     const supa = context.supabase;
     // Reuse immigration leads / cases proxy
     const [casesRes, embRes] = await Promise.all([
-      supa.from("cases")
+      supa
+        .from("cases")
         .select("id, title, status, priority, updated_at, created_at")
         .order("created_at", { ascending: false })
         .limit(100),
-      supa.from("embassies")
+      supa
+        .from("embassies")
         .select("id, country, city, phone, updated_at")
         .order("updated_at", { ascending: false })
         .limit(20),
@@ -781,20 +839,26 @@ export const getInsuranceConsole = createServerFn({ method: "GET" })
     await assertInternal(context);
     const supa = context.supabase;
     const [leadsRes, callbacksRes, healthRes, funeralRes] = await Promise.all([
-      supa.from("insurance_leads")
-        .select("id, full_name, email, product_line, carrier_partner, estimated_premium_min, estimated_premium_max, benefit_amount, status, source, created_at, assigned_to")
+      supa
+        .from("insurance_leads")
+        .select(
+          "id, full_name, email, product_line, carrier_partner, estimated_premium_min, estimated_premium_max, benefit_amount, status, source, created_at, assigned_to",
+        )
         .order("created_at", { ascending: false })
         .limit(200),
-      supa.from("insurance_leads")
+      supa
+        .from("insurance_leads")
         .select("id, full_name, email, product_line, status, created_at")
         .eq("status", "callback")
         .order("created_at", { ascending: false })
         .limit(50),
-      supa.from("health_insurance")
+      supa
+        .from("health_insurance")
         .select("id, client_user_id, kasse, kind, tariff, monthly_premium_cents, updated_at")
         .order("updated_at", { ascending: false })
         .limit(50),
-      supa.from("funeral_policies")
+      supa
+        .from("funeral_policies")
         .select("id, user_id, insurer_name, benefit_eur, premium_eur, status, updated_at")
         .order("updated_at", { ascending: false })
         .limit(50),

@@ -23,14 +23,14 @@ import { BackToTop } from "@/components/back-to-top";
 import { AppSplash } from "@/components/app-splash";
 import { WhatsAppChat } from "@/components/whatsapp-chat";
 
-
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="display-hero text-balance font-semibold text-foreground">404</h1>
-        <h2 className="mt-4 font-display text-xl font-semibold text-foreground">Diese Seite gibt es nicht</h2>
+        <h2 className="mt-4 font-display text-xl font-semibold text-foreground">
+          Diese Seite gibt es nicht
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for isn't here. Let's get you back on your way.
         </p>
@@ -61,8 +61,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           Something didn't load
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Try again — we'll re-fetch fresh data. If it persists, our team is
-          notified.
+          Try again — we&apos;ll re-fetch fresh data. If it persists, return home and contact
+          support through the published support route.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -92,29 +92,44 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#faf8f5" },
-      { title: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
+      {
+        title:
+          "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen",
+      },
       {
         name: "description",
         content:
-          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
+          "BeistandPlus hilft Familien in Deutschland, Aufgaben, Dokumente und Unterstützungsanfragen in 13 Sprachen zu organisieren. Verfügbare Fallkoordination und externe Fachleistungen werden jeweils bestätigt.",
       },
-      { name: "author", content: "BeistandPlus GmbH" },
+      { name: "author", content: "BeistandPlus" },
       { property: "og:site_name", content: "BeistandPlus" },
-      { property: "og:title", content: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
+      {
+        property: "og:title",
+        content:
+          "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen",
+      },
       {
         property: "og:description",
         content:
-          "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
+          "BeistandPlus hilft Familien in Deutschland, Aufgaben, Dokumente und Unterstützungsanfragen in 13 Sprachen zu organisieren. Verfügbare Fallkoordination und externe Fachleistungen werden jeweils bestätigt.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://beistandplus.de/" },
       { property: "og:locale", content: "de_DE" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@beistandplus" },
-      { name: "twitter:title", content: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
-      { name: "twitter:description", content: "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7" },
+      {
+        name: "twitter:title",
+        content:
+          "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "BeistandPlus organisiert Aufgaben, Dokumente und Unterstützungsanfragen in 13 Sprachen; Verfügbarkeit wird jeweils bestätigt.",
+      },
+      { property: "og:image", content: "https://beistandplus.de/favicon.png" },
+      { name: "twitter:image", content: "https://beistandplus.de/favicon.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -143,7 +158,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-const LANG_GATE_CSS = "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
+const LANG_GATE_CSS =
+  "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
 const PRE_HYDRATION_LANG_SCRIPT = `(function(){try{var l=localStorage.getItem('beistand.lang')||'de';var d=document.documentElement;d.setAttribute('data-lang-pending',l);d.setAttribute('lang',l);d.setAttribute('dir',(l==='ar'||l==='ur'||l==='fa'||l==='ku')?'rtl':'ltr');setTimeout(function(){d.removeAttribute('data-lang-pending');d.removeAttribute('data-lang-switching');},4500);}catch(e){}})();`;
 
 function RootShell({ children }: { children: ReactNode }) {
@@ -161,7 +177,6 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
-
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -191,9 +206,15 @@ function RootComponent() {
       const ref = params.get("ref");
       if (ref && /^[a-zA-Z0-9_-]{3,32}$/.test(ref)) {
         document.cookie = `bp_ref=${encodeURIComponent(ref)}; Max-Age=${60 * 24 * 60 * 60}; Path=/; SameSite=Lax`;
-        try { localStorage.setItem("bp_ref", ref); } catch { /* ignore */ }
+        try {
+          localStorage.setItem("bp_ref", ref);
+        } catch {
+          /* ignore */
+        }
       }
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     return () => {
       mounted = false;
       unsubscribe?.();
@@ -210,11 +231,9 @@ function RootComponent() {
       <WhatsAppChat />
       <AppSplash />
       <Toaster />
-
     </QueryClientProvider>
   );
 }
-
 
 /** Keeps <html lang> and <html dir> in sync with the active i18next language. */
 function LanguageBridge() {

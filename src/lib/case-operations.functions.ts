@@ -32,15 +32,22 @@ export const listSlaCases = createServerFn({ method: "GET" })
 // ---------- Appointments ----------
 export const listUpcomingAppointments = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { caseId?: string; days?: number }) =>
-    z.object({ caseId: z.string().uuid().optional(), days: z.number().int().min(1).max(90).default(30) }).parse(d),
+  .validator((d: { caseId?: string; days?: number }) =>
+    z
+      .object({
+        caseId: z.string().uuid().optional(),
+        days: z.number().int().min(1).max(90).default(30),
+      })
+      .parse(d),
   )
   .handler(async ({ data, context }) => {
     const { supabase } = context;
     const until = new Date(Date.now() + data.days * 24 * 60 * 60 * 1000).toISOString();
     let q = supabase
       .from("case_appointments")
-      .select("id, case_id, title, description, location, meeting_url, starts_at, ends_at, status, attendee_user_ids, attendee_emails, reminder_minutes")
+      .select(
+        "id, case_id, title, description, location, meeting_url, starts_at, ends_at, status, attendee_user_ids, attendee_emails, reminder_minutes",
+      )
       .lte("starts_at", until)
       .gte("starts_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
       .order("starts_at", { ascending: true });
@@ -52,7 +59,7 @@ export const listUpcomingAppointments = createServerFn({ method: "GET" })
 
 export const createAppointment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         caseId: z.string().uuid(),
@@ -91,7 +98,7 @@ export const createAppointment = createServerFn({ method: "POST" })
 
 export const updateAppointmentStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -111,7 +118,7 @@ export const updateAppointmentStatus = createServerFn({ method: "POST" })
 // ---------- Case closure ----------
 export const closeCase = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         caseId: z.string().uuid(),

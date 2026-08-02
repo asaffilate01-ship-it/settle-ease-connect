@@ -13,11 +13,7 @@ import logoMark from "@/assets/brand/logo-mark.png";
 type Audience = "client" | "internal" | "agent" | "any";
 
 type SpecialistDomain =
-  | "insurance_admin"
-  | "tax_admin"
-  | "benefits_admin"
-  | "medical_admin"
-  | "new_arrival_admin";
+  "insurance_admin" | "tax_admin" | "benefits_admin" | "medical_admin" | "new_arrival_admin";
 
 type NavItem = {
   to: string;
@@ -36,80 +32,487 @@ type NavItem = {
 
 const nav: NavItem[] = [
   { to: "/app", labelKey: "sidebar.overview", icon: "overview", exact: true, audience: "client" },
-  { to: "/app/assistant", labelKey: "sidebar.assistant", icon: "assistant", audience: "any", requiresTier: "basic" },
-  { to: "/app/checklists", labelKey: "sidebar.checklists", icon: "checklists", audience: "client", requiresTier: "basic" },
-  { to: "/app/benefits", labelKey: "sidebar.benefits", icon: "benefits", audience: "client", requiresTier: "basic" },
-  { to: "/app/documents", labelKey: "sidebar.documents", icon: "documents", audience: "client", requiresTier: "basic" },
-  { to: "/app/providers", labelKey: "sidebar.providers", icon: "providers", audience: "client", requiresTier: "basic" },
+  {
+    to: "/app/assistant",
+    labelKey: "sidebar.assistant",
+    icon: "assistant",
+    audience: "any",
+    requiresTier: "basic",
+  },
+  {
+    to: "/app/checklists",
+    labelKey: "sidebar.checklists",
+    icon: "checklists",
+    audience: "client",
+    requiresTier: "basic",
+  },
+  {
+    to: "/app/benefits",
+    labelKey: "sidebar.benefits",
+    icon: "benefits",
+    audience: "client",
+    requiresTier: "basic",
+  },
+  {
+    to: "/app/documents",
+    labelKey: "sidebar.documents",
+    icon: "documents",
+    audience: "client",
+    requiresTier: "basic",
+  },
+  {
+    to: "/app/providers",
+    labelKey: "sidebar.providers",
+    icon: "providers",
+    audience: "client",
+    requiresTier: "basic",
+  },
   { to: "/app/community", labelKey: "sidebar.community", icon: "community", audience: "client" },
   { to: "/app/events", labelKey: "sidebar.events", icon: "community", audience: "any" },
   { to: "/app/billing", labelKey: "sidebar.billing", icon: "overview", audience: "client" },
-  { to: "/app/ai-tools", labelKey: "sidebar.aiTools", icon: "assistant", audience: "client", requiresTier: "plus" },
+  {
+    to: "/app/ai-tools",
+    labelKey: "sidebar.aiTools",
+    icon: "assistant",
+    audience: "client",
+    requiresTier: "plus",
+  },
   { to: "/app/referrals", labelKey: "sidebar.referrals", icon: "benefits", audience: "client" },
   { to: "/app/sessions", labelKey: "sidebar.sessions", icon: "settings", audience: "client" },
 
-  { to: "/app/insurance", labelKey: "sidebar.insurance", icon: "providers", audience: "client", requiresTier: "plus" },
-  { to: "/app/immigration", labelKey: "sidebar.immigration", icon: "providers", audience: "client", requiresTier: "basic" },
-  { to: "/app/cases", labelKey: "sidebar.cases", icon: "cases", audience: "client", requiresTier: "complete" },
-  { to: "/app/account", labelKey: "sidebar.account", icon: "overview", audience: "client", requiresTier: "basic" },
-  { to: "/app/profile", labelKey: "sidebar.profile", icon: "settings", audience: "client", requiresTier: "basic" },
+  {
+    to: "/app/insurance",
+    labelKey: "sidebar.insurance",
+    icon: "providers",
+    audience: "client",
+    requiresTier: "plus",
+  },
+  {
+    to: "/app/immigration",
+    labelKey: "sidebar.immigration",
+    icon: "providers",
+    audience: "client",
+    requiresTier: "basic",
+  },
+  {
+    to: "/app/cases",
+    labelKey: "sidebar.cases",
+    icon: "cases",
+    audience: "client",
+    requiresTier: "complete",
+  },
+  {
+    to: "/app/account",
+    labelKey: "sidebar.account",
+    icon: "overview",
+    audience: "client",
+    requiresTier: "basic",
+  },
+  {
+    to: "/app/profile",
+    labelKey: "sidebar.profile",
+    icon: "settings",
+    audience: "client",
+    requiresTier: "basic",
+  },
   { to: "/app/messages", labelKey: "sidebar.messages", icon: "assistant", audience: "any" },
   { to: "/app/notifications", labelKey: "sidebar.notifications", icon: "bug", audience: "any" },
   { to: "/app/location", labelKey: "sidebar.location", icon: "providers", audience: "any" },
   { to: "/app/alert", labelKey: "sidebar.alert", icon: "bug", audience: "any" },
   { to: "/app/upgrade", labelKey: "sidebar.upgrade", icon: "benefits", audience: "client" },
-  { to: "/app/family-access", labelKey: "sidebar.familyAccess", icon: "experts", audience: "client" },
-  { to: "/app/privacy-requests", labelKey: "sidebar.privacyRequests", icon: "settings", audience: "any" },
-  { to: "/app/student-discount", labelKey: "sidebar.studentDiscount", icon: "benefits", audience: "client" },
-  { to: "/portal", labelKey: "sidebar.staffPortal", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/enquiries", labelKey: "sidebar.enquiries", icon: "assistant", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/crm", labelKey: "sidebar.crm", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/capacity", labelKey: "sidebar.capacity", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/directory", labelKey: "sidebar.directoryMod", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/leads", labelKey: "sidebar.leads", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/insurance", labelKey: "sidebar.insuranceOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
-  { to: "/portal/insurance-triage", labelKey: "sidebar.insuranceTriage", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
-  { to: "/portal/referrals", labelKey: "sidebar.referrals", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/immigration", labelKey: "sidebar.immigrationOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/tax", labelKey: "sidebar.taxOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "tax_admin" },
-  { to: "/portal/benefits", labelKey: "sidebar.benefitsOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "benefits_admin" },
-  { to: "/portal/medical", labelKey: "sidebar.medicalOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "medical_admin" },
-  { to: "/portal/new-arrivals", labelKey: "sidebar.newArrivalsOps", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "new_arrival_admin" },
-  { to: "/portal/knowledge", labelKey: "sidebar.knowledge", icon: "knowledge", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/case-templates", labelKey: "sidebar.caseTemplates", icon: "checklists", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/checklist-templates", labelKey: "sidebar.checklistTemplates", icon: "checklists", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/operations", labelKey: "sidebar.operations", icon: "cases", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/events", labelKey: "sidebar.eventsOps", icon: "community", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/assistant", labelKey: "sidebar.staffAssistant", icon: "assistant", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
+  {
+    to: "/app/family-access",
+    labelKey: "sidebar.familyAccess",
+    icon: "experts",
+    audience: "client",
+  },
+  {
+    to: "/app/privacy-requests",
+    labelKey: "sidebar.privacyRequests",
+    icon: "settings",
+    audience: "any",
+  },
+  {
+    to: "/app/student-discount",
+    labelKey: "sidebar.studentDiscount",
+    icon: "benefits",
+    audience: "client",
+  },
+  {
+    to: "/portal",
+    labelKey: "sidebar.staffPortal",
+    icon: "overview",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/enquiries",
+    labelKey: "sidebar.enquiries",
+    icon: "assistant",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/crm",
+    labelKey: "sidebar.crm",
+    icon: "experts",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/capacity",
+    labelKey: "sidebar.capacity",
+    icon: "overview",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/directory",
+    labelKey: "sidebar.directoryMod",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/leads",
+    labelKey: "sidebar.leads",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/insurance",
+    labelKey: "sidebar.insuranceOps",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "insurance_admin",
+  },
+  {
+    to: "/portal/insurance-triage",
+    labelKey: "sidebar.insuranceTriage",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "insurance_admin",
+  },
+  {
+    to: "/portal/referrals",
+    labelKey: "sidebar.referrals",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/immigration",
+    labelKey: "sidebar.immigrationOps",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/tax",
+    labelKey: "sidebar.taxOps",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "tax_admin",
+  },
+  {
+    to: "/portal/benefits",
+    labelKey: "sidebar.benefitsOps",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "benefits_admin",
+  },
+  {
+    to: "/portal/medical",
+    labelKey: "sidebar.medicalOps",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "medical_admin",
+  },
+  {
+    to: "/portal/new-arrivals",
+    labelKey: "sidebar.newArrivalsOps",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "new_arrival_admin",
+  },
+  {
+    to: "/portal/knowledge",
+    labelKey: "sidebar.knowledge",
+    icon: "knowledge",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/case-templates",
+    labelKey: "sidebar.caseTemplates",
+    icon: "checklists",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/checklist-templates",
+    labelKey: "sidebar.checklistTemplates",
+    icon: "checklists",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/operations",
+    labelKey: "sidebar.operations",
+    icon: "cases",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/events",
+    labelKey: "sidebar.eventsOps",
+    icon: "community",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/assistant",
+    labelKey: "sidebar.staffAssistant",
+    icon: "assistant",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
 
-  { to: "/portal/partner-push", labelKey: "sidebar.partnerPush", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", specialistDomain: "insurance_admin" },
-  { to: "/portal/ai-advisory", labelKey: "sidebar.aiAdvisory", icon: "knowledge", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/copy-audit", labelKey: "sidebar.copyAudit", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/portal/my-desk", labelKey: "sidebar.myDesk", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/analytics", labelKey: "sidebar.analytics", icon: "overview", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/management", labelKey: "sidebar.management", icon: "overview", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/portal/dela", labelKey: "sidebar.dela", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/experts", labelKey: "sidebar.experts", icon: "experts", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/partners", labelKey: "sidebar.partners", icon: "providers", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/escrow", labelKey: "sidebar.escrow", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/financials", labelKey: "sidebar.financials", icon: "benefits", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/portal/funeral-cover", labelKey: "sidebar.funeralCover", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/students", labelKey: "sidebar.studentsOps", icon: "benefits", groupKey: "sidebar.internal", requiresRole: "internal", audience: "internal", broadInternalOnly: true },
-  { to: "/portal/audit", labelKey: "sidebar.audit", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/portal/compliance", labelKey: "sidebar.compliance", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/privacy", labelKey: "sidebar.privacyConsole", icon: "settings", groupKey: "sidebar.admin", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/auditor", labelKey: "sidebar.auditorConsole", icon: "knowledge", groupKey: "sidebar.admin", requiresRole: "internal", audience: "internal" },
-  { to: "/portal/admin/users", labelKey: "sidebar.adminUsers", icon: "experts", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/portal/admin/invite", labelKey: "sidebar.adminInvite", icon: "providers", groupKey: "sidebar.admin", requiresRole: "admin", audience: "internal" },
-  { to: "/agent", labelKey: "sidebar.agentOverview", icon: "overview", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent", exact: true },
-  { to: "/agent/leads", labelKey: "sidebar.agentLeads", icon: "benefits", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
-  { to: "/agent/clients", labelKey: "sidebar.agentClients", icon: "experts", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
-  { to: "/agent/commissions", labelKey: "sidebar.agentCommissions", icon: "benefits", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
-  { to: "/agent/link", labelKey: "sidebar.agentLink", icon: "providers", groupKey: "sidebar.agent", requiresRole: "agent", audience: "agent" },
+  {
+    to: "/portal/partner-push",
+    labelKey: "sidebar.partnerPush",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    specialistDomain: "insurance_admin",
+  },
+  {
+    to: "/portal/ai-advisory",
+    labelKey: "sidebar.aiAdvisory",
+    icon: "knowledge",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/copy-audit",
+    labelKey: "sidebar.copyAudit",
+    icon: "knowledge",
+    groupKey: "sidebar.admin",
+    requiresRole: "admin",
+    audience: "internal",
+  },
+  {
+    to: "/portal/my-desk",
+    labelKey: "sidebar.myDesk",
+    icon: "overview",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/analytics",
+    labelKey: "sidebar.analytics",
+    icon: "overview",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/management",
+    labelKey: "sidebar.management",
+    icon: "overview",
+    groupKey: "sidebar.admin",
+    requiresRole: "admin",
+    audience: "internal",
+  },
+  {
+    to: "/portal/dela",
+    labelKey: "sidebar.dela",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/experts",
+    labelKey: "sidebar.experts",
+    icon: "experts",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/partners",
+    labelKey: "sidebar.partners",
+    icon: "providers",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/escrow",
+    labelKey: "sidebar.escrow",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/financials",
+    labelKey: "sidebar.financials",
+    icon: "benefits",
+    groupKey: "sidebar.admin",
+    requiresRole: "admin",
+    audience: "internal",
+  },
+  {
+    to: "/portal/funeral-cover",
+    labelKey: "sidebar.funeralCover",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/students",
+    labelKey: "sidebar.studentsOps",
+    icon: "benefits",
+    groupKey: "sidebar.internal",
+    requiresRole: "internal",
+    audience: "internal",
+    broadInternalOnly: true,
+  },
+  {
+    to: "/portal/audit",
+    labelKey: "sidebar.audit",
+    icon: "knowledge",
+    groupKey: "sidebar.admin",
+    requiresRole: "admin",
+    audience: "internal",
+  },
+  {
+    to: "/portal/compliance",
+    labelKey: "sidebar.compliance",
+    icon: "knowledge",
+    groupKey: "sidebar.admin",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/privacy",
+    labelKey: "sidebar.privacyConsole",
+    icon: "settings",
+    groupKey: "sidebar.admin",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/auditor",
+    labelKey: "sidebar.auditorConsole",
+    icon: "knowledge",
+    groupKey: "sidebar.admin",
+    requiresRole: "internal",
+    audience: "internal",
+  },
+  {
+    to: "/portal/admin/users",
+    labelKey: "sidebar.adminUsers",
+    icon: "experts",
+    groupKey: "sidebar.admin",
+    requiresRole: "admin",
+    audience: "internal",
+  },
+  {
+    to: "/portal/admin/invite",
+    labelKey: "sidebar.adminInvite",
+    icon: "providers",
+    groupKey: "sidebar.admin",
+    requiresRole: "admin",
+    audience: "internal",
+  },
+  {
+    to: "/agent",
+    labelKey: "sidebar.agentOverview",
+    icon: "overview",
+    groupKey: "sidebar.agent",
+    requiresRole: "agent",
+    audience: "agent",
+    exact: true,
+  },
+  {
+    to: "/agent/leads",
+    labelKey: "sidebar.agentLeads",
+    icon: "benefits",
+    groupKey: "sidebar.agent",
+    requiresRole: "agent",
+    audience: "agent",
+  },
+  {
+    to: "/agent/clients",
+    labelKey: "sidebar.agentClients",
+    icon: "experts",
+    groupKey: "sidebar.agent",
+    requiresRole: "agent",
+    audience: "agent",
+  },
+  {
+    to: "/agent/commissions",
+    labelKey: "sidebar.agentCommissions",
+    icon: "benefits",
+    groupKey: "sidebar.agent",
+    requiresRole: "agent",
+    audience: "agent",
+  },
+  {
+    to: "/agent/link",
+    labelKey: "sidebar.agentLink",
+    icon: "providers",
+    groupKey: "sidebar.agent",
+    requiresRole: "agent",
+    audience: "agent",
+  },
   { to: "/app/bugs", labelKey: "sidebar.bugs", icon: "bug", audience: "any" },
   { to: "/app/settings", labelKey: "sidebar.settings", icon: "settings", audience: "any" },
 ];
-
 
 const ROLE_LABEL: Record<AppRole, string> = {
   admin: "Administrator",
@@ -195,7 +598,6 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
     window.location.href = "/auth";
   }
 
-
   const visibleNav = nav.filter((n) => {
     if (n.requiresRole === "admin" && !isAdmin) return false;
     if (n.requiresRole === "internal" && !isInternal) return false;
@@ -236,9 +638,13 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
           <img src={logoMark} alt="" className="h-6 w-6 object-contain brightness-0 invert" />
         </div>
         <div className="min-w-0 leading-tight">
-          <div className="truncate font-display text-lg font-semibold tracking-tight">BeistandPlus</div>
+          <div className="truncate font-display text-lg font-semibold tracking-tight">
+            BeistandPlus
+          </div>
           <div className="text-[10px] uppercase tracking-[0.18em] text-sidebar-foreground/60">
-            {isInternal ? t("sidebar.internal", { defaultValue: "Staff Portal" }) : t("sidebar.dashboard")}
+            {isInternal
+              ? t("sidebar.internal", { defaultValue: "Staff Portal" })
+              : t("sidebar.dashboard")}
           </div>
         </div>
       </Link>
@@ -246,7 +652,11 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
         {visibleNav.map((n, i) => {
           const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
           const showGroupHeader = n.groupKey && visibleNav[i - 1]?.groupKey !== n.groupKey;
-          const locked = !isInternal && !!n.requiresTier && !sub.loading && !tierMeets(sub.planGroup, n.requiresTier);
+          const locked =
+            !isInternal &&
+            !!n.requiresTier &&
+            !sub.loading &&
+            !tierMeets(sub.planGroup, n.requiresTier);
           const target = locked ? "/app/upgrade" : n.to;
           return (
             <div key={n.to}>
@@ -268,7 +678,9 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
                 <span className="grid h-7 w-7 shrink-0 place-items-center">
                   <Icon3D name={n.icon} alt="" />
                 </span>
-                <span className="flex-1">{t(n.labelKey, { defaultValue: n.labelKey.split(".").pop() })}</span>
+                <span className="flex-1">
+                  {t(n.labelKey, { defaultValue: n.labelKey.split(".").pop() })}
+                </span>
                 {locked && <Lock className="h-3 w-3 opacity-70" />}
               </Link>
             </div>
@@ -282,7 +694,9 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
           <div className="flex items-center justify-between gap-2">
             <div className="truncate font-medium text-sidebar-foreground">{displayName}</div>
             {roleLabel && (
-              <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${roleTone}`}>
+              <span
+                className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${roleTone}`}
+              >
                 {roleLabel}
               </span>
             )}
@@ -309,7 +723,6 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
           {t("sidebar.signOut", { defaultValue: "Sign out" })}
         </button>
       </div>
-
     </aside>
   );
 }

@@ -72,13 +72,12 @@ function Hero() {
             <PlaneTakeoff className="h-3.5 w-3.5" /> Wegzug · Leaving Germany
           </div>
           <h1 className="display-hero text-balance mt-4 font-semibold">
-            Leaving Germany for good?{" "}
-            <span className="text-teal">Nothing left behind.</span>
+            Leaving Germany for good? <span className="text-teal">Nothing left behind.</span>
           </h1>
           <p className="mt-4 max-w-xl text-lg text-white/75">
             Abmeldung, Finanzamt farewell, Krankenkasse exit, pension export, contract
-            cancellations, bank closure, post-forwarding, family and pets — one checklist,
-            one case manager, in your language.
+            cancellations, bank closure, post-forwarding, family and pets — one checklist, one case
+            manager, in your language.
           </p>
           <div className="mt-6 flex flex-wrap gap-2 text-xs">
             <HeroChip icon={FileCheck2}>25+ authorities notified</HeroChip>
@@ -86,7 +85,11 @@ function Hero() {
             <HeroChip icon={Clock}>Start 90 days before you fly</HeroChip>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="bg-teal text-[oklch(0.18_0.04_240)] hover:bg-teal/90">
+            <Button
+              asChild
+              size="lg"
+              className="bg-teal text-[oklch(0.18_0.04_240)] hover:bg-teal/90"
+            >
               <Link to="/contact">
                 Start my leaving plan <ArrowRight className="ml-2 h-4 w-4 rtl-flip" />
               </Link>
@@ -124,8 +127,8 @@ function Hero() {
             ))}
           </ul>
           <div className="mt-5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-white/70">
-            Flat fee — nothing extra when a partner (tax advisor, notary, shipper) is
-            needed; you see every third-party invoice in your case file.
+            Flat fee — nothing extra when a partner (tax advisor, notary, shipper) is needed; you
+            see every third-party invoice in your case file.
           </div>
         </div>
       </div>
@@ -210,10 +213,9 @@ function Timeline() {
             Start 90 days before you fly.
           </h2>
           <p className="mt-3 text-sm text-foreground/80">
-            Germany is contract-heavy: most cancellations need 1–3 months' notice and the
-            Abmeldung is the master key that unlocks everything else (Sonderkündigungsrecht,
-            tax farewell, pension export). Miss a step and it can cost hundreds of euros
-            after you land.
+            Germany is contract-heavy: most cancellations need 1–3 months' notice and the Abmeldung
+            is the master key that unlocks everything else (Sonderkündigungsrecht, tax farewell,
+            pension export). Miss a step and it can cost hundreds of euros after you land.
           </p>
         </div>
 
@@ -231,9 +233,7 @@ function Timeline() {
                   <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
                     {p.when}
                   </div>
-                  <div className="font-display text-lg font-semibold text-ink">
-                    {p.label}
-                  </div>
+                  <div className="font-display text-lg font-semibold text-ink">{p.label}</div>
                 </div>
               </div>
               <ul className="mt-4 space-y-2.5 text-sm text-foreground/85">
@@ -381,9 +381,8 @@ function Sections() {
           What actually needs to be done.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground">
-          Ten areas, ordered by the pain they cause when neglected. Each one is a service
-          in our Wegzug package — pick the whole package or just the parts you cannot
-          handle yourself.
+          Ten areas, ordered by the pain they cause when neglected. Each one is a service in our
+          Wegzug package — pick the whole package or just the parts you cannot handle yourself.
         </p>
       </div>
 
@@ -460,9 +459,7 @@ function Warnings() {
               key={r.title}
               className="rounded-2xl border border-destructive/25 bg-card p-5 shadow-soft"
             >
-              <div className="font-display text-base font-semibold text-ink">
-                {r.title}
-              </div>
+              <div className="font-display text-base font-semibold text-ink">{r.title}</div>
               <p className="mt-2 text-sm text-foreground/80">{r.body}</p>
             </div>
           ))}
@@ -479,13 +476,11 @@ function CTA() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-primary">
           <PlaneTakeoff className="h-6 w-6" />
         </div>
-        <h2 className="display-md mt-4 font-semibold">
-          Book a Wegzug case manager.
-        </h2>
+        <h2 className="display-md mt-4 font-semibold">Book a Wegzug case manager.</h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">
-          One flat fee, one case manager, all authorities. We start with a 30-minute call
-          to map your specific situation (tax residency, visa, family, property) and hand
-          you a personalised checklist in your language.
+          One flat fee, one case manager, all authorities. We start with a 30-minute call to map
+          your specific situation (tax residency, visa, family, property) and hand you a
+          personalised checklist in your language.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button asChild size="lg" className="bg-gradient-primary">

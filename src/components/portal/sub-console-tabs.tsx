@@ -22,7 +22,6 @@ export function useSubConsoleTab(): [SubConsoleTab, (t: SubConsoleTab) => void] 
       })) as never,
       replace: true,
     });
-
   };
   return [active, setTab];
 }

@@ -8,7 +8,7 @@ const STATUSES = ["pending", "in_progress", "done", "blocked", "skipped"] as con
 
 export const listCaseMilestones = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ caseId: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ caseId: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: allowed } = await context.supabase.rpc("can_access_case", {
       _user_id: context.userId,
@@ -28,7 +28,7 @@ export const listCaseMilestones = createServerFn({ method: "GET" })
 
 export const saveCaseMilestone = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -78,7 +78,7 @@ export const saveCaseMilestone = createServerFn({ method: "POST" })
 
 export const setMilestoneStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ id: z.string().uuid(), status: z.enum(STATUSES) }).parse(raw),
   )
   .handler(async ({ data, context }) => {

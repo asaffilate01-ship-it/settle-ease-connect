@@ -28,7 +28,8 @@ const casesQuery = queryOptions({
 function FuneralPortal() {
   const { data: cases = [], isLoading } = useQuery(casesQuery);
   const referrals = cases.filter(
-    (c) => c.case_type === "bereavement" && !["closed", "cancelled", "completed"].includes(c.status),
+    (c) =>
+      c.case_type === "bereavement" && !["closed", "cancelled", "completed"].includes(c.status),
   );
 
   return (
@@ -39,17 +40,21 @@ function FuneralPortal() {
         subtitle="Live referrals from bereavement cases across the network."
         actions={
           <>
-            <Button variant="outline">Availability</Button>
-            <Button className="bg-gradient-primary">Upload invoice</Button>
+            <Button variant="outline" asChild>
+              <Link to="/expert/availability">Availability</Link>
+            </Button>
+            <Button className="bg-gradient-primary" asChild>
+              <Link to="/expert/invoices">Invoice workspace</Link>
+            </Button>
           </>
         }
       />
 
       <div className="grid gap-4 md:grid-cols-4">
         <Stat icon={ClipboardCheck} label="Active referrals" value={referrals.length.toString()} />
-        <Stat icon={DollarSign} label="Invoiced this month" value="—" />
-        <Stat icon={Building2} label="Avg. response" value="—" />
-        <Stat icon={Star} label="Family rating" value="—" />
+        <Stat icon={DollarSign} label="Invoices" value="Workspace" />
+        <Stat icon={Building2} label="Response" value="SLA tracked" />
+        <Stat icon={Star} label="Ratings" value="Post-case" />
       </div>
 
       <div className="rounded-2xl border border-border/60 bg-card shadow-soft">

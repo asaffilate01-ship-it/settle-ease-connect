@@ -52,9 +52,13 @@ function CopyAuditPage() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="font-medium">{r.surface}</div>
-                <div className="text-xs text-muted-foreground">{r.route_path} · {r.domain}</div>
+                <div className="text-xs text-muted-foreground">
+                  {r.route_path} · {r.domain}
+                </div>
               </div>
-              <Badge variant={r.status === "approved" ? "default" : "outline"}>{t(STATUS_KEY[r.status as Status] ?? "pages.copyAudit.status.pending")}</Badge>
+              <Badge variant={r.status === "approved" ? "default" : "outline"}>
+                {t(STATUS_KEY[r.status as Status] ?? "pages.copyAudit.status.pending")}
+              </Badge>
             </div>
             <Textarea
               className="mt-3"
@@ -69,13 +73,21 @@ function CopyAuditPage() {
                   key={s}
                   size="sm"
                   variant={r.status === s ? "default" : "outline"}
-                  onClick={() => save.mutate({ id: r.id, status: s, notes: notesById[r.id] ?? r.notes ?? "" })}
+                  onClick={() =>
+                    save.mutate({ id: r.id, status: s, notes: notesById[r.id] ?? r.notes ?? "" })
+                  }
                 >
                   {t(STATUS_KEY[s])}
                 </Button>
               ))}
             </div>
-            {r.reviewed_at && <div className="mt-2 text-xs text-muted-foreground">{t("pages.copyAudit.reviewedOn", { date: new Date(r.reviewed_at).toLocaleString() })}</div>}
+            {r.reviewed_at && (
+              <div className="mt-2 text-xs text-muted-foreground">
+                {t("pages.copyAudit.reviewedOn", {
+                  date: new Date(r.reviewed_at).toLocaleString(),
+                })}
+              </div>
+            )}
           </div>
         ))}
       </div>

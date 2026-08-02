@@ -29,11 +29,7 @@ export function KpiTile({
   const negative = hasDelta && deltaPct! < -0.5;
   const good = intent === "inverse" ? negative : positive;
   const bad = intent === "inverse" ? positive : negative;
-  const deltaClass = good
-    ? "text-success"
-    : bad
-      ? "text-destructive"
-      : "text-muted-foreground";
+  const deltaClass = good ? "text-success" : bad ? "text-destructive" : "text-muted-foreground";
 
   const Wrapper: any = to ? Link : "div";
   const wrapperProps: any = to ? { to } : {};
@@ -46,7 +42,10 @@ export function KpiTile({
         to && "hover:-translate-y-0.5 hover:shadow-elevated",
       )}
     >
-      <span aria-hidden className="pointer-events-none absolute inset-x-4 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(1_0_0/0.9),transparent)]" />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-4 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(1_0_0/0.9),transparent)]"
+      />
       <div className="flex items-start justify-between gap-3">
         <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
           {label}
@@ -56,15 +55,21 @@ export function KpiTile({
             values={sparkline}
             width={72}
             height={22}
-            strokeClassName={good ? "stroke-success" : bad ? "stroke-destructive" : "stroke-primary"}
-            fillClassName={good ? "fill-success/10" : bad ? "fill-destructive/10" : "fill-primary/10"}
+            strokeClassName={
+              good ? "stroke-success" : bad ? "stroke-destructive" : "stroke-primary"
+            }
+            fillClassName={
+              good ? "fill-success/10" : bad ? "fill-destructive/10" : "fill-primary/10"
+            }
           />
         )}
       </div>
       <div className="mt-3 flex items-baseline gap-2">
         <div className="font-display text-2xl font-semibold tabular-nums sm:text-3xl">{value}</div>
         {hasDelta && (
-          <div className={cn("flex items-center gap-0.5 text-xs font-medium tabular-nums", deltaClass)}>
+          <div
+            className={cn("flex items-center gap-0.5 text-xs font-medium tabular-nums", deltaClass)}
+          >
             {positive ? (
               <ArrowUpRight className="h-3 w-3" />
             ) : negative ? (
@@ -72,9 +77,7 @@ export function KpiTile({
             ) : (
               <Minus className="h-3 w-3" />
             )}
-            {positive || negative
-              ? `${Math.abs(deltaPct!).toFixed(0)}%`
-              : "flat"}
+            {positive || negative ? `${Math.abs(deltaPct!).toFixed(0)}%` : "flat"}
           </div>
         )}
       </div>

@@ -20,7 +20,13 @@ export type ManagementKpis = {
   csatCount30d: number;
   openComplaints: number;
   staffWorkload: Array<{ user_id: string; name: string | null; open_cases: number }>;
-  providerPerformance: Array<{ org_id: string; name: string; accepted: number; declined: number; pending: number }>;
+  providerPerformance: Array<{
+    org_id: string;
+    name: string;
+    accepted: number;
+    declined: number;
+    pending: number;
+  }>;
   revenueByPartner: Array<{ org_id: string | null; name: string; commission_eur: number }>;
 };
 
@@ -45,12 +51,22 @@ export const getManagementKpis = createServerFn({ method: "GET" })
       partners,
     ] = await Promise.all([
       sb.from("crm_leads").select("id,status,created_at,owner_user_id"),
-      sb.from("crm_leads").select("id,status,updated_at").in("status", ["won"]).gte("updated_at", since30),
-      sb.from("subscriptions").select("user_id,plan_code,status").in("status", ["active", "trialing", "past_due"]),
+      sb
+        .from("crm_leads")
+        .select("id,status,updated_at")
+        .in("status", ["won"])
+        .gte("updated_at", since30),
+      sb
+        .from("subscriptions")
+        .select("user_id,plan_code,status")
+        .in("status", ["active", "trialing", "past_due"]),
       sb.from("subscription_plans").select("code,monthly_price_eur"),
       sb.from("dela_referrals").select("id,status,created_at"),
       sb.from("insurance_leads").select("id,stage,created_at,triage_route"),
-      sb.from("insurance_leads").select("id", { count: "exact", head: true }).is("triage_route", null),
+      sb
+        .from("insurance_leads")
+        .select("id", { count: "exact", head: true })
+        .is("triage_route", null),
       sb.from("cases").select("id,status,case_manager_user_id,created_at,closed_at,sla_due_at"),
       sb.from("crm_complaints").select("id,status"),
       sb.from("crm_satisfaction").select("score,created_at").not("score", "is", null),
@@ -60,9 +76,12 @@ export const getManagementKpis = createServerFn({ method: "GET" })
 
     const leads = leadsAll.data ?? [];
     const newLeads30d = leads.filter((l: any) => l.created_at >= since30).length;
-    const activeLeads = leads.filter((l: any) => !["won", "lost", "disqualified"].includes(l.status)).length;
+    const activeLeads = leads.filter(
+      (l: any) => !["won", "lost", "disqualified"].includes(l.status),
+    ).length;
     const convertedLeads30d = leadsWon.data?.length ?? 0;
-    const conversionRatePct = newLeads30d > 0 ? Math.round((convertedLeads30d / newLeads30d) * 100) : 0;
+    const conversionRatePct =
+      newLeads30d > 0 ? Math.round((convertedLeads30d / newLeads30d) * 100) : 0;
 
     const planPrice = new Map<string, number>();
     for (const p of plans.data ?? []) planPrice.set(p.code, Number(p.monthly_price_eur ?? 0));
@@ -74,9 +93,20 @@ export const getManagementKpis = createServerFn({ method: "GET" })
     const dela = delaAll.data ?? [];
     const delaReferrals30d = dela.filter((r: any) => r.created_at >= since30).length;
     const delaSent = dela.filter((r: any) =>
-      ["sent", "partner_ack", "application_submitted", "policy_accepted", "policy_declined", "commission_due", "commission_paid", "renewed"].includes(r.status),
+      [
+        "sent",
+        "partner_ack",
+        "application_submitted",
+        "policy_accepted",
+        "policy_declined",
+        "commission_due",
+        "commission_paid",
+        "renewed",
+      ].includes(r.status),
     ).length;
-    const delaAccepted = dela.filter((r: any) => ["policy_accepted", "commission_due", "commission_paid", "renewed"].includes(r.status)).length;
+    const delaAccepted = dela.filter((r: any) =>
+      ["policy_accepted", "commission_due", "commission_paid", "renewed"].includes(r.status),
+    ).length;
     const delaAcceptanceRatePct = delaSent > 0 ? Math.round((delaAccepted / delaSent) * 100) : 0;
 
     const ins = insAll.data ?? [];
@@ -87,23 +117,39 @@ export const getManagementKpis = createServerFn({ method: "GET" })
     const openStatuses = ["open", "in_progress", "active", "awaiting", "assigned"];
     const activeCases = cases.filter((c: any) => c.status !== "closed").length;
     const now = Date.now();
-    const breachedCases = cases.filter((c: any) => c.status !== "closed" && c.sla_due_at && new Date(c.sla_due_at).getTime() < now).length;
-    const closed30 = cases.filter((c: any) => c.status === "closed" && c.closed_at && c.closed_at >= since30);
+    const breachedCases = cases.filter(
+      (c: any) => c.status !== "closed" && c.sla_due_at && new Date(c.sla_due_at).getTime() < now,
+    ).length;
+    const closed30 = cases.filter(
+      (c: any) => c.status === "closed" && c.closed_at && c.closed_at >= since30,
+    );
     const closedCases30d = closed30.length;
     const durations = closed30
       .filter((c: any) => c.created_at && c.closed_at)
-      .map((c: any) => (new Date(c.closed_at).getTime() - new Date(c.created_at).getTime()) / 86_400_000);
-    const avgResolutionDays = durations.length > 0
-      ? Math.round((durations.reduce((a: number, b: number) => a + b, 0) / durations.length) * 10) / 10
-      : null;
+      .map(
+        (c: any) =>
+          (new Date(c.closed_at).getTime() - new Date(c.created_at).getTime()) / 86_400_000,
+      );
+    const avgResolutionDays =
+      durations.length > 0
+        ? Math.round(
+            (durations.reduce((a: number, b: number) => a + b, 0) / durations.length) * 10,
+          ) / 10
+        : null;
 
     const csatRows = csat.data ?? [];
     const csatCount30d = csatRows.filter((r: any) => r.created_at >= since30).length;
-    const csatAvg = csatRows.length > 0
-      ? Math.round((csatRows.reduce((sum: number, r: any) => sum + Number(r.score), 0) / csatRows.length) * 10) / 10
-      : null;
+    const csatAvg =
+      csatRows.length > 0
+        ? Math.round(
+            (csatRows.reduce((sum: number, r: any) => sum + Number(r.score), 0) / csatRows.length) *
+              10,
+          ) / 10
+        : null;
 
-    const openComplaints = (complaints.data ?? []).filter((c: any) => !["closed", "resolved"].includes(c.status)).length;
+    const openComplaints = (complaints.data ?? []).filter(
+      (c: any) => !["closed", "resolved"].includes(c.status),
+    ).length;
 
     // Staff workload — open cases per case_manager_user_id
     const workloadMap = new Map<string, number>();
@@ -113,9 +159,10 @@ export const getManagementKpis = createServerFn({ method: "GET" })
       }
     }
     const workloadUserIds = [...workloadMap.keys()];
-    const profs = workloadUserIds.length > 0
-      ? await sb.from("profiles").select("id,full_name").in("id", workloadUserIds)
-      : { data: [] as any[] };
+    const profs =
+      workloadUserIds.length > 0
+        ? await sb.from("profiles").select("id,full_name").in("id", workloadUserIds)
+        : { data: [] as any[] };
     const nameOf = new Map<string, string | null>();
     for (const p of profs.data ?? []) nameOf.set(p.id, p.full_name);
     const staffWorkload = [...workloadMap.entries()]

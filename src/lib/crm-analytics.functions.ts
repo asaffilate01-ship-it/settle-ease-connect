@@ -10,7 +10,9 @@ export const campaignAttribution = createServerFn({ method: "GET" })
     // Pull recent contacts with utm
     const { data: contacts, error } = await supabase
       .from("crm_contacts")
-      .select("id, email, utm_source, utm_medium, utm_campaign, source, created_at, merged_into_user_id")
+      .select(
+        "id, email, utm_source, utm_medium, utm_campaign, source, created_at, merged_into_user_id",
+      )
       .not("utm_source", "is", null)
       .order("created_at", { ascending: false })
       .limit(2000);
@@ -19,15 +21,29 @@ export const campaignAttribution = createServerFn({ method: "GET" })
     const rows = contacts ?? [];
     const buckets = new Map<
       string,
-      { key: string; utm_source: string | null; utm_medium: string | null; utm_campaign: string | null;
-        leads: number; converted: number; memberIds: string[] }
+      {
+        key: string;
+        utm_source: string | null;
+        utm_medium: string | null;
+        utm_campaign: string | null;
+        leads: number;
+        converted: number;
+        memberIds: string[];
+      }
     >();
     for (const c of rows) {
       const key = `${c.utm_source ?? ""}|${c.utm_medium ?? ""}|${c.utm_campaign ?? ""}`;
       let b = buckets.get(key);
       if (!b) {
-        b = { key, utm_source: c.utm_source, utm_medium: c.utm_medium, utm_campaign: c.utm_campaign,
-              leads: 0, converted: 0, memberIds: [] };
+        b = {
+          key,
+          utm_source: c.utm_source,
+          utm_medium: c.utm_medium,
+          utm_campaign: c.utm_campaign,
+          leads: 0,
+          converted: 0,
+          memberIds: [],
+        };
         buckets.set(key, b);
       }
       b.leads += 1;
@@ -39,7 +55,10 @@ export const campaignAttribution = createServerFn({ method: "GET" })
 
     // Fetch subscription revenue for merged members
     const allMemberIds = [...new Set([...buckets.values()].flatMap((b) => b.memberIds))];
-    let subByUser = new Map<string, { plan_code: string | null; monthly: number; months: number }>();
+    const subByUser = new Map<
+      string,
+      { plan_code: string | null; monthly: number; months: number }
+    >();
     if (allMemberIds.length) {
       const { data: subs } = await supabase
         .from("subscriptions")
@@ -53,7 +72,10 @@ export const campaignAttribution = createServerFn({ method: "GET" })
       for (const s of subs ?? []) {
         const monthly = priceMap.get(s.plan_code ?? "") ?? 0;
         const startedAt = s.created_at ? new Date(s.created_at) : new Date();
-        const months = Math.max(1, Math.round((Date.now() - startedAt.getTime()) / (1000 * 60 * 60 * 24 * 30)));
+        const months = Math.max(
+          1,
+          Math.round((Date.now() - startedAt.getTime()) / (1000 * 60 * 60 * 24 * 30)),
+        );
         subByUser.set(s.user_id, { plan_code: s.plan_code, monthly, months });
       }
     }
@@ -121,7 +143,9 @@ export const listCommissionRows = createServerFn({ method: "GET" })
     const { supabase } = context;
     const { data, error } = await supabase
       .from("insurance_leads")
-      .select("id, full_name, email, carrier_partner, product_line, stage, commission_amount, commission_status, policy_reference, updated_at")
+      .select(
+        "id, full_name, email, carrier_partner, product_line, stage, commission_amount, commission_status, policy_reference, updated_at",
+      )
       .not("commission_amount", "is", null)
       .order("updated_at", { ascending: false })
       .limit(500);
@@ -143,15 +167,17 @@ export const listCommissionRows = createServerFn({ method: "GET" })
 
 export const reconcileCommissions = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { csv: string }) => z.object({ csv: z.string().min(1) }).parse(d))
+  .validator((d: { csv: string }) => z.object({ csv: z.string().min(1) }).parse(d))
   .handler(async ({ data, context }) => {
     // CSV columns expected: policy_reference,amount_paid,paid_at
     const lines = data.csv.trim().split(/\r?\n/).filter(Boolean);
-    if (lines.length < 2) throw new Error("CSV must include a header row and at least one data row");
+    if (lines.length < 2)
+      throw new Error("CSV must include a header row and at least one data row");
     const header = lines[0].split(",").map((h) => h.trim().toLowerCase());
     const idxRef = header.indexOf("policy_reference");
     const idxAmt = header.indexOf("amount_paid");
-    if (idxRef < 0 || idxAmt < 0) throw new Error("CSV must have columns: policy_reference, amount_paid, paid_at");
+    if (idxRef < 0 || idxAmt < 0)
+      throw new Error("CSV must have columns: policy_reference, amount_paid, paid_at");
 
     let matched = 0;
     let unmatched = 0;
@@ -160,21 +186,25 @@ export const reconcileCommissions = createServerFn({ method: "POST" })
       const parts = line.split(",").map((c) => c.trim());
       const ref = parts[idxRef];
       const amt = Number(parts[idxAmt]);
-      if (!ref || Number.isNaN(amt)) { unmatched += 1; continue; }
+      if (!ref || Number.isNaN(amt)) {
+        unmatched += 1;
+        continue;
+      }
       const { data: hit, error } = await supabase
         .from("insurance_leads")
         .update({ commission_status: "paid", commission_amount: amt })
         .eq("policy_reference", ref)
         .select("id");
       if (error) throw error;
-      if (hit && hit.length) matched += 1; else unmatched += 1;
+      if (hit && hit.length) matched += 1;
+      else unmatched += 1;
     }
     return { matched, unmatched };
   });
 
 export const markCommissionPaid = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { leadId: string }) => z.object({ leadId: z.string().uuid() }).parse(d))
+  .validator((d: { leadId: string }) => z.object({ leadId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("insurance_leads")

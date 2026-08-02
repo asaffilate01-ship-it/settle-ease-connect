@@ -1,12 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+import { enforcePublicRateLimit } from "@/lib/public-rate-limit.server";
 
 const CallbackSchema = z.object({
-  full_name: z.string().min(2).max(120),
-  email: z.string().email().max(200),
-  phone: z.string().min(4).max(40).optional().nullable(),
+  full_name: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(200),
+  phone: z.string().trim().min(4).max(40).optional().nullable(),
   product_line: z.enum([
     "expat_health",
     "liability",
@@ -29,15 +28,17 @@ const CallbackSchema = z.object({
  * general MGA callback can be captured without those fields.
  */
 export const submitInsuranceCallback = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => CallbackSchema.parse(raw))
+  .validator((raw: unknown) => CallbackSchema.parse(raw))
   .handler(async ({ data }) => {
-    const supabase = createClient<Database>(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_PUBLISHABLE_KEY!,
-      { auth: { persistSession: false, autoRefreshToken: false } },
-    );
+    await enforcePublicRateLimit({
+      scope: "insurance-referral",
+      limit: 5,
+      windowSeconds: 3600,
+      subject: data.email.toLowerCase(),
+    });
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { error } = await supabase.from("insurance_leads").insert({
+    const { error } = await supabaseAdmin.from("insurance_leads").insert({
       full_name: data.full_name,
       email: data.email,
       phone: data.phone ?? null,

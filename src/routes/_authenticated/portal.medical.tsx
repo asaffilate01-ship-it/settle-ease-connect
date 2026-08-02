@@ -49,12 +49,23 @@ function MedicalConsole() {
                         {e.full_name}
                         {e.verified && <ShieldCheck className="h-3 w-3 text-emerald-600" />}
                       </div>
-                      <div className="text-xs text-muted-foreground">{e.profession} · {e.city ?? "—"}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {e.profession} · {e.city ?? "—"}
+                      </div>
                     </div>
-                    <Badge variant={e.status === "active" ? "outline" : "secondary"} className="text-[10px] uppercase">{e.status}</Badge>
+                    <Badge
+                      variant={e.status === "active" ? "outline" : "secondary"}
+                      className="text-[10px] uppercase"
+                    >
+                      {e.status}
+                    </Badge>
                   </div>
                 ))}
-                {data.experts.length === 0 && <div className="p-6 text-center text-sm text-muted-foreground">No medical experts yet.</div>}
+                {data.experts.length === 0 && (
+                  <div className="p-6 text-center text-sm text-muted-foreground">
+                    No medical experts yet.
+                  </div>
+                )}
               </div>
             </div>
             <div className="rounded-xl border border-border/60 bg-card">
@@ -64,12 +75,20 @@ function MedicalConsole() {
                   <div key={c.id} className="flex items-center justify-between px-4 py-2.5 text-sm">
                     <div className="min-w-0">
                       <div className="truncate font-medium">{c.title}</div>
-                      <div className="text-xs text-muted-foreground">Priority {c.priority ?? "—"}</div>
+                      <div className="text-xs text-muted-foreground">
+                        Priority {c.priority ?? "—"}
+                      </div>
                     </div>
-                    <Badge variant="outline" className="text-[10px] uppercase">{c.status}</Badge>
+                    <Badge variant="outline" className="text-[10px] uppercase">
+                      {c.status}
+                    </Badge>
                   </div>
                 ))}
-                {data.cases.length === 0 && <div className="p-6 text-center text-sm text-muted-foreground">No active medical cases.</div>}
+                {data.cases.length === 0 && (
+                  <div className="p-6 text-center text-sm text-muted-foreground">
+                    No active medical cases.
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -80,7 +99,9 @@ function MedicalConsole() {
         <EmptyTab>Medical quotes are issued per case in the expert workspace.</EmptyTab>
       )}
       {tab === "callbacks" && (
-        <EmptyTab>Medical requests are routed through case messaging, not a callback queue.</EmptyTab>
+        <EmptyTab>
+          Medical requests are routed through case messaging, not a callback queue.
+        </EmptyTab>
       )}
       {tab === "reconciliation" && (
         <div className="grid gap-3 sm:grid-cols-3">
@@ -93,11 +114,21 @@ function MedicalConsole() {
   );
 }
 
-function Kpi({ label, value, tone = "muted" }: { label: string; value: string | number; tone?: "muted" | "primary" | "success" }) {
+function Kpi({
+  label,
+  value,
+  tone = "muted",
+}: {
+  label: string;
+  value: string | number;
+  tone?: "muted" | "primary" | "success";
+}) {
   const cls =
-    tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-    : tone === "primary" ? "border-primary/20 bg-primary/5 text-primary"
-    : "border-border/60 bg-muted/40";
+    tone === "success"
+      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+      : tone === "primary"
+        ? "border-primary/20 bg-primary/5 text-primary"
+        : "border-border/60 bg-muted/40";
   return (
     <div className={`rounded-xl border p-4 ${cls}`}>
       <div className="text-xs font-medium uppercase tracking-wide opacity-80">{label}</div>

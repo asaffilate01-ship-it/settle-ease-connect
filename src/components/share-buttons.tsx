@@ -13,40 +13,39 @@ export function ShareButtons({ url, title }: Props) {
   const [copied, setCopied] = useState(false);
 
   const absolute =
-    typeof window !== "undefined" && url.startsWith("/")
-      ? `${window.location.origin}${url}`
-      : url;
+    typeof window !== "undefined" && url.startsWith("/") ? `${window.location.origin}${url}` : url;
 
   const encodedUrl = encodeURIComponent(absolute);
   const encodedTitle = encodeURIComponent(title);
 
-  const links: { name: string; href: string; Icon: React.ComponentType<{ className?: string }> }[] = [
-    {
-      name: "Facebook",
-      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-      Icon: Facebook,
-    },
-    {
-      name: "LinkedIn",
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      Icon: Linkedin,
-    },
-    {
-      name: "X",
-      href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
-      Icon: XMark,
-    },
-    {
-      name: "WhatsApp",
-      href: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
-      Icon: WhatsApp,
-    },
-    {
-      name: "Email",
-      href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
-      Icon: Mail,
-    },
-  ];
+  const links: { name: string; href: string; Icon: React.ComponentType<{ className?: string }> }[] =
+    [
+      {
+        name: "Facebook",
+        href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+        Icon: Facebook,
+      },
+      {
+        name: "LinkedIn",
+        href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+        Icon: Linkedin,
+      },
+      {
+        name: "X",
+        href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+        Icon: XMark,
+      },
+      {
+        name: "WhatsApp",
+        href: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+        Icon: WhatsApp,
+      },
+      {
+        name: "Email",
+        href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
+        Icon: Mail,
+      },
+    ];
 
   const onCopy = async () => {
     try {

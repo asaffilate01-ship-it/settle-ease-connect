@@ -34,7 +34,6 @@ export function SiteHeader() {
     navigate({ to: "/", replace: true });
   }
 
-
   // Grouped desktop nav — collapses 8 links into 5 top-level slots.
   const groups: NavGroup[] = [
     {
@@ -48,7 +47,7 @@ export function SiteHeader() {
         {
           label: t("nav.directory", "Directory"),
           href: "/directory",
-          hint: t("nav.hint.directory", "Find vetted local providers"),
+          hint: t("nav.hint.directory", "Find local provider listings"),
         },
         {
           label: t("nav.bereavement", "Bereavement"),
@@ -87,7 +86,6 @@ export function SiteHeader() {
     { label: t("nav.forProviders", "For providers"), href: "/for-providers" },
     { label: t("nav.pricing", "Pricing"), href: "/pricing" },
     { label: t("nav.blog", "Blog"), href: "/blog" },
-
   ];
 
   // Flat list for the mobile sheet.
@@ -95,23 +93,22 @@ export function SiteHeader() {
     [t("nav.howItWorks"), "/how-it-works"],
     [t("nav.services"), "/services"],
     [t("nav.directory"), "/directory"],
-      [t("nav.bereavement"), "/bereavement"],
-      [t("nav.students"), "/students"],
-      [t("nav.insurance"), "/insurance"],
-      [t("nav.groupCover"), "/group-cover"],
-      [t("nav.taxRefund"), "/tax"],
-      [t("nav.leavingGermany"), "/leaving-germany"],
-      [t("nav.events", "Events & clinics"), "/events"],
-      [t("nav.forProviders"), "/for-providers"],
-      [t("nav.pricing"), "/pricing"],
-      [t("nav.blog"), "/blog"],
-
-    ];
+    [t("nav.bereavement"), "/bereavement"],
+    [t("nav.students"), "/students"],
+    [t("nav.insurance"), "/insurance"],
+    [t("nav.groupCover"), "/group-cover"],
+    [t("nav.taxRefund"), "/tax"],
+    [t("nav.leavingGermany"), "/leaving-germany"],
+    [t("nav.events", "Events & clinics"), "/events"],
+    [t("nav.forProviders"), "/for-providers"],
+    [t("nav.pricing"), "/pricing"],
+    [t("nav.blog"), "/blog"],
+  ];
 
   return (
     <>
-    <div className="safe-top sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 md:h-[72px]">
+      <div className="safe-top sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 md:h-[72px]">
           {/* Logo */}
           <Link to="/" className="flex min-w-0 items-center gap-2.5">
             <img
@@ -170,8 +167,8 @@ export function SiteHeader() {
                     {role === "agent"
                       ? t("nav.openAgentPortal", { defaultValue: "Agent portal" })
                       : dashHref === "/portal"
-                      ? t("nav.openStaffPortal", { defaultValue: "Staff portal" })
-                      : t("nav.openDashboard")}
+                        ? t("nav.openStaffPortal", { defaultValue: "Staff portal" })
+                        : t("nav.openDashboard")}
                   </Link>
                 </Button>
               </>
@@ -261,21 +258,45 @@ export function SiteHeader() {
                 <div className="safe-bottom border-t border-border/60 bg-background/95 px-4 pt-3 pb-4">
                   {isSignedIn ? (
                     <div className="grid grid-cols-2 gap-2">
-                      <Button variant="outline" size="lg" className="h-12 rounded-xl text-[15px]" onClick={handleSignOut}>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="h-12 rounded-xl text-[15px]"
+                        onClick={handleSignOut}
+                      >
                         <LogOut className="me-2 h-4 w-4" />
                         {t("sidebar.signOut", { defaultValue: "Sign out" })}
                       </Button>
-                      <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
-                        <Link to={dashHref} onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                      <Button
+                        asChild
+                        size="lg"
+                        className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft"
+                      >
+                        <Link to={dashHref} onClick={() => setOpen(false)}>
+                          {t("nav.openDashboard")}
+                        </Link>
                       </Button>
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-2">
-                      <Button asChild variant="outline" size="lg" className="h-12 rounded-xl text-[15px]">
-                        <Link to="/auth" onClick={() => setOpen(false)}>{t("nav.signIn")}</Link>
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="lg"
+                        className="h-12 rounded-xl text-[15px]"
+                      >
+                        <Link to="/auth" onClick={() => setOpen(false)}>
+                          {t("nav.signIn")}
+                        </Link>
                       </Button>
-                      <Button asChild size="lg" className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft">
-                        <Link to="/auth" onClick={() => setOpen(false)}>{t("nav.openDashboard")}</Link>
+                      <Button
+                        asChild
+                        size="lg"
+                        className="h-12 rounded-xl bg-gradient-primary text-[15px] shadow-soft"
+                      >
+                        <Link to="/auth" onClick={() => setOpen(false)}>
+                          {t("nav.openDashboard")}
+                        </Link>
                       </Button>
                     </div>
                   )}
@@ -283,9 +304,9 @@ export function SiteHeader() {
               </div>
             </SheetContent>
           </Sheet>
+        </div>
       </div>
-    </div>
-    <MobileCtaBar hidden={isSignedIn} />
+      <MobileCtaBar hidden={isSignedIn} />
     </>
   );
 }
@@ -382,7 +403,6 @@ export function SiteFooter() {
 
             [t("footer.offline"), "/offline"],
           ]}
-
         />
         <FooterCol
           title={t("footer.colLegal")}

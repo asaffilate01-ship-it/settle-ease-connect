@@ -1,7 +1,6 @@
-// Browser-side web-push subscription helper.
-// Publishable VAPID key — safe to embed in the client bundle.
-export const VAPID_PUBLIC_KEY =
-  "BOxZS-y2z7o2kRRULdTJdgkNkG_iU16b7kEZjjGKX993zNhxQBQhhLhNoaZpVcMbhEGqaB5ix41gMvTtTXL5hcM";
+// Browser-side web-push subscription helper. The publishable VAPID key is
+// injected at build time so deployments never inherit a repository key.
+export const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY?.trim() ?? "";
 
 function urlBase64ToUint8Array(base64: string): Uint8Array {
   const padding = "=".repeat((4 - (base64.length % 4)) % 4);
@@ -34,6 +33,7 @@ function inLovablePreview(): boolean {
 
 export function pushSupported(): boolean {
   return (
+    Boolean(VAPID_PUBLIC_KEY) &&
     typeof window !== "undefined" &&
     "serviceWorker" in navigator &&
     "PushManager" in window &&
@@ -56,6 +56,7 @@ export async function subscribeToPush(): Promise<{
   p256dh?: string;
   auth?: string;
 } | null> {
+  if (!VAPID_PUBLIC_KEY) throw new Error("Web push is not configured for this deployment");
   if (!pushSupported()) return null;
   const reg = await ensureServiceWorker();
   if (!reg) return null;

@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2, requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 /**
  * Governance server functions: DPO privacy-request console, member-facing
@@ -46,7 +46,7 @@ const PRIVACY_STATUSES = [
 /* ------------------------- DPO console ------------------------- */
 
 export const listPrivacyRequests = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     const { canRead, canWrite } = await accessLevel(context as Ctx);
     if (!canRead) throw new Error("Not authorised for the privacy console.");
@@ -62,8 +62,8 @@ export const listPrivacyRequests = createServerFn({ method: "GET" })
   });
 
 export const updatePrivacyRequest = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -109,7 +109,7 @@ export const listMyPrivacyRequests = createServerFn({ method: "GET" })
 
 export const submitPrivacyRequest = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         requestType: z.enum(PRIVACY_TYPES),
@@ -159,7 +159,7 @@ const STATUSES = [
 const SEVERITIES = ["low", "medium", "high", "critical"] as const;
 
 export const listComplianceActions = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     const { canRead, canWrite } = await accessLevel(context as Ctx);
     if (!canRead) throw new Error("Not authorised for the compliance console.");
@@ -175,8 +175,8 @@ export const listComplianceActions = createServerFn({ method: "GET" })
   });
 
 export const saveComplianceAction = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),

@@ -34,7 +34,8 @@ export async function callAdvisoryGateway(
     body: JSON.stringify({ model: ADVISORY_MODEL, messages }),
   });
   if (res.status === 429) throw new Error("AI service is rate-limited. Please try again shortly.");
-  if (res.status === 402) throw new Error("AI credits exhausted. Please top up in workspace billing.");
+  if (res.status === 402)
+    throw new Error("AI credits exhausted. Please top up in workspace billing.");
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`AI gateway error ${res.status}: ${body.slice(0, 200)}`);

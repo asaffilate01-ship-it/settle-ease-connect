@@ -2,18 +2,16 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2, requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 function publicClient() {
-  return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_PUBLISHABLE_KEY!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
+  return createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+  });
 }
 
 export const listDirectoryListings = createServerFn({ method: "GET" })
-  .inputValidator((d: { category?: string; city?: string } | undefined) => d ?? {})
+  .validator((d: { category?: string; city?: string } | undefined) => d ?? {})
   .handler(async ({ data }) => {
     const supabase = publicClient();
     // Public browsing never returns PII (email/phone/address). Owner contact
@@ -30,7 +28,6 @@ export const listDirectoryListings = createServerFn({ method: "GET" })
     if (error) return { listings: [], error: error.message };
     return { listings: rows ?? [], error: null };
   });
-
 
 const listingSchema = z.object({
   business_name: z.string().min(2).max(200),
@@ -65,13 +62,21 @@ export const listMyDirectoryListings = createServerFn({ method: "GET" })
 
 export const createDirectoryListing = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => listingSchema.parse(d))
+  .validator((d: unknown) => listingSchema.parse(d))
   .handler(async ({ data, context }) => {
     // Free listings go through staff moderation before appearing publicly.
-    const { data: row, error } = await context.supabase
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
       .from("directory_listings")
-      .insert({ ...data, owner_user_id: context.userId, status: "pending" })
-      .select().single();
+      .insert({
+        ...data,
+        owner_user_id: context.userId,
+        status: "pending",
+        featured: false,
+        paid_until: null,
+      })
+      .select()
+      .single();
     if (error) throw new Error(error.message);
     return row;
   });
@@ -80,7 +85,8 @@ export const createDirectoryListing = createServerFn({ method: "POST" })
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId, _role: "admin",
+    _user_id: context.userId,
+    _role: "admin",
   });
   if (!data) {
     const { data: staff } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
@@ -89,8 +95,10 @@ async function assertAdmin(context: { supabase: any; userId: string }) {
 }
 
 export const listDirectoryModerationQueue = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { status?: "pending" | "active" | "rejected" | "suspended" } | undefined) => d ?? {})
+  .middleware([requireSupabaseAal2])
+  .validator(
+    (d: { status?: "pending" | "active" | "rejected" | "suspended" } | undefined) => d ?? {},
+  )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     // Moderation view needs PII, which is no longer granted to authenticated.
@@ -106,17 +114,20 @@ export const listDirectoryModerationQueue = createServerFn({ method: "GET" })
   });
 
 export const setDirectoryListingStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
-    z.object({
-      id: z.string().uuid(),
-      status: z.enum(["pending", "active", "rejected", "suspended"]),
-      note: z.string().max(1000).optional(),
-    }).parse(d),
+  .middleware([requireSupabaseAal2])
+  .validator((d: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        status: z.enum(["pending", "active", "rejected", "suspended"]),
+        note: z.string().max(1000).optional(),
+      })
+      .parse(d),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { error } = await context.supabase
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
       .from("directory_listings")
       .update({ status: data.status })
       .eq("id", data.id);
@@ -126,14 +137,14 @@ export const setDirectoryListingStatus = createServerFn({ method: "POST" })
 
 export const updateDirectoryListing = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
-    listingSchema.partial().extend({ id: z.string().uuid() }).parse(d),
-  )
+  .validator((d: unknown) => listingSchema.partial().extend({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { id, ...patch } = data;
-    const { error } = await context.supabase
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
       .from("directory_listings")
-      .update(patch)
+      // Owner edits must be moderated again before the changed content is public.
+      .update({ ...patch, status: "pending" })
       .eq("id", id)
       .eq("owner_user_id", context.userId);
     if (error) throw new Error(error.message);
@@ -142,7 +153,7 @@ export const updateDirectoryListing = createServerFn({ method: "POST" })
 
 export const deleteDirectoryListing = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("directory_listings")

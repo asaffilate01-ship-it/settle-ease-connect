@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const CATEGORY = z.enum([
   "funeral_director",
@@ -28,7 +28,7 @@ const TRANSLATOR_TYPE = z.enum([
 // ============ Service categories ============
 export const listPartnerCategories = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
+  .validator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("partner_service_categories")
@@ -41,7 +41,7 @@ export const listPartnerCategories = createServerFn({ method: "GET" })
 
 export const addPartnerCategory = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         orgId: z.string().uuid(),
@@ -65,7 +65,7 @@ export const addPartnerCategory = createServerFn({ method: "POST" })
 
 export const updatePartnerCategory = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -83,7 +83,8 @@ export const updatePartnerCategory = createServerFn({ method: "POST" })
     } = {};
     if (data.active !== undefined) patch.active = data.active;
     if (data.swornCourts !== undefined) patch.sworn_courts = data.swornCourts;
-    if (data.translatorServiceType !== undefined) patch.translator_service_type = data.translatorServiceType;
+    if (data.translatorServiceType !== undefined)
+      patch.translator_service_type = data.translatorServiceType;
     const { error } = await context.supabase
       .from("partner_service_categories")
       .update(patch)
@@ -94,9 +95,12 @@ export const updatePartnerCategory = createServerFn({ method: "POST" })
 
 export const removePartnerCategory = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase.from("partner_service_categories").delete().eq("id", data.id);
+    const { error } = await context.supabase
+      .from("partner_service_categories")
+      .delete()
+      .eq("id", data.id);
     if (error) throw error;
     return { ok: true };
   });
@@ -104,7 +108,7 @@ export const removePartnerCategory = createServerFn({ method: "POST" })
 // ============ Service regions ============
 export const listPartnerRegions = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
+  .validator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("partner_service_regions")
@@ -117,7 +121,7 @@ export const listPartnerRegions = createServerFn({ method: "GET" })
 
 export const addPartnerRegion = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         orgId: z.string().uuid(),
@@ -142,9 +146,12 @@ export const addPartnerRegion = createServerFn({ method: "POST" })
 
 export const removePartnerRegion = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase.from("partner_service_regions").delete().eq("id", data.id);
+    const { error } = await context.supabase
+      .from("partner_service_regions")
+      .delete()
+      .eq("id", data.id);
     if (error) throw error;
     return { ok: true };
   });
@@ -152,7 +159,7 @@ export const removePartnerRegion = createServerFn({ method: "POST" })
 // ============ Availability ============
 export const listPartnerAvailability = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
+  .validator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("partner_availability")
@@ -166,7 +173,7 @@ export const listPartnerAvailability = createServerFn({ method: "GET" })
 
 export const addPartnerAvailability = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         orgId: z.string().uuid(),
@@ -192,9 +199,12 @@ export const addPartnerAvailability = createServerFn({ method: "POST" })
 
 export const removePartnerAvailability = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase.from("partner_availability").delete().eq("id", data.id);
+    const { error } = await context.supabase
+      .from("partner_availability")
+      .delete()
+      .eq("id", data.id);
     if (error) throw error;
     return { ok: true };
   });
@@ -208,7 +218,9 @@ export const listPartnerDocsPendingReview = createServerFn({ method: "GET" })
     if (!isStaff) throw new Error("Forbidden");
     const { data, error } = await supabase
       .from("partner_documents")
-      .select("id, org_id, title, category, status, storage_path, valid_until, created_at, partner_organisations(legal_name, trading_name)")
+      .select(
+        "id, org_id, title, category, status, storage_path, valid_until, created_at, partner_organisations(legal_name, trading_name)",
+      )
       .in("status", ["pending", "submitted", "under_review"])
       .order("created_at", { ascending: true })
       .limit(200);
@@ -218,7 +230,7 @@ export const listPartnerDocsPendingReview = createServerFn({ method: "GET" })
 
 export const reviewPartnerDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         id: z.string().uuid(),

@@ -23,7 +23,11 @@ export const Route = createFileRoute("/_authenticated/app/upgrade")({
   head: () => ({
     meta: [
       { title: "Choose your plan — BeistandPlus" },
-      { name: "description", content: "Basic, Plus and Complete plans for German settlement, benefits, tax and case management." },
+      {
+        name: "description",
+        content:
+          "Basic, Plus and Complete plans for German settlement, benefits, tax and case management.",
+      },
     ],
   }),
   component: UpgradePage,
@@ -74,13 +78,15 @@ function UpgradePage() {
         </div>
         <h1 className="display-lg mt-3 font-semibold">Choose the plan that fits your household</h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-muted-foreground">
-          Third-party costs (visa fees, notary, funeral director, translations) are always separate and transparent. Upgrade,
-          downgrade or cancel any time.
+          Third-party costs (visa fees, notary, funeral director, translations) are always separate
+          and transparent. Upgrade, downgrade or cancel any time.
         </p>
         {!sub.loading && sub.planGroup !== "none" && (
           <div className="mt-3 text-xs text-muted-foreground">
-            You're currently on <strong className="text-foreground">{sub.planName ?? sub.planCode}</strong>
-            {sub.currentPeriodEnd && ` · renews ${new Date(sub.currentPeriodEnd).toLocaleDateString()}`}
+            You're currently on{" "}
+            <strong className="text-foreground">{sub.planName ?? sub.planCode}</strong>
+            {sub.currentPeriodEnd &&
+              ` · renews ${new Date(sub.currentPeriodEnd).toLocaleDateString()}`}
           </div>
         )}
       </header>
@@ -101,7 +107,9 @@ function UpgradePage() {
       </div>
 
       {loading ? (
-        <div className="rounded-2xl border border-dashed p-8 text-center text-sm text-muted-foreground">Loading plans…</div>
+        <div className="rounded-2xl border border-dashed p-8 text-center text-sm text-muted-foreground">
+          Loading plans…
+        </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => {
@@ -122,7 +130,9 @@ function UpgradePage() {
                 <div className="font-display text-2xl font-semibold">{p.name}</div>
                 {p.tagline && <div className="mt-1 text-sm text-muted-foreground">{p.tagline}</div>}
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="font-display text-4xl font-semibold">€{p.monthly_price_eur}</span>
+                  <span className="font-display text-4xl font-semibold">
+                    €{p.monthly_price_eur}
+                  </span>
                   <span className="text-sm text-muted-foreground">/mo</span>
                 </div>
                 <ul className="mt-4 flex-1 space-y-2 text-sm">
@@ -153,12 +163,19 @@ function UpgradePage() {
         </div>
       )}
 
-      <FuneralCoverUpsell defaultEmail={user?.email ?? undefined} defaultName={profile?.full_name ?? undefined} />
+      <FuneralCoverUpsell
+        defaultEmail={user?.email ?? undefined}
+        defaultName={profile?.full_name ?? undefined}
+      />
 
       <PaymentTestModeBanner />
       <div className="rounded-2xl border bg-muted/30 p-4 text-xs text-muted-foreground">
-        <strong className="text-foreground">Note:</strong> plan changes take effect immediately. Verified students automatically get 20% off tier subscriptions at checkout — funeral cover is priced separately.
-        <Link to="/app/settings" className="ml-1 text-primary hover:underline">Manage billing →</Link>
+        <strong className="text-foreground">Note:</strong> plan changes take effect immediately.
+        Verified students automatically get 20% off tier subscriptions at checkout — funeral cover
+        is priced separately.
+        <Link to="/app/settings" className="ml-1 text-primary hover:underline">
+          Manage billing →
+        </Link>
       </div>
       {checkoutElement}
     </div>

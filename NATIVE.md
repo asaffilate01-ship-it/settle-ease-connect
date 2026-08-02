@@ -1,67 +1,54 @@
-# Native mobile (iOS + Android)
+# Native iOS and Android release guide
 
-Beistand ships as a real native app via **Capacitor**, wrapping the same
-TanStack Start web app. No rewrites — the native shell loads the live web
-build, so every deploy updates the app instantly.
+## Architecture
 
-## What's already wired
+BeistandPlus uses one shared React/TanStack Start codebase. Because the web application uses server rendering and server functions, Capacitor loads the deployed HTTPS application set by `CAPACITOR_SERVER_URL`; it is not a static `dist` bundle. `native-shell/index.html` is a local fail-safe shown when a build is synced without a server URL.
 
-- `capacitor.config.ts` — app id `app.lovable.beistand`, Ocean Deep splash + status bar.
-- `src/lib/native.ts` — safe boot (splash hide, status bar theming, keyboard resize, Android back button, haptics, share sheet). No-op on the web.
-- `src/styles.css` — `env(safe-area-inset-*)` padding for notches, keyboard-open handling.
-- Installed plugins: `@capacitor/app`, `haptics`, `keyboard`, `preferences`, `network`, `share`, `splash-screen`, `status-bar`.
+Generated projects are committed in `ios/` and `android/`. The application ID is `de.beistandplus.app` and the display name is `BeistandPlus`.
 
-## Add the native platforms (run locally, not in Lovable)
+## Sync a production domain
 
 ```bash
-# 1. Clone your project from GitHub (Lovable → GitHub → Connect Repo)
-git clone <your-repo> && cd <your-repo>
-bun install
-
-# 2. Add platforms (iOS needs macOS + Xcode 15+; Android needs Android Studio)
-npx cap add ios
-npx cap add android
-
-# 3. Sync web assets + native plugin config
-npx cap sync
-
-# 4. Run on device / simulator
-npx cap run ios         # opens Xcode
-npx cap run android     # opens Android Studio
+export CAPACITOR_SERVER_URL=https://beistandplus.de
+npm run mobile:sync
 ```
 
-## Dev vs production
+The validator rejects HTTP and Lovable preview domains. Re-run the command whenever Capacitor plugins or `capacitor.config.ts` change. Verify the domain is deployed, uses a valid TLS certificate, and serves the exact reviewed release before building a store binary.
 
-- **Dev / preview**: `capacitor.config.ts` has `server.url` pointing at the
-  Lovable preview — the app hot-loads from there, so every code change
-  appears on the device immediately (no rebuild).
-- **Production / App Store**: before shipping, either
-  1. change `server.url` to your custom domain (e.g. `https://beistand.app`), or
-  2. remove `server.url` entirely and ship a static bundle:
-     ```bash
-     bun run build
-     npx cap copy
-     npx cap open ios     # archive & upload via Xcode
-     npx cap open android # signed AAB via Android Studio
-     ```
+## Native features already wired
 
-## Using native features from React
+- Branded iOS/Android icons and splash screens
+- Safe-area, keyboard, status-bar, Android back-button, haptic and share bridges
+- Rear-camera document capture through the file picker
+- User-initiated APNs/FCM token registration
+- Optional HTTPS native-push delivery gateway
+- Cleartext traffic disabled and Android application backups disabled
+- Stripe subscription checkout and billing management blocked inside native apps
 
-```ts
-import { tap, share, isNative } from "@/lib/native";
+Native push remains hidden unless `VITE_NATIVE_PUSH_ENABLED=true`. When enabled, configure `NATIVE_PUSH_DELIVERY_ENDPOINT` and `NATIVE_PUSH_DELIVERY_BEARER_TOKEN`; the gateway receives a bounded JSON request containing platform, device token and notification payload.
 
-<button onClick={() => { tap("light"); doThing(); }}>…</button>
+## iOS completion
 
-await share({ title: "Case 42", url: "https://beistand.app/cases/42" });
-```
+1. Use macOS with the current stable Xcode supported by Capacitor 8.
+2. Open `ios/App/App.xcodeproj`, select the correct Apple Developer team and confirm bundle ID `de.beistandplus.app`.
+3. Add the Push Notifications capability and the appropriate APNs entitlement if push is enabled.
+4. Configure APNs credentials in the deployment-owned native-push gateway.
+5. Confirm version/build numbers, privacy manifest/labels, support URL, privacy-policy URL and App Store screenshots.
+6. Test camera selection, MFA, deep links, session expiry, offline/reconnect, notification handling and account deletion on real iPhone/iPad devices.
+7. Archive, upload to TestFlight, complete external testing, then submit for review.
 
-## Push notifications, camera, biometrics
+## Android completion
 
-Add on demand:
+1. Open `android/` in the current stable Android Studio supported by Capacitor 8.
+2. Create a Firebase Android app for `de.beistandplus.app` and add the production `google-services.json` if push is enabled. Do not commit credential-bearing files unless your security policy explicitly permits it.
+3. Configure FCM credentials in the deployment-owned native-push gateway.
+4. Create and securely store the upload/release keystore outside Git; configure Play App Signing.
+5. Confirm version code/name, data-safety disclosure, content rating, privacy policy, screenshots and store listing.
+6. Test camera selection, MFA, deep links, session expiry, offline/reconnect and notification handling on physical devices.
+7. Produce a signed Android App Bundle and complete closed testing before production rollout.
 
-```bash
-bun add @capacitor/push-notifications @capacitor/camera @capacitor-community/biometric-auth
-npx cap sync
-```
+## Store-review decisions
 
-Then guard every call with `isNative()` so the web build keeps working.
+The mobile app currently supports existing memberships but does not show Stripe checkout or the Stripe billing portal in the native WebView. Before enabling digital subscription purchases, implement and obtain review for the applicable StoreKit/Google Play Billing or permitted entitlement model. Also prepare review notes demonstrating native utility (camera capture, push, haptics, secure vault and case workflows); a simple repackaged website can be rejected.
+
+Signing certificates, store accounts, APNs/FCM credentials, legal disclosures and store approval are external release inputs and are not included in source control.

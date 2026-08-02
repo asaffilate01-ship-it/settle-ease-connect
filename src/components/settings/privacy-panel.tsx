@@ -50,7 +50,7 @@ export function PrivacyPanel() {
       toast.success(
         r.alreadyOpen
           ? "You already have a deletion request in progress."
-          : "Deletion request received. Our team will confirm within 30 days.",
+          : "Deletion request received. You can track it here while it is reviewed.",
       );
       setReason("");
       qc.invalidateQueries({ queryKey: ["privacy-requests"] });
@@ -75,8 +75,8 @@ export function PrivacyPanel() {
             <Download className="h-4 w-4 text-primary" /> Download my data
           </CardTitle>
           <CardDescription>
-            A machine-readable copy of your profile, cases, documents index, plan, checklists and event
-            registrations (GDPR Art. 20).
+            A machine-readable copy of your profile, cases, documents index, plan, checklists and
+            event registrations (GDPR Art. 20).
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -104,7 +104,11 @@ export function PrivacyPanel() {
             placeholder="Optional: tell us why you're leaving"
             className="min-h-20"
           />
-          <Button variant="destructive" onClick={() => deleteM.mutate()} disabled={deleteM.isPending}>
+          <Button
+            variant="destructive"
+            onClick={() => deleteM.mutate()}
+            disabled={deleteM.isPending}
+          >
             {deleteM.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Request deletion
           </Button>
@@ -116,7 +120,9 @@ export function PrivacyPanel() {
           <CardTitle className="flex items-center gap-2 text-base">
             <ShieldCheck className="h-4 w-4 text-primary" /> Request history
           </CardTitle>
-          <CardDescription>Every export and deletion request is logged for auditability.</CardDescription>
+          <CardDescription>
+            Every export and deletion request is logged for auditability.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
           {requestsQ.isLoading ? (
@@ -140,11 +146,17 @@ export function PrivacyPanel() {
                   <Badge variant="outline" className="capitalize">
                     {r.status}
                   </Badge>
-                  {r.kind === "deletion" && (r.status === "pending" || r.status === "in_progress") && (
-                    <Button size="sm" variant="ghost" onClick={() => cancelM.mutate(r.id)} disabled={cancelM.isPending}>
-                      Cancel
-                    </Button>
-                  )}
+                  {r.kind === "deletion" &&
+                    (r.status === "pending" || r.status === "in_progress") && (
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => cancelM.mutate(r.id)}
+                        disabled={cancelM.isPending}
+                      >
+                        Cancel
+                      </Button>
+                    )}
                 </div>
               </div>
             ))

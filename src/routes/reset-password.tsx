@@ -82,15 +82,17 @@ function ResetPasswordPage() {
       </header>
       <main className="flex-1 flex items-center justify-center px-4 pb-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-6 shadow-soft sm:p-8">
-          <h1 className="font-display text-2xl font-semibold text-foreground">Set a new password</h1>
+          <h1 className="font-display text-2xl font-semibold text-foreground">
+            Set a new password
+          </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Choose a strong password of at least 8 characters. You'll be signed in right after.
           </p>
 
           {!ready ? (
             <div className="mt-8 rounded-2xl border border-border/60 bg-muted/40 p-4 text-sm text-muted-foreground">
-              Waiting for the secure recovery link… If nothing happens within a few seconds, request a fresh reset
-              email from the{" "}
+              Waiting for the secure recovery link… If nothing happens within a few seconds, request
+              a fresh reset email from the{" "}
               <Link to="/auth" className="text-primary hover:underline">
                 sign-in page
               </Link>

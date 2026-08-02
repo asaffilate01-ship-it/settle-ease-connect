@@ -45,7 +45,11 @@ export function CaseMilestones({ caseId }: { caseId: string }) {
       saveFn({
         data: {
           caseId,
-          code: title.toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 60) || "milestone",
+          code:
+            title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "_")
+              .slice(0, 60) || "milestone",
           title,
           status: "pending",
           position: milestones.length,
@@ -73,7 +77,10 @@ export function CaseMilestones({ caseId }: { caseId: string }) {
         <Badge variant="outline">{pct}% complete</Badge>
       </div>
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
-        <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${pct}%` }} />
+        <div
+          className="h-full rounded-full bg-primary transition-all"
+          style={{ width: `${pct}%` }}
+        />
       </div>
 
       <div className="mt-4 space-y-2">

@@ -29,7 +29,9 @@ function ExpertAvailability() {
   useEffect(() => {
     if (q.data) {
       setNotes((q.data as any).availability_notes ?? "");
-      setHourly((q.data as any).hourly_rate_eur != null ? String((q.data as any).hourly_rate_eur) : "");
+      setHourly(
+        (q.data as any).hourly_rate_eur != null ? String((q.data as any).hourly_rate_eur) : "",
+      );
     }
   }, [q.data]);
 

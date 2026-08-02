@@ -9,7 +9,14 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { UserPlus, Search } from "lucide-react";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/portal/crm/contacts/")({
@@ -22,7 +29,15 @@ function ContactsIndex() {
   const qc = useQueryClient();
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ full_name: "", email: "", phone: "", preferred_language: "de", city: "", source: "manual", notes: "" });
+  const [form, setForm] = useState({
+    full_name: "",
+    email: "",
+    phone: "",
+    preferred_language: "de",
+    city: "",
+    source: "manual",
+    notes: "",
+  });
 
   const { data, isLoading } = useQuery({
     queryKey: ["crm-contacts", q],
@@ -35,7 +50,15 @@ function ContactsIndex() {
       toast.success("Contact created");
       qc.invalidateQueries({ queryKey: ["crm-contacts"] });
       setOpen(false);
-      setForm({ full_name: "", email: "", phone: "", preferred_language: "de", city: "", source: "manual", notes: "" });
+      setForm({
+        full_name: "",
+        email: "",
+        phone: "",
+        preferred_language: "de",
+        city: "",
+        source: "manual",
+        notes: "",
+      });
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -45,27 +68,78 @@ function ContactsIndex() {
       <div className="flex flex-wrap gap-2">
         <div className="relative flex-1 min-w-64">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search name, email, phone, city…" value={q} onChange={(e) => setQ(e.target.value)} className="pl-8" />
+          <Input
+            placeholder="Search name, email, phone, city…"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            className="pl-8"
+          />
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-primary"><UserPlus className="mr-2 h-4 w-4" /> New contact</Button>
+            <Button className="bg-gradient-primary">
+              <UserPlus className="mr-2 h-4 w-4" /> New contact
+            </Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogHeader><DialogTitle>New contact</DialogTitle></DialogHeader>
-            <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); create.mutate(form); }}>
-              <Field label="Full name"><Input required minLength={2} value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} /></Field>
+            <DialogHeader>
+              <DialogTitle>New contact</DialogTitle>
+            </DialogHeader>
+            <form
+              className="space-y-3"
+              onSubmit={(e) => {
+                e.preventDefault();
+                create.mutate(form);
+              }}
+            >
+              <Field label="Full name">
+                <Input
+                  required
+                  minLength={2}
+                  value={form.full_name}
+                  onChange={(e) => setForm({ ...form, full_name: e.target.value })}
+                />
+              </Field>
               <div className="grid gap-3 sm:grid-cols-2">
-                <Field label="Email"><Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
-                <Field label="Phone"><Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></Field>
+                <Field label="Email">
+                  <Input
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  />
+                </Field>
+                <Field label="Phone">
+                  <Input
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  />
+                </Field>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
-                <Field label="Language"><Input value={form.preferred_language} onChange={(e) => setForm({ ...form, preferred_language: e.target.value })} /></Field>
-                <Field label="City"><Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></Field>
+                <Field label="Language">
+                  <Input
+                    value={form.preferred_language}
+                    onChange={(e) => setForm({ ...form, preferred_language: e.target.value })}
+                  />
+                </Field>
+                <Field label="City">
+                  <Input
+                    value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                  />
+                </Field>
               </div>
-              <Field label="Source"><Input value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value })} placeholder="website, referral, walk-in…" /></Field>
+              <Field label="Source">
+                <Input
+                  value={form.source}
+                  onChange={(e) => setForm({ ...form, source: e.target.value })}
+                  placeholder="website, referral, walk-in…"
+                />
+              </Field>
               <DialogFooter>
-                <Button type="submit" disabled={create.isPending}>{create.isPending ? "Saving…" : "Create"}</Button>
+                <Button type="submit" disabled={create.isPending}>
+                  {create.isPending ? "Saving…" : "Create"}
+                </Button>
               </DialogFooter>
             </form>
           </DialogContent>
@@ -74,10 +148,14 @@ function ContactsIndex() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
-          <CardHeader><CardTitle className="text-base">Prospects ({data?.contacts.length ?? 0})</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Prospects ({data?.contacts.length ?? 0})</CardTitle>
+          </CardHeader>
           <CardContent className="space-y-2">
             {isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
-            {data?.contacts.length === 0 && <p className="text-sm text-muted-foreground">No prospects yet.</p>}
+            {data?.contacts.length === 0 && (
+              <p className="text-sm text-muted-foreground">No prospects yet.</p>
+            )}
             {data?.contacts.map((c) => (
               <Link
                 key={c.id}
@@ -92,7 +170,9 @@ function ContactsIndex() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="uppercase">{c.preferred_language}</Badge>
+                  <Badge variant="outline" className="uppercase">
+                    {c.preferred_language}
+                  </Badge>
                   {c.source && <Badge variant="secondary">{c.source}</Badge>}
                 </div>
               </Link>
@@ -101,9 +181,13 @@ function ContactsIndex() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle className="text-base">Members ({data?.profiles.length ?? 0})</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Members ({data?.profiles.length ?? 0})</CardTitle>
+          </CardHeader>
           <CardContent className="space-y-2">
-            {data?.profiles.length === 0 && <p className="text-sm text-muted-foreground">No matching members.</p>}
+            {data?.profiles.length === 0 && (
+              <p className="text-sm text-muted-foreground">No matching members.</p>
+            )}
             {data?.profiles.map((p) => (
               <Link
                 key={p.id}
@@ -115,7 +199,9 @@ function ContactsIndex() {
                   <div className="truncate font-medium">{p.full_name ?? "(no name)"}</div>
                   <div className="text-xs text-muted-foreground">{p.city ?? "—"}</div>
                 </div>
-                <Badge variant="outline" className="uppercase">{p.preferred_language}</Badge>
+                <Badge variant="outline" className="uppercase">
+                  {p.preferred_language}
+                </Badge>
               </Link>
             ))}
           </CardContent>

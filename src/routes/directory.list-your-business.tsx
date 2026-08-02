@@ -11,7 +11,10 @@ import { Check, Sparkles, Trash2, Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  listMyDirectoryListings, createDirectoryListing, updateDirectoryListing, deleteDirectoryListing,
+  listMyDirectoryListings,
+  createDirectoryListing,
+  updateDirectoryListing,
+  deleteDirectoryListing,
 } from "@/lib/directory.functions";
 import { toast } from "sonner";
 import type { Session } from "@supabase/supabase-js";
@@ -19,10 +22,18 @@ import type { Session } from "@supabase/supabase-js";
 export const Route = createFileRoute("/directory/list-your-business")({
   head: () => ({
     meta: [
-      { title: "List your business — free — BeistandPlus directory" },
-      { name: "description", content: "Get discovered by BeistandPlus member families across Germany. Free listing in the community directory — no per-lead fees, no commissions." },
-      { property: "og:title", content: "List your business — free — BeistandPlus directory" },
-      { property: "og:description", content: "Free listing in the BeistandPlus directory. Contact details are shown to BeistandPlus members only, so every enquiry is a serious one." },
+      { title: "List your business — BeistandPlus directory" },
+      {
+        name: "description",
+        content:
+          "Submit a business for moderation in the BeistandPlus community directory. Public information is shown only after approval.",
+      },
+      { property: "og:title", content: "List your business — BeistandPlus directory" },
+      {
+        property: "og:description",
+        content:
+          "Submit public business information for review in the BeistandPlus community directory.",
+      },
       { property: "og:url", content: "https://beistandplus.de/directory/list-your-business" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/directory/list-your-business" }],
@@ -31,10 +42,21 @@ export const Route = createFileRoute("/directory/list-your-business")({
 });
 
 type Listing = {
-  id: string; business_name: string; category: string; subcategory: string | null;
-  description: string | null; city: string | null; bundesland: string | null;
-  languages: string[]; website: string | null; phone: string | null; email: string | null;
-  address: string | null; logo_url: string | null; status: string; featured: boolean;
+  id: string;
+  business_name: string;
+  category: string;
+  subcategory: string | null;
+  description: string | null;
+  city: string | null;
+  bundesland: string | null;
+  languages: string[];
+  website: string | null;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
+  logo_url: string | null;
+  status: string;
+  featured: boolean;
 };
 
 const myListingsQuery = queryOptions({
@@ -54,12 +76,15 @@ function ListYourBusiness() {
     <div className="min-h-screen">
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Community directory</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+          Community directory
+        </div>
         <h1 className="display-hero text-balance mt-3 font-semibold">
-          Free to list. Seen by every BeistandPlus member.
+          Submit your business for directory review.
         </h1>
         <p className="mt-5 text-base text-muted-foreground">
-          Listing is free. Contact details are only shown to BeistandPlus members, so every enquiry is from a serious, subscribed household.
+          There is currently no listing fee. Every submission is moderated before publication, and
+          approval, placement, traffic or enquiries are not guaranteed.
         </p>
 
         <div className="mt-8 rounded-3xl border border-border/60 bg-card p-6 shadow-card">
@@ -69,12 +94,12 @@ function ListYourBusiness() {
           </div>
           <ul className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
             {[
-              "Name, category, city, languages on the directory",
-              "Contact details revealed to members only",
-              "Filter by language, city, Bundesland",
-              "Free updates any time",
-              "Optional featured placement",
-              "No per-lead fees or commissions",
+              "Public listing name, category, city and languages",
+              "Website shown only when it uses a safe public link",
+              "Phone, email and street address kept out of the public directory view",
+              "Changes return to the moderation queue",
+              "Listings can be suspended or removed after review",
+              "No current listing or per-lead fee",
             ].map((f) => (
               <li key={f} className="flex items-start gap-2">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
@@ -86,8 +111,12 @@ function ListYourBusiness() {
 
         {!session ? (
           <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6 text-center">
-            <p className="text-sm text-muted-foreground">Sign in or create a free account to submit your listing.</p>
-            <Button asChild size="lg" className="mt-4 bg-gradient-primary"><Link to="/auth">Sign in to continue</Link></Button>
+            <p className="text-sm text-muted-foreground">
+              Sign in or create a free account to submit your listing.
+            </p>
+            <Button asChild size="lg" className="mt-4 bg-gradient-primary">
+              <Link to="/auth">Sign in to continue</Link>
+            </Button>
           </div>
         ) : (
           <MyListingsSection />
@@ -98,9 +127,11 @@ function ListYourBusiness() {
             <Sparkles className="h-4 w-4" />
           </span>
           <div>
-            <strong className="text-foreground">Why is the directory members-only?</strong>{" "}
+            <strong className="text-foreground">What happens after submission?</strong>{" "}
             <span className="text-muted-foreground">
-              Members pay €5–€25/month for a supported settlement journey. Gating contact details keeps time-wasters out.
+              The listing remains pending while BeistandPlus checks the submitted information.
+              Publication is not an endorsement, licence verification or recommendation; customers
+              must confirm suitability and credentials directly.
             </span>
           </div>
         </div>
@@ -120,16 +151,21 @@ function MyListingsSection() {
       <div className="flex items-center justify-between">
         <h2 className="font-display text-xl font-semibold">Your listings</h2>
         {!creating && !editing && (
-          <Button className="bg-gradient-primary" onClick={() => setCreating(true)}>Add listing</Button>
+          <Button className="bg-gradient-primary" onClick={() => setCreating(true)}>
+            Add listing
+          </Button>
         )}
       </div>
 
       {isLoading ? (
         <div className="text-sm text-muted-foreground">Loading…</div>
-      ) : (creating || editing) ? (
+      ) : creating || editing ? (
         <ListingForm
           initial={editing ?? undefined}
-          onDone={() => { setCreating(false); setEditing(null); }}
+          onDone={() => {
+            setCreating(false);
+            setEditing(null);
+          }}
         />
       ) : data.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-border/60 bg-card p-8 text-center text-sm text-muted-foreground">
@@ -137,7 +173,9 @@ function MyListingsSection() {
         </div>
       ) : (
         <div className="space-y-3">
-          {data.map((l) => <ListingRow key={l.id} listing={l as Listing} onEdit={() => setEditing(l as Listing)} />)}
+          {data.map((l) => (
+            <ListingRow key={l.id} listing={l as Listing} onEdit={() => setEditing(l as Listing)} />
+          ))}
         </div>
       )}
     </div>
@@ -149,7 +187,10 @@ function ListingRow({ listing, onEdit }: { listing: Listing; onEdit: () => void 
   const delFn = useServerFn(deleteDirectoryListing);
   const del = useMutation({
     mutationFn: () => delFn({ data: { id: listing.id } }),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["directory", "mine"] }); toast.success("Listing removed"); },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["directory", "mine"] });
+      toast.success("Listing removed");
+    },
     onError: (e: Error) => toast.error(e.message),
   });
   return (
@@ -157,16 +198,27 @@ function ListingRow({ listing, onEdit }: { listing: Listing; onEdit: () => void 
       <div className="min-w-0">
         <div className="flex items-center gap-2">
           <div className="font-medium truncate">{listing.business_name}</div>
-          <Badge variant="outline" className="capitalize">{listing.status}</Badge>
-          {listing.featured && <Badge className="bg-amber-500/20 text-amber-700 border-amber-500/40">Featured</Badge>}
+          <Badge variant="outline" className="capitalize">
+            {listing.status}
+          </Badge>
+          {listing.featured && (
+            <Badge className="bg-amber-500/20 text-amber-700 border-amber-500/40">Featured</Badge>
+          )}
         </div>
         <div className="text-xs text-muted-foreground">
-          {listing.category}{listing.subcategory ? ` · ${listing.subcategory}` : ""} · {listing.city ?? "—"}
+          {listing.category}
+          {listing.subcategory ? ` · ${listing.subcategory}` : ""} · {listing.city ?? "—"}
         </div>
       </div>
       <div className="flex gap-2">
-        <Button size="sm" variant="outline" onClick={onEdit}><Pencil className="mr-1 h-3.5 w-3.5" /> Edit</Button>
-        <Button size="sm" variant="ghost" onClick={() => confirm("Delete this listing?") && del.mutate()}>
+        <Button size="sm" variant="outline" onClick={onEdit}>
+          <Pencil className="mr-1 h-3.5 w-3.5" /> Edit
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => confirm("Delete this listing?") && del.mutate()}
+        >
           <Trash2 className="h-4 w-4 text-destructive" />
         </Button>
       </div>
@@ -174,7 +226,21 @@ function ListingRow({ listing, onEdit }: { listing: Listing; onEdit: () => void 
   );
 }
 
-const CATEGORIES = ["Legal","Medical","Tax","Insurance","Translation","Travel","Trades","Education","Faith","Funeral","Food","Beauty","Other"];
+const CATEGORIES = [
+  "Legal",
+  "Medical",
+  "Tax",
+  "Insurance",
+  "Translation",
+  "Travel",
+  "Trades",
+  "Education",
+  "Faith",
+  "Funeral",
+  "Food",
+  "Beauty",
+  "Other",
+];
 
 function ListingForm({ initial, onDone }: { initial?: Listing; onDone: () => void }) {
   const qc = useQueryClient();
@@ -203,7 +269,10 @@ function ListingForm({ initial, onDone }: { initial?: Listing; onDone: () => voi
         description: form.description || null,
         city: form.city || null,
         bundesland: form.bundesland || null,
-        languages: form.languages.split(",").map((s) => s.trim()).filter(Boolean),
+        languages: form.languages
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
         website: form.website || null,
         phone: form.phone || null,
         email: form.email || null,
@@ -221,28 +290,95 @@ function ListingForm({ initial, onDone }: { initial?: Listing; onDone: () => voi
   });
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); mut.mutate(); }} className="space-y-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        mut.mutate();
+      }}
+      className="space-y-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+    >
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Business name *"><Input required value={form.business_name} onChange={(e) => setForm({ ...form, business_name: e.target.value })} /></Field>
+        <Field label="Business name *">
+          <Input
+            required
+            value={form.business_name}
+            onChange={(e) => setForm({ ...form, business_name: e.target.value })}
+          />
+        </Field>
         <Field label="Category *">
-          <select required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
-            {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+          <select
+            required
+            value={form.category}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+            className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+          >
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </Field>
-        <Field label="Subcategory"><Input value={form.subcategory} onChange={(e) => setForm({ ...form, subcategory: e.target.value })} placeholder="e.g. Immigration lawyer" /></Field>
-        <Field label="Languages (comma-separated)"><Input value={form.languages} onChange={(e) => setForm({ ...form, languages: e.target.value })} placeholder="DE, EN, TR" /></Field>
-        <Field label="City"><Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></Field>
-        <Field label="Bundesland"><Input value={form.bundesland} onChange={(e) => setForm({ ...form, bundesland: e.target.value })} /></Field>
-        <Field label="Website"><Input type="url" value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} placeholder="https://" /></Field>
-        <Field label="Phone"><Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></Field>
-        <Field label="Email"><Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
-        <Field label="Street address"><Input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
+        <Field label="Subcategory">
+          <Input
+            value={form.subcategory}
+            onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
+            placeholder="e.g. Immigration lawyer"
+          />
+        </Field>
+        <Field label="Languages (comma-separated)">
+          <Input
+            value={form.languages}
+            onChange={(e) => setForm({ ...form, languages: e.target.value })}
+            placeholder="DE, EN, TR"
+          />
+        </Field>
+        <Field label="City">
+          <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+        </Field>
+        <Field label="Bundesland">
+          <Input
+            value={form.bundesland}
+            onChange={(e) => setForm({ ...form, bundesland: e.target.value })}
+          />
+        </Field>
+        <Field label="Website">
+          <Input
+            type="url"
+            value={form.website}
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+            placeholder="https://"
+          />
+        </Field>
+        <Field label="Phone">
+          <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+        </Field>
+        <Field label="Email">
+          <Input
+            type="email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+        </Field>
+        <Field label="Street address">
+          <Input
+            value={form.address}
+            onChange={(e) => setForm({ ...form, address: e.target.value })}
+          />
+        </Field>
       </div>
       <Field label="Description">
-        <Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="min-h-24" placeholder="What do you offer, and to whom?" />
+        <Textarea
+          value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
+          className="min-h-24"
+          placeholder="What do you offer, and to whom?"
+        />
       </Field>
       <div className="flex justify-end gap-2">
-        <Button type="button" variant="outline" onClick={onDone}>Cancel</Button>
+        <Button type="button" variant="outline" onClick={onDone}>
+          Cancel
+        </Button>
         <Button type="submit" className="bg-gradient-primary" disabled={mut.isPending}>
           {mut.isPending ? "Saving…" : initial ? "Save changes" : "Publish listing"}
         </Button>

@@ -52,10 +52,19 @@ function CapacityPage() {
   const { min, max, span, totalTasks, overdue } = useMemo(() => {
     const now = Date.now();
     const dated = tasks.filter((t) => t.start_at && t.due_at);
-    if (dated.length === 0) return { min: now, max: now + 30 * 86400000, span: 30 * 86400000, totalTasks: tasks.length, overdue: 0 };
+    if (dated.length === 0)
+      return {
+        min: now,
+        max: now + 30 * 86400000,
+        span: 30 * 86400000,
+        totalTasks: tasks.length,
+        overdue: 0,
+      };
     const mn = Math.min(...dated.map((t) => new Date(t.start_at!).getTime()), now);
     const mx = Math.max(...dated.map((t) => new Date(t.due_at!).getTime()), now + 14 * 86400000);
-    const od = tasks.filter((t) => t.due_at && new Date(t.due_at).getTime() < now && t.status !== "done").length;
+    const od = tasks.filter(
+      (t) => t.due_at && new Date(t.due_at).getTime() < now && t.status !== "done",
+    ).length;
     return { min: mn, max: mx, span: Math.max(1, mx - mn), totalTasks: tasks.length, overdue: od };
   }, [tasks]);
 
@@ -75,7 +84,10 @@ function CapacityPage() {
     const step = span / 4;
     for (let i = 0; i <= 4; i++) {
       const ts = min + step * i;
-      out.push({ label: new Date(ts).toLocaleDateString(undefined, { day: "2-digit", month: "short" }), pct: (i / 4) * 100 });
+      out.push({
+        label: new Date(ts).toLocaleDateString(undefined, { day: "2-digit", month: "short" }),
+        pct: (i / 4) * 100,
+      });
     }
     return out;
   }, [min, span]);
@@ -88,13 +100,22 @@ function CapacityPage() {
         </div>
         <h1 className="display-lg mt-1 font-semibold">Every open case, in one timeline</h1>
         <p className="text-sm text-muted-foreground">
-          Every case currently assigned to you, with dated tasks plotted on a shared schedule so you can see where the next crunch lands.
+          Every case currently assigned to you, with dated tasks plotted on a shared schedule so you
+          can see where the next crunch lands.
         </p>
       </header>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <Kpi label="Open cases" value={cases.length.toString()} icon={<CalendarClock className="h-4 w-4" />} />
-        <Kpi label="Scheduled tasks" value={totalTasks.toString()} icon={<GanttChart className="h-4 w-4" />} />
+        <Kpi
+          label="Open cases"
+          value={cases.length.toString()}
+          icon={<CalendarClock className="h-4 w-4" />}
+        />
+        <Kpi
+          label="Scheduled tasks"
+          value={totalTasks.toString()}
+          icon={<GanttChart className="h-4 w-4" />}
+        />
         <Kpi
           label="Overdue"
           value={overdue.toString()}
@@ -104,7 +125,9 @@ function CapacityPage() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border p-6 text-sm text-muted-foreground">Loading capacity…</div>
+        <div className="rounded-2xl border p-6 text-sm text-muted-foreground">
+          Loading capacity…
+        </div>
       ) : cases.length === 0 ? (
         <div className="rounded-2xl border border-dashed p-10 text-center text-sm text-muted-foreground">
           You have no open cases assigned. New cases appear here as soon as they are routed to you.
@@ -113,7 +136,9 @@ function CapacityPage() {
         <div className="overflow-x-auto rounded-2xl border bg-card p-4">
           <div className="min-w-[820px] space-y-4">
             <div className="grid grid-cols-[240px_1fr] items-center gap-3">
-              <div className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Case</div>
+              <div className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Case
+              </div>
               <div className="relative h-4">
                 {ticks.map((t, i) => (
                   <div
@@ -164,19 +189,30 @@ function CapacityPage() {
                       {/* Now marker */}
                       <div
                         className="absolute top-0 h-full w-px bg-primary"
-                        style={{ left: `${Math.max(0, Math.min(100, ((Date.now() - min) / span) * 100))}%` }}
+                        style={{
+                          left: `${Math.max(0, Math.min(100, ((Date.now() - min) / span) * 100))}%`,
+                        }}
                       />
                     </div>
                   </div>
                   <div className="space-y-1.5 pl-0">
                     {rows.length === 0 ? (
-                      <div className="text-[11px] italic text-muted-foreground">No dated tasks on this case yet.</div>
+                      <div className="text-[11px] italic text-muted-foreground">
+                        No dated tasks on this case yet.
+                      </div>
                     ) : (
                       rows.map((t) => {
                         const hasDates = t.start_at && t.due_at;
-                        const left = hasDates ? Math.max(0, ((new Date(t.start_at!).getTime() - min) / span) * 100) : 0;
+                        const left = hasDates
+                          ? Math.max(0, ((new Date(t.start_at!).getTime() - min) / span) * 100)
+                          : 0;
                         const width = hasDates
-                          ? Math.max(1.5, ((new Date(t.due_at!).getTime() - new Date(t.start_at!).getTime()) / span) * 100)
+                          ? Math.max(
+                              1.5,
+                              ((new Date(t.due_at!).getTime() - new Date(t.start_at!).getTime()) /
+                                span) *
+                                100,
+                            )
                           : 100;
                         const color = STATUS_COLOR[t.status] ?? "bg-slate-400";
                         return (
@@ -188,10 +224,15 @@ function CapacityPage() {
                                   className={`absolute top-0 h-full rounded ${color}`}
                                   style={{ left: `${left}%`, width: `${width}%` }}
                                 >
-                                  <div className="absolute inset-y-0 left-0 bg-black/25" style={{ width: `${t.progress_pct ?? 0}%` }} />
+                                  <div
+                                    className="absolute inset-y-0 left-0 bg-black/25"
+                                    style={{ width: `${t.progress_pct ?? 0}%` }}
+                                  />
                                 </div>
                               ) : (
-                                <div className="grid h-full place-items-center text-[9px] text-muted-foreground">no dates</div>
+                                <div className="grid h-full place-items-center text-[9px] text-muted-foreground">
+                                  no dates
+                                </div>
                               )}
                             </div>
                           </div>
@@ -221,7 +262,9 @@ function Kpi({
   tone?: "warn";
 }) {
   return (
-    <div className={`rounded-xl border border-border/60 bg-card p-4 ${tone === "warn" ? "border-red-500/40 bg-red-500/5" : ""}`}>
+    <div
+      className={`rounded-xl border border-border/60 bg-card p-4 ${tone === "warn" ? "border-red-500/40 bg-red-500/5" : ""}`}
+    >
       <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
         {icon}
         {label}

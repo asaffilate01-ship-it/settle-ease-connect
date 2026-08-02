@@ -11,7 +11,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import {
   listInsuranceLeadsForTriage,
@@ -104,59 +110,69 @@ function TriagePage() {
 
   return (
     <Aal2Gate reason="Insurance triage handles regulated health data. Confirm your authenticator code to continue.">
-    <div className="space-y-6">
-      <header className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="display-lg font-semibold flex items-center gap-2">
-            <Stethoscope className="h-6 w-6 text-primary" /> Health insurance triage
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Route customers to the correct path. BeistandPlus is an introducer — not a regulated advisor.
-          </p>
+      <div className="space-y-6">
+        <header className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="display-lg font-semibold flex items-center gap-2">
+              <Stethoscope className="h-6 w-6 text-primary" /> Health insurance triage
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              Route customers to the correct path. BeistandPlus is an introducer — not a regulated
+              advisor.
+            </p>
+          </div>
+          <Button variant="outline" size="sm" onClick={handleExport}>
+            <Download className="h-4 w-4 mr-1" /> Export CSV
+          </Button>
+        </header>
+
+        <Alert>
+          <ShieldAlert className="h-4 w-4" />
+          <AlertTitle>Not advice</AlertTitle>
+          <AlertDescription>
+            Triage records the customer's category based on facts they provide. It is not insurance
+            advice or a suitability assessment. Regulated advice must be provided by a licensed
+            advisor (DELA or authorised broker).
+          </AlertDescription>
+        </Alert>
+
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard label="Untriaged" value={stats.untriaged ?? 0} highlight />
+          {TRIAGE_ROUTES.map((r) => (
+            <StatCard key={r} label={ROUTE_META[r].label} value={stats[r] ?? 0} />
+          ))}
         </div>
-        <Button variant="outline" size="sm" onClick={handleExport}>
-          <Download className="h-4 w-4 mr-1" /> Export CSV
-        </Button>
-      </header>
 
-      <Alert>
-        <ShieldAlert className="h-4 w-4" />
-        <AlertTitle>Not advice</AlertTitle>
-        <AlertDescription>
-          Triage records the customer's category based on facts they provide. It is not insurance advice or a suitability
-          assessment. Regulated advice must be provided by a licensed advisor (DELA or authorised broker).
-        </AlertDescription>
-      </Alert>
-
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Untriaged" value={stats.untriaged ?? 0} highlight />
-        {TRIAGE_ROUTES.map((r) => (
-          <StatCard key={r} label={ROUTE_META[r].label} value={stats[r] ?? 0} />
-        ))}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Untriaged leads ({leads.length})</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            {leads.length === 0 ? (
+              <p className="p-6 text-sm text-muted-foreground">Nothing to triage — good work.</p>
+            ) : (
+              <div className="divide-y">
+                {leads.map((lead) => (
+                  <TriageRow key={lead.id} lead={lead} />
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Untriaged leads ({leads.length})</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          {leads.length === 0 ? (
-            <p className="p-6 text-sm text-muted-foreground">Nothing to triage — good work.</p>
-          ) : (
-            <div className="divide-y">
-              {leads.map((lead) => (
-                <TriageRow key={lead.id} lead={lead} />
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
     </Aal2Gate>
   );
 }
 
-function StatCard({ label, value, highlight }: { label: string; value: number; highlight?: boolean }) {
+function StatCard({
+  label,
+  value,
+  highlight,
+}: {
+  label: string;
+  value: number;
+  highlight?: boolean;
+}) {
   return (
     <Card className={highlight ? "border-primary/50" : ""}>
       <CardContent className="p-4">
@@ -174,7 +190,8 @@ function TriageRow({ lead }: { lead: any }) {
   const doSet = useServerFn(setTriage);
 
   const mut = useMutation({
-    mutationFn: () => doSet({ data: { id: lead.id, route: route as any, notes: notes || undefined } }),
+    mutationFn: () =>
+      doSet({ data: { id: lead.id, route: route as any, notes: notes || undefined } }),
     onSuccess: () => {
       toast.success("Triage recorded");
       qc.invalidateQueries({ queryKey: ["triage"] });
@@ -200,10 +217,14 @@ function TriageRow({ lead }: { lead: any }) {
 
       <div className="grid gap-2 md:grid-cols-[240px_1fr_auto] items-start">
         <Select value={route} onValueChange={setRoute}>
-          <SelectTrigger><SelectValue placeholder="Select route…" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="Select route…" />
+          </SelectTrigger>
           <SelectContent>
             {TRIAGE_ROUTES.map((r) => (
-              <SelectItem key={r} value={r}>{ROUTE_META[r].label}</SelectItem>
+              <SelectItem key={r} value={r}>
+                {ROUTE_META[r].label}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>

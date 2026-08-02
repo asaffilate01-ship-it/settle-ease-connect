@@ -19,7 +19,9 @@ const casesQuery = queryOptions({
 export const Route = createFileRoute("/_authenticated/app/cases")({
   loader: ({ context }) => context.queryClient.ensureQueryData(casesQuery),
   component: CasesLayout,
-  errorComponent: ({ error }) => <div className="p-6 text-sm text-destructive">{error.message}</div>,
+  errorComponent: ({ error }) => (
+    <div className="p-6 text-sm text-destructive">{error.message}</div>
+  ),
 });
 
 const STATUS_STYLES: Record<string, string> = {
@@ -53,7 +55,9 @@ function CasesList() {
         qc.invalidateQueries({ queryKey: ["cases", "list"] });
       })
       .subscribe();
-    return () => { supabase.removeChannel(ch); };
+    return () => {
+      supabase.removeChannel(ch);
+    };
   }, [qc]);
 
   return (
@@ -61,25 +65,36 @@ function CasesList() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="display-lg font-semibold">Cases</h1>
-          <p className="text-sm text-muted-foreground">Live coordination across families, case managers, and experts.</p>
+          <p className="text-sm text-muted-foreground">
+            Live coordination across families, case managers, and experts.
+          </p>
         </div>
         <Button asChild className="bg-gradient-primary">
-          <Link to="/app/cases/new"><Plus className="mr-1 h-4 w-4" /> New case</Link>
+          <Link to="/app/cases/new">
+            <Plus className="mr-1 h-4 w-4" /> New case
+          </Link>
         </Button>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex flex-1 items-center gap-2 rounded-lg border border-border/60 bg-card px-3 py-1.5">
           <Search className="h-4 w-4 text-muted-foreground" />
-          <Input className="border-0 shadow-none focus-visible:ring-0" placeholder="Search cases…" />
+          <Input
+            className="border-0 shadow-none focus-visible:ring-0"
+            placeholder="Search cases…"
+          />
         </div>
       </div>
 
       {cases.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-border/60 bg-card p-12 text-center">
           <div className="font-display text-lg">No cases yet</div>
-          <p className="mt-1 text-sm text-muted-foreground">Open a case and a manager will respond within 15 minutes.</p>
-          <Button asChild className="mt-4 bg-gradient-primary"><Link to="/app/cases/new">Report a case</Link></Button>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Open a case and the team will respond during the published service hours.
+          </p>
+          <Button asChild className="mt-4 bg-gradient-primary">
+            <Link to="/app/cases/new">Report a case</Link>
+          </Button>
         </div>
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card shadow-soft">
@@ -105,14 +120,21 @@ function CasesList() {
                       <div className="text-xs text-muted-foreground">{c.reference}</div>
                     </Link>
                   </td>
-                  <td className="px-5 py-4 capitalize text-muted-foreground">{c.case_type.replace(/_/g, " ")}</td>
-                  <td className="px-5 py-4">{c.city ?? "—"}<div className="text-xs text-muted-foreground">{c.bundesland ?? ""}</div></td>
+                  <td className="px-5 py-4 capitalize text-muted-foreground">
+                    {c.case_type.replace(/_/g, " ")}
+                  </td>
+                  <td className="px-5 py-4">
+                    {c.city ?? "—"}
+                    <div className="text-xs text-muted-foreground">{c.bundesland ?? ""}</div>
+                  </td>
                   <td className="px-5 py-4">
                     <Badge variant="outline" className={STATUS_STYLES[c.status] ?? ""}>
                       {c.status.replace(/_/g, " ")}
                     </Badge>
                   </td>
-                  <td className="px-5 py-4 text-muted-foreground">{formatDistanceToNow(new Date(c.updated_at), { addSuffix: true })}</td>
+                  <td className="px-5 py-4 text-muted-foreground">
+                    {formatDistanceToNow(new Date(c.updated_at), { addSuffix: true })}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -124,4 +146,6 @@ function CasesList() {
 }
 
 // Suppress unused-import warnings for helpers wired in child routes
-void useMutation; void useNavigate; void useServerFn;
+void useMutation;
+void useNavigate;
+void useServerFn;

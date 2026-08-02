@@ -1,47 +1,4 @@
 {
-  "funeralCover": {
-    "badge": "Sterbegeld · Nach deutschem Recht regulierte Absicherung",
-    "headline": "Absicherung genehmigter und regulierter Kosten ab rund 24 €/Monat",
-    "subhead": "20.000 € Leistung pro versicherter erwachsener Person — genug, um die vollen Kosten für Bestattung, Beerdigung oder letzte Riten sowie ggf. die Überführung zu decken. Ein verbleibender Betrag geht an Ihre benannte begünstigte Person. Die Familie muss im schwersten Moment nie das Geld auftreiben.",
-    "disclaimer": "Die Bandbreiten spiegeln veröffentlichte 2024–2025-Tariftabellen unseres Panels an in Deutschland regulierten Sterbegeld-Anbietern wider — für Nichtraucher ohne Wartezeit bei einer Leistung von 20.000 €. Der tatsächliche Beitrag hängt von Alter, Gesundheitsangaben, Raucherstatus und gewählter Wartezeit ab; Kinder unter 18 Jahren sind in den Familien- und Großfamilien-Tarifen ohne Zusatzbeitrag mitversichert. Kein verbindliches Angebot — der zugelassene Partneranbieter erstellt das Angebot.",
-    "coverageTitle": "Was die 20.000 € abdecken — über BeistandPlus",
-    "howLabel": "So funktioniert es:",
-    "howBody": "der Anbieter begleicht jede genehmigte und regulierte Rechnung in voller Höhe — Bestattung, Beerdigung oder letzte Riten und ggf. Überführung — und ein etwaiger Restbetrag wird innerhalb von 14 Tagen an die benannte begünstigte Person ausgezahlt.",
-    "ctaEstimate": "Beitrag schätzen",
-    "ctaTalk": "Mit einer Case-Managerin sprechen",
-    "introducer": "BeistandPlus tritt als Tippgeber (bzw. §34d GewO-Vermittler, wo einschlägig) auf. Die Beiträge werden direkt an den Anbieter gezahlt; BeistandPlus zeichnet keine Risiken. Abonnement und Sterbegeld-Beitrag werden getrennt abgerechnet.",
-    "tabs": {
-      "individual": "Einzelperson",
-      "individualNote": "1 Erwachsene:r · 20 000 € Leistung",
-      "family": "Familie",
-      "familyNote": "2 Erwachsene + bis zu 3 Kinder unter 18 · 20 000 € pro Erwachsener",
-      "extended": "Großfamilie",
-      "extendedNote": "Bis zu 4 Erwachsene + 3 Kinder unter 18 · 20 000 € pro Erwachsener"
-    },
-    "rows": {
-      "individualLabel": "Alter {{age}}",
-      "individualDetail": "1 Erwachsene:r · 20 000 € Auszahlung",
-      "familyLabel": "Beide Erwachsene Alter {{age}}",
-      "familyDetail": "2 Erwachsene + bis zu 3 Kinder · 20 000 € pro Erwachsener",
-      "extendedLabel": "Alle 4 Erwachsene Alter {{age}}",
-      "extendedDetail": "4 Erwachsene + bis zu 3 Kinder · 20 000 € pro Erwachsener"
-    },
-    "table": {
-      "composition": "Zusammensetzung",
-      "cover": "Leistung",
-      "premium": "Geschätzter Monatsbeitrag",
-      "perMo": "/ Monat"
-    },
-    "coverage": [
-      "20 000 € Leistung pro versicherter erwachsener Person — Auszahlung im Todesfall, für Standardtarife ohne Gesundheitsprüfung",
-      "Direkte Begleichung von Bestatter, Friedhof, Moschee / Kirche / Tempel, Kremation, Sarg, Blumen, Catering und Sterbeurkundengebühren gegen Originalrechnungen",
-      "Vollständige Überführung des Leichnams ins Ausland (genehmigter Transportsarg, Einbalsamierung, konsularische Unbedenklichkeitsbescheinigung, Luftfracht, empfangender Bestatter im Herkunftsland)",
-      "Beglaubigte Übersetzungen, Nachlasspapiere, Standesamt, Botschafts-/Konsulatskoordination — alles über die Fallakte abgerechnet",
-      "Jeder Euro in Ihrer BeistandPlus-Fallakte einzeln aufgeführt, damit die Familie genau sieht, wohin das Geld fließt",
-      "Ein etwaiger Restbetrag nach Begleichung aller genehmigten und regulierten Ausgaben wird per SEPA an Ihre benannte begünstigte Person ausgezahlt — in Deutschland oder im Ausland, in deren Landeswährung",
-      "24/7 mehrsprachige Case-Managerin, im Schadenfall innerhalb von 1 Stunde zugewiesen"
-    ]
-  },
   "brand": {
     "location": "Deutschland"
   },
@@ -251,73 +208,23 @@
     "pricing": {
       "eyebrow": "Preise",
       "title": "Ein Abo. Eine verlässliche Hand.",
-      "subtitle": "Mitglieder erhalten weit mehr zurück, als ihr Abo kostet – durch korrekt beantragte Leistungen, eingehaltene Termine und weniger Stress. Haushaltspläne mit Rabatt für Paare und Familien bis zu 4 Erwachsenen + 3 Kindern.",
       "individual": "Einzelperson",
       "family": "Familie",
       "extended": "Großfamilie",
       "noteIndividual": "1 Erwachsener",
       "noteFamily": "2 Erwachsene + bis zu 3 Kinder unter 18",
       "noteExtended": "Bis zu 4 Erwachsene + 3 Kinder unter 18",
-      "communityBadge": "Kostenlos · Community",
-      "communityName": "Community",
-      "communityDesc": "Ein Sicherheitsnetz für alle in Deutschland – ohne Kreditkarte.",
-      "forever": "/ für immer",
       "perMonth": "/ Monat",
-      "startFree": "Kostenlos starten",
       "choose": "{{name}} wählen",
       "mostPopular": "Am beliebtesten",
       "save": "{{percent}}% sparen",
-      "loading": "Pläne werden geladen…",
-      "trustSuffix": "veröffentlichte SLAs, Lizenzen und Erstattungsversprechen →"
-    },
-    "services": {
-      "eyebrow": "Experten-Begleitung für das Leben in Deutschland",
-      "title1": "Ein Begleiter für jeden",
-      "title2": "wichtigen Meilenstein.",
-      "subtitle": "Von der ersten Anmeldung bis zur Absicherung Ihrer Familie – BeistandPlus bietet würdevolle Experten-Unterstützung, um sich souverän durch die deutsche Verwaltung zu bewegen – in dreizehn Sprachen, mit einem Menschen an Ihrer Seite.",
-      "openCase": "Fall eröffnen",
-      "howItWorks": "So funktioniert BeistandPlus",
-      "ninePillars": "Neun Bereiche der Fürsorge",
-      "ribbon": "Wir arbeiten mit Ihnen in Ihrer Sprache",
-      "trustHuman": "Mensch zuerst",
-      "trustHumanBody": "Echte Fallmanager in Berlin, Hamburg, München und Köln – jeder Fall wird von einem Menschen betreut, nicht von einem Bot.",
-      "trustGdpr": "DSGVO-konform",
-      "trustGdprBody": "Ihre Dokumente liegen in einem verschlüsselten Tresor, gehostet in Deutschland, mit Bevollmächtigten-Zugriff bei Krankheit oder Trauerfall.",
-      "trustBill": "Eine transparente Rechnung",
-      "trustBillBody": "Abo für unsere Arbeit, Selbstkosten für Drittleistungen und volle Einsicht in jeden Euro.",
-      "readyEyebrow": "Bereit, wenn Sie es sind",
-      "readyTitle1": "Machen wir den nächsten Schritt",
-      "readyTitle2": "gemeinsam.",
-      "readyBody": "Eröffnen Sie einen kostenlosen Fall in wenigen Minuten. Ein Fallmanager prüft ihn innerhalb eines Werktages und zeigt Ihre Möglichkeiten auf – unverbindlich.",
-      "seePricing": "Preise ansehen",
-      "learnMore": "Mehr erfahren",
-      "moreServices": "+{{count}} weitere Leistungen"
-    },
-    "howItWorks": {
-      "eyebrow": "So funktioniert's",
-      "title1": "Fünf Schritte.",
-      "title2": "Kein Papierkrieg.",
-      "readyTitle": "Bereit, wenn Sie es sind.",
-      "readyBody": "Kostenlos starten. Upgrade nur, wenn Sie menschliche Hilfe brauchen.",
-      "openDashboard": "Dashboard öffnen",
-      "steps": {
-        "s1Title": "Sagen Sie BeistandPlus, was Sie brauchen",
-        "s1Desc": "Neu angekommen, Leistungen beantragen, Familiennachzug planen oder ein Trauerfall – beginnen Sie mit einem einzigen Formular.",
-        "s2Title": "Ein Plan entsteht in wenigen Minuten",
-        "s2Desc": "Unsere KI erstellt Ihre persönliche Checkliste – jeder Termin, jedes Dokument, jede Frist und jeder Anbieter, den Sie brauchen.",
-        "s3Title": "Ein menschlicher Fallmanager ruft Sie an",
-        "s3Desc": "In Ihrer Sprache. Er begleitet Ihren Fall von Anfang bis Ende und koordiniert alle Beteiligten.",
-        "s4Title": "Alles geschieht in einer Fallakte",
-        "s4Desc": "Dokumente, Briefe, Termine, Rechnungen, Chat, Audit-Trail – sichtbar für Sie und alle, die Ihnen helfen.",
-        "s5Title": "Sie leben Ihr Leben",
-        "s5Desc": "Wir erinnern Sie vor Fristen, hakt bei Behörden nach und übersetzt alles, was Sie nicht verstehen."
-      }
+      "loading": "Pläne werden geladen…"
     },
     "contact": {
       "eyebrow": "Kontakt",
       "title": "Wir sind da – in Ihrer Sprache.",
-      "subtitle": "Für Trauerfälle rufen Sie unsere 24/7-Linie an. Für alles Übrige schreiben Sie uns – wir antworten innerhalb eines Werktages.",
-      "line24": "24/7 Trauerfall-Linie",
+      "subtitle": "Für Trauerbegleitung oder andere Anliegen schreiben Sie uns. Wir bestätigen verfügbare Unterstützung und Antwortzeiten.",
+      "line24": "Anfragen zur Trauerbegleitung",
       "generalEnq": "Allgemeine Anfragen",
       "office": "Büro",
       "officeValue": "Kreuzberg, Berlin · Termine nach Vereinbarung",
@@ -529,7 +436,7 @@
   "directory": {
     "badge": "Mitglieder-Verzeichnis",
     "heroTitle": "Finden Sie jemanden, der Ihre Sprache spricht.",
-    "heroBody": "Mehrsprachige Anwälte, Ärzte, Imame, Steuerberater, Sozialexperten, Lehrer und Übersetzer in ganz Deutschland — durchsuchbar nach Stadt und Sprache. Kostenlose Einträge für Anbieter, Mitgliederzugang für Familien und Klienten.",
+    "heroBody": "Durchsuchen Sie veröffentlichte mehrsprachige Dienstleistungseinträge nach Stadt und Kategorie. Die Angaben stammen von den Anbietern; prüfen Sie Berufsberechtigung, Verfügbarkeit und Vertragsbedingungen direkt.",
     "listCta": "Ihr Unternehmen kostenlos eintragen",
     "seePlans": "Mitgliedstarife ansehen",
     "cityPlaceholder": "Nach Stadt filtern (Berlin, München…)",
@@ -558,8 +465,8 @@
     },
     "paywall": {
       "eyebrow": "Nur für Mitglieder",
-      "title": "Alle verifizierten Anbieter freischalten.",
-      "body": "BeistandPlus-Mitglieder erhalten vollständige Kontaktdaten — Telefon, E-Mail und Webseite — zu jedem Eintrag, plus einen menschlichen Fallmanager, der vermitteln kann. Verzeichniseinträge sind für Anbieter kostenlos; der Zugang ist in jedem BeistandPlus-Tarif enthalten.",
+      "title": "Informationen im Anbieterverzeichnis.",
+      "body": "Prüfen Sie den öffentlichen Eintrag und bestätigen Sie Eignung, Qualifikation und Verfügbarkeit direkt beim Anbieter, bevor Sie ihn beauftragen.",
       "cta": "Tarife ab 5 € ansehen",
       "signIn": "Anmelden"
     }

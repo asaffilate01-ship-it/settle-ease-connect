@@ -74,7 +74,7 @@ const announcementInput = z.object({
 
 export const saveAnnouncement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z.object({ id: z.string().uuid().optional(), values: announcementInput }).parse(d),
   )
   .handler(async ({ data, context }) => {
@@ -97,7 +97,7 @@ export const saveAnnouncement = createServerFn({ method: "POST" })
 
 export const deleteAnnouncement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("announcements").delete().eq("id", data.id);
     if (error) throw new Error(error.message);

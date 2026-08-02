@@ -95,10 +95,7 @@ function RosterTab() {
   return (
     <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
       {(data ?? []).map((e: any) => (
-        <div
-          key={e.id}
-          className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft"
-        >
+        <div key={e.id} className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <div className="truncate font-display text-base font-semibold">{e.full_name}</div>
@@ -403,10 +400,7 @@ function InviteDialog() {
           </div>
           <div>
             <Label>City</Label>
-            <Input
-              value={form.city}
-              onChange={(e) => setForm({ ...form, city: e.target.value })}
-            />
+            <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
           </div>
           <div>
             <Label>Bundesland</Label>
@@ -437,9 +431,7 @@ function InviteDialog() {
           </Button>
           <Button
             onClick={() => create.mutate()}
-            disabled={
-              create.isPending || !form.email || !form.full_name || !form.profession
-            }
+            disabled={create.isPending || !form.email || !form.full_name || !form.profession}
           >
             {create.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create invitation
@@ -495,9 +487,7 @@ function PayoutsTab() {
               className="rounded-xl border border-border/60 bg-card px-3 py-2 text-xs shadow-soft"
             >
               <div className="uppercase tracking-wider text-muted-foreground">{s}</div>
-              <div className="font-display text-base font-semibold">
-                €{totals[s].toFixed(2)}
-              </div>
+              <div className="font-display text-base font-semibold">€{totals[s].toFixed(2)}</div>
             </div>
           ))}
         </div>
@@ -527,9 +517,7 @@ function PayoutsTab() {
           <tbody>
             {(payouts ?? []).map((p: any) => (
               <tr key={p.id} className="border-t border-border/60">
-                <td className="p-3 text-xs">
-                  {p.period_month?.slice(0, 7)}
-                </td>
+                <td className="p-3 text-xs">{p.period_month?.slice(0, 7)}</td>
                 <td className="p-3">
                   <div className="font-medium">{p.expert?.full_name ?? "—"}</div>
                   <div className="text-xs text-muted-foreground">{p.expert?.profession}</div>
@@ -557,9 +545,7 @@ function PayoutsTab() {
                 <td className="p-3 text-right">
                   <Select
                     value={p.status}
-                    onValueChange={(v) =>
-                      setStatus.mutate({ id: p.id, status: v as any })
-                    }
+                    onValueChange={(v) => setStatus.mutate({ id: p.id, status: v as any })}
                   >
                     <SelectTrigger className="h-7 w-[110px] text-xs">
                       <SelectValue />
@@ -594,12 +580,7 @@ function NewPayoutDialog({ experts }: { experts: any[] }) {
   const createFn = useServerFn(createExpertPayout);
   const [form, setForm] = useState({
     expert_id: "",
-    kind: "referral_fee" as
-      | "referral_fee"
-      | "wholesale_markup"
-      | "hourly"
-      | "bonus"
-      | "adjustment",
+    kind: "referral_fee" as "referral_fee" | "wholesale_markup" | "hourly" | "bonus" | "adjustment",
     description: "",
     gross_eur: "",
     rate: "",
@@ -630,9 +611,7 @@ function NewPayoutDialog({ experts }: { experts: any[] }) {
 
   // Auto-compute amount when gross + rate provided
   const computed =
-    form.gross_eur && form.rate
-      ? (Number(form.gross_eur) * Number(form.rate)).toFixed(2)
-      : "";
+    form.gross_eur && form.rate ? (Number(form.gross_eur) * Number(form.rate)).toFixed(2) : "";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -666,10 +645,7 @@ function NewPayoutDialog({ experts }: { experts: any[] }) {
           </div>
           <div>
             <Label>Kind</Label>
-            <Select
-              value={form.kind}
-              onValueChange={(v) => setForm({ ...form, kind: v as any })}
-            >
+            <Select value={form.kind} onValueChange={(v) => setForm({ ...form, kind: v as any })}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -709,7 +685,8 @@ function NewPayoutDialog({ experts }: { experts: any[] }) {
           </div>
           <div className="sm:col-span-2">
             <Label>
-              Amount € {computed && <span className="text-muted-foreground">(auto: €{computed})</span>}
+              Amount €{" "}
+              {computed && <span className="text-muted-foreground">(auto: €{computed})</span>}
             </Label>
             <Input
               type="number"
@@ -732,9 +709,7 @@ function NewPayoutDialog({ experts }: { experts: any[] }) {
           </Button>
           <Button
             onClick={() => create.mutate()}
-            disabled={
-              create.isPending || !form.expert_id || !(form.amount_eur || computed)
-            }
+            disabled={create.isPending || !form.expert_id || !(form.amount_eur || computed)}
           >
             {create.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-article";
+import { legalAddressInline, publicLegal } from "@/lib/public-config";
 
 export const Route = createFileRoute("/legal/privacy")({
   head: () => ({
@@ -21,16 +22,16 @@ function Page() {
 
       <LegalSection title="1. Verantwortlicher (Art. 4 Nr. 7 DSGVO)">
         <p>
-          BeistandPlus GmbH, Musterstraße 1, 10115 Berlin, Deutschland.
-          E-Mail: <a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
+          {legalAddressInline()}. E-Mail:{" "}
+          <a href={`mailto:${publicLegal.privacyEmail}`}>{publicLegal.privacyEmail}</a>.
         </p>
       </LegalSection>
 
       <LegalSection title="2. Datenschutzbeauftragter">
         <p>
-          Sie erreichen unseren Datenschutzbeauftragten unter
-          {" "}<a href="mailto:dpo@beistand.de">dpo@beistand.de</a> oder postalisch unter obiger
-          Anschrift mit dem Zusatz „Datenschutzbeauftragter".
+          Sie erreichen unseren Datenschutzbeauftragten unter{" "}
+          <a href={`mailto:${publicLegal.dpoEmail}`}>{publicLegal.dpoEmail}</a> oder postalisch
+          unter obiger Anschrift mit dem Zusatz „Datenschutzbeauftragter".
         </p>
       </LegalSection>
 
@@ -41,35 +42,52 @@ function Page() {
           <li>Depot-Daten: sensible Dokumente, verschlüsselt gespeichert.</li>
           <li>Zahlungsdaten: über PCI-DSS-konformen Zahlungsdienstleister.</li>
           <li>Nutzungsdaten: nur bei entsprechender Einwilligung (§ 25 TDDDG).</li>
-          <li>Besondere Kategorien (Art. 9 DSGVO, z. B. Gesundheit, Religion): nur auf Basis Ihrer ausdrücklichen Einwilligung nach Art. 9 Abs. 2 lit. a DSGVO.</li>
+          <li>
+            Besondere Kategorien (Art. 9 DSGVO, z. B. Gesundheit, Religion): nur auf Basis Ihrer
+            ausdrücklichen Einwilligung nach Art. 9 Abs. 2 lit. a DSGVO.
+          </li>
         </ul>
       </LegalSection>
 
       <LegalSection title="4. Zwecke und Rechtsgrundlagen">
         <ul>
-          <li><strong>Vertragsdurchführung</strong> — Art. 6 Abs. 1 lit. b DSGVO (Konto, Fälle, Zahlungen).</li>
-          <li><strong>Rechtliche Verpflichtungen</strong> — Art. 6 Abs. 1 lit. c DSGVO iVm §§ 147 AO, 257 HGB, GwG.</li>
-          <li><strong>Berechtigte Interessen</strong> — Art. 6 Abs. 1 lit. f DSGVO (Sicherheit, Betrugsprävention).</li>
-          <li><strong>Einwilligung</strong> — Art. 6 Abs. 1 lit. a bzw. Art. 9 Abs. 2 lit. a DSGVO; § 25 TDDDG bei Cookies.</li>
-          <li><strong>Beschäftigtendaten</strong> — § 26 BDSG.</li>
+          <li>
+            <strong>Vertragsdurchführung</strong> — Art. 6 Abs. 1 lit. b DSGVO (Konto, Fälle,
+            Zahlungen).
+          </li>
+          <li>
+            <strong>Rechtliche Verpflichtungen</strong> — Art. 6 Abs. 1 lit. c DSGVO iVm §§ 147 AO,
+            257 HGB, GwG.
+          </li>
+          <li>
+            <strong>Berechtigte Interessen</strong> — Art. 6 Abs. 1 lit. f DSGVO (Sicherheit,
+            Betrugsprävention).
+          </li>
+          <li>
+            <strong>Einwilligung</strong> — Art. 6 Abs. 1 lit. a bzw. Art. 9 Abs. 2 lit. a DSGVO; §
+            25 TDDDG bei Cookies.
+          </li>
+          <li>
+            <strong>Beschäftigtendaten</strong> — § 26 BDSG.
+          </li>
         </ul>
       </LegalSection>
 
       <LegalSection title="5. Empfänger / Auftragsverarbeiter">
         <p>
-          Wir geben Daten nur an vertraglich gebundene Auftragsverarbeiter (Art. 28 DSGVO)
-          weiter: EU-Cloud-Hoster, Zahlungsdienstleister, E-Mail-Provider und — nur auf Ihre
-          Weisung — an die geprüften Experten in Ihrem Fall. Eine Übermittlung in Drittländer
-          findet grundsätzlich nicht statt; ausnahmsweise nur unter EU-Standardvertragsklauseln
-          (Art. 46 Abs. 2 lit. c DSGVO) und mit ergänzenden Schutzmaßnahmen nach EDSA-Leitlinien.
+          Wir geben Daten nur an vertraglich gebundene Auftragsverarbeiter (Art. 28 DSGVO) weiter:
+          EU-Cloud-Hoster, Zahlungsdienstleister, E-Mail-Provider und — nur auf Ihre Weisung — an
+          die geprüften Experten in Ihrem Fall. Eine Übermittlung in Drittländer findet
+          grundsätzlich nicht statt; ausnahmsweise nur unter EU-Standardvertragsklauseln (Art. 46
+          Abs. 2 lit. c DSGVO) und mit ergänzenden Schutzmaßnahmen nach EDSA-Leitlinien.
         </p>
       </LegalSection>
 
       <LegalSection title="6. Speicherdauer">
         <p>
-          Konto- und Falldaten: für die Dauer des Vertrags plus bis zu 3 Jahre (Verjährung
-          nach § 195 BGB) bzw. bis zu 10 Jahre bei Rechnungen (§ 147 AO). Depot-Daten:
-          Löschung auf Anforderung oder bei Kontoschließung. Statistikdaten: 14 Monate.
+          Konto- und Falldaten: für die Dauer des Vertrags plus bis zu 3 Jahre (Verjährung nach §
+          195 BGB) bzw. bis zu 10 Jahre bei Rechnungen (§ 147 AO). Depot-Daten: Löschung auf
+          Anforderung oder bei Kontoschließung. Statistikdaten: 14 Monate.
         </p>
       </LegalSection>
 
@@ -81,16 +99,21 @@ function Page() {
           <li>Einschränkung (Art. 18 DSGVO)</li>
           <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
           <li>Widerspruch (Art. 21 DSGVO)</li>
-          <li>Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
-          <li>Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO) — für uns zuständig: Berliner Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59–61, 10555 Berlin.</li>
+          <li>
+            Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)
+          </li>
+          <li>
+            Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO) — für uns zuständig: Berliner
+            Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59–61, 10555 Berlin.
+          </li>
         </ul>
       </LegalSection>
 
       <LegalSection title="8. Automatisierte Entscheidungen">
         <p>
-          Es findet keine ausschließlich automatisierte Entscheidungsfindung mit rechtlicher
-          Wirkung im Sinne des Art. 22 DSGVO statt. KI-gestützte Vorschläge werden stets von
-          einem Menschen geprüft, bevor sie umgesetzt werden.
+          Es findet keine ausschließlich automatisierte Entscheidungsfindung mit rechtlicher Wirkung
+          im Sinne des Art. 22 DSGVO statt. KI-gestützte Vorschläge werden stets von einem Menschen
+          geprüft, bevor sie umgesetzt werden.
         </p>
       </LegalSection>
 

@@ -6,7 +6,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 // Authorises: caller must be an active admin of the target partner org.
 export const recordPartnerDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         orgId: z.string().uuid(),
@@ -37,7 +37,8 @@ export const recordPartnerDocument = createServerFn({ method: "POST" })
       .eq("status", "active")
       .maybeSingle();
     if (memErr) throw memErr;
-    if (!membership || !membership.is_admin) throw new Error("Only partner admins may upload documents");
+    if (!membership || !membership.is_admin)
+      throw new Error("Only partner admins may upload documents");
 
     const { data: row, error } = await supabase
       .from("partner_documents")
@@ -59,7 +60,7 @@ export const recordPartnerDocument = createServerFn({ method: "POST" })
 
 export const deletePartnerDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     // RLS enforces admin-of-same-org via existing partner_documents policies
     const { error } = await context.supabase.from("partner_documents").delete().eq("id", data.id);

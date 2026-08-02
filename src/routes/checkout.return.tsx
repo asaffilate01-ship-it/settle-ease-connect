@@ -27,7 +27,10 @@ function CheckoutReturn() {
           : "No checkout session was found in the URL."}
       </p>
       <div className="flex gap-3">
-        <Link to="/app" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+        <Link
+          to="/app"
+          className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+        >
           Go to my dashboard
         </Link>
         <Link to="/pricing" className="rounded-lg border px-4 py-2 text-sm font-semibold">

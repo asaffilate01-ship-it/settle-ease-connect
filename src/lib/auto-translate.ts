@@ -14,8 +14,19 @@ import { translateBatch } from "./translate.functions";
 
 const CACHE_PREFIX = "bs.t.v3.";
 const SKIP_TAGS = new Set([
-  "SCRIPT", "STYLE", "NOSCRIPT", "CODE", "PRE", "KBD", "SAMP",
-  "TEXTAREA", "INPUT", "SELECT", "OPTION", "SVG", "PATH",
+  "SCRIPT",
+  "STYLE",
+  "NOSCRIPT",
+  "CODE",
+  "PRE",
+  "KBD",
+  "SAMP",
+  "TEXTAREA",
+  "INPUT",
+  "SELECT",
+  "OPTION",
+  "SVG",
+  "PATH",
 ]);
 const SKIP_ATTR = "data-no-translate";
 
@@ -35,19 +46,41 @@ let gateActive = false;
 // Per text-node state: original source text + last language we applied.
 const textState = new WeakMap<Text, { src: string; srcLang: string; lang: string }>();
 // Per element+attr state.
-const attrState = new WeakMap<Element, Map<string, { src: string; srcLang: string; lang: string }>>();
+const attrState = new WeakMap<
+  Element,
+  Map<string, { src: string; srcLang: string; lang: string }>
+>();
 
 const langNames: Record<string, string> = {
-  en: "English", de: "German", tr: "Turkish", ur: "Urdu", hi: "Hindi",
-  pa: "Punjabi", ps: "Pashto", ar: "Arabic", ku: "Kurdish (Kurmanji)",
-  ru: "Russian", uk: "Ukrainian", fa: "Persian (Farsi)", pl: "Polish",
+  en: "English",
+  de: "German",
+  tr: "Turkish",
+  ur: "Urdu",
+  hi: "Hindi",
+  pa: "Punjabi",
+  ps: "Pashto",
+  ar: "Arabic",
+  ku: "Kurdish (Kurmanji)",
+  ru: "Russian",
+  uk: "Ukrainian",
+  fa: "Persian (Farsi)",
+  pl: "Polish",
   zh: "Simplified Chinese",
 };
 
 function looksLike(text: string, lang: string): boolean {
   const t = text.toLowerCase();
-  const enScore = (t.match(/\b(the|and|or|not|with|for|from|is|are|we|you|your|they|their|a|an|to|of|on|in|about|after|before|already|also|any|when|then|so|every|germany|english|open|report|active|soon|plan|case|manager|dashboard|booked|ready|sign|find|speaking|compliance|response|languages|trust|cover|group|partners|offline)\b/g) ?? []).length;
-  const deScore = (t.match(/\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch|bereit|öffnen|melden|fallmanager|konto|entwurf|unterschrift)\b/g) ?? []).length + (/[äöüß]/.test(t) && enScore === 0 ? 2 : 0);
+  const enScore = (
+    t.match(
+      /\b(the|and|or|not|with|for|from|is|are|we|you|your|they|their|a|an|to|of|on|in|about|after|before|already|also|any|when|then|so|every|germany|english|open|report|active|soon|plan|case|manager|dashboard|booked|ready|sign|find|speaking|compliance|response|languages|trust|cover|group|partners|offline)\b/g,
+    ) ?? []
+  ).length;
+  const deScore =
+    (
+      t.match(
+        /\b(der|die|das|und|oder|nicht|mit|für|von|zum|zur|ist|sind|wir|sie|ihre|eine|einen|einer|dem|den|auf|über|unter|nach|beim|schon|noch|auch|kein|keine|wenn|dann|damit|jede|jeden|jedes|deutschland|deutsch|bereit|öffnen|melden|fallmanager|konto|entwurf|unterschrift)\b/g,
+      ) ?? []
+    ).length + (/[äöüß]/.test(t) && enScore === 0 ? 2 : 0);
   if (lang === "de") {
     return deScore > enScore && deScore > 0;
   }
@@ -67,10 +100,18 @@ function shouldSkip(el: Element | null): boolean {
 }
 
 function cacheGet(lang: string, src: string): string | null {
-  try { return localStorage.getItem(CACHE_PREFIX + lang + ":" + hash(src)); } catch { return null; }
+  try {
+    return localStorage.getItem(CACHE_PREFIX + lang + ":" + hash(src));
+  } catch {
+    return null;
+  }
 }
 function cacheSet(lang: string, src: string, translated: string) {
-  try { localStorage.setItem(CACHE_PREFIX + lang + ":" + hash(src), translated); } catch { /* quota */ }
+  try {
+    localStorage.setItem(CACHE_PREFIX + lang + ":" + hash(src), translated);
+  } catch {
+    /* quota */
+  }
 }
 
 function hash(s: string): string {
@@ -187,7 +228,10 @@ async function translatePage() {
       if (trimmed.length < 2) continue;
       if (/^[\d\s.,:/\-–—+%€$£¥]+$/.test(trimmed)) continue;
 
-      if (!map) { map = new Map(); attrState.set(el, map); }
+      if (!map) {
+        map = new Map();
+        attrState.set(el, map);
+      }
       let s = map.get(attr);
       if (!s) {
         const detected = looksLike(trimmed, "de") ? "de" : looksLike(trimmed, "en") ? "en" : "en";
@@ -213,7 +257,10 @@ async function translatePage() {
         s.lang = currentLang;
         continue;
       }
-      if (looksLike(s.src, currentLang)) { s.lang = currentLang; continue; }
+      if (looksLike(s.src, currentLang)) {
+        s.lang = currentLang;
+        continue;
+      }
       attrPending.push({ el, attr, src: s.src });
     }
   });
@@ -224,13 +271,18 @@ async function translatePage() {
   const textChunks: { node: Text; src: string }[][] = [];
   for (let i = 0; i < pending.length; i += CHUNK) textChunks.push(pending.slice(i, i + CHUNK));
   const attrChunks: AttrPending[][] = [];
-  for (let i = 0; i < attrPending.length; i += CHUNK) attrChunks.push(attrPending.slice(i, i + CHUNK));
+  for (let i = 0; i < attrPending.length; i += CHUNK)
+    attrChunks.push(attrPending.slice(i, i + CHUNK));
 
   const runTextChunk = async (slice: { node: Text; src: string }[]) => {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
-        data: { targetLang: currentLang, targetName: langNames[currentLang] ?? currentLang, texts: uniqueSrcs },
+        data: {
+          targetLang: currentLang,
+          targetName: langNames[currentLang] ?? currentLang,
+          texts: uniqueSrcs,
+        },
       });
       const map = new Map<string, string>();
       uniqueSrcs.forEach((s, idx) => map.set(s, translations[idx] ?? s));
@@ -253,7 +305,11 @@ async function translatePage() {
     const uniqueSrcs = Array.from(new Set(slice.map((s) => s.src)));
     try {
       const { translations } = await translateBatch({
-        data: { targetLang: currentLang, targetName: langNames[currentLang] ?? currentLang, texts: uniqueSrcs },
+        data: {
+          targetLang: currentLang,
+          targetName: langNames[currentLang] ?? currentLang,
+          texts: uniqueSrcs,
+        },
       });
       const map = new Map<string, string>();
       uniqueSrcs.forEach((s, idx) => map.set(s, translations[idx] ?? s));
@@ -289,7 +345,10 @@ function schedule() {
       // Try again on the next frame — we must never mutate the DOM before
       // React finishes hydrating, or hydration mismatches occur.
       scheduled = true;
-      setTimeout(() => { scheduled = false; schedule(); }, 50);
+      setTimeout(() => {
+        scheduled = false;
+        schedule();
+      }, 50);
       return;
     }
     if (inFlight) {
@@ -309,8 +368,9 @@ function schedule() {
     });
   };
   if ("requestIdleCallback" in window) {
-    (window as unknown as { requestIdleCallback: (cb: () => void, o?: object) => number })
-      .requestIdleCallback(run, { timeout: 500 });
+    (
+      window as unknown as { requestIdleCallback: (cb: () => void, o?: object) => number }
+    ).requestIdleCallback(run, { timeout: 500 });
   } else {
     setTimeout(run, 150);
   }
@@ -324,7 +384,9 @@ function markHydratedSoon() {
   // nodes mid-hydration produces "server rendered text didn't match" errors,
   // so wait for the document to finish loading AND a settle delay before the
   // translator is allowed to touch the DOM.
-  const done = () => { hydrated = true; };
+  const done = () => {
+    hydrated = true;
+  };
   const settle = () => {
     if (typeof requestAnimationFrame === "function") {
       requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(done, 400)));
@@ -340,7 +402,6 @@ function markHydratedSoon() {
     settle();
   }
 }
-
 
 /**
  * Boot the auto-translator. Idempotent — subsequent calls just update the
@@ -367,8 +428,14 @@ export function bootAutoTranslate(lang: string) {
   observer = new MutationObserver((mutations) => {
     if (mutating || !hydrated) return;
     for (const m of mutations) {
-      if (m.type === "childList" && m.addedNodes.length > 0) { schedule(); return; }
-      if (m.type === "characterData") { schedule(); return; }
+      if (m.type === "childList" && m.addedNodes.length > 0) {
+        schedule();
+        return;
+      }
+      if (m.type === "characterData") {
+        schedule();
+        return;
+      }
     }
   });
   observer.observe(document.body, { childList: true, subtree: true, characterData: true });

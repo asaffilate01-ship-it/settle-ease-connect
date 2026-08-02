@@ -31,7 +31,10 @@ export const exportMyData = createServerFn({ method: "POST" })
       await Promise.all([
         sb.from("profiles").select("*").eq("id", uid).maybeSingle(),
         sb.from("cases").select("*").eq("client_user_id", uid),
-        sb.from("vault_documents").select("id, label, category, created_at").eq("owner_user_id", uid),
+        sb
+          .from("vault_documents")
+          .select("id, label, category, created_at")
+          .eq("owner_user_id", uid),
         sb.from("subscriptions").select("*").eq("user_id", uid),
         sb.from("case_tasks").select("id, case_id, title, status, due_date").limit(500),
         sb.from("user_checklist_progress").select("*").eq("user_id", uid),
@@ -65,7 +68,7 @@ export const exportMyData = createServerFn({ method: "POST" })
 /** Article 17 erasure request — queued for staff review (retention/legal holds apply). */
 export const requestAccountDeletion = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ reason: z.string().trim().max(1000).optional() }).parse(raw ?? {}),
   )
   .handler(async ({ data, context }) => {
@@ -93,7 +96,7 @@ export const requestAccountDeletion = createServerFn({ method: "POST" })
 
 export const cancelPrivacyRequest = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("privacy_requests")

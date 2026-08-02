@@ -8,7 +8,9 @@ export const listCaseTemplates = createServerFn({ method: "GET" })
     const { supabase } = context;
     const { data, error } = await supabase
       .from("case_templates")
-      .select("id, template_code, name, description, case_type, expected_duration_days, risk_level, active")
+      .select(
+        "id, template_code, name, description, case_type, expected_duration_days, risk_level, active",
+      )
       .eq("active", true)
       .order("name");
     if (error) throw error;
@@ -17,7 +19,7 @@ export const listCaseTemplates = createServerFn({ method: "GET" })
 
 export const getCaseTemplate = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { templateCode: string }) => z.object({ templateCode: z.string() }).parse(d))
+  .validator((d: { templateCode: string }) => z.object({ templateCode: z.string() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase } = context;
     const { data: tpl, error } = await supabase
@@ -36,7 +38,9 @@ export const getCaseTemplate = createServerFn({ method: "GET" })
     const { data: tasks } = stageIds.length
       ? await supabase
           .from("case_template_tasks")
-          .select("id, stage_id, position, title, description, assignee_role, offset_hours, required, requires_document")
+          .select(
+            "id, stage_id, position, title, description, assignee_role, offset_hours, required, requires_document",
+          )
           .in("stage_id", stageIds)
           .order("position")
       : { data: [] as never[] };
@@ -45,7 +49,7 @@ export const getCaseTemplate = createServerFn({ method: "GET" })
 
 export const applyCaseTemplate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { caseId: string; templateCode: string }) =>
+  .validator((d: { caseId: string; templateCode: string }) =>
     z.object({ caseId: z.string().uuid(), templateCode: z.string() }).parse(d),
   )
   .handler(async ({ data, context }) => {

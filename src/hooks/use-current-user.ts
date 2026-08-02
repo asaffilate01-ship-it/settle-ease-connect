@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { clearQueue } from "@/lib/offline-queue";
 
 export type Profile = {
   id: string;
@@ -49,7 +50,10 @@ export function useCurrentUser() {
     async function load(sessionUser: User | null) {
       if (!sessionUser) {
         if (!alive) return;
-        setUser(null); setProfile(null); setRoles([]); setLoading(false);
+        setUser(null);
+        setProfile(null);
+        setRoles([]);
+        setLoading(false);
         return;
       }
       setUser(sessionUser);
@@ -65,6 +69,7 @@ export function useCurrentUser() {
 
     supabase.auth.getUser().then(({ data }) => load(data.user));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (!session) void clearQueue();
       load(session?.user ?? null);
     });
     return () => {

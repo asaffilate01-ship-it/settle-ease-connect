@@ -10,13 +10,22 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { BarChart3, Heart, Coins, Upload } from "lucide-react";
 import { toast } from "sonner";
 import {
-  campaignAttribution, csatDashboard, listCommissionRows,
-  reconcileCommissions, markCommissionPaid,
+  campaignAttribution,
+  csatDashboard,
+  listCommissionRows,
+  reconcileCommissions,
+  markCommissionPaid,
 } from "@/lib/crm-analytics.functions";
 
-const attributionQ = queryOptions({ queryKey: ["crm-attribution"], queryFn: () => campaignAttribution() });
+const attributionQ = queryOptions({
+  queryKey: ["crm-attribution"],
+  queryFn: () => campaignAttribution(),
+});
 const csatQ = queryOptions({ queryKey: ["crm-csat"], queryFn: () => csatDashboard() });
-const commissionQ = queryOptions({ queryKey: ["crm-commission"], queryFn: () => listCommissionRows() });
+const commissionQ = queryOptions({
+  queryKey: ["crm-commission"],
+  queryFn: () => listCommissionRows(),
+});
 
 export const Route = createFileRoute("/_authenticated/portal/analytics")({
   head: () => ({ meta: [{ title: "CRM Analytics — BeistandPlus" }] }),
@@ -28,11 +37,14 @@ export const Route = createFileRoute("/_authenticated/portal/analytics")({
     ]);
   },
   component: AnalyticsPage,
-  errorComponent: ({ error }) => <div className="p-6 text-sm text-muted-foreground">{error.message}</div>,
+  errorComponent: ({ error }) => (
+    <div className="p-6 text-sm text-muted-foreground">{error.message}</div>
+  ),
   notFoundComponent: () => <div className="p-6">Not found</div>,
 });
 
-const eur = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(n);
+const eur = (n: number) =>
+  new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(n);
 
 function AnalyticsPage() {
   return (
@@ -48,14 +60,26 @@ function AnalyticsPage() {
 
       <Tabs defaultValue="attribution">
         <TabsList>
-          <TabsTrigger value="attribution"><BarChart3 className="h-4 w-4 mr-1" /> Attribution</TabsTrigger>
-          <TabsTrigger value="csat"><Heart className="h-4 w-4 mr-1" /> CSAT / NPS</TabsTrigger>
-          <TabsTrigger value="reconciliation"><Coins className="h-4 w-4 mr-1" /> Reconciliation</TabsTrigger>
+          <TabsTrigger value="attribution">
+            <BarChart3 className="h-4 w-4 mr-1" /> Attribution
+          </TabsTrigger>
+          <TabsTrigger value="csat">
+            <Heart className="h-4 w-4 mr-1" /> CSAT / NPS
+          </TabsTrigger>
+          <TabsTrigger value="reconciliation">
+            <Coins className="h-4 w-4 mr-1" /> Reconciliation
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="attribution" className="mt-4"><AttributionPanel /></TabsContent>
-        <TabsContent value="csat" className="mt-4"><CsatPanel /></TabsContent>
-        <TabsContent value="reconciliation" className="mt-4"><ReconciliationPanel /></TabsContent>
+        <TabsContent value="attribution" className="mt-4">
+          <AttributionPanel />
+        </TabsContent>
+        <TabsContent value="csat" className="mt-4">
+          <CsatPanel />
+        </TabsContent>
+        <TabsContent value="reconciliation" className="mt-4">
+          <ReconciliationPanel />
+        </TabsContent>
       </Tabs>
     </div>
   );
@@ -74,7 +98,9 @@ function AttributionPanel() {
         <Kpi label="Revenue attributed" value={eur(totalRevenue)} />
       </div>
       <Card>
-        <CardHeader><CardTitle className="text-base">By campaign</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="text-base">By campaign</CardTitle>
+        </CardHeader>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -92,19 +118,25 @@ function AttributionPanel() {
               </thead>
               <tbody>
                 {data.length === 0 ? (
-                  <tr><td colSpan={8} className="p-6 text-center text-muted-foreground">No UTM-tagged leads yet.</td></tr>
-                ) : data.map((r, i) => (
-                  <tr key={i} className="border-b last:border-b-0">
-                    <td className="p-3">{r.utm_source ?? "—"}</td>
-                    <td className="p-3">{r.utm_medium ?? "—"}</td>
-                    <td className="p-3">{r.utm_campaign ?? "—"}</td>
-                    <td className="p-3 text-right">{r.leads}</td>
-                    <td className="p-3 text-right">{r.converted}</td>
-                    <td className="p-3 text-right">{r.conversion_rate}%</td>
-                    <td className="p-3 text-right">{eur(r.revenue_eur)}</td>
-                    <td className="p-3 text-right">{eur(r.ltv_eur)}</td>
+                  <tr>
+                    <td colSpan={8} className="p-6 text-center text-muted-foreground">
+                      No UTM-tagged leads yet.
+                    </td>
                   </tr>
-                ))}
+                ) : (
+                  data.map((r, i) => (
+                    <tr key={i} className="border-b last:border-b-0">
+                      <td className="p-3">{r.utm_source ?? "—"}</td>
+                      <td className="p-3">{r.utm_medium ?? "—"}</td>
+                      <td className="p-3">{r.utm_campaign ?? "—"}</td>
+                      <td className="p-3 text-right">{r.leads}</td>
+                      <td className="p-3 text-right">{r.converted}</td>
+                      <td className="p-3 text-right">{r.conversion_rate}%</td>
+                      <td className="p-3 text-right">{eur(r.revenue_eur)}</td>
+                      <td className="p-3 text-right">{eur(r.ltv_eur)}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -122,10 +154,15 @@ function CsatPanel() {
         <Kpi label="Responses" value={data.count.toString()} />
         <Kpi label="Avg score" value={data.averageScore.toString()} />
         <Kpi label="NPS" value={data.nps.toString()} />
-        <Kpi label="Promoters / Passives / Detractors" value={`${data.promoters} · ${data.passives} · ${data.detractors}`} />
+        <Kpi
+          label="Promoters / Passives / Detractors"
+          value={`${data.promoters} · ${data.passives} · ${data.detractors}`}
+        />
       </div>
       <Card>
-        <CardHeader><CardTitle className="text-base">Recent feedback</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="text-base">Recent feedback</CardTitle>
+        </CardHeader>
         <CardContent>
           {data.recent.length === 0 ? (
             <p className="text-sm text-muted-foreground">No responses yet.</p>
@@ -133,10 +170,13 @@ function CsatPanel() {
             <ul className="divide-y">
               {data.recent.map((r) => (
                 <li key={r.id} className="py-2 flex items-start gap-3">
-                  <Badge variant="outline" className="shrink-0">{r.score}/10</Badge>
+                  <Badge variant="outline" className="shrink-0">
+                    {r.score}/10
+                  </Badge>
                   <div className="flex-1 min-w-0">
                     <div className="text-xs text-muted-foreground">
-                      {r.nps_category ?? "—"} · {r.submitted_at ? new Date(r.submitted_at).toLocaleDateString() : ""}
+                      {r.nps_category ?? "—"} ·{" "}
+                      {r.submitted_at ? new Date(r.submitted_at).toLocaleDateString() : ""}
                     </div>
                     {r.comments ? <p className="text-sm mt-0.5">{r.comments}</p> : null}
                   </div>
@@ -186,11 +226,14 @@ function ReconciliationPanel() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2"><Upload className="h-4 w-4" /> Import partner statement (CSV)</CardTitle>
+          <CardTitle className="text-base flex items-center gap-2">
+            <Upload className="h-4 w-4" /> Import partner statement (CSV)
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-xs text-muted-foreground">
-            Columns: <code>policy_reference,amount_paid,paid_at</code>. Rows are matched by <code>policy_reference</code>.
+            Columns: <code>policy_reference,amount_paid,paid_at</code>. Rows are matched by{" "}
+            <code>policy_reference</code>.
           </p>
           <Textarea
             rows={6}
@@ -206,7 +249,9 @@ function ReconciliationPanel() {
       </Card>
 
       <Card>
-        <CardHeader><CardTitle className="text-base">Commission ledger</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="text-base">Commission ledger</CardTitle>
+        </CardHeader>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -224,29 +269,46 @@ function ReconciliationPanel() {
               </thead>
               <tbody>
                 {data.rows.length === 0 ? (
-                  <tr><td colSpan={8} className="p-6 text-center text-muted-foreground">No commission rows yet.</td></tr>
-                ) : data.rows.map((r) => (
-                  <tr key={r.id} className="border-b last:border-b-0">
-                    <td className="p-3">{r.full_name ?? r.email}</td>
-                    <td className="p-3">{r.carrier_partner ?? "—"}</td>
-                    <td className="p-3">{r.product_line ?? "—"}</td>
-                    <td className="p-3 font-mono text-xs">{r.policy_reference ?? "—"}</td>
-                    <td className="p-3"><Badge variant="outline">{r.stage}</Badge></td>
-                    <td className="p-3 text-right">{eur(Number(r.commission_amount ?? 0))}</td>
-                    <td className="p-3">
-                      <Badge variant="outline" className={
-                        r.commission_status === "paid" ? "border-emerald-500/40 text-emerald-600"
-                        : r.commission_status === "due" ? "border-amber-500/40 text-amber-600"
-                        : ""
-                      }>{r.commission_status ?? "pending"}</Badge>
-                    </td>
-                    <td className="p-3 text-right">
-                      {r.commission_status !== "paid" ? (
-                        <Button size="sm" variant="outline" onClick={() => markPaid.mutate(r.id)}>Mark paid</Button>
-                      ) : null}
+                  <tr>
+                    <td colSpan={8} className="p-6 text-center text-muted-foreground">
+                      No commission rows yet.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  data.rows.map((r) => (
+                    <tr key={r.id} className="border-b last:border-b-0">
+                      <td className="p-3">{r.full_name ?? r.email}</td>
+                      <td className="p-3">{r.carrier_partner ?? "—"}</td>
+                      <td className="p-3">{r.product_line ?? "—"}</td>
+                      <td className="p-3 font-mono text-xs">{r.policy_reference ?? "—"}</td>
+                      <td className="p-3">
+                        <Badge variant="outline">{r.stage}</Badge>
+                      </td>
+                      <td className="p-3 text-right">{eur(Number(r.commission_amount ?? 0))}</td>
+                      <td className="p-3">
+                        <Badge
+                          variant="outline"
+                          className={
+                            r.commission_status === "paid"
+                              ? "border-emerald-500/40 text-emerald-600"
+                              : r.commission_status === "due"
+                                ? "border-amber-500/40 text-amber-600"
+                                : ""
+                          }
+                        >
+                          {r.commission_status ?? "pending"}
+                        </Badge>
+                      </td>
+                      <td className="p-3 text-right">
+                        {r.commission_status !== "paid" ? (
+                          <Button size="sm" variant="outline" onClick={() => markPaid.mutate(r.id)}>
+                            Mark paid
+                          </Button>
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -258,7 +320,11 @@ function ReconciliationPanel() {
 
 function Kpi({ label, value, tone }: { label: string; value: string; tone?: "emerald" | "amber" }) {
   const toneCls =
-    tone === "emerald" ? "text-emerald-600" : tone === "amber" ? "text-amber-600" : "text-foreground";
+    tone === "emerald"
+      ? "text-emerald-600"
+      : tone === "amber"
+        ? "text-amber-600"
+        : "text-foreground";
   return (
     <Card>
       <CardContent className="p-4">

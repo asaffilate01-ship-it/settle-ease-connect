@@ -73,7 +73,12 @@ function SettingsPage() {
           </div>
           <div>
             <Label htmlFor="city">City</Label>
-            <Input id="city" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Berlin" />
+            <Input
+              id="city"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="Berlin"
+            />
           </div>
           <div>
             <Label htmlFor="lang">Preferred language</Label>
@@ -113,14 +118,19 @@ function SettingsPage() {
           <h2 className="font-display text-xl font-semibold">Your roles</h2>
         </div>
         <p className="mt-1 text-sm text-muted-foreground">
-          Roles unlock portal workspaces. New portals for mosques, churches, temples, hospitals and admins arrive in the next release.
+          Roles unlock portal workspaces. New portals for mosques, churches, temples, hospitals and
+          admins arrive in the next release.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {roles.length === 0 ? (
             <span className="text-sm text-muted-foreground">No roles assigned yet.</span>
           ) : (
             roles.map((r) => (
-              <Badge key={r} variant="outline" className="capitalize border-primary/40 text-primary">
+              <Badge
+                key={r}
+                variant="outline"
+                className="capitalize border-primary/40 text-primary"
+              >
                 {r.replace("_", " ")}
               </Badge>
             ))

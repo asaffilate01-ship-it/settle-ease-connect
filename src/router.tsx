@@ -4,7 +4,6 @@ import i18n from "./i18n";
 import { DEFAULT_LANG } from "./i18n/config";
 import { routeTree } from "./routeTree.gen";
 
-
 export const getRouter = () => {
   // The i18n singleton persists across requests on the SSR worker.
   // Reset it to the default language for every request so SSR HTML always

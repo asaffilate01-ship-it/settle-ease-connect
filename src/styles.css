@@ -75,15 +75,15 @@
   --radius: 0.5rem; /* magazine cards read tighter, more editorial */
 
   /* ---- Paper & Ink ---- */
-  --background: oklch(0.975 0.011 78);   /* warm cream #faf8f5 */
-  --parchment: oklch(0.955 0.019 72);    /* softer cream tone for surfaces */
-  --foreground: oklch(0.16 0.015 40);    /* deeper charcoal for readability */
+  --background: oklch(0.975 0.011 78); /* warm cream #faf8f5 */
+  --parchment: oklch(0.955 0.019 72); /* softer cream tone for surfaces */
+  --foreground: oklch(0.16 0.015 40); /* deeper charcoal for readability */
   --ink: oklch(0.12 0.015 40);
 
   /* ---- Terracotta signature ---- */
-  --terracotta: oklch(0.56 0.15 38);     /* slightly deeper for AA contrast */
-  --peach: oklch(0.82 0.088 55);         /* #e8a87c */
-  --sage: oklch(0.46 0.06 145);          /* deeper sage for readability */
+  --terracotta: oklch(0.56 0.15 38); /* slightly deeper for AA contrast */
+  --peach: oklch(0.82 0.088 55); /* #e8a87c */
+  --sage: oklch(0.46 0.06 145); /* deeper sage for readability */
 
   --card: oklch(0.99 0.006 78);
   --card-foreground: oklch(0.16 0.015 40);
@@ -121,11 +121,11 @@
   --input: oklch(0.86 0.02 60);
   --ring: oklch(0.6 0.14 40);
 
-  --chart-1: oklch(0.6 0.14 40);   /* terracotta */
+  --chart-1: oklch(0.6 0.14 40); /* terracotta */
   --chart-2: oklch(0.5 0.055 145); /* sage */
   --chart-3: oklch(0.82 0.088 55); /* peach */
   --chart-4: oklch(0.35 0.05 145); /* deep sage */
-  --chart-5: oklch(0.7 0.11 45);   /* copper */
+  --chart-5: oklch(0.7 0.11 45); /* copper */
 
   /* Sidebar — warm parchment panel, editorial to match site */
   --sidebar: oklch(0.97 0.014 78);
@@ -139,37 +139,39 @@
 
   /* -------- Signature gradients — subtle, paper-based -------- */
   --gradient-hero:
-    radial-gradient(ellipse 900px 500px at 15% 0%,  oklch(0.82 0.088 55 / 0.35), transparent 62%),
-    radial-gradient(ellipse 800px 600px at 100% 20%, oklch(0.6 0.14 40 / 0.10), transparent 65%),
-    radial-gradient(ellipse 600px 400px at 40% 100%, oklch(0.5 0.055 145 / 0.10), transparent 70%);
+    radial-gradient(ellipse 900px 500px at 15% 0%, oklch(0.82 0.088 55 / 0.35), transparent 62%),
+    radial-gradient(ellipse 800px 600px at 100% 20%, oklch(0.6 0.14 40 / 0.1), transparent 65%),
+    radial-gradient(ellipse 600px 400px at 40% 100%, oklch(0.5 0.055 145 / 0.1), transparent 70%);
   --gradient-primary: linear-gradient(135deg, oklch(0.6 0.14 40), oklch(0.52 0.15 32));
-  --gradient-ocean:   linear-gradient(135deg, oklch(0.35 0.05 145), oklch(0.5 0.055 145)); /* sage — kept as alias */
-  --gradient-teal:    linear-gradient(135deg, oklch(0.5 0.055 145), oklch(0.62 0.06 140));
-  --gradient-aurora:  linear-gradient(135deg, oklch(0.6 0.14 40), oklch(0.82 0.088 55) 60%, oklch(0.5 0.055 145));
+  --gradient-ocean: linear-gradient(
+    135deg,
+    oklch(0.35 0.05 145),
+    oklch(0.5 0.055 145)
+  ); /* sage — kept as alias */
+  --gradient-teal: linear-gradient(135deg, oklch(0.5 0.055 145), oklch(0.62 0.06 140));
+  --gradient-aurora: linear-gradient(
+    135deg,
+    oklch(0.6 0.14 40),
+    oklch(0.82 0.088 55) 60%,
+    oklch(0.5 0.055 145)
+  );
 
   /* Card shadows — layered, warm, not blue */
   --shadow-soft:
-    0 1px 2px oklch(0.14 0.015 40 / 0.05),
-    0 8px 24px -10px oklch(0.14 0.015 40 / 0.14);
+    0 1px 2px oklch(0.14 0.015 40 / 0.05), 0 8px 24px -10px oklch(0.14 0.015 40 / 0.14);
   --shadow-elevated:
-    0 2px 6px oklch(0.14 0.015 40 / 0.07),
-    0 24px 48px -18px oklch(0.14 0.015 40 / 0.22);
+    0 2px 6px oklch(0.14 0.015 40 / 0.07), 0 24px 48px -18px oklch(0.14 0.015 40 / 0.22);
   --shadow-card:
-    0 1px 2px oklch(0.14 0.015 40 / 0.04),
-    0 4px 12px -4px oklch(0.14 0.015 40 / 0.08),
+    0 1px 2px oklch(0.14 0.015 40 / 0.04), 0 4px 12px -4px oklch(0.14 0.015 40 / 0.08),
     0 24px 60px -28px oklch(0.14 0.015 40 / 0.16);
   --shadow-clay:
-    inset 0 2px 3px oklch(1 0 0 / 0.55),
-    inset 0 -3px 6px oklch(0.6 0.14 40 / 0.24),
-    0 8px 20px -6px oklch(0.14 0.015 40 / 0.3),
-    0 2px 4px oklch(0.14 0.015 40 / 0.12);
+    inset 0 2px 3px oklch(1 0 0 / 0.55), inset 0 -3px 6px oklch(0.6 0.14 40 / 0.24),
+    0 8px 20px -6px oklch(0.14 0.015 40 / 0.3), 0 2px 4px oklch(0.14 0.015 40 / 0.12);
   --shadow-clay-sm:
-    inset 0 1px 2px oklch(1 0 0 / 0.5),
-    inset 0 -2px 4px oklch(0.6 0.14 40 / 0.22),
+    inset 0 1px 2px oklch(1 0 0 / 0.5), inset 0 -2px 4px oklch(0.6 0.14 40 / 0.22),
     0 4px 12px -3px oklch(0.14 0.015 40 / 0.25);
   --shadow-glow-teal:
-    0 0 0 1px oklch(0.5 0.055 145 / 0.22),
-    0 10px 40px -10px oklch(0.5 0.055 145 / 0.4);
+    0 0 0 1px oklch(0.5 0.055 145 / 0.22), 0 10px 40px -10px oklch(0.5 0.055 145 / 0.4);
 }
 
 .dark {
@@ -202,10 +204,8 @@
   --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.68 0.15 42);
   --shadow-clay:
-    inset 0 2px 3px oklch(1 0 0 / 0.15),
-    inset 0 -3px 6px oklch(0 0 0 / 0.4),
-    0 8px 20px -6px oklch(0 0 0 / 0.6),
-    0 2px 4px oklch(0 0 0 / 0.4);
+    inset 0 2px 3px oklch(1 0 0 / 0.15), inset 0 -3px 6px oklch(0 0 0 / 0.4),
+    0 8px 20px -6px oklch(0 0 0 / 0.6), 0 2px 4px oklch(0 0 0 / 0.4);
 }
 
 @layer base {
@@ -224,103 +224,249 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     background-image:
-      radial-gradient(ellipse 1200px 700px at 50% -10%, oklch(0.82 0.088 55 / 0.18), transparent 60%),
-      radial-gradient(ellipse 800px 500px at 100% 100%, oklch(0.5 0.055 145 / 0.05), transparent 65%),
+      radial-gradient(
+        ellipse 1200px 700px at 50% -10%,
+        oklch(0.82 0.088 55 / 0.18),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 800px 500px at 100% 100%,
+        oklch(0.5 0.055 145 / 0.05),
+        transparent 65%
+      ),
       /* subtle paper grain */
-      repeating-linear-gradient(0deg,
-        oklch(0.14 0.015 40 / 0.012) 0px,
-        oklch(0.14 0.015 40 / 0.012) 1px,
-        transparent 1px,
-        transparent 3px);
+        repeating-linear-gradient(
+          0deg,
+          oklch(0.14 0.015 40 / 0.012) 0px,
+          oklch(0.14 0.015 40 / 0.012) 1px,
+          transparent 1px,
+          transparent 3px
+        );
     background-attachment: fixed;
     min-height: 100dvh;
     font-feature-settings: "kern", "liga", "calt", "ss01";
   }
 
   /* Editorial headings — DM Serif Display is a display serif; use it at size, keep body Fira Sans */
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-display);
     font-weight: 400; /* DM Serif Display only ships in 400 — weight comes from size + tracking */
     letter-spacing: -0.015em;
     text-wrap: balance;
     color: inherit;
   }
-  h1 { letter-spacing: -0.025em; }
-  h4, h5 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.005em; }
+  h1 {
+    letter-spacing: -0.025em;
+  }
+  h4,
+  h5 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
 
-  :where(p) { color: color-mix(in oklab, var(--color-foreground) 92%, transparent); }
-  :where(li, dd, dt) { color: inherit; }
+  :where(p) {
+    color: color-mix(in oklab, var(--color-foreground) 92%, transparent);
+  }
+  :where(li, dd, dt) {
+    color: inherit;
+  }
 
   /* Compound-word safety (German) */
-  html:lang(de) h1, html:lang(de) h2, html:lang(de) h3 {
+  html:lang(de) h1,
+  html:lang(de) h2,
+  html:lang(de) h3 {
     hyphens: auto;
     -webkit-hyphens: auto;
     overflow-wrap: break-word;
     word-break: normal;
   }
-  html:lang(de) .font-display.text-4xl { font-size: 1.875rem; line-height: 2.25rem; }
-  html:lang(de) .font-display.text-5xl { font-size: 2.5rem;   line-height: 2.75rem; }
-  html:lang(de) .font-display.text-6xl { font-size: 3rem;     line-height: 3.25rem; }
-  html:lang(de) .font-display.text-7xl { font-size: 3.5rem;   line-height: 3.75rem; }
+  html:lang(de) .font-display.text-4xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  html:lang(de) .font-display.text-5xl {
+    font-size: 2.5rem;
+    line-height: 2.75rem;
+  }
+  html:lang(de) .font-display.text-6xl {
+    font-size: 3rem;
+    line-height: 3.25rem;
+  }
+  html:lang(de) .font-display.text-7xl {
+    font-size: 3.5rem;
+    line-height: 3.75rem;
+  }
   @media (min-width: 640px) {
-    html:lang(de) .font-display.sm\:text-5xl { font-size: 2.75rem; line-height: 3rem; }
-    html:lang(de) .font-display.sm\:text-6xl { font-size: 3.25rem; line-height: 3.5rem; }
-    html:lang(de) .font-display.sm\:text-7xl { font-size: 3.75rem; line-height: 4rem; }
+    html:lang(de) .font-display.sm\:text-5xl {
+      font-size: 2.75rem;
+      line-height: 3rem;
+    }
+    html:lang(de) .font-display.sm\:text-6xl {
+      font-size: 3.25rem;
+      line-height: 3.5rem;
+    }
+    html:lang(de) .font-display.sm\:text-7xl {
+      font-size: 3.75rem;
+      line-height: 4rem;
+    }
   }
   @media (min-width: 1024px) {
-    html:lang(de) .font-display.lg\:text-6xl { font-size: 3.5rem;  line-height: 3.75rem; }
-    html:lang(de) .font-display.lg\:text-7xl { font-size: 4rem;    line-height: 4.25rem; }
+    html:lang(de) .font-display.lg\:text-6xl {
+      font-size: 3.5rem;
+      line-height: 3.75rem;
+    }
+    html:lang(de) .font-display.lg\:text-7xl {
+      font-size: 4rem;
+      line-height: 4.25rem;
+    }
   }
 
-  button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
+  button,
+  a,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
 
-  .safe-top    { padding-top: env(safe-area-inset-top); }
-  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 
   /* Reserve room below marketing footers so the mobile CTA bar doesn't
      obscure the copyright line on small screens. */
   @media (max-width: 767px) {
-    footer[data-site-footer] { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
+    footer[data-site-footer] {
+      padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem);
+    }
     /* When scrolling to an anchor / focused input, keep it clear of the
        fixed mobile CTA bar (~72px tall + safe area). */
-    html { scroll-padding-bottom: 6rem; scroll-padding-top: 4rem; }
+    html {
+      scroll-padding-bottom: 6rem;
+      scroll-padding-top: 4rem;
+    }
   }
 
   /* Better mobile hero rhythm — the fluid clamp on `display-hero` can still
      feel oversized in narrow viewports for long German words. */
   @media (max-width: 480px) {
-    .display-hero { font-size: clamp(2rem, 8vw, 2.5rem); line-height: 1.05; }
+    .display-hero {
+      font-size: clamp(2rem, 8vw, 2.5rem);
+      line-height: 1.05;
+    }
   }
 
   /* Script-specific font stacks */
-  html:lang(ar), html:lang(ar) body { font-family: "Noto Sans Arabic", var(--font-sans); }
-  html:lang(ur), html:lang(ur) body { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", var(--font-sans); }
-  html:lang(fa), html:lang(fa) body { font-family: "Noto Sans Arabic", var(--font-sans); }
-  html:lang(hi), html:lang(hi) body { font-family: "Noto Sans Devanagari", var(--font-sans); }
-  html:lang(pa), html:lang(pa) body { font-family: "Noto Sans Gurmukhi", var(--font-sans); }
-  html:lang(zh), html:lang(zh) body { font-family: "Noto Sans SC", var(--font-sans); }
-  html:lang(ar) h1, html:lang(ar) h2, html:lang(ar) h3, html:lang(ar) h4, html:lang(ar) h5,
-  html:lang(ur) h1, html:lang(ur) h2, html:lang(ur) h3, html:lang(ur) h4, html:lang(ur) h5,
-  html:lang(fa) h1, html:lang(fa) h2, html:lang(fa) h3, html:lang(fa) h4, html:lang(fa) h5 { font-family: "Noto Sans Arabic", var(--font-display); }
-  html:lang(hi) h1, html:lang(hi) h2, html:lang(hi) h3, html:lang(hi) h4, html:lang(hi) h5 { font-family: "Noto Sans Devanagari", var(--font-display); }
-  html:lang(pa) h1, html:lang(pa) h2, html:lang(pa) h3, html:lang(pa) h4, html:lang(pa) h5 { font-family: "Noto Sans Gurmukhi", var(--font-display); }
-  html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) h4, html:lang(zh) h5 { font-family: "Noto Sans SC", var(--font-display); }
+  html:lang(ar),
+  html:lang(ar) body {
+    font-family: "Noto Sans Arabic", var(--font-sans);
+  }
+  html:lang(ur),
+  html:lang(ur) body {
+    font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", var(--font-sans);
+  }
+  html:lang(fa),
+  html:lang(fa) body {
+    font-family: "Noto Sans Arabic", var(--font-sans);
+  }
+  html:lang(hi),
+  html:lang(hi) body {
+    font-family: "Noto Sans Devanagari", var(--font-sans);
+  }
+  html:lang(pa),
+  html:lang(pa) body {
+    font-family: "Noto Sans Gurmukhi", var(--font-sans);
+  }
+  html:lang(zh),
+  html:lang(zh) body {
+    font-family: "Noto Sans SC", var(--font-sans);
+  }
+  html:lang(ar) h1,
+  html:lang(ar) h2,
+  html:lang(ar) h3,
+  html:lang(ar) h4,
+  html:lang(ar) h5,
+  html:lang(ur) h1,
+  html:lang(ur) h2,
+  html:lang(ur) h3,
+  html:lang(ur) h4,
+  html:lang(ur) h5,
+  html:lang(fa) h1,
+  html:lang(fa) h2,
+  html:lang(fa) h3,
+  html:lang(fa) h4,
+  html:lang(fa) h5 {
+    font-family: "Noto Sans Arabic", var(--font-display);
+  }
+  html:lang(hi) h1,
+  html:lang(hi) h2,
+  html:lang(hi) h3,
+  html:lang(hi) h4,
+  html:lang(hi) h5 {
+    font-family: "Noto Sans Devanagari", var(--font-display);
+  }
+  html:lang(pa) h1,
+  html:lang(pa) h2,
+  html:lang(pa) h3,
+  html:lang(pa) h4,
+  html:lang(pa) h5 {
+    font-family: "Noto Sans Gurmukhi", var(--font-display);
+  }
+  html:lang(zh) h1,
+  html:lang(zh) h2,
+  html:lang(zh) h3,
+  html:lang(zh) h4,
+  html:lang(zh) h5 {
+    font-family: "Noto Sans SC", var(--font-display);
+  }
 }
 
-@utility font-display { font-family: var(--font-display); }
-@utility font-sans-body { font-family: var(--font-sans); }
+@utility font-display {
+  font-family: var(--font-display);
+}
+@utility font-sans-body {
+  font-family: var(--font-sans);
+}
 
-@utility bg-gradient-hero    { background-image: var(--gradient-hero); }
-@utility bg-gradient-primary { background-image: var(--gradient-primary); }
-@utility bg-gradient-ocean   { background-image: var(--gradient-ocean); }
-@utility bg-gradient-teal    { background-image: var(--gradient-teal); }
-@utility bg-gradient-aurora  { background-image: var(--gradient-aurora); }
-@utility shadow-soft         { box-shadow: var(--shadow-soft); }
-@utility shadow-elevated     { box-shadow: var(--shadow-elevated); }
-@utility shadow-card         { box-shadow: var(--shadow-card); }
-@utility shadow-clay         { box-shadow: var(--shadow-clay); }
-@utility shadow-clay-sm      { box-shadow: var(--shadow-clay-sm); }
-@utility shadow-glow-teal    { box-shadow: var(--shadow-glow-teal); }
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+}
+@utility bg-gradient-primary {
+  background-image: var(--gradient-primary);
+}
+@utility bg-gradient-ocean {
+  background-image: var(--gradient-ocean);
+}
+@utility bg-gradient-teal {
+  background-image: var(--gradient-teal);
+}
+@utility bg-gradient-aurora {
+  background-image: var(--gradient-aurora);
+}
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+@utility shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+@utility shadow-clay {
+  box-shadow: var(--shadow-clay);
+}
+@utility shadow-clay-sm {
+  box-shadow: var(--shadow-clay-sm);
+}
+@utility shadow-glow-teal {
+  box-shadow: var(--shadow-glow-teal);
+}
 
 /* -------- Editorial magazine helpers -------- */
 
@@ -404,7 +550,9 @@
   &::after {
     content: "";
     position: absolute;
-    left: 0; right: 0; bottom: 0.06em;
+    left: 0;
+    right: 0;
+    bottom: 0.06em;
     height: 0.32em;
     background: color-mix(in oklab, var(--color-primary) 55%, transparent);
     z-index: -1;
@@ -414,8 +562,12 @@
 }
 
 /* Back-compat aliases so pre-v3 gradient utilities still resolve. */
-@utility bg-gradient-warm { background-image: var(--gradient-aurora); }
-@utility bg-gradient-flag { background-image: var(--gradient-primary); }
+@utility bg-gradient-warm {
+  background-image: var(--gradient-aurora);
+}
+@utility bg-gradient-flag {
+  background-image: var(--gradient-primary);
+}
 
 /* -------------------------------------------------------------------------
    Icon tile polish
@@ -443,9 +595,10 @@
     inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 24%, transparent),
     0 6px 16px -10px color-mix(in oklab, var(--color-primary) 55%, transparent);
   color: color-mix(in oklab, var(--color-primary) 78%, oklch(0.24 0.04 40));
-  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
-              box-shadow 320ms ease,
-              filter 320ms ease;
+  transition:
+    transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 320ms ease,
+    filter 320ms ease;
 }
 
 :where(.place-items-center).bg-accent\/10,
@@ -463,9 +616,10 @@
     inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 28%, transparent),
     0 6px 16px -10px color-mix(in oklab, var(--color-accent) 55%, transparent);
   color: color-mix(in oklab, var(--color-primary) 62%, oklch(0.24 0.04 40));
-  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
-              box-shadow 320ms ease,
-              filter 320ms ease;
+  transition:
+    transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 320ms ease,
+    filter 320ms ease;
 }
 
 :where(.place-items-center).bg-gradient-primary,
@@ -476,9 +630,10 @@
     inset 0 -1px 0 oklch(0 0 0 / 0.08),
     0 10px 24px -12px color-mix(in oklab, var(--color-primary) 65%, transparent),
     0 2px 6px -2px color-mix(in oklab, var(--color-primary) 45%, transparent);
-  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
-              box-shadow 320ms ease,
-              filter 320ms ease;
+  transition:
+    transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 320ms ease,
+    filter 320ms ease;
 }
 
 /* Lift + brighten the icon tile when the surrounding card/group is hovered. */
@@ -522,9 +677,15 @@ html.native {
   --safe-top: env(safe-area-inset-top);
   --safe-bottom: env(safe-area-inset-bottom);
 }
-html.keyboard-open body { padding-bottom: var(--keyboard-height, 0px); }
-@utility safe-top    { padding-top: env(safe-area-inset-top); }
-@utility safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+html.keyboard-open body {
+  padding-bottom: var(--keyboard-height, 0px);
+}
+@utility safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+@utility safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
 
 /* Fluid display typography — clamps for long translations */
 @utility display-hero {
@@ -557,17 +718,43 @@ html.keyboard-open body { padding-bottom: var(--keyboard-height, 0px); }
   hyphens: auto;
   overflow-wrap: break-word;
 }
-@utility body-pretty { text-wrap: pretty; overflow-wrap: break-word; hyphens: auto; }
-@utility card-title  { text-wrap: balance; overflow-wrap: break-word; hyphens: auto; min-width: 0; }
+@utility body-pretty {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+@utility card-title {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 0;
+}
 
 /* RTL helpers */
-[dir="rtl"] .rtl-flip { transform: scaleX(-1); }
-[dir="rtl"] .text-start-safe { text-align: right; }
-[dir="ltr"] .text-start-safe { text-align: left; }
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+[dir="rtl"] .text-start-safe {
+  text-align: right;
+}
+[dir="ltr"] .text-start-safe {
+  text-align: left;
+}
 
 /* Long-word safety net */
-h1, h2, h3, h4 { overflow-wrap: break-word; hyphens: auto; }
-p, li, dd, dt  { overflow-wrap: break-word; }
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+p,
+li,
+dd,
+dt {
+  overflow-wrap: break-word;
+}
 
 /* Language switches are instant — i18n resources are pre-bundled.
    No page-wide dim; any stray non-key text is filled in the background. */
@@ -578,62 +765,91 @@ p, li, dd, dt  { overflow-wrap: break-word; }
  * ============================================================ */
 
 /* Arabic + Kurdish (Sorani) — clear Naskh, slightly larger. */
-html[lang="ar"], html[lang="ku"] {
+html[lang="ar"],
+html[lang="ku"] {
   --font-sans: "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
   font-size: 17px;
 }
-html[lang="ar"] body, html[lang="ku"] body { line-height: 1.7; }
+html[lang="ar"] body,
+html[lang="ku"] body {
+  line-height: 1.7;
+}
 
 /* Urdu — Nastaliq needs extra line-height and a bigger base. */
 html[lang="ur"] {
-  --font-sans: "Noto Nastaliq Urdu", "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    "Noto Nastaliq Urdu", "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
   font-size: 18px;
 }
 html[lang="ur"] body,
-html[lang="ur"] h1, html[lang="ur"] h2, html[lang="ur"] h3, html[lang="ur"] h4 {
+html[lang="ur"] h1,
+html[lang="ur"] h2,
+html[lang="ur"] h3,
+html[lang="ur"] h4 {
   line-height: 2;
 }
 html[lang="ur"] .display-hero,
 html[lang="ur"] .display-lg,
-html[lang="ur"] .display-md { line-height: 1.6; }
+html[lang="ur"] .display-md {
+  line-height: 1.6;
+}
 
 /* Persian (Farsi) — same base as Arabic; Naskh reads well on screen. */
 html[lang="fa"] {
   --font-sans: "Noto Sans Arabic", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
   font-size: 17px;
 }
-html[lang="fa"] body { line-height: 1.75; }
+html[lang="fa"] body {
+  line-height: 1.75;
+}
 
 /* Hindi (Devanagari) — matras clip at 16px, needs 17px + looser leading. */
 html[lang="hi"] {
   --font-sans: "Noto Sans Devanagari", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
   font-size: 17px;
 }
-html[lang="hi"] body { line-height: 1.7; }
+html[lang="hi"] body {
+  line-height: 1.7;
+}
 
 /* Punjabi (Gurmukhi) — similar to Devanagari. */
 html[lang="pa"] {
   --font-sans: "Noto Sans Gurmukhi", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
   font-size: 17px;
 }
-html[lang="pa"] body { line-height: 1.7; }
+html[lang="pa"] body {
+  line-height: 1.7;
+}
 
 /* Simplified Chinese — Noto Sans SC, slightly larger, tighter letter-spacing. */
 html[lang="zh"] {
   --font-sans: "Noto Sans SC", "Fira Sans", ui-sans-serif, system-ui, sans-serif;
   font-size: 17px;
 }
-html[lang="zh"] body { letter-spacing: 0; line-height: 1.7; }
-html[lang="zh"] h1, html[lang="zh"] h2, html[lang="zh"] h3 { letter-spacing: 0.01em; }
+html[lang="zh"] body {
+  letter-spacing: 0;
+  line-height: 1.7;
+}
+html[lang="zh"] h1,
+html[lang="zh"] h2,
+html[lang="zh"] h3 {
+  letter-spacing: 0.01em;
+}
 
 /* Cyrillic (RU/UK) — Fira Sans covers Cyrillic well; nudge tracking. */
-html[lang="ru"] body, html[lang="uk"] body { letter-spacing: 0.005em; }
+html[lang="ru"] body,
+html[lang="uk"] body {
+  letter-spacing: 0.005em;
+}
 
 /* RTL sidebar & nav — mirror horizontal padding but keep icons upright. */
 [dir="rtl"] .sidebar,
-[dir="rtl"] nav[aria-label] { text-align: right; }
-[dir="rtl"] svg[data-flip-in-rtl="true"] { transform: scaleX(-1); }
-
+[dir="rtl"] nav[aria-label] {
+  text-align: right;
+}
+[dir="rtl"] svg[data-flip-in-rtl="true"] {
+  transform: scaleX(-1);
+}
 
 /* Language switch cross-fade — keep it fast (120ms) so it feels instant,
    not animated. Without this the browser default is 250ms + a big

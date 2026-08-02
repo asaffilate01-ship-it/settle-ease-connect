@@ -1,15 +1,25 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader, SiteFooter } from "@/components/site-chrome";
-import { Card } from "@/components/ui/card";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 export const Route = createFileRoute("/partners/insurers")({
   head: () => ({
     meta: [
-      { title: "Insurance Partnership — BeistandPlus" },
-      { name: "description", content: "Partnership one-pager for German Sterbegeld insurers: distribution model, target segment, integration, commercials." },
-      { property: "og:title", content: "Insurance Partnership — BeistandPlus" },
-      { property: "og:description", content: "Distribute bereavement cover to Germany's migrant families through a licensed, multilingual case-managed super-app." },
+      { title: "Prospective insurance referral partners — BeistandPlus" },
+      {
+        name: "description",
+        content:
+          "A non-binding discussion brief for licensed German insurance providers considering a referral pilot.",
+      },
+      { property: "og:title", content: "Insurance referral partnerships — BeistandPlus" },
+      {
+        property: "og:description",
+        content:
+          "Explore a consent-based referral workflow with clear regulatory and service boundaries.",
+      },
       { name: "robots", content: "noindex" },
       { property: "og:url", content: "https://beistandplus.de/partners/insurers" },
     ],
@@ -18,98 +28,101 @@ export const Route = createFileRoute("/partners/insurers")({
   component: PartnersInsurers,
 });
 
-function Row({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between gap-6 border-b py-3 text-sm last:border-0">
-      <span className="text-muted-foreground">{label}</span>
-      <span className="text-right font-medium">{value}</span>
-    </div>
-  );
-}
+const requirements = [
+  "The receiving provider verifies and discloses its identity, permissions and complaints route.",
+  "BeistandPlus remains a non-advisory introduction service unless a different authorised model is documented.",
+  "The provider owns eligibility, suitability where applicable, underwriting, pricing, policy documents and claims.",
+  "Client consent is recorded before personal data is transferred, with an agreed retention and deletion process.",
+  "Any commission or commercial relationship is disclosed as required before the client decides.",
+  "No live referral starts until legal, data-protection, security and operational approvals are complete.",
+];
+
+const pilotSteps = [
+  ["Scope", "Agree product boundary, territories, client journey and accountable contacts."],
+  [
+    "Assure",
+    "Review permissions, disclosures, DPIA/AVV needs, security controls and incident handling.",
+  ],
+  [
+    "Integrate",
+    "Use a sandbox endpoint or controlled manual handoff with idempotency and audit evidence.",
+  ],
+  [
+    "Measure",
+    "Track consent quality, delivery failures, complaints and client outcomes before expanding.",
+  ],
+];
 
 function PartnersInsurers() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
-        <Badge variant="secondary" className="uppercase tracking-wider">Partnership brief</Badge>
-        <h1 className="display-hero text-balance mt-4 font-semibold">
-          Distribute Sterbegeld to Germany's migrant families.
+      <main className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <Badge variant="secondary" className="uppercase tracking-wider">
+          Non-binding discussion brief
+        </Badge>
+        <h1 className="display-hero mt-4 max-w-4xl text-balance font-semibold">
+          A transparent referral path for funeral-cover enquiries.
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          BeistandPlus is a multilingual settlement super-app for Germany's 15M migrant residents. We
-          case-manage every claim end-to-end, pay funeral directors directly, and handle family
-          communication in 12 languages. We're looking for one launch partner per benefit tier.
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
+          BeistandPlus can prepare a client&apos;s enquiry and, where a service is activated,
+          introduce them to an appropriately authorised German provider. We do not currently present
+          a partner, policy, price, volume commitment or regulatory permission on this page.
         </p>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <Card className="p-6">
-            <h2 className="font-display text-xl font-semibold">Target segment</h2>
-            <div className="mt-4 space-y-0">
-              <Row label="Primary" value="TR · UR · HI · PA · AR · KU · RU · FA · PL speakers in DE" />
-              <Row label="Household income" value="€28k–€65k" />
-              <Row label="Age band" value="28–65 (bereavement cover)" />
-              <Row label="Current penetration" value="< 8% (Sterbegeld market)" />
-              <Row label="Repatriation-need share" value="~46% of Muslim & Sikh households" />
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <Card className="p-6 sm:p-8">
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="h-6 w-6 text-primary" />
+              <h2 className="font-display text-2xl font-semibold">Minimum launch conditions</h2>
             </div>
+            <ul className="mt-6 space-y-4">
+              {requirements.map((item) => (
+                <li key={item} className="flex gap-3 text-sm leading-6">
+                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </Card>
 
-          <Card className="p-6">
-            <h2 className="font-display text-xl font-semibold">Distribution model</h2>
-            <div className="mt-4 space-y-0">
-              <Row label="Legal basis" value="§34d GewO broker (Beistand) or Tippgeber" />
-              <Row label="Onboarding" value="In-app quote widget → case manager → binding offer" />
-              <Row label="Underwriting" value="Simplified or full — insurer's choice" />
-              <Row label="Payment flow" value="Direct debit collected by insurer" />
-              <Row label="Retention" value="Yearly touchpoint via case manager" />
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <h2 className="font-display text-xl font-semibold">Integration</h2>
-            <div className="mt-4 space-y-0">
-              <Row label="Lead API" value="REST/JSON or CSV feed (daily)" />
-              <Row label="Policy webhook" value="POST /api/public/insurers/{slug}/status" />
-              <Row label="Doc exchange" value="SFTP or S3 signed URLs" />
-              <Row label="Claim handoff" value="Case manager + shared claim workspace" />
-              <Row label="Compliance" value="DSGVO, BDSG, §25 TDDDG, §34d GewO" />
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <h2 className="font-display text-xl font-semibold">Commercials</h2>
-            <div className="mt-4 space-y-0">
-              <Row label="Model" value="Abschluss + Bestand (broker) or flat referral (Tippgeber)" />
-              <Row label="Abschluss target" value="40–60% of Year-1 premium" />
-              <Row label="Bestand target" value="3–6% recurring" />
-              <Row label="Volume commitment Y1" value="~1,200 policies" />
-              <Row label="Exclusivity" value="Non-exclusive; one launch partner per tier" />
+          <Card className="p-6 sm:p-8">
+            <h2 className="font-display text-2xl font-semibold">Proposed pilot sequence</h2>
+            <div className="mt-6 space-y-5">
+              {pilotSteps.map(([title, copy], index) => (
+                <div key={title} className="flex gap-3">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-semibold">{title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{copy}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </div>
 
-        <div className="mt-16">
-          <h2 className="font-display text-2xl font-semibold">Why this works</h2>
-          <ul className="mt-6 space-y-3 text-muted-foreground">
-            <li>• <strong className="text-foreground">Trusted distribution.</strong> Families come to BeistandPlus for Anmeldung, Kindergeld and residence permits. Bereavement cover is a natural cross-sell at high-trust moments.</li>
-            <li>• <strong className="text-foreground">Lower loss ratio.</strong> Direct-to-funeral-director payment eliminates the retail markup that inflates traditional claims.</li>
-            <li>• <strong className="text-foreground">Native-language claim handling.</strong> Cuts your call-centre load and complaint rate for a segment most insurers underserve.</li>
-            <li>• <strong className="text-foreground">Regulated conduit.</strong> BeistandPlus is (or will be) §34d GewO registered with liability cover in place — clean broker relationship, no compliance retrofit.</li>
-          </ul>
-        </div>
-
-        <div className="mt-16 rounded-xl border bg-accent/30 p-8">
-          <h2 className="font-display text-2xl font-semibold">Next step</h2>
-          <p className="mt-2 text-muted-foreground">
-            A 30-minute call with your broker-channel team. We'll share the product spec, expected
-            volume by state, and mock claim workflow.
+        <section className="mt-12 rounded-2xl border border-border/60 bg-parchment/40 p-7 sm:p-9">
+          <h2 className="font-display text-2xl font-semibold">
+            Start with evidence, not projections
+          </h2>
+          <p className="mt-3 max-w-3xl text-muted-foreground">
+            A prospective provider can request a technical and operational walkthrough. Commercial
+            terms, forecast volume and any exclusivity are discussed only after both sides validate
+            the model and sign the necessary agreements.
           </p>
-          <div className="mt-4 text-sm">
-            <div><strong>Contact:</strong> partnerships@beistand.de</div>
-            <div className="mt-1"><strong>Location:</strong> Berlin</div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button asChild>
+              <Link to="/contact">Request a partnership discussion</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/trust">Review service boundaries</Link>
+            </Button>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
       <SiteFooter />
     </div>
   );

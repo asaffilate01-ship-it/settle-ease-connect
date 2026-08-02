@@ -12,7 +12,11 @@ export function LegalArticle({
   children: ReactNode;
 }) {
   const { t, i18n } = useTranslation();
-  const dateFmt = new Intl.DateTimeFormat(i18n.language, { year: "numeric", month: "long", day: "numeric" });
+  const dateFmt = new Intl.DateTimeFormat(i18n.language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <article className="prose-legal max-w-none">
       <h1 className="display-lg font-semibold">{title}</h1>

@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 /**
  * Admin delivery centre: register partner endpoints (URL + secret env NAME,
@@ -49,7 +49,7 @@ export const listPartnerEndpoints = createServerFn({ method: "GET" })
 
 export const savePartnerEndpoint = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -96,7 +96,7 @@ export const savePartnerEndpoint = createServerFn({ method: "POST" })
 
 export const retryPartnerPush = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await requireAdmin(context as any);
     const { error } = await (context.supabase.from("partner_api_pushes") as any)
@@ -115,12 +115,14 @@ export const retryPartnerPush = createServerFn({ method: "POST" })
 
 export const listPushAttempts = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ pushId: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ pushId: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await requireAdmin(context as any);
     const { data: rows, error } = await context.supabase
       .from("partner_delivery_attempts")
-      .select("id, attempt_number, response_status, response_excerpt, error_message, duration_ms, created_at")
+      .select(
+        "id, attempt_number, response_status, response_excerpt, error_message, duration_ms, created_at",
+      )
       .eq("push_id", data.pushId)
       .order("attempt_number", { ascending: true });
     if (error) throw new Error(error.message);

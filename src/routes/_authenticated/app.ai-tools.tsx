@@ -33,20 +33,51 @@ function AiToolsPage() {
       </div>
 
       <div className="flex gap-2">
-        <Button size="sm" variant={tab === "summary" ? "default" : "outline"} onClick={() => setTab("summary")}><Sparkles className="mr-2 h-4 w-4" />{t("pages.aiTools.tabSummary")}</Button>
-        <Button size="sm" variant={tab === "eligibility" ? "default" : "outline"} onClick={() => setTab("eligibility")}><FileSearch className="mr-2 h-4 w-4" />{t("pages.aiTools.tabEligibility")}</Button>
+        <Button
+          size="sm"
+          variant={tab === "summary" ? "default" : "outline"}
+          onClick={() => setTab("summary")}
+        >
+          <Sparkles className="mr-2 h-4 w-4" />
+          {t("pages.aiTools.tabSummary")}
+        </Button>
+        <Button
+          size="sm"
+          variant={tab === "eligibility" ? "default" : "outline"}
+          onClick={() => setTab("eligibility")}
+        >
+          <FileSearch className="mr-2 h-4 w-4" />
+          {t("pages.aiTools.tabEligibility")}
+        </Button>
       </div>
 
       <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
-        <Input placeholder={t("pages.aiTools.filenamePh")} value={filename} onChange={(e) => setFilename(e.target.value)} />
-        <Textarea className="mt-3" rows={10} placeholder={t("pages.aiTools.textPh")} value={text} onChange={(e) => setText(e.target.value)} maxLength={60000} />
+        <Input
+          placeholder={t("pages.aiTools.filenamePh")}
+          value={filename}
+          onChange={(e) => setFilename(e.target.value)}
+        />
+        <Textarea
+          className="mt-3"
+          rows={10}
+          placeholder={t("pages.aiTools.textPh")}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          maxLength={60000}
+        />
         <div className="mt-3">
           {tab === "summary" ? (
-            <Button disabled={!filename || text.length < 20 || sum.isPending} onClick={() => sum.mutate()}>
+            <Button
+              disabled={!filename || text.length < 20 || sum.isPending}
+              onClick={() => sum.mutate()}
+            >
               {sum.isPending ? t("pages.aiTools.working") : t("pages.aiTools.generateSummary")}
             </Button>
           ) : (
-            <Button disabled={!filename || text.length < 20 || eli.isPending} onClick={() => eli.mutate()}>
+            <Button
+              disabled={!filename || text.length < 20 || eli.isPending}
+              onClick={() => eli.mutate()}
+            >
               {eli.isPending ? t("pages.aiTools.working") : t("pages.aiTools.extractFields")}
             </Button>
           )}
@@ -65,7 +96,10 @@ function AiToolsPage() {
           <div className="mb-2 text-sm font-medium">{t("pages.aiTools.fieldsLabel")}</div>
           <div className="grid gap-2 text-sm sm:grid-cols-2">
             {Object.entries((eli.data as any).fields ?? {}).map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between rounded-md bg-muted/30 px-3 py-2">
+              <div
+                key={k}
+                className="flex items-center justify-between rounded-md bg-muted/30 px-3 py-2"
+              >
                 <span className="text-muted-foreground">{k}</span>
                 <Badge variant="outline">{v === null || v === undefined ? "—" : String(v)}</Badge>
               </div>

@@ -1,12 +1,13 @@
 # Delivery notes
 
-`settle-ease-connect-operational-release.zip` is the complete corrected source tree for GitHub upload. It excludes Git history, installed dependencies, build output and local environment files. Keep secrets outside Git and start from `.env.example`.
+`settle-ease-connect-production-release-2026-08-01.zip` is the full GitHub-ready source package. It includes web source, tests, CI, migrations, operational documents, and generated iOS/Android projects. It excludes Git history, `node_modules`, local secrets and build output.
 
-Because those environment files previously existed in Git history, rotate every credential they contained before deploying. Removing files from the current branch does not revoke credentials or erase earlier commits.
+Material cleanup in this release:
 
-After applying the files:
+- Removed tracked `.env` and `.env.development` files.
+- Removed obsolete root-level test/workflow/script copies and download artifacts.
+- Removed duplicate, stale and conflicting SQL exports from the `supabase/` root; the schema history used by the application remains only in `supabase/migrations/`.
+- Removed the unshipped group-insurance fiduciary agreement/intake and outdated tax-refund estimator.
+- Removed an unused simulated funeral-insurance quote widget.
 
-1. Run `npm ci`.
-2. Apply every migration through `supabase/migrations/20260801180000_operational_workflows.sql` in staging.
-3. Follow `OPERATIONAL_RELEASE.md`, `PRODUCTION_READINESS_REPORT.md` and `PRODUCTION_CHECKLIST.md`.
-4. Run all release commands listed in the checklist.
+Deleted tracked content remains recoverable from Git history. Credentials from that history must be rotated; deleting a file does not revoke a secret.

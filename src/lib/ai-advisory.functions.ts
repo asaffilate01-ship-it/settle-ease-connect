@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 import {
   ADVISORY_DOMAINS,
@@ -18,7 +18,7 @@ async function assertInternal(supabase: any, userId: string) {
 /** Generate an AI advisory draft. Never sent to a client until a human approves it. */
 export const generateAdvisoryDraft = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
+  .validator((d) =>
     z
       .object({
         caseId: z.string().uuid().optional(),
@@ -36,7 +36,9 @@ export const generateAdvisoryDraft = createServerFn({ method: "POST" })
       {
         role: "user",
         content: `Question from case handler: ${data.question}${
-          data.clientContext ? `\n\nCase context provided by the handler:\n${data.clientContext}` : ""
+          data.clientContext
+            ? `\n\nCase context provided by the handler:\n${data.clientContext}`
+            : ""
         }`,
       },
     ]);
@@ -60,7 +62,7 @@ export const generateAdvisoryDraft = createServerFn({ method: "POST" })
 
 export const listAdvisoryDrafts = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
+  .validator((d) =>
     z
       .object({
         status: z.enum(["pending", "approved", "rejected", "sent", "all"]).default("pending"),
@@ -85,7 +87,7 @@ export const listAdvisoryDrafts = createServerFn({ method: "GET" })
 /** Human review. Approving optionally posts the (possibly edited) text to the case thread. */
 export const reviewAdvisoryDraft = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
+  .validator((d) =>
     z
       .object({
         id: z.string().uuid(),

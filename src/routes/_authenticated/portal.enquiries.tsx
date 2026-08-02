@@ -129,7 +129,7 @@ function EnquiryInbox() {
         data: {
           enquiryId: selectedId!,
           body: note,
-          noteType: reply ? "customer_reply" : "internal",
+          noteType: reply ? "reply" : "internal",
         },
       }),
     onSuccess: async () => {
@@ -314,11 +314,11 @@ function EnquiryInbox() {
                     {notes.map((entry) => (
                       <div
                         key={entry.id}
-                        className={`rounded-xl border p-3 text-sm ${entry.note_type === "customer_reply" ? "border-primary/30 bg-primary/5" : "bg-muted/20"}`}
+                        className={`rounded-xl border p-3 text-sm ${entry.note_type === "reply" ? "border-primary/30 bg-primary/5" : "bg-muted/20"}`}
                       >
                         <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
                           <span>
-                            {entry.note_type === "customer_reply"
+                            {entry.note_type === "reply"
                               ? "Customer reply"
                               : label(entry.note_type)}{" "}
                             · {nameOf(entry.author_user_id)}

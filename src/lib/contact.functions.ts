@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/lib/public-rate-limit.server";
 
 const Input = z.object({
   fullName: z.string().trim().min(2).max(120),
@@ -14,20 +15,15 @@ const Input = z.object({
  * reads) using the service client after validating and rate-limiting input.
  */
 export const submitContactMessage = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => Input.parse(raw))
+  .validator((raw: unknown) => Input.parse(raw))
   .handler(async ({ data }) => {
+    await enforcePublicRateLimit({
+      scope: "public-contact",
+      limit: 5,
+      windowSeconds: 3600,
+      subject: data.email.toLowerCase(),
+    });
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
-    // Basic flood protection: max 5 messages per email per hour.
-    const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-    const { count } = await supabaseAdmin
-      .from("contact_messages")
-      .select("id", { count: "exact", head: true })
-      .eq("email", data.email)
-      .gte("created_at", since);
-    if ((count ?? 0) >= 5) {
-      throw new Error("Too many messages sent recently. Please try again later.");
-    }
 
     const { error } = await supabaseAdmin.from("contact_messages").insert({
       full_name: data.fullName,
@@ -53,4 +49,3 @@ export const submitContactMessage = createServerFn({ method: "POST" })
 
     return { ok: true };
   });
-

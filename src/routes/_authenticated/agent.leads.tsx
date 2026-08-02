@@ -38,7 +38,8 @@ function LeadsPage() {
           <h1 className="font-display text-2xl font-semibold">Leads &amp; funnel</h1>
         </div>
         <p className="mt-1 text-sm text-muted-foreground">
-          Track every lead from first invite to paying subscriber. Optimise where you're losing conversion.
+          Track every lead from first invite to paying subscriber. Optimise where you're losing
+          conversion.
         </p>
       </div>
 
@@ -46,8 +47,18 @@ function LeadsPage() {
       <div className="grid gap-3 sm:grid-cols-4">
         <SummaryCard label="Last 30 days" value={data.recent30d} hint="new leads" />
         <SummaryCard label="Churned" value={data.churned} hint="canceled subs" tone="danger" />
-        <SummaryCard label="Paid earnings" value={`€${data.earnings.paidEur.toFixed(2)}`} hint="lifetime" tone="success" />
-        <SummaryCard label="Pending" value={`€${data.earnings.pendingEur.toFixed(2)}`} hint="commissions" tone="muted" />
+        <SummaryCard
+          label="Paid earnings"
+          value={`€${data.earnings.paidEur.toFixed(2)}`}
+          hint="lifetime"
+          tone="success"
+        />
+        <SummaryCard
+          label="Pending"
+          value={`€${data.earnings.pendingEur.toFixed(2)}`}
+          hint="commissions"
+          tone="muted"
+        />
       </div>
 
       {/* Funnel */}
@@ -58,9 +69,10 @@ function LeadsPage() {
             const Icon = STAGE_ICON[s.key] ?? Send;
             const pct = Math.round((s.count / maxCount) * 100);
             const dropoff = i > 0 ? data.stages[i - 1].count - s.count : 0;
-            const stageRate = i > 0 && data.stages[i - 1].count
-              ? Math.round((s.count / data.stages[i - 1].count) * 100)
-              : 100;
+            const stageRate =
+              i > 0 && data.stages[i - 1].count
+                ? Math.round((s.count / data.stages[i - 1].count) * 100)
+                : 100;
             return (
               <div key={s.key} className="flex items-center gap-3">
                 <div className="flex w-40 shrink-0 items-center gap-2 text-sm">
@@ -113,10 +125,20 @@ function LeadsPage() {
               <div className="min-w-0">
                 <div className="truncate font-medium">{r.referred_email ?? "—"}</div>
                 <div className="mt-0.5 text-xs text-muted-foreground">
-                  {r.product} · {r.source ?? "manual"} · {new Date(r.created_at).toLocaleDateString()}
+                  {r.product} · {r.source ?? "manual"} ·{" "}
+                  {new Date(r.created_at).toLocaleDateString()}
                 </div>
               </div>
-              <Badge variant={r.status === "converted" ? "default" : r.status === "pending" ? "secondary" : "outline"} className="text-[10px] uppercase">
+              <Badge
+                variant={
+                  r.status === "converted"
+                    ? "default"
+                    : r.status === "pending"
+                      ? "secondary"
+                      : "outline"
+                }
+                className="text-[10px] uppercase"
+              >
                 {r.status}
               </Badge>
             </div>
@@ -144,10 +166,13 @@ function SummaryCard({
   tone?: "primary" | "muted" | "success" | "danger";
 }) {
   const cls =
-    tone === "success" ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-    : tone === "danger" ? "border-red-200 bg-red-50 text-red-800"
-    : tone === "muted" ? "border-border/60 bg-muted/40"
-    : "border-primary/20 bg-primary/5 text-primary";
+    tone === "success"
+      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+      : tone === "danger"
+        ? "border-red-200 bg-red-50 text-red-800"
+        : tone === "muted"
+          ? "border-border/60 bg-muted/40"
+          : "border-primary/20 bg-primary/5 text-primary";
   return (
     <div className={`rounded-xl border p-4 ${cls}`}>
       <div className="text-xs font-medium uppercase tracking-wide opacity-80">{label}</div>
@@ -182,7 +207,9 @@ function BreakdownCard({ title, data }: { title: string; data: Record<string, nu
               <div key={key}>
                 <div className="mb-1 flex items-center justify-between text-xs">
                   <span className="font-medium">{key}</span>
-                  <span className="text-muted-foreground tabular-nums">{n} · {pct}%</span>
+                  <span className="text-muted-foreground tabular-nums">
+                    {n} · {pct}%
+                  </span>
                 </div>
                 <div className="h-1.5 overflow-hidden rounded bg-muted/40">
                   <div className="h-full bg-primary/60" style={{ width: `${pct}%` }} />

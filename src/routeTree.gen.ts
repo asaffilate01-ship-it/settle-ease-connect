@@ -41,11 +41,11 @@ import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
 import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
-import { Route as GroupCoverFiduciaryClauseRouteImport } from './routes/group-cover.fiduciary-clause'
 import { Route as ExpertInviteTokenRouteImport } from './routes/expert-invite.$token'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedExpertRouteImport } from './routes/_authenticated/expert'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -55,6 +55,7 @@ import { Route as AuthenticatedPartnerIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
+import { Route as ApiInternalReadinessRouteImport } from './routes/api/internal/readiness'
 import { Route as ApiInternalPartnerDeliveriesRouteImport } from './routes/api/internal/partner-deliveries'
 import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
@@ -307,12 +308,6 @@ const LegalComplaintsRoute = LegalComplaintsRouteImport.update({
   path: '/complaints',
   getParentRoute: () => LegalRoute,
 } as any)
-const GroupCoverFiduciaryClauseRoute =
-  GroupCoverFiduciaryClauseRouteImport.update({
-    id: '/fiduciary-clause',
-    path: '/fiduciary-clause',
-    getParentRoute: () => GroupCoverRoute,
-  } as any)
 const ExpertInviteTokenRoute = ExpertInviteTokenRouteImport.update({
   id: '/expert-invite/$token',
   path: '/expert-invite/$token',
@@ -333,6 +328,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   id: '/portal',
@@ -381,6 +381,11 @@ const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAgentRoute,
+} as any)
+const ApiInternalReadinessRoute = ApiInternalReadinessRouteImport.update({
+  id: '/api/internal/readiness',
+  path: '/api/internal/readiness',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiInternalPartnerDeliveriesRoute =
   ApiInternalPartnerDeliveriesRouteImport.update({
@@ -931,7 +936,7 @@ export interface FileRoutesByFullPath {
   '/directory': typeof DirectoryRouteWithChildren
   '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRouteWithChildren
+  '/group-cover': typeof GroupCoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
@@ -951,11 +956,11 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/expert': typeof AuthenticatedExpertRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/api/health': typeof ApiHealthRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/expert-invite/$token': typeof ExpertInviteTokenRoute
-  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -1037,6 +1042,7 @@ export interface FileRoutesByFullPath {
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
+  '/api/internal/readiness': typeof ApiInternalReadinessRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1070,7 +1076,7 @@ export interface FileRoutesByTo {
   '/directory': typeof DirectoryRouteWithChildren
   '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRouteWithChildren
+  '/group-cover': typeof GroupCoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
@@ -1086,11 +1092,11 @@ export interface FileRoutesByTo {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/api/health': typeof ApiHealthRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/expert-invite/$token': typeof ExpertInviteTokenRoute
-  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -1171,6 +1177,7 @@ export interface FileRoutesByTo {
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
+  '/api/internal/readiness': typeof ApiInternalReadinessRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
@@ -1204,7 +1211,7 @@ export interface FileRoutesById {
   '/directory': typeof DirectoryRouteWithChildren
   '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRouteWithChildren
+  '/group-cover': typeof GroupCoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
@@ -1224,11 +1231,11 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/expert': typeof AuthenticatedExpertRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/api/health': typeof ApiHealthRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/expert-invite/$token': typeof ExpertInviteTokenRoute
-  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -1310,6 +1317,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
+  '/api/internal/readiness': typeof ApiInternalReadinessRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1365,11 +1373,11 @@ export interface FileRouteTypes {
     | '/app'
     | '/expert'
     | '/portal'
+    | '/api/health'
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
     | '/expert-invite/$token'
-    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -1451,6 +1459,7 @@ export interface FileRouteTypes {
     | '/portal/students'
     | '/portal/tax'
     | '/api/internal/partner-deliveries'
+    | '/api/internal/readiness'
     | '/agent/'
     | '/app/'
     | '/expert/'
@@ -1500,11 +1509,11 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/api/health'
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
     | '/expert-invite/$token'
-    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -1585,6 +1594,7 @@ export interface FileRouteTypes {
     | '/portal/students'
     | '/portal/tax'
     | '/api/internal/partner-deliveries'
+    | '/api/internal/readiness'
     | '/agent'
     | '/app'
     | '/expert'
@@ -1637,11 +1647,11 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/expert'
     | '/_authenticated/portal'
+    | '/api/health'
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
     | '/expert-invite/$token'
-    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -1723,6 +1733,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/students'
     | '/_authenticated/portal/tax'
     | '/api/internal/partner-deliveries'
+    | '/api/internal/readiness'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
@@ -1758,7 +1769,7 @@ export interface RootRouteChildren {
   DirectoryRoute: typeof DirectoryRouteWithChildren
   EventsRoute: typeof EventsRoute
   ForProvidersRoute: typeof ForProvidersRoute
-  GroupCoverRoute: typeof GroupCoverRouteWithChildren
+  GroupCoverRoute: typeof GroupCoverRoute
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
   IntegrationCoursesRoute: typeof IntegrationCoursesRoute
@@ -1774,9 +1785,11 @@ export interface RootRouteChildren {
   StudentsRoute: typeof StudentsRoute
   TaxRoute: typeof TaxRoute
   TrustRoute: typeof TrustRoute
+  ApiHealthRoute: typeof ApiHealthRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
   ApiInternalPartnerDeliveriesRoute: typeof ApiInternalPartnerDeliveriesRoute
+  ApiInternalReadinessRoute: typeof ApiInternalReadinessRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -2006,13 +2019,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalComplaintsRouteImport
       parentRoute: typeof LegalRoute
     }
-    '/group-cover/fiduciary-clause': {
-      id: '/group-cover/fiduciary-clause'
-      path: '/fiduciary-clause'
-      fullPath: '/group-cover/fiduciary-clause'
-      preLoaderRoute: typeof GroupCoverFiduciaryClauseRouteImport
-      parentRoute: typeof GroupCoverRoute
-    }
     '/expert-invite/$token': {
       id: '/expert-invite/$token'
       path: '/expert-invite/$token'
@@ -2040,6 +2046,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/portal': {
       id: '/_authenticated/portal'
@@ -2103,6 +2116,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/agent/'
       preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/api/internal/readiness': {
+      id: '/api/internal/readiness'
+      path: '/api/internal/readiness'
+      fullPath: '/api/internal/readiness'
+      preLoaderRoute: typeof ApiInternalReadinessRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/internal/partner-deliveries': {
       id: '/api/internal/partner-deliveries'
@@ -3111,18 +3131,6 @@ const DirectoryRouteWithChildren = DirectoryRoute._addFileChildren(
   DirectoryRouteChildren,
 )
 
-interface GroupCoverRouteChildren {
-  GroupCoverFiduciaryClauseRoute: typeof GroupCoverFiduciaryClauseRoute
-}
-
-const GroupCoverRouteChildren: GroupCoverRouteChildren = {
-  GroupCoverFiduciaryClauseRoute: GroupCoverFiduciaryClauseRoute,
-}
-
-const GroupCoverRouteWithChildren = GroupCoverRoute._addFileChildren(
-  GroupCoverRouteChildren,
-)
-
 interface LegalRouteChildren {
   LegalComplaintsRoute: typeof LegalComplaintsRoute
   LegalCookiesRoute: typeof LegalCookiesRoute
@@ -3164,7 +3172,7 @@ const rootRouteChildren: RootRouteChildren = {
   DirectoryRoute: DirectoryRouteWithChildren,
   EventsRoute: EventsRoute,
   ForProvidersRoute: ForProvidersRoute,
-  GroupCoverRoute: GroupCoverRouteWithChildren,
+  GroupCoverRoute: GroupCoverRoute,
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
   IntegrationCoursesRoute: IntegrationCoursesRoute,
@@ -3180,9 +3188,11 @@ const rootRouteChildren: RootRouteChildren = {
   StudentsRoute: StudentsRoute,
   TaxRoute: TaxRoute,
   TrustRoute: TrustRoute,
+  ApiHealthRoute: ApiHealthRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ExpertInviteTokenRoute: ExpertInviteTokenRoute,
   ApiInternalPartnerDeliveriesRoute: ApiInternalPartnerDeliveriesRoute,
+  ApiInternalReadinessRoute: ApiInternalReadinessRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport

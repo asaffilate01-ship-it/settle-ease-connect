@@ -47,7 +47,11 @@ function AgentHome() {
     const buckets = new Array<number>(days).fill(0);
     const now = new Date();
     (commissions.data ?? []).forEach((c: any) => {
-      const when = c.paid_at ? new Date(c.paid_at) : c.period_month ? new Date(c.period_month) : null;
+      const when = c.paid_at
+        ? new Date(c.paid_at)
+        : c.period_month
+          ? new Date(c.period_month)
+          : null;
       if (!when) return;
       const diff = Math.floor((now.getTime() - when.getTime()) / 86_400_000);
       if (diff >= 0 && diff < days) buckets[days - 1 - diff] += Number(c.commission_eur ?? 0);
@@ -66,8 +70,7 @@ function AgentHome() {
       const s = r.source ?? "other";
       bySource[s] = (bySource[s] ?? 0) + 1;
     });
-    const topSource =
-      Object.entries(bySource).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "—";
+    const topSource = Object.entries(bySource).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "—";
     return {
       total,
       signedUp,
@@ -97,12 +100,16 @@ function AgentHome() {
           </div>
           <h1 className="mt-3 font-display text-3xl font-semibold">
             {profile.data?.display_name
-              ? t("agent.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: profile.data.display_name })
+              ? t("agent.home.welcomeNamed", {
+                  defaultValue: "Welcome, {{name}}",
+                  name: profile.data.display_name,
+                })
               : t("agent.home.welcome", { defaultValue: "Welcome" })}
           </h1>
           <p className="mt-1 max-w-2xl text-muted-foreground">
             {t("agent.home.tagline", {
-              defaultValue: "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
+              defaultValue:
+                "Sell subscriptions and funeral cover. Earn {{rate}}% recurring on every referred client.",
               rate,
             })}
           </p>
@@ -111,10 +118,28 @@ function AgentHome() {
 
       {/* KPIs */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Kpi icon={<Users className="h-4 w-4" />} label={t("agent.kpi.clients", { defaultValue: "Clients" })} value={kpis.data?.totalClients ?? 0} />
-        <Kpi icon={<TrendingUp className="h-4 w-4" />} label={t("agent.kpi.thisMonth", { defaultValue: "This month" })} value={`€${(kpis.data?.mtdEur ?? 0).toFixed(2)}`} tone="primary" />
-        <Kpi icon={<ArrowUpRight className="h-4 w-4" />} label={t("agent.kpi.pending", { defaultValue: "Pending" })} value={`€${(kpis.data?.pendingEur ?? 0).toFixed(2)}`} />
-        <Kpi icon={<Link2 className="h-4 w-4" />} label={t("agent.kpi.paid", { defaultValue: "Paid to date" })} value={`€${(kpis.data?.totalEarnedEur ?? 0).toFixed(2)}`} tone="success" />
+        <Kpi
+          icon={<Users className="h-4 w-4" />}
+          label={t("agent.kpi.clients", { defaultValue: "Clients" })}
+          value={kpis.data?.totalClients ?? 0}
+        />
+        <Kpi
+          icon={<TrendingUp className="h-4 w-4" />}
+          label={t("agent.kpi.thisMonth", { defaultValue: "This month" })}
+          value={`€${(kpis.data?.mtdEur ?? 0).toFixed(2)}`}
+          tone="primary"
+        />
+        <Kpi
+          icon={<ArrowUpRight className="h-4 w-4" />}
+          label={t("agent.kpi.pending", { defaultValue: "Pending" })}
+          value={`€${(kpis.data?.pendingEur ?? 0).toFixed(2)}`}
+        />
+        <Kpi
+          icon={<Link2 className="h-4 w-4" />}
+          label={t("agent.kpi.paid", { defaultValue: "Paid to date" })}
+          value={`€${(kpis.data?.totalEarnedEur ?? 0).toFixed(2)}`}
+          tone="success"
+        />
       </section>
 
       {/* Sparkline + Share-link performance */}
@@ -142,16 +167,30 @@ function AgentHome() {
             </h3>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-            <MiniStat label={t("agent.link.clicks", { defaultValue: "Referrals" })} value={linkStats.total} />
-            <MiniStat label={t("agent.link.signups", { defaultValue: "Signed up" })} value={linkStats.signedUp} />
-            <MiniStat label={t("agent.link.conv", { defaultValue: "Conversion" })} value={`${linkStats.convPct}%`} tone="primary" />
-            <MiniStat label={t("agent.link.source", { defaultValue: "Top source" })} value={linkStats.topSource} />
+            <MiniStat
+              label={t("agent.link.clicks", { defaultValue: "Referrals" })}
+              value={linkStats.total}
+            />
+            <MiniStat
+              label={t("agent.link.signups", { defaultValue: "Signed up" })}
+              value={linkStats.signedUp}
+            />
+            <MiniStat
+              label={t("agent.link.conv", { defaultValue: "Conversion" })}
+              value={`${linkStats.convPct}%`}
+              tone="primary"
+            />
+            <MiniStat
+              label={t("agent.link.source", { defaultValue: "Top source" })}
+              value={linkStats.topSource}
+            />
           </div>
           <Link
             to="/agent/link"
             className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
           >
-            {t("agent.link.copy", { defaultValue: "Copy your referral link" })} <ArrowUpRight className="h-3.5 w-3.5" />
+            {t("agent.link.copy", { defaultValue: "Copy your referral link" })}{" "}
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </section>
@@ -184,7 +223,9 @@ function AgentHome() {
             );
           })}
           {!funnel.data && (
-            <p className="text-sm text-muted-foreground">{t("common.loading", { defaultValue: "Loading…" })}</p>
+            <p className="text-sm text-muted-foreground">
+              {t("common.loading", { defaultValue: "Loading…" })}
+            </p>
           )}
         </div>
         {productMix.length > 0 && (
@@ -218,7 +259,9 @@ function AgentHome() {
             <tbody>
               {refs.slice(0, 10).map((r: any) => (
                 <tr key={r.id} className="border-t border-border/40">
-                  <td className="p-3 text-muted-foreground">{new Date(r.created_at).toLocaleDateString()}</td>
+                  <td className="p-3 text-muted-foreground">
+                    {new Date(r.created_at).toLocaleDateString()}
+                  </td>
                   <td className="p-3">{r.referred_email ?? "—"}</td>
                   <td className="p-3">
                     <span className="rounded-full bg-muted px-2 py-0.5 text-xs">
@@ -232,7 +275,10 @@ function AgentHome() {
               {refs.length === 0 && (
                 <tr>
                   <td colSpan={5} className="p-6 text-center text-muted-foreground">
-                    {t("agent.home.emptyReferrals", { defaultValue: "No referrals yet. Share your link from the “Referral link” tab." })}
+                    {t("agent.home.emptyReferrals", {
+                      defaultValue:
+                        "No referrals yet. Share your link from the “Referral link” tab.",
+                    })}
                   </td>
                 </tr>
               )}
@@ -244,7 +290,17 @@ function AgentHome() {
   );
 }
 
-function Kpi({ label, value, tone, icon }: { label: string; value: string | number; tone?: "primary" | "success"; icon?: React.ReactNode }) {
+function Kpi({
+  label,
+  value,
+  tone,
+  icon,
+}: {
+  label: string;
+  value: string | number;
+  tone?: "primary" | "success";
+  icon?: React.ReactNode;
+}) {
   const toneCls =
     tone === "primary"
       ? "text-primary"
@@ -266,18 +322,32 @@ function Kpi({ label, value, tone, icon }: { label: string; value: string | numb
           <div className={`mt-1 font-display text-2xl font-semibold ${toneCls}`}>{value}</div>
         </div>
         {icon && (
-          <div className={`grid h-9 w-9 place-items-center rounded-xl ring-1 ${badgeCls}`}>{icon}</div>
+          <div className={`grid h-9 w-9 place-items-center rounded-xl ring-1 ${badgeCls}`}>
+            {icon}
+          </div>
         )}
       </div>
     </div>
   );
 }
 
-function MiniStat({ label, value, tone }: { label: string; value: string | number; tone?: "primary" }) {
+function MiniStat({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string | number;
+  tone?: "primary";
+}) {
   return (
     <div className="rounded-xl bg-muted/40 p-3">
       <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</div>
-      <div className={`mt-0.5 font-display text-lg font-semibold ${tone === "primary" ? "text-primary" : ""}`}>{value}</div>
+      <div
+        className={`mt-0.5 font-display text-lg font-semibold ${tone === "primary" ? "text-primary" : ""}`}
+      >
+        {value}
+      </div>
     </div>
   );
 }
@@ -302,7 +372,13 @@ function Sparkline({ data, max }: { data: number[]; max: number }) {
         fill="url(#spark-fill)"
         className="text-primary"
       />
-      <polyline points={points} fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" />
+      <polyline
+        points={points}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="text-primary"
+      />
     </svg>
   );
 }

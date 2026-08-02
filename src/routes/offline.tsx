@@ -10,7 +10,15 @@ import {
   subscribeQueue,
   type OfflineItem,
 } from "@/lib/offline-queue";
-import { CloudOff, CloudUpload, RefreshCw, Trash2, WifiOff, HardDriveDownload, ShieldCheck } from "lucide-react";
+import {
+  CloudOff,
+  CloudUpload,
+  RefreshCw,
+  Trash2,
+  WifiOff,
+  HardDriveDownload,
+  ShieldCheck,
+} from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/offline")({
@@ -42,7 +50,10 @@ function OfflinePage() {
 
   useEffect(() => {
     setOnline(navigator.onLine);
-    const refresh = () => listQueue().then(setItems).catch(() => setItems([]));
+    const refresh = () =>
+      listQueue()
+        .then(setItems)
+        .catch(() => setItems([]));
     refresh();
     const unsub = subscribeQueue(refresh);
     const on = () => setOnline(true);
@@ -61,7 +72,8 @@ function OfflinePage() {
     try {
       const res = await flushQueue();
       if (res.ok > 0) toast.success(`Synced ${res.ok} item${res.ok === 1 ? "" : "s"}.`);
-      if (res.failed > 0) toast.error(`${res.failed} item${res.failed === 1 ? "" : "s"} still pending — will retry.`);
+      if (res.failed > 0)
+        toast.error(`${res.failed} item${res.failed === 1 ? "" : "s"} still pending — will retry.`);
       if (res.ok === 0 && res.failed === 0) toast.message("Nothing to sync right now.");
     } finally {
       setSyncing(false);
@@ -100,7 +112,8 @@ function OfflinePage() {
             )}
             <div>
               <div className="font-display text-base font-semibold">
-                {online ? "Online" : "Offline"} · {items.length} item{items.length === 1 ? "" : "s"} queued
+                {online ? "Online" : "Offline"} · {items.length} item{items.length === 1 ? "" : "s"}{" "}
+                queued
               </div>
               <p className="text-xs text-muted-foreground">
                 Everything below is stored only on this device until it syncs.
@@ -108,7 +121,12 @@ function OfflinePage() {
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleSync} disabled={!online || syncing || items.length === 0}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSync}
+              disabled={!online || syncing || items.length === 0}
+            >
               <RefreshCw className={`mr-2 h-3.5 w-3.5 ${syncing ? "animate-spin" : ""}`} /> Sync now
             </Button>
             <Button
@@ -133,7 +151,10 @@ function OfflinePage() {
         ) : (
           <ul className="mt-6 space-y-3">
             {items.map((item) => (
-              <li key={item.id} className="flex items-start justify-between gap-4 rounded-xl border border-border/60 bg-card p-4 shadow-soft">
+              <li
+                key={item.id}
+                className="flex items-start justify-between gap-4 rounded-xl border border-border/60 bg-card p-4 shadow-soft"
+              >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
@@ -143,10 +164,13 @@ function OfflinePage() {
                   </div>
                   <div className="mt-1 text-xs text-muted-foreground">
                     Saved {new Date(item.createdAt).toLocaleString()}
-                    {item.attempts > 0 && ` · ${item.attempts} retry attempt${item.attempts === 1 ? "" : "s"}`}
+                    {item.attempts > 0 &&
+                      ` · ${item.attempts} retry attempt${item.attempts === 1 ? "" : "s"}`}
                   </div>
                   {item.lastError && (
-                    <div className="mt-1 text-xs text-destructive">Last error: {item.lastError}</div>
+                    <div className="mt-1 text-xs text-destructive">
+                      Last error: {item.lastError}
+                    </div>
                   )}
                 </div>
                 <button
@@ -169,7 +193,9 @@ function OfflinePage() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             How it works
           </div>
-          <h2 className="display-lg text-balance mt-3 font-semibold">Your data stays with you until it's safe to send.</h2>
+          <h2 className="display-lg text-balance mt-3 font-semibold">
+            Your data stays with you until it's safe to send.
+          </h2>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <Feature icon={HardDriveDownload} title="Stored on-device">

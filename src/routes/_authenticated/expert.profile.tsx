@@ -45,7 +45,9 @@ function ExpertProfile() {
         availability_notes: q.data.availability_notes ?? "",
         hourly_rate_eur: q.data.hourly_rate_eur != null ? String(q.data.hourly_rate_eur) : "",
         languages: Array.isArray(q.data.languages) ? q.data.languages.join(", ") : "",
-        specialisations: Array.isArray(q.data.specialisations) ? q.data.specialisations.join(", ") : "",
+        specialisations: Array.isArray(q.data.specialisations)
+          ? q.data.specialisations.join(", ")
+          : "",
       });
     }
   }, [q.data]);
@@ -62,10 +64,16 @@ function ExpertProfile() {
           availability_notes: form.availability_notes || null,
           hourly_rate_eur: form.hourly_rate_eur ? Number(form.hourly_rate_eur) : null,
           languages: form.languages
-            ? form.languages.split(",").map((s) => s.trim()).filter(Boolean)
+            ? form.languages
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean)
             : undefined,
           specialisations: form.specialisations
-            ? form.specialisations.split(",").map((s) => s.trim()).filter(Boolean)
+            ? form.specialisations
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean)
             : undefined,
         },
       }),
@@ -105,11 +113,17 @@ function ExpertProfile() {
 
       <div className="grid gap-4 rounded-2xl border border-border/60 bg-card p-6">
         <Field label={t("expert.profile.fullName", { defaultValue: "Full name" })}>
-          <Input value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
+          <Input
+            value={form.full_name}
+            onChange={(e) => setForm({ ...form, full_name: e.target.value })}
+          />
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label={t("expert.profile.phone", { defaultValue: "Phone" })}>
-            <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            <Input
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            />
           </Field>
           <Field label={t("expert.profile.hourly", { defaultValue: "Hourly rate (€)" })}>
             <Input
@@ -124,20 +138,44 @@ function ExpertProfile() {
             <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
           </Field>
           <Field label={t("expert.profile.bundesland", { defaultValue: "Bundesland" })}>
-            <Input value={form.bundesland} onChange={(e) => setForm({ ...form, bundesland: e.target.value })} />
+            <Input
+              value={form.bundesland}
+              onChange={(e) => setForm({ ...form, bundesland: e.target.value })}
+            />
           </Field>
         </div>
-        <Field label={t("expert.profile.languages", { defaultValue: "Languages (comma separated)" })}>
-          <Input value={form.languages} onChange={(e) => setForm({ ...form, languages: e.target.value })} placeholder="de, en, tr" />
+        <Field
+          label={t("expert.profile.languages", { defaultValue: "Languages (comma separated)" })}
+        >
+          <Input
+            value={form.languages}
+            onChange={(e) => setForm({ ...form, languages: e.target.value })}
+            placeholder="de, en, tr"
+          />
         </Field>
-        <Field label={t("expert.profile.specialisations", { defaultValue: "Specialisations (comma separated)" })}>
-          <Input value={form.specialisations} onChange={(e) => setForm({ ...form, specialisations: e.target.value })} />
+        <Field
+          label={t("expert.profile.specialisations", {
+            defaultValue: "Specialisations (comma separated)",
+          })}
+        >
+          <Input
+            value={form.specialisations}
+            onChange={(e) => setForm({ ...form, specialisations: e.target.value })}
+          />
         </Field>
         <Field label={t("expert.profile.bio", { defaultValue: "Bio" })}>
-          <Textarea rows={4} value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} />
+          <Textarea
+            rows={4}
+            value={form.bio}
+            onChange={(e) => setForm({ ...form, bio: e.target.value })}
+          />
         </Field>
         <Field label={t("expert.profile.availability", { defaultValue: "Availability notes" })}>
-          <Textarea rows={3} value={form.availability_notes} onChange={(e) => setForm({ ...form, availability_notes: e.target.value })} />
+          <Textarea
+            rows={3}
+            value={form.availability_notes}
+            onChange={(e) => setForm({ ...form, availability_notes: e.target.value })}
+          />
         </Field>
         <div className="flex justify-end">
           <Button onClick={() => save.mutate()} disabled={save.isPending}>

@@ -1,13 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  Briefcase,
-  Bug,
-  FileText,
-  Mail,
-  Receipt,
-  UserRound,
-  type LucideIcon,
-} from "lucide-react";
+import { Briefcase, Bug, FileText, Mail, Receipt, UserRound, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type QueueItemKind = "lead" | "case" | "invite" | "bug" | "quote" | "invoice";

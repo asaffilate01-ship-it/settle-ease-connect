@@ -49,12 +49,8 @@ export function PortalHeader({
               {eyebrow}
             </div>
           )}
-          <h1 className="display-lg mt-1 truncate font-semibold">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{subtitle}</p>
-          )}
+          <h1 className="display-lg mt-1 truncate font-semibold">{title}</h1>
+          {subtitle && <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{subtitle}</p>}
         </div>
         {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
       </div>

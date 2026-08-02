@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const routes = [
   "statutory",
@@ -14,7 +14,7 @@ const routes = [
 
 export const listInsuranceLeadsForTriage = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { onlyUntriaged?: boolean }) =>
+  .validator((d: { onlyUntriaged?: boolean }) =>
     z.object({ onlyUntriaged: z.boolean().optional().default(true) }).parse(d),
   )
   .handler(async ({ data, context }) => {
@@ -33,7 +33,7 @@ export const listInsuranceLeadsForTriage = createServerFn({ method: "GET" })
 
 export const setTriage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         id: z.string().uuid(),

@@ -140,7 +140,11 @@ function AssistantPage() {
           className="flex-1"
         />
         <Button type="submit" disabled={mutation.isPending} className="bg-gradient-primary">
-          {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+          {mutation.isPending ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Send className="h-4 w-4" />
+          )}
         </Button>
       </form>
       <p className="pt-2 text-[11px] text-muted-foreground">

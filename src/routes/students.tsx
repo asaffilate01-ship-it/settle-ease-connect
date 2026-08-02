@@ -22,13 +22,13 @@ export const Route = createFileRoute("/students")({
       {
         name: "description",
         content:
-          "30% off any BeistandPlus plan for international students in Germany. Visa, Anmeldung, health insurance, blocked account, Werkstudent rules, tax ID — sorted in your language. Verify with your student ID.",
+          "20% off eligible BeistandPlus tier subscriptions for approved international students in Germany, while verification remains valid.",
       },
       { property: "og:title", content: "For international students — BeistandPlus" },
       {
         property: "og:description",
         content:
-          "Landing in Germany to study? Get 30% off your BeistandPlus membership with a valid student ID.",
+          "Landing in Germany to study? Approved student status gives 20% off eligible tier subscriptions.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://beistandplus.de/students" },
@@ -39,19 +39,59 @@ export const Route = createFileRoute("/students")({
 });
 
 const HELPS = [
-  { icon: FileText, title: "Student visa & residence permit", copy: "Visa application, appointment, extension and change of purpose after graduation." },
-  { icon: Home, title: "Anmeldung & housing", copy: "City registration, WG/apartment search, deposit letters, Studentenwerk applications." },
-  { icon: HeartPulse, title: "Health insurance", copy: "TK / AOK / DAK enrolment, private option comparison, dependents on your policy." },
-  { icon: Wallet, title: "Blocked account & finance", copy: "Sperrkonto (Fintiba, Expatrio, Coracle), tax ID, EWR bank setup, currency transfer discounts." },
-  { icon: Briefcase, title: "Werkstudent & internships", copy: "20h/week rules, Minijob vs Werkstudent, contract review, Anerkennung of foreign degrees." },
-  { icon: Languages, title: "Any-language support", copy: "DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS — chat, calls and translated German letters." },
+  {
+    icon: FileText,
+    title: "Student visa & residence permit",
+    copy: "Visa application, appointment, extension and change of purpose after graduation.",
+  },
+  {
+    icon: Home,
+    title: "Anmeldung & housing",
+    copy: "City registration, WG/apartment search, deposit letters, Studentenwerk applications.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Health insurance",
+    copy: "TK / AOK / DAK enrolment, private option comparison, dependents on your policy.",
+  },
+  {
+    icon: Wallet,
+    title: "Blocked account & finance",
+    copy: "Sperrkonto (Fintiba, Expatrio, Coracle), tax ID, EWR bank setup, currency transfer discounts.",
+  },
+  {
+    icon: Briefcase,
+    title: "Werkstudent & internships",
+    copy: "20h/week rules, Minijob vs Werkstudent, contract review, Anerkennung of foreign degrees.",
+  },
+  {
+    icon: Languages,
+    title: "Any-language support",
+    copy: "DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS — chat, calls and translated German letters.",
+  },
 ];
 
 const STEPS = [
-  { n: 1, title: "Sign up", copy: "Create your BeistandPlus account — free to browse, chat with the assistant, and see what your case looks like." },
-  { n: 2, title: "Verify your student ID", copy: "Upload a photo of a valid student ID or an enrolment certificate (Immatrikulationsbescheinigung)." },
-  { n: 3, title: "We check it (24h)", copy: "Our team confirms your university and expiry date — no manual back-and-forth." },
-  { n: 4, title: "30% off, forever a student", copy: "Discount applies to any plan while your student status is valid. Renew each semester." },
+  {
+    n: 1,
+    title: "Sign up",
+    copy: "Create your BeistandPlus account — free to browse, chat with the assistant, and see what your case looks like.",
+  },
+  {
+    n: 2,
+    title: "Verify your student ID",
+    copy: "Upload a photo of a valid student ID or an enrolment certificate (Immatrikulationsbescheinigung).",
+  },
+  {
+    n: 3,
+    title: "We check it (24h)",
+    copy: "Our team confirms your university and expiry date — no manual back-and-forth.",
+  },
+  {
+    n: 4,
+    title: "20% off eligible tiers",
+    copy: "The discount applies at checkout while your approved student status remains valid.",
+  },
 ];
 
 function StudentsPage() {
@@ -75,11 +115,12 @@ function StudentsPage() {
               .
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Visa, Anmeldung, health insurance, Sperrkonto, Werkstudent rules, tax ID, WG search — all sorted in your language,
-              with a real case manager if you need one.
+              Visa, Anmeldung, health insurance, Sperrkonto, Werkstudent rules, tax ID, WG search —
+              all sorted in your language, with a real case manager if you need one.
             </p>
             <div className="mt-4 inline-flex items-center gap-2 rounded-2xl border border-accent/50 bg-accent/15 px-4 py-2 text-sm font-semibold text-foreground">
-              <BadgePercent className="h-4 w-4 text-accent" /> 30% off any plan with a valid student ID
+              <BadgePercent className="h-4 w-4 text-accent" /> 20% off eligible tiers with approved
+              student status
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
@@ -101,7 +142,9 @@ function StudentsPage() {
                 <span className="font-display display-lg font-semibold text-foreground">€7</span>
                 <span className="text-sm text-muted-foreground">/ month</span>
               </div>
-              <div className="text-xs text-muted-foreground">Plus plan · billed monthly · cancel any time</div>
+              <div className="text-xs text-muted-foreground">
+                Plus plan · billed monthly · cancel any time
+              </div>
               <ul className="mt-6 space-y-3 text-sm">
                 {[
                   "Personal case manager for visa & Anmeldung",
@@ -117,8 +160,9 @@ function StudentsPage() {
                 ))}
               </ul>
               <div className="mt-6 rounded-xl border border-dashed border-border/60 bg-parchment/50 p-3 text-xs text-muted-foreground">
-                Accepted proof: student ID card, enrolment certificate (Immatrikulationsbescheinigung), Studierendenausweis,
-                or a scholarship confirmation letter valid within the last 6 months.
+                Accepted proof: student ID card, enrolment certificate
+                (Immatrikulationsbescheinigung), Studierendenausweis, or a scholarship confirmation
+                letter valid within the last 6 months.
               </div>
             </div>
           </div>
@@ -127,11 +171,18 @@ function StudentsPage() {
 
       {/* What we help with */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">What we help with</div>
-        <h2 className="display-lg text-balance mt-2 font-semibold">Everything a student needs, one calm place.</h2>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+          What we help with
+        </div>
+        <h2 className="display-lg text-balance mt-2 font-semibold">
+          Everything a student needs, one calm place.
+        </h2>
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {HELPS.map((h) => (
-            <div key={h.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+            <div
+              key={h.title}
+              className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+            >
               <h.icon className="h-6 w-6 text-primary" />
               <div className="mt-4 font-display text-lg font-semibold">{h.title}</div>
               <p className="mt-1 text-sm text-muted-foreground">{h.copy}</p>
@@ -146,7 +197,9 @@ function StudentsPage() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
             Claim the discount
           </div>
-          <h2 className="display-lg text-balance mt-2 font-semibold">Four steps, about five minutes.</h2>
+          <h2 className="display-lg text-balance mt-2 font-semibold">
+            Four steps, about five minutes.
+          </h2>
           <div className="mt-8 grid gap-4 md:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-2xl border border-border/60 bg-card p-5">

@@ -11,8 +11,9 @@ export const SOCIALS = [
   { name: "LinkedIn", href: import.meta.env.VITE_PUBLIC_LINKEDIN_URL, Icon: Linkedin },
   { name: "YouTube", href: import.meta.env.VITE_PUBLIC_YOUTUBE_URL, Icon: Youtube },
   { name: "X", href: import.meta.env.VITE_PUBLIC_X_URL, Icon: XIcon },
-].filter((s): s is { name: string; href: string; Icon: typeof Facebook } =>
-  typeof s.href === "string" && s.href.startsWith("http"),
+].filter(
+  (s): s is { name: string; href: string; Icon: typeof Facebook } =>
+    typeof s.href === "string" && s.href.startsWith("http"),
 );
 
 /** Lucide doesn't ship a mono "X" mark, so we render one inline to match the set. */

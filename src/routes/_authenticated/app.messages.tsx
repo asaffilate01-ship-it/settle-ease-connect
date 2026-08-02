@@ -11,7 +11,10 @@ export const Route = createFileRoute("/_authenticated/app/messages")({
 
 function MessagesIndex() {
   const listFn = useServerFn(listMyChannels);
-  const { data = [], isLoading } = useQuery({ queryKey: ["channels", "mine"], queryFn: () => listFn() });
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["channels", "mine"],
+    queryFn: () => listFn(),
+  });
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -28,9 +31,13 @@ function MessagesIndex() {
         <div className="rounded-2xl border p-6 text-sm text-muted-foreground">Loading…</div>
       ) : data.length === 0 ? (
         <div className="rounded-2xl border border-dashed p-10 text-center text-sm text-muted-foreground">
-          No conversations yet. When a case is opened, your case manager and assigned experts will appear here.
+          No conversations yet. When a case is opened, your case manager and assigned experts will
+          appear here.
           <div className="mt-3">
-            <Link to="/app/cases" className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground">
+            <Link
+              to="/app/cases"
+              className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground"
+            >
               <Plus className="h-3 w-3" /> Open a case
             </Link>
           </div>
@@ -46,9 +53,16 @@ function MessagesIndex() {
               >
                 <div className="min-w-0">
                   <div className="truncate font-medium">
-                    {c.name ?? (c.kind === "case" ? "Case conversation" : c.kind === "direct" ? "Direct message" : "Group")}
+                    {c.name ??
+                      (c.kind === "case"
+                        ? "Case conversation"
+                        : c.kind === "direct"
+                          ? "Direct message"
+                          : "Group")}
                   </div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground">{c.kind}</div>
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                    {c.kind}
+                  </div>
                 </div>
                 <div className="shrink-0 text-xs text-muted-foreground">
                   {c.last_message_at ? new Date(c.last_message_at).toLocaleString() : "—"}

@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { getBillingOverview, getBillingHistory } from "@/lib/billing.functions";
 import { createPortalSession } from "@/lib/payments.functions";
 import { getStripeEnvironment } from "@/lib/stripe";
+import { isNative, nativePlatform } from "@/lib/native";
 
 export const Route = createFileRoute("/_authenticated/app/billing")({
   head: () => ({ meta: [{ title: "Billing & payments — Beistand+" }] }),
@@ -50,7 +51,9 @@ function BillingPage() {
       const res: any = await portalFn({
         data: {
           environment: getStripeEnvironment(),
-          returnUrl: typeof window !== "undefined" ? `${window.location.origin}/app/billing` : undefined,
+          clientPlatform: nativePlatform(),
+          returnUrl:
+            typeof window !== "undefined" ? `${window.location.origin}/app/billing` : undefined,
         },
       });
       if (res && "error" in res) throw new Error(res.error);
@@ -82,9 +85,7 @@ function BillingPage() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="display-lg font-semibold">
-            {t("billing.title", "Billing & payments")}
-          </h1>
+          <h1 className="display-lg font-semibold">{t("billing.title", "Billing & payments")}</h1>
           <p className="text-sm text-muted-foreground">
             {t(
               "billing.subtitle",
@@ -92,9 +93,16 @@ function BillingPage() {
             )}
           </p>
         </div>
-        <Button variant="outline" disabled={openPortal.isPending} onClick={() => openPortal.mutate()}>
+        <Button
+          variant="outline"
+          disabled={openPortal.isPending || isNative()}
+          onClick={() => openPortal.mutate()}
+          title={isNative() ? "Manage billing from your web account" : undefined}
+        >
           <CreditCard className="mr-2 h-4 w-4" />
-          {t("billing.managePayment", "Manage payment method")}
+          {isNative()
+            ? t("billing.manageOnWeb", "Manage billing on the web")
+            : t("billing.managePayment", "Manage payment method")}
           <ExternalLink className="ml-2 h-3.5 w-3.5" />
         </Button>
       </div>
@@ -138,7 +146,11 @@ function BillingPage() {
                 <Row label={t("billing.status", "Status")} value={sub.status} />
                 <Row
                   label={t("billing.price", "Price")}
-                  value={sub.monthly_price_eur != null ? `${money(sub.monthly_price_eur, "eur", i18n.language)}/mo` : "—"}
+                  value={
+                    sub.monthly_price_eur != null
+                      ? `${money(sub.monthly_price_eur, "eur", i18n.language)}/mo`
+                      : "—"
+                  }
                 />
                 <Row
                   label={t("billing.currentPeriod", "Current period")}
@@ -308,9 +320,7 @@ function Tile({
   tone?: "muted" | "warning";
 }) {
   const cls =
-    tone === "warning"
-      ? "border-amber-500/30 bg-amber-500/5"
-      : "border-border/60 bg-card";
+    tone === "warning" ? "border-amber-500/30 bg-amber-500/5" : "border-border/60 bg-card";
   return (
     <div className={`rounded-2xl border p-5 shadow-soft ${cls}`}>
       <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">

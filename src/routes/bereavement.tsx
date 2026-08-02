@@ -1,370 +1,245 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Check,
+  HeartHandshake,
+  Plane,
+  Scale,
+  Users,
+} from "lucide-react";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import heroBereavement from "@/assets/brand/hero-bereavement.jpg";
 import { RegulatedNotice } from "@/components/regulated-notice";
+import heroBereavement from "@/assets/brand/hero-bereavement.jpg";
+import { publicLegal } from "@/lib/public-config";
 
 export const Route = createFileRoute("/bereavement")({
   head: () => ({
     meta: [
-      { title: "Bereavement care in Germany — BeistandPlus" },
-      { name: "description", content: "Muslim, Christian, Hindu, Sikh and Buddhist end-of-life care coordinated across families, funeral directors, religious organisations and consulates." },
-      { property: "og:title", content: "Bereavement care in Germany — BeistandPlus" },
-      { property: "og:description", content: "One workflow, every faith, burial in Germany or repatriation abroad." },
+      { title: "Bereavement guidance and coordination — BeistandPlus" },
+      {
+        name: "description",
+        content:
+          "A structured place to organise bereavement tasks, family updates and provider referrals in Germany.",
+      },
+      { property: "og:title", content: "Bereavement guidance and coordination — BeistandPlus" },
+      {
+        property: "og:description",
+        content:
+          "Organise the people, documents and next steps without implying a guaranteed provider or response time.",
+      },
       { property: "og:url", content: "https://beistandplus.de/bereavement" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/bereavement" }],
   }),
-  component: Bereavement,
+  component: BereavementPage,
 });
 
-const homeStages = [
-  { t: "Call 112 (unexpected) or Hausarzt (expected)" },
-  { t: "Doctor certifies death and issues Todesbescheinigung" },
-  { t: "Family opens case in BeistandPlus (60s form)" },
-  { t: "Case manager assigned, calls within 15 min" },
-  { t: "Digital authority & GDPR consent" },
-  { t: "Verified funeral director collects body" },
-  { t: "Standesamt registration & certificates" },
-  { t: "Ceremony arranged with mosque / church / temple" },
-];
+const FIRST_STEPS = {
+  home: [
+    "For an unexpected death or immediate danger, call 112. For an expected death, contact the treating doctor or out-of-hours medical service.",
+    "Wait for the doctor or responsible authority to explain when the person may be moved.",
+    "Open a BeistandPlus case when you are ready to organise tasks and family updates.",
+    "Choose which funeral director, faith contact or other provider you want to approach.",
+  ],
+  hospital: [
+    "Ask the hospital which documents are available and who the family contact is.",
+    "Confirm how long the person can remain with the hospital and when a funeral director is needed.",
+    "Open a case to record contacts, documents, decisions and deadlines.",
+    "Share only the case information each invited family member or provider needs.",
+  ],
+};
 
-const hospitalStages = [
-  { t: "Hospital doctor certifies death" },
-  { t: "Family notified; hospital notifies BeistandPlus" },
-  { t: "Case manager takes over coordination" },
-  { t: "Digital authority & GDPR consent" },
-  { t: "Handoff from hospital mortuary to funeral director" },
-  { t: "Standesamt registration & certificates" },
-  { t: "Ceremony or repatriation" },
-];
-
-const repatSteps = [
-  "Approved transport casket",
-  "Embalming if required by destination country / airline",
-  "International transport documentation",
-  "Embassy / consulate — repatriation NOC",
-  "Airline booking & cargo booking",
-  "Customs & export documentation",
-  "Receiving funeral director in destination country",
-  "Passport handling and family pickup abroad",
-];
-
-const burialOptions = [
+const COORDINATION_AREAS = [
   {
-    title: "Erdbestattung (earth burial)",
-    desc: "Traditional coffin burial in a municipal or confessional cemetery. Grave leases (Nutzungsrecht) typically run 20–30 years and are renewable.",
-    tags: ["Friedhofszwang applies", "Coffin required", "Grave lease 20–30 yrs"],
+    icon: Users,
+    title: "Family and contacts",
+    body: "Keep decisions and updates in one case. Family access is explicit, email-bound, expiring and revocable.",
   },
   {
-    title: "Feuerbestattung (cremation)",
-    desc: "Cremation at a licensed Krematorium after a second confirmatory examination (zweite Leichenschau). Urn must be buried or scattered at a permitted site.",
-    tags: ["2nd Leichenschau", "Urn burial required", "€ lower cost"],
+    icon: Scale,
+    title: "Documents and local rules",
+    body: "Track certificates and tasks. Exact funeral law and deadlines vary by Bundesland and must be confirmed locally.",
   },
   {
-    title: "Urnenbeisetzung (urn burial)",
-    desc: "Urn interred in an Urnengrab, Urnenwand (columbarium) or anonymous urn field. Selectable in most municipal cemeteries.",
-    tags: ["Cemetery only", "Individual or anonymous"],
+    icon: HeartHandshake,
+    title: "Faith and cultural preferences",
+    body: "Record the ceremony, washing, burial or cremation preferences a chosen provider should understand.",
   },
   {
-    title: "Islamic burial (Islamische Bestattung)",
-    desc: "Coffinless or minimal-coffin burial in a designated muslimisches Grabfeld, aligned to Qibla, ideally within 24 hours. Available in Berlin, Hamburg, Wuppertal, Frankfurt and a growing list of cities; some Länder (e.g. NRW, Berlin) now permit sargloses Bestatten.",
-    tags: ["Qibla-aligned", "Within 24h where possible", "Ghusl + Kafan"],
-  },
-  {
-    title: "Jewish burial (Jüdische Bestattung)",
-    desc: "Simple wooden coffin, no cremation, burial in a Jewish cemetery arranged with the Chevra Kadisha of the local Gemeinde.",
-    tags: ["No cremation", "Jewish cemetery", "Chevra Kadisha"],
-  },
-  {
-    title: "Hindu / Sikh cremation & ashes",
-    desc: "Cremation at a licensed Krematorium with priest / granthi rites at the ceremony hall. Ashes can be interred, sent abroad (e.g. Ganges) with export permit, or scattered at an approved Ruheforst / sea burial site.",
-    tags: ["Cremation + rites", "Ashes export possible"],
-  },
-  {
-    title: "Baumbestattung / Ruheforst",
-    desc: "Urn burial at the roots of a memorial tree in a licensed forest (Friedwald, Ruheforst). Permitted across Germany.",
-    tags: ["Natural burial", "No headstone"],
-  },
-  {
-    title: "Seebestattung (sea burial)",
-    desc: "Water-soluble urn released in the North Sea, Baltic Sea or approved international waters via a licensed sea-burial operator.",
-    tags: ["Cremation first", "Certificate of position"],
+    icon: Plane,
+    title: "International repatriation",
+    body: "Organise questions for the funeral director, airline and destination authorities. Requirements are provider- and country-confirmed.",
   },
 ];
 
-const germanRules = [
-  { title: "Friedhofszwang", body: "Cemetery obligation: remains and urns must be interred at a licensed site. Home storage or scattering in gardens is not allowed in any Bundesland." },
-  { title: "Bestattungsfrist", body: "Burial or cremation must take place within 4–10 days of death — exact window depends on the Bundesland (e.g. Bayern 96h, Berlin 8 days)." },
-  { title: "Sargpflicht", body: "Coffin obligation is set at Länder level. NRW, Berlin, Bremen, Hamburg and others now allow shroud-only Islamic burial in designated fields." },
-  { title: "Zweite Leichenschau", body: "A second, independent post-mortem is legally required before every cremation." },
-  { title: "Bestattungsvorsorge", body: "Prepaid funeral plans (Sterbegeldversicherung, Treuhand) are recognised and honoured — we surface any existing plan during intake." },
-  { title: "Sozialbestattung", body: "If the estate cannot cover costs, the Sozialamt covers a würdige Bestattung under §74 SGB XII. We file the application on the family's behalf." },
+const QUESTIONS = [
+  "Who is authorised to make arrangements?",
+  "Which doctor, hospital or authority issued the first documents?",
+  "Has a funeral director been chosen, or do you want an introduction?",
+  "Are there religious, cultural, timing or accessibility preferences?",
+  "Will burial or cremation take place in Germany, or is repatriation being considered?",
+  "Which family members need updates or limited case access?",
 ];
 
-function Bereavement() {
+function BereavementPage() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src={heroBereavement}
-            alt=""
-            aria-hidden
-            width={1600}
-            height={1000}
-            fetchPriority="high"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
-        </div>
-        <div className="mx-auto max-w-4xl px-4 py-14 sm:py-24 text-center sm:px-6 sm:py-32 lg:px-8">
-          <Badge variant="outline" className="border-primary/30 bg-background/70 text-primary backdrop-blur">
-            Bereavement care · 24/7
-          </Badge>
-          <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
-            One call. One case file.<br />
-            <span className="italic text-primary">Every person who needs to be involved.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            BeistandPlus coordinates family, funeral director, hospital, Standesamt,
-            religious organisation, cemetery, airline, consulate and insurance
-            — inside a single, timestamped workflow.
-          </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
-              <Link to="/app/cases/new">Report a death</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="bg-background/70 backdrop-blur">
-              <a href="tel:+493012345678">Call our 24/7 line</a>
-            </Button>
+      <main>
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 -z-10">
+            <img
+              src={heroBereavement}
+              alt=""
+              aria-hidden
+              width={1600}
+              height={1000}
+              fetchPriority="high"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-2">
-          <StageCard title="If death is at home" stages={homeStages} tone="primary" />
-          <StageCard title="If death is in hospital" stages={hospitalStages} tone="accent" />
-        </div>
-      </section>
-
-      <section className="bg-parchment/50">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Repatriation</div>
-            <h2 className="display-lg text-balance mt-3 font-semibold">
-              Bringing your loved one home.
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              International repatriation is complex — every destination has
-              different requirements. BeistandPlus stores country-specific
-              checklists and works with consulates on your behalf.
+          <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-28 lg:px-8">
+            <Badge
+              variant="outline"
+              className="border-primary/30 bg-background/70 text-primary backdrop-blur"
+            >
+              Bereavement guidance and case coordination
+            </Badge>
+            <h1 className="display-hero mt-5 text-balance font-semibold leading-[1.05]">
+              One place for the people, documents and decisions.
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+              BeistandPlus helps organise the workflow. Availability, legal advice, funeral
+              services, pricing and response times are confirmed by the relevant authority or
+              provider.
             </p>
-          </div>
-          <div className="mt-10 grid gap-3 sm:grid-cols-2">
-            {repatSteps.map((s, i) => (
-              <div key={s} className="flex gap-4 rounded-xl border border-border/60 bg-card p-5 shadow-soft">
-                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-warm text-accent-foreground font-display text-lg font-semibold">
-                  {i + 1}
-                </div>
-                <div className="pt-1 text-sm">{s}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border/60 bg-card">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
-              Burials & last rites in Germany
+            <div className="mt-9 flex flex-wrap justify-center gap-3">
+              <Button asChild size="lg" className="bg-gradient-primary shadow-elevated">
+                <Link to="/app/cases/new">Open a bereavement case</Link>
+              </Button>
+              {publicLegal.supportPhone && (
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="bg-background/70 backdrop-blur"
+                >
+                  <a href={`tel:${publicLegal.supportPhone.replace(/\s/g, "")}`}>
+                    Call during support hours
+                  </a>
+                </Button>
+              )}
             </div>
-            <h2 className="display-lg text-balance mt-3 font-semibold">
-              Every recognised form of burial and cremation, arranged for you.
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Germany has strict but well-defined rules — Friedhofszwang,
-              Sargpflicht, second post-mortem, fixed burial windows. BeistandPlus
-              maps them to your family's tradition and handles the paperwork
-              with the Standesamt, cemetery, Krematorium and your religious
-              organisation.
-            </p>
+            <div className="mx-auto mt-6 flex max-w-2xl items-start gap-2 rounded-xl border border-warning/30 bg-warning/10 p-3 text-left text-xs text-muted-foreground">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning-foreground" />
+              BeistandPlus is not an emergency service. For immediate danger or an unexpected death,
+              call 112.
+            </div>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {burialOptions.map((b) => (
-              <div key={b.title} className="flex flex-col rounded-2xl border border-border/60 bg-parchment/40 p-6 shadow-soft">
-                <div className="font-display text-lg font-semibold">{b.title}</div>
-                <p className="mt-2 flex-1 text-sm text-muted-foreground">{b.desc}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {b.tags.map((t) => (
-                    <Badge key={t} variant="secondary" className="text-[10px] font-medium">
-                      {t}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+        </section>
 
-          <div className="mt-14">
-            <h3 className="display-md font-semibold">German legal essentials</h3>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {germanRules.map((r) => (
-                <div key={r.title} className="rounded-xl border border-border/60 bg-card p-5">
-                  <div className="font-semibold">{r.title}</div>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{r.body}</p>
-                </div>
+        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <StepCard title="If the death is at home" steps={FIRST_STEPS.home} />
+            <StepCard title="If the death is in hospital" steps={FIRST_STEPS.hospital} />
+          </div>
+        </section>
+
+        <section className="bg-parchment/50">
+          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+              Coordination workspace
+            </p>
+            <h2 className="display-lg mt-3 max-w-3xl text-balance font-semibold">
+              Structure the work without assuming the outcome.
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {COORDINATION_AREAS.map(({ icon: Icon, title, body }) => (
+                <article
+                  key={title}
+                  className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+                >
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 font-display text-lg font-semibold">{title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+                </article>
               ))}
             </div>
-            <p className="mt-6 text-xs text-muted-foreground">
-              Rules vary by Bundesland. BeistandPlus's assistant applies the
-              correct Bestattungsgesetz for the city of death automatically.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Every faith</div>
-        <h2 className="display-lg text-balance mt-3 font-semibold">
-          Ceremonies handled with respect.
-        </h2>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            { faith: "Islam", steps: ["Mosque", "Ghusl", "Kafan", "Janazah", "Burial (same day where possible)"] },
-            { faith: "Christian", steps: ["Church coordination", "Priest / pastor scheduling", "Service", "Burial or cremation"] },
-            { faith: "Hindu", steps: ["Temple coordination", "Priest / pandit scheduling", "Cremation", "Ashes handling"] },
-            { faith: "Sikh", steps: ["Gurdwara coordination", "Antim Ardas", "Cremation", "Kirtan Sohila"] },
-            { faith: "Buddhist", steps: ["Temple coordination", "Monastic representative", "Cremation", "Memorial services"] },
-            { faith: "Non-religious", steps: ["Civil ceremony", "Celebrant coordination", "Cremation or burial", "Personalised service"] },
-          ].map((f) => (
-            <div key={f.faith} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-              <div className="font-display text-2xl font-semibold">{f.faith}</div>
-              <ol className="mt-4 space-y-2 text-sm text-muted-foreground">
-                {f.steps.map((s, i) => (
-                  <li key={s}>
-                    <span className="mr-2 text-primary">{i + 1}.</span>
-                    {s}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-t border-border/60 bg-parchment/50">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
-              Formal partnerships
-            </div>
-            <h2 className="display-lg text-balance mt-3 font-semibold">
-              Named faith & community partners across Germany.
+        <section className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:px-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+              Prepare for the first conversation
+            </p>
+            <h2 className="display-lg mt-3 text-balance font-semibold">
+              Questions worth answering once.
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Every ceremony is coordinated with a partner organisation under a
-              written cooperation agreement (Kooperationsvereinbarung) — not an
-              ad-hoc phone call. That means agreed pricing, verified clergy,
-              response-time SLAs, and a single accountable contact per city.
+            <p className="mt-3 text-sm text-muted-foreground">
+              The case workspace helps you keep answers consistent across family members and chosen
+              providers.
             </p>
           </div>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {faithPartners.map((p) => (
-              <div key={p.name} className="flex flex-col rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-primary">{p.faith}</div>
-                    <div className="mt-1 font-display text-lg font-semibold leading-tight">{p.name}</div>
-                  </div>
-                  <Badge variant="outline" className="border-primary/30 text-[10px] text-primary">
-                    {p.tier}
-                  </Badge>
-                </div>
-                <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.role}</p>
-                <div className="mt-4 grid grid-cols-2 gap-2 text-[11px] text-muted-foreground">
-                  <div><span className="font-medium text-foreground">Cities:</span> {p.cities}</div>
-                  <div><span className="font-medium text-foreground">SLA:</span> {p.sla}</div>
-                </div>
-              </div>
+          <ul className="space-y-3">
+            {QUESTIONS.map((question) => (
+              <li
+                key={question}
+                className="flex items-start gap-3 rounded-xl border border-border/60 bg-card p-4 text-sm shadow-soft"
+              >
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" /> {question}
+              </li>
             ))}
-          </div>
+          </ul>
+        </section>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {partnerCommitments.map((c) => (
-              <div key={c.title} className="rounded-xl border border-border/60 bg-card p-5">
-                <div className="font-semibold">{c.title}</div>
-                <p className="mt-1.5 text-sm text-muted-foreground">{c.body}</p>
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="rounded-3xl bg-[oklch(0.16_0.04_250)] px-8 py-12 text-white shadow-elevated">
+            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <h2 className="display-md font-semibold">Looking for funeral-cover information?</h2>
+                <p className="mt-2 max-w-2xl text-sm text-white/70">
+                  BeistandPlus can provide a referral introduction only. A licensed receiving
+                  provider confirms eligibility, benefit, exclusions, waiting periods, price and
+                  contract terms.
+                </p>
               </div>
-            ))}
+              <Button asChild className="bg-teal text-[oklch(0.16_0.04_250)] hover:bg-teal/90">
+                <Link to="/bereavement-cover">
+                  View referral information <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
+        </section>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <Button asChild variant="outline">
-              <Link to="/directory">Browse full partner directory</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/trust">Compliance & vetting standards</Link>
-            </Button>
-            <p className="text-xs text-muted-foreground">
-              Are you a mosque, church, temple, gurdwara or funeral director?
-              Partnership onboarding is free —{" "}
-              <a href="mailto:partners@beistandplus.de" className="underline">partners@beistandplus.de</a>.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <RegulatedNotice domain="funeral" />
+        <RegulatedNotice domain="funeral" />
+      </main>
       <SiteFooter />
     </div>
   );
 }
 
-const faithPartners = [
-  { faith: "Islam", name: "Zentralrat der Muslime — regional Gemeinden", tier: "Framework MOU", role: "Coordination of Ghusl, Kafan, Janazah prayer and access to muslimische Grabfelder in DITIB, VIKZ and independent Gemeinden.", cities: "Berlin, Hamburg, NRW, Frankfurt, München", sla: "Imam ≤ 4h" },
-  { faith: "Islam", name: "Islamische Bestattungshilfe e.V.", tier: "Preferred partner", role: "Volunteer-led ghusl teams and shroud-only burial in Länder that permit sargloses Bestatten.", cities: "NRW, Berlin, Bremen, Hamburg", sla: "Team ≤ 6h" },
-  { faith: "Christian", name: "Evangelische Kirche in Deutschland (EKD) — Diakonie", tier: "Cooperation letter", role: "Pastor scheduling, Trauergespräch, Aussegnung and cemetery liaison across evangelisch parishes.", cities: "Nationwide (parish-level)", sla: "Pastor ≤ 24h" },
-  { faith: "Christian", name: "Deutsche Bischofskonferenz — Caritas partners", tier: "Cooperation letter", role: "Katholische Requiem, priest scheduling and cemetery coordination through diocesan Caritas offices.", cities: "Nationwide (parish-level)", sla: "Priest ≤ 24h" },
-  { faith: "Jewish", name: "Zentralrat der Juden — Chevra Kadisha", tier: "Referral partnership", role: "Referral to the local Gemeinde's Chevra Kadisha for Tahara, plain-coffin burial and Jewish cemetery interment.", cities: "Berlin, Frankfurt, München, Köln, Düsseldorf", sla: "Same-day where halachically required" },
-  { faith: "Hindu", name: "Afghanischer Hindu-Verein & Sri Ganesha Hindu Tempel", tier: "Preferred partner", role: "Pandit for antyeshti rites at the crematorium, ashes-abroad export documentation to India.", cities: "Berlin, Hamm, Frankfurt, Hannover", sla: "Pandit ≤ 12h" },
-  { faith: "Sikh", name: "Gurdwara Sri Guru Nanak Sabha e.V.", tier: "Preferred partner", role: "Antim Ardas, Kirtan Sohila, cremation coordination and asthiyan handling.", cities: "Frankfurt, Köln, Hamburg, Stuttgart", sla: "Granthi ≤ 12h" },
-  { faith: "Buddhist", name: "Deutsche Buddhistische Union (DBU)", tier: "Referral partnership", role: "Referral to Theravāda, Mahāyāna or Vajrayāna sangha for cremation rites and memorial services.", cities: "Nationwide (network)", sla: "Monastic ≤ 24h" },
-  { faith: "Alevi", name: "Alevitische Gemeinde Deutschland (AABF)", tier: "Cooperation letter", role: "Dede coordination, cem evi ceremonies and burial in Alevi-designated cemetery fields.", cities: "Berlin, Köln, Hamburg, Stuttgart, Mannheim", sla: "Dede ≤ 12h" },
-  { faith: "Yezidi", name: "Zentralrat der Êzîden in Deutschland", tier: "Referral partnership", role: "Sheikh / Pir referral, culturally-correct washing and burial in Yezidi tradition.", cities: "NRW (Bielefeld, Celle, Hannover)", sla: "Elder ≤ 24h" },
-  { faith: "Orthodox", name: "Kommission der Orthodoxen Kirche in Deutschland (KOKiD)", tier: "Cooperation letter", role: "Greek, Serbian, Russian, Romanian and Bulgarian priest scheduling and Panikhida services.", cities: "Nationwide (parish-level)", sla: "Priest ≤ 24h" },
-  { faith: "Secular / humanist", name: "Humanistischer Verband Deutschlands (HVD)", tier: "Cooperation letter", role: "Trained secular celebrants for non-religious ceremonies, civil rites and memorial services.", cities: "Berlin, Brandenburg, Bayern, NRW, Niedersachsen", sla: "Celebrant ≤ 48h" },
-];
-
-const partnerCommitments = [
-  { title: "Written cooperation, not phone calls", body: "Every listed partner has signed a Kooperationsvereinbarung with fixed roles, escalation paths and pricing bands — attached to your case file." },
-  { title: "Verified clergy and washers", body: "We check Personalausweis, Imamausweis / ministerial appointment, and Gemeinde authorisation before onboarding. Re-checked yearly." },
-  { title: "Transparent partner pricing", body: "Ceremony contributions are itemised on your quote — nothing is bundled or marked-up silently. Sozialbestattung tariffs are honoured." },
-];
-
-
-
-
-function StageCard({ title, stages, tone }: { title: string; stages: { t: string }[]; tone: "primary" | "accent" }) {
+function StepCard({ title, steps }: { title: string; steps: string[] }) {
   return (
-    <div className={`rounded-3xl border p-8 shadow-soft ${tone === "primary" ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border/60"}`}>
-      <h3 className="display-md font-semibold">{title}</h3>
-      <ol className="mt-6 space-y-3">
-        {stages.map((s, i) => (
-          <li key={s.t} className="flex items-start gap-3">
-            <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-semibold ${tone === "primary" ? "bg-accent text-accent-foreground" : "bg-primary/10 text-primary"}`}>
-              {i + 1}
-            </div>
-            <div className={tone === "primary" ? "text-primary-foreground/90" : ""}>{s.t}</div>
+    <article className="rounded-3xl border border-border/60 bg-card p-7 shadow-soft">
+      <h2 className="display-md font-semibold">{title}</h2>
+      <ol className="mt-6 space-y-4">
+        {steps.map((step, index) => (
+          <li key={step} className="flex items-start gap-3 text-sm">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-primary/10 font-semibold text-primary">
+              {index + 1}
+            </span>
+            <span className="pt-1 text-muted-foreground">{step}</span>
           </li>
         ))}
       </ol>
-    </div>
+    </article>
   );
 }

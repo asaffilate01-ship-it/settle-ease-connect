@@ -28,9 +28,13 @@ export function PlanChip() {
           ? "bg-sky-500/15 text-sky-600 dark:text-sky-300"
           : "bg-muted text-muted-foreground";
   return (
-    <Link to="/app/upgrade" className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${tone} hover:opacity-90`}>
+    <Link
+      to="/app/upgrade"
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${tone} hover:opacity-90`}
+    >
       <Sparkles className="h-3 w-3" />
-      {TIER_LABEL[s.planGroup]}{s.planGroup !== "none" && ` · ${TIER_PRICE[s.planGroup]}/mo`}
+      {TIER_LABEL[s.planGroup]}
+      {s.planGroup !== "none" && ` · ${TIER_PRICE[s.planGroup]}/mo`}
     </Link>
   );
 }
@@ -50,7 +54,11 @@ export function PaywallGuard({
   const s = useSubscription();
   const required = requires ?? (feature ? tierForFeature(feature) : "basic");
   if (s.loading) {
-    return <div className="rounded-2xl border border-dashed p-6 text-center text-xs text-muted-foreground">Loading…</div>;
+    return (
+      <div className="rounded-2xl border border-dashed p-6 text-center text-xs text-muted-foreground">
+        Loading…
+      </div>
+    );
   }
   if (tierMeets(s.planGroup, required)) return <>{children}</>;
   return <UpgradeCard current={s.planGroup} required={required} compact={compact} />;
@@ -66,7 +74,9 @@ export function UpgradeCard({
   compact?: boolean;
 }) {
   return (
-    <div className={`rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 ${compact ? "p-4" : "p-6"} text-center`}>
+    <div
+      className={`rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 ${compact ? "p-4" : "p-6"} text-center`}
+    >
       <div className="mx-auto grid h-11 w-11 place-items-center rounded-full bg-primary/15 text-primary">
         <Lock className="h-5 w-5" />
       </div>
@@ -74,7 +84,8 @@ export function UpgradeCard({
         {TIER_LABEL[required]} plan needed
       </div>
       <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
-        You're on {TIER_LABEL[current]}. Upgrade to {TIER_LABEL[required]} ({TIER_PRICE[required]}/mo) to unlock this feature.
+        You're on {TIER_LABEL[current]}. Upgrade to {TIER_LABEL[required]} ({TIER_PRICE[required]}
+        /mo) to unlock this feature.
       </p>
       <Link
         to="/app/upgrade"

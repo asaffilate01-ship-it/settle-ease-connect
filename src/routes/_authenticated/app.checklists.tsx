@@ -25,10 +25,7 @@ function ChecklistsPage() {
   const qc = useQueryClient();
   const { data: rows = [] } = useQuery(progressQuery);
   const { data: tpl } = useQuery(templatesQuery);
-  const templates = useMemo(
-    () => (tpl?.templates ?? []).filter((t) => t.active),
-    [tpl],
-  );
+  const templates = useMemo(() => (tpl?.templates ?? []).filter((t) => t.active), [tpl]);
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const effectiveKey = activeKey ?? templates[0]?.key ?? null;
 
@@ -46,8 +43,18 @@ function ChecklistsPage() {
       await qc.cancelQueries({ queryKey: ["checklist-progress"] });
       const prev = qc.getQueryData<typeof rows>(["checklist-progress"]);
       qc.setQueryData<typeof rows>(["checklist-progress"], (old = []) => {
-        const others = old.filter((r) => !(r.template_key === effectiveKey && r.item_id === v.item_id));
-        return [...others, { template_key: effectiveKey!, item_id: v.item_id, done: v.done, done_at: v.done ? new Date().toISOString() : null }];
+        const others = old.filter(
+          (r) => !(r.template_key === effectiveKey && r.item_id === v.item_id),
+        );
+        return [
+          ...others,
+          {
+            template_key: effectiveKey!,
+            item_id: v.item_id,
+            done: v.done,
+            done_at: v.done ? new Date().toISOString() : null,
+          },
+        ];
       });
       return { prev };
     },
@@ -71,7 +78,9 @@ function ChecklistsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="display-lg font-semibold">Checklists</h1>
-        <p className="text-sm text-muted-foreground">Personalised step-by-steps for every stage of life in Germany.</p>
+        <p className="text-sm text-muted-foreground">
+          Personalised step-by-steps for every stage of life in Germany.
+        </p>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -98,8 +107,12 @@ function ChecklistsPage() {
               <p className="text-sm text-muted-foreground">{active.description}</p>
             </div>
             <div className="text-right">
-              <div className="font-display text-3xl font-semibold">{doneCount}/{total}</div>
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">complete</div>
+              <div className="font-display text-3xl font-semibold">
+                {doneCount}/{total}
+              </div>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                complete
+              </div>
             </div>
           </div>
 
@@ -114,7 +127,10 @@ function ChecklistsPage() {
             {items.map((i) => {
               const isDone = doneMap[i.item_key] ?? false;
               return (
-                <label key={i.id} className="flex cursor-pointer items-start gap-3 rounded-lg border border-border/60 bg-background/50 p-4 hover:border-primary/40">
+                <label
+                  key={i.id}
+                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-border/60 bg-background/50 p-4 hover:border-primary/40"
+                >
                   <input
                     type="checkbox"
                     checked={isDone}
@@ -122,12 +138,16 @@ function ChecklistsPage() {
                     className="mt-1 h-4 w-4 accent-primary"
                   />
                   <div className="flex-1">
-                    <div className={`text-sm ${isDone ? "text-muted-foreground line-through" : "font-medium"}`}>
+                    <div
+                      className={`text-sm ${isDone ? "text-muted-foreground line-through" : "font-medium"}`}
+                    >
                       {i.title}
                     </div>
                     {i.note && <div className="mt-0.5 text-xs text-muted-foreground">{i.note}</div>}
                   </div>
-                  <Button size="sm" variant="ghost">Help</Button>
+                  <Button size="sm" variant="ghost">
+                    Help
+                  </Button>
                 </label>
               );
             })}

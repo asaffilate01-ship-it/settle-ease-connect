@@ -18,7 +18,11 @@ export const Route = createFileRoute("/_authenticated/app/location")({
   head: () => ({
     meta: [
       { title: "Share your location — BeistandPlus" },
-      { name: "description", content: "Share your live location with your case team or emergency contacts when you need help." },
+      {
+        name: "description",
+        content:
+          "Share your live location with your case team or emergency contacts when you need help.",
+      },
     ],
   }),
   component: LocationPage,
@@ -49,7 +53,9 @@ function LocationPage() {
         },
       }),
     onSuccess: () => {
-      toast.success(mode === "emergency" ? "Emergency location share started" : "Location share started");
+      toast.success(
+        mode === "emergency" ? "Emergency location share started" : "Location share started",
+      );
       qc.invalidateQueries({ queryKey: ["location"] });
     },
     onError: (e: Error) => toast.error(e.message),
@@ -111,7 +117,8 @@ function LocationPage() {
         </div>
         <h1 className="display-lg mt-1 font-semibold">Share your location</h1>
         <p className="text-sm text-muted-foreground">
-          Send a live pin to your case team, or trigger an emergency share so your nominated contacts and our on-call team can see where you are until you stop it.
+          Send a live pin to your case team, or trigger an emergency share so your nominated
+          contacts and our on-call team can see where you are until you stop it.
         </p>
       </header>
 
@@ -122,14 +129,18 @@ function LocationPage() {
           </div>
           <ul className="mt-3 space-y-2">
             {activeShares.map((s) => (
-              <li key={s.id} className="flex items-center justify-between rounded-lg border bg-background/60 p-3 text-sm">
+              <li
+                key={s.id}
+                className="flex items-center justify-between rounded-lg border bg-background/60 p-3 text-sm"
+              >
                 <div>
                   <div className="font-medium">
                     {s.mode === "emergency" ? "Emergency share" : "Case share"}
                   </div>
                   <div className="text-xs text-muted-foreground">
                     Expires {new Date(s.expires_at).toLocaleString()}
-                    {s.last_point_at && ` · last update ${new Date(s.last_point_at).toLocaleTimeString()}`}
+                    {s.last_point_at &&
+                      ` · last update ${new Date(s.last_point_at).toLocaleTimeString()}`}
                   </div>
                   {s.last_lat && (
                     <a
@@ -161,7 +172,9 @@ function LocationPage() {
                 onClick={() => setMode("normal")}
                 className={`rounded-lg border p-3 text-left text-sm ${mode === "normal" ? "border-primary bg-primary/5" : ""}`}
               >
-                <div className="flex items-center gap-2 font-medium"><MapPin className="h-4 w-4" /> Normal</div>
+                <div className="flex items-center gap-2 font-medium">
+                  <MapPin className="h-4 w-4" /> Normal
+                </div>
                 <div className="mt-1 text-xs text-muted-foreground">Visible to your case team</div>
               </button>
               <button
@@ -169,8 +182,12 @@ function LocationPage() {
                 onClick={() => setMode("emergency")}
                 className={`rounded-lg border p-3 text-left text-sm ${mode === "emergency" ? "border-red-500 bg-red-500/5" : ""}`}
               >
-                <div className="flex items-center gap-2 font-medium text-red-600"><ShieldAlert className="h-4 w-4" /> Emergency</div>
-                <div className="mt-1 text-xs text-muted-foreground">Nominated contacts + on-call team</div>
+                <div className="flex items-center gap-2 font-medium text-red-600">
+                  <ShieldAlert className="h-4 w-4" /> Emergency
+                </div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  Nominated contacts + on-call team
+                </div>
               </button>
             </div>
           </div>
@@ -229,7 +246,8 @@ function LocationPage() {
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Location updates use your device's GPS while this page is open. Close the tab or hit Stop to end the share; it will also auto-expire at the end of the selected window.
+        Location updates use your device's GPS while this page is open. Close the tab or hit Stop to
+        end the share; it will also auto-expire at the end of the selected window.
       </p>
     </div>
   );

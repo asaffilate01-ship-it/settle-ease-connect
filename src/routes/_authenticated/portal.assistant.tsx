@@ -25,7 +25,8 @@ function KBAssistant() {
   const send = useMutation({
     mutationFn: async (q: string) => ask({ data: { question: q, history: messages.slice(-10) } }),
     onSuccess: (res: any) => setMessages((m) => [...m, { role: "assistant", content: res.answer }]),
-    onError: (e: any) => setMessages((m) => [...m, { role: "assistant", content: `Error: ${e?.message ?? e}` }]),
+    onError: (e: any) =>
+      setMessages((m) => [...m, { role: "assistant", content: `Error: ${e?.message ?? e}` }]),
   });
 
   function submit(e: React.FormEvent) {
@@ -44,23 +45,35 @@ function KBAssistant() {
           <Sparkles className="h-5 w-5" />
         </div>
         <div>
-          <div className="font-display text-xl font-semibold">{t("pages.staffAssistant.title")}</div>
+          <div className="font-display text-xl font-semibold">
+            {t("pages.staffAssistant.title")}
+          </div>
           <div className="text-xs text-muted-foreground">{t("pages.staffAssistant.subtitle")}</div>
         </div>
       </div>
       <div className="flex-1 space-y-4 overflow-y-auto py-6">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            <div className={`max-w-[75%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm shadow-soft ${m.role === "user" ? "bg-gradient-primary text-primary-foreground" : "bg-card"}`}>
+            <div
+              className={`max-w-[75%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm shadow-soft ${m.role === "user" ? "bg-gradient-primary text-primary-foreground" : "bg-card"}`}
+            >
               {m.content}
             </div>
           </div>
         ))}
-        {send.isPending && <div className="text-xs text-muted-foreground">{t("pages.staffAssistant.thinking")}</div>}
+        {send.isPending && (
+          <div className="text-xs text-muted-foreground">{t("pages.staffAssistant.thinking")}</div>
+        )}
       </div>
       <form onSubmit={submit} className="flex gap-2 border-t border-border/60 pt-4">
-        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t("pages.staffAssistant.inputPh")} />
-        <Button type="submit" disabled={!input.trim() || send.isPending}><Send className="h-4 w-4" /></Button>
+        <Input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder={t("pages.staffAssistant.inputPh")}
+        />
+        <Button type="submit" disabled={!input.trim() || send.isPending}>
+          <Send className="h-4 w-4" />
+        </Button>
       </form>
     </div>
   );

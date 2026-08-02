@@ -41,15 +41,32 @@ function ReferralsPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Tile icon={<Gift className="h-4 w-4" />} label={t("pages.referrals.pending")} value={String(totals.pending)} />
-        <Tile icon={<Gift className="h-4 w-4" />} label={t("pages.referrals.subscribed")} value={String(totals.subscribed)} />
-        <Tile icon={<Gift className="h-4 w-4" />} label={t("pages.referrals.rewards")} value={`€${totals.rewardEur.toFixed(2)}`} />
+        <Tile
+          icon={<Gift className="h-4 w-4" />}
+          label={t("pages.referrals.pending")}
+          value={String(totals.pending)}
+        />
+        <Tile
+          icon={<Gift className="h-4 w-4" />}
+          label={t("pages.referrals.subscribed")}
+          value={String(totals.subscribed)}
+        />
+        <Tile
+          icon={<Gift className="h-4 w-4" />}
+          label={t("pages.referrals.rewards")}
+          value={`€${totals.rewardEur.toFixed(2)}`}
+        />
       </div>
 
       <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
         <div className="text-sm font-medium">{t("pages.referrals.inviteByEmail")}</div>
         <div className="mt-3 flex gap-2">
-          <Input placeholder="friend@example.com" value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+          <Input
+            placeholder="friend@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+          />
           <Button disabled={!email || invite.isPending} onClick={() => invite.mutate()}>
             {invite.isPending ? t("pages.referrals.sending") : t("pages.referrals.createInvite")}
           </Button>
@@ -58,14 +75,28 @@ function ReferralsPage() {
 
       <div className="space-y-2">
         <h2 className="font-display text-xl font-semibold">{t("pages.referrals.yourInvites")}</h2>
-        {referrals.length === 0 && <p className="text-sm text-muted-foreground">{t("pages.referrals.noInvites")}</p>}
+        {referrals.length === 0 && (
+          <p className="text-sm text-muted-foreground">{t("pages.referrals.noInvites")}</p>
+        )}
         {referrals.map((r) => (
-          <div key={r.id} className="flex items-center justify-between rounded-xl border border-border/60 bg-card p-4 text-sm">
+          <div
+            key={r.id}
+            className="flex items-center justify-between rounded-xl border border-border/60 bg-card p-4 text-sm"
+          >
             <div>
               <div className="font-medium">{r.referred_email}</div>
-              <div className="text-xs text-muted-foreground">{r.status} · code {r.code}</div>
+              <div className="text-xs text-muted-foreground">
+                {r.status} · code {r.code}
+              </div>
             </div>
-            <Button size="sm" variant="ghost" onClick={() => { navigator.clipboard.writeText(`${window.location.origin}/auth?ref=${r.code}`); toast.success(t("pages.referrals.linkCopied")); }}>
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                navigator.clipboard.writeText(`${window.location.origin}/auth?ref=${r.code}`);
+                toast.success(t("pages.referrals.linkCopied"));
+              }}
+            >
               <Copy className="h-4 w-4" />
             </Button>
           </div>
@@ -78,7 +109,10 @@ function ReferralsPage() {
 function Tile({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
-      <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">{icon}{label}</div>
+      <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+        {icon}
+        {label}
+      </div>
       <div className="mt-2 font-display text-3xl font-semibold">{value}</div>
     </div>
   );

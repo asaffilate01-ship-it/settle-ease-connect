@@ -18,23 +18,19 @@ const toneStyles: Record<ClayTone, string> = {
   coral:
     "bg-[linear-gradient(140deg,oklch(0.72_0.14_45),oklch(0.52_0.16_32))] text-[oklch(0.98_0.01_78)]",
   /* Peach — soft warm surface */
-  sun:
-    "bg-[linear-gradient(140deg,oklch(0.9_0.06_75),oklch(0.78_0.11_55))] text-[oklch(0.22_0.05_40)]",
+  sun: "bg-[linear-gradient(140deg,oklch(0.9_0.06_75),oklch(0.78_0.11_55))] text-[oklch(0.22_0.05_40)]",
   /* Sage — quiet secondary */
-  mint:
-    "bg-[linear-gradient(140deg,oklch(0.68_0.07_150),oklch(0.44_0.07_145))] text-[oklch(0.98_0.011_78)]",
+  mint: "bg-[linear-gradient(140deg,oklch(0.68_0.07_150),oklch(0.44_0.07_145))] text-[oklch(0.98_0.011_78)]",
   /* Deep sage as authoritative "ocean" replacement */
   ocean:
     "bg-[linear-gradient(140deg,oklch(0.44_0.07_145),oklch(0.28_0.06_150))] text-[oklch(0.98_0.011_78)]",
   /* Muted sage-teal blend */
-  teal:
-    "bg-[linear-gradient(140deg,oklch(0.6_0.07_155),oklch(0.42_0.07_150))] text-[oklch(0.98_0.011_78)]",
+  teal: "bg-[linear-gradient(140deg,oklch(0.6_0.07_155),oklch(0.42_0.07_150))] text-[oklch(0.98_0.011_78)]",
   /* Terracotta → peach aurora */
   aurora:
     "bg-[linear-gradient(140deg,oklch(0.62_0.14_38),oklch(0.82_0.09_60))] text-[oklch(0.14_0.02_40)]",
   /* Charcoal ink */
-  ink:
-    "bg-[linear-gradient(140deg,oklch(0.28_0.02_40),oklch(0.12_0.015_40))] text-[oklch(0.98_0.011_78)]",
+  ink: "bg-[linear-gradient(140deg,oklch(0.28_0.02_40),oklch(0.12_0.015_40))] text-[oklch(0.98_0.011_78)]",
 };
 
 const sizeStyles: Record<ClaySize, { box: string; icon: number }> = {
@@ -91,7 +87,11 @@ export function ClayIcon({
         aria-hidden
         className="pointer-events-none absolute -inset-x-1 bottom-0 h-1/2 rounded-[inherit] bg-[radial-gradient(ellipse_at_50%_100%,oklch(0_0_0/0.25),transparent_65%)] opacity-60"
       />
-      <Icon size={sz.icon} strokeWidth={2.25} className="relative drop-shadow-[0_1px_1px_oklch(0_0_0/0.25)]" />
+      <Icon
+        size={sz.icon}
+        strokeWidth={2.25}
+        className="relative drop-shadow-[0_1px_1px_oklch(0_0_0/0.25)]"
+      />
     </span>
   );
 }

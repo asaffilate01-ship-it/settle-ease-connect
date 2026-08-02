@@ -14,16 +14,15 @@ export type OutboundEmail = {
 };
 
 export type EmailDeliveryResult =
-  | { status: "sent" }
-  | { status: "not_configured" }
-  | { status: "failed"; error: string };
+  { status: "sent" } | { status: "not_configured" } | { status: "failed"; error: string };
 
 export async function sendTransactionalEmail(email: OutboundEmail): Promise<EmailDeliveryResult> {
   const endpoint = process.env["EMAIL_DELIVERY_ENDPOINT"];
   const token = process.env["EMAIL_DELIVERY_BEARER_TOKEN"];
   const from = process.env["CONTACT_FROM_EMAIL"];
   if (!endpoint || !token || !from) return { status: "not_configured" };
-  if (!endpoint.startsWith("https://")) return { status: "failed", error: "Endpoint must be HTTPS" };
+  if (!endpoint.startsWith("https://"))
+    return { status: "failed", error: "Endpoint must be HTTPS" };
 
   try {
     const response = await fetch(endpoint, {

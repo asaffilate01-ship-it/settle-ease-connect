@@ -45,7 +45,10 @@ function MemberEventsPage() {
       qc.invalidateQueries({ queryKey: ["my-event-registrations"] });
       toast.success(
         res.status === "waitlist"
-          ? t("events.waitlisted", "Added to the waiting list — we'll let you know if a place opens.")
+          ? t(
+              "events.waitlisted",
+              "Added to the waiting list — we'll let you know if a place opens.",
+            )
           : t("events.registered", "You're registered. See you there!"),
       );
     },
@@ -74,7 +77,9 @@ function MemberEventsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="display-lg font-semibold">{t("events.memberTitle", "Events & free clinics")}</h1>
+        <h1 className="display-lg font-semibold">
+          {t("events.memberTitle", "Events & free clinics")}
+        </h1>
         <p className="text-sm text-muted-foreground">
           {t(
             "events.memberSubtitle",
@@ -159,7 +164,9 @@ function MemberEventsPage() {
                   </div>
                   <h3 className="mt-2 font-display text-lg font-semibold">{e.title}</h3>
                   {e.description && (
-                    <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{e.description}</p>
+                    <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">
+                      {e.description}
+                    </p>
                   )}
                   <div className="mt-3 space-y-1.5 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">

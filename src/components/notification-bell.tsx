@@ -50,7 +50,9 @@ export function NotificationBell() {
         </div>
         <div className="max-h-96 overflow-y-auto">
           {items.length === 0 ? (
-            <div className="px-4 py-8 text-center text-sm text-muted-foreground">You're all caught up</div>
+            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+              You're all caught up
+            </div>
           ) : (
             items.slice(0, 12).map((n: any) => (
               <Link
@@ -64,9 +66,15 @@ export function NotificationBell() {
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0 flex-1">
                     <div className="truncate font-medium">{n.title}</div>
-                    {n.body && <div className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">{n.body}</div>}
+                    {n.body && (
+                      <div className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
+                        {n.body}
+                      </div>
+                    )}
                   </div>
-                  <div className="shrink-0 text-[10px] text-muted-foreground">{timeAgo(n.created_at)}</div>
+                  <div className="shrink-0 text-[10px] text-muted-foreground">
+                    {timeAgo(n.created_at)}
+                  </div>
                 </div>
               </Link>
             ))

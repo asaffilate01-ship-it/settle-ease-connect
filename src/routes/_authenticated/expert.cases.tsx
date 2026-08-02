@@ -23,7 +23,9 @@ function ExpertCases() {
           {t("expert.cases.title", { defaultValue: "My cases" })}
         </h1>
         <p className="mt-1 text-muted-foreground">
-          {t("expert.cases.subtitle", { defaultValue: "Every case where you're the primary expert or an assignee." })}
+          {t("expert.cases.subtitle", {
+            defaultValue: "Every case where you're the primary expert or an assignee.",
+          })}
         </p>
       </header>
 
@@ -52,10 +54,16 @@ function ExpertCases() {
                     </span>
                   )}
                 </td>
-                <td className="p-3 text-muted-foreground capitalize">{String(c.case_type).replace(/_/g, " ")}</td>
-                <td className="p-3 text-muted-foreground capitalize">{String(c.assignment_role).replace(/_/g, " ")}</td>
+                <td className="p-3 text-muted-foreground capitalize">
+                  {String(c.case_type).replace(/_/g, " ")}
+                </td>
+                <td className="p-3 text-muted-foreground capitalize">
+                  {String(c.assignment_role).replace(/_/g, " ")}
+                </td>
                 <td className="p-3 capitalize">{c.status}</td>
-                <td className="p-3 text-muted-foreground">{c.opened_at ? new Date(c.opened_at).toLocaleDateString() : "—"}</td>
+                <td className="p-3 text-muted-foreground">
+                  {c.opened_at ? new Date(c.opened_at).toLocaleDateString() : "—"}
+                </td>
                 <td className="p-3 text-right">
                   <Link
                     to="/app/cases/$caseId"

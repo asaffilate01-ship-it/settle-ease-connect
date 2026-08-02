@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Mail, Phone, Save } from "lucide-react";
 import { toast } from "sonner";
 
-const STATUSES = ["new","contacted","quoted","won","lost","spam"] as const;
+const STATUSES = ["new", "contacted", "quoted", "won", "lost", "spam"] as const;
 const SOURCES = ["all", "quote_widget", "group_cover", "callback"] as const;
 
 export const Route = createFileRoute("/_authenticated/portal/leads")({
@@ -58,12 +58,22 @@ function LeadsInbox() {
         subtitle="All bereavement cover enquiries from the public quote widget."
       />
 
-
       <div className="flex flex-wrap items-center gap-2">
-        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or email…" className="max-w-xs" />
+        <Input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search name or email…"
+          className="max-w-xs"
+        />
         <div className="flex flex-wrap gap-1">
           {(["all", ...STATUSES] as const).map((s) => (
-            <Button key={s} size="sm" variant={filter === s ? "default" : "outline"} onClick={() => setFilter(s)} className="capitalize">
+            <Button
+              key={s}
+              size="sm"
+              variant={filter === s ? "default" : "outline"}
+              onClick={() => setFilter(s)}
+              className="capitalize"
+            >
               {s}
             </Button>
           ))}
@@ -71,10 +81,18 @@ function LeadsInbox() {
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Source</span>
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          Source
+        </span>
         <div className="flex flex-wrap gap-1">
           {SOURCES.map((s) => (
-            <Button key={s} size="sm" variant={sourceFilter === s ? "default" : "outline"} onClick={() => setSourceFilter(s)} className="capitalize">
+            <Button
+              key={s}
+              size="sm"
+              variant={sourceFilter === s ? "default" : "outline"}
+              onClick={() => setSourceFilter(s)}
+              className="capitalize"
+            >
               {s.replace("_", " ")}
             </Button>
           ))}
@@ -83,7 +101,11 @@ function LeadsInbox() {
 
       <div className="grid gap-4 lg:grid-cols-[1fr_1.2fr]">
         <div className="rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden">
-          {leadsQ.isLoading && <div className="p-6 text-center"><Loader2 className="mx-auto h-4 w-4 animate-spin" /></div>}
+          {leadsQ.isLoading && (
+            <div className="p-6 text-center">
+              <Loader2 className="mx-auto h-4 w-4 animate-spin" />
+            </div>
+          )}
           {leads.length === 0 && !leadsQ.isLoading && (
             <div className="p-8 text-center text-sm text-muted-foreground">No leads match.</div>
           )}
@@ -98,22 +120,39 @@ function LeadsInbox() {
                   <div className="font-medium truncate">{l.full_name}</div>
                   <div className="text-xs text-muted-foreground truncate">{l.email}</div>
                 </div>
-                <Badge variant="outline" className="capitalize shrink-0">{l.status}</Badge>
+                <Badge variant="outline" className="capitalize shrink-0">
+                  {l.status}
+                </Badge>
               </div>
               <div className="mt-1 text-xs text-muted-foreground">
-                €{l.benefit_amount.toLocaleString("de-DE")} · age {l.age} · {new Date(l.created_at).toLocaleDateString()}
+                €{l.benefit_amount.toLocaleString("de-DE")} · age {l.age} ·{" "}
+                {new Date(l.created_at).toLocaleDateString()}
               </div>
             </button>
           ))}
         </div>
 
-        {selected && <LeadDetail lead={selected} onSave={(v) => updateMut.mutate(v)} saving={updateMut.isPending} />}
+        {selected && (
+          <LeadDetail
+            lead={selected}
+            onSave={(v) => updateMut.mutate(v)}
+            saving={updateMut.isPending}
+          />
+        )}
       </div>
     </div>
   );
 }
 
-function LeadDetail({ lead, onSave, saving }: { lead: any; onSave: (v: any) => void; saving: boolean }) {
+function LeadDetail({
+  lead,
+  onSave,
+  saving,
+}: {
+  lead: any;
+  onSave: (v: any) => void;
+  saving: boolean;
+}) {
   const [status, setStatus] = useState(lead.status);
   const [notes, setNotes] = useState(lead.notes ?? "");
   // reset local state when selection changes
@@ -122,21 +161,34 @@ function LeadDetail({ lead, onSave, saving }: { lead: any; onSave: (v: any) => v
   }
 
   return (
-    <div key={lead.id} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft space-y-5">
+    <div
+      key={lead.id}
+      className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft space-y-5"
+    >
       <div>
         <div className="flex items-start justify-between gap-2">
           <div>
             <h2 className="font-display text-xl font-semibold">{lead.full_name}</h2>
-            <div className="text-xs text-muted-foreground">Lead #{lead.id.slice(0, 8)} · {new Date(lead.created_at).toLocaleString()}</div>
+            <div className="text-xs text-muted-foreground">
+              Lead #{lead.id.slice(0, 8)} · {new Date(lead.created_at).toLocaleString()}
+            </div>
           </div>
-          <Badge variant="outline" className="capitalize">{lead.status}</Badge>
+          <Badge variant="outline" className="capitalize">
+            {lead.status}
+          </Badge>
         </div>
         <div className="mt-3 flex flex-wrap gap-4 text-sm">
-          <a href={`mailto:${lead.email}`} className="inline-flex items-center gap-1.5 text-primary hover:underline">
+          <a
+            href={`mailto:${lead.email}`}
+            className="inline-flex items-center gap-1.5 text-primary hover:underline"
+          >
             <Mail className="h-3.5 w-3.5" /> {lead.email}
           </a>
           {lead.phone && (
-            <a href={`tel:${lead.phone}`} className="inline-flex items-center gap-1.5 text-primary hover:underline">
+            <a
+              href={`tel:${lead.phone}`}
+              className="inline-flex items-center gap-1.5 text-primary hover:underline"
+            >
               <Phone className="h-3.5 w-3.5" /> {lead.phone}
             </a>
           )}
@@ -149,15 +201,26 @@ function LeadDetail({ lead, onSave, saving }: { lead: any; onSave: (v: any) => v
         <Row k="Benefit amount" v={`€${lead.benefit_amount.toLocaleString("de-DE")}`} />
         <Row k="Waiting period" v={`${lead.waiting_period_months} months`} />
         <Row k="Tobacco" v={lead.tobacco ? "Yes" : "No"} />
-        <Row k="Est. premium" v={`€${lead.estimated_premium_min}–${lead.estimated_premium_max}/mo`} />
+        <Row
+          k="Est. premium"
+          v={`€${lead.estimated_premium_min}–${lead.estimated_premium_max}/mo`}
+        />
         <Row k="Source" v={lead.source ?? "quote_widget"} />
       </div>
 
       <div className="space-y-2">
-        <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</div>
+        <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          Status
+        </div>
         <div className="flex flex-wrap gap-1">
           {STATUSES.map((s) => (
-            <Button key={s} size="sm" variant={status === s ? "default" : "outline"} onClick={() => setStatus(s)} className="capitalize">
+            <Button
+              key={s}
+              size="sm"
+              variant={status === s ? "default" : "outline"}
+              onClick={() => setStatus(s)}
+              className="capitalize"
+            >
               {s}
             </Button>
           ))}
@@ -165,13 +228,25 @@ function LeadDetail({ lead, onSave, saving }: { lead: any; onSave: (v: any) => v
       </div>
 
       <div className="space-y-2">
-        <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Case-manager notes</div>
-        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={5} placeholder="Call log, insurer response, next action…" />
+        <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          Case-manager notes
+        </div>
+        <Textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={5}
+          placeholder="Call log, insurer response, next action…"
+        />
       </div>
 
       <div className="flex justify-end">
         <Button onClick={() => onSave({ id: lead.id, status, notes })} disabled={saving}>
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />} Save
+          {saving ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Save className="mr-2 h-4 w-4" />
+          )}{" "}
+          Save
         </Button>
       </div>
     </div>

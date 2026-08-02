@@ -2,10 +2,7 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import {
-  getExpertInvitationByToken,
-  acceptExpertInvitation,
-} from "@/lib/experts.functions";
+import { getExpertInvitationByToken, acceptExpertInvitation } from "@/lib/experts.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -55,7 +52,7 @@ function ExpertInvitePage() {
   const accept = useMutation({
     mutationFn: () => acceptFn({ data: { token } }),
     onSuccess: () => {
-      toast.success("Welcome aboard — your expert profile is live");
+      toast.success("Invitation accepted — your profile is awaiting verification");
       navigate({ to: "/app" });
     },
     onError: (e: Error) => toast.error(e.message),
@@ -70,9 +67,7 @@ function ExpertInvitePage() {
               <Loader2 className="h-4 w-4 animate-spin" /> Checking invitation…
             </div>
           )}
-          {error && (
-            <div className="text-sm text-destructive">{(error as Error).message}</div>
-          )}
+          {error && <div className="text-sm text-destructive">{(error as Error).message}</div>}
           {data && !data.ok && (
             <div className="space-y-3">
               <h1 className="font-display text-2xl font-semibold">
@@ -100,7 +95,7 @@ function ExpertInvitePage() {
                   Welcome, {data.invitation.full_name}
                 </h1>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  You've been invited to join the BeistandPlus vetted expert network as a{" "}
+                  You&apos;ve been invited to begin provider onboarding as a{" "}
                   <strong>{data.invitation.profession}</strong>.
                 </p>
               </div>
@@ -146,24 +141,20 @@ function ExpertInvitePage() {
               ) : !session ? (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Sign in or create your account with{" "}
-                    <strong>{data.invitation.email}</strong> to accept.
+                    Sign in or create your account with <strong>{data.invitation.email}</strong> to
+                    accept.
                   </p>
                   <Button asChild className="w-full">
-                    <Link
-                      to="/auth"
-                      search={{ redirect: `/expert-invite/${token}` } as any}
-                    >
+                    <Link to="/auth" search={{ redirect: `/expert-invite/${token}` } as any}>
                       Sign in / Create account
                     </Link>
                   </Button>
                 </div>
-              ) : session.user?.email?.toLowerCase() !==
-                data.invitation.email.toLowerCase() ? (
+              ) : session.user?.email?.toLowerCase() !== data.invitation.email.toLowerCase() ? (
                 <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-4 text-sm">
-                  You're signed in as <strong>{session.user?.email}</strong>. This
-                  invitation is for <strong>{data.invitation.email}</strong>. Please sign
-                  out and sign in with the invited address.
+                  You're signed in as <strong>{session.user?.email}</strong>. This invitation is for{" "}
+                  <strong>{data.invitation.email}</strong>. Please sign out and sign in with the
+                  invited address.
                 </div>
               ) : (
                 <Button
@@ -177,7 +168,7 @@ function ExpertInvitePage() {
                     </>
                   ) : (
                     <>
-                      <CheckCircle2 className="mr-2 h-4 w-4" /> Accept & activate profile
+                      <CheckCircle2 className="mr-2 h-4 w-4" /> Accept & create profile
                     </>
                   )}
                 </Button>

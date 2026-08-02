@@ -1,15 +1,23 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
-import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How it works — BeistandPlus" },
-      { name: "description", content: "The Beistand workflow: settle, claim, belong, stand with — coordinated by a human case manager and an AI assistant." },
-      { property: "og:title", content: "How it works — BeistandPlus" },
-      { property: "og:description", content: "From your first Anmeldung to the hardest moments, here's how BeistandPlus carries you." },
+      { title: "How the workspace works — BeistandPlus" },
+      {
+        name: "description",
+        content:
+          "Create a case, organise source documents, review suggested next steps and request available human or professional support.",
+      },
+      { property: "og:title", content: "How the workspace works — BeistandPlus" },
+      {
+        property: "og:description",
+        content: "A transparent five-step view of the BeistandPlus case workspace.",
+      },
       { property: "og:url", content: "https://beistandplus.de/how-it-works" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/how-it-works" }],
@@ -17,44 +25,83 @@ export const Route = createFileRoute("/how-it-works")({
   component: HowItWorks,
 });
 
+const steps = [
+  {
+    title: "Create a case",
+    body: "Describe the situation and choose what you want to organise. Avoid adding sensitive information that is not needed.",
+  },
+  {
+    title: "Review the working checklist",
+    body: "The workspace can suggest tasks and summarise text. Treat generated content as a draft and verify it against the original source.",
+  },
+  {
+    title: "Store relevant records",
+    body: "Keep documents, notes and status updates together. Access is scoped by account, case and assigned role.",
+  },
+  {
+    title: "Request available support",
+    body: "Ask for human help or a provider referral where offered. Availability, scope, credentials, fees and engagement terms are confirmed separately.",
+  },
+  {
+    title: "Track the next action",
+    body: "Record what was submitted and what the responsible organisation said. Official decisions and deadlines remain authoritative.",
+  },
+];
+
 function HowItWorks() {
-  const { t } = useTranslation();
-  const steps = [
-    { n: "01", title: t("pages.howItWorks.steps.s1Title"), desc: t("pages.howItWorks.steps.s1Desc") },
-    { n: "02", title: t("pages.howItWorks.steps.s2Title"), desc: t("pages.howItWorks.steps.s2Desc") },
-    { n: "03", title: t("pages.howItWorks.steps.s3Title"), desc: t("pages.howItWorks.steps.s3Desc") },
-    { n: "04", title: t("pages.howItWorks.steps.s4Title"), desc: t("pages.howItWorks.steps.s4Desc") },
-    { n: "05", title: t("pages.howItWorks.steps.s5Title"), desc: t("pages.howItWorks.steps.s5Desc") },
-  ];
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
-          {t("pages.howItWorks.eyebrow")}
-        </div>
-        <h1 className="display-hero text-balance mt-3 font-semibold">
-          {t("pages.howItWorks.title1")}<br />{t("pages.howItWorks.title2")}
+      <main className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+          How it works
+        </p>
+        <h1 className="display-hero mt-4 text-balance font-semibold">
+          Five steps, with the boundaries made clear.
         </h1>
-        <div className="mt-16 space-y-10">
-          {steps.map((s) => (
-            <div key={s.n} className="grid gap-6 border-t border-border/60 pt-10 sm:grid-cols-[120px_1fr]">
-              <div className="font-display text-4xl font-semibold text-foreground/60">{s.n}</div>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
+          BeistandPlus is an organisational workspace. It does not replace an authority, emergency
+          service or regulated professional, and no response time or outcome is guaranteed.
+        </p>
+
+        <ol className="mt-16 space-y-10">
+          {steps.map((step, index) => (
+            <li
+              key={step.title}
+              className="grid gap-5 border-t border-border/60 pt-8 sm:grid-cols-[100px_1fr]"
+            >
+              <span className="font-display text-4xl font-semibold text-foreground/40">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <div>
-                <h3 className="display-md font-semibold">{s.title}</h3>
-                <p className="mt-2 text-lg text-muted-foreground">{s.desc}</p>
+                <h2 className="display-md font-semibold">{step.title}</h2>
+                <p className="mt-2 text-base leading-7 text-muted-foreground">{step.body}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
-        <div className="mt-20 rounded-2xl border border-border/60 bg-card p-8 shadow-soft">
-          <div className="font-display text-2xl font-semibold">{t("pages.howItWorks.readyTitle")}</div>
-          <p className="mt-2 text-muted-foreground">{t("pages.howItWorks.readyBody")}</p>
-          <a href="/app" className="mt-4 inline-flex items-center gap-1 font-medium text-primary">
-            {t("pages.howItWorks.openDashboard")} <ArrowRight className="h-4 w-4 rtl-flip" />
-          </a>
-        </div>
-      </section>
+        </ol>
+
+        <section className="mt-16 rounded-2xl border border-border/60 bg-card p-6 shadow-soft sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8">
+          <div>
+            <h2 className="font-display text-2xl font-semibold">
+              Ready to organise your next step?
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Start with the workspace, or review the plan and feature boundaries first.
+            </p>
+          </div>
+          <div className="mt-5 flex shrink-0 flex-wrap gap-3 sm:mt-0">
+            <Button asChild>
+              <Link to="/app">
+                Open workspace <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/pricing">Review plans</Link>
+            </Button>
+          </div>
+        </section>
+      </main>
       <SiteFooter />
     </div>
   );

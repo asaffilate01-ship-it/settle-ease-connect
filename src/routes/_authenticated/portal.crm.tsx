@@ -45,7 +45,9 @@ function CrmLayout() {
           );
         })}
       </nav>
-      <div><Outlet /></div>
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 }

@@ -33,7 +33,6 @@ function shouldKeepGateForDomTranslation(lang: string | null) {
   return !!lang || document.documentElement.hasAttribute("data-lang-pending");
 }
 
-
 function getSafeI18n() {
   return appI18n && typeof appI18n.changeLanguage === "function" ? appI18n : null;
 }
@@ -117,10 +116,6 @@ export function useLanguage() {
     }
     window.addEventListener("load", () => schedule(), { once: true });
   }, []);
-
-
-
-
 
   const applyHtmlAttrs = (l: LangCode) => {
     if (typeof document === "undefined") return;

@@ -1,53 +1,63 @@
 # BeistandPlus
 
-BeistandPlus is a multilingual family settlement and case-management platform for Germany. It combines member guidance, benefits and immigration workflows, a private document vault, messaging, expert/agent/partner portals, enquiry operations, family collaboration, privacy/compliance workflows and subscription billing.
+BeistandPlus is a multilingual settlement and family case-management platform for Germany. The repository contains the TanStack Start web application, Supabase schema, Stripe web billing, operational portals, and generated Capacitor projects for iOS and Android.
 
-## Stack
+## What is included
 
-- React and TanStack Start/Router
-- TypeScript and Tailwind CSS
-- Supabase Auth, Postgres, RLS and Storage
-- Stripe embedded checkout and subscription webhooks
-- Lovable AI gateway for rate-limited guidance and UI translation
-- Signed partner webhooks with an idempotent retry/dead-letter worker
-- Transactional email through a deployment-owned HTTPS gateway
-- Capacitor shell for future iOS/Android builds
+- Member cases, milestones, tasks, family access and messages
+- Private document vault with scoped access and MFA gates
+- Staff, expert, agent, partner, compliance, DPO and auditor workspaces
+- Subscription checkout and idempotent Stripe webhook processing for the web
+- Referral-only health, funeral-cover and tax intake; no simulated production quotes
+- Rate-limited public forms and AI/translation entry points
+- Signed, allowlisted partner delivery with retries and dead-letter handling
+- iOS and Android Capacitor projects with branded icons/splash screens
 
 ## Local setup
 
-1. Copy `.env.example` into your local environment and supply sandbox credentials.
-2. Install exact dependencies with `npm ci`.
-3. Apply Supabase migrations in timestamp order.
-4. Start the application with `npm run dev`.
-
-For a staging or production deployment, follow [OPERATIONAL_RELEASE.md](./OPERATIONAL_RELEASE.md) to configure the email gateway, partner worker, endpoint allowlist and signing secrets.
-
-Do not expose `SUPABASE_SERVICE_ROLE_KEY`, Stripe API keys, webhook secrets or `LOVABLE_API_KEY` to client-side `VITE_*` variables.
-
-## Quality checks
-
 ```bash
-npm run typecheck
-npm run lint
-npm test
-npm run build
-npm audit --omit=dev --audit-level=high
+cp .env.example .env.local
+npm ci
+npm run dev
 ```
 
-Pull requests and pushes to `main` run the same checks in GitHub Actions.
+Supply sandbox values in `.env.local`; never commit it. Apply every SQL migration in `supabase/migrations` in filename order to a disposable or staging Supabase project before using the application.
 
-## Security boundaries
+## Verification
 
-- Subscription entitlements are written only by trusted payment/webhook code.
-- Sensitive vault and staff operations require a current Supabase AAL2 session on the server.
-- Database policies scope vault and case access independently of the UI.
-- Public metered/submission endpoints use a database-backed rate limiter.
-- Stripe webhook event IDs are persisted before processing to prevent duplicate side effects.
-- Family access invitations are email-bound, expiring and revocable; raw invite tokens are shown only at creation.
-- Partner destinations are registered by an administrator, HTTPS-only and host-allowlisted; payloads are HMAC-signed.
-- Operational audit events minimize metadata and do not copy messages, invitation hashes or partner payloads.
-- The current payout queue is a sandbox ledger and cannot move funds in live mode.
+```bash
+npm run verify
+npm audit --omit=dev --audit-level=high
+npm run preview
+```
 
-## Production deployment
+`npm run verify` checks repository layout, TypeScript, ESLint, unit tests and the production build. GitHub Actions runs the same gates for pushes to `main` and pull requests.
 
-Read [PRODUCTION_READINESS_REPORT.md](./PRODUCTION_READINESS_REPORT.md) and [PRODUCTION_CHECKLIST.md](./PRODUCTION_CHECKLIST.md) before connecting real users, documents or payments. A successful build is not approval to launch: legal identity, regulated partners, production infrastructure, operational controls and independent testing remain deployment responsibilities.
+The generated server bundle targets Cloudflare Workers. `npm run preview` runs the built `.output` bundle locally with Wrangler; `npm run deploy` deploys that bundle after Cloudflare credentials and configuration are approved.
+
+Before deployment, populate the production environment and run:
+
+```bash
+NODE_ENV=production npm run verify:production
+```
+
+## Security model
+
+- Server functions validate Supabase authentication; high-impact operations also require AAL2.
+- Row-level policies scope case and vault access independently of the interface.
+- Family grants are email-bound, expiring and revocable.
+- Public submissions are accepted through database-backed rate-limited server functions, not direct anonymous table inserts.
+- Webhook event IDs are persisted before Stripe side effects are processed.
+- Live expert payout/fund movement is disabled; the optional payout ledger is sandbox-only.
+- Partner destinations are exact-host allowlisted and payloads are HMAC signed.
+- Environment selection and payment return URLs are controlled on the server.
+
+## Native apps
+
+The `ios/` and `android/` projects use the same deployed TanStack Start application through a production HTTPS Capacitor shell. See [NATIVE.md](./NATIVE.md). Stripe subscription purchase and billing-portal UI is disabled inside native apps until an approved App Store/Play billing decision is implemented.
+
+## Release status
+
+This repository is a code-complete release candidate, not evidence that a deployment is legally or operationally approved. Read [PRODUCTION_READINESS_REPORT.md](./PRODUCTION_READINESS_REPORT.md), [PRODUCTION_CHECKLIST.md](./PRODUCTION_CHECKLIST.md), and [OPERATIONAL_RELEASE.md](./OPERATIONAL_RELEASE.md) before using real personal data or live payments.
+
+Start with [README-FIRST.md](./README-FIRST.md) when uploading the supplied package to GitHub.

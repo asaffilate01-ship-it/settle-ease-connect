@@ -48,10 +48,24 @@ function ExpertInvoices() {
       </header>
 
       <div className="grid gap-3 sm:grid-cols-4">
-        <Kpi label={t("expert.invoices.kpi.gross", { defaultValue: "Billed gross" })} value={`€${totals.gross.toFixed(0)}`} />
-        <Kpi label={t("expert.invoices.kpi.pending", { defaultValue: "Escrow / pending" })} value={`€${totals.pending.toFixed(0)}`} tone="primary" />
-        <Kpi label={t("expert.invoices.kpi.paid", { defaultValue: "Paid out" })} value={`€${totals.paid.toFixed(0)}`} tone="success" />
-        <Kpi label={t("expert.invoices.kpi.count", { defaultValue: "Invoices" })} value={String(rows.length)} />
+        <Kpi
+          label={t("expert.invoices.kpi.gross", { defaultValue: "Billed gross" })}
+          value={`€${totals.gross.toFixed(0)}`}
+        />
+        <Kpi
+          label={t("expert.invoices.kpi.pending", { defaultValue: "Escrow / pending" })}
+          value={`€${totals.pending.toFixed(0)}`}
+          tone="primary"
+        />
+        <Kpi
+          label={t("expert.invoices.kpi.paid", { defaultValue: "Paid out" })}
+          value={`€${totals.paid.toFixed(0)}`}
+          tone="success"
+        />
+        <Kpi
+          label={t("expert.invoices.kpi.count", { defaultValue: "Invoices" })}
+          value={String(rows.length)}
+        />
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
@@ -60,8 +74,12 @@ function ExpertInvoices() {
             <tr>
               <th className="p-3">{t("expert.invoices.col.case", { defaultValue: "Case" })}</th>
               <th className="p-3">{t("expert.invoices.col.gross", { defaultValue: "Gross" })}</th>
-              <th className="p-3">{t("expert.invoices.col.fee", { defaultValue: "Platform fee" })}</th>
-              <th className="p-3">{t("expert.invoices.col.payout", { defaultValue: "Your payout" })}</th>
+              <th className="p-3">
+                {t("expert.invoices.col.fee", { defaultValue: "Platform fee" })}
+              </th>
+              <th className="p-3">
+                {t("expert.invoices.col.payout", { defaultValue: "Your payout" })}
+              </th>
               <th className="p-3">{t("expert.invoices.col.status", { defaultValue: "Status" })}</th>
               <th className="p-3">{t("expert.invoices.col.paid", { defaultValue: "Paid" })}</th>
               <th className="p-3"></th>
@@ -75,15 +93,25 @@ function ExpertInvoices() {
                   <div className="truncate max-w-[220px]">{r.case_title}</div>
                 </td>
                 <td className="p-3">€{Number(r.amount_eur ?? 0).toFixed(2)}</td>
-                <td className="p-3 text-muted-foreground">€{Number(r.platform_fee_eur ?? 0).toFixed(2)}</td>
-                <td className="p-3 font-medium">€{Number(r.payout_to_expert_eur ?? 0).toFixed(2)}</td>
+                <td className="p-3 text-muted-foreground">
+                  €{Number(r.platform_fee_eur ?? 0).toFixed(2)}
+                </td>
+                <td className="p-3 font-medium">
+                  €{Number(r.payout_to_expert_eur ?? 0).toFixed(2)}
+                </td>
                 <td className="p-3">
-                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${STATUS_TONE[r.status] ?? "bg-muted text-muted-foreground"}`}>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${STATUS_TONE[r.status] ?? "bg-muted text-muted-foreground"}`}
+                  >
                     {String(r.status).replace(/_/g, " ")}
                   </span>
                 </td>
                 <td className="p-3 text-muted-foreground">
-                  {r.paid_at ? new Date(r.paid_at).toLocaleDateString() : r.released_at ? new Date(r.released_at).toLocaleDateString() : "—"}
+                  {r.paid_at
+                    ? new Date(r.paid_at).toLocaleDateString()
+                    : r.released_at
+                      ? new Date(r.released_at).toLocaleDateString()
+                      : "—"}
                 </td>
                 <td className="p-3 text-right">
                   <Link
@@ -110,7 +138,15 @@ function ExpertInvoices() {
   );
 }
 
-function Kpi({ label, value, tone }: { label: string; value: string; tone?: "primary" | "success" }) {
+function Kpi({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone?: "primary" | "success";
+}) {
   const toneCls =
     tone === "primary"
       ? "text-primary"

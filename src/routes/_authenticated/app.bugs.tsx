@@ -40,7 +40,8 @@ const statusOptions = ["open", "in_progress", "resolved", "closed"] as const;
 function BugReportsPage() {
   const { t } = useTranslation();
   const { roles } = useCurrentUser();
-  const isInternal = roles.includes("admin") || roles.includes("staff") || roles.includes("case_manager");
+  const isInternal =
+    roles.includes("admin") || roles.includes("staff") || roles.includes("case_manager");
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const qc = useQueryClient();
   const fetchReports = useServerFn(listBugReports);
@@ -52,15 +53,16 @@ function BugReportsPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [severity, setSeverity] = useState<"low" | "medium" | "high" | "critical">("medium");
-  const [filter, setFilter] = useState<"all" | "open" | "in_progress" | "resolved" | "closed">("all");
+  const [filter, setFilter] = useState<"all" | "open" | "in_progress" | "resolved" | "closed">(
+    "all",
+  );
 
   const { data: reports = [], isLoading } = useQuery({
     queryKey: ["bug_reports"],
     queryFn: fetchReports,
   });
 
-  const filtered =
-    filter === "all" ? reports : reports.filter((r) => r.status === filter);
+  const filtered = filter === "all" ? reports : reports.filter((r) => r.status === filter);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -101,9 +103,7 @@ function BugReportsPage() {
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             {t("bugs.subtitle")}
           </div>
-          <h1 className="display-lg mt-2 font-semibold">
-            {t("bugs.title")}
-          </h1>
+          <h1 className="display-lg mt-2 font-semibold">{t("bugs.title")}</h1>
         </div>
         <Button onClick={() => setOpenForm((s) => !s)} className="bg-gradient-primary">
           <Bug className="mr-2 h-4 w-4" />
@@ -141,10 +141,7 @@ function BugReportsPage() {
             </div>
             <div>
               <Label htmlFor="severity">{t("bugs.severityLabel")}</Label>
-              <Select
-                value={severity}
-                onValueChange={(v) => setSeverity(v as any)}
-              >
+              <Select value={severity} onValueChange={(v) => setSeverity(v as any)}>
                 <SelectTrigger id="severity" className="w-full sm:w-60">
                   <SelectValue />
                 </SelectTrigger>
@@ -168,21 +165,6 @@ function BugReportsPage() {
           </div>
         </form>
       )}
-
-      {import.meta.env.DEV && (
-        <div className="rounded-2xl border border-dashed border-border/60 bg-parchment/60 p-4 text-xs text-muted-foreground">
-          <strong>Dev-only test logins</strong> — pre-seeded. Sign in on <code className="rounded bg-muted px-1.5 py-0.5">/auth</code> with any of these:
-          <div className="mt-2 grid gap-1 font-mono">
-            <div>admin@beistand.de · admin</div>
-            <div>staff@beistand.de · staff</div>
-            <div>manager@beistand.de · case_manager</div>
-            <div>expert@beistand.de · expert</div>
-            <div>agent@beistand.de · agent</div>
-          </div>
-          <div className="mt-2">Password for all: <code className="rounded bg-muted px-1.5 py-0.5">beistand2026!</code></div>
-        </div>
-      )}
-
 
       <div className="flex items-center gap-2">
         <Select value={filter} onValueChange={(v) => setFilter(v as any)}>
@@ -227,9 +209,7 @@ function BugReportsPage() {
                   <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <span>{new Date(report.created_at).toLocaleString()}</span>
                     {report.source_route && (
-                      <span className="rounded bg-muted px-1.5 py-0.5">
-                        {report.source_route}
-                      </span>
+                      <span className="rounded bg-muted px-1.5 py-0.5">{report.source_route}</span>
                     )}
                     {isInternal && (report as any).full_name && (
                       <span className="rounded bg-muted px-1.5 py-0.5">
@@ -285,9 +265,7 @@ function SeverityBadge({ severity, t }: { severity: string; t: (k: string) => st
     critical: "bg-destructive/20 text-destructive",
   };
   return (
-    <Badge className={colors[severity] ?? colors.medium}>
-      {t(`bugs.severity.${severity}`)}
-    </Badge>
+    <Badge className={colors[severity] ?? colors.medium}>{t(`bugs.severity.${severity}`)}</Badge>
   );
 }
 
@@ -298,9 +276,5 @@ function StatusBadge({ status, t }: { status: string; t: (k: string) => string }
     resolved: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
     closed: "bg-slate-100 text-slate-800 dark:bg-slate-900/40 dark:text-slate-300",
   };
-  return (
-    <Badge className={colors[status] ?? colors.open}>
-      {t(`bugs.status.${status}`)}
-    </Badge>
-  );
+  return <Badge className={colors[status] ?? colors.open}>{t(`bugs.status.${status}`)}</Badge>;
 }

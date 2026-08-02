@@ -10,7 +10,10 @@ export const Route = createFileRoute("/_authenticated/portal/insurance")({
   head: () => ({
     meta: [
       { title: "Insurance Ops — Portal" },
-      { name: "description", content: "Insurance leads pipeline, callbacks and active policies for insurance admins." },
+      {
+        name: "description",
+        content: "Insurance leads pipeline, callbacks and active policies for insurance admins.",
+      },
     ],
   }),
   component: InsuranceConsole,
@@ -30,7 +33,8 @@ function InsuranceConsole() {
         <h1 className="font-display text-2xl font-semibold">Insurance operations</h1>
       </div>
       <p className="-mt-3 text-sm text-muted-foreground">
-        Insurance leads pipeline, pending callbacks, and the active policy book — scoped to the insurance admin console.
+        Insurance leads pipeline, pending callbacks, and the active policy book — scoped to the
+        insurance admin console.
       </p>
 
       <SubConsoleTabs active={tab} onChange={setTab} />
@@ -40,9 +44,17 @@ function InsuranceConsole() {
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             <Kpi label="Total leads" value={data.leadTotal} />
             <Kpi label="Open" value={data.openLeads} tone="primary" />
-            <Kpi label="Callbacks" value={data.callbackCount} icon={<PhoneCall className="h-4 w-4" />} />
+            <Kpi
+              label="Callbacks"
+              value={data.callbackCount}
+              icon={<PhoneCall className="h-4 w-4" />}
+            />
             <Kpi label="Converted" value={data.converted} tone="success" />
-            <Kpi label="Conversion" value={`${data.conversion}%`} icon={<TrendingUp className="h-4 w-4" />} />
+            <Kpi
+              label="Conversion"
+              value={`${data.conversion}%`}
+              icon={<TrendingUp className="h-4 w-4" />}
+            />
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -80,7 +92,10 @@ function InsuranceConsole() {
             </div>
             <div className="max-h-[500px] divide-y divide-border/40 overflow-y-auto">
               {data.leads.map((l: any) => (
-                <div key={l.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+                <div
+                  key={l.id}
+                  className="flex items-center justify-between gap-3 px-4 py-3 text-sm"
+                >
                   <div className="min-w-0">
                     <div className="truncate font-medium">{l.full_name || l.email || "—"}</div>
                     <div className="text-xs text-muted-foreground">
@@ -94,7 +109,9 @@ function InsuranceConsole() {
                     </div>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
-                    <Badge variant="secondary" className="capitalize">{l.status ?? "new"}</Badge>
+                    <Badge variant="secondary" className="capitalize">
+                      {l.status ?? "new"}
+                    </Badge>
                   </div>
                 </div>
               ))}
@@ -107,7 +124,9 @@ function InsuranceConsole() {
       )}
 
       {tab === "quotes" && (
-        <EmptyTab>Insurance quotes are issued by carrier partners once a callback is completed.</EmptyTab>
+        <EmptyTab>
+          Insurance quotes are issued by carrier partners once a callback is completed.
+        </EmptyTab>
       )}
 
       {tab === "callbacks" && (
@@ -117,7 +136,10 @@ function InsuranceConsole() {
           </div>
           <div className="max-h-[500px] divide-y divide-border/40 overflow-y-auto">
             {data.callbacks.map((c: any) => (
-              <div key={c.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
+              <div
+                key={c.id}
+                className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm"
+              >
                 <div className="min-w-0">
                   <div className="truncate font-medium">{c.full_name || c.email || "—"}</div>
                   <div className="text-xs text-muted-foreground">
@@ -127,7 +149,9 @@ function InsuranceConsole() {
               </div>
             ))}
             {data.callbacks.length === 0 && (
-              <div className="p-6 text-center text-sm text-muted-foreground">No callbacks pending.</div>
+              <div className="p-6 text-center text-sm text-muted-foreground">
+                No callbacks pending.
+              </div>
             )}
           </div>
         </div>
@@ -136,7 +160,11 @@ function InsuranceConsole() {
       {tab === "reconciliation" && (
         <div className="space-y-4">
           <div className="grid gap-3 sm:grid-cols-3">
-            <Kpi label="Est. monthly pipeline" value={`€${data.monthlyPipeline.toLocaleString()}`} tone="primary" />
+            <Kpi
+              label="Est. monthly pipeline"
+              value={`€${data.monthlyPipeline.toLocaleString()}`}
+              tone="primary"
+            />
             <Kpi label="Active health policies" value={data.activePolicies.health} />
             <Kpi label="Active funeral policies" value={data.activePolicies.funeral} />
           </div>
@@ -159,10 +187,13 @@ function InsuranceConsole() {
                   when: f.updated_at,
                 })),
               ]
-                .sort((a, b) => (new Date(b.when).getTime() - new Date(a.when).getTime()))
+                .sort((a, b) => new Date(b.when).getTime() - new Date(a.when).getTime())
                 .slice(0, 20)
                 .map((row) => (
-                  <div key={row.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
+                  <div
+                    key={row.id}
+                    className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm"
+                  >
                     <div className="min-w-0">
                       <div className="truncate font-medium">{row.title}</div>
                       <div className="text-xs text-muted-foreground">{row.sub}</div>
@@ -173,7 +204,9 @@ function InsuranceConsole() {
                   </div>
                 ))}
               {data.recentHealth.length === 0 && data.recentFuneral.length === 0 && (
-                <div className="p-6 text-center text-sm text-muted-foreground">No active policies yet.</div>
+                <div className="p-6 text-center text-sm text-muted-foreground">
+                  No active policies yet.
+                </div>
               )}
             </div>
           </div>

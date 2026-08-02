@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2, requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 async function assertInternal(context: { supabase: any; userId: string }) {
   const { data } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
@@ -9,11 +9,13 @@ async function assertInternal(context: { supabase: any; userId: string }) {
 
 export const listReferralPartners = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({ category: z.string().optional() }).parse(raw ?? {}),
-  )
+  .validator((raw: unknown) => z.object({ category: z.string().optional() }).parse(raw ?? {}))
   .handler(async ({ data, context }) => {
-    const q = context.supabase.from("referral_partners").select("*").eq("active", true).order("name");
+    const q = context.supabase
+      .from("referral_partners")
+      .select("*")
+      .eq("active", true)
+      .order("name");
     if (data.category) q.eq("category", data.category);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
@@ -21,8 +23,8 @@ export const listReferralPartners = createServerFn({ method: "GET" })
   });
 
 export const upsertReferralPartner = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -59,7 +61,7 @@ export const upsertReferralPartner = createServerFn({ method: "POST" })
 
 export const createReferralLead = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         partner_id: z.string().uuid(),
@@ -81,7 +83,9 @@ export const createReferralLead = createServerFn({ method: "POST" })
 
     // Server-computed expected commission (best-effort estimate for flat/cpl/cpa).
     const expected =
-      partner.commission_model === "flat" || partner.commission_model === "cpl" || partner.commission_model === "cpa"
+      partner.commission_model === "flat" ||
+      partner.commission_model === "cpl" ||
+      partner.commission_model === "cpa"
         ? Number(partner.commission_flat_cents ?? 0)
         : 0;
 
@@ -115,12 +119,14 @@ export const listReferralLeads = createServerFn({ method: "GET" })
   });
 
 export const updateReferralLead = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
-        status: z.enum(["sent", "clicked", "registered", "converted", "paid", "clawback", "rejected"]).optional(),
+        status: z
+          .enum(["sent", "clicked", "registered", "converted", "paid", "clawback", "rejected"])
+          .optional(),
         commission_expected_cents: z.number().int().min(0).optional(),
         commission_received_cents: z.number().int().min(0).optional(),
         invoice_reference: z.string().max(120).optional().nullable(),
@@ -134,7 +140,10 @@ export const updateReferralLead = createServerFn({ method: "POST" })
     const p: Record<string, unknown> = { ...patch };
     if (patch.status === "converted") p.converted_at = new Date().toISOString();
     if (patch.status === "paid") p.paid_at = new Date().toISOString();
-    const { error } = await context.supabase.from("referral_leads").update(p as any).eq("id", id);
+    const { error } = await context.supabase
+      .from("referral_leads")
+      .update(p as any)
+      .eq("id", id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

@@ -6,10 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, X, Pause, ShieldCheck, ExternalLink, Store } from "lucide-react";
 import { toast } from "sonner";
-import {
-  listDirectoryModerationQueue,
-  setDirectoryListingStatus,
-} from "@/lib/directory.functions";
+import { listDirectoryModerationQueue, setDirectoryListingStatus } from "@/lib/directory.functions";
 
 export const Route = createFileRoute("/_authenticated/portal/directory")({
   head: () => ({ meta: [{ title: "Directory moderation — Staff" }] }),
@@ -53,7 +50,9 @@ function DirectoryModerationPage() {
         </div>
         <h1 className="display-lg mt-1 font-semibold">Business listing review queue</h1>
         <p className="text-sm text-muted-foreground">
-          Every new directory submission lands here for staff review before appearing publicly. Approve trustworthy providers, reject spam, and suspend anything that later goes off-brief.
+          Every new directory submission lands here for staff review before appearing publicly.
+          Approve trustworthy providers, reject spam, and suspend anything that later goes
+          off-brief.
         </p>
       </header>
 
@@ -63,7 +62,9 @@ function DirectoryModerationPage() {
             key={t.key}
             onClick={() => setTab(t.key)}
             className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition ${
-              tab === t.key ? "border-primary text-ink" : "border-transparent text-muted-foreground hover:text-foreground"
+              tab === t.key
+                ? "border-primary text-ink"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             {t.label}
@@ -80,7 +81,10 @@ function DirectoryModerationPage() {
       ) : (
         <ul className="space-y-3">
           {(data as any[]).map((row) => (
-            <li key={row.id} className="rounded-2xl border border-border/60 bg-card p-4 shadow-soft">
+            <li
+              key={row.id}
+              className="rounded-2xl border border-border/60 bg-card p-4 shadow-soft"
+            >
               <div className="flex flex-wrap items-start gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
@@ -113,7 +117,9 @@ function DirectoryModerationPage() {
                     )}
                   </div>
                   {row.description && (
-                    <p className="mt-2 whitespace-pre-line text-sm text-foreground/85">{row.description}</p>
+                    <p className="mt-2 whitespace-pre-line text-sm text-foreground/85">
+                      {row.description}
+                    </p>
                   )}
                   <div className="mt-2 grid gap-1 text-xs text-muted-foreground sm:grid-cols-3">
                     {row.email && <span>✉ {row.email}</span>}

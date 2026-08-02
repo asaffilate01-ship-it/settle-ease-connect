@@ -76,7 +76,16 @@ export function useSubscription(): SubscriptionInfo {
         .maybeSingle();
 
       if (!sub) {
-        if (!cancelled) setInfo({ planCode: null, planGroup: "none", planName: null, status: null, monthlyPrice: null, currentPeriodEnd: null, loading: false });
+        if (!cancelled)
+          setInfo({
+            planCode: null,
+            planGroup: "none",
+            planName: null,
+            status: null,
+            monthlyPrice: null,
+            currentPeriodEnd: null,
+            loading: false,
+          });
         return;
       }
       const { data: plan } = sub.plan_code
@@ -89,7 +98,7 @@ export function useSubscription(): SubscriptionInfo {
       if (cancelled) return;
       setInfo({
         planCode: sub.plan_code,
-        planGroup: ((plan?.plan_group as PlanGroup) ?? "basic"),
+        planGroup: (plan?.plan_group as PlanGroup) ?? "basic",
         planName: plan?.name ?? null,
         status: sub.status,
         monthlyPrice: plan?.monthly_price_eur ? Number(plan.monthly_price_eur) : null,
@@ -97,7 +106,9 @@ export function useSubscription(): SubscriptionInfo {
         loading: false,
       });
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return info;

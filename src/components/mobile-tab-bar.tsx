@@ -51,9 +51,7 @@ export function MobileTabBar() {
                   <Icon className="h-5 w-5" strokeWidth={active ? 2.4 : 2} />
                 </span>
                 <span
-                  className={
-                    active ? "truncate text-primary" : "truncate text-muted-foreground"
-                  }
+                  className={active ? "truncate text-primary" : "truncate text-muted-foreground"}
                 >
                   {tab.label}
                 </span>

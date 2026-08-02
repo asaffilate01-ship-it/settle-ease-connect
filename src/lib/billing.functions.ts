@@ -1,11 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import {
-  type StripeEnv,
-  createStripeClient,
-  getStripeErrorMessage,
-} from "@/lib/stripe.server";
+import { type StripeEnv, createStripeClient, getStripeErrorMessage } from "@/lib/stripe.server";
+import { resolveStripeEnvironment } from "@/lib/payments-policy";
 
 export type BillingSubscription = {
   id: string;
@@ -84,13 +81,14 @@ export const getBillingOverview = createServerFn({ method: "GET" })
     const funeralMonthly = funeralPolicies
       .filter((p) => p.status === "active" || p.status === "pending")
       .reduce((sum, p) => {
-        const per = p.premium_cadence === "yearly"
-          ? p.premium_eur / 12
-          : p.premium_cadence === "quarterly"
-            ? p.premium_eur / 3
-            : p.premium_cadence === "single"
-              ? 0
-              : p.premium_eur;
+        const per =
+          p.premium_cadence === "yearly"
+            ? p.premium_eur / 12
+            : p.premium_cadence === "quarterly"
+              ? p.premium_eur / 3
+              : p.premium_cadence === "single"
+                ? 0
+                : p.premium_eur;
         return sum + per;
       }, 0);
 
@@ -99,8 +97,7 @@ export const getBillingOverview = createServerFn({ method: "GET" })
         ? ({ ...sub, plan_name: planName, monthly_price_eur: monthlyPrice } as BillingSubscription)
         : null,
       funeralPolicies,
-      monthlyCommitmentEur:
-        Math.round(((monthlyPrice ?? 0) + funeralMonthly) * 100) / 100,
+      monthlyCommitmentEur: Math.round(((monthlyPrice ?? 0) + funeralMonthly) * 100) / 100,
     };
   });
 
@@ -136,8 +133,22 @@ export type BillingHistoryResult =
   | { error: string };
 
 const ZERO_DECIMAL = new Set([
-  "bif", "clp", "djf", "gnf", "jpy", "kmf", "krw", "mga",
-  "pyg", "rwf", "ugx", "vnd", "vuv", "xaf", "xof", "xpf",
+  "bif",
+  "clp",
+  "djf",
+  "gnf",
+  "jpy",
+  "kmf",
+  "krw",
+  "mga",
+  "pyg",
+  "rwf",
+  "ugx",
+  "vnd",
+  "vuv",
+  "xaf",
+  "xof",
+  "xpf",
 ]);
 const THREE_DECIMAL = new Set(["bhd", "jod", "kwd", "omr", "tnd"]);
 
@@ -189,7 +200,7 @@ async function findCustomerIds(
  */
 export const getBillingHistory = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         environment: z.enum(["sandbox", "live"]),
@@ -199,7 +210,7 @@ export const getBillingHistory = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }): Promise<BillingHistoryResult> => {
     try {
-      const stripe = createStripeClient(data.environment as StripeEnv);
+      const stripe = createStripeClient(resolveStripeEnvironment());
       const {
         data: { user },
       } = await context.supabase.auth.getUser();
@@ -235,7 +246,9 @@ export const getBillingHistory = createServerFn({ method: "POST" })
             number: inv.number ?? null,
             status: inv.status ?? null,
             description:
-              inv.description ?? (line as { description?: string } | undefined)?.description ?? null,
+              inv.description ??
+              (line as { description?: string } | undefined)?.description ??
+              null,
             amount_due: toMajor(inv.amount_due, inv.currency),
             amount_paid: toMajor(inv.amount_paid, inv.currency),
             currency: inv.currency,
@@ -266,8 +279,7 @@ export const getBillingHistory = createServerFn({ method: "POST" })
       }
 
       const currency = invoices[0]?.currency ?? "eur";
-      const paidToDate =
-        Math.round(invoices.reduce((s, i) => s + i.amount_paid, 0) * 100) / 100;
+      const paidToDate = Math.round(invoices.reduce((s, i) => s + i.amount_paid, 0) * 100) / 100;
       const outstanding =
         Math.round(
           invoices

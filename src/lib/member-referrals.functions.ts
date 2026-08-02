@@ -12,7 +12,9 @@ export const getMyReferralSummary = createServerFn({ method: "GET" })
     const { supabase, userId } = context;
     const { data: rows } = await supabase
       .from("member_referrals")
-      .select("id, referred_email, code, status, reward_type, reward_value_eur, rewarded_at, created_at")
+      .select(
+        "id, referred_email, code, status, reward_type, reward_value_eur, rewarded_at, created_at",
+      )
       .eq("referrer_user_id", userId)
       .order("created_at", { ascending: false });
     const list = rows ?? [];
@@ -28,7 +30,7 @@ export const getMyReferralSummary = createServerFn({ method: "GET" })
 
 export const createMemberReferral = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({ email: z.string().email().max(200) }).parse(d))
+  .validator((d) => z.object({ email: z.string().email().max(200) }).parse(d))
   .handler(async ({ data, context }) => {
     const code = makeCode();
     const { data: row, error } = await context.supabase

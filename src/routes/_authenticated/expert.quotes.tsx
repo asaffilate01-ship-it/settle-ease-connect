@@ -46,9 +46,20 @@ function ExpertQuotes() {
       </header>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <Kpi label={t("expert.quotes.kpi.total", { defaultValue: "All quotes" })} value={`€${totals.total.toFixed(0)}`} />
-        <Kpi label={t("expert.quotes.kpi.open", { defaultValue: "Open value" })} value={`€${totals.open.toFixed(0)}`} tone="primary" />
-        <Kpi label={t("expert.quotes.kpi.won", { defaultValue: "Accepted" })} value={`€${totals.won.toFixed(0)}`} tone="success" />
+        <Kpi
+          label={t("expert.quotes.kpi.total", { defaultValue: "All quotes" })}
+          value={`€${totals.total.toFixed(0)}`}
+        />
+        <Kpi
+          label={t("expert.quotes.kpi.open", { defaultValue: "Open value" })}
+          value={`€${totals.open.toFixed(0)}`}
+          tone="primary"
+        />
+        <Kpi
+          label={t("expert.quotes.kpi.won", { defaultValue: "Accepted" })}
+          value={`€${totals.won.toFixed(0)}`}
+          tone="success"
+        />
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
@@ -73,9 +84,13 @@ function ExpertQuotes() {
                 </td>
                 <td className="p-3">{r.title || "—"}</td>
                 <td className="p-3 font-medium">€{Number(r.amount_eur ?? 0).toFixed(2)}</td>
-                <td className="p-3 text-muted-foreground capitalize">{String(r.compensation_model ?? "").replace(/_/g, " ")}</td>
+                <td className="p-3 text-muted-foreground capitalize">
+                  {String(r.compensation_model ?? "").replace(/_/g, " ")}
+                </td>
                 <td className="p-3">
-                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${STATUS_TONE[r.status] ?? "bg-muted text-muted-foreground"}`}>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${STATUS_TONE[r.status] ?? "bg-muted text-muted-foreground"}`}
+                  >
                     {r.status}
                   </span>
                 </td>
@@ -96,7 +111,9 @@ function ExpertQuotes() {
             {rows.length === 0 && !q.isLoading && (
               <tr>
                 <td colSpan={7} className="p-10 text-center text-muted-foreground">
-                  {t("expert.quotes.empty", { defaultValue: "No quotes yet. Send one from a case to get started." })}
+                  {t("expert.quotes.empty", {
+                    defaultValue: "No quotes yet. Send one from a case to get started.",
+                  })}
                 </td>
               </tr>
             )}
@@ -107,7 +124,15 @@ function ExpertQuotes() {
   );
 }
 
-function Kpi({ label, value, tone }: { label: string; value: string; tone?: "primary" | "success" }) {
+function Kpi({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone?: "primary" | "success";
+}) {
   const toneCls =
     tone === "primary"
       ? "text-primary"

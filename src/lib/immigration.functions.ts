@@ -11,7 +11,7 @@ async function assertInternal(context: { supabase: any; userId: string }) {
 
 export const listEmbassies = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ q: z.string().optional(), city: z.string().optional() }).parse(raw ?? {}),
   )
   .handler(async ({ data, context }) => {
@@ -26,13 +26,13 @@ export const listEmbassies = createServerFn({ method: "GET" })
             .toLowerCase()
             .includes(data.q!.toLowerCase()),
         )
-      : rows ?? [];
+      : (rows ?? []);
     return filtered;
   });
 
 export const upsertEmbassy = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -56,7 +56,10 @@ export const upsertEmbassy = createServerFn({ method: "POST" })
     if (!(await assertInternal(context))) throw new Error("Forbidden");
     if (data.id) {
       const { id, ...patch } = data;
-      const { error } = await context.supabase.from("embassies").update(patch as any).eq("id", id);
+      const { error } = await context.supabase
+        .from("embassies")
+        .update(patch as any)
+        .eq("id", id);
       if (error) throw new Error(error.message);
       return { ok: true, id };
     }
@@ -85,7 +88,7 @@ export const listFamily = createServerFn({ method: "GET" })
 
 export const upsertFamily = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -106,20 +109,32 @@ export const upsertFamily = createServerFn({ method: "POST" })
     const payload: any = { ...data, client_user_id: context.userId };
     if (data.id) {
       const { id, ...patch } = payload;
-      const { error } = await context.supabase.from("family_members").update(patch).eq("id", id).eq("client_user_id", context.userId);
+      const { error } = await context.supabase
+        .from("family_members")
+        .update(patch)
+        .eq("id", id)
+        .eq("client_user_id", context.userId);
       if (error) throw new Error(error.message);
       return { ok: true, id };
     }
-    const { data: inserted, error } = await context.supabase.from("family_members").insert(payload).select("id").single();
+    const { data: inserted, error } = await context.supabase
+      .from("family_members")
+      .insert(payload)
+      .select("id")
+      .single();
     if (error) throw new Error(error.message);
     return { ok: true, id: inserted?.id };
   });
 
 export const deleteFamily = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase.from("family_members").delete().eq("id", data.id).eq("client_user_id", context.userId);
+    const { error } = await context.supabase
+      .from("family_members")
+      .delete()
+      .eq("id", data.id)
+      .eq("client_user_id", context.userId);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -139,19 +154,32 @@ export const listEmergencyAlerts = createServerFn({ method: "GET" })
     const ids = Array.from(new Set(rows.map((r: any) => r.client_user_id).filter(Boolean)));
     let nameMap = new Map<string, string>();
     if (ids.length) {
-      const { data: profs } = await context.supabase.from("profiles").select("id, full_name").in("id", ids);
+      const { data: profs } = await context.supabase
+        .from("profiles")
+        .select("id, full_name")
+        .in("id", ids);
       nameMap = new Map((profs ?? []).map((p: any) => [p.id, p.full_name]));
     }
-    return rows.map((r: any) => ({ ...r, profiles: { full_name: nameMap.get(r.client_user_id) ?? null } }));
+    return rows.map((r: any) => ({
+      ...r,
+      profiles: { full_name: nameMap.get(r.client_user_id) ?? null },
+    }));
   });
 
 export const raiseEmergencyAlert = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         client_user_id: z.string().uuid(),
-        reason: z.enum(["deceased", "hospitalised", "missing", "crisis", "unable_to_contact", "other"]),
+        reason: z.enum([
+          "deceased",
+          "hospitalised",
+          "missing",
+          "crisis",
+          "unable_to_contact",
+          "other",
+        ]),
         description: z.string().max(2000).optional().nullable(),
       })
       .parse(raw),
@@ -170,7 +198,7 @@ export const raiseEmergencyAlert = createServerFn({ method: "POST" })
 
 export const updateEmergencyAlert = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -186,7 +214,10 @@ export const updateEmergencyAlert = createServerFn({ method: "POST" })
       patch.acknowledged_at = new Date().toISOString();
     }
     if (data.status === "resolved") patch.resolved_at = new Date().toISOString();
-    const { error } = await context.supabase.from("emergency_alerts").update(patch).eq("id", data.id);
+    const { error } = await context.supabase
+      .from("emergency_alerts")
+      .update(patch)
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

@@ -1,47 +1,4 @@
 {
-  "funeralCover": {
-    "badge": "Sterbegeld · Cover regulated under German law",
-    "headline": "Approved & regulated expenses cover from about €24/month",
-    "subhead": "A €20,000 benefit per insured adult — enough to cover the full costs of the funeral and burial or last rites, plus repatriation if required, with any balance going to your nominated beneficiary. The family never has to find the money at the hardest moment.",
-    "disclaimer": "Ranges reflect published 2024–2025 rate tables from our panel of Sterbegeld providers regulated under German law, for non-smokers with no waiting period on a €20,000 benefit. Actual premium depends on age, health declaration, smoker status and chosen waiting period; children under 18 are included at no additional premium on the family and extended-family tarifs. Not a binding quote — the licensed partner provider issues the offer.",
-    "coverageTitle": "What the €20,000 covers — via BeistandPlus",
-    "howLabel": "How it works:",
-    "howBody": "the provider settles every approved and regulated invoice in full — funeral, burial or last rites, and repatriation if required — and any balance is paid to the nominated beneficiary within 14 days.",
-    "ctaEstimate": "Estimate my premium",
-    "ctaTalk": "Talk to a case manager",
-    "introducer": "BeistandPlus acts as introducer (Tippgeber / §34d GewO broker where applicable). Premiums are paid directly to the cover provider; BeistandPlus never underwrites. The subscription and the cover premium are billed separately.",
-    "tabs": {
-      "individual": "Individual",
-      "individualNote": "1 adult · €20k benefit",
-      "family": "Family",
-      "familyNote": "2 adults + up to 3 kids under 18 · €20k per adult",
-      "extended": "Extended family",
-      "extendedNote": "Up to 4 adults + up to 3 kids under 18 · €20k per adult"
-    },
-    "rows": {
-      "individualLabel": "Age {{age}}",
-      "individualDetail": "1 adult · €20,000 payout",
-      "familyLabel": "Both adults age {{age}}",
-      "familyDetail": "2 adults + up to 3 kids under 18 · €20k per adult",
-      "extendedLabel": "All 4 adults age {{age}}",
-      "extendedDetail": "Up to 4 adults + 3 kids under 18 · €20k per adult"
-    },
-    "table": {
-      "composition": "Composition",
-      "cover": "Cover",
-      "premium": "Estimated monthly premium",
-      "perMo": "/ mo"
-    },
-    "coverage": [
-      "€20,000 benefit per insured adult — paid on death, no medical exam required for standard tarifs",
-      "Direct settlement of funeral director, cemetery, mosque / church / temple, cremation, coffin, flowers, catering and death-certificate fees against original invoices",
-      "Full repatriation of the body abroad (approved transport casket, embalming, consular NOC, airline cargo, receiving director in the home country)",
-      "Sworn translations, estate paperwork, Standesamt, embassy / consulate coordination — all invoiced through the case file",
-      "Every euro itemised in your BeistandPlus case file so the family sees exactly where the money went",
-      "Any balance remaining after all approved and regulated expenses are settled is paid to your nominated beneficiary via SEPA, in Germany or abroad, in their local currency",
-      "24/7 multilingual case manager assigned within 1 hour of a claim being opened"
-    ]
-  },
   "brand": {
     "location": "Germany"
   },
@@ -67,7 +24,7 @@
     "more": "More",
     "hint": {
       "services": "All settlement & welfare services",
-      "directory": "Find vetted local providers",
+      "directory": "Find local provider listings",
       "bereavement": "End-of-life support & cover",
       "students": "For international students",
       "insurance": "Broker-placed cover in 13 languages",
@@ -340,73 +297,23 @@
     "pricing": {
       "eyebrow": "Pricing",
       "title": "One subscription. One trusted hand.",
-      "subtitle": "Members recover far more than their subscription in benefits claimed correctly, appointments not missed, and stress avoided. Household plans discounted for couples and families of up to 4 adults + 3 children.",
       "individual": "Individual",
       "family": "Family",
       "extended": "Extended family",
       "noteIndividual": "1 adult",
       "noteFamily": "2 adults + up to 3 kids under 18",
       "noteExtended": "Up to 4 adults + 3 kids under 18",
-      "communityBadge": "Free · Community",
-      "communityName": "Community",
-      "communityDesc": "A safety net for anyone in Germany — no card required.",
-      "forever": "/ forever",
       "perMonth": "/ month",
-      "startFree": "Start free",
       "choose": "Choose {{name}}",
       "mostPopular": "Most popular",
       "save": "Save {{percent}}%",
-      "loading": "Loading plans…",
-      "trustSuffix": "published SLAs, licences and refund promises →"
-    },
-    "services": {
-      "eyebrow": "Expert guidance for life in Germany",
-      "title1": "A companion for every",
-      "title2": "essential milestone.",
-      "subtitle": "From your first Anmeldung to securing your family's future, BeistandPlus offers dignified, expert support to navigate German administration with confidence — in thirteen languages, with a human by your side.",
-      "openCase": "Open a case",
-      "howItWorks": "How BeistandPlus works",
-      "ninePillars": "Nine areas of care",
-      "ribbon": "We work with you in your language",
-      "trustHuman": "Human first",
-      "trustHumanBody": "Real case managers in Berlin, Hamburg, München and Köln — every case answered by a person, not a bot.",
-      "trustGdpr": "GDPR-native",
-      "trustGdprBody": "Your documents live in an encrypted vault, hosted in Germany, with deputy access for illness or bereavement.",
-      "trustBill": "One transparent bill",
-      "trustBillBody": "Subscription for our work, at-cost for third-party fees, and full visibility of every euro.",
-      "readyEyebrow": "Ready when you are",
-      "readyTitle1": "Let's take the next step,",
-      "readyTitle2": "together.",
-      "readyBody": "Open a free case in minutes. A case manager reviews it within one working day and maps out your options — no obligation.",
-      "seePricing": "See pricing",
-      "learnMore": "Learn more",
-      "moreServices": "+{{count}} more services"
-    },
-    "howItWorks": {
-      "eyebrow": "How it works",
-      "title1": "Five steps.",
-      "title2": "No paperwork storm.",
-      "readyTitle": "Ready when you are.",
-      "readyBody": "Free to start. Upgrade only when you need the human help.",
-      "openDashboard": "Open your dashboard",
-      "steps": {
-        "s1Title": "Tell BeistandPlus what you need",
-        "s1Desc": "Newly arrived, applying for benefits, planning a family reunion, or facing a bereavement — start with a single form.",
-        "s2Title": "A plan appears within minutes",
-        "s2Desc": "Our AI compiles your personalised checklist — every appointment, document, deadline, and provider you'll need.",
-        "s3Title": "A human case manager picks up the phone",
-        "s3Desc": "In your language. They own your case from start to close, and coordinate every party involved.",
-        "s4Title": "Everything happens inside one case file",
-        "s4Desc": "Documents, letters, appointments, invoices, chat, audit trail — visible to you and the people helping you.",
-        "s5Title": "You get on with your life",
-        "s5Desc": "We remind you before deadlines, chase authorities on your behalf, and translate anything you don't understand."
-      }
+      "loading": "Loading plans…"
     },
     "contact": {
       "eyebrow": "Contact",
       "title": "We're here, in the language you speak.",
-      "subtitle": "For bereavement, call our 24/7 line. For everything else, drop us a note — we reply within one business day.",
-      "line24": "24/7 bereavement line",
+      "subtitle": "For bereavement support or anything else, send us a note. We will confirm available support and response times.",
+      "line24": "Bereavement support enquiries",
       "generalEnq": "General enquiries",
       "office": "Office",
       "officeValue": "Kreuzberg, Berlin · By appointment",
@@ -539,7 +446,7 @@
   "directory": {
     "badge": "Members directory",
     "heroTitle": "Find someone who speaks your language.",
-    "heroBody": "Multilingual lawyers, doctors, imams, tax advisors, welfare experts, teachers and translators across Germany — searchable by city and language. Free for providers to list, member access for families and clients.",
+    "heroBody": "Browse published multilingual service listings by city and category. Listings are provider-submitted; confirm professional credentials, availability and engagement terms directly.",
     "listCta": "List your business — free",
     "seePlans": "See member plans",
     "cityPlaceholder": "Filter by city (Berlin, Munich…)",
@@ -568,8 +475,8 @@
     },
     "paywall": {
       "eyebrow": "Members only",
-      "title": "Unlock all verified providers.",
-      "body": "BeistandPlus members get full contact details, phone, email and website for every listing — plus a human case manager who can introduce you. Directory listings are free for providers; access is included with every BeistandPlus plan.",
+      "title": "Provider directory details.",
+      "body": "Review each provider's public listing and confirm suitability, qualifications and availability directly before engaging them.",
       "cta": "See plans from €5",
       "signIn": "Sign in"
     }
