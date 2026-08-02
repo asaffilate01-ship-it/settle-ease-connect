@@ -35,6 +35,15 @@
                 <data android:scheme="beistandplus" android:host="auth" />
             </intent-filter>
 
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="beistandplus.de" android:pathPrefix="/auth" />
+                <data android:scheme="https" android:host="beistandplus.de" android:pathPrefix="/app" />
+                <data android:scheme="https" android:host="beistandplus.de" android:pathPrefix="/portal" />
+            </intent-filter>
+
         </activity>
 
         <provider

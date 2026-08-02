@@ -1,6 +1,7 @@
 const required = [
   "APP_URL",
   "APP_VERSION",
+  "CLOUDFLARE_WORKER_NAME",
   "SUPABASE_URL",
   "SUPABASE_PUBLISHABLE_KEY",
   "SUPABASE_SERVICE_ROLE_KEY",
@@ -40,16 +41,31 @@ const required = [
   "EMAIL_DELIVERY_BEARER_TOKEN",
   "CONTACT_FROM_EMAIL",
   "CONTACT_TEAM_EMAIL",
+  "OBSERVABILITY_ENDPOINT",
+  "OBSERVABILITY_BEARER_TOKEN",
+  "OBSERVABILITY_ENVIRONMENT",
+  "INCIDENT_CONTACT_EMAIL",
 ];
 
 const missing = required.filter((name) => !process.env[name]?.trim());
 if (missing.length > 0) fail(`Production configuration is incomplete:\n- ${missing.join("\n- ")}`);
 if (process.env.NODE_ENV !== "production") fail("NODE_ENV must be 'production'.");
 if (process.env.PAYMENTS_ENV !== "live") fail("PAYMENTS_ENV must be 'live' for production.");
+if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(process.env.CLOUDFLARE_WORKER_NAME)) {
+  fail("CLOUDFLARE_WORKER_NAME must be a lowercase DNS-label-style Worker name.");
+}
 
 const appUrl = absoluteHttps("APP_URL");
 absoluteHttps("EMAIL_DELIVERY_ENDPOINT");
 absoluteHttps("VAULT_SCANNER_URL");
+absoluteHttps("OBSERVABILITY_ENDPOINT");
+
+if (process.env.OBSERVABILITY_ENVIRONMENT !== "production") {
+  fail("OBSERVABILITY_ENVIRONMENT must be 'production'.");
+}
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(process.env.INCIDENT_CONTACT_EMAIL)) {
+  fail("INCIDENT_CONTACT_EMAIL must be a valid email address.");
+}
 
 if (process.env.AI_PROCESSING_ENABLED !== "true") {
   fail("AI_PROCESSING_ENABLED must be 'true' after production controls are configured.");
@@ -95,6 +111,7 @@ for (const name of [
   "EMAIL_DELIVERY_BEARER_TOKEN",
   "VAULT_SCANNER_BEARER_TOKEN",
   "VAULT_SCANNER_WEBHOOK_SECRET",
+  "OBSERVABILITY_BEARER_TOKEN",
 ]) {
   if ((process.env[name]?.length ?? 0) < 32) fail(`${name} must contain at least 32 characters.`);
 }

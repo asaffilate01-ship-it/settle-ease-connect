@@ -2,6 +2,11 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import {
+  createRequestId,
+  finalizeRequestResponse,
+  reportServerError,
+} from "./lib/observability.server";
 import { applySecurityHeaders } from "./lib/security-headers";
 
 type ServerEntry = {
@@ -21,19 +26,40 @@ async function getServerEntry(): Promise<ServerEntry> {
 
 // h3 swallows in-handler throws into a normal 500 Response with body
 // {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
-async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
+type ExecutionContextLike = { waitUntil?: (promise: Promise<unknown>) => void };
+
+async function normalizeCatastrophicSsrResponse(
+  response: Response,
+  request: Request,
+  requestId: string,
+  bindings: Record<string, unknown> | undefined,
+  context: ExecutionContextLike,
+): Promise<Response> {
   if (response.status < 500) return response;
   const contentType = response.headers.get("content-type") ?? "";
-  if (!contentType.includes("application/json")) return response;
+  const body = contentType.includes("application/json") ? await response.clone().text() : "";
+  const swallowed = isH3SwallowedErrorBody(body);
+  const error = swallowed
+    ? (consumeLastCapturedError() ?? new Error("SSR request failed inside the server runtime."))
+    : new Error(`Server response returned status ${response.status}.`);
 
-  const body = await response.clone().text();
-  if (!isH3SwallowedErrorBody(body)) return response;
+  queueErrorReport(
+    context,
+    reportServerError(error, {
+      request,
+      requestId,
+      source: "ssr-response",
+      status: response.status,
+      bindings,
+    }),
+  );
 
-  console.error(consumeLastCapturedError() ?? new Error(`h3 swallowed SSR error: ${body}`));
-  return new Response(renderErrorPage(), {
-    status: 500,
-    headers: { "content-type": "text/html; charset=utf-8" },
-  });
+  return swallowed
+    ? new Response(renderErrorPage(), {
+        status: 500,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      })
+    : response;
 }
 
 function isH3SwallowedErrorBody(body: string): boolean {
@@ -47,18 +73,54 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const startedAt = performance.now();
+    const requestId = createRequestId(request);
+    const bindings = isRecord(env) ? env : undefined;
+    const context = isRecord(ctx) ? (ctx as ExecutionContextLike) : {};
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return applySecurityHeaders(await normalizeCatastrophicSsrResponse(response));
+      const normalized = await normalizeCatastrophicSsrResponse(
+        response,
+        request,
+        requestId,
+        bindings,
+        context,
+      );
+      return applySecurityHeaders(finalizeRequestResponse(normalized, requestId, startedAt));
     } catch (error) {
-      console.error(error);
-      return applySecurityHeaders(
-        new Response(renderErrorPage(), {
+      queueErrorReport(
+        context,
+        reportServerError(error, {
+          request,
+          requestId,
+          source: "server-entry",
           status: 500,
-          headers: { "content-type": "text/html; charset=utf-8" },
+          bindings,
         }),
+      );
+      return applySecurityHeaders(
+        finalizeRequestResponse(
+          new Response(renderErrorPage(), {
+            status: 500,
+            headers: { "content-type": "text/html; charset=utf-8" },
+          }),
+          requestId,
+          startedAt,
+        ),
       );
     }
   },
 };
+
+function queueErrorReport(context: ExecutionContextLike, promise: Promise<void>): void {
+  if (typeof context.waitUntil === "function") {
+    context.waitUntil(promise);
+  } else {
+    void promise;
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}

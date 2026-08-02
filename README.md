@@ -13,7 +13,9 @@ BeistandPlus is a multilingual settlement and family case-management platform fo
 - Signed, allowlisted partner delivery with retries and dead-letter handling
 - iOS and Android Capacitor projects with branded icons/splash screens
 - Permission-aware command search, responsive case views and ownership cues
-- Playwright browser/accessibility gates, CodeQL, dependency review, SBOM generation and a protected release workflow
+- Playwright browser/accessibility gates, CodeQL, dependency review, SBOM generation and protected release/rollback workflows
+- Sanitized server incident events, request correlation IDs and response timing diagnostics
+- Verified Android HTTPS links plus iOS Associated Domains and privacy-manifest wiring
 
 ## Local setup
 
@@ -36,7 +38,7 @@ npm run preview
 
 `npm run verify` checks repository layout, TypeScript, ESLint, unit tests and the production build. Playwright adds desktop/mobile smoke and automated WCAG checks. GitHub Actions runs quality gates, CodeQL, dependency review, SBOM generation and a manual protected release workflow.
 
-The generated server bundle targets Cloudflare Workers. `npm run preview` runs the built `.output` bundle locally with Wrangler; `npm run deploy` deploys that bundle after Cloudflare credentials and configuration are approved.
+The generated server bundle targets Cloudflare Workers. `npm run preview` runs the built `.output` bundle locally with Wrangler; `npm run deploy` deploys that bundle after Cloudflare credentials and configuration are approved. Application rollbacks are performed through the protected GitHub workflow, not ad-hoc local commands.
 
 Before deployment, populate the production environment and run:
 
@@ -59,6 +61,7 @@ Production deployment is manual and fail-closed. Copy `release/evidence.example.
 - Privileged role changes require a second administrator; staff-sensitive screens require AAL2.
 - Vault objects fail closed until an authenticated scanner marks them clean.
 - AI prompts are not retained and generated output is purged after 30 days by an authenticated scheduled worker.
+- Server failures are correlated with a request ID and sent to an optional authenticated HTTPS sink after PII/credential redaction.
 
 ## Native apps
 

@@ -61,9 +61,27 @@ curl --fail-with-body --request POST \
 
 Record the returned removal count, alert on non-2xx responses and test the 30-day AI-output purge in staging. Never expose either worker secret to client-side variables.
 
-## 6. Protected release environments
+## 6. Observability and incident response
 
-Create `staging` and `production` GitHub Environments. Restrict deployment branches to `main`, add required reviewers (at least release/security for staging and release/security/legal for production), prevent self-review where the plan permits it, and configure the variables and secrets referenced by `.github/workflows/release.yml`. Keep Cloudflare runtime bindings aligned with those protected values; the workflow does not copy application secrets into Cloudflare.
+Configure `OBSERVABILITY_ENDPOINT`, `OBSERVABILITY_BEARER_TOKEN`,
+`OBSERVABILITY_ENVIRONMENT=production` and `INCIDENT_CONTACT_EMAIL` as Cloudflare runtime bindings.
+Mirror them in the protected production GitHub Environment so the production validator can prove the
+control is configured. The endpoint must accept authenticated JSON over HTTPS and return 2xx after it
+has durably accepted the event.
+
+Every server response carries `X-Request-ID` and `Server-Timing`. A failed server request emits a
+bounded `server.error` event containing the request ID, method, pathname, release version, environment
+and sanitized error. Query strings, request bodies, IP addresses and user-agent values are deliberately
+excluded; common email addresses and credential patterns are redacted. Test delivery with a controlled
+staging exception, then alert a named owner on error rate, delivery failure and absence of expected
+telemetry. The endpoint is a supplement to Cloudflare logs, not a store for user or document content.
+
+Document incident severity, triage ownership, customer/regulator notification decisions and the exact
+dashboard/runbook URLs in release evidence. Exercise the incident and restore paths before production.
+
+## 7. Protected release environments
+
+Create `staging` and `production` GitHub Environments. Restrict deployment branches to `main`, add required reviewers (at least release/security for staging and release/security/legal for production), prevent self-review where the plan permits it, and configure the variables and secrets referenced by `.github/workflows/release.yml`. Give each Environment a distinct `CLOUDFLARE_WORKER_NAME` (and preferably a separate account/token boundary) so staging can never replace the production Worker. Keep Cloudflare runtime bindings aligned with those protected values; the workflow does not copy application secrets into Cloudflare.
 
 Release evidence contains no credentials and must be reviewed like source code:
 
@@ -87,7 +105,7 @@ Run `Guarded release` manually with `deploy=false` first. It accepts only `main`
 
 The workflow retains the evidence JSON and CycloneDX SBOM for 365 days. Preserve provider, legal, migration, restore, monitoring and penetration-test records at the HTTPS locations referenced by the evidence file.
 
-## 7. Release and rollback
+## 8. Release and rollback
 
 Run on the exact release commit:
 
@@ -101,4 +119,14 @@ NODE_ENV=production npm run verify:production
 
 Record commit, environment, migration version, test evidence, approver, owner, monitoring dashboards and rollback threshold. Deploy to staging/canary before general availability.
 
-Before approving production, verify the documented rollback owner is available, the backup timestamp in the evidence is current and the rollback threshold is observable. If post-deployment verification fails, stop promotion and roll back the Cloudflare deployment. Roll back a database migration only when its reviewed down/forward-fix procedure is safe for data written since deployment; otherwise deploy the forward fix.
+Before approving production, verify the documented rollback owner is available, the backup timestamp in the evidence is current and the rollback threshold is observable. Record the Cloudflare Worker version ID for every successful deployment and configure `ROLLBACK_APP_VERSION` in each protected Environment to the version exposed by that rollback target.
+
+For an application rollback, run the manual `Protected rollback` workflow from `main`, select the
+protected Environment, enter the reviewed Worker version ID and incident/change reason, then type the
+exact confirmation `ROLLBACK staging` or `ROLLBACK production`. The workflow shares the release
+concurrency lock, requires Environment approval, restores the specified version non-interactively and
+re-runs security-header, liveness and database-readiness checks. If verification fails, keep the incident
+open and follow the provider console/runbook under two-person review.
+
+Roll back a database migration only when its reviewed down/forward-fix procedure is safe for data
+written since deployment; otherwise deploy the forward fix.

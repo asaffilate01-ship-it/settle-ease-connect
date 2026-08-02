@@ -138,8 +138,19 @@ describe("guarded release workflow", () => {
     expect(workflow).toContain("github.ref == 'refs/heads/main'");
     expect(workflow).toContain('--commit "$GITHUB_SHA"');
     expect(workflow).toContain("npm run verify:production");
+    expect(workflow).toContain('npm run deploy -- --name "$CLOUDFLARE_WORKER_NAME"');
     expect(workflow).toContain("npm run release:verify-deployment");
     expect(workflow).toContain('"DEPLOY $TARGET_ENVIRONMENT"');
+  });
+
+  it("provides a protected, confirmed Cloudflare rollback workflow", () => {
+    const workflow = readFileSync(".github/workflows/rollback.yml", "utf8");
+    expect(workflow).toContain("environment:\n      name: ${{ inputs.environment }}");
+    expect(workflow).toContain("github.ref == 'refs/heads/main'");
+    expect(workflow).toContain('"ROLLBACK $TARGET_ENVIRONMENT"');
+    expect(workflow).toContain('npm run rollback -- "$VERSION_ID"');
+    expect(workflow).toContain('--name "$CLOUDFLARE_WORKER_NAME"');
+    expect(workflow).toContain("npm run release:verify-deployment");
   });
 
   it("refuses post-deployment verification for an insecure origin", () => {
