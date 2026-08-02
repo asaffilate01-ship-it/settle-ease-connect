@@ -130,7 +130,17 @@
     "auditorConsole": "Prüfnachweise",
     "familyAccess": "Familienzugang",
     "privacyRequests": "Meine Datenschutzanfragen",
-    "aiAdvisory": "KI-Beratung"
+    "aiAdvisory": "KI-Beratung",
+    "caseTemplates": "Fallvorlagen",
+    "checklistTemplates": "Checklisten-Vorlagen",
+    "analytics": "CRM-Analysen",
+    "management": "Management KPIs",
+    "dela": "DELA-Überweisungen",
+    "operations": "Fallbearbeitung",
+    "myDesk": "Mein Schreibtisch",
+    "insuranceTriage": "Versicherungs-Triage",
+    "partners": "Partnerorganisationen",
+    "crm": "CRM"
   },
   "language": {
     "label": "Sprache",
