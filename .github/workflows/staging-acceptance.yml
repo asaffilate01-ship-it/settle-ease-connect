@@ -1,0 +1,49 @@
+name: Authenticated staging acceptance
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: staging-acceptance
+  cancel-in-progress: false
+
+jobs:
+  acceptance:
+    name: Member and workforce journeys
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: staging
+      url: ${{ vars.APP_URL }}
+    env:
+      STAGING_URL: ${{ vars.APP_URL }}
+      E2E_MEMBER_EMAIL: ${{ secrets.E2E_MEMBER_EMAIL }}
+      E2E_MEMBER_PASSWORD: ${{ secrets.E2E_MEMBER_PASSWORD }}
+      E2E_STAFF_EMAIL: ${{ secrets.E2E_STAFF_EMAIL }}
+      E2E_STAFF_PASSWORD: ${{ secrets.E2E_STAFF_PASSWORD }}
+      E2E_AGENT_EMAIL: ${{ secrets.E2E_AGENT_EMAIL }}
+      E2E_AGENT_PASSWORD: ${{ secrets.E2E_AGENT_PASSWORD }}
+      E2E_EXPERT_EMAIL: ${{ secrets.E2E_EXPERT_EMAIL }}
+      E2E_EXPERT_PASSWORD: ${{ secrets.E2E_EXPERT_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run authenticated desktop and mobile journeys
+        run: npm run test:e2e:staging
+      - name: Preserve failure screenshots only
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: staging-acceptance-screenshots-${{ github.sha }}
+          path: test-results/staging/**/*.png
+          if-no-files-found: ignore
+          retention-days: 7

@@ -5,8 +5,8 @@ Do not connect real users, documents or live payments until all applicable items
 ## Source and database
 
 - [x] `.env` and `.env.development` are absent from `git ls-files`; deployment values exist only in protected secrets.
-- [ ] `npm ci`, `npm run verify`, `npm run test:e2e` and `npm audit --omit=dev --audit-level=high` pass on the release commit.
-- [ ] The `Security analysis` workflow uploads a valid `sbom-cyclonedx` artifact.
+- [x] `npm ci`, `npm run verify`, `npm run test:e2e` and `npm audit --omit=dev --audit-level=high` pass on commit `955cac9`.
+- [x] The `Security analysis` workflow for `955cac9` uploads a valid `sbom-cyclonedx` artifact.
 - [ ] Every migration through `20260802202000_case_workflow_security.sql` is applied to staging first.
 - [ ] Supabase types are regenerated from migrated staging and committed.
 - [ ] Owner, family, assigned/unassigned worker, expert, agent, admin, insurance, compliance, DPO and auditor RLS tests pass.
@@ -57,11 +57,13 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Family invite/accept/expiry/revoke and each sharing permission pass.
 - [ ] Enquiry, email, case, message, privacy and partner-delivery journeys pass.
 - [ ] Playwright smoke and axe checks pass; keyboard-only, screen-reader, contrast, zoom and responsive-device manual review also pass.
+- [ ] `Authenticated staging acceptance` passes member, staff, agent and expert journeys on desktop and mobile for the release commit.
 - [ ] Independent penetration and GDPR/security reviews are closed.
 
 ## iOS and Android
 
 - [ ] `CAPACITOR_SERVER_URL` is the deployed reviewed HTTPS release and `npm run mobile:sync` passes.
+- [ ] `Native compile gates` produces the Android debug APK and unsigned iOS simulator app for the release commit.
 - [ ] Apple/Google bundle identity, signing, versions, icons, screenshots, privacy/data-safety forms and support URLs are final.
 - [ ] APNs/FCM credentials and native delivery gateway are tested, or `VITE_NATIVE_PUSH_ENABLED=false`.
 - [ ] Custom-scheme links, camera, MFA, notifications, session expiry and reconnect work on physical iOS/Android devices.

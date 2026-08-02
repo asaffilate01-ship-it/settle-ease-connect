@@ -1,0 +1,84 @@
+name: Native compile gates
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Compilation does not contact the site. This embeds the reviewed production
+  # origin in unsigned CI artifacts while DNS/store verification remains gated.
+  CAPACITOR_SERVER_URL: https://beistandplus.de
+
+jobs:
+  android:
+    name: Android debug build
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+          cache-dependency-path: |
+            android/*.gradle
+            android/**/*.gradle
+            android/gradle/wrapper/gradle-wrapper.properties
+      - run: npm ci
+      - run: npm run native:version:check
+      - run: npm run mobile:sync:android
+      - name: Compile and unit-test Android shell
+        working-directory: android
+        run: ./gradlew --no-daemon --stacktrace testDebugUnitTest assembleDebug
+      - uses: actions/upload-artifact@v7
+        with:
+          name: android-debug-apk-${{ github.sha }}
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30
+
+  ios:
+    name: iOS simulator build
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run native:version:check
+      - run: npm run mobile:sync:ios
+      - run: xcodebuild -version
+      - name: Compile unsigned iOS simulator app
+        run: >-
+          xcodebuild
+          -project ios/App/App.xcodeproj
+          -scheme App
+          -configuration Debug
+          -sdk iphonesimulator
+          -destination 'generic/platform=iOS Simulator'
+          -derivedDataPath build/ios
+          CODE_SIGNING_ALLOWED=NO
+          build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ios-simulator-app-${{ github.sha }}
+          path: build/ios/Build/Products/Debug-iphonesimulator/App.app
+          if-no-files-found: error
+          retention-days: 30
