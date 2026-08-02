@@ -13,6 +13,8 @@ dist-ssr
 .output
 sbom.cdx.json
 release/evidence.resolved.json
+/playwright-report/
+/test-results/
 .vinxi
 .tanstack/**
 .nitro

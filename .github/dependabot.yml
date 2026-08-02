@@ -6,17 +6,22 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     groups:
-      npm-minor-and-patch:
+      npm-patches:
+        patterns:
+          - "*"
         update-types:
-          - minor
           - patch
     ignore:
-      - dependency-name: recharts
+      # Major upgrades are release projects, not unattended maintenance. Security
+      # alerts remain visible and can be handled in a dedicated reviewed change.
+      - dependency-name: "*"
         update-types:
           - version-update:semver-major
-      - dependency-name: typescript
+      # Stripe minor releases can change the SDK's compile-time API version.
+      # Review these separately with webhook and payment acceptance tests.
+      - dependency-name: stripe
         update-types:
-          - version-update:semver-major
+          - version-update:semver-minor
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -25,3 +30,7 @@ updates:
       github-actions:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major

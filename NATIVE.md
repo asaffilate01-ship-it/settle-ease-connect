@@ -6,11 +6,14 @@ BeistandPlus uses one shared React/TanStack Start codebase. Because the web appl
 
 Generated projects are committed in `ios/` and `android/`. The application ID is `de.beistandplus.app` and the display name is `BeistandPlus`.
 
+Every pull request and `main` push now runs `Native compile gates`. It synchronises Capacitor, runs the Android unit/compile tasks on Linux and compiles an unsigned iOS simulator app on macOS. The retained APK and simulator app prove reproducible compilation; they are deliberately not store-signed releases.
+
 ## Sync a production domain
 
 ```bash
 export CAPACITOR_SERVER_URL=https://beistandplus.de
 npm run mobile:sync
+npm run native:version:check
 ```
 
 The validator rejects HTTP and Lovable preview domains. Re-run the command whenever Capacitor plugins or `capacitor.config.ts` change. Verify the domain is deployed, uses a valid TLS certificate, and serves the exact reviewed release before building a store binary.
@@ -72,3 +75,5 @@ Commit the generated `public/.well-known/apple-app-site-association` and `public
 The mobile app currently supports existing memberships but does not show Stripe checkout or the Stripe billing portal in the native WebView. Before enabling digital subscription purchases, implement and obtain review for the applicable StoreKit/Google Play Billing or permitted entitlement model. Also prepare review notes demonstrating native utility (camera capture, push, haptics, secure vault and case workflows); a simple repackaged website can be rejected.
 
 Signing certificates, store accounts, APNs/FCM credentials, legal disclosures and store approval are external release inputs and are not included in source control.
+
+The CI artifacts must never be submitted to a store. Store binaries require protected signing credentials, final association files, physical-device acceptance and the reviewed release evidence described above.

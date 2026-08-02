@@ -48,8 +48,8 @@ describe("native release safeguards", () => {
     const securityWorkflow = readFileSync(".github/workflows/security.yml", "utf8");
     expect(envValidator).toContain('"RETENTION_WORKER_SECRET"');
     expect(envValidator).toContain('"OBSERVABILITY_BEARER_TOKEN"');
-    expect(securityWorkflow).toContain("github/codeql-action/analyze@v3");
-    expect(securityWorkflow).toContain("dependency-review-action@v4");
+    expect(securityWorkflow).toContain("github/codeql-action/analyze@v4");
+    expect(securityWorkflow).toContain("dependency-review-action@v5");
   });
 
   it("patches the Capacitor Xcode toolchain UUID advisory without changing app runtime code", () => {
