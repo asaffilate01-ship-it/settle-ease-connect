@@ -61,7 +61,33 @@ curl --fail-with-body --request POST \
 
 Record the returned removal count, alert on non-2xx responses and test the 30-day AI-output purge in staging. Never expose either worker secret to client-side variables.
 
-## 6. Release and rollback
+## 6. Protected release environments
+
+Create `staging` and `production` GitHub Environments. Restrict deployment branches to `main`, add required reviewers (at least release/security for staging and release/security/legal for production), prevent self-review where the plan permits it, and configure the variables and secrets referenced by `.github/workflows/release.yml`. Keep Cloudflare runtime bindings aligned with those protected values; the workflow does not copy application secrets into Cloudflare.
+
+Release evidence contains no credentials and must be reviewed like source code:
+
+```bash
+cp release/evidence.example.json release/evidence.staging.json
+npm run release:evidence -- \
+  --file release/evidence.staging.json \
+  --environment staging \
+  --commit "$(git rev-parse HEAD)" \
+  --native none
+```
+
+Replace every placeholder except `commitSha: "FROM_WORKFLOW"`, set a check to `true` only when its linked evidence exists, and use an expiry date appropriate for the change window. The workflow resolves that sentinel to `GITHUB_SHA` and stores the resolved record as an artifact, avoiding an impossible self-referential commit hash in the committed JSON. Production requires security, legal, provider, live-payment, email, partner and penetration-test evidence. A native target additionally requires signing, real-device, store-compliance and app-link evidence.
+
+Run `Guarded release` manually with `deploy=false` first. It accepts only `main`, binds to the selected protected Environment, repeats code/browser/audit/SBOM gates, verifies evidence against the exact commit and validates production configuration. After the dry run passes and required reviewers approve, rerun with `deploy=true` and the exact phrase `DEPLOY staging` or `DEPLOY production`. The workflow then deploys and checks:
+
+- application security headers;
+- `/api/health`, including the expected release version;
+- token-protected `/api/internal/readiness`, including the database connection;
+- deployed Universal/App Link identity files when a native target is selected.
+
+The workflow retains the evidence JSON and CycloneDX SBOM for 365 days. Preserve provider, legal, migration, restore, monitoring and penetration-test records at the HTTPS locations referenced by the evidence file.
+
+## 7. Release and rollback
 
 Run on the exact release commit:
 
@@ -74,3 +100,5 @@ NODE_ENV=production npm run verify:production
 ```
 
 Record commit, environment, migration version, test evidence, approver, owner, monitoring dashboards and rollback threshold. Deploy to staging/canary before general availability.
+
+Before approving production, verify the documented rollback owner is available, the backup timestamp in the evidence is current and the rollback threshold is observable. If post-deployment verification fails, stop promotion and roll back the Cloudflare deployment. Roll back a database migration only when its reviewed down/forward-fix procedure is safe for data written since deployment; otherwise deploy the forward fix.

@@ -4,7 +4,7 @@ Do not connect real users, documents or live payments until all applicable items
 
 ## Source and database
 
-- [ ] `.env` and `.env.development` are absent from `git ls-files`; deployment values exist only in protected secrets.
+- [x] `.env` and `.env.development` are absent from `git ls-files`; deployment values exist only in protected secrets.
 - [ ] `npm ci`, `npm run verify`, `npm run test:e2e` and `npm audit --omit=dev --audit-level=high` pass on the release commit.
 - [ ] The `Security analysis` workflow uploads a valid `sbom-cyclonedx` artifact.
 - [ ] Every migration through `20260802202000_case_workflow_security.sql` is applied to staging first.
@@ -12,6 +12,7 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Owner, family, assigned/unassigned worker, expert, agent, admin, insurance, compliance, DPO and auditor RLS tests pass.
 - [ ] Direct anonymous writes to lead/contact tables fail while the public server forms succeed and rate-limit correctly.
 - [ ] A rollback decision, migration owner and release evidence are recorded.
+- [ ] `release/evidence.production.json` passes the guarded workflow for the exact production commit.
 
 ## Secrets and infrastructure
 
@@ -63,3 +64,5 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Universal Links/App Links are configured with production-domain association files and verified signing fingerprints if HTTPS app links are required.
 - [ ] Native digital subscription checkout remains disabled until the approved StoreKit/Play Billing or entitlement model is implemented.
 - [ ] TestFlight and Play closed testing pass; review notes explain native utility and test credentials.
+
+The manual `Guarded release` workflow now enforces the code-manageable checks above. It intentionally remains blocked until reviewed evidence, protected environment values and external approvals are supplied.

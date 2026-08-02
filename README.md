@@ -13,7 +13,7 @@ BeistandPlus is a multilingual settlement and family case-management platform fo
 - Signed, allowlisted partner delivery with retries and dead-letter handling
 - iOS and Android Capacitor projects with branded icons/splash screens
 - Permission-aware command search, responsive case views and ownership cues
-- Playwright browser/accessibility gates, CodeQL, dependency review and SBOM generation
+- Playwright browser/accessibility gates, CodeQL, dependency review, SBOM generation and a protected release workflow
 
 ## Local setup
 
@@ -34,7 +34,7 @@ npm audit --omit=dev --audit-level=high
 npm run preview
 ```
 
-`npm run verify` checks repository layout, TypeScript, ESLint, unit tests and the production build. Playwright adds desktop/mobile smoke and automated WCAG checks. GitHub Actions runs both quality gates and separate CodeQL, dependency-review and SBOM jobs.
+`npm run verify` checks repository layout, TypeScript, ESLint, unit tests and the production build. Playwright adds desktop/mobile smoke and automated WCAG checks. GitHub Actions runs quality gates, CodeQL, dependency review, SBOM generation and a manual protected release workflow.
 
 The generated server bundle targets Cloudflare Workers. `npm run preview` runs the built `.output` bundle locally with Wrangler; `npm run deploy` deploys that bundle after Cloudflare credentials and configuration are approved.
 
@@ -43,6 +43,8 @@ Before deployment, populate the production environment and run:
 ```bash
 NODE_ENV=production npm run verify:production
 ```
+
+Production deployment is manual and fail-closed. Copy `release/evidence.example.json` to a staging or production evidence file, replace every placeholder with reviewed facts and run `npm run release:evidence -- --file <path> --environment <target> --commit <sha> --native <targets>`. The `Guarded release` workflow repeats all gates on `main`, requires the selected protected GitHub Environment, validates the exact commit and performs post-deployment health/readiness/security checks. See [OPERATIONAL_RELEASE.md](./OPERATIONAL_RELEASE.md).
 
 ## Security model
 

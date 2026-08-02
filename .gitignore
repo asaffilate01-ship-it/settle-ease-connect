@@ -12,6 +12,7 @@ dist
 dist-ssr
 .output
 sbom.cdx.json
+release/evidence.resolved.json
 .vinxi
 .tanstack/**
 .nitro

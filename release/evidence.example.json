@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "environment": "production",
+  "version": "1.0.0",
+  "commitSha": "FROM_WORKFLOW",
+  "appUrl": "https://REPLACE_WITH_DEPLOYMENT_DOMAIN",
+  "evaluatedAt": "REPLACE_WITH_ISO_8601_DATE",
+  "expiresAt": "REPLACE_WITH_FUTURE_ISO_8601_DATE",
+  "migration": "20260802202000_case_workflow_security.sql",
+  "releaseTargets": {
+    "web": true,
+    "ios": false,
+    "android": false
+  },
+  "approval": {
+    "releaseManager": "",
+    "security": "",
+    "legal": ""
+  },
+  "rollback": {
+    "owner": "",
+    "threshold": "",
+    "procedure": "",
+    "backupVerifiedAt": ""
+  },
+  "checks": {
+    "quality": false,
+    "security": false,
+    "databaseMigrations": false,
+    "rlsMatrix": false,
+    "anonymousWrites": false,
+    "rollbackTest": false,
+    "backupsAndRestore": false,
+    "monitoring": false,
+    "incidentResponse": false,
+    "accessibility": false,
+    "credentialRotation": false,
+    "legalApproval": false,
+    "providerContracts": false,
+    "livePayments": false,
+    "emailAuthentication": false,
+    "partnerDelivery": false,
+    "penetrationTest": false,
+    "nativeSigning": false,
+    "nativeDeviceTests": false,
+    "storeCompliance": false,
+    "appLinks": false
+  },
+  "artifacts": {
+    "qualityRunUrl": "",
+    "securityRunUrl": "",
+    "sbomUrl": "",
+    "migrationEvidenceUrl": "",
+    "restoreEvidenceUrl": "",
+    "legalApprovalUrl": "",
+    "penetrationTestUrl": "",
+    "nativeTestEvidenceUrl": ""
+  }
+}
