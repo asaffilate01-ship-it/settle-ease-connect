@@ -5082,6 +5082,48 @@ export type Database = {
         }
         Relationships: []
       }
+      security_approvals: {
+        Row: {
+          action: string
+          decided_at: string | null
+          decided_by: string | null
+          decision_note: string | null
+          id: string
+          reason: string | null
+          requested_at: string
+          requested_by: string
+          role: Database["public"]["Enums"]["app_role"]
+          status: string
+          target_user_id: string
+        }
+        Insert: {
+          action: string
+          decided_at?: string | null
+          decided_by?: string | null
+          decision_note?: string | null
+          id?: string
+          reason?: string | null
+          requested_at?: string
+          requested_by: string
+          role: Database["public"]["Enums"]["app_role"]
+          status?: string
+          target_user_id: string
+        }
+        Update: {
+          action?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          decision_note?: string | null
+          id?: string
+          reason?: string | null
+          requested_at?: string
+          requested_by?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          status?: string
+          target_user_id?: string
+        }
+        Relationships: []
+      }
       session_activity: {
         Row: {
           created_at: string
@@ -5925,6 +5967,10 @@ export type Database = {
         Returns: boolean
       }
       current_partner_org: { Args: { _user_id: string }; Returns: string }
+      decide_role_security_approval: {
+        Args: { _approval_id: string; _decision: string; _note?: string }
+        Returns: undefined
+      }
       family_case_grant: {
         Args: { _case_id: string; _minimum_level?: string; _user_id: string }
         Returns: boolean
