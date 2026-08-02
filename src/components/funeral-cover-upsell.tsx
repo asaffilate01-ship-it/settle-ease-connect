@@ -16,7 +16,13 @@ import {
 
 type Household = "individual" | "family" | "extended";
 
-export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail?: string; defaultName?: string }) {
+export function FuneralCoverUpsell({
+  defaultEmail,
+  defaultName,
+}: {
+  defaultEmail?: string;
+  defaultName?: string;
+}) {
   const [open, setOpen] = useState(false);
   const submit = useServerFn(submitFuneralLead);
   const list = useServerFn(listMyFuneralLeads);
@@ -75,19 +81,21 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-2">
             <h2 className="font-display text-xl font-semibold">Family funeral cover</h2>
-            <Badge variant="outline" className="text-[10px] uppercase tracking-widest">Optional add-on</Badge>
+            <Badge variant="outline" className="text-[10px] uppercase tracking-widest">
+              Optional add-on
+            </Badge>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
-            One premium covers the whole household — €20,000 benefit per insured adult, repatriation, funeral costs, sworn translations and estate coordination. Underwritten by our regulated partners; premium is paid directly to the insurer.
+            Prepare a household funeral-cover enquiry and request an introduction. A licensed
+            provider confirms eligibility, benefit, premium, exclusions and claims handling before
+            you decide.
           </p>
           <ul className="mt-3 grid gap-1.5 text-sm sm:grid-cols-2">
             {[
-              "€20k benefit per insured adult",
-              "Full repatriation abroad",
-              "Direct settlement of funeral invoices",
-              "Sworn translations & estate paperwork",
-              "24/7 multilingual case manager",
-              "Children under 18 included at no extra premium",
+              "Provider-confirmed policy terms",
+              "No sample figure presented as a quotation",
+              "Clear separation between membership and insurance",
+              "Consent-based referral to a licensed provider",
             ].map((f) => (
               <li key={f} className="flex items-start gap-2">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
@@ -99,7 +107,8 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
           {hasPolicy && (
             <div className="mt-4 rounded-2xl border border-emerald-500/30 bg-emerald-50 p-4 text-sm text-emerald-900">
               <div className="flex items-center gap-2 font-medium">
-                <ShieldCheck className="h-4 w-4" /> You have {polsQ.data!.length} active polic{polsQ.data!.length === 1 ? "y" : "ies"} on file.
+                <ShieldCheck className="h-4 w-4" /> You have {polsQ.data!.length} active polic
+                {polsQ.data!.length === 1 ? "y" : "ies"} on file.
               </div>
             </div>
           )}
@@ -112,7 +121,9 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
           {!open && hasLead && !hasPolicy && (
             <div className="mt-4 rounded-2xl border border-border/60 bg-card p-4 text-sm text-muted-foreground">
               Your request is being reviewed — a case manager will contact you shortly. Status:{" "}
-              <span className="font-medium capitalize text-foreground">{leadsQ.data![0].status}</span>
+              <span className="font-medium capitalize text-foreground">
+                {leadsQ.data![0].status}
+              </span>
             </div>
           )}
 
@@ -126,18 +137,32 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
             >
               <div className="grid gap-3 sm:grid-cols-2">
                 <Field label="Full name *">
-                  <Input required value={form.contact_name} onChange={(e) => setForm({ ...form, contact_name: e.target.value })} />
+                  <Input
+                    required
+                    value={form.contact_name}
+                    onChange={(e) => setForm({ ...form, contact_name: e.target.value })}
+                  />
                 </Field>
                 <Field label="Email *">
-                  <Input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                  <Input
+                    required
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  />
                 </Field>
                 <Field label="Phone">
-                  <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                  <Input
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  />
                 </Field>
                 <Field label="Household">
                   <select
                     value={form.household_kind}
-                    onChange={(e) => setForm({ ...form, household_kind: e.target.value as Household })}
+                    onChange={(e) =>
+                      setForm({ ...form, household_kind: e.target.value as Household })
+                    }
                     className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                   >
                     <option value="individual">Individual (1 adult)</option>
@@ -146,23 +171,54 @@ export function FuneralCoverUpsell({ defaultEmail, defaultName }: { defaultEmail
                   </select>
                 </Field>
                 <Field label="Adults to insure">
-                  <Input type="number" min={1} max={6} value={form.adults_count} onChange={(e) => setForm({ ...form, adults_count: Number(e.target.value) })} />
+                  <Input
+                    type="number"
+                    min={1}
+                    max={6}
+                    value={form.adults_count}
+                    onChange={(e) => setForm({ ...form, adults_count: Number(e.target.value) })}
+                  />
                 </Field>
                 <Field label="Children under 18">
-                  <Input type="number" min={0} max={10} value={form.children_count} onChange={(e) => setForm({ ...form, children_count: Number(e.target.value) })} />
+                  <Input
+                    type="number"
+                    min={0}
+                    max={10}
+                    value={form.children_count}
+                    onChange={(e) => setForm({ ...form, children_count: Number(e.target.value) })}
+                  />
                 </Field>
                 <Field label="Target benefit per adult (€)">
-                  <Input type="number" min={5000} max={50000} step={1000} value={form.target_benefit_eur} onChange={(e) => setForm({ ...form, target_benefit_eur: Number(e.target.value) })} />
+                  <Input
+                    type="number"
+                    min={5000}
+                    max={50000}
+                    step={1000}
+                    value={form.target_benefit_eur}
+                    onChange={(e) =>
+                      setForm({ ...form, target_benefit_eur: Number(e.target.value) })
+                    }
+                  />
                 </Field>
                 <Field label="City">
-                  <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+                  <Input
+                    value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                  />
                 </Field>
               </div>
               <Field label="Anything else we should know?">
-                <Textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="min-h-20" placeholder="Existing cover, health notes, faith-specific requirements, home country for repatriation…" />
+                <Textarea
+                  value={form.notes}
+                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                  className="min-h-20"
+                  placeholder="Existing cover, health notes, faith-specific requirements, home country for repatriation…"
+                />
               </Field>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+                <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
                 <Button type="submit" className="bg-gradient-primary" disabled={mut.isPending}>
                   {mut.isPending ? "Sending…" : "Request quote"}
                 </Button>

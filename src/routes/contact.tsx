@@ -10,14 +10,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { submitContactMessage } from "@/lib/contact.functions";
 import { Mail, Phone, MapPin, Loader2, CheckCircle2 } from "lucide-react";
+import { publicLegal } from "@/lib/public-config";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — BeistandPlus" },
-      { name: "description", content: "Reach the BeistandPlus team in Berlin. 24/7 bereavement line and general enquiries." },
+      {
+        name: "description",
+        content:
+          "Contact the multilingual BeistandPlus support team for general and bereavement enquiries.",
+      },
       { property: "og:title", content: "Contact — BeistandPlus" },
-      { property: "og:description", content: "We're in Berlin. We answer in DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA and PL." },
+      {
+        property: "og:description",
+        content: "We're in Berlin. We answer in DE, EN, TR, UR, HI, PA, AR, KU, RU, UK, FA and PL.",
+      },
       { property: "og:url", content: "https://beistandplus.de/contact" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/contact" }],
@@ -53,17 +61,30 @@ function Contact() {
       <SiteHeader />
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-12 sm:py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">{t("pages.contact.eyebrow")}</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+            {t("pages.contact.eyebrow")}
+          </div>
           <h1 className="display-hero text-balance mt-3 font-semibold">
             {t("pages.contact.title")}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            {t("pages.contact.subtitle")}
+            Contact our multilingual support team. We answer during the published support hours for
+            your plan.
           </p>
           <div className="mt-10 space-y-5 text-sm">
-            <Row icon={Phone} label={t("pages.contact.line24")} value="+49 30 1234 5678" />
-            <Row icon={Mail} label={t("pages.contact.generalEnq")} value="hallo@beistand.de" />
-            <Row icon={MapPin} label={t("pages.contact.office")} value={t("pages.contact.officeValue")} />
+            {publicLegal.supportPhone && (
+              <Row icon={Phone} label="Support phone" value={publicLegal.supportPhone} />
+            )}
+            <Row
+              icon={Mail}
+              label={t("pages.contact.generalEnq")}
+              value={publicLegal.supportEmail}
+            />
+            <Row
+              icon={MapPin}
+              label={t("pages.contact.office")}
+              value={`${publicLegal.street}, ${publicLegal.postalCity}`}
+            />
           </div>
         </div>
         <form
@@ -75,7 +96,9 @@ function Contact() {
         >
           <div className="grid gap-4">
             <div>
-              <label htmlFor="contact-name" className="text-sm font-medium">{t("pages.contact.name")}</label>
+              <label htmlFor="contact-name" className="text-sm font-medium">
+                {t("pages.contact.name")}
+              </label>
               <Input
                 id="contact-name"
                 required
@@ -86,7 +109,9 @@ function Contact() {
               />
             </div>
             <div>
-              <label htmlFor="contact-email" className="text-sm font-medium">{t("pages.contact.email")}</label>
+              <label htmlFor="contact-email" className="text-sm font-medium">
+                {t("pages.contact.email")}
+              </label>
               <Input
                 id="contact-email"
                 required
@@ -98,7 +123,9 @@ function Contact() {
               />
             </div>
             <div>
-              <label htmlFor="contact-message" className="text-sm font-medium">{t("pages.contact.message")}</label>
+              <label htmlFor="contact-message" className="text-sm font-medium">
+                {t("pages.contact.message")}
+              </label>
               <Textarea
                 id="contact-message"
                 required
@@ -125,7 +152,15 @@ function Contact() {
   );
 }
 
-function Row({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
+function Row({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+}) {
   return (
     <div className="flex items-start gap-3">
       <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary">

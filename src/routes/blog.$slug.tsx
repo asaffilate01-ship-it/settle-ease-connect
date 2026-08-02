@@ -48,7 +48,7 @@ export const Route = createFileRoute("/blog/$slug")({
             headline: post.title,
             image: [post.cover],
             datePublished: post.publishedAt,
-            author: [{ "@type": "Person", name: post.author }],
+            author: [{ "@type": "Organization", name: post.author }],
             publisher: { "@type": "Organization", name: "BeistandPlus" },
           }),
         },
@@ -64,8 +64,14 @@ function BlogPost() {
   const { slug } = Route.useParams();
   const { t, i18n } = useTranslation();
   const post = localizePost(rawPost, i18n.language);
-  const dateFmt = new Intl.DateTimeFormat(i18n.language, { year: "numeric", month: "long", day: "numeric" });
-  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3).map((p) => localizePost(p, i18n.language));
+  const dateFmt = new Intl.DateTimeFormat(i18n.language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug)
+    .slice(0, 3)
+    .map((p) => localizePost(p, i18n.language));
   const path = `/blog/${slug}`;
 
   return (
@@ -89,9 +95,7 @@ function BlogPost() {
           </span>
         </div>
 
-        <h1 className="display-hero text-balance mt-4 font-semibold">
-          {post.title}
-        </h1>
+        <h1 className="display-hero text-balance mt-4 font-semibold">{post.title}</h1>
         <p className="mt-4 text-lg text-muted-foreground">{post.excerpt}</p>
 
         <div className="mt-6 text-sm text-muted-foreground">
@@ -150,11 +154,18 @@ function BlogPost() {
               className="group overflow-hidden rounded-2xl border border-border/60 bg-card shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated"
             >
               <div className="aspect-[16/9] overflow-hidden">
-                <img src={p.cover} alt={p.coverAlt} loading="lazy" className="h-full w-full object-cover transition group-hover:scale-[1.03]" />
+                <img
+                  src={p.cover}
+                  alt={p.coverAlt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition group-hover:scale-[1.03]"
+                />
               </div>
               <div className="p-5">
                 <div className="text-xs text-muted-foreground">{p.category}</div>
-                <div className="mt-1 font-display text-lg font-semibold leading-snug">{p.title}</div>
+                <div className="mt-1 font-display text-lg font-semibold leading-snug">
+                  {p.title}
+                </div>
               </div>
             </Link>
           ))}

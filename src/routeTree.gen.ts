@@ -46,6 +46,7 @@ import { Route as ExpertInviteTokenRouteImport } from './routes/expert-invite.$t
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedExpertRouteImport } from './routes/_authenticated/expert'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -55,6 +56,7 @@ import { Route as AuthenticatedPartnerIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
+import { Route as ApiInternalReadinessRouteImport } from './routes/api/internal/readiness'
 import { Route as ApiInternalPartnerDeliveriesRouteImport } from './routes/api/internal/partner-deliveries'
 import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
 import { Route as AuthenticatedPortalStudentsRouteImport } from './routes/_authenticated/portal.students'
@@ -334,6 +336,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -381,6 +388,11 @@ const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAgentRoute,
+} as any)
+const ApiInternalReadinessRoute = ApiInternalReadinessRouteImport.update({
+  id: '/api/internal/readiness',
+  path: '/api/internal/readiness',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiInternalPartnerDeliveriesRoute =
   ApiInternalPartnerDeliveriesRouteImport.update({
@@ -951,6 +963,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/expert': typeof AuthenticatedExpertRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/api/health': typeof ApiHealthRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
@@ -1037,6 +1050,7 @@ export interface FileRoutesByFullPath {
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
+  '/api/internal/readiness': typeof ApiInternalReadinessRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1086,6 +1100,7 @@ export interface FileRoutesByTo {
   '/students': typeof StudentsRoute
   '/tax': typeof TaxRoute
   '/trust': typeof TrustRoute
+  '/api/health': typeof ApiHealthRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
@@ -1171,6 +1186,7 @@ export interface FileRoutesByTo {
   '/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
+  '/api/internal/readiness': typeof ApiInternalReadinessRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
@@ -1224,6 +1240,7 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/expert': typeof AuthenticatedExpertRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/api/health': typeof ApiHealthRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
@@ -1310,6 +1327,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/students': typeof AuthenticatedPortalStudentsRoute
   '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
+  '/api/internal/readiness': typeof ApiInternalReadinessRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1365,6 +1383,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/expert'
     | '/portal'
+    | '/api/health'
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
@@ -1451,6 +1470,7 @@ export interface FileRouteTypes {
     | '/portal/students'
     | '/portal/tax'
     | '/api/internal/partner-deliveries'
+    | '/api/internal/readiness'
     | '/agent/'
     | '/app/'
     | '/expert/'
@@ -1500,6 +1520,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/tax'
     | '/trust'
+    | '/api/health'
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
@@ -1585,6 +1606,7 @@ export interface FileRouteTypes {
     | '/portal/students'
     | '/portal/tax'
     | '/api/internal/partner-deliveries'
+    | '/api/internal/readiness'
     | '/agent'
     | '/app'
     | '/expert'
@@ -1637,6 +1659,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/expert'
     | '/_authenticated/portal'
+    | '/api/health'
     | '/blog/$slug'
     | '/checkout/return'
     | '/directory/list-your-business'
@@ -1723,6 +1746,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/students'
     | '/_authenticated/portal/tax'
     | '/api/internal/partner-deliveries'
+    | '/api/internal/readiness'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
@@ -1774,9 +1798,11 @@ export interface RootRouteChildren {
   StudentsRoute: typeof StudentsRoute
   TaxRoute: typeof TaxRoute
   TrustRoute: typeof TrustRoute
+  ApiHealthRoute: typeof ApiHealthRoute
   CheckoutReturnRoute: typeof CheckoutReturnRoute
   ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
   ApiInternalPartnerDeliveriesRoute: typeof ApiInternalPartnerDeliveriesRoute
+  ApiInternalReadinessRoute: typeof ApiInternalReadinessRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -2041,6 +2067,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/portal': {
       id: '/_authenticated/portal'
       path: '/portal'
@@ -2103,6 +2136,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/agent/'
       preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/api/internal/readiness': {
+      id: '/api/internal/readiness'
+      path: '/api/internal/readiness'
+      fullPath: '/api/internal/readiness'
+      preLoaderRoute: typeof ApiInternalReadinessRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/internal/partner-deliveries': {
       id: '/api/internal/partner-deliveries'
@@ -3180,9 +3220,11 @@ const rootRouteChildren: RootRouteChildren = {
   StudentsRoute: StudentsRoute,
   TaxRoute: TaxRoute,
   TrustRoute: TrustRoute,
+  ApiHealthRoute: ApiHealthRoute,
   CheckoutReturnRoute: CheckoutReturnRoute,
   ExpertInviteTokenRoute: ExpertInviteTokenRoute,
   ApiInternalPartnerDeliveriesRoute: ApiInternalPartnerDeliveriesRoute,
+  ApiInternalReadinessRoute: ApiInternalReadinessRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport

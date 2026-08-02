@@ -4,14 +4,18 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const startLocationShare = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         mode: z.enum(["normal", "emergency"]),
         case_id: z.string().uuid().optional(),
         alert_id: z.string().uuid().optional(),
         message: z.string().max(500).optional(),
-        duration_minutes: z.number().min(1).max(24 * 60).default(60),
+        duration_minutes: z
+          .number()
+          .min(1)
+          .max(24 * 60)
+          .default(60),
       })
       .parse(raw),
   )
@@ -35,7 +39,7 @@ export const startLocationShare = createServerFn({ method: "POST" })
 
 export const appendLocationPoint = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         share_id: z.string().uuid(),
@@ -74,7 +78,7 @@ export const appendLocationPoint = createServerFn({ method: "POST" })
 
 export const stopLocationShare = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ share_id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ share_id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("location_shares")
@@ -99,7 +103,7 @@ export const listMyActiveShares = createServerFn({ method: "GET" })
 
 export const listSharesForCase = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ case_id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ case_id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: rows } = await context.supabase
       .from("location_shares")

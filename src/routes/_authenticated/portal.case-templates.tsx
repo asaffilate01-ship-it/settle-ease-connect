@@ -8,7 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle, ArrowRight, Clock, ListTodo, Workflow } from "lucide-react";
 import { toast } from "sonner";
-import { listCaseTemplates, getCaseTemplate, applyCaseTemplate } from "@/lib/case-templates.functions";
+import {
+  listCaseTemplates,
+  getCaseTemplate,
+  applyCaseTemplate,
+} from "@/lib/case-templates.functions";
 
 const templatesQuery = queryOptions({
   queryKey: ["case-templates"],
@@ -27,7 +31,9 @@ export const Route = createFileRoute("/_authenticated/portal/case-templates")({
   loader: ({ context }) => context.queryClient.ensureQueryData(templatesQuery),
   component: CaseTemplatesPage,
   errorComponent: ({ error }) => (
-    <div className="p-6"><AlertTriangle className="h-5 w-5" /> {error.message}</div>
+    <div className="p-6">
+      <AlertTriangle className="h-5 w-5" /> {error.message}
+    </div>
   ),
   notFoundComponent: () => <div className="p-6">Not found</div>,
 });
@@ -49,7 +55,8 @@ function CaseTemplatesPage() {
           <Workflow className="h-6 w-6 text-primary" /> Case templates
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Structured journeys: stages, tasks, SLAs, and consent gates. Apply a template to any case to auto-populate its task list.
+          Structured journeys: stages, tasks, SLAs, and consent gates. Apply a template to any case
+          to auto-populate its task list.
         </p>
       </header>
 
@@ -60,21 +67,33 @@ function CaseTemplatesPage() {
               key={t.template_code}
               onClick={() => setSelected(t.template_code)}
               className={`w-full rounded-lg border px-3 py-3 text-left transition ${
-                selected === t.template_code ? "border-primary bg-primary/5" : "border-border hover:bg-muted/50"
+                selected === t.template_code
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:bg-muted/50"
               }`}
             >
               <div className="font-medium text-sm">{t.name}</div>
               <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                 <span>{t.case_type}</span>
                 {t.expected_duration_days ? (
-                  <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" /> {t.expected_duration_days}d</span>
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3 w-3" /> {t.expected_duration_days}d
+                  </span>
                 ) : null}
-                <Badge variant="outline" className={`text-[10px] ${riskTone(t.risk_level)}`}>{t.risk_level ?? "normal"}</Badge>
+                <Badge variant="outline" className={`text-[10px] ${riskTone(t.risk_level)}`}>
+                  {t.risk_level ?? "normal"}
+                </Badge>
               </div>
             </button>
           ))}
         </aside>
-        <div>{selected ? <TemplateDetail code={selected} /> : <p className="text-muted-foreground">Select a template.</p>}</div>
+        <div>
+          {selected ? (
+            <TemplateDetail code={selected} />
+          ) : (
+            <p className="text-muted-foreground">Select a template.</p>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -122,17 +141,26 @@ function TemplateDetail({ code }: { code: string }) {
               onClick={() => applyMut.mutate({ caseId })}
               disabled={!caseId || applyMut.isPending}
             >
-              {applyMut.isPending ? "Applying…" : (<>Apply template <ArrowRight className="ml-2 h-4 w-4" /></>)}
+              {applyMut.isPending ? (
+                "Applying…"
+              ) : (
+                <>
+                  Apply template <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
             </Button>
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Requires access to the case. Populates <code>case_tasks</code> from stage tasks below and sets the case's <code>template_code</code> + <code>current_stage</code>.
+            Requires access to the case. Populates <code>case_tasks</code> from stage tasks below
+            and sets the case's <code>template_code</code> + <code>current_stage</code>.
           </p>
         </CardContent>
       </Card>
 
       <div className="space-y-3">
-        <h2 className="font-semibold flex items-center gap-2"><ListTodo className="h-4 w-4" /> Stages & tasks</h2>
+        <h2 className="font-semibold flex items-center gap-2">
+          <ListTodo className="h-4 w-4" /> Stages & tasks
+        </h2>
         <ol className="space-y-3">
           {stages.map((s, idx) => {
             const stageTasks = tasks.filter((t) => t.stage_id === s.id);
@@ -144,16 +172,27 @@ function TemplateDetail({ code }: { code: string }) {
                   </span>
                   <span className="font-medium">{s.name}</span>
                   {s.sla_hours ? (
-                    <Badge variant="outline" className="text-[10px]">SLA {s.sla_hours}h</Badge>
+                    <Badge variant="outline" className="text-[10px]">
+                      SLA {s.sla_hours}h
+                    </Badge>
                   ) : null}
                   {s.required_consent ? (
-                    <Badge variant="outline" className="text-[10px] border-amber-500/40 text-amber-600">consent: {s.required_consent}</Badge>
+                    <Badge
+                      variant="outline"
+                      className="text-[10px] border-amber-500/40 text-amber-600"
+                    >
+                      consent: {s.required_consent}
+                    </Badge>
                   ) : null}
                   {s.requires_role ? (
-                    <Badge variant="outline" className="text-[10px]">role: {s.requires_role}</Badge>
+                    <Badge variant="outline" className="text-[10px]">
+                      role: {s.requires_role}
+                    </Badge>
                   ) : null}
                 </div>
-                {s.description ? <p className="px-4 pt-2 text-xs text-muted-foreground">{s.description}</p> : null}
+                {s.description ? (
+                  <p className="px-4 pt-2 text-xs text-muted-foreground">{s.description}</p>
+                ) : null}
                 {stageTasks.length ? (
                   <ul className="px-4 py-2 space-y-1">
                     {stageTasks.map((t) => (
@@ -161,14 +200,23 @@ function TemplateDetail({ code }: { code: string }) {
                         <span className="text-muted-foreground">•</span>
                         <div>
                           <span>{t.title}</span>
-                          {t.description ? <span className="text-muted-foreground"> — {t.description}</span> : null}
-                          {t.offset_hours ? <span className="text-[11px] text-muted-foreground"> (+{t.offset_hours}h)</span> : null}
+                          {t.description ? (
+                            <span className="text-muted-foreground"> — {t.description}</span>
+                          ) : null}
+                          {t.offset_hours ? (
+                            <span className="text-[11px] text-muted-foreground">
+                              {" "}
+                              (+{t.offset_hours}h)
+                            </span>
+                          ) : null}
                         </div>
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="px-4 py-2 text-xs text-muted-foreground italic">No pre-populated tasks — configure per case.</p>
+                  <p className="px-4 py-2 text-xs text-muted-foreground italic">
+                    No pre-populated tasks — configure per case.
+                  </p>
                 )}
               </li>
             );

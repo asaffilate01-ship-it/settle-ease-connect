@@ -14,7 +14,9 @@ import { Link } from "@tanstack/react-router";
  * - Otherwise: prompts for a 6-digit code and challenges/verifies the factor.
  */
 export function Aal2Gate({ children, reason }: { children: ReactNode; reason?: string }) {
-  const [state, setState] = useState<"loading" | "ok" | "needs-enroll" | "needs-challenge">("loading");
+  const [state, setState] = useState<"loading" | "ok" | "needs-enroll" | "needs-challenge">(
+    "loading",
+  );
   const [factorId, setFactorId] = useState<string | null>(null);
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -30,13 +32,18 @@ export function Aal2Gate({ children, reason }: { children: ReactNode; reason?: s
     setState("needs-challenge");
   }
 
-  useEffect(() => { evaluate(); }, []);
+  useEffect(() => {
+    evaluate();
+  }, []);
 
   async function submit() {
     if (!factorId) return;
     setBusy(true);
     const { data: chal, error: cErr } = await supabase.auth.mfa.challenge({ factorId });
-    if (cErr || !chal) { setBusy(false); return toast.error(cErr?.message ?? "Challenge failed"); }
+    if (cErr || !chal) {
+      setBusy(false);
+      return toast.error(cErr?.message ?? "Challenge failed");
+    }
     const { error } = await supabase.auth.mfa.verify({ factorId, challengeId: chal.id, code });
     setBusy(false);
     if (error) return toast.error(error.message);
@@ -62,7 +69,8 @@ export function Aal2Gate({ children, reason }: { children: ReactNode; reason?: s
           <h2 className="font-display text-xl font-semibold">Two-factor required</h2>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
-          {reason ?? "This area handles sensitive data."} Please enable an authenticator app before continuing.
+          {reason ?? "This area handles sensitive data."} Please enable an authenticator app before
+          continuing.
         </p>
         <Button asChild className="mt-4">
           <Link to="/app/settings">Set up in Settings</Link>

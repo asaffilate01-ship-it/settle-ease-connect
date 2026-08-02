@@ -32,7 +32,10 @@ const listClientsIAmNominatedFor = createServerFn({ method: "GET" })
         .in("id", ids);
       names = new Map((profs ?? []).map((p) => [p.id, p.full_name]));
     }
-    return rows.map((r) => ({ ...r, profiles: { full_name: names.get(r.client_user_id) ?? null } }));
+    return rows.map((r) => ({
+      ...r,
+      profiles: { full_name: names.get(r.client_user_id) ?? null },
+    }));
   });
 
 export const Route = createFileRoute("/_authenticated/app/alert")({
@@ -44,7 +47,10 @@ function AlertPage() {
   const fetch = useServerFn(listClientsIAmNominatedFor);
   const raise = useServerFn(raiseEmergencyAlert);
   const qc = useQueryClient();
-  const { data: nominations = [], isLoading } = useQuery({ queryKey: ["nominations"], queryFn: fetch });
+  const { data: nominations = [], isLoading } = useQuery({
+    queryKey: ["nominations"],
+    queryFn: fetch,
+  });
   const [target, setTarget] = useState<string>("");
   const [reason, setReason] = useState("crisis");
   const [description, setDescription] = useState("");
@@ -61,45 +67,87 @@ function AlertPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6 p-4 sm:p-6">
       <header className="space-y-2">
-        <div className="flex items-center gap-2 text-red-600"><ShieldAlert className="h-5 w-5" /><span className="text-xs font-semibold uppercase tracking-[0.16em]">Emergency channel</span></div>
+        <div className="flex items-center gap-2 text-red-600">
+          <ShieldAlert className="h-5 w-5" />
+          <span className="text-xs font-semibold uppercase tracking-[0.16em]">
+            Emergency channel
+          </span>
+        </div>
         <h1 className="display-lg font-semibold">Raise an emergency alert</h1>
-        <p className="text-sm text-muted-foreground">If you're listed as a nominated emergency contact for someone, you can alert our team here 24/7. We'll acknowledge and take over.</p>
+        <p className="text-sm text-muted-foreground">
+          If you're listed as a nominated emergency contact, you can record an alert here at any
+          time. The team reviews alerts during staffed hours. Call local emergency services for
+          immediate danger.
+        </p>
       </header>
 
-      {sent && <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-4 text-sm text-emerald-700">Alert raised. Our on-call team will contact you shortly.</div>}
+      {sent && (
+        <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-4 text-sm text-emerald-700">
+          Alert recorded. The case team will review it during staffed hours.
+        </div>
+      )}
 
-      {isLoading ? <div className="text-sm text-muted-foreground">Loading…</div> :
-        (nominations as any[]).length === 0 ? (
-          <div className="rounded-2xl border border-dashed p-6 text-sm text-muted-foreground">
-            You aren't currently listed as an emergency contact under this email. Ask the client to add you on their profile.
+      {isLoading ? (
+        <div className="text-sm text-muted-foreground">Loading…</div>
+      ) : (nominations as any[]).length === 0 ? (
+        <div className="rounded-2xl border border-dashed p-6 text-sm text-muted-foreground">
+          You aren't currently listed as an emergency contact under this email. Ask the client to
+          add you on their profile.
+        </div>
+      ) : (
+        <form
+          onSubmit={submit}
+          className="space-y-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+        >
+          <div>
+            <Label>Who is this about?</Label>
+            <select
+              className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+              required
+            >
+              <option value="">— select client —</option>
+              {(nominations as any[]).map((n) => (
+                <option key={n.client_user_id} value={n.client_user_id}>
+                  {n.profiles?.full_name ?? n.client_user_id.slice(0, 8)} (order #
+                  {n.emergency_order})
+                </option>
+              ))}
+            </select>
           </div>
-        ) : (
-          <form onSubmit={submit} className="space-y-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-            <div>
-              <Label>Who is this about?</Label>
-              <select className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={target} onChange={(e) => setTarget(e.target.value)} required>
-                <option value="">— select client —</option>
-                {(nominations as any[]).map((n) => (
-                  <option key={n.client_user_id} value={n.client_user_id}>{n.profiles?.full_name ?? n.client_user_id.slice(0,8)} (order #{n.emergency_order})</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <Label>Reason</Label>
-              <select className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={reason} onChange={(e) => setReason(e.target.value)}>
-                {["deceased","hospitalised","missing","crisis","unable_to_contact","other"].map((r) => <option key={r} value={r}>{r.replace(/_/g," ")}</option>)}
-              </select>
-            </div>
-            <div>
-              <Label>Description</Label>
-              <Textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="What's happened? Where are they? Any medical details?" />
-            </div>
-            <div className="flex justify-end">
-              <Button type="submit" className="bg-red-600 hover:bg-red-700">Raise alert</Button>
-            </div>
-          </form>
-        )
-      }
+          <div>
+            <Label>Reason</Label>
+            <select
+              className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+            >
+              {["deceased", "hospitalised", "missing", "crisis", "unable_to_contact", "other"].map(
+                (r) => (
+                  <option key={r} value={r}>
+                    {r.replace(/_/g, " ")}
+                  </option>
+                ),
+              )}
+            </select>
+          </div>
+          <div>
+            <Label>Description</Label>
+            <Textarea
+              rows={4}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="What's happened? Where are they? Any medical details?"
+            />
+          </div>
+          <div className="flex justify-end">
+            <Button type="submit" className="bg-red-600 hover:bg-red-700">
+              Raise alert
+            </Button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

@@ -1,19 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 
-import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { listPartnerStatus } from "@/lib/partners.functions";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partner integrations — BeistandPlus" },
-      { name: "description", content: "Live API integrations with Feather Insurance, Taxfix and SAVD interpreting — plus the partner tracks we're onboarding next." },
-      { property: "og:title", content: "Partner API integrations — BeistandPlus" },
-      { property: "og:description", content: "Every partner runs through a typed adapter with a graceful offline fallback so the customer flow never breaks." },
+      { title: "Partner with BeistandPlus" },
+      {
+        name: "description",
+        content:
+          "Information for regulated providers and community organisations interested in a BeistandPlus referral partnership.",
+      },
+      { property: "og:title", content: "Partner with BeistandPlus" },
+      {
+        property: "og:description",
+        content:
+          "Explore the standards and onboarding process for a BeistandPlus referral partnership.",
+      },
       { property: "og:url", content: "https://beistandplus.de/partners" },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/partners" }],
@@ -21,140 +26,112 @@ export const Route = createFileRoute("/partners")({
   component: Partners,
 });
 
-const roadmap = [
-  { name: "N26 & Deutsche Bank", category: "Banking", status: "Discovery", note: "Account-opening deep links for newcomers; SCHUFA-lite for arrivals without a Bonitätsauskunft." },
-  { name: "Wohnungsamt (Berlin, Hamburg, München)", category: "Social housing", status: "Data sharing MOU", note: "WBS eligibility check API and municipal waiting-list intake." },
-  { name: "Bundesagentur für Arbeit — Jobcenter", category: "Employment", status: "Pilot scoping", note: "Bürgergeld intake pre-fill and appointment sync via the Arbeitsamt Fachverfahren." },
-  { name: "TU Berlin, LMU, RWTH Aachen", category: "Universities", status: "MoUs drafted", note: "Enrolment-linked expat health switch and student advisory referrals." },
-  { name: "Diakonie & Caritas", category: "NGO", status: "Active", note: "Referral pathway for hardship cases and Sozialbestattung filings." },
+const partnerTracks = [
+  {
+    title: "Regulated services",
+    body: "Insurance, tax and legal referrals require confirmed authorisation, an executed agreement and an approved customer journey before activation.",
+  },
+  {
+    title: "Care and interpreting",
+    body: "Providers must document qualifications, safeguarding, service coverage, response expectations and appropriate insurance.",
+  },
+  {
+    title: "Community organisations",
+    body: "Public-interest and local organisations can discuss referral pathways that preserve consent and minimise shared personal data.",
+  },
+];
+
+const onboardingSteps = [
+  "Confirm the organisation, service area, licences and accountable contacts.",
+  "Complete commercial, privacy, security and safeguarding due diligence.",
+  "Agree the referral scope, disclosures, support process and data responsibilities.",
+  "Test the customer journey in a non-production environment before approval.",
+  "Enable production access only after written sign-off and ongoing monitoring are in place.",
 ];
 
 function Partners() {
-  const listStatus = useServerFn(listPartnerStatus);
-  const { data, isLoading } = useQuery({ queryKey: ["partner-status"], queryFn: () => listStatus() });
-
   return (
     <div className="min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-4xl px-4 py-14 sm:py-24 text-center sm:px-6 lg:px-8">
-        <Badge variant="outline" className="border-primary/30 text-primary">Partner API layer</Badge>
-        <h1 className="display-hero text-balance mt-5 font-semibold leading-[1.05]">
-          One workflow.<br />
-          <span className="italic text-primary">Every partner API behind it.</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          Insurance quotes, tax filings, interpreting and care — each partner runs
-          through a typed adapter with a graceful offline fallback so a partner
-          outage never blocks a family in crisis.
-        </p>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-        <h2 className="display-lg text-balance font-semibold">Live integrations</h2>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          Each adapter reports its own status. A partner in <span className="font-medium">mock</span> mode
-          still returns a realistic response so onboarding, demos and offline usage
-          keep working — the moment a real API key is added, traffic flips to live.
-        </p>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {isLoading || !data ? (
-            <div className="col-span-full text-sm text-muted-foreground">Checking partner status…</div>
-          ) : (
-            data.map((p) => (
-              <div key={p.slug} className="flex flex-col rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-primary">{p.category}</div>
-                    <div className="mt-1 font-display text-lg font-semibold">{p.name}</div>
-                  </div>
-                  <Badge
-                    variant={p.mode === "live" ? "default" : "outline"}
-                    className={p.mode === "live" ? "" : "border-amber-500/40 text-amber-700 dark:text-amber-400"}
-                  >
-                    {p.mode}
-                  </Badge>
-                </div>
-                <p className="mt-3 flex-1 text-sm text-muted-foreground">
-                  {p.gap ?? "Live. Signed keys in place; failures fall back to the internal mock automatically."}
-                </p>
-                <div className="mt-4 text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {p.configured ? "Configured" : "Awaiting credentials"}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-
-        <div className="mt-16">
-          <h2 className="display-lg text-balance font-semibold">Adapter contract</h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            Every partner implements one of three narrow interfaces — quote,
-            handoff, or booking — and lives under <code className="rounded bg-muted px-1.5 py-0.5 text-xs">src/lib/partners/*</code>.
-            Adding a new partner is a single file plus one entry in the
-            server-function registry.
+      <main>
+        <section className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6 sm:py-24 lg:px-8">
+          <Badge variant="outline" className="border-primary/30 text-primary">
+            Partner enquiries
+          </Badge>
+          <h1 className="display-hero mt-5 text-balance font-semibold leading-[1.05]">
+            Build a trusted referral pathway with BeistandPlus.
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            We are preparing a carefully governed partner network for families navigating difficult
+            administrative moments in Germany. This page describes the proposed onboarding standard;
+            it does not represent that any named provider is currently integrated or endorsed.
           </p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {[
-              { t: "Quote", d: "Insurance and any product where price depends on the person. Returns premium + commission + deep link." },
-              { t: "Handoff", d: "Tax, banking, immigration — where the partner owns the wizard. Returns a pre-filled URL and estimate." },
-              { t: "Booking", d: "Interpreting, care visits, ceremony slots. Returns a confirmed booking with cost and cancellation policy." },
-            ].map((c) => (
-              <div key={c.t} className="rounded-xl border border-border/60 bg-card p-5">
-                <div className="font-semibold">{c.t}</div>
-                <p className="mt-1.5 text-sm text-muted-foreground">{c.d}</p>
-              </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild>
+              <Link to="/contact">Discuss a partnership</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/trust">Review our trust approach</Link>
+            </Button>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="grid gap-4 md:grid-cols-3">
+            {partnerTracks.map((track) => (
+              <article
+                key={track.title}
+                className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+              >
+                <h2 className="font-display text-xl font-semibold">{track.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{track.body}</p>
+              </article>
             ))}
           </div>
-        </div>
 
-        <div className="mt-16">
-          <h2 className="display-lg text-balance font-semibold">Onboarding roadmap</h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            Publicly tracked so partners can see exactly where they'd slot in.
-          </p>
-          <div className="mt-6 overflow-x-auto rounded-2xl border border-border/60 bg-card shadow-soft">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50 text-left text-xs uppercase tracking-wider text-muted-foreground">
-                <tr>
-                  <th className="px-5 py-3">Partner</th>
-                  <th className="px-5 py-3">Track</th>
-                  <th className="px-5 py-3">Status</th>
-                  <th className="px-5 py-3">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {roadmap.map((r) => (
-                  <tr key={r.name} className="border-t border-border/60">
-                    <td className="px-5 py-3 font-medium">{r.name}</td>
-                    <td className="px-5 py-3 text-muted-foreground">{r.category}</td>
-                    <td className="px-5 py-3">
-                      <Badge variant="outline" className="text-[11px]">{r.status}</Badge>
-                    </td>
-                    <td className="px-5 py-3 text-muted-foreground">{r.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="mt-16 grid gap-8 rounded-3xl border border-border/60 bg-card p-6 shadow-soft sm:p-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+                Activation standard
+              </p>
+              <h2 className="display-lg mt-3 text-balance font-semibold">
+                Evidence first, production access last.
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Customer-facing availability is enabled only for services that have completed the
+                relevant legal, operational and technical checks. Unavailable services remain
+                clearly unavailable rather than returning simulated quotes or bookings.
+              </p>
+            </div>
+            <ol className="space-y-4">
+              {onboardingSteps.map((step, index) => (
+                <li key={step} className="flex gap-4">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                    {index + 1}
+                  </span>
+                  <span className="pt-1 text-sm leading-6 text-muted-foreground">{step}</span>
+                </li>
+              ))}
+            </ol>
           </div>
-        </div>
 
-        <div className="mt-16 flex flex-wrap items-center gap-3">
-          <Button asChild>
-            <a href="mailto:partners@beistandplus.de">Become a partner</a>
-          </Button>
-          <Button asChild variant="outline">
-            <Link to="/trust">Compliance & vetting</Link>
-          </Button>
-          <Button asChild variant="ghost">
-            <Link to="/insurance">Try the insurance flow</Link>
-          </Button>
-          <p className="text-xs text-muted-foreground">
-            Formal SLAs, uptime targets and data-processing addenda are shared under NDA on request.
-          </p>
-        </div>
-      </section>
+          <div className="mt-12 rounded-2xl bg-muted/50 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6">
+            <div>
+              <h2 className="font-display text-xl font-semibold">
+                Interested in working together?
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Send your organisation name, service area and regulatory status through the contact
+                form. A reply time is confirmed after the enquiry is reviewed.
+              </p>
+            </div>
+            <Button asChild className="mt-5 shrink-0 sm:mt-0">
+              <Link to="/contact">Contact BeistandPlus</Link>
+            </Button>
+          </div>
+        </section>
+      </main>
 
       <SiteFooter />
     </div>

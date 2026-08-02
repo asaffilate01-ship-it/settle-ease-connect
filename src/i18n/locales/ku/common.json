@@ -284,76 +284,26 @@
     }
   },
   "pages": {
-    "services": {
-      "eyebrow": "Rêberiya pispor ji bo jiyana we li Almanyayê",
-      "title1": "Hevalek ji bo her",
-      "title2": "gavên girîng.",
-      "subtitle": "Ji yekem Anmeldung a we heya ewlekirina paşeroja malbata we, BeistandPlus piştgiriyek bi rûmet û pispor pêşkêşî dike da ku hûn bi pêbawerî di rêveberiya Almanî de bigerin – bi sêzdeh zimanan, bi mirovekî li kêleka we.",
-      "openCase": "Dosyayekê veke",
-      "howItWorks": "BeistandPlus çawa dixebite",
-      "ninePillars": "Neh warên xizmetê",
-      "ribbon": "Em bi we re bi zimanê we dixebitin",
-      "trustHuman": "Mirov pêşî",
-      "trustHumanBody": "Rêveberên dosyeyên rastîn li Berlin, Hamburg, München û Köln — bersiv ji mirovekî tê, ne bot.",
-      "trustGdpr": "Li gorî GDPR",
-      "trustGdprBody": "Belgeyên we di embarkirineke şîfrekirî de li Almanyayê ne, bi destûra cîgir dema nexweşî yan matemê.",
-      "trustBill": "Yek fatûre ya zelal",
-      "trustBillBody": "Abonetî ji bo xebata me, mesrefên aliyê sêyem tenê bi mesrefê, dîtina her Euro bi tevahî.",
-      "readyEyebrow": "Kengî hûn amade bin",
-      "readyTitle1": "Gava paşîn bavêjin,",
-      "readyTitle2": "bi hev re.",
-      "readyBody": "Di deqîqeyan de dosyayeke belaş vekin. Rêveberê dosyeyê di rojekê xebatê de dinêre — bêyî mecbûrî.",
-      "seePricing": "Nirxan bibîne",
-      "learnMore": "Zêdetir fêr bibe",
-      "moreServices": "+{{count}} xizmetên din"
-    },
     "pricing": {
       "eyebrow": "Nirx",
       "title": "Yek abonetî. Yek destê pêbawer.",
-      "subtitle": "Endam ji aboneya xwe pir zêdetir vedigirin — di mafên rast standî de, hevdîtinên nefetisandî û stresa dûrxistî. Planên malbatê ji bo cotan û malbatên heta 4 mezin + 3 zarok bi erzanî.",
       "individual": "Kesane",
       "family": "Malbat",
       "extended": "Malbata berfireh",
       "noteIndividual": "1 mezin",
       "noteFamily": "2 mezin + heta 3 zarok di bin 18 salî de",
       "noteExtended": "Heta 4 mezin + 3 zarok di bin 18 salî de",
-      "communityBadge": "Belaş · Civak",
-      "communityName": "Civak",
-      "communityDesc": "Toreke ewlehiyê ji bo her kesê li Almanyayê – bêyî hewcedariya qertê.",
-      "forever": "/ her tim",
       "perMonth": "/ meh",
-      "startFree": "Belaş dest pê bike",
       "choose": "{{name}} hilbijêre",
       "mostPopular": "Ya herî populer",
       "save": "%{{percent}} teser bike",
-      "loading": "Plan tê barkirin…",
-      "trustSuffix": "SLA, lîsans û sozên vegerandinê yên belavkirî →"
-    },
-    "howItWorks": {
-      "eyebrow": "Çawa dixebite",
-      "title1": "Pênc gav.",
-      "title2": "Bê tevliheviya kaxezan.",
-      "readyTitle": "Kengî hûn amade bin.",
-      "readyBody": "Destpêk belaş e. Tenê dema alîkariya mirov lazim bike, dest bi abonebûnê bikin.",
-      "openDashboard": "Panela xwe veke",
-      "steps": {
-        "s1Title": "Ji BeistandPlus re bêje çi lazim e",
-        "s1Desc": "Nû hatî, ji bo alîkariyan serî lê didî, plansaziya yekbûna malbatê an di matemê de yî — bi yek formê dest pê bike.",
-        "s2Title": "Di deqîqeyan de plansaziyek derdikeve",
-        "s2Desc": "AI-ya me lîsteya te ya kesane amade dike — her hevdîtin, belge, dawî û pêşkêşkar.",
-        "s3Title": "Rêveberek doza mirovî têlefonê hildide",
-        "s3Desc": "Bi zimanê we. Dosyeya we ji destpêkê heta dawîyê rêve dibe.",
-        "s4Title": "Her tişt di yek dosyeyê de tê rêvebirin",
-        "s4Desc": "Belge, name, hevdîtin, fatûre, sohbet, dîroka çalakiyan — ji we û ji alîkarên we re xuya ne.",
-        "s5Title": "Hûn bi jiyana xwe re mijûl dibin",
-        "s5Desc": "Em berî demên dawîn bîra we dixin, li ser navê we bi saziyan re dişopînin û her tiştê ku hûn fêm nakin werdigerînin."
-      }
+      "loading": "Plan tê barkirin…"
     },
     "contact": {
       "eyebrow": "Têkilî",
       "title": "Em li vir in — bi zimanê we.",
-      "subtitle": "Ji bo şînê, li xeta me ya 24/7 bigerin. Ji bo her tiştê din, peyamekê ji me re bişînin – em di nav rojek kar de bersiv didin.",
-      "line24": "Xeta şînê ya 24/7",
+      "subtitle": "Ji bo piştgiriya şînê an daxwazên din, peyamekê ji me re bişînin. Em ê piştgirî û dema bersivê ya berdest piştrast bikin.",
+      "line24": "Daxwazên piştgiriya şînê",
       "generalEnq": "Pirsên giştî",
       "office": "Nivîsgeh",
       "officeValue": "Kreuzberg, Berlîn · Bi randevûyê",
@@ -483,53 +433,10 @@
       }
     }
   },
-  "funeralCover": {
-    "badge": "Sterbegeld · Bîmeya di bin qanûna Alman de",
-    "headline": "Bîmeya mesrefên pejirandî û rêkxistî ji nêzîkî 24 €/mehê",
-    "subhead": "Feydeyek 20.000 € ji bo her mezinê bîmekirî — têra ku hemî mesrefên cenaze û veşartinê an merasîma dawî, plus vegerandina welat heke hewce be, bi her balansa ku diçe berjewendiya weya destnîşankirî. Malbat qet ne hewce ye ku di dema herî dijwar de drav bibîne.",
-    "disclaimer": "Rêjeyên tabloyên rêjeyên weşandî yên 2024–2025 ji panela me ya pêşkêşkerên Sterbegeld ku di bin qanûna Alman de hatine rêkxistin, ji bo kesên cixare nekêş ku dema bendewariyê tune ye li ser feydeyek 20.000 €. Prîma rastî bi temen, daxuyaniya tenduristî, rewşa cixarekêş û dema bendewariyê ya hilbijartî ve girêdayî ye; zarokên di bin 18 salî de bê prîmaya zêde li ser tarîfeyên malbatî û malbata berfireh tên de. Ne gotarek girêdayî ye — pêşkêşkerê hevkarê lîsanskirî pêşniyarê dide.",
-    "coverageTitle": "Tişta ku €20,000 vedigire — bi riya BeistandPlus",
-    "howLabel": "Ew çawa dixebite:",
-    "howBody": "pêşkêşker her fatûreya pejirandî û rêkxistî bi tevahî dide — cenaze, veşartin an merasîma dawî, û vegerandina welat heke hewce be — û her balansa ku diçe berjewendiya destnîşankirî di nav 14 rojan de tê dayîn.",
-    "ctaEstimate": "Prêmêta min texmîn bike",
-    "ctaTalk": "Bi rêveberê dozê re bipeyive",
-    "introducer": "BeistandPlus wekî danasîner (Tippgeber / §34d GewO broker heke hewce be) tevdigere. Prîma rasterast ji pêşkêşkerê bîmeyê re tên dayîn; BeistandPlus qet bîmeyê nake. Abonetî û prîmaya bîmeyê cuda tên fatûrekirin.",
-    "tabs": {
-      "individual": "Kesane",
-      "individualNote": "1 mezin · 20 hezar € feyde",
-      "family": "Malbat",
-      "familyNote": "2 mezin + heta 3 zarokên di bin 18 salî de · 20 hezar € ji bo her mezinî",
-      "extended": "Malbata berfireh",
-      "extendedNote": "Heta 4 mezin + 3 zarokên di bin 18 salî de · 20 hezar € ji bo her mezinî"
-    },
-    "rows": {
-      "individualLabel": "Temen {{age}}",
-      "individualDetail": "1 mezin · 20.000 € dravdan",
-      "familyLabel": "Herdu mezin temen {{age}}",
-      "familyDetail": "2 mezin + heta 3 zarokan · 20.000 € ji bo her mezinî",
-      "extendedLabel": "Hemî 4 mezinên temenê {{age}}",
-      "extendedDetail": "4 mezin + heya 3 zarokan · 20 hezar € ji bo her mezinî"
-    },
-    "table": {
-      "composition": "Pêkhatî",
-      "cover": "Bîme",
-      "premium": "Prîmaya mehane ya texmînkirî",
-      "perMo": "/ meh"
-    },
-    "coverage": [
-      "20.000 € feyde ji bo her mezinê bîmekirî — di dema mirinê de tê dayîn, ji bo tarîfên standard muayeneya bijîşkî ne hewce ye",
-      "Danûstandina rasterast a rêveberê cenaze, goristan, mizgeft / dêr / perestgeh, şewitandin, tabût, kulîlk, xwarin û xercên belgeya mirinê li hember fatûreyên orîjînal",
-      "Vegera tevahî ya laşê bo derveyî welat (tabûta veguhastinê ya pejirandî, embalmkirin, NOC konsolosî, kargoya balafirgehê, rêveberê wergir li welatê malê)",
-      "Wergerên sondxwarî, kaxezên mîratê, Standesamt, hevrêziya balyozxane / konsolosxaneyê — hemî di pelê dozê de tên fatûrekirin",
-      "Her euro di pelê doza we ya BeistandPlus de bi hûrgilî tê nîşandan da ku malbat tam bibîne ka pere çû ku derê",
-      "Her balansa ku piştî hemî mesrefên pejirandî û rêkxistî hatine dayîn, bi riya SEPA, li Almanya an derveyî welat, bi diravê wan ê herêmî ji wergirê we yê destnîşankirî re tê dayîn",
-      "Rêveberê dozê yê pirzimanî yê 24/7 di nav 1 saetê de piştî vekirina daxwazekê tê tayînkirin"
-    ]
-  },
   "directory": {
     "badge": "Pêrgeha endaman",
     "heroTitle": "Kesekî ku bi zimanê we diaxive bibînin.",
-    "heroBody": "Parêzer, bijîşk, îmam, şêwirmendên bacê, pisporên refahê, mamoste û wergêrên pirzimanî li seranserê Almanya — bi bajar û ziman tên gerandin. Ji bo pêşkêşkeran belaş e ku xwe tomar bikin, gihîştina endaman ji bo malbat û mişteriyan e.",
+    "heroBody": "Lîsteyên xizmetê yên pirzimanî yên hatine weşandin li gorî bajar û kategoriyê bibînin. Agahî ji aliyê pêşkêşkeran ve tê dayîn; destûr, hebûn û şertên peymanê rasterast piştrast bikin.",
     "listCta": "Karsaziya xwe tomar bikin — belaş",
     "seePlans": "Plansaziyên endamtiyê bibînin",
     "cityPlaceholder": "Li gorî bajêr fîltre bike (Berlîn, Munîh…)",

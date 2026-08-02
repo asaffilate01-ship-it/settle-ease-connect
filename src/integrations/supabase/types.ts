@@ -1769,6 +1769,45 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_enquiries: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string
+          preferred_language: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          source: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message: string
+          preferred_language?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          source?: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string
+          preferred_language?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          source?: string
+          status?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -4334,6 +4373,53 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_invitations: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          invited_by: string
+          is_admin: boolean
+          org_id: string
+          token_hash: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          created_at?: string
+          email: string
+          expires_at: string
+          id?: string
+          invited_by: string
+          is_admin?: boolean
+          org_id: string
+          token_hash: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          invited_by?: string
+          is_admin?: boolean
+          org_id?: string
+          token_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_invitations_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "partner_organisations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_organisations: {
         Row: {
           address_line1: string | null
@@ -4685,6 +4771,27 @@ export type Database = {
         }
         Relationships: []
       }
+      public_api_rate_limits: {
+        Row: {
+          key_hash: string
+          request_count: number
+          scope: string
+          window_started_at: string
+        }
+        Insert: {
+          key_hash: string
+          request_count?: number
+          scope: string
+          window_started_at: string
+        }
+        Update: {
+          key_hash?: string
+          request_count?: number
+          scope?: string
+          window_started_at?: string
+        }
+        Relationships: []
+      }
       push_subscriptions: {
         Row: {
           auth: string | null
@@ -5005,6 +5112,36 @@ export type Database = {
           location_hint?: string | null
           user_agent?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      stripe_webhook_events: {
+        Row: {
+          environment: string
+          error_message: string | null
+          event_id: string
+          event_type: string
+          processed_at: string | null
+          received_at: string
+          status: string
+        }
+        Insert: {
+          environment: string
+          error_message?: string | null
+          event_id: string
+          event_type: string
+          processed_at?: string | null
+          received_at?: string
+          status: string
+        }
+        Update: {
+          environment?: string
+          error_message?: string | null
+          event_id?: string
+          event_type?: string
+          processed_at?: string | null
+          received_at?: string
+          status?: string
         }
         Relationships: []
       }
@@ -5738,12 +5875,20 @@ export type Database = {
         Returns: string
       }
       accept_expert_invitation: { Args: { _token: string }; Returns: string }
+      accept_partner_invitation: {
+        Args: { _invitation_id: string }
+        Returns: string
+      }
       accept_partner_invitations: { Args: never; Returns: number }
       apply_case_template: {
         Args: { _case_id: string; _template_code: string }
         Returns: number
       }
       can_access_case: {
+        Args: { _case_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_manage_case: {
         Args: { _case_id: string; _user_id: string }
         Returns: boolean
       }
@@ -5757,6 +5902,10 @@ export type Database = {
           request_payload: Json
         }[]
       }
+      claim_stripe_webhook_event: {
+        Args: { _environment: string; _event_id: string; _event_type: string }
+        Returns: boolean
+      }
       close_case: {
         Args: {
           _case_id: string
@@ -5766,7 +5915,20 @@ export type Database = {
         }
         Returns: undefined
       }
+      consume_public_rate_limit: {
+        Args: {
+          _key_hash: string
+          _limit: number
+          _scope: string
+          _window_seconds: number
+        }
+        Returns: boolean
+      }
       current_partner_org: { Args: { _user_id: string }; Returns: string }
+      family_case_grant: {
+        Args: { _case_id: string; _minimum_level?: string; _user_id: string }
+        Returns: boolean
+      }
       generate_agent_code: { Args: never; Returns: string }
       generate_monthly_agent_commissions: {
         Args: { _period?: string }
@@ -5781,6 +5943,7 @@ export type Database = {
       }
       is_active_agent: { Args: { _user_id: string }; Returns: boolean }
       is_agent: { Args: { _user_id: string }; Returns: boolean }
+      is_case_supervisor: { Args: { _user_id: string }; Returns: boolean }
       is_channel_member: {
         Args: { _channel_id: string; _user_id: string }
         Returns: boolean
@@ -5816,6 +5979,10 @@ export type Database = {
         Returns: boolean
       }
       partner_doc_expiry_sweep: { Args: never; Returns: number }
+      queue_invoice_payout: {
+        Args: { _actor_user_id: string; _invoice_id: string; _notes?: string }
+        Returns: string
+      }
       sla_breach_sweep: { Args: never; Returns: number }
       subscription_dunning_sweep: { Args: never; Returns: number }
       vault_deputy_can_read: {

@@ -20,13 +20,20 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
+      {
+        title:
+          "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen",
+      },
       {
         name: "description",
         content:
           "BeistandPlus begleitet Familien in Deutschland beim Ankommen, bei Sozialleistungen, Dokumenten und Vorsorge am Lebensende. Eine ruhige Plattform in 13 Sprachen — mit menschlichen Case Managern und geprüften Fachleuten.",
       },
-      { property: "og:title", content: "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen" },
+      {
+        property: "og:title",
+        content:
+          "BeistandPlus · Ankommen, Sozialleistungen & Vorsorge in Deutschland — in 13 Sprachen",
+      },
       {
         property: "og:description",
         content:
@@ -34,7 +41,11 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:url", content: "https://beistandplus.de/" },
       { property: "og:locale", content: "de_DE" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7" },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15cef64f-21c8-4c27-b3c3-fe949b953ad7",
+      },
     ],
     links: [{ rel: "canonical", href: "https://beistandplus.de/" }],
     scripts: [
@@ -56,10 +67,26 @@ export const Route = createFileRoute("/")({
           },
           areaServed: "DE",
           availableLanguage: [
-            "German", "English", "Turkish", "Urdu", "Hindi", "Punjabi",
-            "Pashto", "Arabic", "Kurdish", "Russian", "Ukrainian",
-            "Albanian", "Somali", "Tigrinya", "Portuguese", "Bosnian",
-            "Croatian", "Serbian", "Vietnamese", "French",
+            "German",
+            "English",
+            "Turkish",
+            "Urdu",
+            "Hindi",
+            "Punjabi",
+            "Pashto",
+            "Arabic",
+            "Kurdish",
+            "Russian",
+            "Ukrainian",
+            "Albanian",
+            "Somali",
+            "Tigrinya",
+            "Portuguese",
+            "Bosnian",
+            "Croatian",
+            "Serbian",
+            "Vietnamese",
+            "French",
           ],
         }),
       },
@@ -131,7 +158,7 @@ function FivePaths() {
       icon3d: "experts" as const,
       tag: "Provider",
       title: "Join our expert network",
-      copy: "Lawyers, notaries, tax advisors, translators, funeral directors, doctors — vetted & referred.",
+      copy: "Provider listings and introductions, with identity, scope and fees confirmed before you proceed.",
       to: "/for-providers" as const,
       accent: "from-peach/40 via-peach/10 to-transparent",
       ring: "hover:ring-accent/40",
@@ -146,8 +173,8 @@ function FivePaths() {
             Five doors into <span className="headline-stamp italic">BeistandPlus</span>.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-foreground/75">
-            Whatever brought you here today — a loss, a form, a move, an employee, or your own practice —
-            we start from where you actually are.
+            Whatever brought you here today — a loss, a form, a move, an employee, or your own
+            practice — we start from where you actually are.
           </p>
         </div>
 
@@ -158,7 +185,10 @@ function FivePaths() {
               to={p.to}
               className={`group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${p.ring}`}
             >
-              <div className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${p.accent} blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100`} aria-hidden />
+              <div
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${p.accent} blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100`}
+                aria-hidden
+              />
               <div className="relative h-16 w-16">
                 <Icon3D name={p.icon3d} clay alt="" />
               </div>
@@ -183,7 +213,6 @@ function FivePaths() {
   );
 }
 
-
 function Hero() {
   const { t } = useTranslation();
   return (
@@ -193,7 +222,11 @@ function Hero() {
         <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/15 pb-4">
           <div className="eyebrow text-ink/60">Berlin · Ausgabe №01</div>
           <div className="eyebrow text-ink/60">
-            {new Date().toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" })}
+            {new Date().toLocaleDateString("de-DE", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
           </div>
           <div className="eyebrow text-primary">Now onboarding — Berlin &amp; NRW</div>
         </div>
@@ -213,22 +246,36 @@ function Hero() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <p className="text-base leading-relaxed text-foreground/85 drop-cap">
-              {t("hero.introA", "Ob Sie Ihren Umzug nach Deutschland planen — für Arbeit, Studium oder Familie — oder bereits hier sind und sich ein Leben aufbauen: BeistandPlus ist die ruhige Plattform für jeden Schritt.")}
+              {t(
+                "hero.introA",
+                "Ob Sie Ihren Umzug nach Deutschland planen — für Arbeit, Studium oder Familie — oder bereits hier sind und sich ein Leben aufbauen: BeistandPlus ist die ruhige Plattform für jeden Schritt.",
+              )}
             </p>
             <p className="text-base leading-relaxed text-foreground/85">
-              {t("hero.introB", "Visa, Anmeldung, Wohnen, Sozialleistungen, gesetzliche Krankenversicherung, Führerschein, Geburten, Hochzeiten, Sterbefälle — ein persönlicher Case Manager, in Ihrer Sprache, den ganzen Weg.")}
+              {t(
+                "hero.introB",
+                "Visa, Anmeldung, Wohnen, Sozialleistungen, gesetzliche Krankenversicherung, Führerschein, Geburten, Hochzeiten, Sterbefälle — ein persönlicher Case Manager, in Ihrer Sprache, den ganzen Weg.",
+              )}
             </p>
           </div>
 
-
           <div className="mt-10 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-elevated hover:bg-primary/90">
+            <Button
+              asChild
+              size="lg"
+              className="bg-primary text-primary-foreground shadow-elevated hover:bg-primary/90"
+            >
               <Link to="/app">
                 Open your dashboard
                 <ArrowRight className="ml-1 h-4 w-4 rtl-flip" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-ink/25 text-ink hover:bg-ink/5">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-ink/25 text-ink hover:bg-ink/5"
+            >
               <Link to="/bereavement">Report a bereavement</Link>
             </Button>
           </div>
@@ -238,19 +285,19 @@ function Hero() {
               <div>
                 <dt className="eyebrow text-ink/55">Languages</dt>
                 <dd className="mt-1 flex items-center gap-2">
-                  <Languages className="h-4 w-4 text-accent" /> 13, native speakers
+                  <Languages className="h-4 w-4 text-accent" /> 13 supported languages
                 </dd>
               </div>
               <div>
                 <dt className="eyebrow text-ink/55">Compliance</dt>
                 <dd className="mt-1 flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-accent" /> GDPR &amp; bank-grade
+                  <ShieldCheck className="h-4 w-4 text-accent" /> Privacy-first controls
                 </dd>
               </div>
               <div>
                 <dt className="eyebrow text-ink/55">Response</dt>
                 <dd className="mt-1 flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-accent" /> 24/7 case manager
+                  <Phone className="h-4 w-4 text-accent" /> Published support hours
                 </dd>
               </div>
             </dl>
@@ -272,7 +319,8 @@ function Hero() {
             <figcaption className="absolute inset-x-0 bottom-0 p-6 text-background">
               <div className="eyebrow text-peach">An Ihrer Seite — von Anfang an</div>
               <p className="mt-2 max-w-sm font-display text-xl italic leading-snug">
-                "From the airport to the Bürgeramt to the hospital — one team, one plan, in our language."
+                "From the airport to the Bürgeramt to the hospital — one team, one plan, in our
+                language."
               </p>
             </figcaption>
           </figure>
@@ -286,7 +334,6 @@ function Hero() {
   );
 }
 
-
 function HeroCard() {
   return (
     <div className="relative">
@@ -299,7 +346,9 @@ function HeroCard() {
             </div>
             <div className="text-sm font-medium">Your BeistandPlus plan</div>
           </div>
-          <Badge variant="secondary" className="bg-success/15 text-success">Active</Badge>
+          <Badge variant="secondary" className="bg-success/15 text-success">
+            Active
+          </Badge>
         </div>
         <div className="mt-6 space-y-3">
           <TaskRow done text="Anmeldung booked — Bürgeramt Mitte, 14 Nov" />
@@ -316,8 +365,8 @@ function HeroCard() {
             <div className="text-sm">
               <div className="font-medium">Fatima · Your case manager</div>
               <p className="mt-1 text-muted-foreground">
-                Your Kindergeld draft is ready. I've prefilled everything from
-                your Anmeldebestätigung — please review and e-sign.
+                Your Kindergeld draft is ready. I've prefilled everything from your
+                Anmeldebestätigung — please review and e-sign.
               </p>
             </div>
           </div>
@@ -337,11 +386,12 @@ function TaskRow({ text, done, urgent }: { text: string; done?: boolean; urgent?
       >
         {done && <span className="text-[10px]">✓</span>}
       </span>
-      <span className={`text-sm ${done ? "text-muted-foreground line-through" : ""}`}>
-        {text}
-      </span>
+      <span className={`text-sm ${done ? "text-muted-foreground line-through" : ""}`}>{text}</span>
       {urgent && (
-        <Badge variant="outline" className="ml-auto border-warning/50 bg-warning/15 text-warning-foreground">
+        <Badge
+          variant="outline"
+          className="ml-auto border-warning/50 bg-warning/15 text-warning-foreground"
+        >
           Soon
         </Badge>
       )}
@@ -353,17 +403,27 @@ function TrustBar() {
   const items = [
     { icon: "community" as const, label: "20M+ people in Germany with a migration background" },
     { icon: "settlement" as const, label: "Berlin · NRW · Hamburg · Frankfurt · München" },
-    { icon: "experts" as const, label: "Mosques · Churches · Temples · Gurdwaras" },
-    { icon: "government" as const, label: "Funeral directors · Hospitals · Consulates" },
+    { icon: "experts" as const, label: "Faith-sensitive guidance and coordination" },
+    { icon: "government" as const, label: "Provider and authority workflow support" },
   ];
   return (
     <div className="relative overflow-hidden border-y border-border/60 bg-parchment/50">
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.03_65/0.6),transparent_70%)]" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.03_65/0.6),transparent_70%)]"
+      />
       <div className="relative mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-4 px-4 py-7 sm:px-6 lg:px-8">
         {items.map((i) => (
-          <div key={i.label} className="flex items-center gap-2.5 rounded-full border border-border/60 bg-card/80 px-4 py-1.5 shadow-soft backdrop-blur">
-            <div className="h-6 w-6 shrink-0"><Icon3D name={i.icon} alt="" /></div>
-            <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-foreground/75">{i.label}</span>
+          <div
+            key={i.label}
+            className="flex items-center gap-2.5 rounded-full border border-border/60 bg-card/80 px-4 py-1.5 shadow-soft backdrop-blur"
+          >
+            <div className="h-6 w-6 shrink-0">
+              <Icon3D name={i.icon} alt="" />
+            </div>
+            <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-foreground/75">
+              {i.label}
+            </span>
           </div>
         ))}
       </div>
@@ -378,11 +438,11 @@ function UrgencyTriage() {
       tag: "I need help now",
       icon: "urgent" as const,
       title: "Something happened — a death, a deadline, a letter I can't read.",
-      copy: "Talk to a human case manager within one hour. We triage, translate and act — bereavement, eviction notices, visa expiries, hospital paperwork, Jobcenter appointments.",
+      copy: "Open an urgent case for triage, translation and coordination — including bereavement, eviction notices, visa expiries, hospital paperwork and Jobcenter appointments.",
       bullets: [
-        "24/7 bereavement & emergency line",
-        "Sworn translators on standby",
-        "We call authorities on your behalf",
+        "Urgency clearly flagged to the case team",
+        "Translation coordination where available",
+        "Authority-contact preparation with your permission",
       ],
       cta: { label: "Start an urgent case", to: "/app/cases/new" as const },
       secondary: { label: "Report a bereavement", to: "/bereavement" as const },
@@ -410,13 +470,11 @@ function UrgencyTriage() {
           Two doors. One <span className="headline-stamp italic">calm</span> team behind both.
         </h2>
         <p className="mt-5 text-base leading-relaxed text-foreground/80">
-          Tell us whether today is an emergency or a plan. We'll match you to the right case manager,
-          in your language, in minutes.
+          Tell us whether today is an emergency or a plan. We'll match you to the right case
+          manager, in your language, in minutes.
         </p>
         <div className="mx-auto mt-8 h-px w-24 bg-primary" />
       </div>
-
-
 
       <div className="mt-14 grid gap-6 lg:grid-cols-2">
         {paths.map((p) => {
@@ -425,9 +483,7 @@ function UrgencyTriage() {
             <div
               key={p.tag}
               className={`group relative overflow-hidden rounded-3xl border p-8 shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated ${
-                isUrgent
-                  ? "border-destructive/25 bg-destructive/5"
-                  : "border-primary/15 bg-card"
+                isUrgent ? "border-destructive/25 bg-destructive/5" : "border-primary/15 bg-card"
               }`}
             >
               <div
@@ -437,19 +493,18 @@ function UrgencyTriage() {
               />
               <div className="flex items-center gap-4">
                 <div className="relative h-20 w-20 shrink-0">
-                  <div aria-hidden className={`pointer-events-none absolute -inset-3 rounded-full blur-2xl ${isUrgent ? "bg-destructive/20" : "bg-accent/25"}`} />
+                  <div
+                    aria-hidden
+                    className={`pointer-events-none absolute -inset-3 rounded-full blur-2xl ${isUrgent ? "bg-destructive/20" : "bg-accent/25"}`}
+                  />
                   <Icon3D name={p.icon} clay alt="" />
                 </div>
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   {p.tag}
                 </div>
               </div>
-              <h3 className="display-md mt-6 font-semibold">
-                {p.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {p.copy}
-              </p>
+              <h3 className="display-md mt-6 font-semibold">{p.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
               <ul className="mt-6 space-y-2 text-sm">
                 {p.bullets.map((b) => (
                   <li key={b} className="flex items-start gap-2">
@@ -525,7 +580,9 @@ function Journeys() {
             <div
               aria-hidden
               className={`pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full blur-3xl opacity-70 transition-opacity duration-500 group-hover:opacity-100 ${
-                i === 0 ? "bg-gradient-to-br from-primary/25 to-transparent" : "bg-gradient-to-br from-accent/25 to-transparent"
+                i === 0
+                  ? "bg-gradient-to-br from-primary/25 to-transparent"
+                  : "bg-gradient-to-br from-accent/25 to-transparent"
               }`}
             />
             <div className="relative flex items-center gap-4">
@@ -553,15 +610,51 @@ function Journeys() {
 
 function LifeInGermany() {
   const areas = [
-    { icon3d: "employment" as const, title: "Work & careers", copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union." },
-    { icon3d: "knowledge" as const, title: "Study & universities", copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules." },
-    { icon3d: "housing" as const, title: "Renting & buying", copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar." },
-    { icon3d: "plan" as const, title: "Benefits & welfare", copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support." },
-    { icon3d: "healthcare" as const, title: "Health & insurance", copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions." },
-    { icon3d: "visas" as const, title: "Driving & mobility", copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system." },
-    { icon3d: "community" as const, title: "Births & family", copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care." },
-    { icon3d: "government" as const, title: "Marriage & partnership", copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies." },
-    { icon3d: "burials" as const, title: "Deaths & end-of-life", copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance." },
+    {
+      icon3d: "employment" as const,
+      title: "Work & careers",
+      copy: "Visa sponsorship, Anerkennung of foreign qualifications, contracts, Steuerklasse, joining a union.",
+    },
+    {
+      icon3d: "knowledge" as const,
+      title: "Study & universities",
+      copy: "Uni-Assist, TestAS/TestDaF, semester enrolment, BAföG, scholarships, Werkstudent rules.",
+    },
+    {
+      icon3d: "housing" as const,
+      title: "Renting & buying",
+      copy: "Schufa, Mietvertrag review, Wohnberechtigungsschein, mortgages, Grunderwerbsteuer, Notar.",
+    },
+    {
+      icon3d: "plan" as const,
+      title: "Benefits & welfare",
+      copy: "Bürgergeld, Kindergeld, Wohngeld, Elterngeld, Rente, disability & carer support.",
+    },
+    {
+      icon3d: "healthcare" as const,
+      title: "Health & insurance",
+      copy: "GKV vs PKV, Hausarzt in your language, pregnancy care, mental health, chronic conditions.",
+    },
+    {
+      icon3d: "visas" as const,
+      title: "Driving & mobility",
+      copy: "Führerschein conversion, Kfz registration, insurance, ÖPNV, Deutschlandticket, points system.",
+    },
+    {
+      icon3d: "community" as const,
+      title: "Births & family",
+      copy: "Geburtsurkunde, Vaterschaftsanerkennung, Elterngeld, Kita-Platz, paediatric care.",
+    },
+    {
+      icon3d: "government" as const,
+      title: "Marriage & partnership",
+      copy: "Standesamt, foreign document legalisation, Ehefähigkeitszeugnis, religious ceremonies.",
+    },
+    {
+      icon3d: "burials" as const,
+      title: "Deaths & end-of-life",
+      copy: "Sterbeurkunde, burial, cremation, Islamic Janazah, repatriation, insurance & inheritance.",
+    },
   ];
   return (
     <section className="relative overflow-hidden bg-parchment/40">
@@ -582,8 +675,8 @@ function LifeInGermany() {
             From arrival to inheritance — we've got you.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            One account, one case manager, one AI assistant that speaks your
-            language across every German authority, form and Fristen.
+            One account, one case manager, one AI assistant that speaks your language across every
+            German authority, form and Fristen.
           </p>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -592,14 +685,19 @@ function LifeInGermany() {
               key={a.title}
               className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/95 p-6 shadow-soft backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
             >
-              <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              />
               <div className="relative flex items-center gap-4">
                 <div className="h-14 w-14 shrink-0">
                   <Icon3D name={a.icon3d} clay alt="" />
                 </div>
                 <div className="font-display text-lg font-semibold leading-tight">{a.title}</div>
               </div>
-              <p className="relative mt-4 text-sm leading-relaxed text-muted-foreground">{a.copy}</p>
+              <p className="relative mt-4 text-sm leading-relaxed text-muted-foreground">
+                {a.copy}
+              </p>
             </div>
           ))}
         </div>
@@ -615,8 +713,6 @@ function LifeInGermany() {
     </section>
   );
 }
-
-
 
 function Pillars() {
   const pillars = [
@@ -655,12 +751,10 @@ function Pillars() {
         <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
           Was BeistandPlus macht
         </div>
-        <h2 className="display-lg text-balance mt-3 font-semibold">
-          Four pillars, one platform.
-        </h2>
+        <h2 className="display-lg text-balance mt-3 font-semibold">Four pillars, one platform.</h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Most tools solve one step. BeistandPlus carries you across all of them,
-          with a human case manager and an AI assistant that never sleeps.
+          Most tools solve one step. BeistandPlus carries you across all of them, with a human case
+          manager and an AI assistant that never sleeps.
         </p>
       </div>
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -669,7 +763,10 @@ function Pillars() {
             key={p.title}
             className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-elevated"
           >
-            <div className={`pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br ${p.glow} blur-3xl opacity-70 transition-opacity group-hover:opacity-100`} aria-hidden />
+            <div
+              className={`pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br ${p.glow} blur-3xl opacity-70 transition-opacity group-hover:opacity-100`}
+              aria-hidden
+            />
             <div className="relative h-20 w-20">
               <Icon3D name={p.icon3d} clay alt="" />
             </div>
@@ -678,9 +775,7 @@ function Pillars() {
                 {p.german}
               </div>
               <div className="mt-1 font-display text-2xl font-semibold">{p.title}</div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {p.desc}
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
             </div>
           </div>
         ))}
@@ -693,8 +788,14 @@ function BereavementBand() {
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
       <div className="absolute inset-0 opacity-20 bg-gradient-warm" aria-hidden />
-      <div aria-hidden className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-peach/25 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-peach/25 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-accent/30 blur-3xl"
+      />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-6">
           <div className="inline-flex items-center gap-3 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1.5 backdrop-blur">
@@ -709,17 +810,21 @@ function BereavementBand() {
             When the worst happens, one call is enough.
           </h2>
           <p className="mt-5 max-w-xl text-lg text-primary-foreground/80">
-            BeistandPlus coordinates every party — family, funeral director,
-            hospital, Standesamt, mosque or church, cemetery, airline,
-            consulate, insurance — inside a single, timestamped case file. In
-            German, English, Turkish, Urdu, Hindi, Punjabi, Pashto, Arabic,
-            Kurdish, Russian or Ukrainian.
+            BeistandPlus coordinates every party — family, funeral director, hospital, Standesamt,
+            mosque or church, cemetery, airline, consulate, insurance — inside a single, timestamped
+            case file. In German, English, Turkish, Urdu, Hindi, Punjabi, Pashto, Arabic, Kurdish,
+            Russian or Ukrainian.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary" className="shadow-clay">
               <Link to="/bereavement">See the full workflow</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
+            >
               <Link to="/app/cases/new">Report a death now</Link>
             </Button>
           </div>
@@ -734,24 +839,29 @@ function BereavementBand() {
 
 function Workflow() {
   const stages = [
-    { t: "Reported", d: "Family calls or files in the app — 60 seconds." },
-    { t: "Case Manager assigned", d: "Human contact within 15 minutes, 24/7." },
-    { t: "Authority signed", d: "Digital GDPR & mandate signatures." },
-    { t: "Body collection", d: "Verified funeral director dispatched." },
-    { t: "Standesamt", d: "Death registered, certificates issued." },
-    { t: "Ceremony or repatriation", d: "Mosque, church, temple, or airline cargo." },
-    { t: "Insurance & admin", d: "Claims, pension, employer, utilities closed." },
+    { t: "Reported", d: "Family calls or files a structured request in the app." },
+    { t: "Case reviewed", d: "A case manager responds during the published service hours." },
+    { t: "Consent recorded", d: "The family chooses what may be shared and with whom." },
+    { t: "Provider handoff", d: "An available provider confirms scope, timing and terms." },
+    { t: "Authority steps", d: "The responsible people track registration and certificate tasks." },
+    { t: "Ceremony or repatriation", d: "Requested rites and transport options are coordinated." },
+    { t: "Follow-up", d: "Open insurance, pension, employer and utility tasks are tracked." },
   ];
   return (
     <div className="relative rounded-3xl border border-primary-foreground/20 bg-primary-foreground/5 p-6 shadow-elevated backdrop-blur">
-      <div aria-hidden className="pointer-events-none absolute -top-8 -right-8 h-32 w-32 rounded-full bg-accent/25 blur-2xl" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-8 -right-8 h-32 w-32 rounded-full bg-accent/25 blur-2xl"
+      />
       <div className="relative flex items-center justify-between">
         <div>
-          <div className="text-xs uppercase tracking-widest text-primary-foreground/90">Case BST-2410-0042</div>
+          <div className="text-xs uppercase tracking-widest text-primary-foreground/90">
+            Case BST-2410-0042
+          </div>
           <div className="mt-1 font-display text-2xl">Repatriation · Berlin → Lahore</div>
         </div>
         <span className="inline-flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-accent-foreground ring-1 ring-accent/30">
-          <Sparkles className="h-3 w-3" /> Live
+          <Sparkles className="h-3 w-3" /> Example
         </span>
       </div>
       <ol className="relative mt-6 space-y-3">
@@ -768,7 +878,9 @@ function Workflow() {
                 {i + 1}
               </div>
               {i < stages.length - 1 && (
-                <div className={`my-1 h-6 w-px ${i < 3 ? "bg-accent/50" : "bg-primary-foreground/20"}`} />
+                <div
+                  className={`my-1 h-6 w-px ${i < 3 ? "bg-accent/50" : "bg-primary-foreground/20"}`}
+                />
               )}
             </div>
             <div className="pb-2">
@@ -784,23 +896,49 @@ function Workflow() {
 
 function RolesGrid() {
   const roles = [
-    { icon3d: "community" as const, title: "Families & members", copy: "Report cases, track benefits, store documents, ask anything." },
-    { icon3d: "cases" as const, title: "Case managers", copy: "One workspace for every case, every stage, every stakeholder." },
-    { icon3d: "burials" as const, title: "Funeral directors", copy: "Referrals, quotes, invoices, documents — all in one portal." },
-    { icon3d: "experts" as const, title: "Mosques & churches", copy: "Janazah, funeral, ceremony bookings and imam/priest scheduling." },
-    { icon3d: "knowledge" as const, title: "Temples & Gurdwaras", copy: "Ceremony bookings and religious representative scheduling." },
-    { icon3d: "healthcare" as const, title: "Hospitals & authorities", copy: "Secure handoff of certification and mortuary handover." },
+    {
+      icon3d: "community" as const,
+      title: "Families & members",
+      copy: "Report cases, track benefits, store documents, ask anything.",
+    },
+    {
+      icon3d: "cases" as const,
+      title: "Case managers",
+      copy: "One workspace for every case, every stage, every stakeholder.",
+    },
+    {
+      icon3d: "burials" as const,
+      title: "Funeral directors",
+      copy: "Referrals, quotes, invoices, documents — all in one portal.",
+    },
+    {
+      icon3d: "experts" as const,
+      title: "Mosques & churches",
+      copy: "Janazah, funeral, ceremony bookings and imam/priest scheduling.",
+    },
+    {
+      icon3d: "knowledge" as const,
+      title: "Temples & Gurdwaras",
+      copy: "Ceremony bookings and religious representative scheduling.",
+    },
+    {
+      icon3d: "healthcare" as const,
+      title: "Hospitals & authorities",
+      copy: "Secure handoff of certification and mortuary handover.",
+    },
   ];
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Roles</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+          Roles
+        </div>
         <h2 className="display-lg text-balance mt-3 font-semibold">
           Every stakeholder, their own portal.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Secure logins, role-scoped permissions, and a shared case file. No
-          more WhatsApp threads and lost paperwork.
+          Secure logins, role-scoped permissions, and a shared case file. No more WhatsApp threads
+          and lost paperwork.
         </p>
       </div>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -809,7 +947,10 @@ function RolesGrid() {
             key={r.title}
             className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
           >
-            <div aria-hidden className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-gradient-to-br from-accent/20 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            />
             <div className="relative flex items-center gap-4">
               <div className="h-14 w-14 shrink-0">
                 <Icon3D name={r.icon3d} clay alt="" />
@@ -820,7 +961,6 @@ function RolesGrid() {
           </div>
         ))}
       </div>
-
     </section>
   );
 }
@@ -838,14 +978,16 @@ function BenefitsShowcase() {
     <section className="bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Benefits Checker</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+            Benefits Checker
+          </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
             Know exactly what you're entitled to.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            Bürgergeld, Kindergeld, Wohngeld, Elterngeld, BAföG, Rente. Answer
-            a few questions — BeistandPlus tells you what to apply for, how much
-            you could receive, and prepares the paperwork.
+            Bürgergeld, Kindergeld, Wohngeld, Elterngeld, BAföG, Rente. Answer a few questions —
+            BeistandPlus tells you what to apply for, how much you could receive, and prepares the
+            paperwork.
           </p>
           <Button asChild className="mt-8 bg-gradient-primary shadow-soft" size="lg">
             <Link to="/app/benefits">Run the benefits checker</Link>
@@ -857,13 +999,18 @@ function BenefitsShowcase() {
               key={b.name}
               className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
             >
-              <div aria-hidden className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full blur-2xl opacity-60 transition-opacity duration-500 group-hover:opacity-100 ${i % 3 === 0 ? "bg-primary/25" : i % 3 === 1 ? "bg-accent/30" : "bg-peach/40"}`} />
+              <div
+                aria-hidden
+                className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full blur-2xl opacity-60 transition-opacity duration-500 group-hover:opacity-100 ${i % 3 === 0 ? "bg-primary/25" : i % 3 === 1 ? "bg-accent/30" : "bg-peach/40"}`}
+              />
               <div className="relative flex items-start justify-between gap-3">
                 <div>
                   <div className="font-display text-xl font-semibold leading-tight">{b.name}</div>
                   <p className="mt-1.5 text-sm text-muted-foreground">{b.desc}</p>
                 </div>
-                <Badge className="shrink-0 border-transparent bg-primary/15 text-primary font-semibold">{b.tag}</Badge>
+                <Badge className="shrink-0 border-transparent bg-primary/15 text-primary font-semibold">
+                  {b.tag}
+                </Badge>
               </div>
               <div className="relative mt-4 h-1 w-10 rounded-full bg-gradient-to-r from-primary/70 to-accent/70 transition-all duration-500 group-hover:w-16" />
             </div>
@@ -876,27 +1023,29 @@ function BenefitsShowcase() {
 
 function NetworkMap() {
   const cities = [
-    { name: "Berlin", role: "Launch city", partners: 42 },
-    { name: "Köln", role: "NRW hub", partners: 28 },
-    { name: "Düsseldorf", role: "NRW", partners: 18 },
-    { name: "Dortmund", role: "NRW", partners: 14 },
-    { name: "Frankfurt", role: "Aviation hub", partners: 22 },
-    { name: "Hamburg", role: "Coming Q2", partners: 9 },
-    { name: "München", role: "Coming Q2", partners: 11 },
-    { name: "Stuttgart", role: "Planned", partners: 4 },
+    "Berlin",
+    "Köln",
+    "Düsseldorf",
+    "Dortmund",
+    "Frankfurt",
+    "Hamburg",
+    "München",
+    "Stuttgart",
   ];
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">Provider Network</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+            Provider Network
+          </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
-            A verified partner in every city.
+            Check local availability before every handoff.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            Funeral directors, mosques, churches, temples, gurdwaras,
-            hospitals, cemeteries, airlines, consulates, translators and
-            lawyers — vetted, rated, and connected in one workflow.
+            BeistandPlus can organise a request and search published listings or enabled referral
+            channels. A provider relationship, availability and response time are never implied
+            until the provider confirms them.
           </p>
           <Button asChild variant="outline" className="mt-8" size="lg">
             <Link to="/for-providers">Join the network</Link>
@@ -904,24 +1053,30 @@ function NetworkMap() {
         </div>
         <div className="lg:col-span-7">
           <div className="grid gap-3 sm:grid-cols-2">
-            {cities.map((c) => (
+            {cities.map((city) => (
               <div
-                key={c.name}
+                key={city}
                 className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border/60 bg-card p-4 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:shadow-elevated"
               >
-                <div aria-hidden className="pointer-events-none absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-accent/20 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-accent/20 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                />
                 <div className="relative flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-xl bg-[linear-gradient(140deg,oklch(0.985_0.008_78),oklch(0.9_0.03_65))] text-primary shadow-clay">
                     <MapPin className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="font-display text-lg font-semibold leading-tight">{c.name}</div>
-                    <div className="text-xs text-muted-foreground">{c.role}</div>
+                    <div className="font-display text-lg font-semibold leading-tight">{city}</div>
+                    <div className="text-xs text-muted-foreground">
+                      Availability checked per request
+                    </div>
                   </div>
                 </div>
                 <div className="relative text-right">
-                  <div className="font-display text-2xl font-semibold">{c.partners}</div>
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">partners</div>
+                  <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    No guarantee
+                  </div>
                 </div>
               </div>
             ))}
@@ -945,20 +1100,28 @@ function AiAssistant() {
     <section className="bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">AI Assistant</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
+            AI Assistant
+          </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
-            Ask anything, in any language.
+            Ask a process question in a supported language.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            Trained on German bureaucracy, immigration, welfare, healthcare,
-            and religious end-of-life practice. Answers in plain language, in
-            the language you're most comfortable with.
+            The assistant can organise publicly available process information and open questions in
+            plain language. It is not legal, tax, medical or insurance advice, and important answers
+            should be checked with the responsible authority or professional.
           </p>
         </div>
         <div className="lg:col-span-7">
           <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-elevated">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/15 blur-3xl" />
-            <div aria-hidden className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/15 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
+            />
             <div className="relative grid gap-3 sm:grid-cols-2">
               {asks.map((a) => (
                 <button
@@ -984,8 +1147,14 @@ function CTA() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-primary p-12 text-primary-foreground shadow-elevated lg:p-20">
         <div className="absolute inset-0 opacity-30 bg-gradient-warm" />
-        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-peach/30 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-accent/25 blur-3xl" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-peach/30 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-accent/25 blur-3xl"
+        />
         <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]">
@@ -995,14 +1164,19 @@ function CTA() {
               Standing with you, from your first day to your last.
             </h2>
             <p className="mt-5 max-w-xl text-lg text-primary-foreground/85">
-              24/7 case management, an AI assistant, digital document vault,
-              benefits checker and full end-of-life coordination — from €5/month.
+              A case workspace, document organisation, draft assistance and consent-based referral
+              requests — with active subscriptions from €5/month.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" variant="secondary">
-                <Link to="/app">Get started free</Link>
+                <Link to="/auth">Create an account</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
+              >
                 <Link to="/pricing">See pricing</Link>
               </Button>
             </div>
@@ -1015,15 +1189,21 @@ function CTA() {
               <div className="mt-5 space-y-3 text-sm">
                 <div className="flex items-baseline justify-between border-b border-primary-foreground/15 pb-2">
                   <span className="opacity-85">Basic</span>
-                  <span className="font-display text-lg">€5<span className="text-xs opacity-70">/mo</span></span>
+                  <span className="font-display text-lg">
+                    €5<span className="text-xs opacity-70">/mo</span>
+                  </span>
                 </div>
                 <div className="flex items-baseline justify-between border-b border-primary-foreground/15 pb-2">
                   <span className="opacity-85">Plus</span>
-                  <span className="font-display text-lg">€10<span className="text-xs opacity-70">/mo</span></span>
+                  <span className="font-display text-lg">
+                    €10<span className="text-xs opacity-70">/mo</span>
+                  </span>
                 </div>
                 <div className="flex items-baseline justify-between">
                   <span className="opacity-85">Complete</span>
-                  <span className="font-display text-lg">€25<span className="text-xs opacity-70">/mo</span></span>
+                  <span className="font-display text-lg">
+                    €25<span className="text-xs opacity-70">/mo</span>
+                  </span>
                 </div>
               </div>
             </div>

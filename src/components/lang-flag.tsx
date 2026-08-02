@@ -14,8 +14,19 @@ import type { LangCode } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 
 const MAP: Record<LangCode, React.ComponentType<{ title?: string; className?: string }>> = {
-  de: DE, en: GB, tr: TR, ur: PK, hi: IN, pa: IN,
-  ar: SA, ku: IQ, fa: IR, ru: RU, uk: UA, pl: PL, zh: CN,
+  de: DE,
+  en: GB,
+  tr: TR,
+  ur: PK,
+  hi: IN,
+  pa: IN,
+  ar: SA,
+  ku: IQ,
+  fa: IR,
+  ru: RU,
+  uk: UA,
+  pl: PL,
+  zh: CN,
 };
 
 /**
@@ -24,8 +35,14 @@ const MAP: Record<LangCode, React.ComponentType<{ title?: string; className?: st
  * no more tofu boxes on browsers without emoji flag glyphs (Chrome/Windows).
  */
 export function LangFlag({
-  code, className, title,
-}: { code: LangCode; className?: string; title?: string }) {
+  code,
+  className,
+  title,
+}: {
+  code: LangCode;
+  className?: string;
+  title?: string;
+}) {
   const Flag = MAP[code];
   if (!Flag) return null;
   return (

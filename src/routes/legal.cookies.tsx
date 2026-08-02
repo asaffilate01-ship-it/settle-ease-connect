@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { LegalArticle, LegalSection, BilingualNote } from "@/components/legal-article";
+import { publicLegal } from "@/lib/public-config";
 import { Button } from "@/components/ui/button";
 import { getStoredConsent, setStoredConsent } from "@/hooks/use-cookie-consent";
 
@@ -8,7 +9,10 @@ export const Route = createFileRoute("/legal/cookies")({
   head: () => ({
     meta: [
       { title: "Cookies — BeistandPlus" },
-      { name: "description", content: "Cookie-Einsatz und Einwilligung nach § 25 TDDDG und Art. 6 DSGVO." },
+      {
+        name: "description",
+        content: "Cookie-Einsatz und Einwilligung nach § 25 TDDDG und Art. 6 DSGVO.",
+      },
       { property: "og:title", content: "Cookies — BeistandPlus" },
       { property: "og:url", content: "/legal/cookies" },
     ],
@@ -48,18 +52,25 @@ function Page() {
             verwenden datensparsame, EU-gehostete Analytik ohne Werbe-Profile.
           </li>
         </ul>
-        <p>Wir setzen <strong>keine</strong> Werbe-, Tracking- oder Social-Media-Cookies ohne Interaktion.</p>
+        <p>
+          Wir setzen <strong>keine</strong> Werbe-, Tracking- oder Social-Media-Cookies ohne
+          Interaktion.
+        </p>
       </LegalSection>
 
       <LegalSection title="Ihre Einwilligung">
         <div className="rounded-xl border border-border/60 bg-parchment/40 p-4">
           <p className="mb-3 text-sm">
-            Aktuelle Auswahl: <strong>{state ?? "noch keine Auswahl"}</strong>.
-            Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.
+            Aktuelle Auswahl: <strong>{state ?? "noch keine Auswahl"}</strong>. Sie können Ihre
+            Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.
           </p>
           <div className="flex flex-wrap gap-2">
-            <Button size="sm" onClick={() => set("all")}>Alle akzeptieren</Button>
-            <Button size="sm" variant="outline" onClick={() => set("essential")}>Nur notwendige</Button>
+            <Button size="sm" onClick={() => set("all")}>
+              Alle akzeptieren
+            </Button>
+            <Button size="sm" variant="outline" onClick={() => set("essential")}>
+              Nur notwendige
+            </Button>
           </div>
         </div>
       </LegalSection>
@@ -73,8 +84,8 @@ function Page() {
 
       <LegalSection title="Kontakt">
         <p>
-          Fragen zum Einsatz von Cookies richten Sie bitte an
-          {" "}<a href="mailto:privacy@beistand.de">privacy@beistand.de</a>.
+          Fragen zum Einsatz von Cookies richten Sie bitte an{" "}
+          <a href={`mailto:${publicLegal.privacyEmail}`}>{publicLegal.privacyEmail}</a>.
         </p>
       </LegalSection>
     </LegalArticle>

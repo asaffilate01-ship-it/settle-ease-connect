@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 const SubmitSchema = z.object({
   university: z.string().min(2).max(200),
@@ -12,15 +13,23 @@ const SubmitSchema = z.object({
 
 export const submitStudentVerification = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => SubmitSchema.parse(raw))
+  .validator((raw: unknown) => SubmitSchema.parse(raw))
   .handler(async ({ data, context }) => {
+    if (
+      !data.id_document_path.startsWith(`${context.userId}/`) ||
+      data.id_document_path.includes("..")
+    ) {
+      throw new Error("Invalid verification document path");
+    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     // Replace any prior pending record.
-    await context.supabase
+    const { error: cleanupError } = await supabaseAdmin
       .from("student_verifications")
       .delete()
       .eq("user_id", context.userId)
       .eq("status", "pending");
-    const { data: row, error } = await context.supabase
+    if (cleanupError) throw new Error(cleanupError.message);
+    const { data: row, error } = await supabaseAdmin
       .from("student_verifications")
       .insert({
         user_id: context.userId,
@@ -29,6 +38,8 @@ export const submitStudentVerification = createServerFn({ method: "POST" })
         student_id_number: data.student_id_number ?? null,
         id_document_path: data.id_document_path,
         valid_until: data.valid_until || null,
+        status: "pending",
+        discount_percent: 20,
       })
       .select("*")
       .single();
@@ -50,10 +61,8 @@ export const getMyStudentVerification = createServerFn({ method: "GET" })
   });
 
 export const listStudentVerifications = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({ status: z.string().optional() }).parse(raw ?? {}),
-  )
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) => z.object({ status: z.string().optional() }).parse(raw ?? {}))
   .handler(async ({ data, context }) => {
     const { data: internal } = await context.supabase.rpc("is_internal", {
       _user_id: context.userId,
@@ -70,13 +79,12 @@ export const listStudentVerifications = createServerFn({ method: "GET" })
   });
 
 export const reviewStudentVerification = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
         status: z.enum(["approved", "rejected"]),
-        discount_percent: z.number().int().min(0).max(100).optional(),
         reviewer_notes: z.string().max(1000).optional(),
       })
       .parse(raw),
@@ -91,11 +99,10 @@ export const reviewStudentVerification = createServerFn({ method: "POST" })
       reviewer_notes: data.reviewer_notes ?? null,
       reviewed_by: context.userId,
       reviewed_at: new Date().toISOString(),
-      ...(typeof data.discount_percent === "number"
-        ? { discount_percent: data.discount_percent }
-        : {}),
+      ...(data.status === "approved" ? { discount_percent: 20 } : {}),
     };
-    const { error } = await context.supabase
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
       .from("student_verifications")
       .update(patch)
       .eq("id", data.id);
@@ -105,14 +112,12 @@ export const reviewStudentVerification = createServerFn({ method: "POST" })
 
 export const signStudentIdUpload = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({ filename: z.string().min(1).max(200) }).parse(raw),
-  )
+  .validator((raw: unknown) => z.object({ filename: z.string().min(1).max(200) }).parse(raw))
   .handler(async ({ data, context }) => {
-    const safe = data.filename.replace(/[^\w.\-]+/g, "_");
-    const path = `student-ids/${context.userId}/${Date.now()}-${safe}`;
+    const safe = data.filename.replace(/[^\w.-]+/g, "_");
+    const path = `${context.userId}/${Date.now()}-${safe}`;
     const { data: signed, error } = await context.supabase.storage
-      .from("vault")
+      .from("student-verifications")
       .createSignedUploadUrl(path);
     if (error) throw new Error(error.message);
     return { path, token: signed.token };

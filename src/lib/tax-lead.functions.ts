@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+import { enforcePublicRateLimit } from "@/lib/public-rate-limit.server";
 
 const TaxLeadSchema = z.object({
   full_name: z.string().trim().min(2).max(120),
@@ -28,25 +27,26 @@ const TaxLeadSchema = z.object({
   estimated_refund_eur: z.number().max(50_000).optional().nullable(),
   preferred_language: z.string().max(5).optional(),
   preferred_contact: z.enum(["email", "phone", "whatsapp"]).default("email"),
-  partner_referral: z.enum(["taxfix", "wundertax", "steuergo", "advisor", "unsure"]).optional().nullable(),
+  partner_referral: z
+    .enum(["taxfix", "wundertax", "steuergo", "advisor", "unsure"])
+    .optional()
+    .nullable(),
   notes: z.string().max(2000).optional().nullable(),
 });
 
-/**
- * Public tax-callback capture used on `/tax`. Feeds our Taxfix / Wundertax
- * partner referral funnel; funded via revenue-share so the client-facing price
- * stays flat (see /tax page copy).
- */
+/** Public, rate-limited request for contact about a possible tax-professional referral. */
 export const submitTaxLead = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => TaxLeadSchema.parse(raw))
+  .validator((raw: unknown) => TaxLeadSchema.parse(raw))
   .handler(async ({ data }) => {
-    const supabase = createClient<Database>(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_PUBLISHABLE_KEY!,
-      { auth: { persistSession: false, autoRefreshToken: false } },
-    );
+    await enforcePublicRateLimit({
+      scope: "tax-referral",
+      limit: 5,
+      windowSeconds: 3600,
+      subject: data.email.toLowerCase(),
+    });
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { error } = await supabase.from("tax_leads").insert({
+    const { error } = await supabaseAdmin.from("tax_leads").insert({
       full_name: data.full_name,
       email: data.email,
       phone: data.phone ?? null,

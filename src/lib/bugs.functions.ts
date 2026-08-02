@@ -41,14 +41,16 @@ export const listBugReports = createServerFn({ method: "GET" })
 
 export const createBugReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({
-      title: z.string().min(3).max(200),
-      description: z.string().max(5000).optional().nullable(),
-      severity: z.enum(["low", "medium", "high", "critical"]),
-      source_route: z.string().max(500).optional().nullable(),
-      user_agent: z.string().max(2000).optional().nullable(),
-    }).parse(raw),
+  .validator((raw: unknown) =>
+    z
+      .object({
+        title: z.string().min(3).max(200),
+        description: z.string().max(5000).optional().nullable(),
+        severity: z.enum(["low", "medium", "high", "critical"]),
+        source_route: z.string().max(500).optional().nullable(),
+        user_agent: z.string().max(2000).optional().nullable(),
+      })
+      .parse(raw),
   )
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("bug_reports").insert({
@@ -65,12 +67,14 @@ export const createBugReport = createServerFn({ method: "POST" })
 
 export const updateBugReportStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({
-      id: z.string().uuid(),
-      status: z.enum(["open", "in_progress", "resolved", "closed"]),
-      assigned_to: z.string().uuid().optional().nullable(),
-    }).parse(raw),
+  .validator((raw: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        status: z.enum(["open", "in_progress", "resolved", "closed"]),
+        assigned_to: z.string().uuid().optional().nullable(),
+      })
+      .parse(raw),
   )
   .handler(async ({ data, context }) => {
     const isInternal = await assertInternal(context);
@@ -91,7 +95,7 @@ export const updateBugReportStatus = createServerFn({ method: "POST" })
 
 export const deleteBugReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("bug_reports")

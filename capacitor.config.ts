@@ -1,30 +1,31 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
+const configuredServerUrl = process.env.CAPACITOR_SERVER_URL?.trim();
+const serverUrl = configuredServerUrl ? new URL(configuredServerUrl) : null;
+
+if (serverUrl && serverUrl.protocol !== "https:") {
+  throw new Error("CAPACITOR_SERVER_URL must use HTTPS");
+}
+
 /**
- * Capacitor configuration for the Beistand native shell (iOS + Android).
- *
- * Strategy: the native app is a thin shell around the same TanStack Start
- * web app. In development we point `server.url` at the Lovable preview so
- * every code change ships to the device instantly. For production builds
- * change `server.url` to your custom domain (or remove it and run
- * `bun run build && npx cap copy` to embed a static bundle in `webDir`).
+ * Production mobile strategy: a signed Capacitor shell loads the deployed
+ * TanStack Start application from CAPACITOR_SERVER_URL. TanStack Start is an
+ * SSR application, so it cannot be copied into Capacitor as a static bundle.
+ * `native-shell` is a small, local fail-safe shown only when no server URL was
+ * supplied at sync/build time.
  */
 const config: CapacitorConfig = {
-  appId: "app.lovable.beistand",
-  appName: "Beistand",
-  webDir: "dist/client",
-  server: {
-    url: "https://id-preview--3f46c97f-04a4-4979-bb65-a197320d0525.lovable.app",
-    cleartext: true,
-    androidScheme: "https",
-    allowNavigation: [
-      "*.lovable.app",
-      "*.lovableproject.com",
-      "*.supabase.co",
-      "fonts.googleapis.com",
-      "fonts.gstatic.com",
-    ],
-  },
+  appId: "de.beistandplus.app",
+  appName: "BeistandPlus",
+  webDir: "native-shell",
+  ...(serverUrl && {
+    server: {
+      url: serverUrl.origin,
+      cleartext: false,
+      androidScheme: "https",
+      allowNavigation: [serverUrl.hostname],
+    },
+  }),
   ios: {
     contentInset: "always",
     limitsNavigationsToAppBoundDomains: false,
@@ -38,7 +39,7 @@ const config: CapacitorConfig = {
     SplashScreen: {
       launchShowDuration: 1200,
       launchAutoHide: true,
-      backgroundColor: "#001B2E",
+      backgroundColor: "#FFFFFF",
       showSpinner: false,
       androidSplashResourceName: "splash",
       splashFullScreen: true,

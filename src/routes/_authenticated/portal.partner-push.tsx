@@ -244,16 +244,14 @@ function PartnerDeliveryCentre() {
                         <span className="font-medium">
                           {endpoint.label} · {endpoint.partner_code}
                         </span>
-                        <Badge variant="outline">
-                          {endpoint.active ? "active" : "disabled"}
-                        </Badge>
+                        <Badge variant="outline">{endpoint.active ? "active" : "disabled"}</Badge>
                       </div>
                       <div className="mt-1 break-all text-xs text-muted-foreground">
                         {endpoint.endpoint_url}
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        secret env {endpoint.signing_secret_env} · {endpoint.max_attempts} attempts ·{" "}
-                        {endpoint.timeout_ms} ms
+                        secret env {endpoint.signing_secret_env} · {endpoint.max_attempts} attempts
+                        · {endpoint.timeout_ms} ms
                       </div>
                     </div>
                   ))

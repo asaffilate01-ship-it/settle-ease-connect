@@ -42,7 +42,7 @@ export const listFamilyAccess = createServerFn({ method: "GET" })
 
 export const inviteFamilyAccess = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         caseId: z.string().uuid(),
@@ -85,7 +85,7 @@ export const inviteFamilyAccess = createServerFn({ method: "POST" })
 
 export const revokeFamilyAccess = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await (context.supabase.from("case_access_grants") as any)
       .update({ status: "revoked", revoked_at: new Date().toISOString() })
@@ -97,9 +97,7 @@ export const revokeFamilyAccess = createServerFn({ method: "POST" })
 
 export const acceptFamilyAccess = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({ token: z.string().min(10).max(200) }).parse(raw),
-  )
+  .validator((raw: unknown) => z.object({ token: z.string().min(10).max(200) }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: caseId, error } = await context.supabase.rpc("accept_case_access_grant", {
       _token_hash: hashToken(data.token),

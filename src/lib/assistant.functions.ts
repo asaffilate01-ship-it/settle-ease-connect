@@ -22,7 +22,7 @@ const Input = z.object({
 /** Authenticated family guidance assistant, grounded in the internal service KB. */
 export const askFamilyAssistant = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => Input.parse(raw))
+  .validator((raw: unknown) => Input.parse(raw))
   .handler(async ({ data, context }) => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("AI is not configured.");
@@ -62,7 +62,8 @@ export const askFamilyAssistant = createServerFn({ method: "POST" })
       }),
     });
 
-    if (res.status === 429) throw new Error("The assistant is busy right now — please try again in a moment.");
+    if (res.status === 429)
+      throw new Error("The assistant is busy right now — please try again in a moment.");
     if (res.status === 402) throw new Error("AI credits are exhausted. Please contact support.");
     if (!res.ok) {
       const body = await res.text();

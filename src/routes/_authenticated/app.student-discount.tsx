@@ -6,7 +6,6 @@ import { GraduationCap, ShieldCheck, Upload, Loader2, BadgeCheck } from "lucide-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import {
   getMyStudentVerification,
@@ -51,7 +50,9 @@ function StudentDiscountPage() {
     setUploading(true);
     try {
       const { path, token } = await signUpload({ data: { filename: file.name } });
-      const { error } = await supabase.storage.from("vault").uploadToSignedUrl(path, token, file);
+      const { error } = await supabase.storage
+        .from("student-verifications")
+        .uploadToSignedUrl(path, token, file);
       if (error) throw new Error(error.message);
       setDocumentPath(path);
       toast.success("Document uploaded");
@@ -78,7 +79,7 @@ function StudentDiscountPage() {
         },
       });
       setExisting(row);
-      toast.success("Sent for review — we'll confirm within 24 hours");
+      toast.success("Sent for review — you will be notified when a decision is recorded");
     } catch (err) {
       toast.error((err as Error).message);
     } finally {
@@ -102,17 +103,18 @@ function StudentDiscountPage() {
         </div>
         <h1 className="display-lg mt-1 font-semibold">Verify your student status</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Upload a valid student ID or enrolment certificate. Once approved, 30% is deducted from any plan for as long as
-          your status is valid.
+          Upload a valid student ID or enrolment certificate. Once approved, 20% is deducted from
+          eligible tier subscriptions for as long as your status is valid.
         </p>
       </header>
 
-      {existing && existing.status !== "expired" && (
-        <StatusCard v={existing} />
-      )}
+      {existing && existing.status !== "expired" && <StatusCard v={existing} />}
 
       {(!existing || existing.status === "expired" || existing.status === "rejected") && (
-        <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+        <form
+          onSubmit={onSubmit}
+          className="space-y-4 rounded-2xl border border-border/60 bg-card p-6 shadow-soft"
+        >
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <Label htmlFor="university">University *</Label>
@@ -171,7 +173,7 @@ function StudentDiscountPage() {
               <input type="file" accept="image/*,.pdf" className="hidden" onChange={onFile} />
             </label>
             <p className="mt-1 text-xs text-muted-foreground">
-              Stored encrypted in your private vault — only reviewed by our verification team.
+              Stored in a private verification bucket and available only to you and assured staff.
             </p>
           </div>
 
@@ -187,17 +189,26 @@ function StudentDiscountPage() {
 
 function StatusCard({ v }: { v: NonNullable<Verification> }) {
   const tone =
-    v.status === "approved" ? "border-success/40 bg-success/10" :
-    v.status === "rejected" ? "border-destructive/40 bg-destructive/10" :
-    "border-border/60 bg-parchment/50";
+    v.status === "approved"
+      ? "border-success/40 bg-success/10"
+      : v.status === "rejected"
+        ? "border-destructive/40 bg-destructive/10"
+        : "border-border/60 bg-parchment/50";
   return (
     <div className={`rounded-2xl border p-6 ${tone}`}>
       <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider">
         <ShieldCheck className="h-4 w-4" /> Status: {v.status}
       </div>
       <div className="mt-2 text-sm">
-        <div><span className="text-muted-foreground">University:</span> {v.university}</div>
-        {v.valid_until && <div><span className="text-muted-foreground">Valid until:</span> {new Date(v.valid_until).toLocaleDateString()}</div>}
+        <div>
+          <span className="text-muted-foreground">University:</span> {v.university}
+        </div>
+        {v.valid_until && (
+          <div>
+            <span className="text-muted-foreground">Valid until:</span>{" "}
+            {new Date(v.valid_until).toLocaleDateString()}
+          </div>
+        )}
         {v.status === "approved" && (
           <div className="mt-2 font-semibold text-success">
             {v.discount_percent}% discount active on your BeistandPlus membership.
@@ -213,6 +224,3 @@ function StatusCard({ v }: { v: NonNullable<Verification> }) {
     </div>
   );
 }
-
-// Textarea kept imported for future note field.
-void Textarea;

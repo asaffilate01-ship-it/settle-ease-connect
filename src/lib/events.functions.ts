@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 export const EVENT_CATEGORIES = [
   "advice_clinic",
@@ -23,7 +24,7 @@ export type CommunityEvent = {
   event_date: string;
   end_date: string | null;
   location: string | null;
-  address: string | null
+  address: string | null;
   city: string | null;
   max_attendees: number | null;
   fee_eur: number;
@@ -56,7 +57,7 @@ const EVENT_COLUMNS =
 
 /** Public: upcoming published events, optionally filtered by category. */
 export const listUpcomingEvents = createServerFn({ method: "GET" })
-  .inputValidator((d: { category?: string } | undefined) => d ?? {})
+  .validator((d: { category?: string } | undefined) => d ?? {})
   .handler(async ({ data }): Promise<CommunityEvent[]> => {
     let query = publicClient()
       .from("community_events")
@@ -78,7 +79,7 @@ export const listUpcomingEvents = createServerFn({ method: "GET" })
 
 /** Public: a single published event. */
 export const getPublicEvent = createServerFn({ method: "GET" })
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data }): Promise<CommunityEvent | null> => {
     const { data: row, error } = await publicClient()
       .from("community_events")
@@ -113,7 +114,7 @@ export const myRegistrations = createServerFn({ method: "GET" })
 
 export const registerForEvent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         eventId: z.string().uuid(),
@@ -162,7 +163,7 @@ export const registerForEvent = createServerFn({ method: "POST" })
 
 export const cancelRegistration = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ registrationId: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ registrationId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("event_registrations")
@@ -183,7 +184,7 @@ async function assertInternal(context: { supabase: any; userId: string }) {
 }
 
 export const listAllEvents = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     await assertInternal(context);
     const { data, error } = await context.supabase
@@ -219,8 +220,8 @@ const eventInput = z.object({
 });
 
 export const saveEvent = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((d: unknown) =>
     z.object({ id: z.string().uuid().optional(), values: eventInput }).parse(d),
   )
   .handler(async ({ data, context }) => {
@@ -243,8 +244,8 @@ export const saveEvent = createServerFn({ method: "POST" })
   });
 
 export const deleteEvent = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     await assertInternal(context);
     const { error } = await context.supabase.from("community_events").delete().eq("id", data.id);
@@ -253,8 +254,8 @@ export const deleteEvent = createServerFn({ method: "POST" })
   });
 
 export const listEventRegistrations = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ eventId: z.string().uuid() }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator((d: unknown) => z.object({ eventId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     await assertInternal(context);
     const { data: rows, error } = await context.supabase
@@ -275,8 +276,8 @@ export const listEventRegistrations = createServerFn({ method: "GET" })
   });
 
 export const setRegistrationStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((d: unknown) =>
     z
       .object({
         registrationId: z.string().uuid(),

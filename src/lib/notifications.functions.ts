@@ -1,10 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 export const listMyNotifications = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ limit: z.number().min(1).max(200).optional() }).parse(raw ?? {}),
   )
   .handler(async ({ data, context }) => {
@@ -32,7 +33,7 @@ export const unreadCount = createServerFn({ method: "GET" })
 
 export const markNotificationRead = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ id: z.string().uuid().optional(), all: z.boolean().optional() }).parse(raw),
   )
   .handler(async ({ data, context }) => {
@@ -45,8 +46,8 @@ export const markNotificationRead = createServerFn({ method: "POST" })
   });
 
 export const createNotification = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         user_id: z.string().uuid(),
@@ -61,6 +62,12 @@ export const createNotification = createServerFn({ method: "POST" })
       .parse(raw),
   )
   .handler(async ({ data, context }) => {
+    if (data.user_id !== context.userId) {
+      const { data: internal } = await context.supabase.rpc("is_internal", {
+        _user_id: context.userId,
+      });
+      if (!internal) throw new Error("Forbidden");
+    }
     const { error } = await context.supabase.from("notifications").insert({
       user_id: data.user_id,
       kind: data.kind,
@@ -77,7 +84,7 @@ export const createNotification = createServerFn({ method: "POST" })
 
 export const savePushSubscription = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         platform: z.enum(["web", "ios", "android"]),
@@ -131,7 +138,7 @@ export const getMyPreferences = createServerFn({ method: "GET" })
 
 export const upsertPreferences = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         email_enabled: z.boolean().optional(),
@@ -152,8 +159,8 @@ export const upsertPreferences = createServerFn({ method: "POST" })
   });
 
 export const sendPushToUser = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         user_id: z.string().uuid(),
@@ -177,19 +184,11 @@ export const sendPushToUser = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: subs, error } = await supabaseAdmin
       .from("push_subscriptions")
-      .select("id, endpoint, p256dh, auth")
+      .select("id, platform, endpoint, p256dh, auth, device_token")
       .eq("user_id", data.user_id)
-      .eq("platform", "web")
-      .not("endpoint", "is", null);
+      .in("platform", ["web", "ios", "android"]);
     if (error) throw new Error(error.message);
     if (!subs?.length) return { ok: true, sent: 0 };
-
-    const webpush = (await import("web-push")).default;
-    const publicKey = process.env.VAPID_PUBLIC_KEY!;
-    const privateKey = process.env.VAPID_PRIVATE_KEY!;
-    const subject = process.env.VAPID_SUBJECT || "mailto:hello@beistandplus.de";
-    if (!publicKey || !privateKey) throw new Error("VAPID keys not configured");
-    webpush.setVapidDetails(subject, publicKey, privateKey);
 
     const payload = JSON.stringify({
       title: data.title,
@@ -200,23 +199,77 @@ export const sendPushToUser = createServerFn({ method: "POST" })
     });
 
     let sent = 0;
-    await Promise.all(
-      subs.map(async (s) => {
-        try {
-          await webpush.sendNotification(
-            { endpoint: s.endpoint!, keys: { p256dh: s.p256dh!, auth: s.auth! } },
-            payload,
-          );
-          sent++;
-        } catch (err: any) {
-          // 404/410 => subscription gone; drop it.
-          if (err?.statusCode === 404 || err?.statusCode === 410) {
-            await supabaseAdmin.from("push_subscriptions").delete().eq("id", s.id);
-          } else {
-            console.warn("[push] send failed", err?.statusCode, err?.body);
-          }
-        }
-      }),
+    const webSubscriptions = subs.filter(
+      (subscription) => subscription.platform === "web" && subscription.endpoint,
     );
+    if (webSubscriptions.length) {
+      const webpush = (await import("web-push")).default;
+      const publicKey = process.env.VAPID_PUBLIC_KEY!;
+      const privateKey = process.env.VAPID_PRIVATE_KEY!;
+      const subject = process.env.VAPID_SUBJECT || "mailto:security@beistandplus.de";
+      if (!publicKey || !privateKey) throw new Error("VAPID keys not configured");
+      webpush.setVapidDetails(subject, publicKey, privateKey);
+
+      await Promise.all(
+        webSubscriptions.map(async (subscription) => {
+          try {
+            await webpush.sendNotification(
+              {
+                endpoint: subscription.endpoint!,
+                keys: { p256dh: subscription.p256dh!, auth: subscription.auth! },
+              },
+              payload,
+            );
+            sent += 1;
+          } catch (sendError: any) {
+            if (sendError?.statusCode === 404 || sendError?.statusCode === 410) {
+              await supabaseAdmin.from("push_subscriptions").delete().eq("id", subscription.id);
+            } else {
+              console.warn("[push] web delivery failed", sendError?.statusCode);
+            }
+          }
+        }),
+      );
+    }
+
+    const nativeSubscriptions = subs.filter(
+      (subscription) => subscription.platform !== "web" && subscription.device_token,
+    );
+    if (nativeSubscriptions.length) {
+      const endpoint = process.env.NATIVE_PUSH_DELIVERY_ENDPOINT;
+      const bearer = process.env.NATIVE_PUSH_DELIVERY_BEARER_TOKEN;
+      if (!endpoint || !bearer || new URL(endpoint).protocol !== "https:") {
+        throw new Error("Native push delivery is not configured");
+      }
+      await Promise.all(
+        nativeSubscriptions.map(async (subscription) => {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            redirect: "error",
+            signal: AbortSignal.timeout(10_000),
+            headers: {
+              Authorization: `Bearer ${bearer}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              platform: subscription.platform,
+              deviceToken: subscription.device_token,
+              title: data.title,
+              body: data.body,
+              link: data.link,
+              tag: data.tag,
+              kind: data.kind,
+            }),
+          });
+          if (response.status === 404 || response.status === 410) {
+            await supabaseAdmin.from("push_subscriptions").delete().eq("id", subscription.id);
+            return;
+          }
+          if (!response.ok) throw new Error(`Native push gateway returned ${response.status}`);
+          sent += 1;
+        }),
+      );
+    }
+
     return { ok: true, sent };
   });

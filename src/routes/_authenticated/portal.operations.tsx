@@ -11,9 +11,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 import {
   listSlaCases,
@@ -29,7 +42,10 @@ const apptQ = queryOptions({
   queryKey: ["ops", "appointments"],
   queryFn: () => listUpcomingAppointments({ data: { days: 30 } }),
 });
-const openCasesQ = queryOptions({ queryKey: ["ops", "open-cases"], queryFn: () => listOpenCases() });
+const openCasesQ = queryOptions({
+  queryKey: ["ops", "open-cases"],
+  queryFn: () => listOpenCases(),
+});
 
 export const Route = createFileRoute("/_authenticated/portal/operations")({
   head: () => ({ meta: [{ title: "Case Operations — BeistandPlus" }] }),
@@ -100,14 +116,34 @@ function SlaPanel() {
 
   return (
     <div className="grid gap-4 md:grid-cols-3">
-      <SlaColumn title="Breached" icon={<XCircle className="h-4 w-4 text-red-600" />} rows={breached} />
-      <SlaColumn title="At risk (<24h)" icon={<Clock className="h-4 w-4 text-amber-600" />} rows={atRisk} />
-      <SlaColumn title="On track" icon={<CheckCircle2 className="h-4 w-4 text-emerald-600" />} rows={onTrack} />
+      <SlaColumn
+        title="Breached"
+        icon={<XCircle className="h-4 w-4 text-red-600" />}
+        rows={breached}
+      />
+      <SlaColumn
+        title="At risk (<24h)"
+        icon={<Clock className="h-4 w-4 text-amber-600" />}
+        rows={atRisk}
+      />
+      <SlaColumn
+        title="On track"
+        icon={<CheckCircle2 className="h-4 w-4 text-emerald-600" />}
+        rows={onTrack}
+      />
     </div>
   );
 }
 
-function SlaColumn({ title, icon, rows }: { title: string; icon: React.ReactNode; rows: Array<any> }) {
+function SlaColumn({
+  title,
+  icon,
+  rows,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  rows: Array<any>;
+}) {
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -194,7 +230,9 @@ function AppointmentsPanel() {
                         Join meeting
                       </a>
                     )}
-                    {a.description && <div className="text-xs text-muted-foreground">{a.description}</div>}
+                    {a.description && (
+                      <div className="text-xs text-muted-foreground">{a.description}</div>
+                    )}
                   </div>
                   <div className="flex gap-1 shrink-0">
                     {a.status === "scheduled" && (
@@ -280,10 +318,14 @@ function NewAppointmentDialog({ cases }: { cases: Array<{ id: string; title: str
           <div>
             <Label>Case</Label>
             <Select value={caseId} onValueChange={setCaseId}>
-              <SelectTrigger><SelectValue placeholder="Pick a case" /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue placeholder="Pick a case" />
+              </SelectTrigger>
               <SelectContent>
                 {cases.map((c) => (
-                  <SelectItem key={c.id} value={c.id}>{c.title}</SelectItem>
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.title}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -295,24 +337,44 @@ function NewAppointmentDialog({ cases }: { cases: Array<{ id: string; title: str
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>Starts</Label>
-              <Input type="datetime-local" value={startsAt} onChange={(e) => setStartsAt(e.target.value)} />
+              <Input
+                type="datetime-local"
+                value={startsAt}
+                onChange={(e) => setStartsAt(e.target.value)}
+              />
             </div>
             <div>
               <Label>Ends</Label>
-              <Input type="datetime-local" value={endsAt} onChange={(e) => setEndsAt(e.target.value)} />
+              <Input
+                type="datetime-local"
+                value={endsAt}
+                onChange={(e) => setEndsAt(e.target.value)}
+              />
             </div>
           </div>
           <div>
             <Label>Location</Label>
-            <Input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Office / address" />
+            <Input
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Office / address"
+            />
           </div>
           <div>
             <Label>Meeting URL (optional)</Label>
-            <Input value={meetingUrl} onChange={(e) => setMeetingUrl(e.target.value)} placeholder="https://…" />
+            <Input
+              value={meetingUrl}
+              onChange={(e) => setMeetingUrl(e.target.value)}
+              placeholder="https://…"
+            />
           </div>
           <div>
             <Label>Notes</Label>
-            <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} />
+            <Textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={2}
+            />
           </div>
         </div>
         <DialogFooter>
@@ -332,9 +394,9 @@ function NewAppointmentDialog({ cases }: { cases: Array<{ id: string; title: str
 function ClosurePanel() {
   const { data: cases } = useSuspenseQuery(openCasesQ);
   const [caseId, setCaseId] = useState("");
-  const [outcome, setOutcome] = useState<"resolved" | "referred" | "declined" | "withdrawn" | "no_contact" | "other">(
-    "resolved",
-  );
+  const [outcome, setOutcome] = useState<
+    "resolved" | "referred" | "declined" | "withdrawn" | "no_contact" | "other"
+  >("resolved");
   const [reason, setReason] = useState("");
   const [summary, setSummary] = useState("");
   const [followUpNeeded, setFollowUpNeeded] = useState(false);
@@ -346,7 +408,15 @@ function ClosurePanel() {
   const mut = useMutation({
     mutationFn: () =>
       close({
-        data: { caseId, outcome, reason, summary, followUpNeeded, followUpNotes: followUpNotes || undefined, requestCsat },
+        data: {
+          caseId,
+          outcome,
+          reason,
+          summary,
+          followUpNeeded,
+          followUpNotes: followUpNotes || undefined,
+          requestCsat,
+        },
       }),
     onSuccess: () => {
       toast.success("Case closed");
@@ -369,10 +439,14 @@ function ClosurePanel() {
         <div>
           <Label>Case</Label>
           <Select value={caseId} onValueChange={setCaseId}>
-            <SelectTrigger><SelectValue placeholder="Pick an open case" /></SelectTrigger>
+            <SelectTrigger>
+              <SelectValue placeholder="Pick an open case" />
+            </SelectTrigger>
             <SelectContent>
               {cases.map((c) => (
-                <SelectItem key={c.id} value={c.id}>{c.title}</SelectItem>
+                <SelectItem key={c.id} value={c.id}>
+                  {c.title}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -380,7 +454,9 @@ function ClosurePanel() {
         <div>
           <Label>Outcome</Label>
           <Select value={outcome} onValueChange={(v) => setOutcome(v as typeof outcome)}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="resolved">Resolved</SelectItem>
               <SelectItem value="referred">Referred to partner</SelectItem>
@@ -410,11 +486,19 @@ function ClosurePanel() {
         {followUpNeeded && (
           <div>
             <Label>Follow-up notes</Label>
-            <Textarea rows={2} value={followUpNotes} onChange={(e) => setFollowUpNotes(e.target.value)} />
+            <Textarea
+              rows={2}
+              value={followUpNotes}
+              onChange={(e) => setFollowUpNotes(e.target.value)}
+            />
           </div>
         )}
         <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={requestCsat} onChange={(e) => setRequestCsat(e.target.checked)} />
+          <input
+            type="checkbox"
+            checked={requestCsat}
+            onChange={(e) => setRequestCsat(e.target.checked)}
+          />
           Send CSAT request to client
         </label>
         <Button

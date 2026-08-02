@@ -7,7 +7,9 @@ export const listCommunityPosts = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("community_posts")
-      .select("id, title, body, category, city, language, status, reply_count, created_at, author_user_id")
+      .select(
+        "id, title, body, category, city, language, status, reply_count, created_at, author_user_id",
+      )
       .neq("status", "hidden")
       .order("created_at", { ascending: false })
       .limit(50);
@@ -17,12 +19,16 @@ export const listCommunityPosts = createServerFn({ method: "GET" })
 
 export const createCommunityPost = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({
-    title: z.string().min(3).max(160),
-    body: z.string().min(5).max(4000),
-    category: z.string().min(1).max(40).default("general"),
-    city: z.string().max(80).optional(),
-  }).parse(d))
+  .validator((d) =>
+    z
+      .object({
+        title: z.string().min(3).max(160),
+        body: z.string().min(5).max(4000),
+        category: z.string().min(1).max(40).default("general"),
+        city: z.string().max(80).optional(),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
     const { data: row, error } = await context.supabase
       .from("community_posts")
@@ -35,7 +41,7 @@ export const createCommunityPost = createServerFn({ method: "POST" })
 
 export const listPostReplies = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({ postId: z.string().uuid() }).parse(d))
+  .validator((d) => z.object({ postId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("community_replies")
@@ -48,15 +54,26 @@ export const listPostReplies = createServerFn({ method: "GET" })
 
 export const replyToPost = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({
-    postId: z.string().uuid(),
-    body: z.string().min(1).max(2000),
-  }).parse(d))
+  .validator((d) =>
+    z
+      .object({
+        postId: z.string().uuid(),
+        body: z.string().min(1).max(2000),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
-    const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     const { data: row, error } = await context.supabase
       .from("community_replies")
-      .insert({ post_id: data.postId, body: data.body, author_user_id: context.userId, is_staff: !!internal })
+      .insert({
+        post_id: data.postId,
+        body: data.body,
+        author_user_id: context.userId,
+        is_staff: !!internal,
+      })
       .select()
       .single();
     if (error) throw new Error(error.message);

@@ -24,9 +24,7 @@ function ProvidersPage() {
   const categories = useMemo(
     () => [
       "All",
-      ...Array.from(
-        new Set(listings.map((l) => l.category).filter((c): c is string => !!c)),
-      ),
+      ...Array.from(new Set(listings.map((l) => l.category).filter((c): c is string => !!c))),
     ],
     [listings],
   );
@@ -93,10 +91,7 @@ function ProvidersPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
-            <div
-              key={p.id}
-              className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft"
-            >
+            <div key={p.id} className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
               <div className="flex items-start justify-between">
                 <div className="min-w-0">
                   <div className="font-display text-lg font-semibold truncate">
@@ -121,9 +116,7 @@ function ProvidersPage() {
                 )}
               </div>
               {p.description && (
-                <p className="mt-3 line-clamp-3 text-sm text-muted-foreground">
-                  {p.description}
-                </p>
+                <p className="mt-3 line-clamp-3 text-sm text-muted-foreground">{p.description}</p>
               )}
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {(p.languages ?? []).map((l) => (

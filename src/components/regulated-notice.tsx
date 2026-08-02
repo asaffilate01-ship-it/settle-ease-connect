@@ -4,11 +4,10 @@ type Domain = "insurance" | "funeral" | "tax" | "legal" | "immigration" | "educa
 
 const COPY: Record<Domain, string> = {
   insurance:
-    "BeistandPlus is not an insurer. Cover is arranged through licensed broker partners (§34d GewO) with BaFin-supervised carriers. Any figures shown before a partner confirms them are non-binding estimates, and the binding offer, terms and pricing come from the provider. Commission is disclosed on request.",
+    "BeistandPlus is not an insurer and does not give insurance advice. Where a referral service is active, the licensed provider confirms its identity, regulatory status, offer, terms and pricing before you decide. Any commission is disclosed as required.",
   funeral:
-    "Funeral cover is a product of a licensed provider regulated under German law. BeistandPlus acts as introducer (Tippgeber / §34d GewO broker where applicable) and gives no insurance advice. Payout amounts, waiting periods and exclusions are set by the provider's policy documents, which prevail over anything on this page.",
-  tax:
-    "BeistandPlus is not a tax advisor and gives no tax advice (§4 StBerG). Any estimate shown is an indication only. Filing and regulated advice are provided by independent Steuerberater partners who contract with you directly and set their own fees.",
+    "BeistandPlus does not underwrite funeral cover or give insurance advice. Where an introduction is available, benefit amounts, eligibility, waiting periods, exclusions and payout handling are determined only by the licensed provider's policy documents.",
+  tax: "BeistandPlus is not a tax advisor and gives no tax advice (§4 StBerG). Any estimate shown is an indication only. Filing and regulated advice are provided by independent Steuerberater partners who contract with you directly and set their own fees.",
   legal:
     "BeistandPlus is not a law firm and gives no legal advice (§3 RDG). We explain process, translate documents and coordinate paperwork. Legal advice, representation and any retainer come from independent lawyers or notaries who contract with you directly.",
   immigration:
@@ -33,8 +32,8 @@ export function RegulatedNotice({
         <p className="leading-relaxed">
           <span className="font-semibold text-foreground">Scope of our service. </span>
           {COPY[domain]}
-          {extra ? ` ${extra}` : ""}{" "}
-          Third-party costs are always shown separately and never hidden in our fee.
+          {extra ? ` ${extra}` : ""} Third-party costs are always shown separately and never hidden
+          in our fee.
         </p>
       </div>
     </section>

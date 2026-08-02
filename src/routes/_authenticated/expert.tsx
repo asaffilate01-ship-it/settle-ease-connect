@@ -2,7 +2,16 @@ import { createFileRoute, Outlet, Link, useNavigate, redirect } from "@tanstack/
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { LogOut, Home, Briefcase, Wallet, UserCircle, FileText, Receipt, CalendarClock } from "lucide-react";
+import {
+  LogOut,
+  Home,
+  Briefcase,
+  Wallet,
+  UserCircle,
+  FileText,
+  Receipt,
+  CalendarClock,
+} from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
 import { MobileNavMenu } from "@/components/mobile-nav-sheet";
@@ -34,9 +43,7 @@ export const Route = createFileRoute("/_authenticated/expert")({
       .eq("user_id", u.user.id);
     const roles = (rolesData ?? []).map((r: { role: string }) => r.role);
     const isExpert = roles.some((r) => (EXPERT_ROLES as readonly string[]).includes(r));
-    const isInternal = roles.some((r) =>
-      ["admin", "staff", "case_manager"].includes(r),
-    );
+    const isInternal = roles.some((r) => ["admin", "staff", "case_manager"].includes(r));
     if (!isExpert && !isInternal) throw redirect({ to: "/app" });
   },
   head: () => ({ meta: [{ title: "Expert portal — BeistandPlus" }] }),
@@ -51,13 +58,42 @@ function ExpertLayout() {
   const name = profile?.full_name || user?.email?.split("@")[0] || "Expert";
 
   const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
-    { to: "/expert", label: t("expert.nav.overview", { defaultValue: "Overview" }), icon: Home, exact: true },
-    { to: "/expert/cases", label: t("expert.nav.cases", { defaultValue: "My cases" }), icon: Briefcase },
-    { to: "/expert/quotes", label: t("expert.nav.quotes", { defaultValue: "Quotes" }), icon: FileText },
-    { to: "/expert/invoices", label: t("expert.nav.invoices", { defaultValue: "Invoices" }), icon: Receipt },
-    { to: "/expert/payouts", label: t("expert.nav.payouts", { defaultValue: "Earnings" }), icon: Wallet },
-    { to: "/expert/availability", label: t("expert.nav.availability", { defaultValue: "Availability" }), icon: CalendarClock },
-    { to: "/expert/profile", label: t("expert.nav.profile", { defaultValue: "Profile" }), icon: UserCircle },
+    {
+      to: "/expert",
+      label: t("expert.nav.overview", { defaultValue: "Overview" }),
+      icon: Home,
+      exact: true,
+    },
+    {
+      to: "/expert/cases",
+      label: t("expert.nav.cases", { defaultValue: "My cases" }),
+      icon: Briefcase,
+    },
+    {
+      to: "/expert/quotes",
+      label: t("expert.nav.quotes", { defaultValue: "Quotes" }),
+      icon: FileText,
+    },
+    {
+      to: "/expert/invoices",
+      label: t("expert.nav.invoices", { defaultValue: "Invoices" }),
+      icon: Receipt,
+    },
+    {
+      to: "/expert/payouts",
+      label: t("expert.nav.payouts", { defaultValue: "Earnings" }),
+      icon: Wallet,
+    },
+    {
+      to: "/expert/availability",
+      label: t("expert.nav.availability", { defaultValue: "Availability" }),
+      icon: CalendarClock,
+    },
+    {
+      to: "/expert/profile",
+      label: t("expert.nav.profile", { defaultValue: "Profile" }),
+      icon: UserCircle,
+    },
   ];
 
   async function handleSignOut() {
@@ -70,7 +106,10 @@ function ExpertLayout() {
   return (
     <div className="flex min-h-dvh bg-background">
       <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
-        <Link to="/expert" className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5">
+        <Link
+          to="/expert"
+          className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5"
+        >
           <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 shadow-soft">
             <img src={logoMark} alt="" className="h-6 w-6 object-contain brightness-0 invert" />
           </div>
@@ -119,11 +158,14 @@ function ExpertLayout() {
             onSignOut={handleSignOut}
           />
           <Link to="/expert" className="flex items-center gap-2 lg:hidden">
-            <span className="font-display text-lg font-semibold">{t("expert.shortLabel", { defaultValue: "Expert" })}</span>
+            <span className="font-display text-lg font-semibold">
+              {t("expert.shortLabel", { defaultValue: "Expert" })}
+            </span>
           </Link>
           <div className="ml-auto flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={handleSignOut} className="lg:hidden">
-              <LogOut className="mr-2 h-4 w-4" /> {t("sidebar.signOut", { defaultValue: "Sign out" })}
+              <LogOut className="mr-2 h-4 w-4" />{" "}
+              {t("sidebar.signOut", { defaultValue: "Sign out" })}
             </Button>
           </div>
         </header>

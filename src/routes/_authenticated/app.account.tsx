@@ -4,7 +4,6 @@ import { useServerFn } from "@tanstack/react-start";
 import { getMyAccountSummary, getMyAuditTrail } from "@/lib/account.functions";
 import { createPortalSession } from "@/lib/payments.functions";
 import { getStripeEnvironment, isPaymentsConfigured } from "@/lib/stripe";
-import { evaluateBenefits } from "@/lib/benefits-eligibility";
 import { PrivacyPanel } from "@/components/settings/privacy-panel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
@@ -24,7 +23,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useMemo } from "react";
+import { isNative, nativePlatform } from "@/lib/native";
 
 export const Route = createFileRoute("/_authenticated/app/account")({
   head: () => ({
@@ -43,7 +42,11 @@ export const Route = createFileRoute("/_authenticated/app/account")({
 
 function fmtDate(v?: string | null) {
   if (!v) return "—";
-  return new Date(v).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  return new Date(v).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 }
 function fmtEur(n?: number | null) {
   if (n == null) return "—";
@@ -71,6 +74,7 @@ function AccountPage() {
       const result = await portalFn({
         data: {
           environment: env,
+          clientPlatform: nativePlatform(),
           returnUrl: `${window.location.origin}/app/account`,
         },
       });
@@ -93,8 +97,8 @@ function AccountPage() {
           My account
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          Your plan, billing, benefits, guardians and activity — everything BeistandPlus knows
-          about your household, on one page.
+          Your plan, billing, benefits, guardians and activity — everything BeistandPlus knows about
+          your household, on one page.
         </p>
       </header>
 
@@ -125,8 +129,15 @@ function AccountPage() {
                 }
                 action={
                   s?.subscription ? (
-                    <Button size="sm" variant="outline" onClick={() => openPortal.mutate()} disabled={openPortal.isPending}>
-                      Manage <ExternalLink className="ml-1 h-3 w-3" />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => openPortal.mutate()}
+                      disabled={openPortal.isPending || isNative()}
+                      title={isNative() ? "Manage billing from your web account" : undefined}
+                    >
+                      {isNative() ? "Manage on web" : "Manage"}
+                      <ExternalLink className="ml-1 h-3 w-3" />
                     </Button>
                   ) : (
                     <Button size="sm" onClick={() => navigate({ to: "/app/upgrade" })}>
@@ -139,7 +150,7 @@ function AccountPage() {
                 icon={<FileText className="h-4 w-4" />}
                 label="Vault documents"
                 value={String(s?.documents.length ?? 0)}
-                sub="Encrypted at rest · audit logged"
+                sub="Access-scoped · audit logged"
                 action={
                   <Button size="sm" variant="ghost" asChild>
                     <Link to="/app/documents">Open vault</Link>
@@ -161,7 +172,9 @@ function AccountPage() {
                 icon={<Activity className="h-4 w-4" />}
                 label="Open cases"
                 value={String(
-                  s?.cases.filter((c) => !["closed", "resolved", "cancelled"].includes(c.status ?? "")).length ?? 0,
+                  s?.cases.filter(
+                    (c) => !["closed", "resolved", "cancelled"].includes(c.status ?? ""),
+                  ).length ?? 0,
                 )}
                 sub={`${s?.cases.length ?? 0} total`}
                 action={
@@ -183,9 +196,9 @@ function AccountPage() {
               />
               <StatCard
                 icon={<CheckCircle2 className="h-4 w-4" />}
-                label="Benefits claimed"
+                label="Referral requests"
                 value={String((s?.insuranceLeads.length ?? 0) + (s?.taxLeads.length ?? 0))}
-                sub="Insurance + tax leads"
+                sub="Insurance + tax enquiries"
                 action={
                   <Button size="sm" variant="ghost" asChild>
                     <Link to="/app/benefits">See eligibility</Link>
@@ -203,6 +216,7 @@ function AccountPage() {
             loading={summaryQ.isLoading}
             onOpenPortal={() => openPortal.mutate()}
             portalPending={openPortal.isPending}
+            nativeBillingDisabled={isNative()}
           />
         </TabsContent>
 
@@ -271,11 +285,13 @@ function BillingPanel({
   loading,
   onOpenPortal,
   portalPending,
+  nativeBillingDisabled,
 }: {
   summary: any;
   loading: boolean;
   onOpenPortal: () => void;
   portalPending: boolean;
+  nativeBillingDisabled: boolean;
 }) {
   if (loading) return <Skeleton className="h-48 w-full" />;
   const sub = summary?.subscription;
@@ -284,7 +300,9 @@ function BillingPanel({
       <Card>
         <CardHeader>
           <CardTitle>No active subscription</CardTitle>
-          <CardDescription>Choose a plan to unlock case management, vault deputies and benefits assistance.</CardDescription>
+          <CardDescription>
+            Choose a plan to unlock case management, vault deputies and benefits assistance.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Button asChild>
@@ -312,20 +330,33 @@ function BillingPanel({
         <CardContent className="space-y-3">
           <dl className="space-y-1.5 text-sm">
             <Row label="Monthly amount" value={fmtEur(price)} />
-            <Row label="Current period" value={`${fmtDate(sub.current_period_start)} → ${fmtDate(sub.current_period_end)}`} />
-            <Row label="Next charge" value={isCanceling ? "— (cancelled)" : fmtDate(sub.current_period_end)} />
+            <Row
+              label="Current period"
+              value={`${fmtDate(sub.current_period_start)} → ${fmtDate(sub.current_period_end)}`}
+            />
+            <Row
+              label="Next charge"
+              value={isCanceling ? "— (cancelled)" : fmtDate(sub.current_period_end)}
+            />
             <Row label="Environment" value={sub.environment ?? "sandbox"} />
           </dl>
           <div className="flex flex-wrap gap-2 pt-2">
-            <Button onClick={onOpenPortal} disabled={portalPending}>
-              {portalPending ? "Opening…" : "Manage billing"} <ExternalLink className="ml-1 h-3 w-3" />
+            <Button onClick={onOpenPortal} disabled={portalPending || nativeBillingDisabled}>
+              {portalPending
+                ? "Opening…"
+                : nativeBillingDisabled
+                  ? "Manage billing on web"
+                  : "Manage billing"}
+              <ExternalLink className="ml-1 h-3 w-3" />
             </Button>
             <Button variant="outline" asChild>
               <Link to="/app/upgrade">Change plan</Link>
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">
-            Invoices, receipts and payment methods live in the Stripe customer portal (opens in a new tab).
+            {nativeBillingDisabled
+              ? "For store-review compliance, invoices and payment methods are managed from your secure web account."
+              : "Invoices, receipts and payment methods live in the Stripe customer portal (opens in a new tab)."}
           </p>
         </CardContent>
       </Card>
@@ -343,7 +374,7 @@ function BillingPanel({
                 <span>{f}</span>
               </li>
             ))}
-            {!(sub.plan?.features?.length) && (
+            {!sub.plan?.features?.length && (
               <li className="text-muted-foreground">Plan features not loaded.</li>
             )}
           </ul>
@@ -354,33 +385,23 @@ function BillingPanel({
 }
 
 function BenefitsPanel({ summary, loading }: { summary: any; loading: boolean }) {
-  const verdicts = useMemo(() => {
-    // Best-effort quick eligibility snapshot from household size + insurance leads
-    if (!summary) return [];
-    return evaluateBenefits({
-      householdSize: Math.max(1, 1 + (summary.familyMembers?.length ?? 0)),
-      childrenUnder18: (summary.familyMembers ?? []).filter(
-        (m: any) => (m.relationship ?? "").toLowerCase().includes("child"),
-      ).length,
-      residence: "other",
-      monthlyIncome: 3000,
-      employment: "employed",
-      housing: "rented",
-    });
-  }, [summary]);
-
   if (loading) return <Skeleton className="h-48 w-full" />;
 
   return (
     <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle>Benefits claimed</CardTitle>
-          <CardDescription>Insurance quotes and tax filings we hold for you.</CardDescription>
+          <CardTitle>Referral and filing requests</CardTitle>
+          <CardDescription>
+            Requests recorded in your account. They are not proof of cover, a filed return or an
+            official benefit decision.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           {[...(summary?.insuranceLeads ?? []), ...(summary?.taxLeads ?? [])].length === 0 ? (
-            <p className="text-sm text-muted-foreground">No claims on record yet. Explore your benefits from the sidebar.</p>
+            <p className="text-sm text-muted-foreground">
+              No insurance or tax referral requests are recorded.
+            </p>
           ) : (
             <ul className="divide-y divide-border/60">
               {(summary?.insuranceLeads ?? []).map((l: any) => (
@@ -390,11 +411,6 @@ function BenefitsPanel({ summary, loading }: { summary: any; loading: boolean })
                     <span>{l.product_line ?? "—"}</span>
                   </span>
                   <span className="flex items-center gap-3 text-muted-foreground">
-                    <span>
-                      {l.estimated_premium_min != null && l.estimated_premium_max != null
-                        ? `${fmtEur(l.estimated_premium_min)}–${fmtEur(l.estimated_premium_max)}/mo`
-                        : ""}
-                    </span>
                     <Badge variant="secondary">{l.status ?? "—"}</Badge>
                     <span>{fmtDate(l.created_at)}</span>
                   </span>
@@ -407,7 +423,6 @@ function BenefitsPanel({ summary, loading }: { summary: any; loading: boolean })
                     <span>Steuererklärung {l.tax_year ?? ""}</span>
                   </span>
                   <span className="flex items-center gap-3 text-muted-foreground">
-                    <span>{l.estimated_refund_eur ? `+${fmtEur(l.estimated_refund_eur)} est.` : ""}</span>
                     <Badge variant="secondary">{l.status ?? "—"}</Badge>
                     <span>{fmtDate(l.created_at)}</span>
                   </span>
@@ -420,34 +435,15 @@ function BenefitsPanel({ summary, loading }: { summary: any; loading: boolean })
 
       <Card>
         <CardHeader>
-          <CardTitle>You may also be eligible for</CardTitle>
+          <CardTitle>Benefits information</CardTitle>
           <CardDescription>
-            Rough estimate from household size — refine on the{" "}
-            <Link to="/app/benefits" className="underline">
-              full eligibility check
-            </Link>
-            .
+            Check possible entitlements with the responsible official source before opening a case.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {verdicts.filter((v) => v.eligible).slice(0, 8).map((v) => (
-              <li key={v.key} className="rounded-lg border border-border/60 p-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium capitalize">{v.key.replace(/_/g, " ")}</span>
-                  <Badge variant={v.confidence === "likely" ? "default" : "secondary"}>
-                    {v.confidence}
-                  </Badge>
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">{v.amountLabel}</p>
-              </li>
-            ))}
-            {verdicts.filter((v) => v.eligible).length === 0 && (
-              <li className="col-span-full text-sm text-muted-foreground">
-                Complete your household profile to see estimates.
-              </li>
-            )}
-          </ul>
+          <Button asChild variant="outline">
+            <Link to="/app/benefits">Open official-source benefits guide</Link>
+          </Button>
         </CardContent>
       </Card>
     </div>
@@ -469,7 +465,10 @@ function HouseholdPanel({ summary, loading }: { summary: any; loading: boolean }
           ) : (
             <ul className="space-y-2 text-sm">
               {summary.familyMembers.map((m: any) => (
-                <li key={m.id} className="flex items-center justify-between rounded-md border border-border/60 px-3 py-2">
+                <li
+                  key={m.id}
+                  className="flex items-center justify-between rounded-md border border-border/60 px-3 py-2"
+                >
                   <span>
                     <span className="font-medium">{m.full_name}</span>{" "}
                     <span className="text-muted-foreground">· {m.relationship ?? "—"}</span>
@@ -504,7 +503,8 @@ function HouseholdPanel({ summary, loading }: { summary: any; loading: boolean }
                     </Badge>
                   </div>
                   <p className="mt-0.5 text-xs text-muted-foreground">
-                    Rule: {d.access_rule} · Categories: {(d.allowed_categories ?? []).join(", ") || "—"}
+                    Rule: {d.access_rule} · Categories:{" "}
+                    {(d.allowed_categories ?? []).join(", ") || "—"}
                   </p>
                 </li>
               ))}
@@ -532,9 +532,7 @@ function HouseholdPanel({ summary, loading }: { summary: any; loading: boolean }
                     <Link to={`/app/cases/${c.id}` as any} className="font-medium hover:underline">
                       {c.title ?? c.reference ?? "Untitled case"}
                     </Link>{" "}
-                    <span className="text-muted-foreground">
-                      · {c.case_type ?? "case"}
-                    </span>
+                    <span className="text-muted-foreground">· {c.case_type ?? "case"}</span>
                   </span>
                   <span className="flex items-center gap-3 text-muted-foreground">
                     <Badge variant="secondary">{c.status}</Badge>
@@ -556,7 +554,8 @@ function ActivityPanel({ rows, loading }: { rows: any[]; loading: boolean }) {
     return (
       <Card>
         <CardContent className="p-6 text-sm text-muted-foreground">
-          No activity yet. Every access to your vault, deputy change, case update or membership change appears here.
+          No activity yet. Every access to your vault, deputy change, case update or membership
+          change appears here.
         </CardContent>
       </Card>
     );
@@ -566,13 +565,17 @@ function ActivityPanel({ rows, loading }: { rows: any[]; loading: boolean }) {
       <CardHeader>
         <CardTitle>Activity log</CardTitle>
         <CardDescription>
-          Every important action on your account, most recent first. Retained for 6 years for compliance.
+          Every important action on your account, most recent first. Retained for 6 years for
+          compliance.
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0">
         <ul className="divide-y divide-border/60">
           {rows.map((r) => (
-            <li key={r.id} className="grid grid-cols-[auto_1fr_auto] items-start gap-3 px-6 py-3 text-sm">
+            <li
+              key={r.id}
+              className="grid grid-cols-[auto_1fr_auto] items-start gap-3 px-6 py-3 text-sm"
+            >
               <ActivityIcon action={r.action} />
               <div>
                 <div className="font-medium">{humanAction(r.action)}</div>
@@ -595,12 +598,16 @@ function ActivityPanel({ rows, loading }: { rows: any[]; loading: boolean }) {
 
 function ActivityIcon({ action }: { action: string }) {
   const cls = "mt-0.5 h-4 w-4";
-  if (/deny|fail|error|revoke/i.test(action)) return <AlertCircle className={`${cls} text-destructive`} />;
+  if (/deny|fail|error|revoke/i.test(action))
+    return <AlertCircle className={`${cls} text-destructive`} />;
   if (/pend|wait|request/i.test(action)) return <Clock className={`${cls} text-amber-500`} />;
   return <CheckCircle2 className={`${cls} text-emerald-600`} />;
 }
 function humanAction(a: string) {
-  return a.replace(/_/g, " ").replace(/\./g, " → ").replace(/^./, (c) => c.toUpperCase());
+  return a
+    .replace(/_/g, " ")
+    .replace(/\./g, " → ")
+    .replace(/^./, (c) => c.toUpperCase());
 }
 
 function Row({ label, value }: { label: string; value: string }) {

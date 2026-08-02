@@ -94,13 +94,19 @@ function KnowledgePage() {
                   </p>
                   <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] text-muted-foreground">
                     {s.typical_timeline && (
-                      <span className="rounded-full border border-border/60 px-2 py-0.5">⏱ {s.typical_timeline}</span>
+                      <span className="rounded-full border border-border/60 px-2 py-0.5">
+                        ⏱ {s.typical_timeline}
+                      </span>
                     )}
                     {s.official_fees && (
-                      <span className="rounded-full border border-border/60 px-2 py-0.5">€ {s.official_fees}</span>
+                      <span className="rounded-full border border-border/60 px-2 py-0.5">
+                        € {s.official_fees}
+                      </span>
                     )}
                     {s.requires_expert_role && (
-                      <span className="rounded-full border border-primary/40 px-2 py-0.5 text-primary">{s.requires_expert_role}</span>
+                      <span className="rounded-full border border-primary/40 px-2 py-0.5 text-primary">
+                        {s.requires_expert_role}
+                      </span>
                     )}
                   </div>
                 </Link>

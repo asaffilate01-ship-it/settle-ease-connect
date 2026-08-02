@@ -51,7 +51,9 @@ function GanttPage() {
       {isLoading ? (
         <div className="rounded-2xl border p-6 text-sm text-muted-foreground">Loading…</div>
       ) : (rows as any[]).length === 0 ? (
-        <div className="rounded-2xl border border-dashed p-10 text-center text-sm text-muted-foreground">No tasks yet</div>
+        <div className="rounded-2xl border border-dashed p-10 text-center text-sm text-muted-foreground">
+          No tasks yet
+        </div>
       ) : (
         <div className="overflow-x-auto rounded-2xl border bg-card p-4">
           <div className="min-w-[720px] space-y-2">
@@ -59,14 +61,19 @@ function GanttPage() {
               const hasDates = t.start_at && t.due_at && span > 0;
               const left = hasDates ? ((new Date(t.start_at).getTime() - min) / span) * 100 : 0;
               const width = hasDates
-                ? Math.max(2, ((new Date(t.due_at).getTime() - new Date(t.start_at).getTime()) / span) * 100)
+                ? Math.max(
+                    2,
+                    ((new Date(t.due_at).getTime() - new Date(t.start_at).getTime()) / span) * 100,
+                  )
                 : 100;
               const color = STATUS_COLOR[t.status] ?? "bg-slate-400";
               return (
                 <div key={t.id} className="grid grid-cols-[220px_1fr_60px] items-center gap-3">
                   <div className="min-w-0">
                     <div className="truncate text-sm font-medium">{t.title}</div>
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{t.status}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                      {t.status}
+                    </div>
                   </div>
                   <div className="relative h-6 rounded bg-muted/40">
                     {hasDates ? (
@@ -74,13 +81,20 @@ function GanttPage() {
                         className={`absolute top-0 h-full rounded ${color}`}
                         style={{ left: `${left}%`, width: `${width}%` }}
                       >
-                        <div className="absolute inset-y-0 left-0 bg-black/20" style={{ width: `${t.progress_pct}%` }} />
+                        <div
+                          className="absolute inset-y-0 left-0 bg-black/20"
+                          style={{ width: `${t.progress_pct}%` }}
+                        />
                       </div>
                     ) : (
-                      <div className="grid h-full place-items-center text-[10px] text-muted-foreground">no dates</div>
+                      <div className="grid h-full place-items-center text-[10px] text-muted-foreground">
+                        no dates
+                      </div>
                     )}
                   </div>
-                  <div className="text-right text-xs tabular-nums text-muted-foreground">{t.progress_pct}%</div>
+                  <div className="text-right text-xs tabular-nums text-muted-foreground">
+                    {t.progress_pct}%
+                  </div>
                 </div>
               );
             })}

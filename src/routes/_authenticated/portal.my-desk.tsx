@@ -83,7 +83,9 @@ function MyDesk() {
             <div className="text-xs uppercase tracking-wide text-muted-foreground">
               Partner invites pending
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums">{d.pendingPartners.length}</div>
+            <div className="mt-1 text-2xl font-semibold tabular-nums">
+              {d.pendingPartners.length}
+            </div>
           </CardContent>
         </Card>
       </section>
@@ -99,7 +101,10 @@ function MyDesk() {
             ) : (
               <ul className="divide-y">
                 {d.myCases.map((c) => (
-                  <li key={c.case_id} className="flex items-center justify-between gap-3 py-2 text-sm">
+                  <li
+                    key={c.case_id}
+                    className="flex items-center justify-between gap-3 py-2 text-sm"
+                  >
                     <Link
                       to="/app/cases/$caseId"
                       params={{ caseId: c.case_id }}

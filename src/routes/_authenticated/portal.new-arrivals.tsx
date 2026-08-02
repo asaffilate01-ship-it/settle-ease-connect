@@ -13,7 +13,10 @@ export const Route = createFileRoute("/_authenticated/portal/new-arrivals")({
 
 function NewArrivalsConsole() {
   const fn = useServerFn(getNewArrivalsConsole);
-  const { data, isLoading } = useQuery({ queryKey: ["portal", "new-arrivals"], queryFn: () => fn() });
+  const { data, isLoading } = useQuery({
+    queryKey: ["portal", "new-arrivals"],
+    queryFn: () => fn(),
+  });
   const [tab, setTab] = useSubConsoleTab();
 
   if (isLoading || !data) return <div className="p-6 text-sm text-muted-foreground">Loading…</div>;
@@ -47,13 +50,18 @@ function NewArrivalsConsole() {
                     <div className="min-w-0">
                       <div className="truncate font-medium">{c.title}</div>
                       <div className="text-xs text-muted-foreground">
-                        Priority {c.priority ?? "—"} · Updated {new Date(c.updated_at).toLocaleDateString()}
+                        Priority {c.priority ?? "—"} · Updated{" "}
+                        {new Date(c.updated_at).toLocaleDateString()}
                       </div>
                     </div>
-                    <Badge variant="outline" className="text-[10px] uppercase">{c.status}</Badge>
+                    <Badge variant="outline" className="text-[10px] uppercase">
+                      {c.status}
+                    </Badge>
                   </div>
                 ))}
-                {data.cases.length === 0 && <div className="p-6 text-center text-sm text-muted-foreground">No cases yet.</div>}
+                {data.cases.length === 0 && (
+                  <div className="p-6 text-center text-sm text-muted-foreground">No cases yet.</div>
+                )}
               </div>
             </div>
             <div className="rounded-xl border border-border/60 bg-card">
@@ -64,10 +72,16 @@ function NewArrivalsConsole() {
                 {data.embassies.map((e: any) => (
                   <div key={e.id} className="px-4 py-2.5 text-sm">
                     <div className="font-medium">{e.country}</div>
-                    <div className="text-xs text-muted-foreground">{e.city ?? "—"} · {e.phone ?? "no phone"}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {e.city ?? "—"} · {e.phone ?? "no phone"}
+                    </div>
                   </div>
                 ))}
-                {data.embassies.length === 0 && <div className="p-6 text-center text-sm text-muted-foreground">No embassies configured.</div>}
+                {data.embassies.length === 0 && (
+                  <div className="p-6 text-center text-sm text-muted-foreground">
+                    No embassies configured.
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -75,7 +89,9 @@ function NewArrivalsConsole() {
       )}
 
       {tab === "quotes" && (
-        <EmptyTab>Relocation quotes are sent per case by assigned experts (immigration, tax, housing).</EmptyTab>
+        <EmptyTab>
+          Relocation quotes are sent per case by assigned experts (immigration, tax, housing).
+        </EmptyTab>
       )}
       {tab === "callbacks" && (
         <EmptyTab>New-arrival cases are handled asynchronously via case messaging.</EmptyTab>
@@ -91,8 +107,19 @@ function NewArrivalsConsole() {
   );
 }
 
-function Kpi({ label, value, tone = "muted" }: { label: string; value: string | number; tone?: "muted" | "primary" }) {
-  const cls = tone === "primary" ? "border-primary/20 bg-primary/5 text-primary" : "border-border/60 bg-muted/40";
+function Kpi({
+  label,
+  value,
+  tone = "muted",
+}: {
+  label: string;
+  value: string | number;
+  tone?: "muted" | "primary";
+}) {
+  const cls =
+    tone === "primary"
+      ? "border-primary/20 bg-primary/5 text-primary"
+      : "border-border/60 bg-muted/40";
   return (
     <div className={`rounded-xl border p-4 ${cls}`}>
       <div className="text-xs font-medium uppercase tracking-wide opacity-80">{label}</div>

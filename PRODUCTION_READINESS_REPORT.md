@@ -1,65 +1,70 @@
 # Production readiness report
 
 Assessment date: 1 August 2026
+Audited base commit: `188b330ec6c44da2f26e05ad22119fde41f0ea6e`
 
 ## Verdict
 
-The repository is now a **deployable operational release candidate**, but it is **not yet approved for a public production launch**. The code-level blockers found in the review have been corrected or made fail-closed. Launch still depends on applying and testing all database migrations, verified legal/regulatory details, real email/partner/payment configuration, deployment operations, browser-level acceptance testing and an independent security review.
+The repository is a hardened release candidate. Its local code gates pass, and generated iOS/Android projects are included. It is not yet evidence of an approved public deployment or store release because credentials, legal identity, regulated-provider contracts, live infrastructure, signing and independent testing are external inputs.
 
-## Corrected in this hardening pass
+## Corrected in this release
 
-- Removed client-write access to subscription entitlements; Stripe webhook processing is now the trusted writer.
-- Added durable webhook idempotency, failed-event retry and stale-processing recovery.
-- Enforced current AAL2/MFA on sensitive staff, agent, expert, vault, finance, CRM and administrative server functions—not only in the UI.
-- Replaced global staff access to cases and vault files with assignment, participant, owner, deputy or supervisor rules.
-- Isolated student-verification evidence from the family vault and required AAL2 for staff access.
-- Made payout release an atomic sandbox ledger operation and blocked it in live mode.
-- Added distributed database-backed throttling to public forms, AI/translation and external partner entry points.
-- Replaced simulated contact and family-assistant interactions with server-backed workflows.
-- Added a real, email-bound partner invitation and acceptance flow instead of placeholder membership rows.
-- Disabled invented partner quotes/bookings in production; local demos require an explicit development flag.
-- Replaced unsupported public claims, placeholder legal identity fields, fake contact channels and unconfigured social links.
-- Added responsive off-canvas navigation, mobile expert/agent navigation, working command search, notification access and clearer loading/error/empty states.
-- Upgraded vulnerable build dependencies, added CI, unit tests, production configuration validation and deployment documentation.
+- Removed seeded development login accounts, shared passwords and committed environment files.
+- Added server-enforced AAL2 to sensitive finance, vault, administration, compliance, insurance and DELA operations.
+- Fixed family-case grants so access is explicit, email-bound, expiring, revocable and permission-scoped.
+- Added granular document, message, task, quote and invoice policies.
+- Moved public intake behind server validation and database-backed rate limits; direct anonymous lead/contact inserts are revoked.
+- Made Stripe environment selection server-owned, validated return URLs, persisted webhook idempotency and added atomic sandbox payout queuing.
+- Disabled live expert payout/fund movement and native Stripe subscription purchase surfaces.
+- Made missing partner integrations fail closed; simulated data cannot run in production.
+- Added HTTPS allowlisting, HMAC signing, leases, retry backoff and dead-letter handling for partner delivery.
+- Removed unverified provider, licence, pricing, SLA, escrow, funeral-cover and tax-refund marketing claims.
+- Converted health, funeral-cover and tax flows to explicit referral boundaries.
+- Added legal identity configuration, security headers, liveness/readiness endpoints, CI, dependency updates and release validators.
+- Added branded Capacitor iOS/Android projects, secure network/backup defaults, camera capture and optional push registration/gateway delivery.
+- Consolidated all SQL into `supabase/migrations` and removed obsolete duplicate/dead files.
 
-## Added in the operational workflow release
+## Verification gates
 
-- Staff enquiry inbox with search, assignment, priorities, SLA tracking, private notes, reply templates and email-delivery status.
-- Case milestones and a visible progress timeline, with changes restricted to staff who can manage the case.
-- Email-bound, expiring and revocable family access for updates, documents or collaboration.
-- Member privacy-request intake plus dedicated least-privilege DPO, compliance and read-only auditor consoles.
-- Registered HTTPS partner endpoints with exact host allowlisting, HMAC signatures, idempotency keys, timeouts, lease-safe claims, exponential retries, attempt evidence and dead-letter recovery.
-- Data-minimized operational auditing that avoids copying free-text enquiries, privacy narratives, family invitation hashes or partner payloads into the audit ledger.
-- Production validation for the partner worker, host allowlist and transactional-email gateway.
+Verified on the exact release tree on 1 August 2026:
 
-## Verification completed
+- Clean `npm ci`: passed
+- Repository check, TypeScript, ESLint, 16 unit/invariant tests and production build: passed
+- Production dependency audit at high severity: passed with 0 vulnerabilities
+- Capacitor production-domain sync for iOS and Android: passed
+- Capacitor Doctor: Android passed; iOS compilation was not attempted because Xcode is unavailable on Linux
 
-| Gate                                                 | Result                                                                      |
-| ---------------------------------------------------- | --------------------------------------------------------------------------- |
-| Clean dependency install (`npm ci`)                  | Pass                                                                        |
-| TypeScript (`npm run typecheck`)                     | Pass                                                                        |
-| ESLint (`npm run lint`)                              | Pass with 410 legacy warnings and no errors                                 |
-| Unit tests (`npm test`)                              | 11 passed                                                                   |
-| Production build (`npm run build`)                   | Pass                                                                        |
-| Production dependency audit, high severity threshold | Pass; 3 moderate transitive findings remain in Capacitor CLI → xcode → uuid |
+Repeat these commands on the release commit:
 
-The remaining npm findings are in mobile build tooling, not the web runtime. The currently installed Capacitor CLI has no non-breaking upstream resolution for that chain; keep mobile builds isolated and update when Capacitor ships a fixed dependency.
+```bash
+npm ci
+npm run verify
+npm audit --omit=dev --audit-level=high
+```
 
-## Launch blockers outside this patch
+Production environment validation is separate:
 
-1. Apply every migration through `supabase/migrations/20260801180000_operational_workflows.sql` to a disposable/staging project and run role-by-role RLS acceptance tests before production.
-2. Rotate every credential that was present in the formerly tracked `.env` and `.env.development` files. Removing them from the current tree does not remove them from Git history or invalidate them.
-3. Supply verified company/register/director/VAT/editorial details and obtain German legal review of the Impressum, terms, privacy, cancellation and regulated-service wording.
-4. Configure and test the transactional-email gateway. Contract and technically certify insurance, tax, legal and interpreting providers; unconfigured adapters intentionally remain disabled.
-5. Keep real escrow/fund movement disabled until a regulated custody/payout provider, connected accounts, reconciliation, refunds and disputes are implemented.
-6. Add end-to-end browser tests for sign-up, MFA, checkout/webhooks, vault, family/partner invitations, enquiry replies and every role. The current eleven tests cover policy helpers and migration safeguards, not deployed browser journeys.
-7. Complete a deployed accessibility review, responsive-device review, penetration test and GDPR/security review.
-8. Configure monitoring, error reporting, alerting, on-call ownership, backup restore drills, retention jobs and incident response.
+```bash
+NODE_ENV=production npm run verify:production
+```
 
-## Remaining product gaps
+The environment validator is designed to fail until genuine production values are supplied.
 
-- The live expert payout/custody workflow is intentionally unavailable.
-- A deployment scheduler must invoke the partner worker, and each contracted partner still needs endpoint/signature certification and reconciliation ownership.
-- Transactional email is adapter-backed; a production provider, delivery-domain authentication, bounce/complaint handling and monitoring must be configured externally.
-- Database types should be regenerated from the staging Supabase project after the operational migration is applied.
-- The lint baseline still contains 410 warnings, largely legacy `any` types and hook dependency warnings; reduce this baseline before making warnings fatal in CI.
+## External blockers before public launch
+
+1. Rotate all credentials ever present in removed tracked environment files.
+2. Apply every migration through `20260801222000_catalog_and_verification_hardening.sql` in staging, regenerate Supabase types and complete role-by-role RLS tests.
+3. Supply and legally review company/register/VAT/management, privacy, terms, cancellation and complaints details.
+4. Contract and certify every enabled insurer, broker, tax professional, interpreter, email service and delivery endpoint. Keep unavailable adapters disabled.
+5. Configure separate live Stripe credentials/webhook, run real sandbox-to-live acceptance tests and keep expert payouts disabled.
+6. Configure monitoring, error reporting, alerting, retention jobs, on-call ownership, incident response and a successful backup restore drill.
+7. Complete browser/device E2E tests, accessibility review, GDPR/security review and an independent penetration test.
+8. Complete Apple/Google signing, privacy/store disclosures, real-device testing and store review. Native push additionally needs APNs/FCM and a delivery gateway.
+9. Decide and implement the approved mobile subscription-billing/entitlement model before enabling native purchases.
+
+## Known non-blocking technical debt
+
+- Supabase types must be regenerated after staging migrations.
+- The unit suite tests security/policy helpers and migration invariants; deployed browser and role journeys remain mandatory.
+- A signed Android bundle still needs an environment that can download the Gradle toolchain; this restricted build environment could not reach the Gradle distribution host.
+- Store acceptance cannot be guaranteed for a server-backed WebView. Native utility and review notes must demonstrate that the app is more than a repackaged website.

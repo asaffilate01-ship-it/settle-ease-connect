@@ -6,9 +6,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const STAGES = [
-  "new","contact_attempted","assessed","consented","service_identified",
-  "membership_proposed","insurance_referral_offered","referred_to_partner",
-  "partner_outcome","onboarded","ongoing","lost",
+  "new",
+  "contact_attempted",
+  "assessed",
+  "consented",
+  "service_identified",
+  "membership_proposed",
+  "insurance_referral_offered",
+  "referred_to_partner",
+  "partner_outcome",
+  "onboarded",
+  "ongoing",
+  "lost",
 ] as const;
 
 const STAGE_TONE: Record<string, string> = {
@@ -37,11 +46,14 @@ function LeadsKanban() {
     queryFn: () => fn({ data: {} }),
   });
 
-  if (isLoading || !leads) return <div className="text-sm text-muted-foreground">Loading leads…</div>;
+  if (isLoading || !leads)
+    return <div className="text-sm text-muted-foreground">Loading leads…</div>;
 
   const byStage: Record<string, any[]> = {};
   STAGES.forEach((s) => (byStage[s] = []));
-  leads.forEach((l: any) => { (byStage[l.stage] ??= []).push(l); });
+  leads.forEach((l: any) => {
+    (byStage[l.stage] ??= []).push(l);
+  });
 
   return (
     <div className="overflow-x-auto pb-4">
@@ -49,7 +61,9 @@ function LeadsKanban() {
         {STAGES.map((s) => (
           <div key={s} className="w-72 shrink-0">
             <div className="mb-2 flex items-center justify-between">
-              <div className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${STAGE_TONE[s]}`}>
+              <div
+                className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${STAGE_TONE[s]}`}
+              >
                 {s.replaceAll("_", " ")}
               </div>
               <span className="text-xs text-muted-foreground">{byStage[s].length}</span>
@@ -66,9 +80,13 @@ function LeadsKanban() {
                     <CardContent className="p-3 space-y-1 text-sm">
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{l.reference}</span>
-                        <Badge variant="outline" className="text-[10px]">{l.lead_type}</Badge>
+                        <Badge variant="outline" className="text-[10px]">
+                          {l.lead_type}
+                        </Badge>
                       </div>
-                      {l.notes && <div className="line-clamp-2 text-xs text-muted-foreground">{l.notes}</div>}
+                      {l.notes && (
+                        <div className="line-clamp-2 text-xs text-muted-foreground">{l.notes}</div>
+                      )}
                       <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                         <span>{l.priority}</span>
                         <span>{new Date(l.updated_at).toLocaleDateString()}</span>

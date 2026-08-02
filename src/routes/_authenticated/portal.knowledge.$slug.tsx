@@ -13,7 +13,11 @@ export const Route = createFileRoute("/_authenticated/portal/knowledge/$slug")({
 function KnowledgeDetail() {
   const { slug } = Route.useParams();
   const fetchService = useServerFn(getKnowledgeService);
-  const { data: svc, isLoading, error } = useQuery({
+  const {
+    data: svc,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["knowledge-service", slug],
     queryFn: () => fetchService({ data: { slug } }),
   });
@@ -50,75 +54,85 @@ function KnowledgeDetail() {
             <Fact label="Expert required" value={svc.requires_expert_role ?? "—"} />
           </div>
 
-            <Section title="Eligibility">{svc.eligibility}</Section>
-            <Section title="Legal basis">{svc.legal_basis}</Section>
-            <Section title="Jurisdiction notes">{svc.jurisdiction_notes}</Section>
-            <Section title="Fees — breakdown">{(svc as any).fees_detail}</Section>
+          <Section title="Eligibility">{svc.eligibility}</Section>
+          <Section title="Legal basis">{svc.legal_basis}</Section>
+          <Section title="Jurisdiction notes">{svc.jurisdiction_notes}</Section>
+          <Section title="Fees — breakdown">{(svc as any).fees_detail}</Section>
 
-            <List title="Delivery playbook" items={svc.delivery_playbook as string[]} ordered />
-            <List title="Required documents & proofs" items={svc.required_documents as string[]} />
+          <List title="Delivery playbook" items={svc.delivery_playbook as string[]} ordered />
+          <List title="Required documents & proofs" items={svc.required_documents as string[]} />
 
-            <FormsList forms={(svc as any).forms as any[]} />
-            <PortalsList portals={(svc as any).online_portals as any[]} />
+          <FormsList forms={(svc as any).forms as any[]} />
+          <PortalsList portals={(svc as any).online_portals as any[]} />
 
-            <List title="Common pitfalls" items={svc.common_pitfalls as string[]} />
-            <Section title="Appeals / Widerspruch">{(svc as any).appeals_process}</Section>
-            <Section title="Internal tips for case managers">{(svc as any).tips}</Section>
-            <Section title="Internal wholesale / margin notes">{svc.our_wholesale_notes}</Section>
+          <List title="Common pitfalls" items={svc.common_pitfalls as string[]} />
+          <Section title="Appeals / Widerspruch">{(svc as any).appeals_process}</Section>
+          <Section title="Internal tips for case managers">{(svc as any).tips}</Section>
+          <Section title="Internal wholesale / margin notes">{svc.our_wholesale_notes}</Section>
 
-            <div>
-              <h3 className="font-display text-lg font-semibold">Governing regulations</h3>
-              <div className="mt-3 space-y-2">
-                {((svc as any).regulations ?? []).length === 0 && (
-                  <p className="text-sm text-muted-foreground">No regulations linked yet.</p>
-                )}
-                {((svc as any).regulations ?? []).map((r: any) => (
-                  <a
-                    key={r.regulation.code}
-                    href={r.regulation.official_url ?? "#"}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-start justify-between gap-4 rounded-lg border border-border/60 bg-card p-4 hover:border-primary/60"
-                  >
-                    <div>
-                      <div className="font-mono text-xs text-primary">{r.regulation.code} · {r.regulation.jurisdiction}</div>
-                      <div className="font-medium">{r.regulation.title}</div>
-                      <div className="text-xs text-muted-foreground">{r.regulation.summary}</div>
+          <div>
+            <h3 className="font-display text-lg font-semibold">Governing regulations</h3>
+            <div className="mt-3 space-y-2">
+              {((svc as any).regulations ?? []).length === 0 && (
+                <p className="text-sm text-muted-foreground">No regulations linked yet.</p>
+              )}
+              {((svc as any).regulations ?? []).map((r: any) => (
+                <a
+                  key={r.regulation.code}
+                  href={r.regulation.official_url ?? "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-start justify-between gap-4 rounded-lg border border-border/60 bg-card p-4 hover:border-primary/60"
+                >
+                  <div>
+                    <div className="font-mono text-xs text-primary">
+                      {r.regulation.code} · {r.regulation.jurisdiction}
                     </div>
-                    {r.regulation.official_url && <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground" />}
-                  </a>
-                ))}
-              </div>
+                    <div className="font-medium">{r.regulation.title}</div>
+                    <div className="text-xs text-muted-foreground">{r.regulation.summary}</div>
+                  </div>
+                  {r.regulation.official_url && (
+                    <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  )}
+                </a>
+              ))}
             </div>
+          </div>
 
-            <div>
-              <h3 className="font-display text-lg font-semibold">Assigned experts</h3>
-              {((svc as any).experts ?? []).length === 0 ? (
-                <p className="mt-2 text-sm text-muted-foreground">
-                  No experts assigned yet. Add via the Experts roster.
-                </p>
-              ) : (
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  {((svc as any).experts ?? []).map((e: any) => (
-                    <div key={e.expert.id} className="rounded-lg border border-border/60 bg-card p-4">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{e.expert.full_name}</span>
-                        {e.expert.verified && <Badge className="text-[10px]">Verified</Badge>}
-                        {e.is_lead && <Badge variant="secondary" className="text-[10px]">Lead</Badge>}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {e.expert.profession} · {e.expert.city ?? "—"}
-                      </div>
-                      <div className="mt-1 text-xs text-muted-foreground">
-                        Languages: {(e.expert.languages ?? []).join(", ") || "—"}
-                      </div>
-                      {e.expert.wholesale_rate_eur != null && (
-                        <div className="mt-1 text-xs">Wholesale: €{e.expert.wholesale_rate_eur}/hr</div>
+          <div>
+            <h3 className="font-display text-lg font-semibold">Assigned experts</h3>
+            {((svc as any).experts ?? []).length === 0 ? (
+              <p className="mt-2 text-sm text-muted-foreground">
+                No experts assigned yet. Add via the Experts roster.
+              </p>
+            ) : (
+              <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                {((svc as any).experts ?? []).map((e: any) => (
+                  <div key={e.expert.id} className="rounded-lg border border-border/60 bg-card p-4">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{e.expert.full_name}</span>
+                      {e.expert.verified && <Badge className="text-[10px]">Verified</Badge>}
+                      {e.is_lead && (
+                        <Badge variant="secondary" className="text-[10px]">
+                          Lead
+                        </Badge>
                       )}
                     </div>
-                  ))}
-                </div>
-              )}
+                    <div className="text-xs text-muted-foreground">
+                      {e.expert.profession} · {e.expert.city ?? "—"}
+                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">
+                      Languages: {(e.expert.languages ?? []).join(", ") || "—"}
+                    </div>
+                    {e.expert.wholesale_rate_eur != null && (
+                      <div className="mt-1 text-xs">
+                        Wholesale: €{e.expert.wholesale_rate_eur}/hr
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -135,10 +149,19 @@ function FormsList({ forms }: { forms?: any[] }) {
         {forms.map((f, i) => (
           <div key={i} className="rounded-lg border border-border/60 bg-card p-4">
             <div className="font-medium">{f.name}</div>
-            {f.who && <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">Filled by: {f.who}</div>}
+            {f.who && (
+              <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+                Filled by: {f.who}
+              </div>
+            )}
             {f.notes && <div className="mt-1 text-sm text-muted-foreground">{f.notes}</div>}
             {f.url && (
-              <a href={f.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline">
+              <a
+                href={f.url}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+              >
                 Open form <ExternalLink className="h-3 w-3" />
               </a>
             )}
@@ -197,7 +220,9 @@ function List({ title, items, ordered }: { title: string; items?: string[]; orde
     <div>
       <h3 className="font-display text-lg font-semibold">{title}</h3>
       <Tag className={`mt-3 space-y-2 text-sm ${ordered ? "list-decimal pl-5" : "list-disc pl-5"}`}>
-        {items.map((i, idx) => <li key={idx}>{i}</li>)}
+        {items.map((i, idx) => (
+          <li key={idx}>{i}</li>
+        ))}
       </Tag>
     </div>
   );

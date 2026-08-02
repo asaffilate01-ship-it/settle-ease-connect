@@ -9,23 +9,49 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  FileText, Upload, Download, AlertTriangle, ShieldCheck, Lock, UserPlus,
-  Trash2, Users, ScrollText, KeyRound,
+  FileText,
+  Upload,
+  Download,
+  AlertTriangle,
+  ShieldCheck,
+  Lock,
+  UserPlus,
+  Trash2,
+  Users,
+  ScrollText,
+  KeyRound,
 } from "lucide-react";
 import {
-  VAULT_CATEGORIES, SENSITIVE_CATEGORIES, type VaultCategory,
-  listVaultDocuments, createVaultDocument, deleteVaultDocument, getVaultDownloadUrl,
-  listVaultDeputies, inviteVaultDeputy, revokeVaultDeputy,
-  listVaultUnlockRequests, listVaultAccessLog,
+  VAULT_CATEGORIES,
+  SENSITIVE_CATEGORIES,
+  type VaultCategory,
+  listVaultDocuments,
+  createVaultDocument,
+  deleteVaultDocument,
+  getVaultDownloadUrl,
+  listVaultDeputies,
+  inviteVaultDeputy,
+  revokeVaultDeputy,
+  listVaultUnlockRequests,
+  listVaultAccessLog,
 } from "@/lib/vault.functions";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Aal2Gate } from "@/components/security/aal2-gate";
@@ -34,23 +60,41 @@ export const Route = createFileRoute("/_authenticated/app/documents")({
   head: () => ({
     meta: [
       { title: "Secure vault — BeistandPlus" },
-      { name: "description", content: "Encrypted document vault with MFA, GDPR compliance, and second-person access on death or incapacity." },
+      {
+        name: "description",
+        content:
+          "Encrypted document vault with MFA, GDPR compliance, and second-person access on death or incapacity.",
+      },
     ],
   }),
   component: VaultPage,
 });
 
 const CATEGORY_LABELS: Record<VaultCategory, string> = {
-  passport: "Passport", visa: "Visa", residence_card: "Residence card", national_id: "National ID",
-  birth_cert: "Birth certificate", marriage_cert: "Marriage certificate",
-  death_cert: "Death certificate", divorce_cert: "Divorce certificate",
-  driving_licence: "Driving licence", vehicle_docs: "Vehicle documents",
-  bank_details: "Bank details", insurance: "Insurance",
-  tax: "Tax", benefits: "Benefits", social_security: "Social security",
-  medical: "Medical", education: "Education", employment: "Employment",
-  property: "Property", rental: "Rental",
-  will_testament: "Will & testament", power_of_attorney: "Power of attorney",
-  advance_directive: "Advance directive", other: "Other",
+  passport: "Passport",
+  visa: "Visa",
+  residence_card: "Residence card",
+  national_id: "National ID",
+  birth_cert: "Birth certificate",
+  marriage_cert: "Marriage certificate",
+  death_cert: "Death certificate",
+  divorce_cert: "Divorce certificate",
+  driving_licence: "Driving licence",
+  vehicle_docs: "Vehicle documents",
+  bank_details: "Bank details",
+  insurance: "Insurance",
+  tax: "Tax",
+  benefits: "Benefits",
+  social_security: "Social security",
+  medical: "Medical",
+  education: "Education",
+  employment: "Employment",
+  property: "Property",
+  rental: "Rental",
+  will_testament: "Will & testament",
+  power_of_attorney: "Power of attorney",
+  advance_directive: "Advance directive",
+  other: "Other",
 };
 
 function VaultPage() {
@@ -60,12 +104,12 @@ function VaultPage() {
   const listDocs = useServerFn(listVaultDocuments);
   const listDeps = useServerFn(listVaultDeputies);
   const listReqs = useServerFn(listVaultUnlockRequests);
-  const listLog  = useServerFn(listVaultAccessLog);
+  const listLog = useServerFn(listVaultAccessLog);
 
   const docsQ = useQuery({ queryKey: ["vault", "docs"], queryFn: () => listDocs() });
   const depsQ = useQuery({ queryKey: ["vault", "deps"], queryFn: () => listDeps() });
   const reqsQ = useQuery({ queryKey: ["vault", "reqs"], queryFn: () => listReqs() });
-  const logQ  = useQuery({ queryKey: ["vault", "log"],  queryFn: () => listLog() });
+  const logQ = useQuery({ queryKey: ["vault", "log"], queryFn: () => listLog() });
 
   const invalidate = () => qc.invalidateQueries({ queryKey: ["vault"] });
 
@@ -91,20 +135,49 @@ function VaultPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
-        <Stat label="Documents stored" value={String(docs.length)} icon={<FileText className="h-4 w-4" />} />
-        <Stat label="Expiring in 90 days" value={String(expiringSoon.length)} tone={expiringSoon.length > 0 ? "warning" : undefined} icon={<AlertTriangle className="h-4 w-4" />} />
-        <Stat label="Vault used" value={formatBytes(totalBytes)} icon={<Lock className="h-4 w-4" />} />
-        <Stat label="Deputies active" value={String((depsQ.data ?? []).filter(d => d.status === "accepted").length)} icon={<Users className="h-4 w-4" />} />
+        <Stat
+          label="Documents stored"
+          value={String(docs.length)}
+          icon={<FileText className="h-4 w-4" />}
+        />
+        <Stat
+          label="Expiring in 90 days"
+          value={String(expiringSoon.length)}
+          tone={expiringSoon.length > 0 ? "warning" : undefined}
+          icon={<AlertTriangle className="h-4 w-4" />}
+        />
+        <Stat
+          label="Vault used"
+          value={formatBytes(totalBytes)}
+          icon={<Lock className="h-4 w-4" />}
+        />
+        <Stat
+          label="Deputies active"
+          value={String((depsQ.data ?? []).filter((d) => d.status === "accepted").length)}
+          icon={<Users className="h-4 w-4" />}
+        />
       </div>
 
       <SecurityCard />
 
       <Tabs defaultValue="documents">
         <TabsList>
-          <TabsTrigger value="documents"><FileText className="mr-1 h-4 w-4" />Documents</TabsTrigger>
-          <TabsTrigger value="deputies"><Users className="mr-1 h-4 w-4" />Deputies</TabsTrigger>
-          <TabsTrigger value="unlock"><KeyRound className="mr-1 h-4 w-4" />Unlock requests</TabsTrigger>
-          <TabsTrigger value="log"><ScrollText className="mr-1 h-4 w-4" />Access log</TabsTrigger>
+          <TabsTrigger value="documents">
+            <FileText className="mr-1 h-4 w-4" />
+            Documents
+          </TabsTrigger>
+          <TabsTrigger value="deputies">
+            <Users className="mr-1 h-4 w-4" />
+            Deputies
+          </TabsTrigger>
+          <TabsTrigger value="unlock">
+            <KeyRound className="mr-1 h-4 w-4" />
+            Unlock requests
+          </TabsTrigger>
+          <TabsTrigger value="log">
+            <ScrollText className="mr-1 h-4 w-4" />
+            Access log
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="documents" className="mt-6">
@@ -167,7 +240,9 @@ function SecurityCard() {
       const chal = await supabase.auth.mfa.challenge({ factorId: data.id });
       if (chal.error) throw chal.error;
       const verify = await supabase.auth.mfa.verify({
-        factorId: data.id, challengeId: chal.data.id, code,
+        factorId: data.id,
+        challengeId: chal.data.id,
+        code,
       });
       if (verify.error) throw verify.error;
       toast.success("MFA enabled — sensitive documents are now protected.");
@@ -185,15 +260,22 @@ function SecurityCard() {
   const enabled = (factors?.verified ?? 0) > 0;
 
   return (
-    <div className={`rounded-2xl border p-5 shadow-soft ${enabled ? "border-success/40 bg-success/5" : "border-warning/40 bg-warning/10"}`}>
+    <div
+      className={`rounded-2xl border p-5 shadow-soft ${enabled ? "border-success/40 bg-success/5" : "border-warning/40 bg-warning/10"}`}
+    >
       <div className="flex items-start gap-3">
-        <ShieldCheck className={`mt-0.5 h-5 w-5 ${enabled ? "text-success-foreground" : "text-warning-foreground"}`} />
+        <ShieldCheck
+          className={`mt-0.5 h-5 w-5 ${enabled ? "text-success-foreground" : "text-warning-foreground"}`}
+        />
         <div className="flex-1">
           <div className="font-medium">
-            {enabled ? "MFA is on — sensitive documents are protected" : "MFA is off — sensitive documents will be blocked"}
+            {enabled
+              ? "MFA is on — sensitive documents are protected"
+              : "MFA is off — sensitive documents will be blocked"}
           </div>
           <p className="text-sm text-muted-foreground">
-            Bank details, tax, benefits, medical, wills and power-of-attorney documents require a second factor before download.
+            Bank details, tax, benefits, medical, wills and power-of-attorney documents require a
+            second factor before download.
           </p>
         </div>
         {!enabled && (
@@ -225,7 +307,10 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
 
   async function submit() {
     if (!userId) return;
-    if (!label.trim()) { toast.error("Give the document a name."); return; }
+    if (!label.trim()) {
+      toast.error("Give the document a name.");
+      return;
+    }
     setUploading(true);
     try {
       const id = crypto.randomUUID();
@@ -238,7 +323,8 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
         const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
         storage_path = `${userId}/${id}/${safe}`;
         const up = await supabase.storage.from("vault").upload(storage_path, file, {
-          upsert: false, contentType: file.type || undefined,
+          upsert: false,
+          contentType: file.type || undefined,
         });
         if (up.error) throw up.error;
         file_name = file.name;
@@ -247,17 +333,30 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
       }
       await create({
         data: {
-          id, category, label: label.trim(),
-          issuer: issuer || null, document_number: docNumber || null,
+          id,
+          category,
+          label: label.trim(),
+          issuer: issuer || null,
+          document_number: docNumber || null,
           country: country || null,
-          issue_date: issueDate || null, expiry_date: expiryDate || null,
-          notes: notes || null, storage_path, file_name, mime_type, file_size,
+          issue_date: issueDate || null,
+          expiry_date: expiryDate || null,
+          notes: notes || null,
+          storage_path,
+          file_name,
+          mime_type,
+          file_size,
         },
       });
       toast.success("Saved to vault.");
       setOpen(false);
-      setLabel(""); setIssuer(""); setDocNumber(""); setCountry("");
-      setIssueDate(""); setExpiryDate(""); setNotes("");
+      setLabel("");
+      setIssuer("");
+      setDocNumber("");
+      setCountry("");
+      setIssueDate("");
+      setExpiryDate("");
+      setNotes("");
       if (fileRef.current) fileRef.current.value = "";
       onDone();
     } catch (e: any) {
@@ -282,12 +381,16 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
           <div>
             <Label>Category</Label>
             <Select value={category} onValueChange={(v) => setCategory(v as VaultCategory)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent className="max-h-72">
                 {VAULT_CATEGORIES.map((c) => (
                   <SelectItem key={c} value={c}>
                     {CATEGORY_LABELS[c]}
-                    {SENSITIVE_CATEGORIES.includes(c) && <Lock className="ml-2 inline h-3 w-3 text-warning-foreground" />}
+                    {SENSITIVE_CATEGORIES.includes(c) && (
+                      <Lock className="ml-2 inline h-3 w-3 text-warning-foreground" />
+                    )}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -295,16 +398,28 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
           </div>
           <div>
             <Label>Label</Label>
-            <Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="e.g. UK Passport (Anna)" />
+            <Input
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+              placeholder="e.g. UK Passport (Anna)"
+            />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>Issuer</Label>
-              <Input value={issuer} onChange={(e) => setIssuer(e.target.value)} placeholder="HMPO, Ausländerbehörde…" />
+              <Input
+                value={issuer}
+                onChange={(e) => setIssuer(e.target.value)}
+                placeholder="HMPO, Ausländerbehörde…"
+              />
             </div>
             <div>
               <Label>Country</Label>
-              <Input value={country} onChange={(e) => setCountry(e.target.value)} placeholder="DE, UK…" />
+              <Input
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                placeholder="DE, UK…"
+              />
             </div>
           </div>
           <div>
@@ -318,12 +433,24 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
             </div>
             <div>
               <Label>Expiry date</Label>
-              <Input type="date" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+              <Input
+                type="date"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+              />
             </div>
           </div>
           <div>
             <Label>File</Label>
-            <Input ref={fileRef} type="file" accept="image/*,.pdf,.doc,.docx" />
+            <Input
+              ref={fileRef}
+              type="file"
+              accept="image/*,.pdf,.doc,.docx"
+              capture="environment"
+            />
+            <p className="mt-1 text-xs text-muted-foreground">
+              On a phone, you can photograph the document with the rear camera.
+            </p>
           </div>
           <div>
             <Label>Notes</Label>
@@ -331,7 +458,9 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
           <Button onClick={submit} disabled={uploading} className="bg-gradient-primary">
             {uploading ? "Saving…" : "Save to vault"}
           </Button>
@@ -343,13 +472,24 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
 
 // ---------- Documents table ----------
 
-function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: boolean; onChanged: () => void }) {
+function DocumentsTable({
+  rows,
+  loading,
+  onChanged,
+}: {
+  rows: any[];
+  loading: boolean;
+  onChanged: () => void;
+}) {
   const getUrl = useServerFn(getVaultDownloadUrl);
   const del = useServerFn(deleteVaultDocument);
 
   const delMut = useMutation({
     mutationFn: (id: string) => del({ data: { id } }),
-    onSuccess: () => { toast.success("Deleted"); onChanged(); },
+    onSuccess: () => {
+      toast.success("Deleted");
+      onChanged();
+    },
     onError: (e: any) => toast.error(e.message ?? "Delete failed"),
   });
 
@@ -366,9 +506,19 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
         const code = window.prompt("Sensitive document — enter your 6-digit MFA code:");
         if (!code) return;
         const chal = await supabase.auth.mfa.challenge({ factorId: factor.id });
-        if (chal.error) { toast.error(chal.error.message); return; }
-        const v = await supabase.auth.mfa.verify({ factorId: factor.id, challengeId: chal.data.id, code });
-        if (v.error) { toast.error(v.error.message); return; }
+        if (chal.error) {
+          toast.error(chal.error.message);
+          return;
+        }
+        const v = await supabase.auth.mfa.verify({
+          factorId: factor.id,
+          challengeId: chal.data.id,
+          code,
+        });
+        if (v.error) {
+          toast.error(v.error.message);
+          return;
+        }
       }
     }
     try {
@@ -384,7 +534,9 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
     return (
       <div className="rounded-2xl border border-dashed border-border/60 p-10 text-center">
         <FileText className="mx-auto h-8 w-8 text-muted-foreground" />
-        <p className="mt-2 text-sm text-muted-foreground">Your vault is empty. Add your first document above.</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Your vault is empty. Add your first document above.
+        </p>
       </div>
     );
   }
@@ -418,7 +570,12 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
                     </div>
                     <div>
                       <div className="font-medium">{d.label}</div>
-                      {d.issuer && <div className="text-xs text-muted-foreground">{d.issuer}{d.country ? ` · ${d.country}` : ""}</div>}
+                      {d.issuer && (
+                        <div className="text-xs text-muted-foreground">
+                          {d.issuer}
+                          {d.country ? ` · ${d.country}` : ""}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </td>
@@ -427,12 +584,24 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
                   {d.expiry_date ? (
                     <span className="inline-flex items-center gap-2">
                       {d.expiry_date}
-                      {expired && <Badge className="bg-destructive/20 text-destructive border border-destructive/40">Expired</Badge>}
-                      {expiringSoon && <Badge className="bg-warning/20 text-warning-foreground border border-warning/40">Soon</Badge>}
+                      {expired && (
+                        <Badge className="bg-destructive/20 text-destructive border border-destructive/40">
+                          Expired
+                        </Badge>
+                      )}
+                      {expiringSoon && (
+                        <Badge className="bg-warning/20 text-warning-foreground border border-warning/40">
+                          Soon
+                        </Badge>
+                      )}
                     </span>
-                  ) : <span className="text-muted-foreground">—</span>}
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
                 </td>
-                <td className="px-5 py-4 text-muted-foreground">{d.file_size ? formatBytes(d.file_size) : "—"}</td>
+                <td className="px-5 py-4 text-muted-foreground">
+                  {d.file_size ? formatBytes(d.file_size) : "—"}
+                </td>
                 <td className="px-5 py-4 text-right">
                   <div className="flex justify-end gap-1">
                     {d.storage_path && (
@@ -440,9 +609,14 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
                         <Download className="h-4 w-4" />
                       </Button>
                     )}
-                    <Button variant="ghost" size="sm" onClick={() => {
-                      if (confirm(`Delete "${d.label}"? This cannot be undone.`)) delMut.mutate(d.id);
-                    }}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        if (confirm(`Delete "${d.label}"? This cannot be undone.`))
+                          delMut.mutate(d.id);
+                      }}
+                    >
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>
@@ -458,11 +632,22 @@ function DocumentsTable({ rows, loading, onChanged }: { rows: any[]; loading: bo
 
 // ---------- Deputies tab ----------
 
-function DeputiesTab({ rows, loading, onChanged }: { rows: any[]; loading: boolean; onChanged: () => void }) {
+function DeputiesTab({
+  rows,
+  loading,
+  onChanged,
+}: {
+  rows: any[];
+  loading: boolean;
+  onChanged: () => void;
+}) {
   const revoke = useServerFn(revokeVaultDeputy);
   const revokeMut = useMutation({
     mutationFn: (id: string) => revoke({ data: { id } }),
-    onSuccess: () => { toast.success("Deputy revoked"); onChanged(); },
+    onSuccess: () => {
+      toast.success("Deputy revoked");
+      onChanged();
+    },
     onError: (e: any) => toast.error(e.message ?? "Failed"),
   });
 
@@ -470,8 +655,9 @@ function DeputiesTab({ rows, loading, onChanged }: { rows: any[]; loading: boole
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground max-w-2xl">
-          Nominate trusted people who can access parts of your vault — either right away, or only after we've verified an incapacity or death event.
-          You control exactly which categories each deputy can see.
+          Nominate trusted people who can access parts of your vault — either right away, or only
+          after we've verified an incapacity or death event. You control exactly which categories
+          each deputy can see.
         </p>
         <InviteDeputyDialog onDone={onChanged} />
       </div>
@@ -481,7 +667,9 @@ function DeputiesTab({ rows, loading, onChanged }: { rows: any[]; loading: boole
       ) : rows.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-border/60 p-10 text-center">
           <Users className="mx-auto h-8 w-8 text-muted-foreground" />
-          <p className="mt-2 text-sm text-muted-foreground">No deputies yet. Nominate a spouse, lawyer, or trusted family member.</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            No deputies yet. Nominate a spouse, lawyer, or trusted family member.
+          </p>
         </div>
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
@@ -490,21 +678,47 @@ function DeputiesTab({ rows, loading, onChanged }: { rows: any[]; loading: boole
               <div className="flex items-start justify-between">
                 <div>
                   <div className="font-medium">{d.full_name}</div>
-                  <div className="text-xs text-muted-foreground">{d.invite_email}{d.relationship ? ` · ${d.relationship}` : ""}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {d.invite_email}
+                    {d.relationship ? ` · ${d.relationship}` : ""}
+                  </div>
                 </div>
                 <StatusBadge status={d.status} />
               </div>
               <dl className="mt-3 space-y-1 text-xs text-muted-foreground">
-                <div><span className="font-medium text-foreground">Access:</span> {accessRuleLabel(d.access_rule)}</div>
-                <div><span className="font-medium text-foreground">Verification:</span> {d.verification_method === "case_manager" ? "Beistand case manager" : `${d.min_confirmations} co-deputies confirm`}</div>
-                <div><span className="font-medium text-foreground">Can see:</span> {d.allowed_categories?.length ? d.allowed_categories.map((c: string) => CATEGORY_LABELS[c as VaultCategory] ?? c).join(", ") : "—"}</div>
-                {d.access_granted && <div className="text-success-foreground font-medium">Access currently granted</div>}
+                <div>
+                  <span className="font-medium text-foreground">Access:</span>{" "}
+                  {accessRuleLabel(d.access_rule)}
+                </div>
+                <div>
+                  <span className="font-medium text-foreground">Verification:</span>{" "}
+                  {d.verification_method === "case_manager"
+                    ? "Beistand case manager"
+                    : `${d.min_confirmations} co-deputies confirm`}
+                </div>
+                <div>
+                  <span className="font-medium text-foreground">Can see:</span>{" "}
+                  {d.allowed_categories?.length
+                    ? d.allowed_categories
+                        .map((c: string) => CATEGORY_LABELS[c as VaultCategory] ?? c)
+                        .join(", ")
+                    : "—"}
+                </div>
+                {d.access_granted && (
+                  <div className="text-success-foreground font-medium">
+                    Access currently granted
+                  </div>
+                )}
               </dl>
               {d.status !== "revoked" && (
                 <div className="mt-3 flex justify-end">
-                  <Button variant="ghost" size="sm" onClick={() => {
-                    if (confirm(`Revoke ${d.full_name}'s access?`)) revokeMut.mutate(d.id);
-                  }}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      if (confirm(`Revoke ${d.full_name}'s access?`)) revokeMut.mutate(d.id);
+                    }}
+                  >
                     Revoke
                   </Button>
                 </div>
@@ -523,36 +737,55 @@ function InviteDeputyDialog({ onDone }: { onDone: () => void }) {
   const [email, setEmail] = useState("");
   const [relationship, setRelationship] = useState("");
   const [phone, setPhone] = useState("");
-  const [accessRule, setAccessRule] = useState<"immediate" | "on_incapacity" | "on_death">("on_death");
-  const [verificationMethod, setVerificationMethod] = useState<"case_manager" | "multi_deputy">("case_manager");
+  const [accessRule, setAccessRule] = useState<"immediate" | "on_incapacity" | "on_death">(
+    "on_death",
+  );
+  const [verificationMethod, setVerificationMethod] = useState<"case_manager" | "multi_deputy">(
+    "case_manager",
+  );
   const [minConfirmations, setMinConfirmations] = useState(2);
   const [cats, setCats] = useState<Set<string>>(new Set());
   const invite = useServerFn(inviteVaultDeputy);
 
   function toggle(c: string) {
     const s = new Set(cats);
-    if (s.has(c)) s.delete(c); else s.add(c);
+    if (s.has(c)) s.delete(c);
+    else s.add(c);
     setCats(s);
   }
   const allChecked = cats.has("all");
 
   async function submit() {
-    if (!fullName.trim() || !email.trim()) { toast.error("Name and email are required."); return; }
-    if (cats.size === 0) { toast.error("Choose at least one category (or 'All')."); return; }
+    if (!fullName.trim() || !email.trim()) {
+      toast.error("Name and email are required.");
+      return;
+    }
+    if (cats.size === 0) {
+      toast.error("Choose at least one category (or 'All').");
+      return;
+    }
     try {
       await invite({
         data: {
-          full_name: fullName.trim(), invite_email: email.trim().toLowerCase(),
-          relationship: relationship || null, phone: phone || null,
-          access_rule: accessRule, verification_method: verificationMethod,
+          full_name: fullName.trim(),
+          invite_email: email.trim().toLowerCase(),
+          relationship: relationship || null,
+          phone: phone || null,
+          access_rule: accessRule,
+          verification_method: verificationMethod,
           min_confirmations: verificationMethod === "multi_deputy" ? minConfirmations : 2,
           allowed_categories: Array.from(cats),
         },
       });
       toast.success(`Invited ${fullName}.`);
       setOpen(false);
-      setFullName(""); setEmail(""); setRelationship(""); setPhone("");
-      setAccessRule("on_death"); setVerificationMethod("case_manager"); setMinConfirmations(2);
+      setFullName("");
+      setEmail("");
+      setRelationship("");
+      setPhone("");
+      setAccessRule("on_death");
+      setVerificationMethod("case_manager");
+      setMinConfirmations(2);
       setCats(new Set());
       onDone();
     } catch (e: any) {
@@ -563,22 +796,45 @@ function InviteDeputyDialog({ onDone }: { onDone: () => void }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button><UserPlus className="mr-1 h-4 w-4" />Nominate deputy</Button>
+        <Button>
+          <UserPlus className="mr-1 h-4 w-4" />
+          Nominate deputy
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader><DialogTitle>Nominate a deputy</DialogTitle></DialogHeader>
+        <DialogHeader>
+          <DialogTitle>Nominate a deputy</DialogTitle>
+        </DialogHeader>
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
-            <div><Label>Full name</Label><Input value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
-            <div><Label>Relationship</Label><Input value={relationship} onChange={(e) => setRelationship(e.target.value)} placeholder="Spouse, sibling…" /></div>
+            <div>
+              <Label>Full name</Label>
+              <Input value={fullName} onChange={(e) => setFullName(e.target.value)} />
+            </div>
+            <div>
+              <Label>Relationship</Label>
+              <Input
+                value={relationship}
+                onChange={(e) => setRelationship(e.target.value)}
+                placeholder="Spouse, sibling…"
+              />
+            </div>
           </div>
-          <div><Label>Email</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-          <div><Label>Phone (optional)</Label><Input value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
+          <div>
+            <Label>Email</Label>
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <Label>Phone (optional)</Label>
+            <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
+          </div>
 
           <div>
             <Label>When can they access?</Label>
             <Select value={accessRule} onValueChange={(v) => setAccessRule(v as any)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="immediate">Immediately (e.g. spouse)</SelectItem>
                 <SelectItem value="on_incapacity">Only if I'm incapacitated</SelectItem>
@@ -591,10 +847,17 @@ function InviteDeputyDialog({ onDone }: { onDone: () => void }) {
             <>
               <div>
                 <Label>How is the event verified?</Label>
-                <Select value={verificationMethod} onValueChange={(v) => setVerificationMethod(v as any)}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                <Select
+                  value={verificationMethod}
+                  onValueChange={(v) => setVerificationMethod(v as any)}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="case_manager">Beistand case manager (upload certificate)</SelectItem>
+                    <SelectItem value="case_manager">
+                      Beistand case manager (upload certificate)
+                    </SelectItem>
                     <SelectItem value="multi_deputy">Multiple deputies confirm</SelectItem>
                   </SelectContent>
                 </Select>
@@ -602,8 +865,13 @@ function InviteDeputyDialog({ onDone }: { onDone: () => void }) {
               {verificationMethod === "multi_deputy" && (
                 <div>
                   <Label>Minimum co-deputies to confirm</Label>
-                  <Input type="number" min={2} max={10} value={minConfirmations}
-                    onChange={(e) => setMinConfirmations(parseInt(e.target.value || "2"))} />
+                  <Input
+                    type="number"
+                    min={2}
+                    max={10}
+                    value={minConfirmations}
+                    onChange={(e) => setMinConfirmations(parseInt(e.target.value || "2"))}
+                  />
                 </div>
               )}
             </>
@@ -630,8 +898,12 @@ function InviteDeputyDialog({ onDone }: { onDone: () => void }) {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={submit} className="bg-gradient-primary">Send invitation</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={submit} className="bg-gradient-primary">
+            Send invitation
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -646,17 +918,28 @@ function UnlockRequestsTab({ rows, loading }: { rows: any[]; loading: boolean })
     return (
       <div className="rounded-2xl border border-dashed border-border/60 p-10 text-center">
         <KeyRound className="mx-auto h-8 w-8 text-muted-foreground" />
-        <p className="mt-2 text-sm text-muted-foreground">No unlock requests. Deputies can open a request from their own dashboard when the time comes.</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          No unlock requests. Deputies can open a request from their own dashboard when the time
+          comes.
+        </p>
       </div>
     );
   }
   return (
     <div className="space-y-2">
       {rows.map((r) => (
-        <div key={r.id} className="flex items-center justify-between rounded-xl border border-border/60 bg-card p-4">
+        <div
+          key={r.id}
+          className="flex items-center justify-between rounded-xl border border-border/60 bg-card p-4"
+        >
           <div>
-            <div className="font-medium capitalize">{r.event_type} — via {r.verification_method === "case_manager" ? "case manager" : "co-deputy confirmation"}</div>
-            <div className="text-xs text-muted-foreground">Opened {new Date(r.created_at).toLocaleString()}</div>
+            <div className="font-medium capitalize">
+              {r.event_type} — via{" "}
+              {r.verification_method === "case_manager" ? "case manager" : "co-deputy confirmation"}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Opened {new Date(r.created_at).toLocaleString()}
+            </div>
           </div>
           <StatusBadge status={r.status} />
         </div>
@@ -683,7 +966,9 @@ function AccessLogTab({ rows, loading }: { rows: any[]; loading: boolean }) {
         <tbody className="divide-y divide-border/60">
           {rows.map((e) => (
             <tr key={e.id}>
-              <td className="px-5 py-3 text-muted-foreground">{new Date(e.created_at).toLocaleString()}</td>
+              <td className="px-5 py-3 text-muted-foreground">
+                {new Date(e.created_at).toLocaleString()}
+              </td>
               <td className="px-5 py-3 capitalize">{e.action.replace(/_/g, " ")}</td>
               <td className="px-5 py-3 text-muted-foreground">{e.reason ?? "—"}</td>
             </tr>
@@ -696,11 +981,24 @@ function AccessLogTab({ rows, loading }: { rows: any[]; loading: boolean }) {
 
 // ---------- helpers ----------
 
-function Stat({ label, value, tone, icon }: { label: string; value: string; tone?: "warning"; icon?: React.ReactNode }) {
+function Stat({
+  label,
+  value,
+  tone,
+  icon,
+}: {
+  label: string;
+  value: string;
+  tone?: "warning";
+  icon?: React.ReactNode;
+}) {
   return (
-    <div className={`rounded-2xl border p-5 shadow-soft ${tone === "warning" ? "border-warning/40 bg-warning/10" : "border-border/60 bg-card"}`}>
+    <div
+      className={`rounded-2xl border p-5 shadow-soft ${tone === "warning" ? "border-warning/40 bg-warning/10" : "border-border/60 bg-card"}`}
+    >
       <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
-        {icon}{label}
+        {icon}
+        {label}
       </div>
       <div className="mt-2 font-display text-3xl font-semibold">{value}</div>
     </div>

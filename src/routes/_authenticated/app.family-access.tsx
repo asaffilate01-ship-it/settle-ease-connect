@@ -27,7 +27,13 @@ export const Route = createFileRoute("/_authenticated/app/family-access")({
 });
 
 type AccessLevel = "updates" | "documents" | "collaborator";
-type CaseSummary = { id: string; reference: string; title: string; status: string; updated_at: string };
+type CaseSummary = {
+  id: string;
+  reference: string;
+  title: string;
+  status: string;
+  updated_at: string;
+};
 type AccessGrant = {
   id: string;
   case_id: string;
@@ -60,8 +66,7 @@ function FamilyAccessPage() {
   const [invitationUrl, setInvitationUrl] = useState<string | null>(null);
 
   const invite = useMutation({
-    mutationFn: () =>
-      inviteFn({ data: { ...form, accessLevel: form.accessLevel as AccessLevel } }),
+    mutationFn: () => inviteFn({ data: { ...form, accessLevel: form.accessLevel as AccessLevel } }),
     onSuccess: async (result) => {
       const url = `${window.location.origin}${result.invitationPath}`;
       setInvitationUrl(url);

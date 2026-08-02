@@ -9,9 +9,28 @@ import { listComplianceActions, listPrivacyRequests } from "@/lib/governance.fun
 
 export const Route = createFileRoute("/_authenticated/portal/auditor")({ component: AuditorPage });
 
-type AuditEvent = { id: string | number; action: string; actor_email: string | null; actor_user_id: string | null; created_at: string; entity_type: string | null };
-type ComplianceEvidence = { id: string; title: string; category: string; severity: string; status: string };
-type PrivacyEvidence = { id: string; request_type: string; requester_email: string; due_at: string; status: string };
+type AuditEvent = {
+  id: string | number;
+  action: string;
+  actor_email: string | null;
+  actor_user_id: string | null;
+  created_at: string;
+  entity_type: string | null;
+};
+type ComplianceEvidence = {
+  id: string;
+  title: string;
+  category: string;
+  severity: string;
+  status: string;
+};
+type PrivacyEvidence = {
+  id: string;
+  request_type: string;
+  requester_email: string;
+  due_at: string;
+  status: string;
+};
 
 function AuditorPage() {
   const auditFn = useServerFn(listAudit);

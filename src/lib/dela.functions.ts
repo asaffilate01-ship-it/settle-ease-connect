@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 // Regulatory version pins — update when disclosure or privacy notice text changes.
 export const DELA_DISCLOSURE_VERSION = "2026-07-v1";
@@ -8,19 +8,29 @@ export const DELA_PRIVACY_NOTICE_VERSION = "2026-07-v1";
 
 // ============ Create draft & record disclosure ============
 export const startDelaReferral = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: {
-    userId?: string; contactId?: string; crmLeadId?: string;
-    fullName?: string; email?: string; phone?: string; preferredLanguage?: string;
-  }) => z.object({
-    userId: z.string().uuid().optional(),
-    contactId: z.string().uuid().optional(),
-    crmLeadId: z.string().uuid().optional(),
-    fullName: z.string().max(200).optional(),
-    email: z.string().email().optional(),
-    phone: z.string().max(30).optional(),
-    preferredLanguage: z.string().max(10).optional(),
-  }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator(
+    (d: {
+      userId?: string;
+      contactId?: string;
+      crmLeadId?: string;
+      fullName?: string;
+      email?: string;
+      phone?: string;
+      preferredLanguage?: string;
+    }) =>
+      z
+        .object({
+          userId: z.string().uuid().optional(),
+          contactId: z.string().uuid().optional(),
+          crmLeadId: z.string().uuid().optional(),
+          fullName: z.string().max(200).optional(),
+          email: z.string().email().optional(),
+          phone: z.string().max(30).optional(),
+          preferredLanguage: z.string().max(10).optional(),
+        })
+        .parse(d),
+  )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { data: row, error } = await supabase
@@ -48,11 +58,15 @@ export const startDelaReferral = createServerFn({ method: "POST" })
 
 // ============ Marketing consent ============
 export const recordDelaConsent = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { referralId: string; evidence: string }) => z.object({
-    referralId: z.string().uuid(),
-    evidence: z.string().min(3).max(1000),
-  }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator((d: { referralId: string; evidence: string }) =>
+    z
+      .object({
+        referralId: z.string().uuid(),
+        evidence: z.string().min(3).max(1000),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
     const now = new Date().toISOString();
     const { data: row, error } = await context.supabase
@@ -82,18 +96,27 @@ export const recordDelaConsent = createServerFn({ method: "POST" })
 
 // ============ Basic info + contact method ============
 export const updateDelaBasicInfo = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: {
-    referralId: string; age?: number; householdKind?: string; postcode?: string;
-    contactMethod?: "email" | "phone" | "whatsapp" | "post"; contactTimePreference?: string;
-  }) => z.object({
-    referralId: z.string().uuid(),
-    age: z.number().int().min(0).max(120).optional(),
-    householdKind: z.string().max(40).optional(),
-    postcode: z.string().max(10).optional(),
-    contactMethod: z.enum(["email","phone","whatsapp","post"]).optional(),
-    contactTimePreference: z.string().max(200).optional(),
-  }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator(
+    (d: {
+      referralId: string;
+      age?: number;
+      householdKind?: string;
+      postcode?: string;
+      contactMethod?: "email" | "phone" | "whatsapp" | "post";
+      contactTimePreference?: string;
+    }) =>
+      z
+        .object({
+          referralId: z.string().uuid(),
+          age: z.number().int().min(0).max(120).optional(),
+          householdKind: z.string().max(40).optional(),
+          postcode: z.string().max(10).optional(),
+          contactMethod: z.enum(["email", "phone", "whatsapp", "post"]).optional(),
+          contactTimePreference: z.string().max(200).optional(),
+        })
+        .parse(d),
+  )
   .handler(async ({ data, context }) => {
     const nextStatus = data.contactMethod ? "contact_method_selected" : "info_collected";
     const { data: row, error } = await context.supabase
@@ -115,11 +138,15 @@ export const updateDelaBasicInfo = createServerFn({ method: "POST" })
 
 // ============ Send to partner (referral ID generated on insert; this stamps the send) ============
 export const sendDelaToPartner = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { referralId: string; partnerId?: string }) => z.object({
-    referralId: z.string().uuid(),
-    partnerId: z.string().uuid().optional(),
-  }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator((d: { referralId: string; partnerId?: string }) =>
+    z
+      .object({
+        referralId: z.string().uuid(),
+        partnerId: z.string().uuid().optional(),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
     // Enforce that consent has been recorded before sending
     const { data: existing, error: readErr } = await context.supabase
@@ -128,8 +155,10 @@ export const sendDelaToPartner = createServerFn({ method: "POST" })
       .eq("id", data.referralId)
       .single();
     if (readErr) throw readErr;
-    if (!existing.marketing_consent_at) throw new Error("Marketing consent required before sending referral");
-    if (!existing.contact_method) throw new Error("Contact method must be selected before sending referral");
+    if (!existing.marketing_consent_at)
+      throw new Error("Marketing consent required before sending referral");
+    if (!existing.contact_method)
+      throw new Error("Contact method must be selected before sending referral");
 
     const { data: row, error } = await context.supabase
       .from("dela_referrals")
@@ -147,29 +176,50 @@ export const sendDelaToPartner = createServerFn({ method: "POST" })
 
 // ============ Partner acknowledgment / policy outcome — advisor-only via DB trigger ============
 export const updateDelaOutcome = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: {
-    referralId: string;
-    status?: "partner_acknowledged" | "application_submitted" | "policy_accepted" | "policy_declined" | "commission_due" | "commission_paid" | "cancelled" | "renewed";
-    partnerCaseReference?: string;
-    policyReference?: string;
-    monthlyPremiumEur?: number;
-    benefitAmountEur?: number;
-    commissionAmountEur?: number;
-    cancellationReason?: string;
-  }) => z.object({
-    referralId: z.string().uuid(),
-    status: z.enum([
-      "partner_acknowledged","application_submitted","policy_accepted","policy_declined",
-      "commission_due","commission_paid","cancelled","renewed",
-    ]).optional(),
-    partnerCaseReference: z.string().max(200).optional(),
-    policyReference: z.string().max(200).optional(),
-    monthlyPremiumEur: z.number().min(0).max(10000).optional(),
-    benefitAmountEur: z.number().min(0).max(10_000_000).optional(),
-    commissionAmountEur: z.number().min(0).max(1_000_000).optional(),
-    cancellationReason: z.string().max(500).optional(),
-  }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator(
+    (d: {
+      referralId: string;
+      status?:
+        | "partner_acknowledged"
+        | "application_submitted"
+        | "policy_accepted"
+        | "policy_declined"
+        | "commission_due"
+        | "commission_paid"
+        | "cancelled"
+        | "renewed";
+      partnerCaseReference?: string;
+      policyReference?: string;
+      monthlyPremiumEur?: number;
+      benefitAmountEur?: number;
+      commissionAmountEur?: number;
+      cancellationReason?: string;
+    }) =>
+      z
+        .object({
+          referralId: z.string().uuid(),
+          status: z
+            .enum([
+              "partner_acknowledged",
+              "application_submitted",
+              "policy_accepted",
+              "policy_declined",
+              "commission_due",
+              "commission_paid",
+              "cancelled",
+              "renewed",
+            ])
+            .optional(),
+          partnerCaseReference: z.string().max(200).optional(),
+          policyReference: z.string().max(200).optional(),
+          monthlyPremiumEur: z.number().min(0).max(10000).optional(),
+          benefitAmountEur: z.number().min(0).max(10_000_000).optional(),
+          commissionAmountEur: z.number().min(0).max(1_000_000).optional(),
+          cancellationReason: z.string().max(500).optional(),
+        })
+        .parse(d),
+  )
   .handler(async ({ data, context }) => {
     const patch: Partial<{
       status: typeof data.status;
@@ -200,7 +250,8 @@ export const updateDelaOutcome = createServerFn({ method: "POST" })
     if (data.policyReference) patch.policy_reference = data.policyReference;
     if (data.monthlyPremiumEur !== undefined) patch.monthly_premium_eur = data.monthlyPremiumEur;
     if (data.benefitAmountEur !== undefined) patch.benefit_amount_eur = data.benefitAmountEur;
-    if (data.commissionAmountEur !== undefined) patch.commission_amount_eur = data.commissionAmountEur;
+    if (data.commissionAmountEur !== undefined)
+      patch.commission_amount_eur = data.commissionAmountEur;
     if (data.cancellationReason) patch.cancellation_reason = data.cancellationReason;
 
     const { data: row, error } = await context.supabase
@@ -216,11 +267,13 @@ export const updateDelaOutcome = createServerFn({ method: "POST" })
 
 // ============ Lists ============
 export const listDelaReferrals = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("dela_referrals")
-      .select("id, reference, status, full_name, email, contact_method, sent_to_partner_at, policy_reference, commission_amount_eur, commission_status, created_at, updated_at")
+      .select(
+        "id, reference, status, full_name, email, contact_method, sent_to_partner_at, policy_reference, commission_amount_eur, commission_status, created_at, updated_at",
+      )
       .order("created_at", { ascending: false })
       .limit(200);
     if (error) throw error;
@@ -228,8 +281,8 @@ export const listDelaReferrals = createServerFn({ method: "GET" })
   });
 
 export const getDelaReferral = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
+  .middleware([requireSupabaseAal2])
+  .validator((d: { id: string }) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: row, error } = await context.supabase
       .from("dela_referrals")
@@ -242,17 +295,30 @@ export const getDelaReferral = createServerFn({ method: "GET" })
 
 // ============ Health-insurance triage ============
 export const HEALTH_TRIAGE_ROUTES = [
-  "statutory","private","student","employee","self_employed","family","needs_regulated_assessment",
+  "statutory",
+  "private",
+  "student",
+  "employee",
+  "self_employed",
+  "family",
+  "needs_regulated_assessment",
 ] as const;
 
 export const setHealthTriage = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { insuranceLeadId: string; route: (typeof HEALTH_TRIAGE_ROUTES)[number]; notes?: string }) =>
-    z.object({
-      insuranceLeadId: z.string().uuid(),
-      route: z.enum(HEALTH_TRIAGE_ROUTES),
-      notes: z.string().max(2000).optional(),
-    }).parse(d),
+  .middleware([requireSupabaseAal2])
+  .validator(
+    (d: {
+      insuranceLeadId: string;
+      route: (typeof HEALTH_TRIAGE_ROUTES)[number];
+      notes?: string;
+    }) =>
+      z
+        .object({
+          insuranceLeadId: z.string().uuid(),
+          route: z.enum(HEALTH_TRIAGE_ROUTES),
+          notes: z.string().max(2000).optional(),
+        })
+        .parse(d),
   )
   .handler(async ({ data, context }) => {
     const { data: row, error } = await context.supabase

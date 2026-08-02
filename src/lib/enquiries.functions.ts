@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 
 /**
  * Enquiry inbox with SLA workflow. Staff-only: triage, assignment, status
@@ -17,7 +17,7 @@ async function requireStaff(context: { supabase: any; userId: string }) {
 
 export const listEnquiries = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         status: z.enum(STATUSES).optional(),
@@ -55,7 +55,7 @@ export const listEnquiries = createServerFn({ method: "GET" })
 
 export const getEnquiry = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await requireStaff(context as any);
     const { data: enquiry, error } = await context.supabase
@@ -75,7 +75,7 @@ export const getEnquiry = createServerFn({ method: "GET" })
 
 export const updateEnquiry = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -107,12 +107,12 @@ export const updateEnquiry = createServerFn({ method: "POST" })
 
 export const addEnquiryNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         enquiryId: z.string().uuid(),
         body: z.string().trim().min(1).max(5000),
-        noteType: z.enum(["internal", "customer_reply", "status_change"]).default("internal"),
+        noteType: z.enum(["internal", "reply", "system"]).default("internal"),
       })
       .parse(raw),
   )
@@ -120,7 +120,7 @@ export const addEnquiryNote = createServerFn({ method: "POST" })
     await requireStaff(context as any);
 
     let deliveryStatus: string | null = null;
-    if (data.noteType === "customer_reply") {
+    if (data.noteType === "reply") {
       const { data: enquiry } = await context.supabase
         .from("enquiries")
         .select("email, subject, first_response_at")

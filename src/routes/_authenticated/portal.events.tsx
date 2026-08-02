@@ -231,7 +231,9 @@ function PortalEventsPage() {
                   <td className="px-4 py-2.5 whitespace-nowrap">
                     {new Date(e.event_date).toLocaleString()}
                   </td>
-                  <td className="px-4 py-2.5">{[e.location, e.city].filter(Boolean).join(", ") || "—"}</td>
+                  <td className="px-4 py-2.5">
+                    {[e.location, e.city].filter(Boolean).join(", ") || "—"}
+                  </td>
                   <td className="px-4 py-2.5 tabular-nums">
                     {e.registered_count}
                     {e.max_attendees ? ` / ${e.max_attendees}` : ""}
@@ -326,7 +328,10 @@ function PortalEventsPage() {
           {form && (
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Title" className="sm:col-span-2">
-                <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                <Input
+                  value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                />
               </Field>
               <Field label="Description" className="sm:col-span-2">
                 <Textarea
@@ -339,7 +344,9 @@ function PortalEventsPage() {
                 <select
                   className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                   value={form.category}
-                  onChange={(e) => setForm({ ...form, category: e.target.value as FormState["category"] })}
+                  onChange={(e) =>
+                    setForm({ ...form, category: e.target.value as FormState["category"] })
+                  }
                 >
                   <option value="advice_clinic">Advice clinic</option>
                   <option value="community_gathering">Community gathering</option>
@@ -377,13 +384,22 @@ function PortalEventsPage() {
                 />
               </Field>
               <Field label="Venue">
-                <Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+                <Input
+                  value={form.location}
+                  onChange={(e) => setForm({ ...form, location: e.target.value })}
+                />
               </Field>
               <Field label="City">
-                <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+                <Input
+                  value={form.city}
+                  onChange={(e) => setForm({ ...form, city: e.target.value })}
+                />
               </Field>
               <Field label="Address" className="sm:col-span-2">
-                <Input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+                <Input
+                  value={form.address}
+                  onChange={(e) => setForm({ ...form, address: e.target.value })}
+                />
               </Field>
               <Field label="Capacity (blank = unlimited)">
                 <Input
@@ -406,7 +422,9 @@ function PortalEventsPage() {
                 <select
                   className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
                   value={form.status}
-                  onChange={(e) => setForm({ ...form, status: e.target.value as FormState["status"] })}
+                  onChange={(e) =>
+                    setForm({ ...form, status: e.target.value as FormState["status"] })
+                  }
                 >
                   <option value="draft">Draft</option>
                   <option value="published">Published</option>
@@ -462,7 +480,9 @@ function PortalEventsPage() {
               </div>
             ))}
             {registrations.length === 0 && (
-              <p className="py-6 text-center text-sm text-muted-foreground">No registrations yet.</p>
+              <p className="py-6 text-center text-sm text-muted-foreground">
+                No registrations yet.
+              </p>
             )}
           </div>
         </DialogContent>

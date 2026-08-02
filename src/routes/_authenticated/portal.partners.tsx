@@ -1,5 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { queryOptions, useSuspenseQuery, useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import {
+  queryOptions,
+  useSuspenseQuery,
+  useMutation,
+  useQueryClient,
+  useQuery,
+} from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { AlertTriangle, Building2, CheckCircle2, Plus, ShieldCheck, XCircle } from "lucide-react";
@@ -10,7 +16,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -20,12 +32,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { listPartnerOrgs, createPartnerOrg, setPartnerOrgStatus } from "@/lib/partner.functions";
 import {
-  listPartnerOrgs,
-  createPartnerOrg,
-  setPartnerOrgStatus,
-} from "@/lib/partner.functions";
-import { listPartnerDocsPendingReview, reviewPartnerDocument } from "@/lib/partner-editors.functions";
+  listPartnerDocsPendingReview,
+  reviewPartnerDocument,
+} from "@/lib/partner-editors.functions";
 
 const CATEGORIES = [
   "funeral_director",
@@ -123,12 +134,19 @@ function VerificationQueue() {
           <p className="text-sm text-muted-foreground">Nothing pending.</p>
         ) : (
           rows.map((d: any) => (
-            <div key={d.id} className="flex items-center justify-between rounded-md border p-3 gap-3">
+            <div
+              key={d.id}
+              className="flex items-center justify-between rounded-md border p-3 gap-3"
+            >
               <div className="min-w-0">
                 <div className="font-medium text-sm truncate">{d.title}</div>
                 <div className="text-xs text-muted-foreground">
-                  {d.partner_organisations?.trading_name ?? d.partner_organisations?.legal_name ?? d.org_id}
-                  {" · "}{d.category}{d.valid_until ? ` · valid to ${d.valid_until}` : ""}
+                  {d.partner_organisations?.trading_name ??
+                    d.partner_organisations?.legal_name ??
+                    d.org_id}
+                  {" · "}
+                  {d.category}
+                  {d.valid_until ? ` · valid to ${d.valid_until}` : ""}
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
@@ -178,7 +196,9 @@ function OrgRow({ org }: { org: any }) {
         </div>
       </div>
       <div className="flex items-center gap-2 shrink-0">
-        <Badge variant={org.verified ? "default" : "outline"}>{org.verified ? "Verified" : "Unverified"}</Badge>
+        <Badge variant={org.verified ? "default" : "outline"}>
+          {org.verified ? "Verified" : "Unverified"}
+        </Badge>
         <Badge variant="outline">{org.status}</Badge>
         {org.status !== "active" && (
           <Button size="sm" onClick={() => mut.mutate({ status: "active", verified: true })}>
@@ -257,10 +277,14 @@ function NewOrgDialog() {
           <div>
             <Label>Primary category</Label>
             <Select value={category} onValueChange={(v) => setCategory(v as any)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
               <SelectContent>
                 {CATEGORIES.map((c) => (
-                  <SelectItem key={c} value={c}>{c.replaceAll("_", " ")}</SelectItem>
+                  <SelectItem key={c} value={c}>
+                    {c.replaceAll("_", " ")}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -277,7 +301,11 @@ function NewOrgDialog() {
           </div>
           <div>
             <Label>Contact email</Label>
-            <Input type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
+            <Input
+              type="email"
+              value={contactEmail}
+              onChange={(e) => setContactEmail(e.target.value)}
+            />
           </div>
           <div>
             <Label>Contact phone</Label>

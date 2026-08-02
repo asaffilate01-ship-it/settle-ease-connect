@@ -14,15 +14,6 @@ export function MfaEnrollmentGate({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      const email = userData?.user?.email?.toLowerCase() ?? "";
-      // Bypass MFA enforcement for dev / test logins.
-      const isDevLogin =
-        import.meta.env.DEV ||
-        /(^|[+._-])(dev|test|qa|staging|preview|lovable)([+._-]|@)/.test(email) ||
-        email.endsWith("@lovable.dev") ||
-        email.endsWith("@example.com");
-      if (isDevLogin) return setState("ok");
       const { data } = await supabase.auth.mfa.listFactors();
       const verified = (data?.totp ?? []).some((f) => f.status === "verified");
       setState(verified ? "ok" : "needs-enroll");
@@ -46,9 +37,9 @@ export function MfaEnrollmentGate({ children }: { children: ReactNode }) {
         <h2 className="font-display text-2xl font-semibold">Two-factor authentication required</h2>
       </div>
       <p className="mt-3 text-sm text-muted-foreground">
-        Staff accounts must have an authenticator app configured before accessing the portal.
-        This protects client records, financial data and regulated case files. Enrol below and
-        return — it takes about 60 seconds.
+        Staff accounts must have an authenticator app configured before accessing the portal. This
+        protects client records, financial data and regulated case files. Enrol below and return —
+        it takes about 60 seconds.
       </p>
       <Button asChild className="mt-6">
         <Link to="/app/settings">Set up authenticator</Link>

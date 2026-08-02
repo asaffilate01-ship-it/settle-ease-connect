@@ -14,8 +14,7 @@ export function BackToTop() {
     const onScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const height =
-        (document.documentElement.scrollHeight || 0) -
-        (document.documentElement.clientHeight || 0);
+        (document.documentElement.scrollHeight || 0) - (document.documentElement.clientHeight || 0);
       const p = height > 0 ? Math.min(1, Math.max(0, scrollTop / height)) : 0;
       setProgress(p);
       setVisible(scrollTop > window.innerHeight * 0.4);
@@ -45,11 +44,7 @@ export function BackToTop() {
         visible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-3",
       )}
     >
-      <svg
-        className="absolute inset-0 h-full w-full -rotate-90"
-        viewBox="0 0 48 48"
-        aria-hidden
-      >
+      <svg className="absolute inset-0 h-full w-full -rotate-90" viewBox="0 0 48 48" aria-hidden>
         <circle
           cx="24"
           cy="24"

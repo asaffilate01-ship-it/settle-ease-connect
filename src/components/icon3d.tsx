@@ -74,7 +74,10 @@ export function Icon3D({ name, className, alt = "", clay = false }: Props) {
   if (!clay) return img;
   return (
     <span className="relative inline-grid h-full w-full place-items-center overflow-hidden rounded-2xl bg-[linear-gradient(140deg,oklch(0.985_0.008_78),oklch(0.9_0.03_65))] p-1.5 shadow-clay">
-      <span aria-hidden className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(ellipse_at_28%_18%,oklch(1_0_0/0.75),transparent_55%)]" />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(ellipse_at_28%_18%,oklch(1_0_0/0.75),transparent_55%)]"
+      />
       <span className="relative h-full w-full">{img}</span>
     </span>
   );

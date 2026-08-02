@@ -33,12 +33,15 @@ function ExpertPayouts() {
       </header>
 
       <section className="grid gap-4 sm:grid-cols-3">
-        <Kpi label={t("expert.kpi.pending", { defaultValue: "Pending" })} value={`€${(k?.pendingEur ?? 0).toFixed(2)}`} />
-        <Kpi label={t("expert.kpi.paidYtd", { defaultValue: "Paid YTD" })} value={`€${(k?.paidYtdEur ?? 0).toFixed(2)}`} />
         <Kpi
-          label={t("expert.kpi.entries", { defaultValue: "Entries" })}
-          value={rows.length}
+          label={t("expert.kpi.pending", { defaultValue: "Pending" })}
+          value={`€${(k?.pendingEur ?? 0).toFixed(2)}`}
         />
+        <Kpi
+          label={t("expert.kpi.paidYtd", { defaultValue: "Paid YTD" })}
+          value={`€${(k?.paidYtdEur ?? 0).toFixed(2)}`}
+        />
+        <Kpi label={t("expert.kpi.entries", { defaultValue: "Entries" })} value={rows.length} />
       </section>
 
       <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
@@ -47,7 +50,9 @@ function ExpertPayouts() {
             <tr>
               <th className="p-3">{t("expert.table.period", { defaultValue: "Period" })}</th>
               <th className="p-3">{t("expert.table.kind", { defaultValue: "Kind" })}</th>
-              <th className="p-3">{t("expert.table.description", { defaultValue: "Description" })}</th>
+              <th className="p-3">
+                {t("expert.table.description", { defaultValue: "Description" })}
+              </th>
               <th className="p-3">{t("expert.table.gross", { defaultValue: "Gross" })}</th>
               <th className="p-3">{t("expert.table.rate", { defaultValue: "Rate" })}</th>
               <th className="p-3">{t("expert.table.amount", { defaultValue: "Amount" })}</th>
@@ -60,7 +65,10 @@ function ExpertPayouts() {
               <tr key={p.id} className="border-t border-border/40">
                 <td className="p-3 text-muted-foreground">
                   {p.period_month
-                    ? new Date(p.period_month).toLocaleDateString(undefined, { month: "short", year: "numeric" })
+                    ? new Date(p.period_month).toLocaleDateString(undefined, {
+                        month: "short",
+                        year: "numeric",
+                      })
                     : "—"}
                 </td>
                 <td className="p-3 capitalize">{String(p.kind).replace(/_/g, " ")}</td>

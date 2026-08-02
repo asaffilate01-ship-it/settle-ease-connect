@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>BeistandPlus</title>
+    <style>
+      :root { font-family: system-ui, -apple-system, sans-serif; color: #102a3a; background: #f8f5ee; }
+      body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; box-sizing: border-box; }
+      main { width: min(440px, 100%); padding: 32px; border: 1px solid #d7dedf; border-radius: 22px; background: #fff; box-sizing: border-box; box-shadow: 0 18px 50px rgb(0 27 46 / 10%); }
+      h1 { margin: 0 0 12px; font-size: 28px; color: #001b2e; }
+      p { line-height: 1.55; color: #52636d; }
+      button { width: 100%; margin-top: 12px; padding: 13px 18px; border: 0; border-radius: 12px; color: #fff; background: #006d77; font: inherit; font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Secure connection required</h1>
+      <p>BeistandPlus could not open its secure service. Check your connection and try again. If this continues, install the latest app update.</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+    </main>
+  </body>
+</html>

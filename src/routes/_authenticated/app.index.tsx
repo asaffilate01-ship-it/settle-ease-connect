@@ -1,7 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Sparkles, FileCheck2, HeartHandshake, Lock, MessageSquare, Shield, Receipt, Briefcase, AlertTriangle, CalendarClock, FileWarning, type LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  FileCheck2,
+  HeartHandshake,
+  Lock,
+  MessageSquare,
+  Shield,
+  Receipt,
+  Briefcase,
+  AlertTriangle,
+  CalendarClock,
+  FileWarning,
+  type LucideIcon,
+} from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,40 +56,54 @@ function Overview() {
 
   const noPlan = sub.planGroup === "none";
   const hour = new Date().getHours();
-  const greeting = hour < 5 ? "Guten Abend" : hour < 12 ? "Guten Morgen" : hour < 18 ? "Guten Tag" : "Guten Abend";
-  const today = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+  const greeting =
+    hour < 5 ? "Guten Abend" : hour < 12 ? "Guten Morgen" : hour < 18 ? "Guten Tag" : "Guten Abend";
+  const today = new Date().toLocaleDateString(undefined, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
 
   return (
     <div className="space-y-8">
       <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-soft sm:p-8">
-        <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl" aria-hidden />
+        <div
+          className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
+          aria-hidden
+        />
         <div className="relative flex flex-wrap items-end justify-between gap-4">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{today}</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                {today}
+              </span>
               <PlanChip />
             </div>
             <h1 className="display-lg mt-2 font-semibold">
-              {greeting}{firstName ? `, ${firstName}` : ""} — <span className="text-muted-foreground">here's your day.</span>
+              {greeting}
+              {firstName ? `, ${firstName}` : ""} —{" "}
+              <span className="text-muted-foreground">here's your day.</span>
             </h1>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              Your household hub for settlement in Germany — checklists, benefits, insurance, cases and support in 13 languages.
+              Your household hub for settlement in Germany — checklists, benefits, insurance, cases
+              and support in 13 languages.
             </p>
           </div>
         </div>
       </div>
 
-      {noPlan && (
-        <NoPlanBanner />
-      )}
+      {noPlan && <NoPlanBanner />}
 
       {!noPlan && (
         <div className="grid gap-4 md:grid-cols-3">
           <QuickStat
             label="Your plan"
             value={sub.planName ?? "—"}
-            sub={sub.monthlyPrice ? `€${sub.monthlyPrice}/mo · ${sub.status}` : sub.status ?? ""}
+            sub={sub.monthlyPrice ? `€${sub.monthlyPrice}/mo · ${sub.status}` : (sub.status ?? "")}
           />
           <QuickStat
             label="Open cases"
@@ -103,10 +131,7 @@ function Overview() {
         </div>
       )}
 
-      {!noPlan && overview.data && (
-        <UrgentActions data={overview.data} />
-      )}
-
+      {!noPlan && overview.data && <UrgentActions data={overview.data} />}
 
       <section>
         <h2 className="mb-3 font-display text-lg font-semibold">What you can do today</h2>
@@ -192,7 +217,9 @@ function Overview() {
             <ClayIcon icon={MessageSquare} tone="aurora" size="md" />
             <div>
               <div className="font-display text-lg font-semibold">BeistandPlus AI</div>
-              <div className="text-xs text-muted-foreground">DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS</div>
+              <div className="text-xs text-muted-foreground">
+                DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS
+              </div>
             </div>
           </div>
           <div className="mt-4 grid gap-2 sm:grid-cols-2">
@@ -243,11 +270,12 @@ function NoPlanBanner() {
         <ClayIcon icon={Sparkles} tone="aurora" size="md" />
         <div className="flex-1">
           <div className="font-display text-lg font-semibold">{t("upgradeGate.title")}</div>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t("upgradeGate.body")}
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">{t("upgradeGate.body")}</p>
         </div>
-        <Link to="/app/upgrade" className="inline-flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
+        <Link
+          to="/app/upgrade"
+          className="inline-flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+        >
           {t("upgradeGate.cta")} <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -256,14 +284,29 @@ function NoPlanBanner() {
 }
 
 function FeatureTile({
-  title, body, icon: Icon, tone, href, requires, current,
+  title,
+  body,
+  icon: Icon,
+  tone,
+  href,
+  requires,
+  current,
 }: {
-  title: string; body: string; icon: LucideIcon;
+  title: string;
+  body: string;
+  icon: LucideIcon;
   tone: "ocean" | "teal" | "aurora" | "coral" | "sun" | "mint" | "ink";
-  href: string; requires: PlanGroup; current: PlanGroup;
+  href: string;
+  requires: PlanGroup;
+  current: PlanGroup;
 }) {
   const unlocked = tierMeets(current, requires);
-  const TIER_LABEL: Record<PlanGroup, string> = { none: "No plan", basic: "Basic", plus: "Plus", complete: "Complete" };
+  const TIER_LABEL: Record<PlanGroup, string> = {
+    none: "No plan",
+    basic: "Basic",
+    plus: "Plus",
+    complete: "Complete",
+  };
   const TIER_TONE: Record<PlanGroup, string> = {
     none: "bg-muted text-muted-foreground",
     basic: "bg-sky-500/15 text-sky-600 dark:text-sky-300",
@@ -276,7 +319,9 @@ function FeatureTile({
       <PolishedCard glow={unlocked} className={`h-full p-5 ${unlocked ? "" : "opacity-90"}`}>
         <div className="flex items-start justify-between gap-2">
           <ClayIcon icon={unlocked ? Icon : Lock} tone={unlocked ? tone : "ink"} size="md" />
-          <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${TIER_TONE[requires]}`}>
+          <span
+            className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${TIER_TONE[requires]}`}
+          >
             {TIER_LABEL[requires]}
           </span>
         </div>
@@ -290,9 +335,21 @@ function FeatureTile({
   );
 }
 
-function QuickStat({ label, value, sub, tone }: { label: string; value: string; sub: string; tone?: "accent" }) {
+function QuickStat({
+  label,
+  value,
+  sub,
+  tone,
+}: {
+  label: string;
+  value: string;
+  sub: string;
+  tone?: "accent";
+}) {
   return (
-    <div className={`rounded-2xl border border-border/60 p-5 shadow-soft ${tone === "accent" ? "bg-gradient-warm text-accent-foreground" : "bg-card"}`}>
+    <div
+      className={`rounded-2xl border border-border/60 p-5 shadow-soft ${tone === "accent" ? "bg-gradient-warm text-accent-foreground" : "bg-card"}`}
+    >
       <div className="text-xs uppercase tracking-widest opacity-80">{label}</div>
       <div className="mt-2 font-display text-2xl font-semibold">{value}</div>
       <div className="mt-1 text-xs opacity-80">{sub}</div>
@@ -310,10 +367,31 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 type OverviewData = {
-  openCases: Array<{ case_id: string; title: string; sla_state: string; sla_due_at: string | null; current_stage: string | null; status: string }>;
-  upcomingAppointments: Array<{ id: string; case_id: string; title: string; starts_at: string; location: string | null; meeting_url: string | null }>;
+  openCases: Array<{
+    case_id: string;
+    title: string;
+    sla_state: string;
+    sla_due_at: string | null;
+    current_stage: string | null;
+    status: string;
+  }>;
+  upcomingAppointments: Array<{
+    id: string;
+    case_id: string;
+    title: string;
+    starts_at: string;
+    location: string | null;
+    meeting_url: string | null;
+  }>;
   missingDocsCases: Array<{ case_id: string; title: string }>;
-  nextAppointment: { id: string; case_id: string; title: string; starts_at: string; location: string | null; meeting_url: string | null } | null;
+  nextAppointment: {
+    id: string;
+    case_id: string;
+    title: string;
+    starts_at: string;
+    location: string | null;
+    meeting_url: string | null;
+  } | null;
   breachedCount: number;
   atRiskCount: number;
 };
@@ -325,7 +403,10 @@ function UrgentActions({ data }: { data: OverviewData }) {
   const missingDocs = data.missingDocsCases.slice(0, 3);
 
   const nothing =
-    breached.length === 0 && atRisk.length === 0 && nextAppts.length === 0 && missingDocs.length === 0;
+    breached.length === 0 &&
+    atRisk.length === 0 &&
+    nextAppts.length === 0 &&
+    missingDocs.length === 0;
   if (nothing) return null;
 
   const fmt = (v: string | null) =>
@@ -372,7 +453,9 @@ function UrgentActions({ data }: { data: OverviewData }) {
             <CalendarClock className="h-4 w-4 text-primary" /> Next appointments
           </div>
           {nextAppts.length === 0 ? (
-            <p className="mt-2 text-sm text-muted-foreground">No appointments in the next 30 days.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              No appointments in the next 30 days.
+            </p>
           ) : (
             <ul className="mt-2 space-y-1.5 text-sm">
               {nextAppts.map((a) => (
@@ -396,7 +479,9 @@ function UrgentActions({ data }: { data: OverviewData }) {
             <FileWarning className="h-4 w-4 text-amber-600" /> Missing documents
           </div>
           {missingDocs.length === 0 ? (
-            <p className="mt-2 text-sm text-muted-foreground">All your cases have documents uploaded.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              All your cases have documents uploaded.
+            </p>
           ) : (
             <ul className="mt-2 space-y-1.5 text-sm">
               {missingDocs.map((c) => (

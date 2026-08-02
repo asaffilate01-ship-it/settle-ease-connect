@@ -19,7 +19,9 @@ export function OfflineIndicator() {
     window.addEventListener("online", onOnline);
     window.addEventListener("offline", onOffline);
     const refresh = () => {
-      listQueue().then(setItems).catch(() => setItems([]));
+      listQueue()
+        .then(setItems)
+        .catch(() => setItems([]));
     };
     refresh();
     const unsub = subscribeQueue(refresh);

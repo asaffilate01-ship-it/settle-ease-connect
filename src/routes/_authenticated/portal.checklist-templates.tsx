@@ -47,15 +47,27 @@ function ChecklistTemplatesAdminPage() {
   };
 
   const upsertTemplate = useMutation({
-    mutationFn: async (v: { key: string; title: string; description: string; position: number; active: boolean }) =>
-      saveTpl({ data: v }),
-    onSuccess: () => { toast.success("Template saved"); invalidate(); },
+    mutationFn: async (v: {
+      key: string;
+      title: string;
+      description: string;
+      position: number;
+      active: boolean;
+    }) => saveTpl({ data: v }),
+    onSuccess: () => {
+      toast.success("Template saved");
+      invalidate();
+    },
     onError: (e: Error) => toast.error(e.message),
   });
 
   const removeTemplate = useMutation({
     mutationFn: async (key: string) => delTpl({ data: { key } }),
-    onSuccess: () => { toast.success("Template deleted"); setActiveKey(null); invalidate(); },
+    onSuccess: () => {
+      toast.success("Template deleted");
+      setActiveKey(null);
+      invalidate();
+    },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -69,13 +81,19 @@ function ChecklistTemplatesAdminPage() {
   };
   const upsertItem = useMutation({
     mutationFn: async (v: ItemInput) => saveItem({ data: v }),
-    onSuccess: () => { toast.success("Item saved"); invalidate(); },
+    onSuccess: () => {
+      toast.success("Item saved");
+      invalidate();
+    },
     onError: (e: Error) => toast.error(e.message),
   });
 
   const removeItem = useMutation({
     mutationFn: async (id: string) => delItem({ data: { id } }),
-    onSuccess: () => { toast.success("Item deleted"); invalidate(); },
+    onSuccess: () => {
+      toast.success("Item deleted");
+      invalidate();
+    },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -90,7 +108,8 @@ function ChecklistTemplatesAdminPage() {
         <div>
           <h1 className="display-lg font-semibold">Checklist Templates</h1>
           <p className="text-sm text-muted-foreground">
-            Manage the arrival & settlement checklists shown to members. Changes go live immediately.
+            Manage the arrival & settlement checklists shown to members. Changes go live
+            immediately.
           </p>
         </div>
       </div>
@@ -98,14 +117,18 @@ function ChecklistTemplatesAdminPage() {
       {/* Templates list */}
       <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
         <div className="space-y-3">
-          <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Templates</div>
+          <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            Templates
+          </div>
           <div className="space-y-1">
             {templates.map((t) => (
               <button
                 key={t.key}
                 onClick={() => setActiveKey(t.key)}
                 className={`flex w-full items-center justify-between rounded-lg border px-3 py-2 text-left text-sm ${
-                  t.key === effectiveKey ? "border-primary bg-primary/5" : "border-border/60 bg-card hover:border-primary/40"
+                  t.key === effectiveKey
+                    ? "border-primary bg-primary/5"
+                    : "border-border/60 bg-card hover:border-primary/40"
                 }`}
               >
                 <div>
@@ -119,10 +142,28 @@ function ChecklistTemplatesAdminPage() {
 
           <div className="rounded-lg border border-dashed border-border/60 bg-card p-3 space-y-2">
             <div className="text-xs font-medium">New template</div>
-            <Input placeholder="key (e.g. anmeldung)" value={nt.key} onChange={(e) => setNt({ ...nt, key: e.target.value })} />
-            <Input placeholder="title" value={nt.title} onChange={(e) => setNt({ ...nt, title: e.target.value })} />
-            <Textarea rows={2} placeholder="description" value={nt.description} onChange={(e) => setNt({ ...nt, description: e.target.value })} />
-            <Input type="number" placeholder="position" value={nt.position} onChange={(e) => setNt({ ...nt, position: Number(e.target.value) || 0 })} />
+            <Input
+              placeholder="key (e.g. anmeldung)"
+              value={nt.key}
+              onChange={(e) => setNt({ ...nt, key: e.target.value })}
+            />
+            <Input
+              placeholder="title"
+              value={nt.title}
+              onChange={(e) => setNt({ ...nt, title: e.target.value })}
+            />
+            <Textarea
+              rows={2}
+              placeholder="description"
+              value={nt.description}
+              onChange={(e) => setNt({ ...nt, description: e.target.value })}
+            />
+            <Input
+              type="number"
+              placeholder="position"
+              value={nt.position}
+              onChange={(e) => setNt({ ...nt, position: Number(e.target.value) || 0 })}
+            />
             <Button
               size="sm"
               disabled={!nt.key || !nt.title || upsertTemplate.isPending}
@@ -141,8 +182,18 @@ function ChecklistTemplatesAdminPage() {
           <div className="space-y-4">
             <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft space-y-3">
               <div className="flex items-center justify-between">
-                <div className="text-sm font-semibold">Edit template · <span className="font-mono text-xs text-muted-foreground">{active.key}</span></div>
-                <Button size="sm" variant="ghost" onClick={() => { if (confirm(`Delete "${active.title}" and all its items?`)) removeTemplate.mutate(active.key); }}>
+                <div className="text-sm font-semibold">
+                  Edit template ·{" "}
+                  <span className="font-mono text-xs text-muted-foreground">{active.key}</span>
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    if (confirm(`Delete "${active.title}" and all its items?`))
+                      removeTemplate.mutate(active.key);
+                  }}
+                >
                   <Trash2 className="mr-1 h-4 w-4" /> Delete
                 </Button>
               </div>
@@ -160,7 +211,9 @@ function ChecklistTemplatesAdminPage() {
                   <ItemRow
                     key={item.id}
                     item={item}
-                    onSave={(v) => upsertItem.mutate({ id: item.id, template_key: active.key, ...v })}
+                    onSave={(v) =>
+                      upsertItem.mutate({ id: item.id, template_key: active.key, ...v })
+                    }
                     onDelete={() => removeItem.mutate(item.id)}
                   />
                 ))}
@@ -168,10 +221,27 @@ function ChecklistTemplatesAdminPage() {
 
               <div className="mt-4 rounded-lg border border-dashed border-border/60 p-3 space-y-2">
                 <div className="text-xs font-medium">New item</div>
-                <Input placeholder="item_key (e.g. rp1)" value={ni.item_key} onChange={(e) => setNi({ ...ni, item_key: e.target.value })} />
-                <Input placeholder="title" value={ni.title} onChange={(e) => setNi({ ...ni, title: e.target.value })} />
-                <Input placeholder="note (optional)" value={ni.note} onChange={(e) => setNi({ ...ni, note: e.target.value })} />
-                <Input type="number" placeholder="position" value={ni.position} onChange={(e) => setNi({ ...ni, position: Number(e.target.value) || 0 })} />
+                <Input
+                  placeholder="item_key (e.g. rp1)"
+                  value={ni.item_key}
+                  onChange={(e) => setNi({ ...ni, item_key: e.target.value })}
+                />
+                <Input
+                  placeholder="title"
+                  value={ni.title}
+                  onChange={(e) => setNi({ ...ni, title: e.target.value })}
+                />
+                <Input
+                  placeholder="note (optional)"
+                  value={ni.note}
+                  onChange={(e) => setNi({ ...ni, note: e.target.value })}
+                />
+                <Input
+                  type="number"
+                  placeholder="position"
+                  value={ni.position}
+                  onChange={(e) => setNi({ ...ni, position: Number(e.target.value) || 0 })}
+                />
                 <Button
                   size="sm"
                   disabled={!ni.item_key || !ni.title || upsertItem.isPending}
@@ -213,12 +283,31 @@ function TemplateEditor({
   const [v, setV] = useState(initial);
   return (
     <div className="grid gap-2">
-      <Input value={v.title} onChange={(e) => setV({ ...v, title: e.target.value })} placeholder="Title" />
-      <Textarea rows={2} value={v.description} onChange={(e) => setV({ ...v, description: e.target.value })} placeholder="Description" />
+      <Input
+        value={v.title}
+        onChange={(e) => setV({ ...v, title: e.target.value })}
+        placeholder="Title"
+      />
+      <Textarea
+        rows={2}
+        value={v.description}
+        onChange={(e) => setV({ ...v, description: e.target.value })}
+        placeholder="Description"
+      />
       <div className="grid grid-cols-2 gap-2">
-        <Input type="number" value={v.position} onChange={(e) => setV({ ...v, position: Number(e.target.value) || 0 })} placeholder="Position" />
+        <Input
+          type="number"
+          value={v.position}
+          onChange={(e) => setV({ ...v, position: Number(e.target.value) || 0 })}
+          placeholder="Position"
+        />
         <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={v.active} onChange={(e) => setV({ ...v, active: e.target.checked })} /> Active
+          <input
+            type="checkbox"
+            checked={v.active}
+            onChange={(e) => setV({ ...v, active: e.target.checked })}
+          />{" "}
+          Active
         </label>
       </div>
       <div>
@@ -248,16 +337,40 @@ function ItemRow({
   return (
     <div className="rounded-lg border border-border/60 bg-background/50 p-3 space-y-2">
       <div className="grid grid-cols-[100px_1fr_80px] gap-2">
-        <Input value={v.item_key} onChange={(e) => setV({ ...v, item_key: e.target.value })} placeholder="key" className="font-mono text-xs" />
-        <Input value={v.title} onChange={(e) => setV({ ...v, title: e.target.value })} placeholder="title" />
-        <Input type="number" value={v.position} onChange={(e) => setV({ ...v, position: Number(e.target.value) || 0 })} placeholder="pos" />
+        <Input
+          value={v.item_key}
+          onChange={(e) => setV({ ...v, item_key: e.target.value })}
+          placeholder="key"
+          className="font-mono text-xs"
+        />
+        <Input
+          value={v.title}
+          onChange={(e) => setV({ ...v, title: e.target.value })}
+          placeholder="title"
+        />
+        <Input
+          type="number"
+          value={v.position}
+          onChange={(e) => setV({ ...v, position: Number(e.target.value) || 0 })}
+          placeholder="pos"
+        />
       </div>
-      <Input value={v.note} onChange={(e) => setV({ ...v, note: e.target.value })} placeholder="note (optional)" />
+      <Input
+        value={v.note}
+        onChange={(e) => setV({ ...v, note: e.target.value })}
+        placeholder="note (optional)"
+      />
       <div className="flex gap-2">
         <Button size="sm" variant="outline" onClick={() => onSave({ ...v, note: v.note || null })}>
           <Save className="mr-1 h-3 w-3" /> Save
         </Button>
-        <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete this item?")) onDelete(); }}>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => {
+            if (confirm("Delete this item?")) onDelete();
+          }}
+        >
           <Trash2 className="mr-1 h-3 w-3" /> Delete
         </Button>
       </div>

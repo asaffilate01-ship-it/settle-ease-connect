@@ -12,7 +12,7 @@ async function assertInternal(context: { supabase: any; userId: string }) {
 
 export const listLifeAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         table: z.enum(TABLES),
@@ -34,7 +34,7 @@ export const listLifeAdmin = createServerFn({ method: "GET" })
 
 export const upsertLifeAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         table: z.enum(TABLES),
@@ -49,7 +49,10 @@ export const upsertLifeAdmin = createServerFn({ method: "POST" })
     const owner = data.clientUserId && isInternal ? data.clientUserId : context.userId;
     const payload: any = { ...data.values, client_user_id: owner };
     if (data.id) {
-      const { error } = await context.supabase.from(data.table).update(payload as any).eq("id", data.id);
+      const { error } = await context.supabase
+        .from(data.table)
+        .update(payload as any)
+        .eq("id", data.id);
       if (error) throw new Error(error.message);
       return { ok: true, id: data.id };
     }
@@ -64,7 +67,7 @@ export const upsertLifeAdmin = createServerFn({ method: "POST" })
 
 export const deleteLifeAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ table: z.enum(TABLES), id: z.string().uuid() }).parse(raw),
   )
   .handler(async ({ data, context }) => {

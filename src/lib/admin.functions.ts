@@ -1,19 +1,38 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 
 const ROLES = [
-  "admin","staff","case_manager",
-  "insurance_admin","tax_admin","benefits_admin","medical_admin","new_arrival_admin",
-  "lawyer","accountant","doctor","notary","translator","social_worker",
-  "expert","funeral_director","mosque","church","temple","hospital",
-  "beneficiary","family","agent",
+  "admin",
+  "staff",
+  "case_manager",
+  "insurance_admin",
+  "tax_admin",
+  "benefits_admin",
+  "medical_admin",
+  "new_arrival_admin",
+  "lawyer",
+  "accountant",
+  "doctor",
+  "notary",
+  "translator",
+  "social_worker",
+  "expert",
+  "funeral_director",
+  "mosque",
+  "church",
+  "temple",
+  "hospital",
+  "beneficiary",
+  "family",
+  "agent",
 ] as const;
 const RoleSchema = z.enum(ROLES);
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId, _role: "admin",
+    _user_id: context.userId,
+    _role: "admin",
   });
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Forbidden: admin only");
@@ -27,8 +46,10 @@ export const listAppUsers = createServerFn({ method: "GET" })
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: authList, error: authErr } =
-      await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 200 });
+    const { data: authList, error: authErr } = await supabaseAdmin.auth.admin.listUsers({
+      page: 1,
+      perPage: 200,
+    });
     if (authErr) throw new Error(authErr.message);
 
     const ids = authList.users.map((u) => u.id);
@@ -58,7 +79,7 @@ export const listAppUsers = createServerFn({ method: "GET" })
 
 export const grantUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ user_id: z.string().uuid(), role: RoleSchema }).parse(raw),
   )
   .handler(async ({ data, context }) => {
@@ -75,7 +96,7 @@ export const grantUserRole = createServerFn({ method: "POST" })
 
 export const revokeUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ user_id: z.string().uuid(), role: RoleSchema }).parse(raw),
   )
   .handler(async ({ data, context }) => {
@@ -106,13 +127,15 @@ export const listInvitations = createServerFn({ method: "GET" })
 
 export const createInvitation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({
-      email: z.string().email().max(200),
-      role: RoleSchema,
-      note: z.string().max(500).optional(),
-      days_valid: z.number().int().min(1).max(365).default(30),
-    }).parse(raw),
+  .validator((raw: unknown) =>
+    z
+      .object({
+        email: z.string().email().max(200),
+        role: RoleSchema,
+        note: z.string().max(500).optional(),
+        days_valid: z.number().int().min(1).max(365).default(30),
+      })
+      .parse(raw),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
@@ -130,13 +153,10 @@ export const createInvitation = createServerFn({ method: "POST" })
 
 export const revokeInvitation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { error } = await context.supabase
-      .from("role_invitations")
-      .delete()
-      .eq("id", data.id);
+    const { error } = await context.supabase.from("role_invitations").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

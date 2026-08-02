@@ -24,9 +24,7 @@ export const Route = createFileRoute("/api/internal/partner-deliveries")({
         const url = new URL(request.url);
         const batch = Number.parseInt(url.searchParams.get("batch") ?? "10", 10);
         try {
-          const summary = await processPartnerDeliveryQueue(
-            Number.isFinite(batch) ? batch : 10,
-          );
+          const summary = await processPartnerDeliveryQueue(Number.isFinite(batch) ? batch : 10);
           return new Response(JSON.stringify({ ok: true, ...summary }), {
             headers: { "Content-Type": "application/json" },
           });

@@ -2,7 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { BadgeCheck, AlertCircle, Briefcase, Wallet, Clock, Scale, Package, HeartHandshake } from "lucide-react";
+import {
+  BadgeCheck,
+  AlertCircle,
+  Briefcase,
+  Wallet,
+  Clock,
+  Scale,
+  Package,
+  HeartHandshake,
+} from "lucide-react";
 import {
   getMyExpertProfile,
   getMyExpertKpis,
@@ -54,12 +63,21 @@ function ExpertHome() {
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       <header className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-soft sm:p-8">
-        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
+        />
         <div className="relative">
           <h1 className="font-display text-3xl font-semibold">
             {p?.full_name
-              ? t("expert.home.welcomeNamed", { defaultValue: "Welcome, {{name}}", name: p.full_name })
+              ? t("expert.home.welcomeNamed", {
+                  defaultValue: "Welcome, {{name}}",
+                  name: p.full_name,
+                })
               : t("expert.home.welcome", { defaultValue: "Welcome" })}
           </h1>
           <p className="mt-1 text-muted-foreground">
@@ -73,11 +91,13 @@ function ExpertHome() {
           <div className="mt-4 flex flex-wrap gap-2">
             {k?.verified ? (
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-500/20 dark:text-emerald-300">
-                <BadgeCheck className="h-3.5 w-3.5" /> {t("expert.badge.verified", { defaultValue: "Verified" })}
+                <BadgeCheck className="h-3.5 w-3.5" />{" "}
+                {t("expert.badge.verified", { defaultValue: "Verified" })}
               </span>
             ) : (
               <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-500/20 dark:text-amber-300">
-                <AlertCircle className="h-3.5 w-3.5" /> {t("expert.badge.pending", { defaultValue: "Verification pending" })}
+                <AlertCircle className="h-3.5 w-3.5" />{" "}
+                {t("expert.badge.pending", { defaultValue: "Verification pending" })}
               </span>
             )}
             {k?.compensation && (
@@ -117,10 +137,12 @@ function ExpertHome() {
       </section>
 
       {prof.data && prof.data.bucket !== "generic" && (
-        <ProfessionWidget bucket={prof.data.bucket} profession={prof.data.profession ?? ""} items={prof.data.items ?? []} />
+        <ProfessionWidget
+          bucket={prof.data.bucket}
+          profession={prof.data.profession ?? ""}
+          items={prof.data.items ?? []}
+        />
       )}
-
-
 
       <section>
         <div className="mb-3 flex items-center justify-between">
@@ -146,7 +168,9 @@ function ExpertHome() {
                 <tr key={c.id} className="border-t border-border/40">
                   <td className="p-3 font-mono text-xs">{c.reference}</td>
                   <td className="p-3">{c.title}</td>
-                  <td className="p-3 text-muted-foreground capitalize">{String(c.assignment_role).replace(/_/g, " ")}</td>
+                  <td className="p-3 text-muted-foreground capitalize">
+                    {String(c.assignment_role).replace(/_/g, " ")}
+                  </td>
                   <td className="p-3 capitalize">{c.status}</td>
                 </tr>
               ))}
@@ -184,7 +208,14 @@ function ExpertHome() {
             <tbody>
               {(payouts.data ?? []).slice(0, 8).map((p: any) => (
                 <tr key={p.id} className="border-t border-border/40">
-                  <td className="p-3 text-muted-foreground">{p.period_month ? new Date(p.period_month).toLocaleDateString(undefined, { month: "short", year: "numeric" }) : "—"}</td>
+                  <td className="p-3 text-muted-foreground">
+                    {p.period_month
+                      ? new Date(p.period_month).toLocaleDateString(undefined, {
+                          month: "short",
+                          year: "numeric",
+                        })
+                      : "—"}
+                  </td>
                   <td className="p-3 capitalize">{String(p.kind).replace(/_/g, " ")}</td>
                   <td className="p-3 font-medium">€{Number(p.amount_eur ?? 0).toFixed(2)}</td>
                   <td className="p-3 capitalize">{p.status}</td>
@@ -205,10 +236,21 @@ function ExpertHome() {
   );
 }
 
-function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) {
+function Kpi({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+}) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-elevated">
-      <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 blur-2xl"
+      />
       <div className="relative flex items-start justify-between gap-3">
         <div>
           <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
@@ -224,25 +266,41 @@ function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; val
   );
 }
 
-function ProfessionWidget({ bucket, profession, items }: { bucket: "regulated" | "wholesale" | "community"; profession: string; items: any[] }) {
+function ProfessionWidget({
+  bucket,
+  profession,
+  items,
+}: {
+  bucket: "regulated" | "wholesale" | "community";
+  profession: string;
+  items: any[];
+}) {
   const { t } = useTranslation();
   const meta =
     bucket === "regulated"
       ? {
           Icon: Scale,
           title: t("expert.widget.regulated.title", { defaultValue: "Regulated referral log" }),
-          desc: t("expert.widget.regulated.desc", { defaultValue: "Cases sent to you as a regulated professional — referral fees are shown on each quote." }),
+          desc: t("expert.widget.regulated.desc", {
+            defaultValue:
+              "Cases sent to you as a regulated professional — referral fees are shown on each quote.",
+          }),
         }
       : bucket === "wholesale"
         ? {
             Icon: Package,
             title: t("expert.widget.wholesale.title", { defaultValue: "Wholesale jobs" }),
-            desc: t("expert.widget.wholesale.desc", { defaultValue: "Fixed-rate work the platform pays you for. Client is billed directly by BeistandPlus." }),
+            desc: t("expert.widget.wholesale.desc", {
+              defaultValue:
+                "Fixed-rate work the platform pays you for. Client is billed directly by BeistandPlus.",
+            }),
           }
         : {
             Icon: HeartHandshake,
             title: t("expert.widget.community.title", { defaultValue: "Community requests" }),
-            desc: t("expert.widget.community.desc", { defaultValue: "Cases where a family has asked for your congregation or facility." }),
+            desc: t("expert.widget.community.desc", {
+              defaultValue: "Cases where a family has asked for your congregation or facility.",
+            }),
           };
   const Icon = meta.Icon;
   return (
@@ -268,7 +326,8 @@ function ProfessionWidget({ bucket, profession, items }: { bucket: "regulated" |
             const ref = it.cases?.reference ?? "";
             const title = it.title || it.cases?.title || "—";
             const amt = it.amount_eur != null ? `€${Number(it.amount_eur).toFixed(0)}` : null;
-            const fee = it.platform_fee_eur != null ? `fee €${Number(it.platform_fee_eur).toFixed(0)}` : null;
+            const fee =
+              it.platform_fee_eur != null ? `fee €${Number(it.platform_fee_eur).toFixed(0)}` : null;
             const status = it.status ?? it.assignment_status ?? "";
             const key = it.id ?? `${caseId}-${title}`;
             const body = (
@@ -282,13 +341,19 @@ function ProfessionWidget({ bucket, profession, items }: { bucket: "regulated" |
                   </div>
                 </div>
                 {status && (
-                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] uppercase tracking-wide capitalize">{status}</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] uppercase tracking-wide capitalize">
+                    {status}
+                  </span>
                 )}
               </div>
             );
             return caseId ? (
               <li key={key}>
-                <Link to="/expert/cases/$caseId" params={{ caseId }} className="block hover:opacity-80">
+                <Link
+                  to="/expert/cases/$caseId"
+                  params={{ caseId }}
+                  className="block hover:opacity-80"
+                >
                   {body}
                 </Link>
               </li>
@@ -301,4 +366,3 @@ function ProfessionWidget({ bucket, profession, items }: { bucket: "regulated" |
     </section>
   );
 }
-

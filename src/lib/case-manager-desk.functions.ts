@@ -12,7 +12,9 @@ export const getMyDesk = createServerFn({ method: "GET" })
     // 1. My open cases (with SLA state via view)
     const { data: myCases } = await (supabase as any)
       .from("case_sla_status")
-      .select("case_id, title, status, priority, current_stage, sla_due_at, sla_state, hours_remaining")
+      .select(
+        "case_id, title, status, priority, current_stage, sla_due_at, sla_state, hours_remaining",
+      )
       .eq("case_manager_user_id", userId)
       .in("sla_state", ["breached", "at_risk", "on_track"])
       .order("sla_due_at", { ascending: true, nullsFirst: false })

@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 async function assertInternal(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase.rpc("is_internal", {
@@ -15,7 +16,7 @@ const CompensationSchema = z.enum(["referral_fee", "wholesale", "direct_bill"]);
 // -------- Invitations --------
 
 export const listExpertInvitations = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     await assertInternal(context);
     const { data, error } = await context.supabase
@@ -27,8 +28,8 @@ export const listExpertInvitations = createServerFn({ method: "GET" })
   });
 
 export const createExpertInvitation = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         email: z.string().email().max(200),
@@ -50,8 +51,7 @@ export const createExpertInvitation = createServerFn({ method: "POST" })
     await assertInternal(context);
     const token =
       typeof crypto !== "undefined" && crypto.randomUUID
-        ? crypto.randomUUID().replace(/-/g, "") +
-          crypto.randomUUID().replace(/-/g, "")
+        ? crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "")
         : Math.random().toString(36).slice(2) + Date.now().toString(36);
     const expires = new Date(Date.now() + data.days_valid * 86400000).toISOString();
     const { data: inserted, error } = await context.supabase
@@ -79,8 +79,8 @@ export const createExpertInvitation = createServerFn({ method: "POST" })
   });
 
 export const revokeExpertInvitation = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await assertInternal(context);
     const { error } = await context.supabase
@@ -95,7 +95,7 @@ export const revokeExpertInvitation = createServerFn({ method: "POST" })
 // Fetch a single invitation by token (used by the accept page — pre-signup).
 // Uses the public/anon read via supabaseAdmin because RLS blocks pre-accept reads.
 export const getExpertInvitationByToken = createServerFn({ method: "GET" })
-  .inputValidator((raw: unknown) => z.object({ token: z.string().min(10) }).parse(raw))
+  .validator((raw: unknown) => z.object({ token: z.string().min(10) }).parse(raw))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: inv, error } = await supabaseAdmin
@@ -115,7 +115,7 @@ export const getExpertInvitationByToken = createServerFn({ method: "GET" })
 
 export const acceptExpertInvitation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ token: z.string().min(10) }).parse(raw))
+  .validator((raw: unknown) => z.object({ token: z.string().min(10) }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: newId, error } = await context.supabase.rpc("accept_expert_invitation", {
       _token: data.token,
@@ -127,8 +127,8 @@ export const acceptExpertInvitation = createServerFn({ method: "POST" })
 // -------- Payouts --------
 
 export const listExpertPayouts = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z.object({ expert_id: z.string().uuid().optional() }).parse(raw ?? {}),
   )
   .handler(async ({ data, context }) => {
@@ -147,8 +147,8 @@ export const listExpertPayouts = createServerFn({ method: "GET" })
   });
 
 export const createExpertPayout = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         expert_id: z.string().uuid(),
@@ -183,8 +183,8 @@ export const createExpertPayout = createServerFn({ method: "POST" })
   });
 
 export const updateExpertPayoutStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -200,10 +200,7 @@ export const updateExpertPayoutStatus = createServerFn({ method: "POST" })
       patch.paid_at = new Date().toISOString();
       if (data.payment_reference) patch.payment_reference = data.payment_reference;
     }
-    const { error } = await context.supabase
-      .from("expert_payouts")
-      .update(patch)
-      .eq("id", data.id);
+    const { error } = await context.supabase.from("expert_payouts").update(patch).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

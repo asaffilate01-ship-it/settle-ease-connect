@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
 
 const LeadSchema = z.object({
   contact_name: z.string().trim().min(2).max(160),
@@ -25,7 +26,7 @@ async function assertInternal(context: { supabase: any; userId: string }) {
 
 export const submitFuneralLead = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => LeadSchema.parse(raw))
+  .validator((raw: unknown) => LeadSchema.parse(raw))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { data: row, error } = await supabase
@@ -77,13 +78,11 @@ export const listMyFuneralPolicies = createServerFn({ method: "GET" })
   });
 
 export const listFuneralLeadsInternal = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
-        status: z
-          .enum(["new", "contacted", "quoted", "bound", "declined", "withdrawn"])
-          .optional(),
+        status: z.enum(["new", "contacted", "quoted", "bound", "declined", "withdrawn"]).optional(),
       })
       .parse(raw ?? {}),
   )
@@ -100,19 +99,12 @@ export const listFuneralLeadsInternal = createServerFn({ method: "GET" })
   });
 
 export const setFuneralLeadStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
-        status: z.enum([
-          "new",
-          "contacted",
-          "quoted",
-          "bound",
-          "declined",
-          "withdrawn",
-        ]),
+        status: z.enum(["new", "contacted", "quoted", "bound", "declined", "withdrawn"]),
         internal_notes: z.string().trim().max(4000).optional().nullable(),
       })
       .parse(raw),
@@ -122,12 +114,8 @@ export const setFuneralLeadStatus = createServerFn({ method: "POST" })
     const patch: { status: typeof data.status; internal_notes?: string | null } = {
       status: data.status,
     };
-    if (data.internal_notes !== undefined)
-      patch.internal_notes = data.internal_notes;
-    const { error } = await context.supabase
-      .from("funeral_leads")
-      .update(patch)
-      .eq("id", data.id);
+    if (data.internal_notes !== undefined) patch.internal_notes = data.internal_notes;
+    const { error } = await context.supabase.from("funeral_leads").update(patch).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -139,24 +127,20 @@ const PolicySchema = z.object({
   insurer_name: z.string().trim().min(2).max(160),
   benefit_eur: z.number().int().min(1000).max(200000),
   premium_eur: z.number().min(0).max(100000),
-  premium_cadence: z
-    .enum(["monthly", "quarterly", "yearly", "single"])
-    .default("monthly"),
+  premium_cadence: z.enum(["monthly", "quarterly", "yearly", "single"]).default("monthly"),
   household_kind: z.enum(["individual", "family", "extended"]).default("family"),
   adults_covered: z.number().int().min(1).max(6),
   children_covered: z.number().int().min(0).max(10),
   start_date: z.string().optional().nullable(),
   renewal_date: z.string().optional().nullable(),
   end_date: z.string().optional().nullable(),
-  status: z
-    .enum(["pending", "active", "lapsed", "cancelled", "claimed"])
-    .default("pending"),
+  status: z.enum(["pending", "active", "lapsed", "cancelled", "claimed"]).default("pending"),
   notes: z.string().trim().max(2000).optional().nullable(),
 });
 
 export const createFuneralPolicy = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => PolicySchema.parse(raw))
+  .middleware([requireSupabaseAal2])
+  .validator((raw: unknown) => PolicySchema.parse(raw))
   .handler(async ({ data, context }) => {
     await assertInternal(context);
     const { data: row, error } = await context.supabase
@@ -169,7 +153,7 @@ export const createFuneralPolicy = createServerFn({ method: "POST" })
   });
 
 export const listFuneralPoliciesInternal = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     await assertInternal(context);
     const { data, error } = await context.supabase

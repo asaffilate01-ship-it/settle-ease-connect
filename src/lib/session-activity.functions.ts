@@ -4,11 +4,23 @@ import { z } from "zod";
 
 export const logSessionEvent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({
-    event: z.enum(["sign_in", "sign_out", "token_refresh", "password_change", "mfa_challenge", "passkey_enrolled", "passkey_removed"]),
-    user_agent: z.string().max(500).optional(),
-    device_label: z.string().max(120).optional(),
-  }).parse(d))
+  .validator((d) =>
+    z
+      .object({
+        event: z.enum([
+          "sign_in",
+          "sign_out",
+          "token_refresh",
+          "password_change",
+          "mfa_challenge",
+          "passkey_enrolled",
+          "passkey_removed",
+        ]),
+        user_agent: z.string().max(500).optional(),
+        device_label: z.string().max(120).optional(),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("session_activity").insert({
       user_id: context.userId,

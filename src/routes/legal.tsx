@@ -6,7 +6,11 @@ export const Route = createFileRoute("/legal")({
   head: () => ({
     meta: [
       { title: "Legal — BeistandPlus" },
-      { name: "description", content: "Terms of service, privacy notice, cookies, complaints procedure and imprint for BeistandPlus." },
+      {
+        name: "description",
+        content:
+          "Terms of service, privacy notice, cookies, complaints procedure and imprint for BeistandPlus.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://beistandplus.de/legal" },
     ],
@@ -16,11 +20,11 @@ export const Route = createFileRoute("/legal")({
 });
 
 const NAV: { to: string; labelKey: string }[] = [
-  { to: "/legal/terms",      labelKey: "footer.terms" },
-  { to: "/legal/privacy",    labelKey: "footer.privacy" },
-  { to: "/legal/cookies",    labelKey: "footer.cookies" },
+  { to: "/legal/terms", labelKey: "footer.terms" },
+  { to: "/legal/privacy", labelKey: "footer.privacy" },
+  { to: "/legal/cookies", labelKey: "footer.cookies" },
   { to: "/legal/complaints", labelKey: "footer.complaints" },
-  { to: "/legal/impressum",  labelKey: "footer.impressum" },
+  { to: "/legal/impressum", labelKey: "footer.impressum" },
 ];
 
 function LegalLayout() {

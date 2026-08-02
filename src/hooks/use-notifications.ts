@@ -3,7 +3,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { listMyNotifications, unreadCount, markNotificationRead } from "@/lib/notifications.functions";
+import {
+  listMyNotifications,
+  unreadCount,
+  markNotificationRead,
+} from "@/lib/notifications.functions";
 
 export function useNotifications() {
   const { user } = useCurrentUser();
@@ -32,12 +36,21 @@ export function useNotifications() {
       .channel(topic)
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "notifications",
+          filter: `user_id=eq.${user.id}`,
+        },
         (payload) => {
           const n = payload.new as { title: string; body?: string };
           setFlash({ title: n.title, body: n.body });
           qc.invalidateQueries({ queryKey: ["notifications"] });
-          if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+          if (
+            typeof window !== "undefined" &&
+            "Notification" in window &&
+            Notification.permission === "granted"
+          ) {
             try {
               new Notification(n.title, { body: n.body ?? "", icon: "/favicon.png" });
             } catch {

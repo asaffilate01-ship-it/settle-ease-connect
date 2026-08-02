@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 
 export type ChecklistTemplateRow = {
   key: string;
@@ -45,7 +45,11 @@ export const listChecklistTemplates = createServerFn({ method: "GET" })
 // -------- Staff-only mutations ---------
 
 const templateSchema = z.object({
-  key: z.string().min(1).max(80).regex(/^[a-z0-9-]+$/, "lowercase, digits, hyphens"),
+  key: z
+    .string()
+    .min(1)
+    .max(80)
+    .regex(/^[a-z0-9-]+$/, "lowercase, digits, hyphens"),
   title: z.string().min(1).max(200),
   description: z.string().max(1000).default(""),
   position: z.number().int().min(0).max(100000).default(100),
@@ -54,9 +58,11 @@ const templateSchema = z.object({
 
 export const upsertChecklistTemplate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => templateSchema.parse(d))
+  .validator((d: unknown) => templateSchema.parse(d))
   .handler(async ({ data, context }) => {
-    const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     if (!internal) throw new Error("Staff only.");
     const { error } = await context.supabase
       .from("checklist_templates")
@@ -67,11 +73,16 @@ export const upsertChecklistTemplate = createServerFn({ method: "POST" })
 
 export const deleteChecklistTemplate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ key: z.string().min(1).max(80) }).parse(d))
+  .validator((d: unknown) => z.object({ key: z.string().min(1).max(80) }).parse(d))
   .handler(async ({ data, context }) => {
-    const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     if (!internal) throw new Error("Staff only.");
-    const { error } = await context.supabase.from("checklist_templates").delete().eq("key", data.key);
+    const { error } = await context.supabase
+      .from("checklist_templates")
+      .delete()
+      .eq("key", data.key);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -79,7 +90,11 @@ export const deleteChecklistTemplate = createServerFn({ method: "POST" })
 const itemSchema = z.object({
   id: z.string().uuid().optional(),
   template_key: z.string().min(1).max(80),
-  item_key: z.string().min(1).max(80).regex(/^[a-z0-9-]+$/i, "letters, digits, hyphens"),
+  item_key: z
+    .string()
+    .min(1)
+    .max(80)
+    .regex(/^[a-z0-9-]+$/i, "letters, digits, hyphens"),
   title: z.string().min(1).max(500),
   note: z.string().max(1000).nullable().optional(),
   position: z.number().int().min(0).max(100000).default(100),
@@ -87,9 +102,11 @@ const itemSchema = z.object({
 
 export const upsertChecklistItem = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => itemSchema.parse(d))
+  .validator((d: unknown) => itemSchema.parse(d))
   .handler(async ({ data, context }) => {
-    const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     if (!internal) throw new Error("Staff only.");
     const payload = {
       ...(data.id ? { id: data.id } : {}),
@@ -108,11 +125,16 @@ export const upsertChecklistItem = createServerFn({ method: "POST" })
 
 export const deleteChecklistItem = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
-    const { data: internal } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     if (!internal) throw new Error("Staff only.");
-    const { error } = await context.supabase.from("checklist_template_items").delete().eq("id", data.id);
+    const { error } = await context.supabase
+      .from("checklist_template_items")
+      .delete()
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

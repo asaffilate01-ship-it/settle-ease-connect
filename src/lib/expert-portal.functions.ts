@@ -17,7 +17,7 @@ export const getMyExpertProfile = createServerFn({ method: "GET" })
 
 export const updateMyExpertProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         full_name: z.string().min(2).max(200).optional(),
@@ -95,7 +95,9 @@ export const listMyPayouts = createServerFn({ method: "GET" })
     if (!me) return [];
     const { data, error } = await context.supabase
       .from("expert_payouts")
-      .select("id, case_id, period_month, kind, description, gross_eur, rate, amount_eur, currency, status, paid_at, created_at")
+      .select(
+        "id, case_id, period_month, kind, description, gross_eur, rate, amount_eur, currency, status, paid_at, created_at",
+      )
       .eq("expert_id", (me as { id: string }).id)
       .order("period_month", { ascending: false })
       .order("created_at", { ascending: false })
@@ -128,26 +130,23 @@ export const getMyExpertKpis = createServerFn({ method: "GET" })
     const expertId = (me as any).id;
     const yearStart = new Date(new Date().getFullYear(), 0, 1).toISOString();
 
-    const [
-      { count: activeCases },
-      { count: openAssignments },
-      { data: payouts },
-    ] = await Promise.all([
-      context.supabase
-        .from("cases")
-        .select("id", { count: "exact", head: true })
-        .eq("primary_expert_id", expertId)
-        .not("status", "in", "(closed,cancelled,completed)"),
-      context.supabase
-        .from("case_assignments")
-        .select("id", { count: "exact", head: true })
-        .eq("assignee_expert_id", expertId)
-        .in("status", ["pending", "accepted"]),
-      context.supabase
-        .from("expert_payouts")
-        .select("amount_eur, status, paid_at, created_at")
-        .eq("expert_id", expertId),
-    ]);
+    const [{ count: activeCases }, { count: openAssignments }, { data: payouts }] =
+      await Promise.all([
+        context.supabase
+          .from("cases")
+          .select("id", { count: "exact", head: true })
+          .eq("primary_expert_id", expertId)
+          .not("status", "in", "(closed,cancelled,completed)"),
+        context.supabase
+          .from("case_assignments")
+          .select("id", { count: "exact", head: true })
+          .eq("assignee_expert_id", expertId)
+          .in("status", ["pending", "accepted"]),
+        context.supabase
+          .from("expert_payouts")
+          .select("amount_eur, status, paid_at, created_at")
+          .eq("expert_id", expertId),
+      ]);
 
     let paidYtdEur = 0;
     let pendingEur = 0;
@@ -226,14 +225,16 @@ export const listMyExpertInvoices = createServerFn({ method: "GET" })
 /** Full case detail scoped to the caller (must be assigned or primary expert on the case). */
 export const getMyExpertCase = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ caseId: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ caseId: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const expertId = await myExpertId(context);
     if (!expertId) throw new Error("No expert profile");
 
     const { data: caseRow, error: caseErr } = await context.supabase
       .from("cases")
-      .select("id, reference, title, case_type, status, summary, urgent, language, city, bundesland, opened_at, updated_at, primary_expert_id")
+      .select(
+        "id, reference, title, case_type, status, summary, urgent, language, city, bundesland, opened_at, updated_at, primary_expert_id",
+      )
       .eq("id", data.caseId)
       .maybeSingle();
     if (caseErr) throw new Error(caseErr.message);
@@ -335,7 +336,9 @@ export const getMyProfessionActivity = createServerFn({ method: "GET" })
       // Referral-fee log: recent quotes with compensation_model 'referral_fee'
       const { data } = await context.supabase
         .from("case_quotes")
-        .select("id, case_id, title, amount_eur, platform_fee_eur, status, created_at, cases:case_id (reference, title)")
+        .select(
+          "id, case_id, title, amount_eur, platform_fee_eur, status, created_at, cases:case_id (reference, title)",
+        )
         .eq("expert_id", expertId)
         .eq("compensation_model", "referral_fee")
         .order("created_at", { ascending: false })
@@ -346,7 +349,9 @@ export const getMyProfessionActivity = createServerFn({ method: "GET" })
       // Wholesale jobs: quotes with compensation_model 'wholesale' and open assignments
       const { data } = await context.supabase
         .from("case_quotes")
-        .select("id, case_id, title, amount_eur, status, created_at, cases:case_id (reference, title)")
+        .select(
+          "id, case_id, title, amount_eur, status, created_at, cases:case_id (reference, title)",
+        )
         .eq("expert_id", expertId)
         .in("compensation_model", ["wholesale", "direct_bill"])
         .order("created_at", { ascending: false })
@@ -357,7 +362,9 @@ export const getMyProfessionActivity = createServerFn({ method: "GET" })
       // Community requests: active assignments where this expert (mosque/church/etc) is added
       const { data } = await context.supabase
         .from("case_assignments")
-        .select("id, case_id, role, status, assigned_at, notes, cases:case_id (reference, title, case_type)")
+        .select(
+          "id, case_id, role, status, assigned_at, notes, cases:case_id (reference, title, case_type)",
+        )
         .eq("assignee_expert_id", expertId)
         .in("status", ["pending", "accepted"])
         .order("assigned_at", { ascending: false })
@@ -370,14 +377,16 @@ export const getMyProfessionActivity = createServerFn({ method: "GET" })
 // ---------- Send a quote from the expert portal ----------
 export const sendExpertQuote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         caseId: z.string().uuid(),
         title: z.string().min(2).max(200),
         description: z.string().max(4000).optional().nullable(),
         amountEur: z.number().min(1).max(1_000_000),
-        compensationModel: z.enum(["wholesale", "direct_bill", "referral_fee"]).default("direct_bill"),
+        compensationModel: z
+          .enum(["wholesale", "direct_bill", "referral_fee"])
+          .default("direct_bill"),
       })
       .parse(raw),
   )
@@ -422,7 +431,7 @@ export const sendExpertQuote = createServerFn({ method: "POST" })
 // ---------- Issue an invoice from the expert portal ----------
 export const issueExpertInvoice = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         caseId: z.string().uuid(),

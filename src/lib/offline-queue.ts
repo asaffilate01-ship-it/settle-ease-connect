@@ -3,8 +3,9 @@
  *
  * Purpose: keep BeistandPlus usable on shaky or absent connectivity — the case
  * that hurts the most for refugees, camp residents, rural areas and prepaid
- * SIMs. Forms, drafts and small uploads are stored locally and replayed to the
- * server when the browser comes back online.
+ * SIMs. Only the explicitly supported insurance callback request is stored;
+ * documents, messages, case notes and other sensitive records are never put
+ * in unencrypted browser storage.
  *
  * Public API is intentionally tiny — everything reads/writes via `enqueue`,
  * `listQueue`, `removeItem`, `flushQueue`.
@@ -14,14 +15,17 @@ const DB_NAME = "beistandplus-offline";
 const DB_VERSION = 1;
 const STORE = "queue";
 
-export type OfflineKind =
-  | "insurance_callback"
-  | "case_note"
-  | "vault_upload"
-  | "benefit_check"
-  | "form_draft"
-  | "message"
-  | "other";
+export type OfflineKind = "insurance_callback";
+
+export type InsuranceCallbackOfflinePayload = {
+  full_name: string;
+  email: string;
+  phone: string | null;
+  product_line: string;
+  preferred_contact: "email" | "phone" | "whatsapp";
+  preferred_language: string;
+  notes: string | null;
+};
 
 export interface OfflineItem<TPayload = unknown> {
   id: string;
@@ -64,7 +68,10 @@ function openDb(): Promise<IDBDatabase> {
   });
 }
 
-function tx<T>(mode: IDBTransactionMode, fn: (store: IDBObjectStore) => IDBRequest<T> | Promise<T>): Promise<T> {
+function tx<T>(
+  mode: IDBTransactionMode,
+  fn: (store: IDBObjectStore) => IDBRequest<T> | Promise<T>,
+): Promise<T> {
   return openDb().then(
     (db) =>
       new Promise<T>((resolve, reject) => {
@@ -102,9 +109,14 @@ export function subscribeQueue(fn: () => void) {
   return () => listeners.delete(fn);
 }
 
-export async function enqueue<T>(item: Omit<OfflineItem<T>, "id" | "createdAt" | "attempts">) {
+export async function enqueue(
+  item: Omit<OfflineItem<InsuranceCallbackOfflinePayload>, "id" | "createdAt" | "attempts">,
+) {
   if (!isBrowser()) return;
-  const record: OfflineItem<T> = {
+  if (item.kind !== "insurance_callback" || item.handler !== "insurance_callback") {
+    throw new Error("This data type cannot be stored offline");
+  }
+  const record: OfflineItem<InsuranceCallbackOfflinePayload> = {
     ...item,
     id: crypto.randomUUID(),
     createdAt: Date.now(),
@@ -154,7 +166,9 @@ export async function flushQueue(): Promise<{ ok: number; failed: number }> {
       } catch (err) {
         failed += 1;
         const message = err instanceof Error ? err.message : String(err);
-        await tx("readwrite", (s) => s.put({ ...item, attempts: item.attempts + 1, lastError: message }));
+        await tx("readwrite", (s) =>
+          s.put({ ...item, attempts: item.attempts + 1, lastError: message }),
+        );
       }
     }
   } finally {

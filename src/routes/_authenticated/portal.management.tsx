@@ -55,8 +55,16 @@ function ManagementDashboard() {
       <section>
         <h3 className="mb-2 text-sm font-semibold text-muted-foreground">Growth & revenue</h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <Kpi label="New leads (30d)" value={d.newLeads30d} sub={`${d.activeLeads} still active`} />
-          <Kpi label="Conversion rate" value={`${d.conversionRatePct}%`} sub={`${d.convertedLeads30d} won / 30d`} />
+          <Kpi
+            label="New leads (30d)"
+            value={d.newLeads30d}
+            sub={`${d.activeLeads} still active`}
+          />
+          <Kpi
+            label="Conversion rate"
+            value={`${d.conversionRatePct}%`}
+            sub={`${d.convertedLeads30d} won / 30d`}
+          />
           <Kpi label="Active members" value={d.activeMembers} />
           <Kpi label="MRR" value={`€${d.mrrEur.toLocaleString()}`} />
         </div>
@@ -76,23 +84,36 @@ function ManagementDashboard() {
         <h3 className="mb-2 text-sm font-semibold text-muted-foreground">Case operations</h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <Kpi label="Active cases" value={d.activeCases} />
-          <Kpi label="SLA breaches" value={d.breachedCases} sub={d.breachedCases > 0 ? "Attention required" : "On track"} />
+          <Kpi
+            label="SLA breaches"
+            value={d.breachedCases}
+            sub={d.breachedCases > 0 ? "Attention required" : "On track"}
+          />
           <Kpi label="Closed (30d)" value={d.closedCases30d} />
-          <Kpi label="Avg resolution" value={d.avgResolutionDays !== null ? `${d.avgResolutionDays} d` : "—"} />
+          <Kpi
+            label="Avg resolution"
+            value={d.avgResolutionDays !== null ? `${d.avgResolutionDays} d` : "—"}
+          />
         </div>
       </section>
 
       <section>
         <h3 className="mb-2 text-sm font-semibold text-muted-foreground">Quality</h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <Kpi label="CSAT (avg)" value={d.csatAvg !== null ? d.csatAvg : "—"} sub={`${d.csatCount30d} responses / 30d`} />
+          <Kpi
+            label="CSAT (avg)"
+            value={d.csatAvg !== null ? d.csatAvg : "—"}
+            sub={`${d.csatCount30d} responses / 30d`}
+          />
           <Kpi label="Open complaints" value={d.openComplaints} />
         </div>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-2">
         <Card>
-          <CardHeader><CardTitle className="text-base">Staff workload — top 10</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Staff workload — top 10</CardTitle>
+          </CardHeader>
           <CardContent>
             {d.staffWorkload.length === 0 ? (
               <div className="text-sm text-muted-foreground">No open cases assigned yet.</div>
@@ -110,7 +131,9 @@ function ManagementDashboard() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle className="text-base">Provider performance — top 10</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Provider performance — top 10</CardTitle>
+          </CardHeader>
           <CardContent>
             {d.providerPerformance.length === 0 ? (
               <div className="text-sm text-muted-foreground">No partner assignments yet.</div>

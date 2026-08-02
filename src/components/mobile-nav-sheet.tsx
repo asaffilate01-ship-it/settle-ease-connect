@@ -16,7 +16,12 @@ export function PortalMobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden" aria-label={t("nav.menu", "Menu")}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          aria-label={t("nav.menu", "Menu")}
+        >
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
@@ -59,11 +64,19 @@ export function MobileNavMenu({
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden" aria-label={t("nav.menu", "Menu")}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          aria-label={t("nav.menu", "Menu")}
+        >
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[82vw] max-w-72 bg-sidebar p-0 text-sidebar-foreground">
+      <SheetContent
+        side="left"
+        className="w-[82vw] max-w-72 bg-sidebar p-0 text-sidebar-foreground"
+      >
         <SheetTitle className="border-b border-sidebar-border px-5 py-4 font-display text-lg font-semibold">
           {title}
         </SheetTitle>

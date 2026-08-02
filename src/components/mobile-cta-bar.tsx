@@ -25,9 +25,7 @@ export function MobileCtaBar({ hidden = false }: { hidden?: boolean }) {
   if (suppress) return null;
 
   return (
-    <div
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] md:hidden"
-    >
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] md:hidden">
       <div className="pointer-events-auto mx-auto flex max-w-lg items-center gap-2 rounded-2xl border border-white/10 bg-[oklch(0.16_0.04_250/0.94)] p-2 shadow-elevated backdrop-blur-xl">
         <Link
           to="/auth"

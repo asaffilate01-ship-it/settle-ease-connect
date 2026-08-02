@@ -26,7 +26,7 @@ export const getMyPartnerOrg = createServerFn({ method: "GET" })
 
 export const listMyPartnerDocuments = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
+  .validator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("partner_documents")
@@ -39,7 +39,7 @@ export const listMyPartnerDocuments = createServerFn({ method: "GET" })
 
 export const listMyPartnerCases = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
+  .validator((d: { orgId: string }) => z.object({ orgId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("case_assignments")
@@ -54,7 +54,7 @@ export const listMyPartnerCases = createServerFn({ method: "GET" })
 
 export const respondToCaseInvitation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         assignmentId: z.string().uuid(),
@@ -69,7 +69,10 @@ export const respondToCaseInvitation = createServerFn({ method: "POST" })
       data.response === "accept"
         ? { accepted_at: now, status: "accepted", declined_at: null, decline_reason: null }
         : { declined_at: now, status: "declined", decline_reason: data.declineReason ?? null };
-    const { error } = await context.supabase.from("case_assignments").update(patch).eq("id", data.assignmentId);
+    const { error } = await context.supabase
+      .from("case_assignments")
+      .update(patch)
+      .eq("id", data.assignmentId);
     if (error) throw error;
     return { ok: true };
   });
@@ -80,7 +83,9 @@ export const listPartnerOrgs = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("partner_organisations")
-      .select("id, legal_name, trading_name, primary_category, city, bundesland, status, verified, created_at")
+      .select(
+        "id, legal_name, trading_name, primary_category, city, bundesland, status, verified, created_at",
+      )
       .order("created_at", { ascending: false });
     if (error) throw error;
     return data ?? [];
@@ -88,7 +93,7 @@ export const listPartnerOrgs = createServerFn({ method: "GET" })
 
 export const createPartnerOrg = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         legalName: z.string().min(2),
@@ -133,7 +138,7 @@ export const createPartnerOrg = createServerFn({ method: "POST" })
 
 export const setPartnerOrgStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -145,14 +150,17 @@ export const setPartnerOrgStatus = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const patch: { status: typeof data.status; verified?: boolean } = { status: data.status };
     if (data.verified !== undefined) patch.verified = data.verified;
-    const { error } = await context.supabase.from("partner_organisations").update(patch).eq("id", data.id);
+    const { error } = await context.supabase
+      .from("partner_organisations")
+      .update(patch)
+      .eq("id", data.id);
     if (error) throw error;
     return { ok: true };
   });
 
 export const invitePartnerUser = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         orgId: z.string().uuid(),

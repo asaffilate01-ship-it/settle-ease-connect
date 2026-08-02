@@ -4,7 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const listCaseAssignments = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ case_id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ case_id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("case_assignments")
@@ -12,7 +12,9 @@ export const listCaseAssignments = createServerFn({ method: "GET" })
       .eq("case_id", data.case_id)
       .order("assigned_at", { ascending: false });
     if (error) throw new Error(error.message);
-    const ids = Array.from(new Set((rows ?? []).map((r: any) => r.assignee_user_id).filter(Boolean)));
+    const ids = Array.from(
+      new Set((rows ?? []).map((r: any) => r.assignee_user_id).filter(Boolean)),
+    );
     const { data: profs } = ids.length
       ? await context.supabase.from("profiles").select("id, full_name, avatar_url").in("id", ids)
       : { data: [] as any[] };
@@ -22,7 +24,7 @@ export const listCaseAssignments = createServerFn({ method: "GET" })
 
 export const upsertAssignment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -36,9 +38,16 @@ export const upsertAssignment = createServerFn({ method: "POST" })
       .parse(raw),
   )
   .handler(async ({ data, context }) => {
-    const payload: any = { ...data, assigned_by: context.userId, assigned_at: new Date().toISOString() };
+    const payload: any = {
+      ...data,
+      assigned_by: context.userId,
+      assigned_at: new Date().toISOString(),
+    };
     if (data.id) {
-      const { error } = await context.supabase.from("case_assignments").update(payload).eq("id", data.id);
+      const { error } = await context.supabase
+        .from("case_assignments")
+        .update(payload)
+        .eq("id", data.id);
       if (error) throw new Error(error.message);
       return { id: data.id };
     }
@@ -64,7 +73,7 @@ export const upsertAssignment = createServerFn({ method: "POST" })
 
 export const respondAssignment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid(),
@@ -93,7 +102,7 @@ export const respondAssignment = createServerFn({ method: "POST" })
 
 export const listCaseTasks = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ case_id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ case_id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("case_tasks")
@@ -132,7 +141,7 @@ export const listMyCapacity = createServerFn({ method: "GET" })
 
 export const upsertCaseTask = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),

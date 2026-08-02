@@ -67,7 +67,7 @@ export const getMyAccountSummary = createServerFn({ method: "GET" })
       ]);
 
     const plan = subRes.data?.plan_code
-      ? (planRes.data ?? []).find((p) => p.code === subRes.data!.plan_code) ?? null
+      ? ((planRes.data ?? []).find((p) => p.code === subRes.data!.plan_code) ?? null)
       : null;
 
     return {
@@ -90,7 +90,7 @@ export const getMyAccountSummary = createServerFn({ method: "GET" })
 
 export const getMyAuditTrail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ limit: z.number().min(1).max(500).optional() }).parse(raw ?? {}),
   )
   .handler(async ({ data, context }) => {

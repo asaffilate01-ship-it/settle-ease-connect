@@ -7,7 +7,9 @@ export const listMyChannels = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data: memberships, error } = await context.supabase
       .from("channel_members")
-      .select("channel_id, last_read_at, muted, message_channels!inner(id, kind, name, case_id, created_by, last_message_at, created_at)")
+      .select(
+        "channel_id, last_read_at, muted, message_channels!inner(id, kind, name, case_id, created_by, last_message_at, created_at)",
+      )
       .eq("user_id", context.userId);
     if (error) throw new Error(error.message);
     const channels = (memberships ?? []).map((m: any) => ({
@@ -16,13 +18,15 @@ export const listMyChannels = createServerFn({ method: "GET" })
       muted: m.muted,
     }));
     // sort by last_message_at desc
-    channels.sort((a: any, b: any) => (b.last_message_at ?? b.created_at).localeCompare(a.last_message_at ?? a.created_at));
+    channels.sort((a: any, b: any) =>
+      (b.last_message_at ?? b.created_at).localeCompare(a.last_message_at ?? a.created_at),
+    );
     return channels;
   });
 
 export const getChannel = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: channel, error } = await context.supabase
       .from("message_channels")
@@ -39,14 +43,19 @@ export const getChannel = createServerFn({ method: "GET" })
       ? await context.supabase.from("profiles").select("id, full_name, avatar_url").in("id", ids)
       : { data: [] as any[] };
     const profMap = new Map((profiles ?? []).map((p: any) => [p.id, p]));
-    const merged = (members ?? []).map((m: any) => ({ ...m, profile: profMap.get(m.user_id) ?? null }));
+    const merged = (members ?? []).map((m: any) => ({
+      ...m,
+      profile: profMap.get(m.user_id) ?? null,
+    }));
     return { channel, members: merged };
   });
 
 export const listMessages = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
-    z.object({ channel_id: z.string().uuid(), limit: z.number().min(1).max(200).optional() }).parse(raw),
+  .validator((raw: unknown) =>
+    z
+      .object({ channel_id: z.string().uuid(), limit: z.number().min(1).max(200).optional() })
+      .parse(raw),
   )
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
@@ -61,7 +70,7 @@ export const listMessages = createServerFn({ method: "GET" })
 
 export const sendMessage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         channel_id: z.string().uuid(),
@@ -114,7 +123,7 @@ export const sendMessage = createServerFn({ method: "POST" })
 
 export const markChannelRead = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ channel_id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ channel_id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("channel_members")
@@ -127,7 +136,7 @@ export const markChannelRead = createServerFn({ method: "POST" })
 
 export const createChannel = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         kind: z.enum(["group", "direct", "case"]),
@@ -140,7 +149,12 @@ export const createChannel = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { data: ch, error } = await context.supabase
       .from("message_channels")
-      .insert({ kind: data.kind, name: data.name, case_id: data.case_id, created_by: context.userId })
+      .insert({
+        kind: data.kind,
+        name: data.name,
+        case_id: data.case_id,
+        created_by: context.userId,
+      })
       .select("id")
       .single();
     if (error) throw new Error(error.message);
@@ -157,7 +171,7 @@ export const createChannel = createServerFn({ method: "POST" })
 
 export const addChannelMember = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ channel_id: z.string().uuid(), user_id: z.string().uuid() }).parse(raw),
   )
   .handler(async ({ data, context }) => {
@@ -173,13 +187,14 @@ export const addChannelMember = createServerFn({ method: "POST" })
     if (!channel) throw new Error("Channel not found");
 
     const isCreator = channel.created_by === context.userId;
-    const { data: internalFlag } = await context.supabase.rpc("is_internal", { _user_id: context.userId });
+    const { data: internalFlag } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
     const isInternal = internalFlag === true;
 
     if (!isCreator && !isInternal) {
       throw new Error("Forbidden: only the channel owner or staff can add members");
     }
-
 
     const { error } = await context.supabase.from("channel_members").insert({
       channel_id: data.channel_id,
