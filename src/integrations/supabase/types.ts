@@ -5973,6 +5973,16 @@ export type Database = {
         Returns: string
       }
       accept_partner_invitations: { Args: never; Returns: number }
+      agents_update_is_safe: {
+        Args: {
+          _code: string
+          _commission_rate: number
+          _id: string
+          _status: string
+          _user_id: string
+        }
+        Returns: boolean
+      }
       apply_case_template: {
         Args: { _case_id: string; _template_code: string }
         Returns: number
