@@ -21,6 +21,47 @@ export type NativePushRegistration = {
 
 export const nativePushConfigured = import.meta.env.VITE_NATIVE_PUSH_ENABLED === "true";
 
+const ALLOWED_DEEP_LINK_PREFIXES = [
+  "/app",
+  "/portal",
+  "/agent",
+  "/expert",
+  "/auth",
+  "/checkout/return",
+  "/family-invite/",
+  "/expert-invite/",
+] as const;
+
+/** Convert an app-owned HTTPS/custom-scheme URL to a safe in-app route. */
+export function resolveNativeDeepLink(rawUrl: string, appOrigin?: string): string | null {
+  try {
+    const url = new URL(rawUrl);
+    let route: string;
+    if (url.protocol === "beistandplus:") {
+      if (!url.hostname || !["app", "portal", "agent", "expert", "auth"].includes(url.hostname)) {
+        return null;
+      }
+      route = `/${url.hostname}${url.pathname === "/" ? "" : url.pathname}${url.search}${url.hash}`;
+    } else if (url.protocol === "https:") {
+      const allowedOrigin =
+        appOrigin ?? (typeof window !== "undefined" ? window.location.origin : "");
+      if (!allowedOrigin || url.origin !== allowedOrigin) return null;
+      route = `${url.pathname}${url.search}${url.hash}`;
+    } else {
+      return null;
+    }
+    if (route.includes("\\") || /(^|\/)\.\.?($|\/)/.test(route)) return null;
+    return ALLOWED_DEEP_LINK_PREFIXES.some(
+      (prefix) =>
+        route === prefix || route.startsWith(prefix.endsWith("/") ? prefix : `${prefix}/`),
+    )
+      ? route
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 /** Ask for notification permission after a user gesture and return the native
  * APNs/FCM registration token. Platform credentials still need to be added to
  * the generated Xcode and Android projects before store release. */
@@ -61,8 +102,11 @@ export async function registerNativePushToken(): Promise<NativePushRegistration 
   });
 }
 
-/** One-shot boot: splash hide, status bar theming, keyboard, back button. */
-export async function initNative(onBack?: () => boolean | void) {
+/** One-shot boot: splash, deep links, notification actions, keyboard and back. */
+export async function initNative(options?: {
+  onBack?: () => boolean | void;
+  onDeepLink?: (route: string) => void;
+}) {
   if (!isNative()) return;
 
   try {
@@ -93,11 +137,34 @@ export async function initNative(onBack?: () => boolean | void) {
     }).catch(() => {});
 
     App.addListener("backButton", ({ canGoBack }) => {
-      const handled = onBack?.();
+      const handled = options?.onBack?.();
       if (handled) return;
       if (canGoBack) window.history.back();
       else App.exitApp();
     }).catch(() => {});
+
+    App.addListener("appUrlOpen", ({ url }) => {
+      const route = resolveNativeDeepLink(url);
+      if (route) options?.onDeepLink?.(route);
+    }).catch(() => {});
+
+    if (nativePushConfigured) {
+      const { PushNotifications } = await import("@capacitor/push-notifications");
+      PushNotifications.addListener("pushNotificationActionPerformed", ({ notification }) => {
+        const data = notification.data as Record<string, unknown> | undefined;
+        const raw =
+          typeof data?.link === "string"
+            ? data.link
+            : typeof data?.url === "string"
+              ? data.url
+              : null;
+        if (!raw) return;
+        const route = raw.startsWith("/")
+          ? resolveNativeDeepLink(new URL(raw, window.location.origin).toString())
+          : resolveNativeDeepLink(raw);
+        if (route) options?.onDeepLink?.(route);
+      }).catch(() => {});
+    }
 
     // Hide splash after first paint.
     setTimeout(() => SplashScreen.hide().catch(() => {}), 400);
@@ -136,4 +203,17 @@ export async function share(payload: { title?: string; text?: string; url?: stri
       /* user cancelled */
     }
   }
+}
+
+/** Open an HTTPS destination outside the app WebView. */
+export async function openExternalUrl(rawUrl: string) {
+  const url = new URL(rawUrl);
+  if (url.protocol !== "https:") throw new Error("Only secure HTTPS links can be opened.");
+  if (isNative()) {
+    const { Browser } = await import("@capacitor/browser");
+    await Browser.open({ url: url.toString(), presentationStyle: "popover" });
+    return;
+  }
+  const opened = window.open(url.toString(), "_blank", "noopener,noreferrer");
+  if (opened) opened.opener = null;
 }

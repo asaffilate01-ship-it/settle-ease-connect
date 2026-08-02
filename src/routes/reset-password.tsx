@@ -48,8 +48,8 @@ function ResetPasswordPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters.");
+    if (password.length < 12) {
+      toast.error("Password must be at least 12 characters.");
       return;
     }
     if (password !== confirm) {
@@ -86,7 +86,7 @@ function ResetPasswordPage() {
             Set a new password
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Choose a strong password of at least 8 characters. You'll be signed in right after.
+            Choose a unique password of at least 12 characters. You'll be signed in right after.
           </p>
 
           {!ready ? (
@@ -108,9 +108,9 @@ function ResetPasswordPage() {
                     type={showPw ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="At least 8 characters"
+                    placeholder="At least 12 characters"
                     required
-                    minLength={8}
+                    minLength={12}
                     autoComplete="new-password"
                     className="pr-11"
                   />
@@ -134,7 +134,7 @@ function ResetPasswordPage() {
                   onChange={(e) => setConfirm(e.target.value)}
                   placeholder="Re-enter password"
                   required
-                  minLength={8}
+                  minLength={12}
                   autoComplete="new-password"
                 />
               </div>

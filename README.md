@@ -5,13 +5,15 @@ BeistandPlus is a multilingual settlement and family case-management platform fo
 ## What is included
 
 - Member cases, milestones, tasks, family access and messages
-- Private document vault with scoped access and MFA gates
+- Private document vault with scoped access, MFA gates, signed upload URLs and malware quarantine
 - Staff, expert, agent, partner, compliance, DPO and auditor workspaces
 - Subscription checkout and idempotent Stripe webhook processing for the web
 - Referral-only health, funeral-cover and tax intake; no simulated production quotes
-- Rate-limited public forms and AI/translation entry points
+- Rate-limited public forms and explicit, versioned consent for short-retention AI processing
 - Signed, allowlisted partner delivery with retries and dead-letter handling
 - iOS and Android Capacitor projects with branded icons/splash screens
+- Permission-aware command search, responsive case views and ownership cues
+- Playwright browser/accessibility gates, CodeQL, dependency review and SBOM generation
 
 ## Local setup
 
@@ -27,11 +29,12 @@ Supply sandbox values in `.env.local`; never commit it. Apply every SQL migratio
 
 ```bash
 npm run verify
+npm run test:e2e
 npm audit --omit=dev --audit-level=high
 npm run preview
 ```
 
-`npm run verify` checks repository layout, TypeScript, ESLint, unit tests and the production build. GitHub Actions runs the same gates for pushes to `main` and pull requests.
+`npm run verify` checks repository layout, TypeScript, ESLint, unit tests and the production build. Playwright adds desktop/mobile smoke and automated WCAG checks. GitHub Actions runs both quality gates and separate CodeQL, dependency-review and SBOM jobs.
 
 The generated server bundle targets Cloudflare Workers. `npm run preview` runs the built `.output` bundle locally with Wrangler; `npm run deploy` deploys that bundle after Cloudflare credentials and configuration are approved.
 
@@ -51,6 +54,9 @@ NODE_ENV=production npm run verify:production
 - Live expert payout/fund movement is disabled; the optional payout ledger is sandbox-only.
 - Partner destinations are exact-host allowlisted and payloads are HMAC signed.
 - Environment selection and payment return URLs are controlled on the server.
+- Privileged role changes require a second administrator; staff-sensitive screens require AAL2.
+- Vault objects fail closed until an authenticated scanner marks them clean.
+- AI prompts are not retained and generated output is purged after 30 days by an authenticated scheduled worker.
 
 ## Native apps
 

@@ -520,7 +520,7 @@ function InvoiceDrawer({
           <p className="text-sm text-muted-foreground">
             {t("expert.case.invoiceNote", {
               defaultValue:
-                "Platform fee of 15% is deducted; the balance is your payout after escrow release.",
+                "This creates an invoice record only. Payment handling, fees and settlement must follow the signed provider agreement; the platform does not represent this as live escrow or guaranteed payout.",
             })}
           </p>
           <div>
@@ -536,8 +536,8 @@ function InvoiceDrawer({
             {amount && Number(amount) > 0 && (
               <p className="mt-1 text-xs text-muted-foreground">
                 {t("expert.case.invoicePayout", {
-                  defaultValue: "Your payout: €{{eur}}",
-                  eur: (Number(amount) * 0.85).toFixed(2),
+                  defaultValue: "Invoice record: €{{eur}}",
+                  eur: Number(amount).toFixed(2),
                 })}
               </p>
             )}

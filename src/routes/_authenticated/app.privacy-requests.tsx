@@ -15,6 +15,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { listMyPrivacyRequests, submitPrivacyRequest } from "@/lib/governance.functions";
 import { toast } from "sonner";
+import { Aal2Gate } from "@/components/security/aal2-gate";
 
 export const Route = createFileRoute("/_authenticated/app/privacy-requests")({
   component: PrivacyRequestsPage,
@@ -39,6 +40,14 @@ type PrivacyRequest = {
 };
 
 function PrivacyRequestsPage() {
+  return (
+    <Aal2Gate reason="Privacy requests expose sensitive account information and require two-factor verification.">
+      <PrivacyRequestsContent />
+    </Aal2Gate>
+  );
+}
+
+function PrivacyRequestsContent() {
   const listFn = useServerFn(listMyPrivacyRequests);
   const submitFn = useServerFn(submitPrivacyRequest);
   const qc = useQueryClient();
@@ -66,7 +75,7 @@ function PrivacyRequestsPage() {
         </div>
         <h1 className="display-lg mt-1 font-semibold">Privacy requests</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Exercise your GDPR rights and track the response deadline.
+          Submit a verified request and track its review target date.
         </p>
       </header>
       <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
@@ -91,13 +100,13 @@ function PrivacyRequestsPage() {
           </Select>
           <Textarea
             required
-            minLength={5}
+            minLength={10}
             rows={7}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
             placeholder="Describe what you are requesting and any relevant records or dates."
           />
-          <Button className="w-full" disabled={submit.isPending || description.trim().length < 5}>
+          <Button className="w-full" disabled={submit.isPending || description.trim().length < 10}>
             <Send className="mr-2 h-4 w-4" />
             Submit request
           </Button>
@@ -126,7 +135,7 @@ function PrivacyRequestsPage() {
                     <Badge variant="outline">{row.status.replace(/_/g, " ")}</Badge>
                   </div>
                   <div className="mt-3 text-xs text-muted-foreground">
-                    Submitted {new Date(row.created_at).toLocaleDateString()} · response due{" "}
+                    Submitted {new Date(row.created_at).toLocaleDateString()} · review target{" "}
                     {new Date(row.due_at).toLocaleDateString()}
                   </div>
                 </div>

@@ -117,39 +117,48 @@ function Landing() {
   );
 }
 function FivePaths() {
-  const { t } = useTranslation();
   const paths = [
     {
       icon3d: "burials" as const,
-      key: "bereavement",
+      tag: "Bereavement",
+      title: "A death in the family",
+      copy: "Registration, funeral, repatriation, pensions and paperwork — one team, in your language.",
       to: "/bereavement" as const,
       accent: "from-destructive/25 via-destructive/5 to-transparent",
       ring: "hover:ring-destructive/40",
     },
     {
       icon3d: "healthcare" as const,
-      key: "insurance",
+      tag: "Insurance",
+      title: "Health & life insurance",
+      copy: "Statutory or private, student, employee, self-employed or family — we triage and hand off.",
       to: "/insurance" as const,
       accent: "from-accent/30 via-accent/5 to-transparent",
       ring: "hover:ring-accent/40",
     },
     {
       icon3d: "settlement" as const,
-      key: "settlement",
+      tag: "Life in Germany",
+      title: "Help settling in Germany",
+      copy: "Anmeldung, visas, Kindergeld, housing, Bürgeramt, tax — a case manager for every step.",
       to: "/services" as const,
       accent: "from-primary/25 via-primary/5 to-transparent",
       ring: "hover:ring-primary/40",
     },
     {
       icon3d: "employment" as const,
-      key: "employer",
+      tag: "Employer",
+      title: "Support your workforce",
+      copy: "Onboard international hires and support families — visas, relocation, benefits, bereavement.",
       to: "/partnerships" as const,
       accent: "from-ink/15 via-ink/5 to-transparent",
       ring: "hover:ring-ink/30",
     },
     {
       icon3d: "experts" as const,
-      key: "provider",
+      tag: "Provider",
+      title: "Join our expert network",
+      copy: "Provider listings and introductions, with identity, scope and fees confirmed before you proceed.",
       to: "/for-providers" as const,
       accent: "from-peach/40 via-peach/10 to-transparent",
       ring: "hover:ring-accent/40",
@@ -159,20 +168,20 @@ function FivePaths() {
     <section className="border-y border-border/60 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         <div className="max-w-2xl">
-          <div className="eyebrow">{t("fivePaths.eyebrow")}</div>
+          <div className="eyebrow">Choose your path</div>
           <h2 className="display-md mt-3 font-semibold">
-            {t("fivePaths.headingPrefix")}{" "}
-            <span className="headline-stamp italic">BeistandPlus</span>.
+            Five doors into <span className="headline-stamp italic">BeistandPlus</span>.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-foreground/75">
-            {t("fivePaths.intro")}
+            Whatever brought you here today — a loss, a form, a move, an employee, or your own
+            practice — we start from where you actually are.
           </p>
         </div>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {paths.map((p) => (
             <Link
-              key={p.key}
+              key={p.tag}
               to={p.to}
               className={`group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${p.ring}`}
             >
@@ -184,16 +193,16 @@ function FivePaths() {
                 <Icon3D name={p.icon3d} clay alt="" />
               </div>
               <div className="relative mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                {t(`fivePaths.items.${p.key}.tag`)}
+                {p.tag}
               </div>
               <div className="relative mt-2 text-lg font-semibold leading-snug text-ink">
-                {t(`fivePaths.items.${p.key}.title`)}
+                {p.title}
               </div>
               <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
-                {t(`fivePaths.items.${p.key}.copy`)}
+                {p.copy}
               </p>
               <div className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                {t("fivePaths.continue")}
+                Continue
                 <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-1" />
               </div>
             </Link>
@@ -203,6 +212,7 @@ function FivePaths() {
     </section>
   );
 }
+
 function Hero() {
   const { t } = useTranslation();
   return (
@@ -957,30 +967,33 @@ function RolesGrid() {
 
 function BenefitsShowcase() {
   const items = [
-    { name: "Kindergeld", desc: "€250 per child, monthly", tag: "Family" },
-    { name: "Bürgergeld", desc: "€563 + rent + heating", tag: "Income" },
-    { name: "Wohngeld", desc: "Rent subsidy up to €800", tag: "Housing" },
-    { name: "Elterngeld", desc: "Up to €1,800 in first year", tag: "Parents" },
-    { name: "BAföG", desc: "Study financing up to €992", tag: "Students" },
-    { name: "Blue Card", desc: "Fast-track skilled workers", tag: "Immigration" },
+    { name: "Kindergeld", desc: "Check the current family-benefit process", tag: "Family" },
+    { name: "Income support", desc: "Start with the responsible Jobcenter", tag: "Income" },
+    { name: "Wohngeld", desc: "Review the local housing-benefit route", tag: "Housing" },
+    { name: "Elterngeld", desc: "Organise the documents an authority requests", tag: "Parents" },
+    { name: "BAföG", desc: "Find the office responsible for the application", tag: "Students" },
+    {
+      name: "Residence",
+      desc: "Record instructions from the responsible authority",
+      tag: "Immigration",
+    },
   ];
   return (
     <section className="bg-parchment/40">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:py-24 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-5">
           <div className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/60">
-            Benefits Checker
+            Benefits organiser
           </div>
           <h2 className="display-lg text-balance mt-3 font-semibold">
-            Know exactly what you're entitled to.
+            Start with the right official source.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            Bürgergeld, Kindergeld, Wohngeld, Elterngeld, BAföG, Rente. Answer a few questions —
-            BeistandPlus tells you what to apply for, how much you could receive, and prepares the
-            paperwork.
+            Keep authority links, requested documents, correspondence and case-specific deadlines
+            together. The responsible authority determines eligibility, amounts and outcomes.
           </p>
           <Button asChild className="mt-8 bg-gradient-primary shadow-soft" size="lg">
-            <Link to="/app/benefits">Run the benefits checker</Link>
+            <Link to="/app/benefits">Open the benefits guide</Link>
           </Button>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">

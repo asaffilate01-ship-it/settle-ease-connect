@@ -40,6 +40,8 @@ import {
 } from "@/lib/cases.functions";
 import { formatDistanceToNow, format } from "date-fns";
 import { toast } from "sonner";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { CaseResponsibility } from "@/components/cases/case-responsibility";
 
 const caseQuery = (id: string) =>
   queryOptions({
@@ -85,6 +87,19 @@ function CaseDetail() {
   const { caseId } = Route.useParams();
   const { data } = useSuspenseQuery(caseQuery(caseId));
   const qc = useQueryClient();
+  const { roles } = useCurrentUser();
+  const isInternal = roles.some((role) =>
+    [
+      "admin",
+      "staff",
+      "case_manager",
+      "insurance_admin",
+      "tax_admin",
+      "benefits_admin",
+      "medical_admin",
+      "new_arrival_admin",
+    ].includes(role),
+  );
 
   useEffect(() => {
     const ch = supabase
@@ -152,8 +167,16 @@ function CaseDetail() {
             {c.city ?? "—"}, {c.bundesland ?? "—"} · opened {format(new Date(c.opened_at), "PP")}
           </div>
         </div>
-        <StatusPicker caseId={c.id} status={c.status} />
+        {isInternal ? (
+          <StatusPicker caseId={c.id} status={c.status} />
+        ) : (
+          <Badge variant="outline" className="capitalize">
+            {c.status.replaceAll("_", " ")}
+          </Badge>
+        )}
       </div>
+
+      <CaseResponsibility status={c.status} />
 
       {c.summary && (
         <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
@@ -177,7 +200,12 @@ function CaseDetail() {
         <TabsContent value="conversation" className="mt-4">
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-6">
-              <MessagesPanel caseId={c.id} messages={data.messages} nameOf={nameOf} />
+              <MessagesPanel
+                caseId={c.id}
+                messages={data.messages}
+                nameOf={nameOf}
+                allowInternalNotes={isInternal}
+              />
             </div>
             <div className="space-y-6">
               <CaseMilestones caseId={c.id} />
@@ -231,10 +259,12 @@ function MessagesPanel({
   caseId,
   messages,
   nameOf,
+  allowInternalNotes,
 }: {
   caseId: string;
   messages: Msg[];
   nameOf: (id: string | null) => string;
+  allowInternalNotes: boolean;
 }) {
   const fn = useServerFn(sendCaseMessage);
   const qc = useQueryClient();
@@ -296,10 +326,14 @@ function MessagesPanel({
           className="min-h-20"
         />
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Checkbox checked={internal} onCheckedChange={(v) => setInternal(!!v)} />
-            Internal note (staff only)
-          </label>
+          {allowInternalNotes ? (
+            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Checkbox checked={internal} onCheckedChange={(v) => setInternal(!!v)} />
+              Internal note (staff only)
+            </label>
+          ) : (
+            <span className="text-xs text-muted-foreground">Visible to your case team</span>
+          )}
           <Button
             type="submit"
             size="sm"

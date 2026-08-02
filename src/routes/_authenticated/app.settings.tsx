@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { MfaSection } from "@/components/settings/mfa-section";
+import { AiConsentSection } from "@/components/settings/ai-consent-section";
 
 export const Route = createFileRoute("/_authenticated/app/settings")({
   component: SettingsPage,
@@ -139,6 +140,7 @@ function SettingsPage() {
       </div>
 
       <MfaSection />
+      <AiConsentSection />
     </div>
   );
 }

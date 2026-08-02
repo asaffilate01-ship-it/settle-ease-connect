@@ -84,14 +84,32 @@ export const grantUserRole = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
-      .from("user_roles")
-      .insert({ user_id: data.user_id, role: data.role });
-    if (error && !error.message.toLowerCase().includes("duplicate")) {
-      throw new Error(error.message);
+    if (data.user_id === context.userId) {
+      throw new Error("Administrators cannot approve changes to their own roles.");
     }
-    return { ok: true };
+    const { data: existing, error: existingError } = await (context.supabase as any)
+      .from("security_approvals")
+      .select("id")
+      .eq("action", "role_grant")
+      .eq("target_user_id", data.user_id)
+      .eq("role", data.role)
+      .eq("status", "pending")
+      .maybeSingle();
+    if (existingError) throw new Error(existingError.message);
+    if (existing) return { ok: true, pending: true, approvalId: existing.id };
+
+    const { data: request, error } = await (context.supabase as any)
+      .from("security_approvals")
+      .insert({
+        action: "role_grant",
+        target_user_id: data.user_id,
+        role: data.role,
+        requested_by: context.userId,
+      })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+    return { ok: true, pending: true, approvalId: request.id };
   });
 
 export const revokeUserRole = createServerFn({ method: "POST" })
@@ -101,12 +119,67 @@ export const revokeUserRole = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
-      .from("user_roles")
-      .delete()
-      .eq("user_id", data.user_id)
-      .eq("role", data.role);
+    if (data.user_id === context.userId) {
+      throw new Error("Administrators cannot approve changes to their own roles.");
+    }
+    const { data: existing, error: existingError } = await (context.supabase as any)
+      .from("security_approvals")
+      .select("id")
+      .eq("action", "role_revoke")
+      .eq("target_user_id", data.user_id)
+      .eq("role", data.role)
+      .eq("status", "pending")
+      .maybeSingle();
+    if (existingError) throw new Error(existingError.message);
+    if (existing) return { ok: true, pending: true, approvalId: existing.id };
+
+    const { data: request, error } = await (context.supabase as any)
+      .from("security_approvals")
+      .insert({
+        action: "role_revoke",
+        target_user_id: data.user_id,
+        role: data.role,
+        requested_by: context.userId,
+      })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+    return { ok: true, pending: true, approvalId: request.id };
+  });
+
+export const listRoleApprovals = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context);
+    const { data, error } = await (context.supabase as any)
+      .from("security_approvals")
+      .select(
+        "id, action, target_user_id, role, status, reason, requested_by, requested_at, decided_by, decided_at, decision_note",
+      )
+      .order("requested_at", { ascending: false })
+      .limit(100);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  });
+
+export const decideRoleApproval = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((raw: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        decision: z.enum(["approved", "rejected"]),
+        note: z.string().trim().max(1000).optional(),
+      })
+      .parse(raw),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    const { error } = await (context.supabase as any).rpc("decide_role_security_approval", {
+      _approval_id: data.id,
+      _decision: data.decision,
+      _note: data.note ?? null,
+    });
     if (error) throw new Error(error.message);
     return { ok: true };
   });

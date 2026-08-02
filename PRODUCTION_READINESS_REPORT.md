@@ -1,7 +1,7 @@
 # Production readiness report
 
-Assessment date: 1 August 2026
-Audited base commit: `188b330ec6c44da2f26e05ad22119fde41f0ea6e`
+Assessment date: 2 August 2026
+Upgrade baseline: `416089e`
 
 ## Verdict
 
@@ -22,14 +22,20 @@ The repository is a hardened release candidate. Its local code gates pass, and g
 - Converted health, funeral-cover and tax flows to explicit referral boundaries.
 - Added legal identity configuration, security headers, liveness/readiness endpoints, CI, dependency updates and release validators.
 - Added branded Capacitor iOS/Android projects, secure network/backup defaults, camera capture and optional push registration/gateway delivery.
+- Added two-administrator approval for privileged role changes, accurate MFA/session controls and AAL2-protected staff workflows.
+- Added signed vault uploads, malware quarantine/callback enforcement, explicit AI consent and a scheduled 30-day AI-output purge.
+- Added permission-aware command search, responsive case views and clearer member/staff/provider ownership states.
+- Added allowlisted native deep links, secure external-browser handling, notification routing and iOS/Android custom-scheme registration.
+- Added Playwright desktop/mobile smoke checks, automated accessibility checks, CodeQL, dependency review and CycloneDX SBOM generation.
 - Consolidated all SQL into `supabase/migrations` and removed obsolete duplicate/dead files.
 
 ## Verification gates
 
-Verified on the exact release tree on 1 August 2026:
+Verified locally on the upgrade tree on 2 August 2026; repeat on the final GitHub commit and retain the CI evidence:
 
 - Clean `npm ci`: passed
-- Repository check, TypeScript, ESLint, 16 unit/invariant tests and production build: passed
+- Repository check, TypeScript, ESLint, 38 unit/invariant tests and production build: passed
+- Desktop/mobile browser smoke and automated accessibility tests: provided as a required CI gate; the local browser download could not be completed in this restricted environment because its network TLS proxy rejected the certificate
 - Production dependency audit at high severity: passed with 0 vulnerabilities
 - Capacitor production-domain sync for iOS and Android: passed
 - Capacitor Doctor: Android passed; iOS compilation was not attempted because Xcode is unavailable on Linux
@@ -53,18 +59,18 @@ The environment validator is designed to fail until genuine production values ar
 ## External blockers before public launch
 
 1. Rotate all credentials ever present in removed tracked environment files.
-2. Apply every migration through `20260801222000_catalog_and_verification_hardening.sql` in staging, regenerate Supabase types and complete role-by-role RLS tests.
+2. Apply every migration through `20260802202000_case_workflow_security.sql` in staging, regenerate Supabase types and complete role-by-role RLS tests.
 3. Supply and legally review company/register/VAT/management, privacy, terms, cancellation and complaints details.
 4. Contract and certify every enabled insurer, broker, tax professional, interpreter, email service and delivery endpoint. Keep unavailable adapters disabled.
 5. Configure separate live Stripe credentials/webhook, run real sandbox-to-live acceptance tests and keep expert payouts disabled.
-6. Configure monitoring, error reporting, alerting, retention jobs, on-call ownership, incident response and a successful backup restore drill.
-7. Complete browser/device E2E tests, accessibility review, GDPR/security review and an independent penetration test.
+6. Schedule and monitor partner delivery and AI retention, operate the malware scanner/callback, configure error reporting/alerting/on-call, and complete incident-response and backup-restore drills.
+7. Pass the included browser/accessibility CI suite in staging, then complete manual assistive-technology/device review, GDPR/security review and an independent penetration test.
 8. Complete Apple/Google signing, privacy/store disclosures, real-device testing and store review. Native push additionally needs APNs/FCM and a delivery gateway.
 9. Decide and implement the approved mobile subscription-billing/entitlement model before enabling native purchases.
 
 ## Known non-blocking technical debt
 
 - Supabase types must be regenerated after staging migrations.
-- The unit suite tests security/policy helpers and migration invariants; deployed browser and role journeys remain mandatory.
+- Automated public browser/accessibility coverage does not replace authenticated role-by-role staging journeys or manual assistive-technology review.
 - A signed Android bundle still needs an environment that can download the Gradle toolchain; this restricted build environment could not reach the Gradle distribution host.
 - Store acceptance cannot be guaranteed for a server-backed WebView. Native utility and review notes must demonstrate that the app is more than a repackaged website.

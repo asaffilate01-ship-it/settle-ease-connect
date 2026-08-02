@@ -56,6 +56,8 @@ import { Route as AuthenticatedPartnerIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedExpertIndexRouteImport } from './routes/_authenticated/expert.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAgentIndexRouteImport } from './routes/_authenticated/agent.index'
+import { Route as ApiInternalVaultScanResultRouteImport } from './routes/api/internal/vault-scan-result'
+import { Route as ApiInternalRetentionRouteImport } from './routes/api/internal/retention'
 import { Route as ApiInternalReadinessRouteImport } from './routes/api/internal/readiness'
 import { Route as ApiInternalPartnerDeliveriesRouteImport } from './routes/api/internal/partner-deliveries'
 import { Route as AuthenticatedPortalTaxRouteImport } from './routes/_authenticated/portal.tax'
@@ -388,6 +390,17 @@ const AuthenticatedAgentIndexRoute = AuthenticatedAgentIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAgentRoute,
+} as any)
+const ApiInternalVaultScanResultRoute =
+  ApiInternalVaultScanResultRouteImport.update({
+    id: '/api/internal/vault-scan-result',
+    path: '/api/internal/vault-scan-result',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInternalRetentionRoute = ApiInternalRetentionRouteImport.update({
+  id: '/api/internal/retention',
+  path: '/api/internal/retention',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiInternalReadinessRoute = ApiInternalReadinessRouteImport.update({
   id: '/api/internal/readiness',
@@ -1051,6 +1064,8 @@ export interface FileRoutesByFullPath {
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/api/internal/readiness': typeof ApiInternalReadinessRoute
+  '/api/internal/retention': typeof ApiInternalRetentionRoute
+  '/api/internal/vault-scan-result': typeof ApiInternalVaultScanResultRoute
   '/agent/': typeof AuthenticatedAgentIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1187,6 +1202,8 @@ export interface FileRoutesByTo {
   '/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/api/internal/readiness': typeof ApiInternalReadinessRoute
+  '/api/internal/retention': typeof ApiInternalRetentionRoute
+  '/api/internal/vault-scan-result': typeof ApiInternalVaultScanResultRoute
   '/agent': typeof AuthenticatedAgentIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/expert': typeof AuthenticatedExpertIndexRoute
@@ -1328,6 +1345,8 @@ export interface FileRoutesById {
   '/_authenticated/portal/tax': typeof AuthenticatedPortalTaxRoute
   '/api/internal/partner-deliveries': typeof ApiInternalPartnerDeliveriesRoute
   '/api/internal/readiness': typeof ApiInternalReadinessRoute
+  '/api/internal/retention': typeof ApiInternalRetentionRoute
+  '/api/internal/vault-scan-result': typeof ApiInternalVaultScanResultRoute
   '/_authenticated/agent/': typeof AuthenticatedAgentIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/expert/': typeof AuthenticatedExpertIndexRoute
@@ -1471,6 +1490,8 @@ export interface FileRouteTypes {
     | '/portal/tax'
     | '/api/internal/partner-deliveries'
     | '/api/internal/readiness'
+    | '/api/internal/retention'
+    | '/api/internal/vault-scan-result'
     | '/agent/'
     | '/app/'
     | '/expert/'
@@ -1607,6 +1628,8 @@ export interface FileRouteTypes {
     | '/portal/tax'
     | '/api/internal/partner-deliveries'
     | '/api/internal/readiness'
+    | '/api/internal/retention'
+    | '/api/internal/vault-scan-result'
     | '/agent'
     | '/app'
     | '/expert'
@@ -1747,6 +1770,8 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/tax'
     | '/api/internal/partner-deliveries'
     | '/api/internal/readiness'
+    | '/api/internal/retention'
+    | '/api/internal/vault-scan-result'
     | '/_authenticated/agent/'
     | '/_authenticated/app/'
     | '/_authenticated/expert/'
@@ -1803,6 +1828,8 @@ export interface RootRouteChildren {
   ExpertInviteTokenRoute: typeof ExpertInviteTokenRoute
   ApiInternalPartnerDeliveriesRoute: typeof ApiInternalPartnerDeliveriesRoute
   ApiInternalReadinessRoute: typeof ApiInternalReadinessRoute
+  ApiInternalRetentionRoute: typeof ApiInternalRetentionRoute
+  ApiInternalVaultScanResultRoute: typeof ApiInternalVaultScanResultRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -2136,6 +2163,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/agent/'
       preLoaderRoute: typeof AuthenticatedAgentIndexRouteImport
       parentRoute: typeof AuthenticatedAgentRoute
+    }
+    '/api/internal/vault-scan-result': {
+      id: '/api/internal/vault-scan-result'
+      path: '/api/internal/vault-scan-result'
+      fullPath: '/api/internal/vault-scan-result'
+      preLoaderRoute: typeof ApiInternalVaultScanResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal/retention': {
+      id: '/api/internal/retention'
+      path: '/api/internal/retention'
+      fullPath: '/api/internal/retention'
+      preLoaderRoute: typeof ApiInternalRetentionRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/internal/readiness': {
       id: '/api/internal/readiness'
@@ -3225,6 +3266,8 @@ const rootRouteChildren: RootRouteChildren = {
   ExpertInviteTokenRoute: ExpertInviteTokenRoute,
   ApiInternalPartnerDeliveriesRoute: ApiInternalPartnerDeliveriesRoute,
   ApiInternalReadinessRoute: ApiInternalReadinessRoute,
+  ApiInternalRetentionRoute: ApiInternalRetentionRoute,
+  ApiInternalVaultScanResultRoute: ApiInternalVaultScanResultRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport

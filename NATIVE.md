@@ -21,11 +21,15 @@ The validator rejects HTTP and Lovable preview domains. Re-run the command whene
 - Safe-area, keyboard, status-bar, Android back-button, haptic and share bridges
 - Rear-camera document capture through the file picker
 - User-initiated APNs/FCM token registration
+- Allowlisted `beistandplus://` deep links and notification-action routing
+- Secure external-browser handling for signed documents and web-only billing
 - Optional HTTPS native-push delivery gateway
 - Cleartext traffic disabled and Android application backups disabled
 - Stripe subscription checkout and billing management blocked inside native apps
 
 Native push remains hidden unless `VITE_NATIVE_PUSH_ENABLED=true`. When enabled, configure `NATIVE_PUSH_DELIVERY_ENDPOINT` and `NATIVE_PUSH_DELIVERY_BEARER_TOKEN`; the gateway receives a bounded JSON request containing platform, device token and notification payload.
+
+Custom-scheme routes are registered in both projects. Examples include `beistandplus://app/cases/<id>`, `beistandplus://portal/cases` and `beistandplus://auth`. The client rejects unknown hosts, non-HTTPS external URLs and unowned HTTPS origins. For verified Universal Links/App Links, also deploy the Apple association file and Android `assetlinks.json`, add production signing fingerprints, and enable the platform capabilities before store submission.
 
 ## iOS completion
 
@@ -34,7 +38,7 @@ Native push remains hidden unless `VITE_NATIVE_PUSH_ENABLED=true`. When enabled,
 3. Add the Push Notifications capability and the appropriate APNs entitlement if push is enabled.
 4. Configure APNs credentials in the deployment-owned native-push gateway.
 5. Confirm version/build numbers, privacy manifest/labels, support URL, privacy-policy URL and App Store screenshots.
-6. Test camera selection, MFA, deep links, session expiry, offline/reconnect, notification handling and account deletion on real iPhone/iPad devices.
+6. Test camera selection, MFA, custom-scheme and universal links, session expiry, offline/reconnect, notification handling and account deletion on real iPhone/iPad devices.
 7. Archive, upload to TestFlight, complete external testing, then submit for review.
 
 ## Android completion
@@ -44,7 +48,7 @@ Native push remains hidden unless `VITE_NATIVE_PUSH_ENABLED=true`. When enabled,
 3. Configure FCM credentials in the deployment-owned native-push gateway.
 4. Create and securely store the upload/release keystore outside Git; configure Play App Signing.
 5. Confirm version code/name, data-safety disclosure, content rating, privacy policy, screenshots and store listing.
-6. Test camera selection, MFA, deep links, session expiry, offline/reconnect and notification handling on physical devices.
+6. Test camera selection, MFA, custom-scheme and app links, session expiry, offline/reconnect and notification handling on physical devices.
 7. Produce a signed Android App Bundle and complete closed testing before production rollout.
 
 ## Store-review decisions

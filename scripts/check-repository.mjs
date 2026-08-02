@@ -5,15 +5,19 @@ const failures = [];
 const mustExist = [
   ".env.example",
   ".github/workflows/quality.yml",
+  ".github/workflows/security.yml",
   "README-FIRST.md",
   "SECURITY.md",
   "scripts/validate-production-env.mjs",
-  "supabase/migrations/20260801222000_catalog_and_verification_hardening.sql",
+  "supabase/migrations/20260802202000_case_workflow_security.sql",
   "tests/production-hardening.test.ts",
   "tests/operational-workflows.test.ts",
   "native-shell/index.html",
   "ios/App/App.xcodeproj/project.pbxproj",
   "android/app/build.gradle",
+  "playwright.config.ts",
+  "src/routes/api/internal/retention.ts",
+  "tests/e2e/public-smoke.spec.ts",
 ];
 for (const path of mustExist)
   if (!existsSync(path)) failures.push(`Missing required file: ${path}`);

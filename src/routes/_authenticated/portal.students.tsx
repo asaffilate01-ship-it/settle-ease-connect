@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { listStudentVerifications, reviewStudentVerification } from "@/lib/students.functions";
 import { Loader2, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { openExternalUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/_authenticated/portal/students")({
   head: () => ({ meta: [{ title: "Student verifications — BeistandPlus" }] }),
@@ -43,7 +44,11 @@ function StudentsQueue() {
       .from("student-verifications")
       .createSignedUrl(path, 300);
     if (error || !data) return toast.error(error?.message ?? "Cannot open");
-    window.open(data.signedUrl, "_blank", "noopener");
+    try {
+      await openExternalUrl(data.signedUrl);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Cannot open document");
+    }
   }
 
   return (

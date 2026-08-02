@@ -17,7 +17,7 @@ export const Route = createFileRoute("/legal/privacy")({
 
 function Page() {
   return (
-    <LegalArticle title="Datenschutzerklärung (DSGVO / BDSG)" updated="2026-04-01">
+    <LegalArticle title="Datenschutzerklärung (DSGVO / BDSG)" updated="2026-08-02">
       <BilingualNote />
 
       <LegalSection title="1. Verantwortlicher (Art. 4 Nr. 7 DSGVO)">
@@ -39,8 +39,12 @@ function Page() {
         <ul>
           <li>Bestandsdaten: Name, E-Mail, Telefon, Sprache.</li>
           <li>Falldaten: Dokumente, Korrespondenz, Terminnotizen.</li>
-          <li>Depot-Daten: sensible Dokumente, verschlüsselt gespeichert.</li>
-          <li>Zahlungsdaten: über PCI-DSS-konformen Zahlungsdienstleister.</li>
+          <li>Depot-Daten: sensible Dokumente und zugehörige Metadaten.</li>
+          <li>Zahlungsdaten: Abrechnungs- und Transaktionsdaten des Zahlungsdienstleisters.</li>
+          <li>
+            KI-Daten (optional): die von Ihnen ausgewählten Fragen oder Dokumenttexte sowie die
+            erzeugten Ergebnisse.
+          </li>
           <li>Nutzungsdaten: nur bei entsprechender Einwilligung (§ 25 TDDDG).</li>
           <li>
             Besondere Kategorien (Art. 9 DSGVO, z. B. Gesundheit, Religion): nur auf Basis Ihrer
@@ -76,18 +80,26 @@ function Page() {
       <LegalSection title="5. Empfänger / Auftragsverarbeiter">
         <p>
           Wir geben Daten nur an vertraglich gebundene Auftragsverarbeiter (Art. 28 DSGVO) weiter:
-          EU-Cloud-Hoster, Zahlungsdienstleister, E-Mail-Provider und — nur auf Ihre Weisung — an
-          die geprüften Experten in Ihrem Fall. Eine Übermittlung in Drittländer findet
-          grundsätzlich nicht statt; ausnahmsweise nur unter EU-Standardvertragsklauseln (Art. 46
-          Abs. 2 lit. c DSGVO) und mit ergänzenden Schutzmaßnahmen nach EDSA-Leitlinien.
+          Hosting- und Datenbankdienste, Zahlungs- und E-Mail-Dienste, den Sicherheitsdienst für
+          Dateiprüfungen und — bei ausdrücklicher Aktivierung — den KI-Dienst. Falldaten werden nur
+          auf Ihre Weisung oder einer anderen gültigen Rechtsgrundlage an den für den Fall
+          ausgewählten Experten übermittelt. Angaben zu eingesetzten Anbietern, Verarbeitungsorten
+          und Übermittlungsmechanismen erhalten Sie über die Datenschutzkontaktadresse. Eine
+          Drittlandübermittlung erfolgt nur, wenn die gesetzlichen Voraussetzungen und geeignete
+          Garantien erfüllt sind.
         </p>
       </LegalSection>
 
       <LegalSection title="6. Speicherdauer">
         <p>
-          Konto- und Falldaten: für die Dauer des Vertrags plus bis zu 3 Jahre (Verjährung nach §
-          195 BGB) bzw. bis zu 10 Jahre bei Rechnungen (§ 147 AO). Depot-Daten: Löschung auf
-          Anforderung oder bei Kontoschließung. Statistikdaten: 14 Monate.
+          Wir speichern Daten nur so lange, wie dies für den jeweiligen Zweck erforderlich ist.
+          Anschließend werden sie gelöscht oder gesperrt, sofern keine gesetzliche
+          Aufbewahrungspflicht, kein offener Anspruch und keine dokumentierte rechtliche Sperre
+          entgegensteht. Die Frist richtet sich insbesondere nach Datenart, Vertragsdauer,
+          gesetzlichen Aufbewahrungspflichten und Verjährungsfristen. Depot-Dateien werden bei
+          Kontoschließung oder auf bestätigte Anforderung gelöscht, soweit keine Sperre greift.
+          KI-Eingaben werden von BeistandPlus nicht als Promptprotokoll gespeichert; erzeugte
+          KI-Ergebnisse werden nach 30 Tagen zur Löschung eingeplant.
         </p>
       </LegalSection>
 
@@ -103,8 +115,8 @@ function Page() {
             Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)
           </li>
           <li>
-            Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO) — für uns zuständig: Berliner
-            Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59–61, 10555 Berlin.
+            Beschwerde bei einer Datenschutzaufsichtsbehörde (Art. 77 DSGVO). Die für private
+            Unternehmen zuständige Landesbehörde richtet sich nach dem Sitz des Verantwortlichen.
           </li>
         </ul>
       </LegalSection>
@@ -112,16 +124,19 @@ function Page() {
       <LegalSection title="8. Automatisierte Entscheidungen">
         <p>
           Es findet keine ausschließlich automatisierte Entscheidungsfindung mit rechtlicher Wirkung
-          im Sinne des Art. 22 DSGVO statt. KI-gestützte Vorschläge werden stets von einem Menschen
-          geprüft, bevor sie umgesetzt werden.
+          im Sinne des Art. 22 DSGVO statt. KI-Funktionen sind optional, zweckgebunden und müssen
+          aktiviert werden. Ihre Ausgaben sind Entwürfe und werden nicht automatisch in
+          Fallentscheidungen, Leistungszusagen oder Behördenhandlungen übernommen.
         </p>
       </LegalSection>
 
       <LegalSection title="9. Technische und organisatorische Maßnahmen (Art. 32 DSGVO)">
         <p>
-          Transportverschlüsselung (TLS 1.3), Verschlüsselung im Ruhezustand, gehashte Passwörter
-          nach aktuellem Stand der Technik, rollenbasierte Zugriffskontrolle, Protokollierung,
-          regelmäßige Backups und Wiederherstellungstests, EU-Rechenzentrum.
+          Transportverschlüsselung, Zugriffskontrollen nach Rolle und Sicherheitsniveau,
+          Mehrfaktorprüfung für sensible Bereiche, Protokollierung privilegierter Vorgänge, private
+          Dateiablage, Sicherheitsprüfung hochgeladener Dateien sowie gesicherte Datensicherungs-
+          und Wiederherstellungsverfahren. Die Maßnahmen werden anhand des Risikos und des
+          eingesetzten Hostings regelmäßig überprüft.
         </p>
       </LegalSection>
     </LegalArticle>

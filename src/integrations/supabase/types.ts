@@ -215,6 +215,9 @@ export type Database = {
           output_json: Json | null
           output_text: string | null
           owner_user_id: string
+          provider: string
+          purpose: string | null
+          retention_due_at: string
           vault_document_id: string | null
         }
         Insert: {
@@ -228,6 +231,9 @@ export type Database = {
           output_json?: Json | null
           output_text?: string | null
           owner_user_id: string
+          provider?: string
+          purpose?: string | null
+          retention_due_at?: string
           vault_document_id?: string | null
         }
         Update: {
@@ -241,6 +247,9 @@ export type Database = {
           output_json?: Json | null
           output_text?: string | null
           owner_user_id?: string
+          provider?: string
+          purpose?: string | null
+          retention_due_at?: string
           vault_document_id?: string | null
         }
         Relationships: [
@@ -266,6 +275,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      ai_processing_consents: {
+        Row: {
+          consented: boolean
+          consented_at: string | null
+          notice_version: string
+          provider: string
+          purposes: string[]
+          updated_at: string
+          user_id: string
+          withdrawn_at: string | null
+        }
+        Insert: {
+          consented?: boolean
+          consented_at?: string | null
+          notice_version?: string
+          provider?: string
+          purposes?: string[]
+          updated_at?: string
+          user_id: string
+          withdrawn_at?: string | null
+        }
+        Update: {
+          consented?: boolean
+          consented_at?: string | null
+          notice_version?: string
+          provider?: string
+          purposes?: string[]
+          updated_at?: string
+          user_id?: string
+          withdrawn_at?: string | null
+        }
+        Relationships: []
       }
       announcements: {
         Row: {
@@ -5082,6 +5124,48 @@ export type Database = {
         }
         Relationships: []
       }
+      security_approvals: {
+        Row: {
+          action: string
+          decided_at: string | null
+          decided_by: string | null
+          decision_note: string | null
+          id: string
+          reason: string | null
+          requested_at: string
+          requested_by: string
+          role: Database["public"]["Enums"]["app_role"]
+          status: string
+          target_user_id: string
+        }
+        Insert: {
+          action: string
+          decided_at?: string | null
+          decided_by?: string | null
+          decision_note?: string | null
+          id?: string
+          reason?: string | null
+          requested_at?: string
+          requested_by: string
+          role: Database["public"]["Enums"]["app_role"]
+          status?: string
+          target_user_id: string
+        }
+        Update: {
+          action?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          decision_note?: string | null
+          id?: string
+          reason?: string | null
+          requested_at?: string
+          requested_by?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          status?: string
+          target_user_id?: string
+        }
+        Relationships: []
+      }
       session_activity: {
         Row: {
           created_at: string
@@ -5635,6 +5719,9 @@ export type Database = {
           mime_type: string | null
           notes: string | null
           owner_user_id: string
+          scan_completed_at: string | null
+          scan_message: string | null
+          scan_status: string
           storage_path: string | null
           tags: string[] | null
           updated_at: string
@@ -5656,6 +5743,9 @@ export type Database = {
           mime_type?: string | null
           notes?: string | null
           owner_user_id: string
+          scan_completed_at?: string | null
+          scan_message?: string | null
+          scan_status?: string
           storage_path?: string | null
           tags?: string[] | null
           updated_at?: string
@@ -5677,6 +5767,9 @@ export type Database = {
           mime_type?: string | null
           notes?: string | null
           owner_user_id?: string
+          scan_completed_at?: string | null
+          scan_message?: string | null
+          scan_status?: string
           storage_path?: string | null
           tags?: string[] | null
           updated_at?: string
@@ -5925,6 +6018,10 @@ export type Database = {
         Returns: boolean
       }
       current_partner_org: { Args: { _user_id: string }; Returns: string }
+      decide_role_security_approval: {
+        Args: { _approval_id: string; _decision: string; _note?: string }
+        Returns: undefined
+      }
       family_case_grant: {
         Args: { _case_id: string; _minimum_level?: string; _user_id: string }
         Returns: boolean
@@ -5979,6 +6076,7 @@ export type Database = {
         Returns: boolean
       }
       partner_doc_expiry_sweep: { Args: never; Returns: number }
+      purge_expired_ai_analyses: { Args: never; Returns: number }
       queue_invoice_payout: {
         Args: { _actor_user_id: string; _invoice_id: string; _notes?: string }
         Returns: string

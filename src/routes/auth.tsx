@@ -67,6 +67,11 @@ function AuthPage() {
     setLoading(true);
     try {
       if (mode === "signup") {
+        if (password.length < 12) {
+          toast.error("Use at least 12 characters for a new password.");
+          setLoading(false);
+          return;
+        }
         const { error } = await supabase.auth.signUp({
           email,
           password,
@@ -186,9 +191,9 @@ function AuthPage() {
                     type={showPw ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="At least 8 characters"
+                    placeholder={mode === "signup" ? "At least 12 characters" : "Your password"}
                     required
-                    minLength={8}
+                    minLength={mode === "signup" ? 12 : undefined}
                     autoComplete={mode === "signin" ? "current-password" : "new-password"}
                     className="pr-11"
                   />

@@ -23,7 +23,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { toast } from "sonner";
-import { isNative, nativePlatform } from "@/lib/native";
+import { isNative, nativePlatform, openExternalUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/_authenticated/app/account")({
   head: () => ({
@@ -81,7 +81,11 @@ function AccountPage() {
       if ("error" in result) throw new Error(result.error);
       return result.url;
     },
-    onSuccess: (url) => window.open(url, "_blank", "noopener"),
+    onSuccess: (url) => {
+      void openExternalUrl(url).catch((error: unknown) => {
+        toast.error(error instanceof Error ? error.message : "Could not open the billing portal");
+      });
+    },
     onError: (e: Error) => toast.error(e.message),
   });
 

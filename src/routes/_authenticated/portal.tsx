@@ -1,8 +1,7 @@
 import { createFileRoute, Outlet, Link, useNavigate, redirect } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import { PortalMobileNav } from "@/components/mobile-nav-sheet";
-import { Button } from "@/components/ui/button";
-import { Bell, Search, LogOut, ShieldCheck } from "lucide-react";
+import { LogOut, ShieldCheck } from "lucide-react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -15,6 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
 import { MfaEnrollmentGate } from "@/components/security/mfa-enrollment-gate";
+import { Aal2Gate } from "@/components/security/aal2-gate";
+import { GlobalCommandSearch } from "@/components/global-command-search";
+import { NotificationBell } from "@/components/notification-bell";
 
 export const Route = createFileRoute("/_authenticated/portal")({
   ssr: false,
@@ -62,23 +64,12 @@ function PortalLayout() {
             <ShieldCheck className="h-4 w-4 text-primary" />
             <span className="font-display text-lg font-semibold">Portal</span>
           </Link>
-          <div className="hidden max-w-lg flex-1 items-center gap-2 rounded-lg border border-border/60 bg-parchment/60 px-3 py-1.5 md:flex">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <input
-              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-              placeholder="Search leads, cases, experts, invoices…"
-            />
-            <kbd className="rounded border border-border bg-background px-1.5 text-[10px] text-muted-foreground">
-              ⌘K
-            </kbd>
-          </div>
+          <GlobalCommandSearch mode="staff" />
           <div className="ml-auto flex items-center gap-2">
             <span className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground md:inline-flex">
               <ShieldCheck className="h-3 w-3 text-primary" /> Staff portal
             </span>
-            <Button variant="ghost" size="icon" aria-label="Notifications">
-              <Bell className="h-4 w-4" />
-            </Button>
+            <NotificationBell />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-2 rounded-lg border border-border/60 bg-card px-2 py-1 text-sm hover:bg-accent/10">
@@ -118,7 +109,9 @@ function PortalLayout() {
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <MfaEnrollmentGate>
-            <Outlet />
+            <Aal2Gate reason="The staff portal contains sensitive customer data and requires two-factor verification.">
+              <Outlet />
+            </Aal2Gate>
           </MfaEnrollmentGate>
         </main>
       </div>
