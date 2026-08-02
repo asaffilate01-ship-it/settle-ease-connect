@@ -22,16 +22,34 @@ function Page() {
 
       <LegalSection title="1. Verantwortlicher (Art. 4 Nr. 7 DSGVO)">
         <p>
-          {legalAddressInline()}. E-Mail:{" "}
-          <a href={`mailto:${publicLegal.privacyEmail}`}>{publicLegal.privacyEmail}</a>.
+          {legalAddressInline()}.{" "}
+          {publicLegal.privacyEmail ? (
+            <>
+              E-Mail: <a href={`mailto:${publicLegal.privacyEmail}`}>{publicLegal.privacyEmail}</a>.
+            </>
+          ) : (
+            <>
+              Datenschutzanfragen können schriftlich an die oben genannte Anschrift gerichtet
+              werden.
+            </>
+          )}
         </p>
       </LegalSection>
 
       <LegalSection title="2. Datenschutzbeauftragter">
         <p>
-          Sie erreichen unseren Datenschutzbeauftragten unter{" "}
-          <a href={`mailto:${publicLegal.dpoEmail}`}>{publicLegal.dpoEmail}</a> oder postalisch
-          unter obiger Anschrift mit dem Zusatz „Datenschutzbeauftragter".
+          {publicLegal.dpoEmail ? (
+            <>
+              Sie erreichen unseren Datenschutzbeauftragten unter{" "}
+              <a href={`mailto:${publicLegal.dpoEmail}`}>{publicLegal.dpoEmail}</a> oder postalisch
+              unter obiger Anschrift mit dem Zusatz „Datenschutzbeauftragter".
+            </>
+          ) : (
+            <>
+              Sie erreichen unseren Datenschutzbeauftragten postalisch unter obiger Anschrift mit
+              dem Zusatz „Datenschutzbeauftragter".
+            </>
+          )}
         </p>
       </LegalSection>
 
