@@ -5921,6 +5921,10 @@ export type Database = {
         Returns: boolean
       }
       current_partner_org: { Args: { _user_id: string }; Returns: string }
+      family_case_grant: {
+        Args: { _case_id: string; _minimum_level?: string; _user_id: string }
+        Returns: boolean
+      }
       generate_agent_code: { Args: never; Returns: string }
       generate_monthly_agent_commissions: {
         Args: { _period?: string }
