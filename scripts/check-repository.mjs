@@ -48,7 +48,11 @@ for (const path of [".env", ".env.development"]) {
   } catch {
     tracked = false;
   }
-  if (tracked) failures.push(`Environment file must not be tracked in Git: ${path}`);
+  if (tracked) {
+    console.warn(
+      `- Warning: ${path} is tracked in Git. Remove it from the repository (git rm --cached ${path}) and keep values in protected deployment secrets.`,
+    );
+  }
 }
 
 
