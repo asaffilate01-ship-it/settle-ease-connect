@@ -41,6 +41,7 @@ import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImpressumRouteImport } from './routes/legal.impressum'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
 import { Route as LegalComplaintsRouteImport } from './routes/legal.complaints'
+import { Route as GroupCoverFiduciaryClauseRouteImport } from './routes/group-cover.fiduciary-clause'
 import { Route as ExpertInviteTokenRouteImport } from './routes/expert-invite.$token'
 import { Route as DirectoryListYourBusinessRouteImport } from './routes/directory.list-your-business'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
@@ -308,6 +309,12 @@ const LegalComplaintsRoute = LegalComplaintsRouteImport.update({
   path: '/complaints',
   getParentRoute: () => LegalRoute,
 } as any)
+const GroupCoverFiduciaryClauseRoute =
+  GroupCoverFiduciaryClauseRouteImport.update({
+    id: '/fiduciary-clause',
+    path: '/fiduciary-clause',
+    getParentRoute: () => GroupCoverRoute,
+  } as any)
 const ExpertInviteTokenRoute = ExpertInviteTokenRouteImport.update({
   id: '/expert-invite/$token',
   path: '/expert-invite/$token',
@@ -936,7 +943,7 @@ export interface FileRoutesByFullPath {
   '/directory': typeof DirectoryRouteWithChildren
   '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRoute
+  '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
@@ -961,6 +968,7 @@ export interface FileRoutesByFullPath {
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/expert-invite/$token': typeof ExpertInviteTokenRoute
+  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -1076,7 +1084,7 @@ export interface FileRoutesByTo {
   '/directory': typeof DirectoryRouteWithChildren
   '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRoute
+  '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
@@ -1097,6 +1105,7 @@ export interface FileRoutesByTo {
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/expert-invite/$token': typeof ExpertInviteTokenRoute
+  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -1211,7 +1220,7 @@ export interface FileRoutesById {
   '/directory': typeof DirectoryRouteWithChildren
   '/events': typeof EventsRoute
   '/for-providers': typeof ForProvidersRoute
-  '/group-cover': typeof GroupCoverRoute
+  '/group-cover': typeof GroupCoverRouteWithChildren
   '/how-it-works': typeof HowItWorksRoute
   '/insurance': typeof InsuranceRoute
   '/integration-courses': typeof IntegrationCoursesRoute
@@ -1236,6 +1245,7 @@ export interface FileRoutesById {
   '/checkout/return': typeof CheckoutReturnRoute
   '/directory/list-your-business': typeof DirectoryListYourBusinessRoute
   '/expert-invite/$token': typeof ExpertInviteTokenRoute
+  '/group-cover/fiduciary-clause': typeof GroupCoverFiduciaryClauseRoute
   '/legal/complaints': typeof LegalComplaintsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/impressum': typeof LegalImpressumRoute
@@ -1378,6 +1388,7 @@ export interface FileRouteTypes {
     | '/checkout/return'
     | '/directory/list-your-business'
     | '/expert-invite/$token'
+    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -1514,6 +1525,7 @@ export interface FileRouteTypes {
     | '/checkout/return'
     | '/directory/list-your-business'
     | '/expert-invite/$token'
+    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -1652,6 +1664,7 @@ export interface FileRouteTypes {
     | '/checkout/return'
     | '/directory/list-your-business'
     | '/expert-invite/$token'
+    | '/group-cover/fiduciary-clause'
     | '/legal/complaints'
     | '/legal/cookies'
     | '/legal/impressum'
@@ -1769,7 +1782,7 @@ export interface RootRouteChildren {
   DirectoryRoute: typeof DirectoryRouteWithChildren
   EventsRoute: typeof EventsRoute
   ForProvidersRoute: typeof ForProvidersRoute
-  GroupCoverRoute: typeof GroupCoverRoute
+  GroupCoverRoute: typeof GroupCoverRouteWithChildren
   HowItWorksRoute: typeof HowItWorksRoute
   InsuranceRoute: typeof InsuranceRoute
   IntegrationCoursesRoute: typeof IntegrationCoursesRoute
@@ -2018,6 +2031,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/legal/complaints'
       preLoaderRoute: typeof LegalComplaintsRouteImport
       parentRoute: typeof LegalRoute
+    }
+    '/group-cover/fiduciary-clause': {
+      id: '/group-cover/fiduciary-clause'
+      path: '/fiduciary-clause'
+      fullPath: '/group-cover/fiduciary-clause'
+      preLoaderRoute: typeof GroupCoverFiduciaryClauseRouteImport
+      parentRoute: typeof GroupCoverRoute
     }
     '/expert-invite/$token': {
       id: '/expert-invite/$token'
@@ -3131,6 +3151,18 @@ const DirectoryRouteWithChildren = DirectoryRoute._addFileChildren(
   DirectoryRouteChildren,
 )
 
+interface GroupCoverRouteChildren {
+  GroupCoverFiduciaryClauseRoute: typeof GroupCoverFiduciaryClauseRoute
+}
+
+const GroupCoverRouteChildren: GroupCoverRouteChildren = {
+  GroupCoverFiduciaryClauseRoute: GroupCoverFiduciaryClauseRoute,
+}
+
+const GroupCoverRouteWithChildren = GroupCoverRoute._addFileChildren(
+  GroupCoverRouteChildren,
+)
+
 interface LegalRouteChildren {
   LegalComplaintsRoute: typeof LegalComplaintsRoute
   LegalCookiesRoute: typeof LegalCookiesRoute
@@ -3172,7 +3204,7 @@ const rootRouteChildren: RootRouteChildren = {
   DirectoryRoute: DirectoryRouteWithChildren,
   EventsRoute: EventsRoute,
   ForProvidersRoute: ForProvidersRoute,
-  GroupCoverRoute: GroupCoverRoute,
+  GroupCoverRoute: GroupCoverRouteWithChildren,
   HowItWorksRoute: HowItWorksRoute,
   InsuranceRoute: InsuranceRoute,
   IntegrationCoursesRoute: IntegrationCoursesRoute,
