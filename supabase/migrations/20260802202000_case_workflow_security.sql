@@ -6,12 +6,14 @@ BEGIN;
 
 DROP POLICY IF EXISTS "Assigned managers update cases" ON public.cases;
 DROP POLICY IF EXISTS "Internal staff update cases" ON public.cases;
+DROP POLICY IF EXISTS "aal2 internal staff update cases" ON public.cases;
 CREATE POLICY "aal2 internal staff update cases"
   ON public.cases FOR UPDATE TO authenticated
   USING (public.is_internal(auth.uid()) AND auth.jwt()->>'aal' = 'aal2')
   WITH CHECK (public.is_internal(auth.uid()) AND auth.jwt()->>'aal' = 'aal2');
 
 DROP POLICY IF EXISTS "case message send respects family grant" ON public.case_messages;
+DROP POLICY IF EXISTS "case messages enforce audience and assurance" ON public.case_messages;
 CREATE POLICY "case messages enforce audience and assurance"
   ON public.case_messages FOR INSERT TO authenticated
   WITH CHECK (

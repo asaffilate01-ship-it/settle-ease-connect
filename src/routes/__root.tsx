@@ -160,7 +160,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 const LANG_GATE_CSS =
   "html[data-lang-pending] body,html[data-lang-switching] body{visibility:hidden!important}";
-const PRE_HYDRATION_LANG_SCRIPT = `(function(){try{var l=localStorage.getItem('beistand.lang')||'de';var d=document.documentElement;d.setAttribute('data-lang-pending',l);d.setAttribute('lang',l);d.setAttribute('dir',(l==='ar'||l==='ur'||l==='fa'||l==='ku')?'rtl':'ltr');setTimeout(function(){d.removeAttribute('data-lang-pending');d.removeAttribute('data-lang-switching');},4500);}catch(e){}})();`;
+const PRE_HYDRATION_LANG_SCRIPT = `(function(){try{var s=localStorage.getItem('beistand.lang');var l=s||'de';var a=['de','en','tr','ur','hi','pa','ar','ku','ru','uk','fa','pl','zh'];if(a.indexOf(l)===-1){l='de';s=null;}var d=document.documentElement;d.setAttribute('lang',l);d.setAttribute('dir',(l==='ar'||l==='ur'||l==='fa'||l==='ku')?'rtl':'ltr');if(s&&l!=='de'){d.setAttribute('data-lang-pending',l);setTimeout(function(){d.removeAttribute('data-lang-pending');d.removeAttribute('data-lang-switching');},4500);}}catch(e){}})();`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (

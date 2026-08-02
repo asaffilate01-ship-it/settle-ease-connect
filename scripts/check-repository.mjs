@@ -12,6 +12,7 @@ const mustExist = [
   "supabase/migrations/20260802202000_case_workflow_security.sql",
   "tests/production-hardening.test.ts",
   "tests/operational-workflows.test.ts",
+  "tests/go-live-readiness.test.ts",
   "native-shell/index.html",
   "ios/App/App.xcodeproj/project.pbxproj",
   "android/app/build.gradle",

@@ -46,7 +46,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run security:sbom > sbom.cdx.json
+      - run: npm run security:sbom
       - uses: actions/upload-artifact@v4
         with:
           name: sbom-cyclonedx

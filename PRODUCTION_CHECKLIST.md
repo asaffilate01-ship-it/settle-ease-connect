@@ -4,7 +4,9 @@ Do not connect real users, documents or live payments until all applicable items
 
 ## Source and database
 
+- [ ] `.env` and `.env.development` are absent from `git ls-files`; deployment values exist only in protected secrets.
 - [ ] `npm ci`, `npm run verify`, `npm run test:e2e` and `npm audit --omit=dev --audit-level=high` pass on the release commit.
+- [ ] The `Security analysis` workflow uploads a valid `sbom-cyclonedx` artifact.
 - [ ] Every migration through `20260802202000_case_workflow_security.sql` is applied to staging first.
 - [ ] Supabase types are regenerated from migrated staging and committed.
 - [ ] Owner, family, assigned/unassigned worker, expert, agent, admin, insurance, compliance, DPO and auditor RLS tests pass.

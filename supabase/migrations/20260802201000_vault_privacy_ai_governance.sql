@@ -46,6 +46,7 @@ ON CONFLICT (id) DO UPDATE SET
 DROP POLICY IF EXISTS "vault owner uploads own files" ON storage.objects;
 
 DROP POLICY IF EXISTS "vault owner reads own files with assurance" ON storage.objects;
+DROP POLICY IF EXISTS "vault owner reads clean files with assurance" ON storage.objects;
 CREATE POLICY "vault owner reads clean files with assurance"
   ON storage.objects FOR SELECT TO authenticated
   USING (
@@ -61,6 +62,7 @@ CREATE POLICY "vault owner reads clean files with assurance"
   );
 
 DROP POLICY IF EXISTS "vault deputy reads allowed files with assurance" ON storage.objects;
+DROP POLICY IF EXISTS "vault deputy reads allowed clean files with assurance" ON storage.objects;
 CREATE POLICY "vault deputy reads allowed clean files with assurance"
   ON storage.objects FOR SELECT TO authenticated
   USING (
@@ -93,6 +95,10 @@ ALTER TABLE public.ai_processing_consents ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON public.ai_processing_consents FROM PUBLIC, anon, authenticated;
 GRANT SELECT, INSERT, UPDATE ON public.ai_processing_consents TO authenticated;
 GRANT ALL ON public.ai_processing_consents TO service_role;
+
+DROP POLICY IF EXISTS "members read own AI consent" ON public.ai_processing_consents;
+DROP POLICY IF EXISTS "aal2 members create own AI consent" ON public.ai_processing_consents;
+DROP POLICY IF EXISTS "aal2 members update own AI consent" ON public.ai_processing_consents;
 
 CREATE POLICY "members read own AI consent"
   ON public.ai_processing_consents FOR SELECT TO authenticated
