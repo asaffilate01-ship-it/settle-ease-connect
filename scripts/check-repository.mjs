@@ -2,7 +2,6 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 
-
 const failures = [];
 const mustExist = [
   ".env.example",
@@ -49,12 +48,11 @@ for (const path of [".env", ".env.development"]) {
     tracked = false;
   }
   if (tracked) {
-    console.warn(
-      `- Warning: ${path} is tracked in Git. Remove it from the repository (git rm --cached ${path}) and keep values in protected deployment secrets.`,
+    failures.push(
+      `${path} is tracked in Git. Remove it from the repository and keep values in protected deployment secrets.`,
     );
   }
 }
-
 
 const auth = readFileSync("src/routes/auth.tsx", "utf8");
 if (/DevLoginPanel|DEV_PASSWORD|admin@beistand\.de/.test(auth))

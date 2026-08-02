@@ -346,7 +346,7 @@ function HeroCard() {
             </div>
             <div className="text-sm font-medium">Your BeistandPlus plan</div>
           </div>
-          <Badge variant="secondary" className="bg-success/15 text-success">
+          <Badge variant="secondary" className="bg-success/15 text-foreground">
             Active
           </Badge>
         </div>
@@ -1011,7 +1011,7 @@ function BenefitsShowcase() {
                   <div className="font-display text-xl font-semibold leading-tight">{b.name}</div>
                   <p className="mt-1.5 text-sm text-muted-foreground">{b.desc}</p>
                 </div>
-                <Badge className="shrink-0 border-transparent bg-primary/15 text-primary font-semibold">
+                <Badge className="shrink-0 border-transparent bg-primary/15 text-foreground font-semibold">
                   {b.tag}
                 </Badge>
               </div>
