@@ -1,5 +1,6 @@
 {
   "name": "tanstack_start_ts",
+  "version": "1.0.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -15,7 +16,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test --grep @a11y",
-    "security:sbom": "npm sbom --sbom-format cyclonedx",
+    "security:sbom": "cyclonedx-npm --output-format JSON --output-file sbom.cdx.json",
     "format": "prettier --write .",
     "check:repo": "node scripts/check-repository.mjs",
     "verify": "npm run check:repo && npm run typecheck && npm run lint -- --quiet && npm test && npm run build",
@@ -107,6 +108,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
     "@capacitor/cli": "^8.5.0",
+    "@cyclonedx/cyclonedx-npm": "6.0.0",
     "@eslint/js": "^9.32.0",
     "@lovable.dev/vite-tanstack-config": "2.8.5",
     "@playwright/test": "^1.62.1",
@@ -132,6 +134,9 @@
   "overrides": {
     "postcss": "8.5.25",
     "tar": "7.5.22",
+    "minimatch@3.1.5": {
+      "brace-expansion": "1.1.17"
+    },
     "minimatch@^10.0.0": {
       "brace-expansion": "5.0.9"
     }

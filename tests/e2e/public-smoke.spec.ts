@@ -17,7 +17,7 @@ for (const route of publicRoutes) {
 test("sign-in form supports keyboard entry", async ({ page }) => {
   await page.goto("/auth");
   await page.getByLabel("Email").fill("member@example.com");
-  await page.getByLabel("Password").fill("not-a-real-password");
+  await page.getByLabel("Password", { exact: true }).fill("not-a-real-password");
   await expect(page.getByRole("button", { name: "Sign in" })).toBeEnabled();
   await expect(page.getByRole("link", { name: /home/i })).toHaveAttribute("href", "/");
 });

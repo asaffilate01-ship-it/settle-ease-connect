@@ -30,7 +30,12 @@ function ensureLanguageGate() {
 }
 
 function shouldKeepGateForDomTranslation(lang: string | null) {
-  return !!lang || document.documentElement.hasAttribute("data-lang-pending");
+  const pending = document.documentElement.getAttribute("data-lang-pending");
+  return Boolean(
+    (lang && lang !== DEFAULT_LANG) ||
+      (pending && pending !== DEFAULT_LANG) ||
+      document.documentElement.hasAttribute("data-lang-switching"),
+  );
 }
 
 function getSafeI18n() {

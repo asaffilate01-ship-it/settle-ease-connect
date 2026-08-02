@@ -1,7 +1,7 @@
 # Production readiness report
 
 Assessment date: 2 August 2026
-Upgrade baseline: `416089e`
+Upgrade baseline: `ec8dd3f`
 
 ## Verdict
 
@@ -28,13 +28,17 @@ The repository is a hardened release candidate. Its local code gates pass, and g
 - Added allowlisted native deep links, secure external-browser handling, notification routing and iOS/Android custom-scheme registration.
 - Added Playwright desktop/mobile smoke checks, automated accessibility checks, CodeQL, dependency review and CycloneDX SBOM generation.
 - Consolidated all SQL into `supabase/migrations` and removed obsolete duplicate/dead files.
+- Made the overlapping vault, AI-consent and case-workflow policies safe to replay in migration order.
+- Fixed the pre-hydration language gate so German/default-language pages remain visible immediately.
+- Replaced npm-native SBOM output with a pinned CycloneDX generator and resolved the npm 10 dependency-tree conflict.
 
 ## Verification gates
 
 Verified locally on the upgrade tree on 2 August 2026; repeat on the final GitHub commit and retain the CI evidence:
 
 - Clean `npm ci`: passed
-- Repository check, TypeScript, ESLint, 38 unit/invariant tests and production build: passed
+- Repository check, TypeScript, ESLint, 42 unit/invariant tests and production build: passed
+- CycloneDX SBOM generation: passed (590 components)
 - Desktop/mobile browser smoke and automated accessibility tests: provided as a required CI gate; the local browser download could not be completed in this restricted environment because its network TLS proxy rejected the certificate
 - Production dependency audit at high severity: passed with 0 vulnerabilities
 - Capacitor production-domain sync for iOS and Android: passed
