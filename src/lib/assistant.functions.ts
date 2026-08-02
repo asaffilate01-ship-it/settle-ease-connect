@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
+import { AI_PROVIDER, assertAiProcessingAllowed } from "@/lib/ai-governance.functions";
 
 const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-2.5-flash";
@@ -24,6 +25,7 @@ export const askFamilyAssistant = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((raw: unknown) => Input.parse(raw))
   .handler(async ({ data, context }) => {
+    await assertAiProcessingAllowed(context, "family_guidance");
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("AI is not configured.");
 
@@ -66,19 +68,21 @@ export const askFamilyAssistant = createServerFn({ method: "POST" })
       throw new Error("The assistant is busy right now — please try again in a moment.");
     if (res.status === 402) throw new Error("AI credits are exhausted. Please contact support.");
     if (!res.ok) {
-      const body = await res.text();
-      throw new Error(`Assistant error ${res.status}: ${body.slice(0, 200)}`);
+      throw new Error(`Assistant request failed (${res.status}).`);
     }
 
     const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
     const answer = json.choices?.[0]?.message?.content?.trim() ?? "";
 
-    await context.supabase.from("ai_document_analyses").insert({
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await (supabaseAdmin as any).from("ai_document_analyses").insert({
       owner_user_id: context.userId,
       kind: "family_assistant",
-      input_excerpt: data.question.slice(0, 500),
+      input_excerpt: null,
       output_text: answer,
       model: MODEL,
+      provider: AI_PROVIDER,
+      purpose: "family_guidance",
     });
 
     return { answer };

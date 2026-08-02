@@ -52,32 +52,32 @@ export const Route = createFileRoute("/_authenticated/portal/insurance-triage")(
 const ROUTE_META: Record<string, { label: string; hint: string; tone: string }> = {
   statutory: {
     label: "Statutory (GKV)",
-    hint: "Income below threshold, employee, family insured. Refer to GKV signup / Familienversicherung support.",
+    hint: "Use only after the customer or responsible insurer confirms the statutory route.",
     tone: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
   },
   private: {
     label: "Private (PKV)",
-    hint: "Above threshold, self-employed, civil servant. Requires regulated advisor — hand to DELA / licensed broker.",
+    hint: "Do not infer suitability. Refer to a configured authorised broker for an assessment.",
     tone: "bg-blue-500/10 text-blue-600 border-blue-500/20",
   },
   student: {
     label: "Student",
-    hint: "Under 30 / enrolled. Statutory student rate — direct enrolment guidance.",
+    hint: "Record student status as supplied and ask the responsible insurer to confirm the applicable route.",
     tone: "bg-violet-500/10 text-violet-600 border-violet-500/20",
   },
   employee: {
     label: "Employee (standard)",
-    hint: "Employer handles statutory contribution. Provide onboarding checklist.",
+    hint: "Record the employer and insurer instructions; do not infer cover from employment status alone.",
     tone: "bg-slate-500/10 text-slate-600 border-slate-500/20",
   },
   self_employed: {
     label: "Self-employed",
-    hint: "Choice between PKV/GKV. Regulated advice required for PKV — route to licensed advisor.",
+    hint: "Route to a configured authorised adviser without comparing or recommending products.",
     tone: "bg-amber-500/10 text-amber-600 border-amber-500/20",
   },
   family: {
     label: "Family insured",
-    hint: "Family co-insurance (Familienversicherung). Guidance only, no advice.",
+    hint: "Use only when the insurer confirms family co-insurance for the named household members.",
     tone: "bg-teal-500/10 text-teal-600 border-teal-500/20",
   },
   needs_regulated_assessment: {

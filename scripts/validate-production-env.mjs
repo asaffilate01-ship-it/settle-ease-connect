@@ -7,6 +7,11 @@ const required = [
   "VITE_SUPABASE_URL",
   "VITE_SUPABASE_PUBLISHABLE_KEY",
   "LOVABLE_API_KEY",
+  "AI_PROCESSING_ENABLED",
+  "AI_PROVIDER_DPA_CONFIRMED",
+  "VAULT_SCANNER_URL",
+  "VAULT_SCANNER_BEARER_TOKEN",
+  "VAULT_SCANNER_WEBHOOK_SECRET",
   "VAPID_PUBLIC_KEY",
   "VITE_VAPID_PUBLIC_KEY",
   "VAPID_PRIVATE_KEY",
@@ -16,6 +21,7 @@ const required = [
   "VITE_PAYMENTS_CLIENT_TOKEN",
   "RATE_LIMIT_SALT",
   "READINESS_TOKEN",
+  "RETENTION_WORKER_SECRET",
   "VITE_PUBLIC_LEGAL_NAME",
   "VITE_PUBLIC_LEGAL_STREET",
   "VITE_PUBLIC_LEGAL_POSTAL_CITY",
@@ -43,6 +49,17 @@ if (process.env.PAYMENTS_ENV !== "live") fail("PAYMENTS_ENV must be 'live' for p
 
 const appUrl = absoluteHttps("APP_URL");
 absoluteHttps("EMAIL_DELIVERY_ENDPOINT");
+absoluteHttps("VAULT_SCANNER_URL");
+
+if (process.env.AI_PROCESSING_ENABLED !== "true") {
+  fail("AI_PROCESSING_ENABLED must be 'true' after production controls are configured.");
+}
+if (process.env.AI_PROVIDER_DPA_CONFIRMED !== "true") {
+  fail("AI_PROVIDER_DPA_CONFIRMED must be 'true' after the provider agreement is verified.");
+}
+if (process.env.VAULT_SCANNER_MODE === "trusted-development") {
+  fail("VAULT_SCANNER_MODE=trusted-development is forbidden in production.");
+}
 
 if (
   process.env.VITE_SUPABASE_URL !== process.env.SUPABASE_URL ||
@@ -73,8 +90,11 @@ if (process.env.ENABLE_PARTNER_DEMOS === "true") {
 for (const name of [
   "RATE_LIMIT_SALT",
   "READINESS_TOKEN",
+  "RETENTION_WORKER_SECRET",
   "PARTNER_DELIVERY_WORKER_SECRET",
   "EMAIL_DELIVERY_BEARER_TOKEN",
+  "VAULT_SCANNER_BEARER_TOKEN",
+  "VAULT_SCANNER_WEBHOOK_SECRET",
 ]) {
   if ((process.env[name]?.length ?? 0) < 32) fail(`${name} must contain at least 32 characters.`);
 }

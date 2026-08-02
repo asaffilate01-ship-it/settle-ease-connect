@@ -1,26 +1,31 @@
-# Start here: GitHub upload
+# Start here: five ordered GitHub upgrade packages
 
-The release archive contains the complete repository source. It intentionally excludes `.git`, local environment files, installed dependencies and build output.
+Apply the five supplied ZIP files to the existing repository in numerical order. Each archive is an incremental overlay and contains only that package's changed or added source files. It intentionally excludes `.git`, local environment files, installed dependencies and build output.
 
-## Upload to a new repository
+## Apply to the existing repository
 
 ```bash
-unzip settle-ease-connect-production-release-2026-08-01.zip
-cd settle-ease-connect-production-release-2026-08-01
-git init
+git switch -c production-upgrade-2026-08-02
+unzip -o settle-ease-connect-upgrade-01-content.zip -d .
+unzip -o settle-ease-connect-upgrade-02-identity-security.zip -d .
+unzip -o settle-ease-connect-upgrade-03-vault-privacy-ai.zip -d .
+unzip -o settle-ease-connect-upgrade-04-workflow-ux.zip -d .
+unzip -o settle-ease-connect-upgrade-05-native-release.zip -d .
+npm ci
+npm run verify
+npm run test:e2e
+git diff --check
 git add .
-git commit -m "Production hardening and native release foundation"
-git branch -M main
-git remote add origin https://github.com/YOUR-ACCOUNT/YOUR-REPOSITORY.git
-git push -u origin main
+git commit -m "Production, security, UX and native release upgrade"
+git push -u origin production-upgrade-2026-08-02
 ```
 
-For the existing Lovable-connected repository, copy these files into a fresh branch, review the diff, commit normally and open a pull request. Do not force-push or rewrite shared history.
+Review the diff and open a pull request. Do not force-push or rewrite shared history. If an earlier package reports a conflict, stop and resolve it before applying the next one.
 
 ## Immediately after upload
 
-1. Add repository branch protection and require the `Quality gates` workflow.
+1. Add branch protection and require the `Quality gates` and `Security analysis` workflows.
 2. Create deployment secrets from `.env.example`; do not add a real `.env` file to GitHub.
 3. Rotate any credential that ever existed in the previously tracked `.env` or `.env.development` history.
-4. Apply and test every `supabase/migrations` file in staging.
+4. Apply and test every `supabase/migrations` file in staging, through `20260802202000_case_workflow_security.sql`.
 5. Complete `PRODUCTION_CHECKLIST.md` before production or store submission.

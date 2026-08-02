@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { Lock, LogOut } from "lucide-react";
+import { ChevronDown, Grid2X2, Lock, LogOut } from "lucide-react";
 import { Icon3D, type Icon3DName } from "@/components/icon3d";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useCurrentUser, type AppRole } from "@/hooks/use-current-user";
@@ -9,6 +9,7 @@ import { tierMeets, useSubscription, type PlanGroup } from "@/lib/subscription";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
 import logoMark from "@/assets/brand/logo-mark.png";
+import { useEffect, useState } from "react";
 
 type Audience = "client" | "internal" | "agent" | "any";
 
@@ -145,6 +146,7 @@ const nav: NavItem[] = [
     groupKey: "sidebar.internal",
     requiresRole: "internal",
     audience: "internal",
+    exact: true,
   },
   {
     to: "/portal/enquiries",
@@ -622,6 +624,79 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
   const roleLabel = role ? ROLE_LABEL[role] : loading ? "" : "No role assigned";
   const roleTone = role ? ROLE_TONE[role] : "bg-muted text-muted-foreground";
 
+  const coreOrder =
+    audience === "internal"
+      ? [
+          "/portal",
+          "/portal/my-desk",
+          "/portal/enquiries",
+          "/portal/crm",
+          "/portal/operations",
+          "/portal/referrals",
+        ]
+      : audience === "agent"
+        ? ["/agent", "/agent/leads", "/agent/clients", "/agent/commissions", "/agent/link"]
+        : [
+            "/app",
+            "/app/cases",
+            "/app/documents",
+            "/app/messages",
+            "/app/checklists",
+            "/app/referrals",
+          ];
+  const coreNav = coreOrder
+    .map((path) => visibleNav.find((item) => item.to === path))
+    .filter((item): item is NavItem => Boolean(item));
+  const corePaths = new Set(coreNav.map((item) => item.to));
+  const moreNav = visibleNav.filter((item) => !corePaths.has(item.to));
+  const hasActiveMoreItem = moreNav.some((item) => pathname.startsWith(item.to));
+  const [moreOpen, setMoreOpen] = useState(hasActiveMoreItem);
+
+  useEffect(() => {
+    if (hasActiveMoreItem) setMoreOpen(true);
+  }, [hasActiveMoreItem]);
+
+  function renderNavItems(items: NavItem[], showGroupHeaders = false) {
+    return items.map((n, index) => {
+      const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
+      const showGroupHeader =
+        showGroupHeaders && n.groupKey && items[index - 1]?.groupKey !== n.groupKey;
+      const locked =
+        !isInternal &&
+        !!n.requiresTier &&
+        !sub.loading &&
+        !tierMeets(sub.planGroup, n.requiresTier);
+      const target = locked ? "/app/upgrade" : n.to;
+      return (
+        <div key={n.to}>
+          {showGroupHeader && n.groupKey && (
+            <div className="mb-1 mt-4 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/50">
+              {t(n.groupKey)}
+            </div>
+          )}
+          <Link
+            to={target}
+            className={`flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
+              active
+                ? "bg-sidebar-accent text-sidebar-primary"
+                : locked
+                  ? "text-sidebar-foreground/50 hover:bg-sidebar-accent/40"
+                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+            }`}
+          >
+            <span className="grid h-7 w-7 shrink-0 place-items-center">
+              <Icon3D name={n.icon} alt="" />
+            </span>
+            <span className="flex-1">
+              {t(n.labelKey, { defaultValue: n.labelKey.split(".").pop() })}
+            </span>
+            {locked && <Lock className="h-3 w-3 opacity-70" />}
+          </Link>
+        </div>
+      );
+    });
+  }
+
   return (
     <aside
       className={
@@ -649,43 +724,25 @@ export function AppSidebar({ variant = "desktop" }: { variant?: "desktop" | "mob
         </div>
       </Link>
       <nav className="flex-1 space-y-1 p-3">
-        {visibleNav.map((n, i) => {
-          const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
-          const showGroupHeader = n.groupKey && visibleNav[i - 1]?.groupKey !== n.groupKey;
-          const locked =
-            !isInternal &&
-            !!n.requiresTier &&
-            !sub.loading &&
-            !tierMeets(sub.planGroup, n.requiresTier);
-          const target = locked ? "/app/upgrade" : n.to;
-          return (
-            <div key={n.to}>
-              {showGroupHeader && n.groupKey && (
-                <div className="mt-4 mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/50">
-                  {t(n.groupKey)}
-                </div>
-              )}
-              <Link
-                to={target}
-                className={`flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${
-                  active
-                    ? "bg-sidebar-accent text-sidebar-primary"
-                    : locked
-                      ? "text-sidebar-foreground/50 hover:bg-sidebar-accent/40"
-                      : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
-                }`}
-              >
-                <span className="grid h-7 w-7 shrink-0 place-items-center">
-                  <Icon3D name={n.icon} alt="" />
-                </span>
-                <span className="flex-1">
-                  {t(n.labelKey, { defaultValue: n.labelKey.split(".").pop() })}
-                </span>
-                {locked && <Lock className="h-3 w-3 opacity-70" />}
-              </Link>
+        {renderNavItems(coreNav)}
+        {moreNav.length > 0 && (
+          <details
+            className="group mt-2"
+            open={moreOpen}
+            onToggle={(event) => setMoreOpen(event.currentTarget.open)}
+          >
+            <summary className="flex cursor-pointer list-none items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-foreground">
+              <span className="grid h-7 w-7 place-items-center">
+                <Grid2X2 className="h-4 w-4" />
+              </span>
+              <span className="flex-1">More tools</span>
+              <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="mt-1 border-s border-sidebar-border ps-2">
+              {renderNavItems(moreNav, true)}
             </div>
-          );
-        })}
+          </details>
+        )}
       </nav>
 
       <div className="space-y-3 border-t border-sidebar-border p-4">

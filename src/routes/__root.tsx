@@ -194,9 +194,14 @@ function RootComponent() {
       unsubscribe = () => sub.subscription.unsubscribe();
     });
     // Native shell bootstrap (no-op on the web build).
-    initNative(() => {
-      // Let TanStack Router handle history; return false so the plugin falls back.
-      return false;
+    void initNative({
+      onBack: () => {
+        // Let TanStack Router handle history; return false so the plugin falls back.
+        return false;
+      },
+      onDeepLink: (to) => {
+        void router.navigate({ to: to as "/" });
+      },
     });
     installOfflineQueue();
 

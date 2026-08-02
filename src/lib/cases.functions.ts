@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2, requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -178,11 +178,15 @@ export const createCase = createServerFn({ method: "POST" })
   });
 
 export const updateCaseStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .validator((d: unknown) =>
     z.object({ id: z.string().uuid(), status: z.enum(CASE_STATUSES) }).parse(d),
   )
   .handler(async ({ data, context }) => {
+    const { data: internal } = await context.supabase.rpc("is_internal", {
+      _user_id: context.userId,
+    });
+    if (!internal) throw new Error("Only assigned staff can change case status.");
     const patch: { status: typeof data.status; closed_at?: string } = { status: data.status };
     if (data.status === "closed" || data.status === "completed")
       patch.closed_at = new Date().toISOString();
@@ -213,6 +217,9 @@ export const sendCaseMessage = createServerFn({ method: "POST" })
     const { data: isInternal } = await context.supabase.rpc("is_internal", {
       _user_id: context.userId,
     });
+    if (data.internal_note && !isInternal) {
+      throw new Error("Internal notes are available to staff only.");
+    }
     if (!isInternal) {
       await requirePlan(context.supabase, context.userId, "complete");
     }

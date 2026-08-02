@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { requireSupabaseAal2 } from "@/lib/aal2-middleware";
+import { requireSupabaseAal2 } from "@/integrations/supabase/auth-middleware";
 
 /**
  * Governance server functions: DPO privacy-request console, member-facing
@@ -96,7 +95,7 @@ export const updatePrivacyRequest = createServerFn({ method: "POST" })
 /* ------------------------- Member-facing ------------------------- */
 
 export const listMyPrivacyRequests = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("privacy_requests")
@@ -109,7 +108,7 @@ export const listMyPrivacyRequests = createServerFn({ method: "GET" })
   });
 
 export const submitPrivacyRequest = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .validator((raw: unknown) =>
     z
       .object({

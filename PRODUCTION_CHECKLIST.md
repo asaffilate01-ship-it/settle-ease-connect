@@ -4,8 +4,8 @@ Do not connect real users, documents or live payments until all applicable items
 
 ## Source and database
 
-- [ ] `npm ci`, `npm run verify` and `npm audit --omit=dev --audit-level=high` pass on the release commit.
-- [ ] Every migration through `20260801222000_catalog_and_verification_hardening.sql` is applied to staging first.
+- [ ] `npm ci`, `npm run verify`, `npm run test:e2e` and `npm audit --omit=dev --audit-level=high` pass on the release commit.
+- [ ] Every migration through `20260802202000_case_workflow_security.sql` is applied to staging first.
 - [ ] Supabase types are regenerated from migrated staging and committed.
 - [ ] Owner, family, assigned/unassigned worker, expert, agent, admin, insurance, compliance, DPO and auditor RLS tests pass.
 - [ ] Direct anonymous writes to lead/contact tables fail while the public server forms succeed and rate-limit correctly.
@@ -19,7 +19,9 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Liveness `/api/health` and token-protected `/api/internal/readiness` are monitored.
 - [ ] Error reporting, latency, queue age, webhook failures, dead letters and suspicious rate-limit events alert named owners.
 - [ ] Database/storage backups are enabled and a restore drill meets approved RTO/RPO.
-- [ ] Retention/deletion jobs and incident-response procedures are tested.
+- [ ] The authenticated `/api/internal/retention` job runs daily, is monitored, and expired AI output deletion is evidenced.
+- [ ] Vault malware-scanner queue/callback failures alert an owner and quarantined files remain inaccessible.
+- [ ] Incident-response procedures are tested.
 
 ## Legal, privacy and providers
 
@@ -47,7 +49,7 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] Vault upload/camera/download/delete and sensitive AAL2 gates pass.
 - [ ] Family invite/accept/expiry/revoke and each sharing permission pass.
 - [ ] Enquiry, email, case, message, privacy and partner-delivery journeys pass.
-- [ ] Keyboard-only, screen-reader, contrast, zoom and responsive-device review pass.
+- [ ] Playwright smoke and axe checks pass; keyboard-only, screen-reader, contrast, zoom and responsive-device manual review also pass.
 - [ ] Independent penetration and GDPR/security reviews are closed.
 
 ## iOS and Android
@@ -55,6 +57,7 @@ Do not connect real users, documents or live payments until all applicable items
 - [ ] `CAPACITOR_SERVER_URL` is the deployed reviewed HTTPS release and `npm run mobile:sync` passes.
 - [ ] Apple/Google bundle identity, signing, versions, icons, screenshots, privacy/data-safety forms and support URLs are final.
 - [ ] APNs/FCM credentials and native delivery gateway are tested, or `VITE_NATIVE_PUSH_ENABLED=false`.
-- [ ] Camera, MFA, deep links, notifications, session expiry and reconnect work on physical iOS/Android devices.
+- [ ] Custom-scheme links, camera, MFA, notifications, session expiry and reconnect work on physical iOS/Android devices.
+- [ ] Universal Links/App Links are configured with production-domain association files and verified signing fingerprints if HTTPS app links are required.
 - [ ] Native digital subscription checkout remains disabled until the approved StoreKit/Play Billing or entitlement model is implemented.
 - [ ] TestFlight and Play closed testing pass; review notes explain native utility and test credentials.

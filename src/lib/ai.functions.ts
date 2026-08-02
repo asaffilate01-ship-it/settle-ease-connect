@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
+import { AI_PROVIDER, assertAiProcessingAllowed } from "@/lib/ai-governance.functions";
 
 const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-2.5-flash";
@@ -21,8 +22,7 @@ async function callGateway(messages: Array<{ role: string; content: string }>, j
   if (res.status === 402)
     throw new Error("AI credits exhausted. Please top up in workspace billing.");
   if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`AI gateway error ${res.status}: ${body.slice(0, 200)}`);
+    throw new Error(`AI service request failed (${res.status}).`);
   }
   const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
   return json.choices?.[0]?.message?.content ?? "";
@@ -30,7 +30,7 @@ async function callGateway(messages: Array<{ role: string; content: string }>, j
 
 /** Summarise a case document. Text is provided by caller (already extracted). */
 export const summariseCaseDocument = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .validator((d) =>
     z
       .object({
@@ -42,6 +42,7 @@ export const summariseCaseDocument = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
+    await assertAiProcessingAllowed(context, "document_analysis");
     const prompt = `Summarise this German settlement / welfare document for a case manager. Return concise Markdown with: **Type of document**, **Key facts** (bullet list of names, dates, amounts, references), **Actions the client may need to take**, and **Deadlines** if any. Filename: ${data.filename}\n\n---\n${data.text}`;
     const summary = await callGateway([
       {
@@ -51,21 +52,24 @@ export const summariseCaseDocument = createServerFn({ method: "POST" })
       },
       { role: "user", content: prompt },
     ]);
-    await context.supabase.from("ai_document_analyses").insert({
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await (supabaseAdmin as any).from("ai_document_analyses").insert({
       case_id: data.caseId ?? null,
       vault_document_id: data.documentId ?? null,
       owner_user_id: context.userId,
       kind: "summary",
-      input_excerpt: data.text.slice(0, 500),
+      input_excerpt: null,
       output_text: summary,
       model: MODEL,
+      provider: AI_PROVIDER,
+      purpose: "document_analysis",
     });
     return { summary };
   });
 
 /** Extract likely eligibility signals for benefits from an uploaded document text. */
 export const extractEligibilityFromDocument = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .validator((d) =>
     z
       .object({
@@ -75,6 +79,7 @@ export const extractEligibilityFromDocument = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
+    await assertAiProcessingAllowed(context, "document_analysis");
     const raw = await callGateway(
       [
         {
@@ -95,19 +100,22 @@ export const extractEligibilityFromDocument = createServerFn({ method: "POST" })
     } catch {
       parsed = { notes: raw };
     }
-    await context.supabase.from("ai_document_analyses").insert({
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await (supabaseAdmin as any).from("ai_document_analyses").insert({
       owner_user_id: context.userId,
       kind: "eligibility_extract",
-      input_excerpt: data.text.slice(0, 500),
+      input_excerpt: null,
       output_json: parsed as any,
       model: MODEL,
+      provider: AI_PROVIDER,
+      purpose: "document_analysis",
     });
     return { fields: parsed as Record<string, string | number | null> };
   });
 
 /** Staff-only internal knowledge base assistant. Streams a plain answer. */
 export const askKnowledgeBase = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSupabaseAal2])
   .validator((d) =>
     z
       .object({
@@ -125,6 +133,7 @@ export const askKnowledgeBase = createServerFn({ method: "POST" })
       _user_id: context.userId,
     });
     if (!internal) throw new Error("Staff only.");
+    await assertAiProcessingAllowed(context, "staff_knowledge");
 
     // Pull top knowledge services as context
     const { data: services } = await context.supabase
@@ -149,12 +158,15 @@ export const askKnowledgeBase = createServerFn({ method: "POST" })
       ...data.history,
       { role: "user", content: data.question },
     ]);
-    await context.supabase.from("ai_document_analyses").insert({
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await (supabaseAdmin as any).from("ai_document_analyses").insert({
       owner_user_id: context.userId,
       kind: "kb_answer",
-      input_excerpt: data.question.slice(0, 500),
+      input_excerpt: null,
       output_text: answer,
       model: MODEL,
+      provider: AI_PROVIDER,
+      purpose: "staff_knowledge",
     });
     return { answer };
   });

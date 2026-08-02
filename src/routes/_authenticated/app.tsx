@@ -1,8 +1,7 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import { MobileTabBar } from "@/components/mobile-tab-bar";
-import { Button } from "@/components/ui/button";
-import { Search, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { NotificationBell } from "@/components/notification-bell";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +16,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import logoMark from "@/assets/brand/logo-mark.png";
+import { GlobalCommandSearch } from "@/components/global-command-search";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -67,16 +67,7 @@ function AppLayout() {
               <img src={logoMark} alt="" className="h-7 w-7 object-contain" />
               <span>BeistandPlus</span>
             </Link>
-            <div className="hidden max-w-lg flex-1 items-center gap-2 rounded-lg border border-border/60 bg-parchment/60 px-3 py-1.5 md:flex">
-              <Search className="h-4 w-4 text-muted-foreground" />
-              <input
-                className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-                placeholder="Search cases, documents, providers, benefits…"
-              />
-              <kbd className="rounded border border-border bg-background px-1.5 text-[10px] text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
+            <GlobalCommandSearch mode="client" />
             <div className="ml-auto flex items-center gap-2">
               <NotificationBell />
               <DropdownMenu>

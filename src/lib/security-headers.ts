@@ -5,11 +5,13 @@ const CSP_DIRECTIVES = [
   "frame-ancestors 'none'",
   "form-action 'self'",
   "script-src 'self' 'unsafe-inline' https://js.stripe.com https://checkout.stripe.com",
+  "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: blob: https:",
   "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://checkout.stripe.com",
   "frame-src https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com",
+  "media-src 'self' blob:",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
 ];
@@ -28,6 +30,8 @@ export function applySecurityHeaders(
   );
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("X-Frame-Options", "DENY");
+  headers.set("X-Permitted-Cross-Domain-Policies", "none");
+  headers.set("Origin-Agent-Cluster", "?1");
   headers.set("Cross-Origin-Opener-Policy", "same-origin");
   headers.set("Cross-Origin-Resource-Policy", "same-site");
   if (production)

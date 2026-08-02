@@ -41,33 +41,33 @@ export const Route = createFileRoute("/students")({
 const HELPS = [
   {
     icon: FileText,
-    title: "Student visa & residence permit",
-    copy: "Visa application, appointment, extension and change of purpose after graduation.",
+    title: "Residence-workspace organiser",
+    copy: "Keep authority links, appointments, documents and correspondence in one case record.",
   },
   {
     icon: Home,
-    title: "Anmeldung & housing",
-    copy: "City registration, WG/apartment search, deposit letters, Studentenwerk applications.",
+    title: "Registration and housing records",
+    copy: "Track the organisations contacted and the instructions they provide for your city.",
   },
   {
     icon: HeartPulse,
-    title: "Health insurance",
-    copy: "TK / AOK / DAK enrolment, private option comparison, dependents on your policy.",
+    title: "Health-insurance referral",
+    copy: "Organise questions and request an introduction when a configured provider is available.",
   },
   {
     icon: Wallet,
-    title: "Blocked account & finance",
-    copy: "Sperrkonto (Fintiba, Expatrio, Coracle), tax ID, EWR bank setup, currency transfer discounts.",
+    title: "Finance-document checklist",
+    copy: "Record account, fee and tax questions for confirmation by the responsible provider or authority.",
   },
   {
     icon: Briefcase,
-    title: "Werkstudent & internships",
-    copy: "20h/week rules, Minijob vs Werkstudent, contract review, Anerkennung of foreign degrees.",
+    title: "Work and study records",
+    copy: "Store employer, university and authority correspondence without treating the workspace as legal advice.",
   },
   {
     icon: Languages,
-    title: "Any-language support",
-    copy: "DE · EN · TR · UR · HI · PA · AR · KU · RU · UK · PS — chat, calls and translated German letters.",
+    title: "Multilingual interface",
+    copy: "Use the workspace in a supported language and keep the original text visible beside any draft translation.",
   },
 ];
 
@@ -139,7 +139,7 @@ function StudentsPage() {
               </div>
               <div className="mt-4 flex items-baseline gap-2">
                 <span className="text-sm text-muted-foreground line-through">€10</span>
-                <span className="font-display display-lg font-semibold text-foreground">€7</span>
+                <span className="font-display display-lg font-semibold text-foreground">€8</span>
                 <span className="text-sm text-muted-foreground">/ month</span>
               </div>
               <div className="text-xs text-muted-foreground">
@@ -147,11 +147,11 @@ function StudentsPage() {
               </div>
               <ul className="mt-6 space-y-3 text-sm">
                 {[
-                  "Personal case manager for visa & Anmeldung",
-                  "Sworn translation of degrees & birth certificates",
-                  "GKV / PKV comparison & enrolment",
-                  "Werkstudent & tax filing support",
-                  "AI translator for every German letter",
+                  "Case, document and checklist workspace",
+                  "Official-source and appointment organiser",
+                  "Referral requests when a provider is configured",
+                  "Draft translation with the original kept visible",
+                  "No guaranteed appointment, advice or outcome",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
@@ -162,7 +162,7 @@ function StudentsPage() {
               <div className="mt-6 rounded-xl border border-dashed border-border/60 bg-parchment/50 p-3 text-xs text-muted-foreground">
                 Accepted proof: student ID card, enrolment certificate
                 (Immatrikulationsbescheinigung), Studierendenausweis, or a scholarship confirmation
-                letter valid within the last 6 months.
+                letter. The reviewer confirms whether the document is current and sufficient.
               </div>
             </div>
           </div>

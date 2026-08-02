@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { getBillingOverview, getBillingHistory } from "@/lib/billing.functions";
 import { createPortalSession } from "@/lib/payments.functions";
 import { getStripeEnvironment } from "@/lib/stripe";
-import { isNative, nativePlatform } from "@/lib/native";
+import { isNative, nativePlatform, openExternalUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/_authenticated/app/billing")({
   head: () => ({ meta: [{ title: "Billing & payments — Beistand+" }] }),
@@ -59,7 +59,15 @@ function BillingPage() {
       if (res && "error" in res) throw new Error(res.error);
       return res.url as string;
     },
-    onSuccess: (url) => window.open(url, "_blank"),
+    onSuccess: (url) => {
+      void openExternalUrl(url).catch((error: unknown) => {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : t("billing.portalFailed", "Could not open the billing portal"),
+        );
+      });
+    },
     onError: (e: any) =>
       toast.error(e?.message ?? t("billing.portalFailed", "Could not open the billing portal")),
   });

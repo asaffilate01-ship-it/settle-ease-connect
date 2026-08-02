@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,6 @@ import {
   Upload,
   Download,
   AlertTriangle,
-  ShieldCheck,
   Lock,
   UserPlus,
   Trash2,
@@ -43,8 +42,11 @@ import {
   VAULT_CATEGORIES,
   SENSITIVE_CATEGORIES,
   type VaultCategory,
+  VAULT_ALLOWED_MIME_TYPES,
+  VAULT_MAX_FILE_BYTES,
   listVaultDocuments,
   createVaultDocument,
+  createVaultUploadUrl,
   deleteVaultDocument,
   getVaultDownloadUrl,
   listVaultDeputies,
@@ -53,8 +55,8 @@ import {
   listVaultUnlockRequests,
   listVaultAccessLog,
 } from "@/lib/vault.functions";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { Aal2Gate } from "@/components/security/aal2-gate";
+import { openExternalUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/_authenticated/app/documents")({
   head: () => ({
@@ -63,7 +65,7 @@ export const Route = createFileRoute("/_authenticated/app/documents")({
       {
         name: "description",
         content:
-          "Encrypted document vault with MFA, GDPR compliance, and second-person access on death or incapacity.",
+          "Private document vault with MFA, access logs, malware scanning, and controlled deputy access.",
       },
     ],
   }),
@@ -98,7 +100,14 @@ const CATEGORY_LABELS: Record<VaultCategory, string> = {
 };
 
 function VaultPage() {
-  const { user } = useCurrentUser();
+  return (
+    <Aal2Gate reason="The vault contains sensitive personal records and requires two-factor verification.">
+      <VaultContent />
+    </Aal2Gate>
+  );
+}
+
+function VaultContent() {
   const qc = useQueryClient();
 
   const listDocs = useServerFn(listVaultDocuments);
@@ -128,10 +137,11 @@ function VaultPage() {
         <div>
           <h1 className="display-lg font-semibold">Secure vault</h1>
           <p className="text-sm text-muted-foreground">
-            Encrypted, MFA-gated, GDPR-first — with second-person access if life takes a turn.
+            Private, access-controlled and security-scanned — with deputy access only under the
+            rules you set.
           </p>
         </div>
-        <UploadDialog userId={user?.id} onDone={invalidate} />
+        <UploadDialog onDone={invalidate} />
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
@@ -157,8 +167,6 @@ function VaultPage() {
           icon={<Users className="h-4 w-4" />}
         />
       </div>
-
-      <SecurityCard />
 
       <Tabs defaultValue="documents">
         <TabsList>
@@ -202,95 +210,9 @@ function VaultPage() {
   );
 }
 
-// ---------- Security / MFA card ----------
-
-function SecurityCard() {
-  const [factors, setFactors] = useState<{ verified: number; unverified: number } | null>(null);
-  const [busy, setBusy] = useState(false);
-
-  useMemo(() => {
-    supabase.auth.mfa.listFactors().then(({ data }) => {
-      if (!data) return;
-      const v = data.totp?.filter((f) => (f.status as string) === "verified").length ?? 0;
-      const u = data.totp?.filter((f) => (f.status as string) === "unverified").length ?? 0;
-      setFactors({ verified: v, unverified: u });
-    });
-  }, []);
-
-  async function enrolTotp() {
-    setBusy(true);
-    try {
-      const { data, error } = await supabase.auth.mfa.enroll({ factorType: "totp" });
-      if (error) throw error;
-      const qr = data.totp.qr_code;
-      const secret = data.totp.secret;
-      const w = window.open("", "_blank", "width=420,height=560");
-      if (w) {
-        w.document.write(`<html><head><title>Set up MFA</title></head>
-          <body style="font-family:system-ui;padding:24px;text-align:center">
-            <h2>Scan with your authenticator app</h2>
-            <img src="${qr}" style="max-width:280px" />
-            <p>Or enter this secret manually:</p>
-            <code style="user-select:all;background:#f4f4f4;padding:8px 12px;border-radius:6px">${secret}</code>
-            <p style="color:#666;margin-top:16px">Then return to BeistandPlus and enter the 6-digit code.</p>
-          </body></html>`);
-      }
-      const code = window.prompt("Enter the 6-digit code from your authenticator app:");
-      if (!code) return;
-      const chal = await supabase.auth.mfa.challenge({ factorId: data.id });
-      if (chal.error) throw chal.error;
-      const verify = await supabase.auth.mfa.verify({
-        factorId: data.id,
-        challengeId: chal.data.id,
-        code,
-      });
-      if (verify.error) throw verify.error;
-      toast.success("MFA enabled — sensitive documents are now protected.");
-      const { data: refreshed } = await supabase.auth.mfa.listFactors();
-      const v = refreshed?.totp?.filter((f) => (f.status as string) === "verified").length ?? 0;
-      const u = refreshed?.totp?.filter((f) => (f.status as string) === "unverified").length ?? 0;
-      setFactors({ verified: v, unverified: u });
-    } catch (e: any) {
-      toast.error(e.message ?? "Could not enable MFA");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  const enabled = (factors?.verified ?? 0) > 0;
-
-  return (
-    <div
-      className={`rounded-2xl border p-5 shadow-soft ${enabled ? "border-success/40 bg-success/5" : "border-warning/40 bg-warning/10"}`}
-    >
-      <div className="flex items-start gap-3">
-        <ShieldCheck
-          className={`mt-0.5 h-5 w-5 ${enabled ? "text-success-foreground" : "text-warning-foreground"}`}
-        />
-        <div className="flex-1">
-          <div className="font-medium">
-            {enabled
-              ? "MFA is on — sensitive documents are protected"
-              : "MFA is off — sensitive documents will be blocked"}
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Bank details, tax, benefits, medical, wills and power-of-attorney documents require a
-            second factor before download.
-          </p>
-        </div>
-        {!enabled && (
-          <Button size="sm" onClick={enrolTotp} disabled={busy}>
-            {busy ? "…" : "Enable MFA"}
-          </Button>
-        )}
-      </div>
-    </div>
-  );
-}
-
 // ---------- Upload ----------
 
-function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void }) {
+function UploadDialog({ onDone }: { onDone: () => void }) {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState<VaultCategory>("passport");
   const [label, setLabel] = useState("");
@@ -304,28 +226,47 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
   const [uploading, setUploading] = useState(false);
 
   const create = useServerFn(createVaultDocument);
+  const createUpload = useServerFn(createVaultUploadUrl);
 
   async function submit() {
-    if (!userId) return;
     if (!label.trim()) {
       toast.error("Give the document a name.");
       return;
     }
+    const selectedFile = fileRef.current?.files?.[0];
+    if (selectedFile && !VAULT_ALLOWED_MIME_TYPES.includes(selectedFile.type as any)) {
+      toast.error("Choose a PDF, JPEG, PNG or WebP file.");
+      return;
+    }
+    if (selectedFile && selectedFile.size > VAULT_MAX_FILE_BYTES) {
+      toast.error("The maximum vault file size is 10 MB.");
+      return;
+    }
     setUploading(true);
+    let uploadedPath: string | null = null;
     try {
       const id = crypto.randomUUID();
-      const file = fileRef.current?.files?.[0];
+      const file = selectedFile;
       let storage_path: string | null = null;
       let file_name: string | null = null;
       let mime_type: string | null = null;
       let file_size: number | null = null;
       if (file) {
-        const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        storage_path = `${userId}/${id}/${safe}`;
-        const up = await supabase.storage.from("vault").upload(storage_path, file, {
-          upsert: false,
-          contentType: file.type || undefined,
+        const signed = await createUpload({
+          data: {
+            id,
+            fileName: file.name,
+            mimeType: file.type as (typeof VAULT_ALLOWED_MIME_TYPES)[number],
+            fileSize: file.size,
+          },
         });
+        storage_path = signed.path;
+        uploadedPath = signed.path;
+        const up = await supabase.storage
+          .from("vault")
+          .uploadToSignedUrl(signed.path, signed.token, file, {
+            contentType: file.type || undefined,
+          });
         if (up.error) throw up.error;
         file_name = file.name;
         mime_type = file.type;
@@ -348,7 +289,9 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
           file_size,
         },
       });
-      toast.success("Saved to vault.");
+      toast.success(
+        file ? "Uploaded. It will be available after its security scan." : "Saved to vault.",
+      );
       setOpen(false);
       setLabel("");
       setIssuer("");
@@ -360,6 +303,7 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
       if (fileRef.current) fileRef.current.value = "";
       onDone();
     } catch (e: any) {
+      if (uploadedPath) await supabase.storage.from("vault").remove([uploadedPath]);
       toast.error(e.message ?? "Upload failed");
     } finally {
       setUploading(false);
@@ -445,11 +389,12 @@ function UploadDialog({ userId, onDone }: { userId?: string; onDone: () => void 
             <Input
               ref={fileRef}
               type="file"
-              accept="image/*,.pdf,.doc,.docx"
+              accept="application/pdf,image/jpeg,image/png,image/webp"
               capture="environment"
             />
             <p className="mt-1 text-xs text-muted-foreground">
-              On a phone, you can photograph the document with the rear camera.
+              PDF, JPEG, PNG or WebP up to 10 MB. Files stay unavailable until malware scanning
+              passes.
             </p>
           </div>
           <div>
@@ -523,7 +468,7 @@ function DocumentsTable({
     }
     try {
       const { url } = await getUrl({ data: { id } });
-      window.open(url, "_blank", "noopener");
+      await openExternalUrl(url);
     } catch (e: any) {
       toast.error(e.message ?? "Could not open document");
     }
@@ -561,6 +506,7 @@ function DocumentsTable({
             const days = exp ? (exp.getTime() - Date.now()) / 86400000 : null;
             const expiringSoon = days !== null && days > 0 && days <= 90;
             const expired = days !== null && days <= 0;
+            const scanStatus = d.scan_status ?? (d.storage_path ? "pending" : "not_required");
             return (
               <tr key={d.id} className="hover:bg-parchment/40">
                 <td className="px-5 py-4">
@@ -570,6 +516,22 @@ function DocumentsTable({
                     </div>
                     <div>
                       <div className="font-medium">{d.label}</div>
+                      {d.storage_path && scanStatus !== "clean" && (
+                        <Badge
+                          variant="outline"
+                          className={
+                            scanStatus === "rejected"
+                              ? "mt-1 border-destructive/40 text-destructive"
+                              : "mt-1 border-amber-500/40 text-amber-700"
+                          }
+                        >
+                          {scanStatus === "pending"
+                            ? "Security scan pending"
+                            : scanStatus === "rejected"
+                              ? "File rejected"
+                              : "Scan unavailable"}
+                        </Badge>
+                      )}
                       {d.issuer && (
                         <div className="text-xs text-muted-foreground">
                           {d.issuer}
@@ -605,7 +567,17 @@ function DocumentsTable({
                 <td className="px-5 py-4 text-right">
                   <div className="flex justify-end gap-1">
                     {d.storage_path && (
-                      <Button variant="ghost" size="sm" onClick={() => download(d.id, sensitive)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        disabled={scanStatus !== "clean"}
+                        title={
+                          scanStatus === "clean"
+                            ? "Open document"
+                            : "Available after the security scan passes"
+                        }
+                        onClick={() => download(d.id, sensitive)}
+                      >
                         <Download className="h-4 w-4" />
                       </Button>
                     )}
