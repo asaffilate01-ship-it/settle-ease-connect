@@ -31,6 +31,20 @@ Native push remains hidden unless `VITE_NATIVE_PUSH_ENABLED=true`. When enabled,
 
 Custom-scheme routes are registered in both projects. Examples include `beistandplus://app/cases/<id>`, `beistandplus://portal/cases` and `beistandplus://auth`. The client rejects unknown hosts, non-HTTPS external URLs and unowned HTTPS origins. For verified Universal Links/App Links, also deploy the Apple association file and Android `assetlinks.json`, add production signing fingerprints, and enable the platform capabilities before store submission.
 
+After the Apple team and Android release signing identities are final, generate the association files without placing a keystore or private key in Git:
+
+```bash
+export CAPACITOR_SERVER_URL=https://beistandplus.de
+export APPLE_TEAM_ID=YOUR10CHARID
+export IOS_BUNDLE_ID=de.beistandplus.app
+export ANDROID_PACKAGE_NAME=de.beistandplus.app
+export ANDROID_SHA256_FINGERPRINTS=AA:BB:REPLACE_WITH_ALL_32_SHA256_BYTES
+npm run native:links:generate
+npm run native:links:check
+```
+
+Commit the generated `public/.well-known/apple-app-site-association` and `public/.well-known/assetlinks.json` files, deploy them on the same origin as `CAPACITOR_SERVER_URL`, then enable Associated Domains on iOS and verified HTTPS intent filters on Android. The guarded release workflow checks the committed content against the protected release identities when a native target is selected.
+
 ## iOS completion
 
 1. Use macOS with the current stable Xcode supported by Capacitor 8.

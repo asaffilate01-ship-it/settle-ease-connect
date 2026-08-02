@@ -1,11 +1,13 @@
 # Production readiness report
 
 Assessment date: 2 August 2026
-Upgrade baseline: `ec8dd3f`
+Repository baseline: `d3ac7f2` plus the release-engineering phase in this handoff
 
 ## Verdict
 
 The repository is a hardened release candidate. Its local code gates pass, and generated iOS/Android projects are included. It is not yet evidence of an approved public deployment or store release because credentials, legal identity, regulated-provider contracts, live infrastructure, signing and independent testing are external inputs.
+
+Current estimate: repository/code controls about 96%, public-web go-live about 80%, and native store release about 65%. These are readiness indicators, not guarantees; the open evidence in `PRODUCTION_CHECKLIST.md` determines whether a real release may proceed.
 
 ## Corrected in this release
 
@@ -31,15 +33,19 @@ The repository is a hardened release candidate. Its local code gates pass, and g
 - Made the overlapping vault, AI-consent and case-workflow policies safe to replay in migration order.
 - Fixed the pre-hydration language gate so German/default-language pages remain visible immediately.
 - Replaced npm-native SBOM output with a pinned CycloneDX generator and resolved the npm 10 dependency-tree conflict.
+- Added an exact-commit release-evidence validator with freshness, rollback, legal, provider, security and native-target requirements.
+- Added a protected manual staging/production workflow with explicit deployment confirmation and 365-day evidence/SBOM retention.
+- Added retrying post-deployment verification for security headers, liveness version and token-protected database readiness.
+- Added deterministic Apple Universal Link and Android App Link generation/validation tied to final team, bundle, package and signing identities.
 
 ## Verification gates
 
 Verified locally on the upgrade tree on 2 August 2026; repeat on the final GitHub commit and retain the CI evidence:
 
 - Clean `npm ci`: passed
-- Repository check, TypeScript, ESLint, 42 unit/invariant tests and production build: passed
+- Repository check, TypeScript, ESLint, 49 unit/invariant tests and production build: passed
 - CycloneDX SBOM generation: passed (590 components)
-- Desktop/mobile browser smoke and automated accessibility tests: provided as a required CI gate; the local browser download could not be completed in this restricted environment because its network TLS proxy rejected the certificate
+- Desktop/mobile browser smoke and automated accessibility tests: the latest cleaned `main` GitHub workflow passed; this workspace could not download the updated Chromium binary because its restricted CDN response was empty, so the new handoff commit must repeat the workflow after upload
 - Production dependency audit at high severity: passed with 0 vulnerabilities
 - Capacitor production-domain sync for iOS and Android: passed
 - Capacitor Doctor: Android passed; iOS compilation was not attempted because Xcode is unavailable on Linux
@@ -59,6 +65,18 @@ NODE_ENV=production npm run verify:production
 ```
 
 The environment validator is designed to fail until genuine production values are supplied.
+
+Release authorization is also separate and deliberately fail-closed:
+
+```bash
+npm run release:evidence -- \
+  --file release/evidence.production.json \
+  --environment production \
+  --commit "$(git rev-parse HEAD)" \
+  --native none
+```
+
+The `Guarded release` workflow must pass in validation-only mode before deployment is approved.
 
 ## External blockers before public launch
 

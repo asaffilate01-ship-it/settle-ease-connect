@@ -1,35 +1,31 @@
-# Start here: six ordered GitHub upgrade packages
+# Start here: release-candidate handoff
 
-Apply the six supplied ZIP files to the existing repository in numerical order. Each archive is an incremental overlay and contains only that package's changed or added source files. It intentionally excludes `.git`, local environment files, installed dependencies and build output.
+This repository is now delivered as one complete source tree. It includes the hardened web application, Supabase migrations, generated iOS/Android projects, quality and security workflows, and the guarded release phase. Do not reapply the older incremental upgrade archives to this tree.
 
-## Apply to the existing repository
+## Upload through Git
 
 ```bash
-git switch -c production-upgrade-2026-08-02
-unzip -o settle-ease-connect-upgrade-01-content.zip -d .
-unzip -o settle-ease-connect-upgrade-02-identity-security.zip -d .
-unzip -o settle-ease-connect-upgrade-03-vault-privacy-ai.zip -d .
-unzip -o settle-ease-connect-upgrade-04-workflow-ux.zip -d .
-unzip -o settle-ease-connect-upgrade-05-native-release.zip -d .
-unzip -o settle-ease-connect-go-live-update-06.zip -d .
-git rm --ignore-unmatch .env .env.development
+git switch -c production-release-candidate
 npm ci
 npm run verify
 npm run test:e2e
+npm audit --omit=dev --audit-level=high
 git diff --check
 git add .
-git commit -m "Production, security, UX and native release upgrade"
-git push -u origin production-upgrade-2026-08-02
+git commit -m "Add guarded production and native release gates"
+git push -u origin production-release-candidate
 ```
 
-Review the diff and open a pull request. Do not force-push or rewrite shared history. If an earlier package reports a conflict, stop and resolve it before applying the next one.
+Review the complete diff and open a pull request. Keep `.env`, `.env.development`, `.env.local`, signing keys, keystores and provider credentials out of Git. The repository safety check rejects tracked development environment files.
 
-Package 06 removes the last confirmed CI blockers: tracked environment files, the default-language visibility gate, ambiguous browser selectors, overlapping migration policies and npm-native SBOM generation. If applying through GitHub's web interface, manually delete `.env` and `.env.development` after uploading the package because a ZIP overlay cannot delete existing remote files.
+## After the pull request merges
 
-## Immediately after upload
+1. Protect `main` and require the `Quality gates` and `Security analysis` checks.
+2. Create protected `staging` and `production` GitHub Environments with required reviewers.
+3. Add Environment variables/secrets matching `.github/workflows/release.yml` and configure the equivalent runtime bindings at the deployment provider.
+4. Rotate every credential that ever existed in the removed environment files.
+5. Apply and verify every Supabase migration through `20260802202000_case_workflow_security.sql` in staging.
+6. Copy `release/evidence.example.json` to `release/evidence.staging.json`, complete it without secrets and run the `Guarded release` workflow with `deploy=false`.
+7. Complete `PRODUCTION_CHECKLIST.md`; only then approve a staging deploy, acceptance testing and production promotion.
 
-1. Add branch protection and require the `Quality gates` and `Security analysis` workflows.
-2. Create deployment secrets from `.env.example`; do not add a real `.env` file to GitHub.
-3. Rotate any credential that ever existed in the previously tracked `.env` or `.env.development` history.
-4. Apply and test every `supabase/migrations` file in staging, through `20260802202000_case_workflow_security.sql`.
-5. Complete `PRODUCTION_CHECKLIST.md` before production or store submission.
+For native release, obtain the final Apple Team ID and Android signing SHA-256 fingerprint, generate the association files with `npm run native:links:generate`, complete physical-device testing, and attach the evidence before selecting a native target in the release workflow.

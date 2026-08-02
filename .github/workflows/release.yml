@@ -1,0 +1,213 @@
+name: Guarded release
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Protected GitHub environment to use
+        required: true
+        type: choice
+        options: [staging, production]
+        default: staging
+      native_targets:
+        description: Native identities and association files to verify
+        required: true
+        type: choice
+        options: [none, ios, android, both]
+        default: none
+      deploy:
+        description: Deploy after all release gates pass
+        required: true
+        type: boolean
+        default: false
+      confirmation:
+        description: To deploy, enter DEPLOY staging or DEPLOY production
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      APP_URL: ${{ vars.APP_URL }}
+      APP_VERSION: ${{ vars.APP_VERSION }}
+      VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+      VITE_VAPID_PUBLIC_KEY: ${{ vars.VITE_VAPID_PUBLIC_KEY }}
+      VITE_NATIVE_PUSH_ENABLED: ${{ vars.VITE_NATIVE_PUSH_ENABLED }}
+      VITE_PAYMENTS_CLIENT_TOKEN: ${{ vars.VITE_PAYMENTS_CLIENT_TOKEN }}
+      VITE_PUBLIC_LEGAL_NAME: ${{ vars.VITE_PUBLIC_LEGAL_NAME }}
+      VITE_PUBLIC_LEGAL_STREET: ${{ vars.VITE_PUBLIC_LEGAL_STREET }}
+      VITE_PUBLIC_LEGAL_POSTAL_CITY: ${{ vars.VITE_PUBLIC_LEGAL_POSTAL_CITY }}
+      VITE_PUBLIC_MANAGING_DIRECTOR: ${{ vars.VITE_PUBLIC_MANAGING_DIRECTOR }}
+      VITE_PUBLIC_REGISTER_COURT: ${{ vars.VITE_PUBLIC_REGISTER_COURT }}
+      VITE_PUBLIC_REGISTER_NUMBER: ${{ vars.VITE_PUBLIC_REGISTER_NUMBER }}
+      VITE_PUBLIC_VAT_ID: ${{ vars.VITE_PUBLIC_VAT_ID }}
+      VITE_PUBLIC_EDITORIAL_RESPONSIBLE: ${{ vars.VITE_PUBLIC_EDITORIAL_RESPONSIBLE }}
+      VITE_PUBLIC_SUPPORT_PHONE: ${{ vars.VITE_PUBLIC_SUPPORT_PHONE }}
+      VITE_PUBLIC_SUPPORT_EMAIL: ${{ vars.VITE_PUBLIC_SUPPORT_EMAIL }}
+      VITE_PUBLIC_LEGAL_EMAIL: ${{ vars.VITE_PUBLIC_LEGAL_EMAIL }}
+      VITE_PUBLIC_PRIVACY_EMAIL: ${{ vars.VITE_PUBLIC_PRIVACY_EMAIL }}
+      VITE_PUBLIC_DPO_EMAIL: ${{ vars.VITE_PUBLIC_DPO_EMAIL }}
+      VITE_PUBLIC_WHATSAPP_NUMBER: ${{ vars.VITE_PUBLIC_WHATSAPP_NUMBER }}
+      VITE_PUBLIC_FACEBOOK_URL: ${{ vars.VITE_PUBLIC_FACEBOOK_URL }}
+      VITE_PUBLIC_INSTAGRAM_URL: ${{ vars.VITE_PUBLIC_INSTAGRAM_URL }}
+      VITE_PUBLIC_LINKEDIN_URL: ${{ vars.VITE_PUBLIC_LINKEDIN_URL }}
+      VITE_PUBLIC_YOUTUBE_URL: ${{ vars.VITE_PUBLIC_YOUTUBE_URL }}
+      VITE_PUBLIC_X_URL: ${{ vars.VITE_PUBLIC_X_URL }}
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ vars.APP_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run code and unit gates
+        run: npm run verify
+
+      - name: Run browser and accessibility gates
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Create software bill of materials
+        run: npm run security:sbom
+
+      - name: Validate reviewed release evidence
+        env:
+          EVIDENCE_FILE: release/evidence.${{ inputs.environment }}.json
+          TARGET_ENVIRONMENT: ${{ inputs.environment }}
+          NATIVE_TARGETS: ${{ inputs.native_targets }}
+        run: >-
+          npm run release:evidence --
+          --file "$EVIDENCE_FILE"
+          --environment "$TARGET_ENVIRONMENT"
+          --commit "$GITHUB_SHA"
+          --native "$NATIVE_TARGETS"
+          --output release/evidence.resolved.json
+
+      - name: Validate native association files
+        if: inputs.native_targets != 'none'
+        env:
+          CAPACITOR_SERVER_URL: ${{ vars.CAPACITOR_SERVER_URL }}
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          IOS_BUNDLE_ID: ${{ vars.IOS_BUNDLE_ID }}
+          ANDROID_PACKAGE_NAME: ${{ vars.ANDROID_PACKAGE_NAME }}
+          ANDROID_SHA256_FINGERPRINTS: ${{ secrets.ANDROID_SHA256_FINGERPRINTS }}
+          NATIVE_TARGETS: ${{ inputs.native_targets }}
+        run: npm run native:links:check -- --targets="$NATIVE_TARGETS"
+
+      - name: Validate production configuration
+        if: inputs.environment == 'production'
+        env:
+          NODE_ENV: production
+          APP_URL: ${{ vars.APP_URL }}
+          APP_VERSION: ${{ vars.APP_VERSION }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          LOVABLE_API_KEY: ${{ secrets.LOVABLE_API_KEY }}
+          AI_PROCESSING_ENABLED: ${{ vars.AI_PROCESSING_ENABLED }}
+          AI_PROVIDER_DPA_CONFIRMED: ${{ vars.AI_PROVIDER_DPA_CONFIRMED }}
+          VAULT_SCANNER_URL: ${{ vars.VAULT_SCANNER_URL }}
+          VAULT_SCANNER_BEARER_TOKEN: ${{ secrets.VAULT_SCANNER_BEARER_TOKEN }}
+          VAULT_SCANNER_WEBHOOK_SECRET: ${{ secrets.VAULT_SCANNER_WEBHOOK_SECRET }}
+          VAULT_SCANNER_MODE: ${{ vars.VAULT_SCANNER_MODE }}
+          VAPID_PUBLIC_KEY: ${{ vars.VAPID_PUBLIC_KEY }}
+          VITE_VAPID_PUBLIC_KEY: ${{ vars.VITE_VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_SUBJECT: ${{ vars.VAPID_SUBJECT }}
+          VITE_NATIVE_PUSH_ENABLED: ${{ vars.VITE_NATIVE_PUSH_ENABLED }}
+          NATIVE_PUSH_DELIVERY_ENDPOINT: ${{ vars.NATIVE_PUSH_DELIVERY_ENDPOINT }}
+          NATIVE_PUSH_DELIVERY_BEARER_TOKEN: ${{ secrets.NATIVE_PUSH_DELIVERY_BEARER_TOKEN }}
+          PAYMENTS_ENV: ${{ vars.PAYMENTS_ENV }}
+          PAYMENTS_ALLOWED_RETURN_ORIGINS: ${{ vars.PAYMENTS_ALLOWED_RETURN_ORIGINS }}
+          VITE_PAYMENTS_CLIENT_TOKEN: ${{ vars.VITE_PAYMENTS_CLIENT_TOKEN }}
+          STRIPE_LIVE_API_KEY: ${{ secrets.STRIPE_LIVE_API_KEY }}
+          PAYMENTS_LIVE_WEBHOOK_SECRET: ${{ secrets.PAYMENTS_LIVE_WEBHOOK_SECRET }}
+          ENABLE_SANDBOX_PAYOUT_LEDGER: ${{ vars.ENABLE_SANDBOX_PAYOUT_LEDGER }}
+          ENABLE_PARTNER_DEMOS: ${{ vars.ENABLE_PARTNER_DEMOS }}
+          RATE_LIMIT_SALT: ${{ secrets.RATE_LIMIT_SALT }}
+          READINESS_TOKEN: ${{ secrets.READINESS_TOKEN }}
+          RETENTION_WORKER_SECRET: ${{ secrets.RETENTION_WORKER_SECRET }}
+          VITE_PUBLIC_LEGAL_NAME: ${{ vars.VITE_PUBLIC_LEGAL_NAME }}
+          VITE_PUBLIC_LEGAL_STREET: ${{ vars.VITE_PUBLIC_LEGAL_STREET }}
+          VITE_PUBLIC_LEGAL_POSTAL_CITY: ${{ vars.VITE_PUBLIC_LEGAL_POSTAL_CITY }}
+          VITE_PUBLIC_MANAGING_DIRECTOR: ${{ vars.VITE_PUBLIC_MANAGING_DIRECTOR }}
+          VITE_PUBLIC_REGISTER_COURT: ${{ vars.VITE_PUBLIC_REGISTER_COURT }}
+          VITE_PUBLIC_REGISTER_NUMBER: ${{ vars.VITE_PUBLIC_REGISTER_NUMBER }}
+          VITE_PUBLIC_VAT_ID: ${{ vars.VITE_PUBLIC_VAT_ID }}
+          VITE_PUBLIC_EDITORIAL_RESPONSIBLE: ${{ vars.VITE_PUBLIC_EDITORIAL_RESPONSIBLE }}
+          VITE_PUBLIC_SUPPORT_EMAIL: ${{ vars.VITE_PUBLIC_SUPPORT_EMAIL }}
+          VITE_PUBLIC_LEGAL_EMAIL: ${{ vars.VITE_PUBLIC_LEGAL_EMAIL }}
+          VITE_PUBLIC_PRIVACY_EMAIL: ${{ vars.VITE_PUBLIC_PRIVACY_EMAIL }}
+          VITE_PUBLIC_DPO_EMAIL: ${{ vars.VITE_PUBLIC_DPO_EMAIL }}
+          PARTNER_DELIVERY_WORKER_SECRET: ${{ secrets.PARTNER_DELIVERY_WORKER_SECRET }}
+          PARTNER_DELIVERY_ALLOWED_HOSTS: ${{ vars.PARTNER_DELIVERY_ALLOWED_HOSTS }}
+          EMAIL_DELIVERY_ENDPOINT: ${{ vars.EMAIL_DELIVERY_ENDPOINT }}
+          EMAIL_DELIVERY_BEARER_TOKEN: ${{ secrets.EMAIL_DELIVERY_BEARER_TOKEN }}
+          CONTACT_FROM_EMAIL: ${{ vars.CONTACT_FROM_EMAIL }}
+          CONTACT_TEAM_EMAIL: ${{ vars.CONTACT_TEAM_EMAIL }}
+        run: npm run verify:production
+
+      - name: Confirm intentional deployment
+        if: inputs.deploy
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+          TARGET_ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          if [ "$CONFIRMATION" != "DEPLOY $TARGET_ENVIRONMENT" ]; then
+            echo "Deployment confirmation must exactly match: DEPLOY $TARGET_ENVIRONMENT" >&2
+            exit 1
+          fi
+
+      - name: Deploy reviewed build
+        if: inputs.deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run deploy
+
+      - name: Verify deployed liveness, readiness and security headers
+        if: inputs.deploy
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+          APP_VERSION: ${{ vars.APP_VERSION }}
+          READINESS_TOKEN: ${{ secrets.READINESS_TOKEN }}
+          NATIVE_TARGETS: ${{ inputs.native_targets }}
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          IOS_BUNDLE_ID: ${{ vars.IOS_BUNDLE_ID }}
+          ANDROID_PACKAGE_NAME: ${{ vars.ANDROID_PACKAGE_NAME }}
+        run: npm run release:verify-deployment
+
+      - name: Preserve release evidence and SBOM
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-evidence-${{ inputs.environment }}-${{ github.sha }}
+          path: |
+            release/evidence.${{ inputs.environment }}.json
+            release/evidence.resolved.json
+            sbom.cdx.json
+          if-no-files-found: warn
+          retention-days: 365
