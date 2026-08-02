@@ -23,7 +23,23 @@ describe("next-phase release gates", () => {
     expect(workflow).toContain("secrets.E2E_EXPERT_PASSWORD");
     expect(config).toContain('trace: "off"');
     expect(config).toContain('video: "off"');
+    expect(config).toContain('screenshot: "off"');
     expect(config).toContain('devices["Pixel 7"]');
+    expect(workflow).toContain("scripts/write-staging-acceptance-evidence.mjs");
+    expect(workflow).toContain("retention-days: 365");
+  });
+
+  it("fails early when a hosting mirror rewrites the dependency lockfile", () => {
+    const policy = read(".github/workflows/policy.yml");
+    const setup = read(".github/actions/setup-node-project/action.yml");
+    const packageJson = JSON.parse(read("package.json"));
+    expect(policy).toContain("node scripts/validate-lockfile.mjs");
+    expect(setup).toContain("node scripts/validate-lockfile.mjs");
+    expect(setup).toContain("npm ci");
+    expect(packageJson.packageManager).toBe("npm@10.9.8");
+    expect(packageJson.scripts["security:sbom"]).toContain("--package-lock-only");
+    expect(packageJson.scripts["security:sbom"]).toContain("--output-reproducible");
+    expect(packageJson.scripts["security:sbom"]).toContain("--validate");
   });
 
   it("refuses staging tests against production and preview hosts", () => {
@@ -64,5 +80,6 @@ describe("next-phase release gates", () => {
     const gitignore = read(".gitignore");
     expect(gitignore).toContain("/playwright-report/");
     expect(gitignore).toContain("/test-results/");
+    expect(gitignore).toContain("/release/staging-acceptance.evidence.json");
   });
 });

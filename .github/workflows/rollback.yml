@@ -39,10 +39,7 @@ jobs:
       url: ${{ vars.APP_URL }}
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
+      - uses: ./.github/actions/setup-node-project
 
       - name: Confirm intentional rollback
         env:
@@ -68,9 +65,6 @@ jobs:
             echo "A meaningful rollback reason of at least 12 characters is required." >&2
             exit 1
           fi
-
-      - name: Install locked deployment tooling
-        run: npm ci
 
       - name: Build deployment configuration
         run: npm run build

@@ -1,0 +1,17 @@
+name: Set up locked Node project
+description: Install the reviewed dependency tree after validating lockfile provenance.
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: 22
+        cache: npm
+    - name: Reject private or inconsistent lockfile sources
+      shell: bash
+      run: node scripts/validate-lockfile.mjs
+    - name: Install locked dependencies
+      shell: bash
+      run: npm ci
+

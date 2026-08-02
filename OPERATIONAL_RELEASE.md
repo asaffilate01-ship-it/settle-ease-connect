@@ -114,7 +114,7 @@ Before production promotion, add four dedicated, least-privilege test identities
 - `E2E_AGENT_EMAIL` / `E2E_AGENT_PASSWORD`
 - `E2E_EXPERT_EMAIL` / `E2E_EXPERT_PASSWORD`
 
-Use distinct accounts, do not grant them production access, and rotate them on the same schedule as other test credentials. The manual `Authenticated staging acceptance` workflow refuses localhost, Lovable previews and the production hostname, disables Playwright traces/videos to avoid retaining credentials, and tests each landing on desktop and mobile. Run it after staging deployment and attach its run URL to release evidence.
+Use distinct accounts, do not grant them production access, and rotate them on the same schedule as other test credentials. The manual `Authenticated staging acceptance` workflow refuses localhost, Lovable previews and the production hostname, disables Playwright traces/videos/screenshots, tests each landing and member/workforce isolation on desktop and mobile, and retains a credential-free evidence artifact for 365 days. Run it after staging deployment and attach its run URL to release evidence.
 
 Run on the exact release commit:
 
