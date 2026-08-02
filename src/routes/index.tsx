@@ -117,48 +117,39 @@ function Landing() {
   );
 }
 function FivePaths() {
+  const { t } = useTranslation();
   const paths = [
     {
       icon3d: "burials" as const,
-      tag: "Bereavement",
-      title: "A death in the family",
-      copy: "Registration, funeral, repatriation, pensions and paperwork — one team, in your language.",
+      key: "bereavement",
       to: "/bereavement" as const,
       accent: "from-destructive/25 via-destructive/5 to-transparent",
       ring: "hover:ring-destructive/40",
     },
     {
       icon3d: "healthcare" as const,
-      tag: "Insurance",
-      title: "Health & life insurance",
-      copy: "Statutory or private, student, employee, self-employed or family — we triage and hand off.",
+      key: "insurance",
       to: "/insurance" as const,
       accent: "from-accent/30 via-accent/5 to-transparent",
       ring: "hover:ring-accent/40",
     },
     {
       icon3d: "settlement" as const,
-      tag: "Life in Germany",
-      title: "Help settling in Germany",
-      copy: "Anmeldung, visas, Kindergeld, housing, Bürgeramt, tax — a case manager for every step.",
+      key: "settlement",
       to: "/services" as const,
       accent: "from-primary/25 via-primary/5 to-transparent",
       ring: "hover:ring-primary/40",
     },
     {
       icon3d: "employment" as const,
-      tag: "Employer",
-      title: "Support your workforce",
-      copy: "Onboard international hires and support families — visas, relocation, benefits, bereavement.",
+      key: "employer",
       to: "/partnerships" as const,
       accent: "from-ink/15 via-ink/5 to-transparent",
       ring: "hover:ring-ink/30",
     },
     {
       icon3d: "experts" as const,
-      tag: "Provider",
-      title: "Join our expert network",
-      copy: "Provider listings and introductions, with identity, scope and fees confirmed before you proceed.",
+      key: "provider",
       to: "/for-providers" as const,
       accent: "from-peach/40 via-peach/10 to-transparent",
       ring: "hover:ring-accent/40",
@@ -168,20 +159,20 @@ function FivePaths() {
     <section className="border-y border-border/60 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         <div className="max-w-2xl">
-          <div className="eyebrow">Choose your path</div>
+          <div className="eyebrow">{t("fivePaths.eyebrow")}</div>
           <h2 className="display-md mt-3 font-semibold">
-            Five doors into <span className="headline-stamp italic">BeistandPlus</span>.
+            {t("fivePaths.headingPrefix")}{" "}
+            <span className="headline-stamp italic">BeistandPlus</span>.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-foreground/75">
-            Whatever brought you here today — a loss, a form, a move, an employee, or your own
-            practice — we start from where you actually are.
+            {t("fivePaths.intro")}
           </p>
         </div>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {paths.map((p) => (
             <Link
-              key={p.tag}
+              key={p.key}
               to={p.to}
               className={`group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-soft ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${p.ring}`}
             >
@@ -193,16 +184,16 @@ function FivePaths() {
                 <Icon3D name={p.icon3d} clay alt="" />
               </div>
               <div className="relative mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                {p.tag}
+                {t(`fivePaths.items.${p.key}.tag`)}
               </div>
               <div className="relative mt-2 text-lg font-semibold leading-snug text-ink">
-                {p.title}
+                {t(`fivePaths.items.${p.key}.title`)}
               </div>
               <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
-                {p.copy}
+                {t(`fivePaths.items.${p.key}.copy`)}
               </p>
               <div className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                Continue
+                {t("fivePaths.continue")}
                 <ArrowRight className="h-4 w-4 rtl-flip transition group-hover:translate-x-1" />
               </div>
             </Link>
@@ -212,7 +203,6 @@ function FivePaths() {
     </section>
   );
 }
-
 function Hero() {
   const { t } = useTranslation();
   return (
