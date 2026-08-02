@@ -215,6 +215,9 @@ export type Database = {
           output_json: Json | null
           output_text: string | null
           owner_user_id: string
+          provider: string
+          purpose: string | null
+          retention_due_at: string
           vault_document_id: string | null
         }
         Insert: {
@@ -228,6 +231,9 @@ export type Database = {
           output_json?: Json | null
           output_text?: string | null
           owner_user_id: string
+          provider?: string
+          purpose?: string | null
+          retention_due_at?: string
           vault_document_id?: string | null
         }
         Update: {
@@ -241,6 +247,9 @@ export type Database = {
           output_json?: Json | null
           output_text?: string | null
           owner_user_id?: string
+          provider?: string
+          purpose?: string | null
+          retention_due_at?: string
           vault_document_id?: string | null
         }
         Relationships: [
@@ -266,6 +275,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      ai_processing_consents: {
+        Row: {
+          consented: boolean
+          consented_at: string | null
+          notice_version: string
+          provider: string
+          purposes: string[]
+          updated_at: string
+          user_id: string
+          withdrawn_at: string | null
+        }
+        Insert: {
+          consented?: boolean
+          consented_at?: string | null
+          notice_version?: string
+          provider?: string
+          purposes?: string[]
+          updated_at?: string
+          user_id: string
+          withdrawn_at?: string | null
+        }
+        Update: {
+          consented?: boolean
+          consented_at?: string | null
+          notice_version?: string
+          provider?: string
+          purposes?: string[]
+          updated_at?: string
+          user_id?: string
+          withdrawn_at?: string | null
+        }
+        Relationships: []
       }
       announcements: {
         Row: {
@@ -5677,6 +5719,9 @@ export type Database = {
           mime_type: string | null
           notes: string | null
           owner_user_id: string
+          scan_completed_at: string | null
+          scan_message: string | null
+          scan_status: string
           storage_path: string | null
           tags: string[] | null
           updated_at: string
@@ -5698,6 +5743,9 @@ export type Database = {
           mime_type?: string | null
           notes?: string | null
           owner_user_id: string
+          scan_completed_at?: string | null
+          scan_message?: string | null
+          scan_status?: string
           storage_path?: string | null
           tags?: string[] | null
           updated_at?: string
@@ -5719,6 +5767,9 @@ export type Database = {
           mime_type?: string | null
           notes?: string | null
           owner_user_id?: string
+          scan_completed_at?: string | null
+          scan_message?: string | null
+          scan_status?: string
           storage_path?: string | null
           tags?: string[] | null
           updated_at?: string
@@ -6025,6 +6076,7 @@ export type Database = {
         Returns: boolean
       }
       partner_doc_expiry_sweep: { Args: never; Returns: number }
+      purge_expired_ai_analyses: { Args: never; Returns: number }
       queue_invoice_payout: {
         Args: { _actor_user_id: string; _invoice_id: string; _notes?: string }
         Returns: string
