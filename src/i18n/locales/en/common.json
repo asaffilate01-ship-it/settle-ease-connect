@@ -556,5 +556,38 @@
     "description": "Description",
     "amount": "Amount",
     "pdf": "PDF"
+  },
+  "fivePaths": {
+    "eyebrow": "Choose your path",
+    "headingPrefix": "Five doors into",
+    "intro": "Whatever brought you here today — a loss, a form, a move, an employee, or your own practice — we start from where you actually are.",
+    "continue": "Continue",
+    "items": {
+      "bereavement": {
+        "tag": "Bereavement",
+        "title": "A death in the family",
+        "copy": "Registration, funeral, repatriation, pensions and paperwork — one team, in your language."
+      },
+      "insurance": {
+        "tag": "Insurance",
+        "title": "Health & life insurance",
+        "copy": "Statutory or private, student, employee, self-employed or family — we triage and hand off."
+      },
+      "settlement": {
+        "tag": "Life in Germany",
+        "title": "Help settling in Germany",
+        "copy": "Anmeldung, visas, Kindergeld, housing, Bürgeramt, tax — a case manager for every step."
+      },
+      "employer": {
+        "tag": "Employer",
+        "title": "Support your workforce",
+        "copy": "Onboard international hires and support families — visas, relocation, benefits, bereavement."
+      },
+      "provider": {
+        "tag": "Provider",
+        "title": "Join our expert network",
+        "copy": "Provider listings and introductions, with identity, scope and fees confirmed before you proceed."
+      }
+    }
   }
 }

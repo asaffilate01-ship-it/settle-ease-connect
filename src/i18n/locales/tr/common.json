@@ -556,5 +556,38 @@
     "description": "Açıklama",
     "amount": "Tutar",
     "pdf": "PDF"
+  },
+  "fivePaths": {
+    "eyebrow": "Yolunuzu seçin",
+    "headingPrefix": "Beş kapı açılıyor",
+    "intro": "Bugün sizi buraya getiren ne olursa olsun — bir kayıp, bir form, bir taşınma, bir çalışan veya kendi uygulamanız — tam olarak bulunduğunuz yerden başlıyoruz.",
+    "continue": "Devam et",
+    "items": {
+      "bereavement": {
+        "tag": "Vefat",
+        "title": "Ailede bir ölüm",
+        "copy": "Kayıt, cenaze, ülkeye geri dönüş, emeklilik ve evrak işleri — tek bir ekip, kendi dilinizde."
+      },
+      "insurance": {
+        "tag": "Sigorta",
+        "title": "Sağlık ve hayat sigortası",
+        "copy": "Yasal veya özel, öğrenci, çalışan, serbest meslek sahibi veya aile — önceliklendirir ve devrediyoruz."
+      },
+      "settlement": {
+        "tag": "Almanya'da Yaşam",
+        "title": "Almanya'ya yerleşme yardımı",
+        "copy": "Anmeldung, vize, Kindergeld, konut, Bürgeramt, vergi — her adım için bir vaka yöneticisi."
+      },
+      "employer": {
+        "tag": "İşveren",
+        "title": "İş gücünüzü destekleyin",
+        "copy": "Uluslararası işe alımları ve aileleri destekleyin — vize, yer değiştirme, yan haklar, vefat."
+      },
+      "provider": {
+        "tag": "Sağlayıcı",
+        "title": "Uzman ağımıza katılın",
+        "copy": "Kimlik, kapsam ve ücretler onaylandıktan sonra, sağlayıcı listeleri ve tanıtımları."
+      }
+    }
   }
 }
