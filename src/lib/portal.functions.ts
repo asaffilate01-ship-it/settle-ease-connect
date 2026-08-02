@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 import type { QueueItem } from "@/components/portal/queue-row";
 import type { ActivityEntry } from "@/components/portal/activity-item";
 

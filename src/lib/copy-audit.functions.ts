@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 import { z } from "zod";
 
 export const listCopyAudit = createServerFn({ method: "GET" })

@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 
 const LEAD_STAGES = [
   "new",

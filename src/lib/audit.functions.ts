@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAal2 as requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSupabaseAal2 as requireSupabaseAuth } from "@/lib/aal2-middleware";
 
 export const writeAudit = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
