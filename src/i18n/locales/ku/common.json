@@ -556,5 +556,38 @@
     "description": "Danasîn",
     "amount": "Mîqdar",
     "pdf": "PDF"
+  },
+  "fivePaths": {
+    "eyebrow": "Rêya xwe hilbijêre",
+    "headingPrefix": "Pênc derî ber bi",
+    "intro": "Çi we îro anî vir — windabûnek, formek, koçbûnek, xebatkarek, an karsaziya weya taybet — em ji cihê ku hûn lê ne dest pê dikin.",
+    "continue": "Berdewam bike",
+    "items": {
+      "bereavement": {
+        "tag": "Mirin",
+        "title": "Mirinek di malbatê de",
+        "copy": "Qeydkirin, merasîma cenazeyê, vegerandin, teqawîdî û belge — yek tîm, bi zimanê we."
+      },
+      "insurance": {
+        "tag": "Bîme",
+        "title": "Bîmeya tenduristî û jiyanê",
+        "copy": "Qanûnî an taybet, xwendekar, xebatkar, xweser an malbat — em dabeş dikin û radest dikin."
+      },
+      "settlement": {
+        "tag": "Jiyan li Almanyayê",
+        "title": "Alîkarî ji bo bicihbûna li Almanyayê",
+        "copy": "Anmeldung, vîze, Kindergeld, xanî, Bürgeramt, bac — rêveberek dozê ji bo her gavekê."
+      },
+      "employer": {
+        "tag": "Kardêr",
+        "title": "Piştgirî bide hêza karkeran",
+        "copy": "Karkerên navneteweyî bi cih bike û piştgirî bide malbatan — vîze, cîhguhertin, berjewendî, mirin."
+      },
+      "provider": {
+        "tag": "Pêşkêşkar",
+        "title": "Tevlî tora pisporên me bibin",
+        "copy": "Lîsteyên pêşkêşkar û danasîn, bi nasname, qad û xercên pejirandî berî ku hûn berdewam bikin."
+      }
+    }
   }
 }

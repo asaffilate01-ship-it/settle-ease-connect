@@ -556,5 +556,38 @@
     "description": "Beschreibung",
     "amount": "Betrag",
     "pdf": "PDF"
+  },
+  "fivePaths": {
+    "eyebrow": "Wählen Sie Ihren Weg",
+    "headingPrefix": "Fünf Türen zu",
+    "intro": "Was auch immer Sie heute hierher geführt hat – ein Verlust, ein Formular, ein Umzug, ein Mitarbeiter oder Ihre eigene Praxis – wir fangen dort an, wo Sie tatsächlich stehen.",
+    "continue": "Weiter",
+    "items": {
+      "bereavement": {
+        "tag": "Todesfall",
+        "title": "Ein Todesfall in der Familie",
+        "copy": "Anmeldung, Beisetzung, Überführung, Renten und Behördenkram – ein Team, in Ihrer Sprache."
+      },
+      "insurance": {
+        "tag": "Versicherung",
+        "title": "Kranken- & Lebensversicherung",
+        "copy": "Gesetzlich oder privat, Student, Arbeitnehmer, Selbstständiger oder Familie – wir sortieren und vermitteln."
+      },
+      "settlement": {
+        "tag": "Leben in Deutschland",
+        "title": "Hilfe bei der Niederlassung in Deutschland",
+        "copy": "Anmeldung, Visa, Kindergeld, Wohnung, Bürgeramt, Steuern – ein Fallmanager für jeden Schritt."
+      },
+      "employer": {
+        "tag": "Arbeitgeber",
+        "title": "Unterstützen Sie Ihre Belegschaft",
+        "copy": "Internationale Mitarbeiter einarbeiten und Familien unterstützen – Visa, Umzug, Leistungen, Todesfall."
+      },
+      "provider": {
+        "tag": "Anbieter",
+        "title": "Werden Sie Teil unseres Expertennetzwerks",
+        "copy": "Anbieterlisten und Vorstellungen, mit Bestätigung von Identität, Umfang und Gebühren, bevor Sie fortfahren."
+      }
+    }
   }
 }

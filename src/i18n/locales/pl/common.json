@@ -556,5 +556,38 @@
     "description": "Opis",
     "amount": "Kwota",
     "pdf": "PDF"
+  },
+  "fivePaths": {
+    "eyebrow": "Wybierz swoją ścieżkę",
+    "headingPrefix": "Pięć drzwi do",
+    "intro": "Niezależnie od tego, co Cię tu dziś sprowadziło — strata, formularz, przeprowadzka, pracownik, czy własna praktyka — zaczynamy od miejsca, w którym faktycznie się znajdujesz.",
+    "continue": "Kontynuuj",
+    "items": {
+      "bereavement": {
+        "tag": "Żałoba",
+        "title": "Śmierć w rodzinie",
+        "copy": "Rejestracja, pogrzeb, repatriacja, emerytury i formalności — jeden zespół, w Twoim języku."
+      },
+      "insurance": {
+        "tag": "Ubezpieczenie",
+        "title": "Ubezpieczenie zdrowotne i na życie",
+        "copy": "Ustawowe lub prywatne, student, pracownik, osoba samozatrudniona lub rodzina — dokonujemy wstępnej selekcji i przekazujemy dalej."
+      },
+      "settlement": {
+        "tag": "Życie w Niemczech",
+        "title": "Pomoc w osiedleniu się w Niemczech",
+        "copy": "Anmeldung, wizy, Kindergeld, mieszkanie, Bürgeramt, podatki — menedżer spraw na każdym kroku."
+      },
+      "employer": {
+        "tag": "Pracodawca",
+        "title": "Wspieraj swoją siłę roboczą",
+        "copy": "Wprowadzaj międzynarodowych pracowników i wspieraj rodziny — wizy, relokacja, świadczenia, żałoba."
+      },
+      "provider": {
+        "tag": "Dostawca",
+        "title": "Dołącz do naszej sieci ekspertów",
+        "copy": "Wykazy dostawców i wprowadzenia, z potwierdzoną tożsamością, zakresem i opłatami przed rozpoczęciem współpracy."
+      }
+    }
   }
 }
