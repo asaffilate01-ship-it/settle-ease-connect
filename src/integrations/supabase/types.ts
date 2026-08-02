@@ -5902,6 +5902,10 @@ export type Database = {
           request_payload: Json
         }[]
       }
+      claim_stripe_webhook_event: {
+        Args: { _environment: string; _event_id: string; _event_type: string }
+        Returns: boolean
+      }
       close_case: {
         Args: {
           _case_id: string
